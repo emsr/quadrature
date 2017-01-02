@@ -38,17 +38,16 @@ namespace __gnu_test
   template<typename _Tp>
     class integration_workspace
     {
-    private:
-
-      std::size_t _M_capacity;
-      std::size_t _M_size;
-      std::size_t _M_nrmax;
-      std::size_t _M_current_index;
-      std::size_t _M_maximum_level;
-      std::vector<_Tp> _M_lower_lim, _M_upper_lim, _M_result, _M_abs_error;
-      std::vector<std::size_t> _M_order, _M_level;
-
     public:
+
+      struct interval
+      {
+	_Tp _M_lower_lim;
+	_Tp _M_upper_lim;
+	_Tp _M_result;
+	_Tp _M_abs_error;
+	std::size_t _M_level;
+      }
 
       integration_workspace(std::size_t __cap)
       : _M_capacity(__cap),
@@ -56,12 +55,7 @@ namespace __gnu_test
 	_M_nrmax(0),
 	_M_current_index(0),
 	_M_maximum_level(0),
-	_M_lower_lim(__cap),
-	_M_upper_lim(__cap),
-	_M_result(__cap),
-	_M_abs_error(__cap),
-	_M_order(__cap),
-	_M_level(__cap)
+	_M_interval(__cap)
       { }
 
       void
@@ -72,15 +66,18 @@ namespace __gnu_test
 	    this->_M_size = 0;
 	    this->_M_nrmax = 0;
 	    this->_M_current_index = 0;
-	    this->_M_lower_lim[0] = a0;
-	    this->_M_upper_lim[0] = b0;
-	    this->_M_result[0] = 0.0;
-	    this->_M_abs_error[0] = 0.0;
-	    this->_M_order[0] = 0;
-	    this->_M_level[0] = 0;
+	    this->_M_interval[0]._M_lower_lim = a0;
+	    this->_M_interval[0]._M_upper_lim = b0;
+	    this->_M_interval[0]._M_result = 0.0;
+	    this->_M_interval[0]._M_abs_error = 0.0;
+	    this->_M_interval[0]._M_level = 0;
 	    this->_M_maximum_level = 0;
 	  }
       }
+
+      bool
+      interval_order(const interval& __ivl, const interval& __ivr)
+      { return __ivl._M_abs_error < __ivr._M_abs_error; }
 
       void
       set_initial_results(_Tp result, _Tp error)
@@ -88,39 +85,35 @@ namespace __gnu_test
 	if (this->_M_capacity > 0)
 	  {
 	    this->_M_size = 1;
-	    this->_M_result[0] = result;
-	    this->_M_abs_error[0] = error;
+	    this->_M_interval[0]._M_result = result;
+	    this->_M_interval[0]._M_abs_error = error;
 	  }
       }
 
       void
       set_initial(_Tp __a0, _Tp __b0, _Tp __result0, _Tp __error0)
       {
-	this->_M_lower_lim[0] = __a0;
-	this->_M_upper_lim[0] = __b0;
-	this->_M_result[0] = __result0;
-	this->_M_abs_error[0] = __error0;
-	this->_M_order[0] = 0;
-	this->_M_level[0] = 0;
+	this->_M_interval[0]._M_lower_lim = __a0;
+	this->_M_interval[0]._M_upper_lim = __b0;
+	this->_M_interval[0]._M_result = __result0;
+	this->_M_interval[0]._M_abs_error = __error0;
+	this->_M_interval[0]._M_level = 0;
 	this->_M_size = 1;
       }
 
-      void sort_error();
-      void sort_results();
+      //void sort_error();
+      //void sort_results();
 
       void append(_Tp __a, _Tp __b, _Tp __area, _Tp __error);
 
       void update(_Tp __a1, _Tp __b1, _Tp __area1, _Tp __error1,
 		  _Tp __a2, _Tp __b2, _Tp __area2, _Tp __error2);
 
-      void
-      retrieve(_Tp& __lolim, _Tp& __uplim, _Tp& __res, _Tp& __err) const
+      interval
+      retrieve() const
       {
 	const auto __ii = this->_M_current_index;
-	__lolim = this->_M_lower_lim[__ii];
-	__uplim = this->_M_upper_lim[__ii];
-	__res = this->_M_result[__ii];
-	__err = this->_M_abs_error[__ii];
+	return this->_M_interval[__ii];
       }
 
       std::size_t
@@ -131,41 +124,41 @@ namespace __gnu_test
       capacity() const
       { return this->_M_capacity; }
 
+      void
+      clear()
+      { this->_M_interval.clear(); }
+
       std::size_t
       current_index() const
       { return this->_M_current_index; }
-
+/*
       _Tp
       lower_lim(std::size_t __ii) const
-      { return this->_M_lower_lim[__ii]; }
+      { return this->_M_interval[__ii]._M_lower_lim; }
 
       _Tp
       upper_lim(std::size_t __ii) const
-      { return this->_M_upper_lim[__ii]; }
+      { return this->_M_interval[__ii]._M_upper_lim; }
 
       _Tp
       result(std::size_t __ii) const
-      { return this->_M_result[__ii]; }
+      { return this->_M_interval[__ii]._M_result; }
 
       _Tp
       abs_error(std::size_t __ii) const
-      { return this->_M_abs_error[__ii]; }
-
-      size_t
-      order(std::size_t __ii) const
-      { return this->_M_order[__ii]; }
+      { return this->_M_interval[__ii]._M_abs_error; }
+*/
+      _Tp
+      set_abs_error(std::size_t __ii, _Tp __abserr)
+      { return this->_M_interval[__ii]._M_abs_error = __abserr; }
 
       size_t
       level(std::size_t ii) const
-      { return this->_M_level[ii]; }
-
-      _Tp
-      set_abs_error(std::size_t __ii, _Tp __abserr)
-      { return this->_M_abs_error[__ii] = __abserr; }
+      { return this->_M_interval[ii]._M_level; }
 
       void
       set_level(std::size_t __ii, std::size_t __lvl)
-      { this->_M_level[__ii] = __lvl; }
+      { this->_M_interval[__ii]._M_level = __lvl; }
 
       std::size_t
       current_level() const
@@ -183,7 +176,7 @@ namespace __gnu_test
 	else
 	  return false;
       }
-
+/*
       bool
       increase_nrmax()
       {
@@ -203,35 +196,31 @@ namespace __gnu_test
 
 	    this->_M_current_index = __i_max;
 
-	    if (this->_M_level[__i_max] < this->_M_maximum_level)
+	    if (this->_M_interval[__i_max]._M_level < this->_M_maximum_level)
 	      return true;
 
 	    ++this->_M_nrmax;
 	  }
 	return false;
       }
-
       void
       reset_nrmax()
       {
 	this->_M_nrmax = 0;
-	this->_M_current_index = this->_M_order[0];
+	this->_M_current_index = this->_M_interval[0]._M_order;
       }
-
-      std::size_t
-      get_nrmax() const
-      { return this->_M_nrmax; }
 
       void
       set_nrmax(std::size_t nrmax)
       { this->_M_nrmax = nrmax; }
+*/
 
       _Tp
       sum_results() const
       {
 	auto __result_sum = _Tp{0};
 	for (std::size_t __kk = 0; __kk < this->_M_size; ++__kk)
-	  __result_sum += this->_M_result[__kk];
+	  __result_sum += this->_M_interval[__kk]._M_result;
 
 	return __result_sum;
       }
@@ -246,6 +235,15 @@ namespace __gnu_test
 
 	return std::abs(__a1) <= __tmp && std::abs(__b2) <= __tmp;
       }
+
+    private:
+
+      std::size_t _M_capacity;
+      std::size_t _M_size;
+      std::size_t _M_nrmax;
+      std::size_t _M_current_index;
+      std::size_t _M_maximum_level;
+      std::vector<interval> _M_interval;
     };
 
 } // namespace __gnu_test
