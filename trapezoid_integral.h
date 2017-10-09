@@ -24,7 +24,7 @@
 #include <cstddef>
 #include <limits>
 
-namespace __gnu_ext
+namespace __gnu_cxx
 {
 
 template<typename _Func, typename _Tp>
@@ -63,7 +63,7 @@ template<typename _Func, typename _Tp>
     std::size_t _M_pow2 = 0;
   };
 
-} // namespace __gnu_ext
+} // namespace __gnu_cxx
 
 #include "trapezoid_integral.tcc"
 

@@ -28,7 +28,7 @@
 //#include "simple_integrate.h"
 #include "integration.h"
 
-using namespace __gnu_ext;
+using namespace __gnu_cxx;
 
 // Try to manage the four-gamma ratio.
 // alpha > -1, beta > -1.

@@ -36,7 +36,7 @@
 #include "qk_integrate.tcc"
 #include "integration_workspace.h"
 
-namespace __gnu_ext
+namespace __gnu_cxx
 {
 
   /**
@@ -185,6 +185,6 @@ namespace __gnu_ext
 			   __qkintrule);
     }
 
-} // namespace __gnu_ext
+} // namespace __gnu_cxx
 
 #endif // QAG_INTEGRATE_TCC

@@ -28,7 +28,7 @@
 
 #include <vector>
 
-namespace __gnu_ext
+namespace __gnu_cxx
 {
 
   /**
@@ -148,6 +148,6 @@ namespace __gnu_ext
       }
     };
 
-} // namespace __gnu_ext
+} // namespace __gnu_cxx
 
 #endif // CQUAD_WORKSPACE_H

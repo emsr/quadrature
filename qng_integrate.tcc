@@ -30,7 +30,7 @@
  * 1981.
  */
 
-namespace __gnu_ext
+namespace __gnu_cxx
 {
 
   // x1, abscissae common to the 10-, 21-, 43- and 87-point rule.
@@ -347,6 +347,6 @@ namespace __gnu_ext
 				TOLERANCE_ERROR, __result_kronrod, __err);
     }
 
-} // namespace __gnu_ext
+} // namespace __gnu_cxx
 
 #endif // QNG_INTEGRATE_TCC

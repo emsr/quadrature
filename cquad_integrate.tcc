@@ -29,7 +29,7 @@
 #include "cquad_const.tcc"
 #include "cquad_workspace.h"
 
-namespace __gnu_ext
+namespace __gnu_cxx
 {
 
   /**
@@ -467,6 +467,6 @@ namespace __gnu_ext
       return std::make_tuple(__igral, __err);
     }
 
-} // namespace __gnu_ext
+} // namespace __gnu_cxx
 
 #endif // CQUAD_INTEGRATE_TCC

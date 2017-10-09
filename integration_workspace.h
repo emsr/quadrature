@@ -29,7 +29,7 @@
 #include <limits>
 #include <cmath>
 
-namespace __gnu_ext
+namespace __gnu_cxx
 {
 
   template<typename _Tp>
@@ -272,7 +272,7 @@ namespace __gnu_ext
       return __out;
     }
 
-} // namespace __gnu_ext
+} // namespace __gnu_cxx
 
 #include "integration_workspace.tcc"
 

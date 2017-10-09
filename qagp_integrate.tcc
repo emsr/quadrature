@@ -32,7 +32,7 @@
 #include "integration_workspace.h"
 #include "extrapolation_table.h"
 
-namespace __gnu_ext
+namespace __gnu_cxx
 {
 
 template<typename _Tp>
@@ -378,6 +378,6 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
 				UNKNOWN_ERROR, __result, __abserr);
     }
 
-} // namespace __gnu_ext
+} // namespace __gnu_cxx
 
 #endif // QAGP_INTEGRATE_H

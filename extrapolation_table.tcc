@@ -27,7 +27,7 @@
 #ifndef EXTRAPOLATION_TABLE_TCC
 #define EXTRAPOLATION_TABLE_TCC 1
 
-namespace __gnu_ext
+namespace __gnu_cxx
 {
 
   template<typename _Tp>
@@ -185,6 +185,6 @@ namespace __gnu_ext
       return std::make_tuple(__result, __abserr);
     }
 
-} // namespace __gnu_ext
+} // namespace __gnu_cxx
 
 #endif // EXTRAPOLATION_TABLE_TCC

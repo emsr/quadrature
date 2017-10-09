@@ -28,7 +28,7 @@
 #ifndef OSCILLATORY_INTEGRATION_TABLE_TCC
 #define OSCILLATORY_INTEGRATION_TABLE_TCC 1
 
-namespace __gnu_ext
+namespace __gnu_cxx
 {
   template<typename _Tp>
     int
@@ -256,6 +256,6 @@ namespace __gnu_ext
       return 0;
     }
 
-} // namespace __gnu_ext
+} // namespace __gnu_cxx
 
 #endif // OSCILLATORY_INTEGRATION_TABLE_TCC

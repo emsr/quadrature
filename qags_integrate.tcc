@@ -38,7 +38,7 @@
 #include "integration_workspace.h"
 #include "extrapolation_table.h"
 
-namespace __gnu_ext
+namespace __gnu_cxx
 {
 
   /**
@@ -464,6 +464,6 @@ dump_ws(__workspace, "qagp", "stop extrap");
 				UNKNOWN_ERROR, __result, __abserr);
     }
 
-} // namespace __gnu_ext
+} // namespace __gnu_cxx
 
 #endif // QAGS_INTEGRATE_TCC

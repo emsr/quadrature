@@ -27,7 +27,7 @@
 #ifndef GAUSS_LEGENDRE_TABLE_TCC
 #define GAUSS_LEGENDRE_TABLE_TCC 1
 
-namespace __gnu_ext
+namespace __gnu_cxx
 {
 
   template<typename _Tp>
@@ -123,6 +123,6 @@ namespace __gnu_ext
 	return this->rule[i + this->order / 2].__weight;
     }
 
-} // namespace __gnu_ext
+} // namespace __gnu_cxx
 
 #endif // GAUSS_LEGENDRE_TABLE_TCC

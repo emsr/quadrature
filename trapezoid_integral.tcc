@@ -22,7 +22,7 @@
 
 #include <cmath>
 
-namespace __gnu_ext
+namespace __gnu_cxx
 {
 
 /**
@@ -95,6 +95,6 @@ template<typename _Func, typename _Tp>
     return this->_M_result;
   }
 
-} // namespace __gnu_ext
+} // namespace __gnu_cxx
 
 #endif // TRAPEZOID_INTEGRAL_TCC

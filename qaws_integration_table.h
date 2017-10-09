@@ -23,7 +23,7 @@
 
 #include <array>
 
-namespace __gnu_ext
+namespace __gnu_cxx
 {
 
   /**
@@ -50,7 +50,7 @@ namespace __gnu_ext
       void initialise();
     };
 
-} // namespace __gnu_ext
+} // namespace __gnu_cxx
 
 #include "qaws_integration_table.tcc"
 

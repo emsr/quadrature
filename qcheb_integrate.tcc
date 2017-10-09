@@ -23,7 +23,7 @@
 
 #include <array>
 
-namespace __gnu_ext
+namespace __gnu_cxx
 {
 
   template<typename _FuncTp, typename _Tp>
@@ -233,6 +233,6 @@ namespace __gnu_ext
       __cheb24[24] *= _Tp{1} / _Tp{24};
     }
 
-} // namespace __gnu_ext
+} // namespace __gnu_cxx
 
 #endif // QCHEB_INTEGRATE_TCC

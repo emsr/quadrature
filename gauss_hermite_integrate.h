@@ -23,7 +23,7 @@
 
 #include <vector>
 
-namespace __gnu_ext
+namespace __gnu_cxx
 {
 
 template<typename _Tp, typename _FuncTp>
@@ -47,6 +47,6 @@ template<typename _Tp, typename _FuncTp>
       }
   }
 
-} // namespace __gnu_ext
+} // namespace __gnu_cxx
 
 #endif // GAUSS_HERMITE_INTEGRATE_H

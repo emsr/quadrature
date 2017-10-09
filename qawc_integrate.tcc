@@ -32,7 +32,7 @@
 #include "integration_workspace.h"
 #include "qk_integrate.tcc"
 
-namespace __gnu_ext
+namespace __gnu_cxx
 {
 
   template<typename _FuncTp, typename _Tp>

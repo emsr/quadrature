@@ -29,7 +29,7 @@
 #include <sstream>
 #include <string_view>
 
-namespace __gnu_ext
+namespace __gnu_cxx
 {
 
   enum
@@ -177,6 +177,6 @@ namespace __gnu_ext
       return __err;
     }
 
-} // namespace __gnu_ext
+} // namespace __gnu_cxx
 
 #endif // INTEGRATION_ERROR_H

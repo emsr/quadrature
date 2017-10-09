@@ -27,7 +27,7 @@
 
 #include "integration_error.h"
 
-namespace __gnu_ext
+namespace __gnu_cxx
 {
 
   /**
@@ -117,6 +117,6 @@ namespace __gnu_ext
       return false;
     }
 
-} // namespace __gnu_ext
+} // namespace __gnu_cxx
 
 #endif // INTEGRATION_WORKSPACE_TCC
