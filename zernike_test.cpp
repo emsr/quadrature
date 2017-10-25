@@ -68,8 +68,8 @@ template<typename _Tp>
   {
     const _Tp eps = std::numeric_limits<_Tp>::epsilon();
 
-    // Neverending loop: runs until integration fails
-    for (int n1 = 0; ; ++n1)
+    int n1 = 0;
+    for (; n1 <= 128; ++n1)
       {
 	for (int m1 = 0; m1 <= n1; ++m1)
 	  {
@@ -84,8 +84,8 @@ template<typename _Tp>
 		    std::function<_Tp(_Tp)> func(std::bind(&normalized_zernike<_Tp>,
 						 n1, m1, n2, m2,
 						 std::placeholders::_1));
-		    _Tp integ_precision = _Tp{1000} * eps;
-		    _Tp comp_precision = _Tp{10} * integ_precision;
+		    const _Tp integ_precision = _Tp{1000} * eps;
+		    const _Tp comp_precision = _Tp{10} * integ_precision;
 
 		    auto [result, error]
 			= integrate(func, _Tp{0}, _Tp{1}, integ_precision, _Tp{0});
@@ -110,11 +110,65 @@ template<typename _Tp>
 	std::cout << "Integration successful for zernike polynomials up to n = " << n1
 		  << '\n' << std::flush;
       }
+
+    int ibot = n1 - 1;
+    int itop = 2 * ibot;
+    int del = 2;
+    while (itop != ibot)
+      {
+	RESTART:
+	for (int m1 = 0; m1 <= itop; ++m1)
+	  {
+	    if ((itop - m1) & 1)
+	      continue;
+	    for (int n2 = 0; n2 <= itop; n2 += del)
+	      {
+		for (int m2 = 0; m2 <= n2; ++m2)
+		  {
+		    if ((n2 - m2) & 1)
+		      continue;
+		    std::function<_Tp(_Tp)> func(std::bind(&normalized_zernike<_Tp>,
+						 itop, m1, n2, m2,
+						 std::placeholders::_1));
+		    const _Tp integ_precision = _Tp{1000} * eps;
+		    const _Tp comp_precision = _Tp{10} * integ_precision;
+
+		    auto [result, error]
+			= integrate(func, _Tp{0}, _Tp{1}, integ_precision, _Tp{0});
+
+		    if (std::abs(delta<_Tp>(itop, m1, n2, m2) - result) > comp_precision)
+		      {
+			itop = (ibot + itop) / 2;
+			goto RESTART;
+		      }
+		  }
+	      }
+	  }
+	std::cout << "Integration successful for zernike polynomials up to n = " << itop
+		  << '\n' << std::flush;
+	ibot = itop;
+	if (itop <= std::numeric_limits<int>::max() / 2)
+	  itop *= 2;
+	else
+	  break;
+        del *= 2;
+      }
   }
 
 int
 main()
 {
+  std::cout << "\n\nOrthonormality tests for float\n";
+  try
+    {
+      test_zernike<float>();
+    }
+  catch (std::exception& err)
+    {
+      std::cerr << err.what() << '\n';
+    }
+
+  std::cout << "\n\nOrthonormality tests for double\n";
   try
     {
       test_zernike<double>();
@@ -124,6 +178,7 @@ main()
       std::cerr << err.what() << '\n';
     }
 
+  std::cout << "\n\nOrthonormality tests for long double\n";
   try
     {
       test_zernike<long double>();

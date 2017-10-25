@@ -25,7 +25,6 @@
 #include <sstream>
 #include <string>
 
-//#include "simple_integrate.h"
 #include "integration.h"
 
 using namespace __gnu_cxx;
@@ -60,21 +59,21 @@ template<typename _Tp>
 
 template<typename _Tp>
   void
-  test_assoc_laguerre()
+  test_assoc_laguerre(_Tp alpha)
   {
     const _Tp eps = std::numeric_limits<_Tp>::epsilon();
-    _Tp alpha = _Tp{0.5};
 
-    for (int n1 = 0; n1 <= 720; n1 += (n1 < 128 ? 1 : 8))
+    int n1 = 0;
+    for (; n1 <= 128; ++n1)
       {
-	for (int n2 = 0; n2 <= n1; n2 += (n2 < 128 ? 1 : 8))
+	for (int n2 = 0; n2 <= n1; ++n2)
 	  {
 	    std::function<_Tp(_Tp)>
 	      func([n1, n2, alpha](_Tp x)
 		   -> _Tp
 		   { return normalized_assoc_laguerre<_Tp>(n1, n2, alpha, x); });
-	    _Tp integ_precision = _Tp{1000} * eps;
-	    _Tp comp_precision = _Tp{10} * integ_precision;
+	    const _Tp integ_precision = _Tp{1000} * eps;
+	    const _Tp comp_precision = _Tp{10} * integ_precision;
 
 	    auto [result, error]
 		= integrate_to_infinity(func, _Tp{0}, integ_precision, _Tp{0});
@@ -94,23 +93,69 @@ template<typename _Tp>
 	std::cout << "Integration successful for assoc_laguerre polynomials up to n = " << n1
 		  << '\n' << std::flush;
       }
+
+    int ibot = n1 - 1;
+    int itop = 2 * ibot;
+    int del = 2;
+    while (itop != ibot)
+      {
+	RESTART:
+	for (int n2 = itop & 1; n2 <= itop; n2 += del)
+	  {
+	    std::function<_Tp(_Tp)>
+	      func([itop, n2, alpha](_Tp x)
+		   -> _Tp
+		   { return normalized_assoc_laguerre<_Tp>(itop, n2, alpha, x); });
+	    const _Tp integ_precision = _Tp{1000} * eps;
+	    const _Tp comp_precision = _Tp{10} * integ_precision;
+
+	    auto [result, error]
+		= integrate_to_infinity(func, _Tp{0}, integ_precision, _Tp{0});
+
+	    if (std::abs(delta<_Tp>(itop, n2) - result) > comp_precision)
+	      {
+		itop = (ibot + itop) / 2;
+		goto RESTART;
+	      }
+	  }
+	std::cout << "Integration successful for assoc_laguerre polynomials up to n = " << itop
+		  << '\n' << std::flush;
+	ibot = itop;
+	if (itop <= std::numeric_limits<int>::max() / 2)
+	  itop *= 2;
+	else
+	  break;
+        del *= 2;
+      }
   }
 
 int
 main()
 {
+  std::cout << "\n\nOrthonormality tests for float\n";
   try
     {
-      test_assoc_laguerre<double>();
+      test_assoc_laguerre<float>(0.5F);
     }
   catch (std::exception& err)
     {
       std::cerr << err.what() << '\n';
     }
 
+  std::cout << "\n\nOrthonormality tests for double\n";
   try
     {
-      test_assoc_laguerre<long double>();
+      test_assoc_laguerre<double>(0.5);
+    }
+  catch (std::exception& err)
+    {
+      std::cerr << err.what() << '\n';
+    }
+
+  std::cout << "\n\nOrthonormality tests for long double\n";
+  try
+    {
+      test_assoc_laguerre<long double>(0.5L);
     }
   catch (std::exception& err)
     {

@@ -25,7 +25,6 @@
 #include <sstream>
 #include <string>
 
-//#include "simple_integrate.h"
 #include "integration.h"
 
 using namespace __gnu_cxx;
@@ -50,14 +49,16 @@ template<typename _Tp>
   test_legendre()
   {
     const _Tp eps = std::numeric_limits<_Tp>::epsilon();
-    for (int l1 = 0; l1 <= 720; l1 += (l1 < 128 ? 1 : 8))
+
+    int l1 = 0;
+    for (; l1 <= 128; ++l1)
       {
-	for (int l2 = 0; l2 <= l1; l2 += (l2 < 128 ? 1 : 8))
+	for (int l2 = 0; l2 <= l1; ++l2)
 	  {
 	    std::function<_Tp(_Tp)> func(std::bind(&normalized_legendre<_Tp>, l1, l2,
 					 std::placeholders::_1));
-	    _Tp integ_precision = _Tp{1000} * eps;
-	    _Tp comp_precision = _Tp{10} * integ_precision;
+	    const _Tp integ_precision = _Tp{1000} * eps;
+	    const _Tp comp_precision = _Tp{10} * integ_precision;
 
 	    auto [result, error]
 		= integrate(func, _Tp{-1}, _Tp{1}, integ_precision, _Tp{0});
@@ -77,11 +78,54 @@ template<typename _Tp>
 	std::cout << "Integration successful for legendre polynomials up to l = " << l1
 		  << '\n' << std::flush;
       }
+
+    int ibot = l1 - 1;
+    int itop = 2 * ibot;
+    int del = 2;
+    while (itop != ibot)
+      {
+	RESTART:
+	for (int l2 = 0; l2 <= itop; l2 += del)
+	  {
+	    std::function<_Tp(_Tp)> func(std::bind(&normalized_legendre<_Tp>, itop, l2,
+					 std::placeholders::_1));
+	    const _Tp integ_precision = _Tp{1000} * eps;
+	    const _Tp comp_precision = _Tp{10} * integ_precision;
+
+	    auto [result, error]
+		= integrate(func, _Tp{-1}, _Tp{1}, integ_precision, _Tp{0});
+
+	    if (std::abs(delta<_Tp>(itop, l2) - result) > comp_precision)
+	      {
+		itop = (ibot + itop) / 2;
+		goto RESTART;
+	      }
+	  }
+	std::cout << "Integration successful for legendre polynomials up to l = " << itop
+		  << '\n' << std::flush;
+	ibot = itop;
+	if (itop <= std::numeric_limits<int>::max() / 2)
+	  itop *= 2;
+	else
+	  break;
+        del *= 2;
+      }
   }
 
 int
 main()
 {
+  std::cout << "\n\nOrthonormality tests for float\n";
+  try
+    {
+      test_legendre<float>();
+    }
+  catch (std::exception& err)
+    {
+      std::cerr << err.what() << '\n';
+    }
+
+  std::cout << "\n\nOrthonormality tests for double\n";
   try
     {
       test_legendre<double>();
@@ -91,6 +135,7 @@ main()
       std::cerr << err.what() << '\n';
     }
 
+  std::cout << "\n\nOrthonormality tests for long double\n";
   try
     {
       test_legendre<long double>();

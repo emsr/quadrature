@@ -55,15 +55,15 @@ template<typename _Tp>
     const _Tp eps = std::numeric_limits<_Tp>::epsilon();
     const _Tp infty = std::numeric_limits<_Tp>::infinity();
 
-    // Neverending loop: runs until integration fails
-    for (int n1 = 0; n1 <= 2048 ; n1 += (n1 < 128 ? 1 : 8))
+    int n1 = 0;
+    for (; n1 <= 128; ++n1)
       {
-	for (int n2 = 0; n2 <= n1; n2 += (n2 < 128 ? 1 : 8))
+	for (int n2 = 0; n2 <= n1; ++n2)
 	  {
 	    std::function<_Tp(_Tp)> func(std::bind(&normalized_hermite<_Tp>, n1, n2,
 					 std::placeholders::_1));
-	    _Tp integ_precision = _Tp{1000} * eps;
-	    _Tp comp_precision = _Tp{10} * integ_precision;
+	    const _Tp integ_precision = _Tp{1000} * eps;
+	    const _Tp comp_precision = _Tp{10} * integ_precision;
 
 	    auto [result, error]
 		= integrate(func, -infty, infty, integ_precision, _Tp{0});
@@ -83,11 +83,54 @@ template<typename _Tp>
 	std::cout << "Integration successful for hermite polynomials up to n = " << n1
 		  << '\n' << std::flush;
       }
+
+    int ibot = n1 - 1;
+    int itop = 2 * ibot;
+    int del = 2;
+    while (itop != ibot)
+      {
+	RESTART:
+	for (int n2 = 0; n2 <= itop; n2 += del)
+	  {
+	    std::function<_Tp(_Tp)> func(std::bind(&normalized_hermite<_Tp>, itop, n2,
+					 std::placeholders::_1));
+	    const _Tp integ_precision = _Tp{1000} * eps;
+	    const _Tp comp_precision = _Tp{10} * integ_precision;
+
+	    auto [result, error]
+		= integrate(func, -infty, infty, integ_precision, _Tp{0});
+
+	    if (std::abs(delta<_Tp>(itop, n2) - result) > comp_precision)
+	      {
+		itop = (ibot + itop) / 2;
+		goto RESTART;
+	      }
+	  }
+	std::cout << "Integration successful for hermite polynomials up to n = " << itop
+		  << '\n' << std::flush;
+	ibot = itop;
+	if (itop <= std::numeric_limits<int>::max() / 2)
+	  itop *= 2;
+	else
+	  break;
+        del *= 2;
+      }
   }
 
 int
 main()
 {
+  std::cout << "\n\nOrthonormality tests for float\n";
+  try
+    {
+      test_hermite<float>();
+    }
+  catch (std::exception& err)
+    {
+      std::cerr << err.what() << '\n';
+    }
+
+  std::cout << "\n\nOrthonormality tests for double\n";
   try
     {
       test_hermite<double>();
@@ -97,6 +140,7 @@ main()
       std::cerr << err.what() << '\n';
     }
 
+  std::cout << "\n\nOrthonormality tests for long double\n";
   try
     {
       test_hermite<long double>();
