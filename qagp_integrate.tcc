@@ -35,6 +35,7 @@
 namespace __gnu_cxx
 {
 
+#ifdef VERBOSE_DEBUG
 template<typename _Tp>
 void
 dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
@@ -43,6 +44,7 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
   std::cerr << '\n' << cmp << ": " << msg << '\n';
   std::cerr << std::setw(15) << workspace << '\n';
 }
+#endif
 
   template<typename _FuncTp, typename _Tp>
     std::tuple<_Tp, _Tp>

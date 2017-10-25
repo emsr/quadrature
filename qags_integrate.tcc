@@ -165,9 +165,10 @@ namespace __gnu_cxx
       const auto _S_max = std::numeric_limits<_Tp>::max();
       const auto _S_eps = std::numeric_limits<_Tp>::epsilon();
       const auto __limit = __workspace.capacity();
-std::cerr.precision(8);
-std::cerr << "\nC++\n";
-
+#ifdef VERBOSE_DEBUG
+      std::cerr.precision(8);
+      std::cerr << "\nC++\n";
+#endif
       bool __extrapolate = false;
       bool __disallow_extrapolation = false;
 
@@ -185,14 +186,18 @@ std::cerr << "\nC++\n";
       _Tp __result0, __abserr0, __resabs0, __resasc0;
       std::tie(__result0, __abserr0, __resabs0, __resasc0)
 	  = qk_integrate(__func, __a, __b, __qk_rule);
-std::cerr << "  result0 = " << __result0
-	  << "  abserr0 = " << __abserr0
-	  << "  resabs0 = " << __resabs0
-	  << "  resasc0 = " << __resasc0
-	  << "  abserr0 == resasc0 : " << (__abserr0 == __resasc0) << '\n';
+#ifdef VERBOSE_DEBUG
+      std::cerr << "  result0 = " << __result0
+		<< "  abserr0 = " << __abserr0
+		<< "  resabs0 = " << __resabs0
+		<< "  resasc0 = " << __resasc0
+		<< "  abserr0 == resasc0 : " << (__abserr0 == __resasc0) << '\n';
+#endif
 
       __workspace.append(__a, __b, __result0, __abserr0);
-dump_ws(__workspace, "qags", "first quad");
+#ifdef VERBOSE_DEBUG
+      dump_ws(__workspace, "qags", "first quad");
+#endif
 
       auto __tolerance = std::max(__epsabs, __epsrel * std::abs(__result0));
 
@@ -233,7 +238,9 @@ dump_ws(__workspace, "qags", "first quad");
 	  __workspace.retrieve(__a_i, __b_i, __r_i, __e_i);
 
 	  const auto __current_depth = __workspace.current_depth() + 1;
-std::cerr << "current_level = " << __current_depth << '\n';
+#ifdef VERBOSE_DEBUG
+	std::cerr << "current_level = " << __current_depth << '\n';
+#endif
 
 	  const auto __a1 = __a_i;
 	  const auto __b1 = (__a_i + __b_i) / _Tp{2};
@@ -294,9 +301,11 @@ std::cerr << "current_level = " << __current_depth << '\n';
 
 	  // Split the current interval in two.
 	  __workspace.split(__b1, __area1, __error1, __area2, __error2);
-dump_ws(__workspace, "qags", "split");
-std::cerr << "errsum    = " << __errsum << '\n';
-std::cerr << "tolerance = " << __tolerance << '\n';
+#ifdef VERBOSE_DEBUG
+	  dump_ws(__workspace, "qags", "split");
+	  std::cerr << "errsum    = " << __errsum << '\n';
+	  std::cerr << "tolerance = " << __tolerance << '\n';
+#endif
 
 	  if (__errsum <= __tolerance)
 	    {
@@ -329,16 +338,18 @@ std::cerr << "tolerance = " << __tolerance << '\n';
 
 	  if (__current_depth < __workspace.max_depth())
 	    __error_over_large_intervals += __error12;
-std::cerr << "last_e_i    = " << __last_e_i << "\n";
-std::cerr << "error12     = " << __error12 << "\n";
-std::cerr << "eoli        = " << __error_over_large_intervals << "\n";
-std::cerr << "extrapolate = " << __extrapolate << "\n";
-std::cerr << "wkli        = " << __workspace.large_interval()<< "\n";
-std::cerr << "error_type2 : " << __error_type2
- << "  error_over_large_intervals = " << __error_over_large_intervals
- << "  ertest = " << __ertest << "\n";
-std::cerr << "extrapolate : " << __extrapolate << "\n";
-std::cerr << "large_interval : " << __workspace.large_interval() << "\n";
+#ifdef VERBOSE_DEBUG
+	  std::cerr << "last_e_i    = " << __last_e_i << "\n";
+	  std::cerr << "error12     = " << __error12 << "\n";
+	  std::cerr << "eoli        = " << __error_over_large_intervals << "\n";
+	  std::cerr << "extrapolate = " << __extrapolate << "\n";
+	  std::cerr << "wkli        = " << __workspace.large_interval()<< "\n";
+	  std::cerr << "error_type2 : " << __error_type2
+	   << "  error_over_large_intervals = " << __error_over_large_intervals
+	   << "  ertest = " << __ertest << "\n";
+	  std::cerr << "extrapolate : " << __extrapolate << "\n";
+	  std::cerr << "large_interval : " << __workspace.large_interval() << "\n";
+#endif
 
 	  if (!__extrapolate)
 	    {
@@ -366,11 +377,15 @@ std::cerr << "large_interval : " << __workspace.large_interval() << "\n";
 	  // Perform extrapolation.
 
 	  __table.append(__area);
-dump_ws(__workspace, "qagp", "extrap");
-std::cerr << "nn          = " << __table.get_nn() << "\n";
+#ifdef VERBOSE_DEBUG
+	  dump_ws(__workspace, "qagp", "extrap");
+	  std::cerr << "nn          = " << __table.get_nn() << "\n";
+#endif
 
 	  std::tie(__reseps, __abseps) = __table.qelg();
-std::cerr << "reseps      = " << __reseps << "  abseps      = " << __abseps << "\n";
+#ifdef VERBOSE_DEBUG
+	  std::cerr << "reseps      = " << __reseps << "  abseps      = " << __abseps << "\n";
+#endif
 
 	  ++__ktmin;
 
@@ -399,7 +414,9 @@ std::cerr << "reseps      = " << __reseps << "  abseps      = " << __abseps << "
 	  __workspace.reset_start();
 	  __extrapolate = false;
 	  __error_over_large_intervals = __errsum;
-dump_ws(__workspace, "qagp", "stop extrap");
+#ifdef VERBOSE_DEBUG
+	  dump_ws(__workspace, "qagp", "stop extrap");
+#endif
 	}
       while (__iteration < __limit);
 
