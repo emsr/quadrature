@@ -25,64 +25,56 @@
 #include <sstream>
 #include <string>
 
+//#include "simple_integrate.h"
 #include "integration.h"
 
 using namespace __gnu_cxx;
 
-// Function which should integrate to 1 for n1 == n2, 0 otherwise.
+// Function which should integrate to 1 for l1 == l2, 0 otherwise.
 template<typename _Tp>
   _Tp
-  normalized_gegenbauer(int n1, int n2, _Tp alpha, _Tp x)
+  normalized_assoc_legendre(int l1, int m1, int l2, int m2, _Tp x)
   {
-    const auto _S_pi = __gnu_cxx::__const_pi(x);
-    auto gama = std::tgamma(alpha);
-    auto gamn2a = std::tgamma(n1 + _Tp{2} * alpha);
-    auto norm = _S_pi * std::pow(_Tp{2}, _Tp{1} - _Tp{2} * alpha) * gamn2a
-	      / __gnu_cxx::factorial<_Tp>(n1) / (_Tp(n1) + alpha) / gama / gama;
-    return std::pow(_Tp{1} - x * x, alpha - _Tp{0.5})
-	 * __gnu_cxx::gegenbauer(n1, alpha, x)
-	 * __gnu_cxx::gegenbauer(n2, alpha, x) / norm;
+    return (_Tp(l1 + l2 + 1) / _Tp{2})
+	 * std::assoc_legendre(l1, m1, x)
+	 * std::assoc_legendre(l2, m2, x);
   }
 
 template<typename _Tp>
   _Tp
-  delta(int n1, int n2)
-  { return n1 == n2 ? _Tp{1} : _Tp{0}; }
+  delta(int l1, int l2)
+  { return l1 == l2 ? (m1 == m2 ? _Tp{1} : _Tp{0}) : _Tp{0}; }
 
 template<typename _Tp>
   void
-  test_gegenbauer()
+  test_assoc_legendre(int m1, int m2)
   {
     const _Tp eps = std::numeric_limits<_Tp>::epsilon();
-    _Tp alpha = _Tp{0.5};
-
-    for (int n1 = 0; n1 <= 720; n1 += (n1 < 128 ? 1 : 8))
+    for (int l1 = 0; l1 <= 720; l1 += (l1 < 128 ? 1 : 8))
       {
-	for (int n2 = 0; n2 <= n1; n2 += (n2 < 128 ? 1 : 8))
+	for (int l2 = 0; l2 <= l1; l2 += (l2 < 128 ? 1 : 8))
 	  {
-	    std::function<_Tp(_Tp)>
-	      func([n1, n2, alpha](_Tp x)
-		   -> _Tp
-		   { return normalized_gegenbauer<_Tp>(n1, n2,alpha,x); });
+	    std::function<_Tp(_Tp)> func(std::bind(&normalized_legendre<_Tp>, l1, l2,
+					 std::placeholders::_1));
 	    _Tp integ_precision = _Tp{1000} * eps;
 	    _Tp comp_precision = _Tp{10} * integ_precision;
 
 	    auto [result, error]
 		= integrate(func, _Tp{-1}, _Tp{1}, integ_precision, _Tp{0});
 
-	    if (std::abs(delta<_Tp>(n1, n2) - result) > comp_precision)
+	    if (std::abs(delta<_Tp>(l1, l2) - result) > comp_precision)
 	      {
 		std::stringstream ss;
 		ss.precision(std::numeric_limits<_Tp>::digits10);
 		ss << std::showpoint << std::scientific;
-		ss << "Integration failed at n1=" << n1 << ", n2=" << n2
+		ss << "Integration failed at l1=" << l1 << ", l2=" << l2
 		   << ", returning result " << result
 		   << ", with error " << error
-		   << " instead of the expected " << delta<_Tp>(n1, n2) << '\n';
+		   << " instead of the expected " << delta<_Tp>(l1, l2) << '\n';
 		throw std::logic_error(ss.str());
 	      }
 	  }
-	std::cout << "Integration successful for gegenbauer polynomials up to n = " << n1
+	std::cout << "Integration successful for assoc_legendre polynomials up to l = " << l1
 		  << '\n' << std::flush;
       }
   }
@@ -92,7 +84,7 @@ main()
 {
   try
     {
-      test_gegenbauer<double>();
+      test_assoc_legendre<double>(4, 4);
     }
   catch (std::exception& err)
     {
@@ -101,7 +93,7 @@ main()
 
   try
     {
-      test_gegenbauer<long double>();
+      test_assoc_legendre<long double>(4, 4);
     }
   catch (std::exception& err)
     {

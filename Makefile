@@ -14,9 +14,10 @@ ifeq ("$(wildcard $(CXX_INST_DIR))","")
   endif
 endif
 
-GCC = $(CXX_INST_DIR)/bin/gcc -g -Wall -Wextra
-CXX = $(CXX_INST_DIR)/bin/g++ -std=gnu++14 -g -D__STDCPP_WANT_MATH_SPEC_FUNCS__ -Wall -Wextra -Wno-psabi -I..
-CXX17 = $(CXX_INST_DIR)/bin/g++ -std=gnu++17 -fconcepts -g -Wall -Wextra -Wno-psabi -I..
+OPT = -g
+GCC = $(CXX_INST_DIR)/bin/gcc $(OPT) -Wall -Wextra
+CXX = $(CXX_INST_DIR)/bin/g++ -std=gnu++14 $(OPT) -D__STDCPP_WANT_MATH_SPEC_FUNCS__ -Wall -Wextra -Wno-psabi -I..
+CXX17 = $(CXX_INST_DIR)/bin/g++ -std=gnu++17 -fconcepts $(OPT) -Wall -Wextra -Wno-psabi -I..
 CXX_INC_DIR = $(CXX_INST_DIR)/include/c++/7.0.0/bits
 CXX_LIB_DIR = $(CXX_INST_DIR)/lib64
 
@@ -29,6 +30,7 @@ BINS = \
   test_midpoint_integral \
   test_double_exp_integrate \
   test_gauss_hermite \
+  assoc_laguerre_test \
   hermite_test \
   laguerre_test \
   legendre_test \
@@ -45,9 +47,27 @@ BINS = \
 all: $(OBJ_DIR) $(BINS)
 
 
+check:
+	./assoc_laguerre_test > assoc_laguerre_test.txt
+	./chebyshev_t_test > chebyshev_t_test.txt
+	./chebyshev_u_test > chebyshev_u_test.txt
+	./chebyshev_v_test > chebyshev_v_test.txt
+	./chebyshev_w_test > chebyshev_w_test.txt
+	./gegenbauer_test > gegenbauer_test.txt
+	./hermite_test > hermite_test.txt
+	./jacobi_test > jacobi_test.txt
+	./laguerre_test > laguerre_test.txt
+	./legendre_test > legendre_test.txt
+	./radpoly_test > radpoly_test.txt
+	./zernike_test > zernike_test.txt
+
+
 test: $(BINS)
 	./test_quadrature > test_quadrature.txt 2> test_quadrature2.txt
 
+
+assoc_laguerre_test: $(OBJ_DIR)/assoc_laguerre_test.o
+	$(CXX17) -o assoc_laguerre_test $(OBJ_DIR)/assoc_laguerre_test.o -lquadmath
 
 test_phase_iterator: test_phase_iterator.cpp *.h *.tcc
 	$(CXX17) -o test_phase_iterator test_phase_iterator.cpp -lquadmath
@@ -103,6 +123,9 @@ radpoly_test: $(OBJ_DIR)/radpoly_test.o
 zernike_test: $(OBJ_DIR)/zernike_test.o
 	$(CXX17) -o zernike_test $(OBJ_DIR)/zernike_test.o -lquadmath
 
+
+$(OBJ_DIR)/assoc_laguerre_test.o: *.h *.tcc assoc_laguerre_test.cpp
+	$(CXX17) -c -o $(OBJ_DIR)/assoc_laguerre_test.o assoc_laguerre_test.cpp
 
 $(OBJ_DIR)/hermite_test.o: *.h *.tcc hermite_test.cpp
 	$(CXX17) -c -o $(OBJ_DIR)/hermite_test.o hermite_test.cpp

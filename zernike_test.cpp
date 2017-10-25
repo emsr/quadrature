@@ -83,7 +83,7 @@ template<typename _Tp>
 		      continue;
 		    std::function<_Tp(_Tp)> func(std::bind(&normalized_zernike<_Tp>,
 						 n1, m1, n2, m2,
-                                        	 std::placeholders::_1));
+						 std::placeholders::_1));
 		    _Tp integ_precision = _Tp{1000} * eps;
 		    _Tp comp_precision = _Tp{10} * integ_precision;
 
@@ -92,23 +92,23 @@ template<typename _Tp>
 
 		    if (std::abs(delta<_Tp>(n1, m1, n2, m2) - result) > comp_precision)
 		      {
-        		std::stringstream ss;
-        		ss.precision(std::numeric_limits<_Tp>::digits10);
+			std::stringstream ss;
+			ss.precision(std::numeric_limits<_Tp>::digits10);
 			auto w = 8 + ss.precision();
 			ss << std::showpoint << std::scientific;
-        		ss << "Integration failed at n1=" << n1 << ", m1=" << m1
-        		   << ", n2=" << n2 << ", m2=" << m2
-        		   << ", returning result = " << std::setw(w) << result
-        		   << ", with error = " << std::setw(w) << error
-        		   << " instead of the expected " << delta<_Tp>(n1, m1, n2, m2) << '\n';
+			ss << "Integration failed at n1=" << n1 << ", m1=" << m1
+			   << ", n2=" << n2 << ", m2=" << m2
+			   << ", returning result = " << std::setw(w) << result
+			   << ", with error = " << std::setw(w) << error
+			   << " instead of the expected " << delta<_Tp>(n1, m1, n2, m2) << '\n';
 			std::cerr << ss.str();
-        		//throw std::logic_error(ss.str());
+			//throw std::logic_error(ss.str());
 		      }
 		  }
 	      }
 	  }
 	std::cout << "Integration successful for zernike polynomials up to n = " << n1
-	     << '\n';
+		  << '\n' << std::flush;
       }
   }
 

@@ -50,32 +50,32 @@ template<typename _Tp>
   test_legendre()
   {
     const _Tp eps = std::numeric_limits<_Tp>::epsilon();
-    for (int l1 = 0; l1 <= 720; ++l1)
+    for (int l1 = 0; l1 <= 720; l1 += (l1 < 128 ? 1 : 8))
       {
-	for (int l2 = 0; l2 <= l1; ++l2)
+	for (int l2 = 0; l2 <= l1; l2 += (l2 < 128 ? 1 : 8))
 	  {
 	    std::function<_Tp(_Tp)> func(std::bind(&normalized_legendre<_Tp>, l1, l2,
-                                         std::placeholders::_1));
+					 std::placeholders::_1));
 	    _Tp integ_precision = _Tp{1000} * eps;
 	    _Tp comp_precision = _Tp{10} * integ_precision;
 
 	    auto [result, error]
-        	= integrate(func, _Tp{-1}, _Tp{1}, integ_precision, _Tp{0});
+		= integrate(func, _Tp{-1}, _Tp{1}, integ_precision, _Tp{0});
 
-            if (std::abs(delta<_Tp>(l1, l2) - result) > comp_precision)
-              {
-        	std::stringstream ss;
-        	ss.precision(std::numeric_limits<_Tp>::digits10);
+	    if (std::abs(delta<_Tp>(l1, l2) - result) > comp_precision)
+	      {
+		std::stringstream ss;
+		ss.precision(std::numeric_limits<_Tp>::digits10);
 		ss << std::showpoint << std::scientific;
-        	ss << "Integration failed at l1=" << l1 << ", l2=" << l2
-        	   << ", returning result " << result
-        	   << ", with error " << error
-        	   << " instead of the expected " << delta<_Tp>(l1, l2) << '\n';
-        	throw std::logic_error(ss.str());
-              }
+		ss << "Integration failed at l1=" << l1 << ", l2=" << l2
+		   << ", returning result " << result
+		   << ", with error " << error
+		   << " instead of the expected " << delta<_Tp>(l1, l2) << '\n';
+		throw std::logic_error(ss.str());
+	      }
 	  }
 	std::cout << "Integration successful for legendre polynomials up to l = " << l1
-             << '\n';
+		  << '\n' << std::flush;
       }
   }
 

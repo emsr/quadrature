@@ -30,27 +30,14 @@
 
 using namespace __gnu_cxx;
 
-// Try to manage the gamma ratio.
-template<typename _Tp>
-  _Tp
-  gamma_ratio(int n, _Tp alpha)
-  {
-    auto gaman1 = std::tgamma(_Tp(1) + alpha);
-    auto fact = gaman1;
-    for (int k = 1; k <= n; ++k)
-      fact *= (_Tp(k) + alpha) / _Tp(k);
-    return fact;
-  }
-
 // Function which should integrate to 1 for n1 == n2, 0 otherwise.
 template<typename _Tp>
   _Tp
-  normalized_assoc_laguerre(int n1, int n2, _Tp alpha, _Tp x)
+  normalized_laguerre(int n1, int n2, _Tp x)
   {
-    auto norm = gamma_ratio(n1, alpha);
-    return std::pow(x, alpha) * std::exp(-x)
-	 * std::assoc_laguerre(n1, alpha, x)
-	 * std::assoc_laguerre(n2, alpha, x) / norm;
+    return std::exp(-x)
+	 * std::laguerre(n1, x)
+	 * std::laguerre(n2, x);
   }
 
 template<typename _Tp>
@@ -63,36 +50,35 @@ template<typename _Tp>
   test_assoc_laguerre()
   {
     const _Tp eps = std::numeric_limits<_Tp>::epsilon();
-    _Tp alpha = _Tp{0.5};
 
-    for (int n1 = 0; n1 <= 720; ++n1)
+    for (int n1 = 0; n1 <= 720; n1 += (n1 < 128 ? 1 : 8))
       {
-	for (int n2 = 0; n2 <= n1; ++n2)
+	for (int n2 = 0; n2 <= n1; n2 += (n2 < 128 ? 1 : 8))
 	  {
 	    std::function<_Tp(_Tp)>
-	      func([n1, n2, alpha](_Tp x)
+	      func([n1, n2](_Tp x)
 		   -> _Tp
-		   { return normalized_assoc_laguerre<_Tp>(n1, n2, alpha, x); });
+		   { return normalized_laguerre<_Tp>(n1, n2, x); });
 	    _Tp integ_precision = _Tp{1000} * eps;
 	    _Tp comp_precision = _Tp{10} * integ_precision;
 
 	    auto [result, error]
 		= integrate_to_infinity(func, _Tp{0}, integ_precision, _Tp{0});
 
-            if (std::abs(delta<_Tp>(n1, n2) - result) > comp_precision)
-              {
-        	std::stringstream ss;
-        	ss.precision(std::numeric_limits<_Tp>::digits10);
+	    if (std::abs(delta<_Tp>(n1, n2) - result) > comp_precision)
+	      {
+		std::stringstream ss;
+		ss.precision(std::numeric_limits<_Tp>::digits10);
 		ss << std::showpoint << std::scientific;
-        	ss << "Integration failed at n1=" << n1 << ", n2=" << n2
-        	   << ", returning result " << result
-        	   << ", with error " << error
-        	   << " instead of the expected " << delta<_Tp>(n1, n2) << '\n';
-        	throw std::logic_error(ss.str());
-              }
+		ss << "Integration failed at n1=" << n1 << ", n2=" << n2
+		   << ", returning result " << result
+		   << ", with error " << error
+		   << " instead of the expected " << delta<_Tp>(n1, n2) << '\n';
+		throw std::logic_error(ss.str());
+	      }
 	  }
-	std::cout << "Integration successful for assoc_laguerre polynomials up to n = " << n1
-             << '\n';
+	std::cout << "Integration successful for laguerre polynomials up to n = " << n1
+		  << '\n' << std::flush;
       }
   }
 

@@ -54,9 +54,9 @@ template<typename _Tp>
     const _Tp eps = std::numeric_limits<_Tp>::epsilon();
 
     // Neverending loop: runs until integration fails
-    for (int n1 = 0; ; ++n1)
+    for (int n1 = 0; n1 <= 2048 ; n1 += (n1 < 128 ? 1 : 8))
       {
-	for (int n2 = 0; n2 <= n1; ++n2)
+	for (int n2 = 0; n2 <= n1; n2 += (n2 < 128 ? 1 : 8))
 	  {
 	    std::function<_Tp(_Tp)>
 	      func([n1, n2](_Tp x)->_Tp{return normalized_chebyshev_u(n1, n2, x);});
@@ -64,23 +64,23 @@ template<typename _Tp>
 	    _Tp comp_precision = _Tp{10} * integ_precision;
 
 	    auto [result, error]
-        	= integrate_smooth(func, _Tp{-1}, _Tp{1}, integ_precision, _Tp{0});
-//        	= integrate(func, _Tp{-1}, _Tp{1}, integ_precision, _Tp{0});
+		= integrate_smooth(func, _Tp{-1}, _Tp{1}, integ_precision, _Tp{0});
+//		= integrate(func, _Tp{-1}, _Tp{1}, integ_precision, _Tp{0});
 
-            if (std::abs(delta<_Tp>(n1, n2) - result) > comp_precision)
-              {
-        	std::stringstream ss;
-        	ss.precision(std::numeric_limits<_Tp>::digits10);
+	    if (std::abs(delta<_Tp>(n1, n2) - result) > comp_precision)
+	      {
+		std::stringstream ss;
+		ss.precision(std::numeric_limits<_Tp>::digits10);
 		ss << std::showpoint << std::scientific;
-        	ss << "Integration failed at n1=" << n1 << ", n2=" << n2
-        	   << ", returning result " << result
-        	   << ", with error " << error
-        	   << " instead of the expected " << delta<_Tp>(n1, n2) << '\n';
-        	throw std::logic_error(ss.str());
-              }
+		ss << "Integration failed at n1=" << n1 << ", n2=" << n2
+		   << ", returning result " << result
+		   << ", with error " << error
+		   << " instead of the expected " << delta<_Tp>(n1, n2) << '\n';
+		throw std::logic_error(ss.str());
+	      }
 	  }
 	std::cout << "Integration successful for chebyshev_u polynomials up to n = " << n1
-             << '\n';
+		  << '\n' << std::flush;
       }
   }
 

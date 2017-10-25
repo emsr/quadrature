@@ -6,6 +6,9 @@ cmake_install.cmake
 error.txt
 
 build_clenshaw_curtis
+
+assoc_laguerre_test
+assoc_legendre_test
 chebyshev_t_test
 chebyshev_u_test
 chebyshev_v_test
