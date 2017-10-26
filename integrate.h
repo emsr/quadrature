@@ -172,6 +172,25 @@ namespace __gnu_cxx
 	}
     }
 
+  /**
+   * Integrates an oscillatory function.
+   */
+  template<typename _FuncTp, typename _Tp>
+    inline std::tuple<_Tp, _Tp>
+    integrate_oscillatory(const _FuncTp& __func, _Tp __a, _Tp __b,
+			  _Tp __max_abs_error,
+			  _Tp __max_rel_error,
+			  const std::size_t __max_iter = 1024)
+    {
+      using __iwksp_t = integration_workspace<_Tp>;
+      using __oitab_t = oscillatory_integration_table<_Tp>;
+
+      __iwksp_t __w(__max_iter);
+      __oitab_t __wo(__b, _Tp{1}, __oitab_t::INTEG_SINE, __max_iter);
+      return qawo_integrate(__w, __wo, __func, _Tp{0},
+			    __max_abs_error, __max_rel_error);
+    }
+
 } // namespace __gnu_cxx
 
 #endif // INTEGRATE_H

@@ -1,4 +1,4 @@
-/* integration/qawo.c
+/* integration/qawo_integrate.tcc
  *
  * Copyright (C) 1996, 1997, 1998, 1999, 2000, 2007 Brian Gough
  * Copyright (C) 2016-2017 Free Software Foundation, Inc.
