@@ -83,7 +83,7 @@ namespace __gnu_cxx
       //Determine the integration function to use for this routine
       typedef
 	std::function<void(const _FuncTp&, _Tp, _Tp,
-		 _Tp&, _Tp&, _Tp&, _Tp&)>
+			   _Tp&, _Tp&, _Tp&, _Tp&)>
 	qk_int_func_type;
 
       qk_int_func_type __qk_int_func;
