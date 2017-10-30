@@ -50,12 +50,12 @@ namespace __gnu_cxx
     qaws_integrate(integration_workspace<_Tp>& __workspace,
 		   qaws_integration_table<_Tp>& __table,
 		   const _FuncTp& __func,
-		   const _Tp __a, const _Tp __b,
+		   const _Tp __lower, const _Tp __upper,
 		   const _Tp __epsabs, const _Tp __epsrel)
     {
       const auto _S_eps = std::numeric_limits<_Tp>::epsilon();
 
-      if (__b <= __a)
+      if (__upper <= __lower)
 	std::__throw_runtime_error("qaws_integrate: "
 				   "Limits must form an ascending sequence");
       if (__epsabs <= 0 && (__epsrel < 50 * _S_eps || __epsrel < 0.5e-28))
@@ -70,21 +70,21 @@ namespace __gnu_cxx
       // Perform the first integration.
       _Tp __result0, __abserr0;
       {
-	const auto __a1 = __a;
-	const auto __b1 = (__a + __b) / _Tp{2};
+	const auto __a1 = __lower;
+	const auto __b1 = (__lower + __upper) / _Tp{2};
 	const auto __a2 = __b1;
-	const auto __b2 = __b;
+	const auto __b2 = __upper;
 
 	_Tp __area1, __error1;
 	bool __err_reliable1;
 	std::tie(__area1, __error1, __err_reliable1)
-	  = qc25s(__table, __func, __a, __b, __a1, __b1);
+	  = qc25s(__table, __func, __lower, __upper, __a1, __b1);
 	__workspace.append(__a1, __b1, __area1, __error1);
 
 	_Tp __area2, __error2;
 	bool __err_reliable2;
 	std::tie(__area2, __error2, __err_reliable2)
-	  = qc25s(__table, __func, __a, __b, __a2, __b2);
+	  = qc25s(__table, __func, __lower, __upper, __a2, __b2);
 	__workspace.append(__a2, __b2, __area2, __error2);
 
 	__result0 = __area1 + __area2;
@@ -97,7 +97,7 @@ namespace __gnu_cxx
       if (__abserr0 < __tolerance && __abserr0 < 0.01 * std::abs(__result0))
 	return std::make_tuple(__result0, __abserr0);
       else if (__limit == 1)
-	__throw__IntegrationError("qaws_integrate: "
+	__throw_integration_error("qaws_integrate: "
 				  "a maximum of one iteration was insufficient",
 				  MAX_ITER_ERROR, __result0, __abserr0);
 
@@ -120,12 +120,12 @@ namespace __gnu_cxx
 	  _Tp __area1, __error1;
 	  bool __err_reliable1;
 	  std::tie(__area1, __error1, __err_reliable1)
-	    = qc25s(__table, __func, __a, __b, __a1, __b1);
+	    = qc25s(__table, __func, __lower, __upper, __a1, __b1);
 
 	  _Tp __area2, __error2;
 	  bool __err_reliable2;
 	  std::tie(__area2, __error2, __err_reliable2)
-	    = qc25s(__table, __func, __a, __b, __a2, __b2);
+	    = qc25s(__table, __func, __lower, __upper, __a2, __b2);
 
 	  const auto __area12 = __area1 + __area2;
 	  const auto __error12 = __error1 + __error2;
@@ -177,18 +177,18 @@ namespace __gnu_cxx
 	return std::make_tuple(__result, __abserr);
 
       __check_error<_Tp>(__func__, __error_type);
-      __throw__IntegrationError("qaws_integrate: Unknown error.",
+      __throw_integration_error("qaws_integrate: Unknown error.",
 				UNKNOWN_ERROR, __result, __abserr);
     }
 
   template<typename _FuncTp, typename _Tp>
     std::tuple<_Tp, _Tp, bool>
     qc25s(qaws_integration_table<_Tp>& __t,
-	  const _FuncTp& __func, _Tp __a, _Tp __b, _Tp __a1, _Tp __b1)
+	  const _FuncTp& __func, _Tp __lower, _Tp __upper, _Tp __a1, _Tp __b1)
     {
-      fn_qaws<_Tp> __fqaws(&__t, __func, __a, __b);
+      fn_qaws<_Tp> __fqaws(&__t, __func, __lower, __upper);
 
-      if (__a1 == __a && (__t.alpha != _Tp{0} || __t.mu != 0))
+      if (__a1 == __lower && (__t.alpha != _Tp{0} || __t.mu != 0))
 	{
 	  const auto __factor
 	    = std::pow(0.5 * (__b1 - __a1), __t.alpha + _Tp{1});
@@ -228,7 +228,7 @@ namespace __gnu_cxx
 	      return std::make_tuple(__result, __abserr, false);
 	    }
 	}
-      else if (__b1 == __b && (__t.beta != _Tp{0} || __t.nu != 0))
+      else if (__b1 == __upper && (__t.beta != _Tp{0} || __t.nu != 0))
 	{
 	  auto __factor = std::pow(0.5 * (__b1 - __a1), __t.beta + _Tp{1});
 

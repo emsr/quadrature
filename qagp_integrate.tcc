@@ -46,24 +46,22 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
 }
 #endif
 
-  template<typename _FuncTp, typename _Tp>
-    std::tuple<_Tp, _Tp>
-    qagp_integrate(integration_workspace<_Tp>& __workspace,
-		   const _FuncTp& __func,
-		   std::vector<_Tp> __pts,
-		   _Tp __epsabs, _Tp __epsrel)
-    {
-      return qagp_integrate(__workspace, __func, __pts,
-			    __epsabs, __epsrel, QK_21);
-    }
-
-  template<typename _FuncTp, typename _Tp>
+  /**
+   * Adaptively integrate a function with known singular/discontinuous points.
+   *
+   * @tparam _FuncTp     A function type that takes a single real scalar
+   *                     argument and returns a real scalar.
+   * @tparam _Tp         A real type for the limits of integration and the step.
+   * @tparam _Integrator A non-adaptive integrator that is able to return
+   *                     an error estimate in addition to the result.
+   */
+  template<typename _FuncTp, typename _Tp, typename _Integrator>
     std::tuple<_Tp, _Tp>
     qagp_integrate(integration_workspace<_Tp>& __workspace,
 		   const _FuncTp& __func,
 		   std::vector<_Tp> __pts,
 		   _Tp __epsabs, _Tp __epsrel,
-		   const qk_intrule __qk_rule)
+		   _Integrator __quad)
     {
       const auto _S_max = std::numeric_limits<_Tp>::max();
       const auto _S_eps = std::numeric_limits<_Tp>::epsilon();
@@ -82,15 +80,13 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
 
       if (__pts.size() > __workspace.capacity())
 	std::__throw_runtime_error("qagp_integrate: "
-				   "number of pts exceeds size of workspace");
+				   "number of points exceeds size of workspace");
 
-      // Check that the integration range and break points are an
-      // ascending sequence.
+      // Check that the integration range and break points are in ascending order.
 
-      for (std::size_t __i = 0; __i < __n_ivals; ++__i)
-	if (__pts[__i + 1] < __pts[__i])
-	  std::__throw_runtime_error("qagp_integrate: "
-				     "points are not in an ascending sequence");
+      if (!std::is_sorted(std::begin(__pts), std::end(__pts)))
+	std::__throw_runtime_error("qagp_integrate: "
+				   "points are not in an ascending sequence");
 
       __workspace.clear();
 
@@ -100,19 +96,19 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
       auto __resabs0 = _Tp{0};
       for (std::size_t __i = 0; __i < __n_ivals; ++__i)
 	{
-	  const auto __a = __pts[__i];
-	  const auto __b = __pts[__i + 1];
+	  const auto __lower = __pts[__i];
+	  const auto __upper = __pts[__i + 1];
 
 	  _Tp __area1, __error1, __resabs1, __resasc1;
 	  std::tie(__area1, __error1, __resabs1, __resasc1)
-	    = qk_integrate(__func, __a, __b, __qk_rule);
+	    = __quad(__func, __lower, __upper);
 
 	  __result0 += __area1;
 	  __abserr0 += __error1;
 	  __resabs0 += __resabs1;
 	  std::size_t __level = (__error1 == __resasc1 && __error1 != _Tp{0})
 				? 1 : 0;
-	  __workspace.append(__a, __b, __area1, __error1, __level);
+	  __workspace.append(__lower, __upper, __area1, __error1, __level);
 	}
 
       // Compute the initial error estimate.
@@ -135,14 +131,14 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
 
       if (__abserr0 <= 100 * _S_eps * __resabs0
 	   && __abserr0 > __tolerance)
-	__throw__IntegrationError("qagp_integrate: "
+	__throw_integration_error("qagp_integrate: "
 				  "cannot reach tolerance because "
 				  "of roundoff error on first attempt",
 				  ROUNDOFF_ERROR, __result0, __abserr0);
       else if (__abserr0 <= __tolerance)
 	return std::make_tuple(__result0, __abserr0);
       else if (__limit == 1)
-	__throw__IntegrationError("qagp_integrate: "
+	__throw_integration_error("qagp_integrate: "
 				  "a maximum of one iteration was insufficient",
 				  MAX_ITER_ERROR, __result0, __abserr0);
 
@@ -178,11 +174,11 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
 
 	  _Tp __area1, __error1, __resabs1, __resasc1;
 	  std::tie(__area1, __error1, __resabs1, __resasc1)
-	    = qk_integrate(__func, __a1, __b1, __qk_rule);
+	    = __quad(__func, __a1, __b1);
 
 	  _Tp __area2, __error2, __resabs2, __resasc2;
 	  std::tie(__area2, __error2, __resabs2, __resasc2)
-	    = qk_integrate(__func, __a2, __b2, __qk_rule);
+	    = __quad(__func, __a2, __b2);
 
 	  const auto __area12 = __area1 + __area2;
 	  const auto __error12 = __error1 + __error2;
@@ -376,8 +372,25 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
 	return std::make_tuple(__result, __abserr);
 
       __check_error<_Tp>(__func__, __error_type);
-      __throw__IntegrationError("qagp_integrate: Unknown error.",
+      __throw_integration_error("qagp_integrate: Unknown error.",
 				UNKNOWN_ERROR, __result, __abserr);
+    }
+
+  template<typename _FuncTp, typename _Tp>
+    std::tuple<_Tp, _Tp>
+    qagp_integrate(integration_workspace<_Tp>& __workspace,
+		   const _FuncTp& __func,
+		   std::vector<_Tp> __pts,
+		   _Tp __epsabs, _Tp __epsrel)
+    {
+      const qk_intrule __qk_rule = QK_21;
+      auto __quad = [__qk_rule]
+		    (const _FuncTp& __func, _Tp __lower, _Tp __upper)
+		    -> std::tuple<_Tp, _Tp, _Tp, _Tp>
+		    { return qk_integrate(__func, __lower, __upper, __qk_rule); };
+
+      return qagp_integrate(__workspace, __func, __pts,
+			    __epsabs, __epsrel, __quad);
     }
 
 } // namespace __gnu_cxx

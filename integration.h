@@ -17,10 +17,7 @@
 // You should have received a copy of the GNU General Public License along
 // with this library; see the file COPYING3.  If not see
 // <http://www.gnu.org/licenses/>.
-//
-// Written by Jason Dick.
-//
-// Provides readable access to integration functions
+
 
 #ifndef INTEGRATION_H
 #define INTEGRATION_H 1
@@ -37,6 +34,7 @@
 #include "gauss_legendre_table.h"
 #include "glfixed_integrate.tcc"
 #include "cquad_integrate.tcc"
+
 #include "integrate.h"
 
 #endif // INTEGRATION_H

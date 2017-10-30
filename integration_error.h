@@ -46,7 +46,7 @@ namespace __gnu_cxx
   };
 
   template<typename _Tp>
-    class _IntegrationError : public std::runtime_error
+    class __integration_error : public std::runtime_error
     {
       _Tp _M_result;
       _Tp _M_abserr;
@@ -54,7 +54,7 @@ namespace __gnu_cxx
 
     public:
 
-      _IntegrationError(const char* __what, int __errcode,
+      __integration_error(const char* __what, int __errcode,
 			_Tp __result = std::numeric_limits<_Tp>::quiet_NaN(),
 			_Tp __abserr = std::numeric_limits<_Tp>::quiet_NaN())
       : std::runtime_error(__what),
@@ -81,7 +81,7 @@ namespace __gnu_cxx
    */
   template<typename _Tp>
     void
-    __throw__IntegrationError(const char* __what, int __errcode,
+    __throw_integration_error(const char* __what, int __errcode,
 			  _Tp __result = std::numeric_limits<_Tp>::quiet_NaN(),
 			  _Tp __abserr = std::numeric_limits<_Tp>::quiet_NaN())
 			  __attribute__((__noreturn__));
@@ -91,11 +91,11 @@ namespace __gnu_cxx
    */
   template<typename _Tp>
     void
-    __throw__IntegrationError(const char* __what, int __errcode,
+    __throw_integration_error(const char* __what, int __errcode,
 			      _Tp __result, _Tp __abserr)
     {
       _GLIBCXX_THROW_OR_ABORT(
-	_IntegrationError(__what, __errcode, __result, __abserr));
+	__integration_error(__what, __errcode, __result, __abserr));
     }
 
   /**
@@ -141,7 +141,7 @@ namespace __gnu_cxx
 	  msg << "Could not integrate function";
 	}
 
-      __throw__IntegrationError(msg.str().c_str(), __errcode,
+      __throw_integration_error(msg.str().c_str(), __errcode,
 				__result, __abserr);
     }
 

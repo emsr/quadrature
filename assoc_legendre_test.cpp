@@ -61,7 +61,7 @@ template<typename _Tp>
 	    const _Tp comp_precision = _Tp{10} * integ_precision;
 
 	    auto [result, error]
-		= integrate(func, _Tp{-1}, _Tp{1}, integ_precision, _Tp{0});
+		= integrate_singular(func, _Tp{-1}, _Tp{1}, integ_precision, _Tp{0});
 
 	    if (std::abs(delta<_Tp>(l1, l2) * delta<_Tp>(m1, m2) - result) > comp_precision)
 	      {
@@ -93,7 +93,7 @@ template<typename _Tp>
 	    const _Tp comp_precision = _Tp{10} * integ_precision;
 
 	    auto [result, error]
-		= integrate(func, _Tp{-1}, _Tp{1}, integ_precision, _Tp{0});
+		= integrate_singular(func, _Tp{-1}, _Tp{1}, integ_precision, _Tp{0});
 
 	    if (std::abs(delta<_Tp>(itop, l2) * delta<_Tp>(m1, m2) - result) > comp_precision)
 	      {

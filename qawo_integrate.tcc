@@ -36,7 +36,7 @@ namespace __gnu_cxx
   template<typename _Tp, typename _FuncTp>
     std::tuple<_Tp, _Tp, _Tp, _Tp>
     qc25f(oscillatory_integration_table<_Tp>& __wf,
-	  const _FuncTp& __func, _Tp __a, _Tp __b,
+	  const _FuncTp& __func, _Tp __lower, _Tp __upper,
 	  std::size_t __depth);
 
   template<typename _Tp, typename _FuncTp>
@@ -44,7 +44,7 @@ namespace __gnu_cxx
     qawo_integrate(integration_workspace<_Tp>& __workspace,
 		   oscillatory_integration_table<_Tp>& __wf,
 		   const _FuncTp& __func,
-		   const _Tp __a,
+		   const _Tp __lower,
 		   const _Tp __epsabs, const _Tp __epsrel)
     {
       const auto _S_max = std::numeric_limits<_Tp>::max();
@@ -59,7 +59,7 @@ namespace __gnu_cxx
       //__wf.clear();
       extrapolation_table<_Tp> __table;
 
-      const auto __b = __a + __wf.get_length();
+      const auto __upper = __lower + __wf.get_length();
       const auto __abs_omega = std::abs(__wf.omega);
 
       auto __result = _Tp{0};
@@ -74,25 +74,25 @@ namespace __gnu_cxx
       // Perform the first integration.
       _Tp __result0, __abserr0, __resabs0, __resasc0;
       std::tie(__result0, __abserr0, __resabs0, __resasc0)
-	= qc25f(__wf, __func, __a, __b, 0);
+	= qc25f(__wf, __func, __lower, __upper, 0);
 
-      __workspace.append(__a, __b, __result0, __abserr0);
+      __workspace.append(__lower, __upper, __result0, __abserr0);
 
       auto __tolerance = std::max(__epsabs, __epsrel * std::abs(__result0));
 
       if (__abserr0 <= 100 * _S_eps * __resabs0 && __abserr0 > __tolerance)
-	__throw__IntegrationError("qawo_integrate: "
+	__throw_integration_error("qawo_integrate: "
 				  "cannot reach tolerance because "
 				  "of roundoff error on first attempt",
 				  ROUNDOFF_ERROR, __result0, __abserr0);
       else if ((__abserr0 <= __tolerance && __abserr0 != __resasc0) || __abserr0 == 0.0)
 	return std::make_tuple(__result0, __abserr0);
       else if (__limit == 1)
-	__throw__IntegrationError("qawo_integrate: "
+	__throw_integration_error("qawo_integrate: "
 				  "a maximum of one iteration was insufficient",
 				  MAX_ITER_ERROR, __result0, __abserr0);
 
-      if (0.5 * __abs_omega * std::abs(__b - __a) <= _Tp{2})
+      if (0.5 * __abs_omega * std::abs(__upper - __lower) <= _Tp{2})
 	{
 	  __table.append(__result0);
 	  __extall = true;
@@ -365,12 +365,12 @@ namespace __gnu_cxx
   template<typename _Tp, typename _FuncTp>
     std::tuple<_Tp, _Tp, _Tp, _Tp>
     qc25f(oscillatory_integration_table<_Tp>& __wf,
-	  const _FuncTp& __func, _Tp __a, _Tp __b,
+	  const _FuncTp& __func, _Tp __lower, _Tp __upper,
 	  std::size_t __depth)
     {
       const auto _S_max = std::numeric_limits<_Tp>::max();
-      const auto __center = ( __a + __b) / _Tp{2};
-      const auto __half_length = (__b - __a) / _Tp{2};
+      const auto __center = ( __lower + __upper) / _Tp{2};
+      const auto __half_length = (__upper - __lower) / _Tp{2};
       const auto __omega = __wf.omega;
 
       const auto __par = __omega * __half_length;
@@ -382,14 +382,14 @@ namespace __gnu_cxx
 	      auto __wfun = [__func, __omega](_Tp __x)
 			    ->_Tp
 			    { return std::sin(__omega * __x) * __func(__x); };
-	      return qk_integrate(__wfun, __a, __b, QK_15);
+	      return qk_integrate(__wfun, __lower, __upper, QK_15);
 	    }
 	  else
 	    {
 	      auto __wfun = [__func, __omega](_Tp __x)
 			    ->_Tp
 			    { return std::cos(__omega * __x) * __func(__x); };
-	      return qk_integrate(__wfun, __a, __b, QK_15);
+	      return qk_integrate(__wfun, __lower, __upper, QK_15);
 	    }
 	}
       else
@@ -397,7 +397,7 @@ namespace __gnu_cxx
 	  std::array<_Tp, 13> __cheb12;
 	  std::array<_Tp, 25> __cheb24;
 
-	  qcheb_integrate(__func, __a, __b, __cheb12, __cheb24);
+	  qcheb_integrate(__func, __lower, __upper, __cheb12, __cheb24);
 
 	  if (__depth >= __wf.n)
 	    {

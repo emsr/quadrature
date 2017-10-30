@@ -77,7 +77,7 @@ namespace __gnu_cxx
   //             and weighted mean function value
   template<typename _Tp, typename _FuncTp>
     std::tuple<_Tp, _Tp, _Tp, _Tp>
-    qk_integrate(const _FuncTp& __func, _Tp __a, _Tp __b,
+    qk_integrate(const _FuncTp& __func, _Tp __lower, _Tp __upper,
 		 const qk_intrule __qkintrule)
     {
       //Determine the integration function to use for this routine
@@ -114,7 +114,7 @@ namespace __gnu_cxx
 	}
 
       _Tp __result, __abserr, __resabs, __resasc;
-      __qk_int_func(__func, __a, __b, __result, __abserr, __resabs, __resasc);
+      __qk_int_func(__func, __lower, __upper, __result, __abserr, __resabs, __resasc);
       return std::make_tuple(__result, __abserr, __resabs, __resasc);
     }
 
@@ -126,12 +126,12 @@ namespace __detail
     qk_integrate(const std::array<_Tp, __ksz> &__xgk,
 		 const std::array<_Tp, __gsz> &__wg,
 		 const std::array<_Tp, __ksz> &__wgk,
-		 const _FuncTp& __func, _Tp __a, _Tp __b,
+		 const _FuncTp& __func, _Tp __lower, _Tp __upper,
 		 _Tp& __result, _Tp& __abserr,
 		 _Tp& __resabs, _Tp& __resasc)
     {
-      const auto __center = (__a + __b) / _Tp{2};
-      const auto __half_length = (__b - __a) / _Tp{2};
+      const auto __center = (__lower + __upper) / _Tp{2};
+      const auto __half_length = (__upper - __lower) / _Tp{2};
       const auto __abs_half_length = std::abs(__half_length);
       const auto __f_center = __func(__center);
       std::array<_Tp, __ksz> __fv1;
@@ -207,7 +207,7 @@ namespace __detail
     public:
 
       static void
-      _S_integrate(const _FuncTp& __func, _Tp __a, _Tp __b,
+      _S_integrate(const _FuncTp& __func, _Tp __lower, _Tp __upper,
 		   _Tp& __result, _Tp& __abserr,
 		   _Tp& __resabs, _Tp& __resasc)
       {
@@ -249,7 +249,7 @@ namespace __detail
 	  _Tp{0.209482141084727828012999174891714L}
 	};
 
-	qk_integrate(_S_xgk, _S_wg, _S_wgk, __func, __a, __b, __result,
+	qk_integrate(_S_xgk, _S_wg, _S_wgk, __func, __lower, __upper, __result,
 		     __abserr, __resabs, __resasc);
       }
     };
@@ -308,13 +308,13 @@ namespace __detail
     public:
 
       static void
-      _S_integrate(const _FuncTp& __func, _Tp __a, _Tp __b,
+      _S_integrate(const _FuncTp& __func, _Tp __lower, _Tp __upper,
 		   _Tp& __result, _Tp& __abserr,
 		   _Tp& __resabs, _Tp& __resasc)
       {
 	using namespace __detail;
 
-	qk_integrate(_S_xgk, _S_wg, _S_wgk, __func, __a, __b, __result,
+	qk_integrate(_S_xgk, _S_wg, _S_wgk, __func, __lower, __upper, __result,
 		     __abserr, __resabs, __resasc);
       }
     };
@@ -386,13 +386,13 @@ namespace __detail
     public:
 
       static void
-      _S_integrate(const _FuncTp& __func, _Tp __a, _Tp __b,
+      _S_integrate(const _FuncTp& __func, _Tp __lower, _Tp __upper,
 		   _Tp& __result, _Tp& __abserr,
 		   _Tp& __resabs, _Tp& __resasc)
       {
 	using namespace __detail;
 
-	qk_integrate(_S_xgk, _S_wg, _S_wgk, __func, __a, __b, __result,
+	qk_integrate(_S_xgk, _S_wg, _S_wgk, __func, __lower, __upper, __result,
 		     __abserr, __resabs, __resasc);
       }
     };
@@ -476,13 +476,13 @@ namespace __detail
     public:
 
       static void
-      _S_integrate(const _FuncTp& __func, _Tp __a, _Tp __b,
+      _S_integrate(const _FuncTp& __func, _Tp __lower, _Tp __upper,
 		   _Tp& __result, _Tp& __abserr,
 		   _Tp& __resabs, _Tp& __resasc)
       {
 	using namespace __detail;
 
-	qk_integrate(_S_xgk, _S_wg, _S_wgk, __func, __a, __b, __result,
+	qk_integrate(_S_xgk, _S_wg, _S_wgk, __func, __lower, __upper, __result,
 		     __abserr, __resabs, __resasc);
       }
     };
@@ -579,13 +579,13 @@ namespace __detail
     public:
 
       static void
-      _S_integrate(const _FuncTp& __func, _Tp __a, _Tp __b,
+      _S_integrate(const _FuncTp& __func, _Tp __lower, _Tp __upper,
 		   _Tp& __result, _Tp& __abserr,
 		   _Tp& __resabs, _Tp& __resasc)
       {
 	using namespace __detail;
 
-	qk_integrate(_S_xgk, _S_wg, _S_wgk, __func, __a, __b, __result,
+	qk_integrate(_S_xgk, _S_wg, _S_wgk, __func, __lower, __upper, __result,
 		     __abserr, __resabs, __resasc);
       }
     };
@@ -694,13 +694,13 @@ namespace __detail
     public:
 
       static void
-      _S_integrate(const _FuncTp& __func, _Tp __a, _Tp __b,
+      _S_integrate(const _FuncTp& __func, _Tp __lower, _Tp __upper,
 		   _Tp& __result, _Tp& __abserr,
 		   _Tp& __resabs, _Tp& __resasc)
       {
 	using namespace __detail;
 
-	qk_integrate(_S_xgk, _S_wg, _S_wgk, __func, __a, __b, __result,
+	qk_integrate(_S_xgk, _S_wg, _S_wgk, __func, __lower, __upper, __result,
 		     __abserr, __resabs, __resasc);
       }
     };

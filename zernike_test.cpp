@@ -53,7 +53,7 @@ template<typename _Tp>
     auto norm = _Tp{1} / std::sqrt(_Tp(2 * n1 + 2) * _Tp(2 * n2 + 2));
     auto fun = [n1, m1, rho, z1, z2, norm](_Tp phi) ->_Tp { return rho * z1(phi) * z2(phi) / norm; };
     _Tp val;
-    std::tie(val, std::ignore) = integrate_smooth(fun, _Tp{0}, _Tp{_S_2pi}, _S_eps, _Tp{0}, 1024, QK_61);
+    std::tie(val, std::ignore) = integrate(fun, _Tp{0}, _Tp{_S_2pi}, _S_eps, _Tp{0}, 1024, QK_61);
     return _Tp{2} * val / _S_2pi / epsilon<_Tp>(m1);
   }
 
@@ -88,7 +88,7 @@ template<typename _Tp>
 		    const _Tp comp_precision = _Tp{10} * integ_precision;
 
 		    auto [result, error]
-			= integrate(func, _Tp{0}, _Tp{1}, integ_precision, _Tp{0});
+			= integrate_singular(func, _Tp{0}, _Tp{1}, integ_precision, _Tp{0});
 
 		    if (std::abs(delta<_Tp>(n1, m1, n2, m2) - result) > comp_precision)
 		      {
@@ -134,7 +134,7 @@ template<typename _Tp>
 		    const _Tp comp_precision = _Tp{10} * integ_precision;
 
 		    auto [result, error]
-			= integrate(func, _Tp{0}, _Tp{1}, integ_precision, _Tp{0});
+			= integrate_singular(func, _Tp{0}, _Tp{1}, integ_precision, _Tp{0});
 
 		    if (std::abs(delta<_Tp>(itop, m1, n2, m2) - result) > comp_precision)
 		      {

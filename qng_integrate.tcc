@@ -227,16 +227,16 @@ namespace __gnu_cxx
   template<typename _FuncTp, typename _Tp>
     std::tuple<_Tp, _Tp>
     qng_integrate(const _FuncTp& __func,
-		  _Tp __a, _Tp __b,
+		  _Tp __lower, _Tp __upper,
 		  _Tp __epsabs, _Tp __epsrel)
     {
       _Tp __fv1[5], __fv2[5], __fv3[5], __fv4[5];
       _Tp __savfun[21];
 
       const auto _S_eps = std::numeric_limits<_Tp>::epsilon();
-      const auto __half_length = (__b - __a) / _Tp{2};
+      const auto __half_length = (__upper - __lower) / _Tp{2};
       const auto __abs_half_length = std::abs(__half_length);
-      const auto __center = (__b + __a) / _Tp{2};
+      const auto __center = (__upper + __lower) / _Tp{2};
       const auto __f_center = __func(__center);
 
       if (__epsabs <= 0 && (__epsrel < 50 * _S_eps || __epsrel < 0.5e-28))
@@ -341,7 +341,7 @@ namespace __gnu_cxx
 	return std::make_tuple(__result_kronrod, __err);
 
       // Failed to converge.
-      __throw__IntegrationError("qng_integrate: "
+      __throw_integration_error("qng_integrate: "
 				"Failed to reach tolerance "
 				"with highest-order rule",
 				TOLERANCE_ERROR, __result_kronrod, __err);

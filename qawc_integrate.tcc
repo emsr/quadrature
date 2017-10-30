@@ -37,7 +37,7 @@ namespace __gnu_cxx
 
   template<typename _FuncTp, typename _Tp>
     std::tuple<_Tp, _Tp, bool>
-    qc25c(const _FuncTp& __func, _Tp __a, _Tp __b, _Tp __c);
+    qc25c(const _FuncTp& __func, _Tp __lower, _Tp __upper, _Tp __c);
 
   template<typename _Tp>
     std::vector<_Tp>
@@ -47,8 +47,8 @@ namespace __gnu_cxx
     std::tuple<_Tp, _Tp>
     qawc_integrate(integration_workspace<_Tp>& __workspace,
 		   const _FuncTp& __func,
-		   const _Tp __a, const _Tp __b, const _Tp __c,
-		   const _Tp __epsabs, const _Tp __epsrel)
+		   _Tp __lower, _Tp __upper, _Tp __c,
+		   _Tp __epsabs, _Tp __epsrel)
     {
       auto __result = _Tp{};
       auto __abserr = _Tp{};
@@ -57,17 +57,10 @@ namespace __gnu_cxx
       const auto __limit = __workspace.capacity();
 
       int __sign = 1;
-      _Tp __lower, __higher;
-      if (__b < __a)
+      if (__upper < __lower)
 	{
-	  __lower = __b;
-	  __higher = __a;
+	  std::swap(__lower, __upper);
 	  __sign = -1;
-	}
-      else
-	{
-	  __lower = __a;
-	  __higher = __b;
 	}
 
       if (__epsabs <= 0 && (__epsrel < 50 * _S_eps
@@ -77,7 +70,7 @@ namespace __gnu_cxx
 				    "with given absolute "
 				    "and relative error limits.");
 
-      if (__c == __a || __c == __b)
+      if (__c == __lower || __c == __upper)
 	std::__throw_runtime_error ("qawc_integrate: "
 				    "Cannot integrate with singularity "
 				    "on endpoint.");
@@ -88,9 +81,9 @@ namespace __gnu_cxx
       _Tp __result0, __abserr0;
       bool __err_reliable;
       std::tie(__result0, __abserr0, __err_reliable)
-	= qc25c(__func, __lower, __higher, __c);
+	= qc25c(__func, __lower, __upper, __c);
 
-      __workspace.append(__lower, __higher, __result0, __abserr0);
+      __workspace.append(__lower, __upper, __result0, __abserr0);
 
       // Test on accuracy; Use 0.01 relative error as an extra safety
       // margin on the first iteration (ignored for subsequent iterations).
@@ -98,7 +91,7 @@ namespace __gnu_cxx
       if (__abserr0 < __tolerance && __abserr0 < 0.01 * std::abs(__result0))
 	return std::make_tuple(__sign * __result0, __abserr0);
       else if (__limit == 1)
-	__throw__IntegrationError("qawc_integrate: "
+	__throw_integration_error("qawc_integrate: "
 				  "a maximum of one iteration was insufficient",
 				  MAX_ITER_ERROR, __sign * __result0, __abserr0);
 
@@ -182,7 +175,7 @@ namespace __gnu_cxx
 	return std::make_tuple(__result, __abserr);
 
       __check_error<_Tp>(__func__, __error_type);
-      __throw__IntegrationError("qawc_integrate: Unknown error.",
+      __throw_integration_error("qawc_integrate: Unknown error.",
 				UNKNOWN_ERROR, __result, __abserr);
     }
 
@@ -191,9 +184,9 @@ namespace __gnu_cxx
    */
   template<typename _FuncTp, typename _Tp>
     std::tuple<_Tp, _Tp, bool>
-    qc25c(const _FuncTp& __func, _Tp __a, _Tp __b, _Tp __c)
+    qc25c(const _FuncTp& __func, _Tp __lower, _Tp __upper, _Tp __c)
     {
-      const _Tp __cc = (_Tp{2} * __c - __b - __a) / (__b - __a);
+      const auto __cc = (_Tp{2} * __c - __upper - __lower) / (__upper - __lower);
 
       _Tp __result, __abserr;
       bool __err_reliable;
@@ -208,7 +201,7 @@ namespace __gnu_cxx
 
 	  _Tp __resabs, __resasc;
 	  __qk_ret{__result, __abserr, __resabs, __resasc}
-	    = qk_integrate(__func_cauchy, __a, __b, QK_15);
+	    = qk_integrate(__func_cauchy, __lower, __upper, QK_15);
 
 	  if (__abserr == __resasc)
 	    __err_reliable = false;
@@ -221,7 +214,7 @@ namespace __gnu_cxx
 	{
 	  std::array<_Tp, 13> __cheb12;
 	  std::array<_Tp, 25> __cheb24;
-	  qcheb_integrate(__func, __a, __b, __cheb12, __cheb24);
+	  qcheb_integrate(__func, __lower, __upper, __cheb12, __cheb24);
 	  const auto __moment = compute_moments(__cheb24.size(), __cc);
 
 	  auto __res12 = _Tp{0};

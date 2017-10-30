@@ -44,7 +44,7 @@ namespace __gnu_cxx
 		   integration_workspace<_Tp>& __cycle_workspace,
 		   oscillatory_integration_table<_Tp>& __wf,
 		   const _FuncTp& __func,
-		   const _Tp __a,
+		   const _Tp __lower,
 		   const _Tp __epsabs)
     {
 
@@ -83,7 +83,7 @@ namespace __gnu_cxx
 	    return std::make_tuple(_Tp{0}, _Tp{0});
 	  else
 	    // The function cos(w x) f(x) is always f(x) for w = 0.
-	    return qagiu_integrate(__cycle_workspace, __func, __a, __epsabs,
+	    return qagiu_integrate(__cycle_workspace, __func, __lower, __epsabs,
 				   _Tp{0});
 	}
 
@@ -109,7 +109,7 @@ namespace __gnu_cxx
 
       for (__iteration = 0; __iteration < __limit; ++__iteration)
 	{
-	  const auto __a1 = __a + __iteration * __cycle;
+	  const auto __a1 = __lower + __iteration * __cycle;
 	  const auto __b1 = __a1 + __cycle;
 
 	  const auto __epsabs1 = __eps * __factor;
@@ -206,7 +206,7 @@ namespace __gnu_cxx
     return_error:
 
       __check_error(__func__, __error_type, __result, __abserr);
-      __throw__IntegrationError("qawf_integrate: Unknown error.", UNKNOWN_ERROR,
+      __throw_integration_error("qawf_integrate: Unknown error.", UNKNOWN_ERROR,
 				__result, __abserr);
     }
 

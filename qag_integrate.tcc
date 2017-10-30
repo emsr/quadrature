@@ -46,25 +46,27 @@ namespace __gnu_cxx
    * Once either the absolute or relative error limit is reached,
    * qag_integrate() returns
    * @param[in] __func The single-variable function to be integrated
-   * @param[in] __a The lower limit of integration
-   * @param[in] __b The upper limit of integration
+   * @param[in] __lower The lower limit of integration
+   * @param[in] __upper The upper limit of integration
    * @param[in] __max_iter The maximum number of integration steps allowed
-   * @param[in] __epsabs The limit on absolute error
-   * @param[in] __epsrel The limit on relative error
-   * @param[in] __qksz The size of the Gauss-Kronrod integration scheme
+   * @param[in] __max_abs_error The limit on absolute error
+   * @param[in] __max_rel_error The limit on relative error
+   * @param[in] __qkintrule The size of the Gauss-Kronrod integration scheme
    * @return A tuple with the first value being the integration result,
    *	     and the second value being the estimated error.
    */
   template<typename _Tp, typename _FuncTp>
     std::tuple<_Tp, _Tp>
     qag_integrate(integration_workspace<_Tp>& __workspace,
-		  const _FuncTp& __func, _Tp __a, _Tp __b,
-		  _Tp __epsabs, _Tp __epsrel, const std::size_t __max_iter,
-		  const qk_intrule __qkintrule)
+		  const _FuncTp& __func,
+		  _Tp __lower, _Tp __upper,
+		  _Tp __max_abs_error, _Tp __max_rel_error,
+		  std::size_t __max_iter,
+		  qk_intrule __qkintrule)
     {
       const auto _S_eps = std::numeric_limits<_Tp>::epsilon();
 
-      if (__epsabs <= 0 && (__epsrel < _Tp{50} * _S_eps))
+      if (__max_abs_error <= 0 && (__max_rel_error < _Tp{50} * _S_eps))
 	std::__throw_logic_error("qag_integrate: "
 				 "Tolerance cannot be achieved "
 				 "with given absolute "
@@ -72,16 +74,16 @@ namespace __gnu_cxx
 
       _Tp __result0, __abserr0, __resabs0, __resasc0;
       std::tie(__result0, __abserr0,__resabs0,__resasc0)
-	  = qk_integrate(__func, __a, __b, __qkintrule);
+	  = qk_integrate(__func, __lower, __upper, __qkintrule);
 
       // Test on accuracy
-      auto __tolerance = std::max(__epsabs, __epsrel * std::abs(__result0));
+      auto __tolerance = std::max(__max_abs_error, __max_rel_error * std::abs(__result0));
 
       // Compute roundoff
       const auto __round_off = _Tp{50} * _S_eps * __resabs0;
 
       if (__abserr0 <= __round_off && __abserr0 > __tolerance)
-	__throw__IntegrationError("qag_integrate: "
+	__throw_integration_error("qag_integrate: "
 				  "cannot reach tolerance because "
 				  "of roundoff error on first attempt",
 				  ROUNDOFF_ERROR, __result0, __abserr0);
@@ -89,12 +91,12 @@ namespace __gnu_cxx
 		|| __abserr0 == 0.0)
 	return std::make_tuple(__result0, __abserr0);
       else if (__max_iter == 1)
-	__throw__IntegrationError("qag_integrate: "
+	__throw_integration_error("qag_integrate: "
 				  "a maximum of one iteration was insufficient",
 				  MAX_ITER_ERROR, __result0, __abserr0);
 
       __workspace.clear();
-      __workspace.append(__a, __b, __result0, __abserr0);
+      __workspace.append(__lower, __upper, __result0, __abserr0);
 
       auto __area = __result0;
       auto __errsum = __abserr0;
@@ -137,7 +139,8 @@ namespace __gnu_cxx
 		++__roundoff_type2;
 	    }
 
-	  __tolerance = std::max(__epsabs, __epsrel * std::abs(__area));
+	  __tolerance = std::max(__max_abs_error,
+				 __max_rel_error * std::abs(__area));
 
 	  if (__errsum > __tolerance)
 	    {
@@ -169,20 +172,8 @@ namespace __gnu_cxx
 	__error_type = MAX_ITER_ERROR;
 
       __check_error<_Tp>(__func__, __error_type);
-      __throw__IntegrationError("qag_integrate: Unknown error.",
+      __throw_integration_error("qag_integrate: Unknown error.",
 				UNKNOWN_ERROR, __result, __abserr);
-    }
-
-  template<typename _Tp, typename _FuncTp>
-    std::tuple<_Tp, _Tp>
-    qag_integrate(const _FuncTp& __func, _Tp __a, _Tp __b,
-		  _Tp __epsabs, _Tp __epsrel, const std::size_t __max_iter,
-		  const qk_intrule __qkintrule)
-    {
-      integration_workspace<_Tp> __workspace(__max_iter);
-      return qag_integrate(__workspace, __func, __a, __b,
-			   __epsabs, __epsrel, __max_iter,
-			   __qkintrule);
     }
 
 } // namespace __gnu_cxx

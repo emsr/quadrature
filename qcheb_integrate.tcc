@@ -28,7 +28,7 @@ namespace __gnu_cxx
 
   template<typename _FuncTp, typename _Tp>
     void
-    qcheb_integrate(const _FuncTp& __func, _Tp __a, _Tp __b,
+    qcheb_integrate(const _FuncTp& __func, _Tp __lower, _Tp __upper,
 		    std::array<_Tp, 13>& __cheb12,
 		    std::array<_Tp, 25>& __cheb24)
     {
@@ -54,12 +54,12 @@ namespace __gnu_cxx
 	1.305261922200515915256103766723547e-01L,
       };
 
-      const auto __center = (__b + __a) / _Tp{2};
-      const auto __half_length = (__b - __a) / _Tp{2};
+      const auto __center = (__upper + __lower) / _Tp{2};
+      const auto __half_length = (__upper - __lower) / _Tp{2};
 
-      __fval[0] = __func(__b) / _Tp{2};
+      __fval[0] = __func(__upper) / _Tp{2};
       __fval[12] = __func(__center);
-      __fval[24] = __func(__a) / _Tp{2};
+      __fval[24] = __func(__lower) / _Tp{2};
 
       for (int __i = 1; __i < 12; ++__i)
 	{

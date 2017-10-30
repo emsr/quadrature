@@ -48,123 +48,14 @@ namespace __gnu_cxx
   template<typename _FuncTp, typename _Tp>
     std::tuple<_Tp, _Tp>
     qags_integrate(integration_workspace<_Tp>& __workspace,
-		   const _FuncTp& func,
-		   const _Tp a, const _Tp b,
-		   const _Tp epsabs,
-		   const _Tp epsrel);
-
-  /**
-   * Integrate potentially singular function from a to b using recursive
-   * Gauss-Kronrod algorithm.
-   */
-  template<typename _FuncTp, typename _Tp>
-    std::tuple<_Tp, _Tp>
-    qags_integrate(const _FuncTp& __func,
-		   const _Tp __a, const _Tp __b,
-		   const _Tp __epsabs,
-		   const _Tp __epsrel,
-		   const std::size_t __limit)
-    {
-      integration_workspace<_Tp> __workspace(__limit);
-      return qags_integrate(__workspace, __func, __a, __b, __epsabs, __epsrel);
-    }
-
-  /**
-   * Integrate a function defined over (-\infty, +\infty).
-   */
-  template<typename _FuncTp, typename _Tp>
-    std::tuple<_Tp, _Tp>
-    qagi_integrate(integration_workspace<_Tp>& __workspace,
 		   const _FuncTp& __func,
-		   _Tp __epsabs, _Tp __epsrel)
-    {
-      return qags_integrate(__workspace, i_transform<_FuncTp, _Tp>(__func),
-			    _Tp{0}, _Tp{1}, __epsabs, __epsrel);
-    }
-
-  /**
-   * Integrate a function defined over (-\infty, +\infty).
-   */
-  template<typename _FuncTp, typename _Tp>
-    std::tuple<_Tp, _Tp>
-    qagi_integrate(const _FuncTp& __func,
-		   const _Tp __epsabs,
-		   const _Tp __epsrel,
-		   const std::size_t __limit)
-    {
-      integration_workspace<_Tp> __workspace(__limit);
-      return qagi_integrate(__workspace, __func, __epsabs, __epsrel);
-    }
-
-  /**
-   * Integrate a function defined over (-\infty, b].
-   */
-  template<typename _FuncTp, typename _Tp>
-    std::tuple<_Tp, _Tp>
-    qagil_integrate(integration_workspace<_Tp>& __workspace,
-		    const _FuncTp& __func, _Tp __b,
-		    _Tp __epsabs, _Tp __epsrel)
-    {
-      return qags_integrate(__workspace, il_transform(__func, __b),
-			    _Tp{0}, _Tp{1}, __epsabs, __epsrel);
-    }
-
-  /**
-   * Integrate a function defined over (-\infty, b].
-   */
-  template<typename _FuncTp, typename _Tp>
-    std::tuple<_Tp, _Tp>
-    qagil_integrate(const _FuncTp& __func, const _Tp __b,
-		    const _Tp __epsabs,
-		    const _Tp __epsrel,
-		    const std::size_t __limit)
-    {
-      integration_workspace<_Tp> __workspace(__limit);
-      return qagil_integrate(__workspace, __func, __b, __epsabs, __epsrel);
-    }
-
-  /**
-   * Integrate a function defined over [a, +\infty).
-   */
-  template<typename _FuncTp, typename _Tp>
-    std::tuple<_Tp, _Tp>
-    qagiu_integrate(integration_workspace<_Tp>& __workspace,
-		    const _FuncTp& __func, _Tp __a,
-		    _Tp __epsabs, _Tp __epsrel)
-    {
-      return qags_integrate(__workspace, iu_transform(__func, __a),
-			    _Tp{0}, _Tp{1}, __epsabs, __epsrel);
-    }
-
-  /**
-   * Integrate a function defined over [a, +\infty).
-   */
-  template<typename _FuncTp, typename _Tp>
-    std::tuple<_Tp, _Tp>
-    qagiu_integrate(const _FuncTp& func, const _Tp a,
-		    const _Tp epsabs,
-		    const _Tp epsrel,
-		    const std::size_t limit)
-    {
-      integration_workspace<_Tp> __workspace(limit);
-      return qagiu_integrate(__workspace, func, a, epsabs, epsrel);
-    }
-
-  /**
-   * Integrate potentially singular function from a to b using recursive
-   * Gauss-Kronrod algorithm.
-   */
-  template<typename _FuncTp, typename _Tp>
-    std::tuple<_Tp, _Tp>
-    qags_integrate(integration_workspace<_Tp>& __workspace,
-		   const _FuncTp& __func,
-		   const _Tp __a, const _Tp __b,
-		   _Tp __epsabs, _Tp __epsrel)
+		   _Tp __lower, _Tp __upper,
+		   _Tp __max_abs_error, _Tp __max_rel_error)
     {
       const qk_intrule __qk_rule = QK_21;
       const auto _S_max = std::numeric_limits<_Tp>::max();
       const auto _S_eps = std::numeric_limits<_Tp>::epsilon();
-      const auto __limit = __workspace.capacity();
+      const auto __max_iter = __workspace.capacity();
 #ifdef VERBOSE_DEBUG
       std::cerr.precision(8);
       std::cerr << "\nC++\n";
@@ -172,8 +63,8 @@ namespace __gnu_cxx
       bool __extrapolate = false;
       bool __disallow_extrapolation = false;
 
-      if (__epsabs <= 0
-	  && (__epsrel < 50 * _S_eps || __epsrel < 0.5e-28))
+      if (__max_abs_error <= 0
+	  && (__max_rel_error < 50 * _S_eps || __max_rel_error < 0.5e-28))
 	std::__throw_runtime_error("qags_integrate: "
 				   "Tolerance cannot be achieved "
 				   "with given absolute "
@@ -185,33 +76,35 @@ namespace __gnu_cxx
 
       _Tp __result0, __abserr0, __resabs0, __resasc0;
       std::tie(__result0, __abserr0, __resabs0, __resasc0)
-	  = qk_integrate(__func, __a, __b, __qk_rule);
+	  = qk_integrate(__func, __lower, __upper, __qk_rule);
 #ifdef VERBOSE_DEBUG
       std::cerr << "  result0 = " << __result0
 		<< "  abserr0 = " << __abserr0
 		<< "  resabs0 = " << __resabs0
 		<< "  resasc0 = " << __resasc0
-		<< "  abserr0 == resasc0 : " << (__abserr0 == __resasc0) << '\n';
+		<< "  abserr0 == resasc0 : "
+		<< (__abserr0 == __resasc0) << '\n';
 #endif
 
-      __workspace.append(__a, __b, __result0, __abserr0);
+      __workspace.append(__lower, __upper, __result0, __abserr0);
 #ifdef VERBOSE_DEBUG
       dump_ws(__workspace, "qags", "first quad");
 #endif
 
-      auto __tolerance = std::max(__epsabs, __epsrel * std::abs(__result0));
+      auto __tolerance = std::max(__max_abs_error,
+				  __max_rel_error * std::abs(__result0));
 
       if (__abserr0 <= 100 * _S_eps * __resabs0
 	  && __abserr0 > __tolerance)
-	__throw__IntegrationError("qags_integrate: "
+	__throw_integration_error("qags_integrate: "
 				  "cannot reach tolerance because "
 				  "of roundoff error on first attempt",
 				  ROUNDOFF_ERROR, __result0, __abserr0);
       else if ((__abserr0 <= __tolerance && __abserr0 != __resasc0)
 		|| __abserr0 == _Tp{0})
 	return std::make_tuple(__result0, __abserr0);
-      else if (__limit == 1)
-	__throw__IntegrationError("qags_integrate: "
+      else if (__max_iter == 1)
+	__throw_integration_error("qags_integrate: "
 				  "a maximum of one iteration was insufficient",
 				  MAX_ITER_ERROR, __result0, __abserr0);
 
@@ -267,7 +160,8 @@ namespace __gnu_cxx
 	  __errsum += __error12 - __e_i;
 	  __area += __area12 - __r_i;
 
-	  __tolerance = std::max(__epsabs, __epsrel * std::abs(__area));
+	  __tolerance = std::max(__max_abs_error,
+				 __max_rel_error * std::abs(__area));
 
 	  if (__resasc1 != __error1 && __resasc2 != __error2)
 	    {
@@ -317,7 +211,7 @@ namespace __gnu_cxx
 	  if (__error_type != NO_ERROR)
 	    break;
 
-	  if (__iteration >= __limit - 1)
+	  if (__iteration >= __max_iter - 1)
 	    {
 	      __error_type = MAX_ITER_ERROR;
 	      break;
@@ -384,7 +278,8 @@ namespace __gnu_cxx
 
 	  std::tie(__reseps, __abseps) = __table.qelg();
 #ifdef VERBOSE_DEBUG
-	  std::cerr << "reseps      = " << __reseps << "  abseps      = " << __abseps << "\n";
+	  std::cerr << "reseps      = " << __reseps
+		    << "  abseps      = " << __abseps << "\n";
 #endif
 
 	  ++__ktmin;
@@ -398,7 +293,8 @@ namespace __gnu_cxx
 	      __err_ext = __abseps;
 	      __res_ext = __reseps;
 	      __correc = __error_over_large_intervals;
-	      __ertest = std::max(__epsabs, __epsrel * std::abs(__reseps));
+	      __ertest = std::max(__max_abs_error,
+				  __max_rel_error * std::abs(__reseps));
 	      if (__err_ext <= __ertest)
 		break;
 	    }
@@ -418,7 +314,7 @@ namespace __gnu_cxx
 	  dump_ws(__workspace, "qagp", "stop extrap");
 #endif
 	}
-      while (__iteration < __limit);
+      while (__iteration < __max_iter);
 
       auto __result = __res_ext;
       auto __abserr = __err_ext;
@@ -477,8 +373,47 @@ namespace __gnu_cxx
 	return std::make_tuple(__result, __abserr);
 
       __check_error<_Tp>(__func__, __error_type);
-      __throw__IntegrationError("qags_integrate: Unknown error.",
+      __throw_integration_error("qags_integrate: Unknown error.",
 				UNKNOWN_ERROR, __result, __abserr);
+    }
+
+  /**
+   * Integrate a potentially singular function defined over (-\infty, +\infty).
+   */
+  template<typename _FuncTp, typename _Tp>
+    std::tuple<_Tp, _Tp>
+    qagi_integrate(integration_workspace<_Tp>& __workspace,
+		   const _FuncTp& __func,
+		   _Tp __max_abs_error, _Tp __max_rel_error)
+    {
+      return qags_integrate(__workspace, i_transform<_FuncTp, _Tp>(__func),
+			    _Tp{0}, _Tp{1}, __max_abs_error, __max_rel_error);
+    }
+
+  /**
+   * Integrate a potentially singular function defined over (-\infty, b].
+   */
+  template<typename _FuncTp, typename _Tp>
+    std::tuple<_Tp, _Tp>
+    qagil_integrate(integration_workspace<_Tp>& __workspace,
+		    const _FuncTp& __func, _Tp __upper,
+		    _Tp __max_abs_error, _Tp __max_rel_error)
+    {
+      return qags_integrate(__workspace, il_transform(__func, __upper),
+			    _Tp{0}, _Tp{1}, __max_abs_error, __max_rel_error);
+    }
+
+  /**
+   * Integrate a potentially singular function defined over [a, +\infty).
+   */
+  template<typename _FuncTp, typename _Tp>
+    std::tuple<_Tp, _Tp>
+    qagiu_integrate(integration_workspace<_Tp>& __workspace,
+		    const _FuncTp& __func, _Tp __lower,
+		    _Tp __max_abs_error, _Tp __max_rel_error)
+    {
+      return qags_integrate(__workspace, iu_transform(__func, __lower),
+			    _Tp{0}, _Tp{1}, __max_abs_error, __max_rel_error);
     }
 
 } // namespace __gnu_cxx
