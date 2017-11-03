@@ -35,7 +35,7 @@ namespace __gnu_cxx
 */
 
   /**
-   * Integrates a smooth function from a to b.
+   * Integrate a smooth function from a to b.
    *
    * Higher-order rules converge more rapidly for most functions,
    * but may slow convergence for less well-behaved ones.
@@ -94,7 +94,7 @@ namespace __gnu_cxx
     }
 
   /**
-   * Integrates a smooth function from -infinity to finite b.
+   * Integrate a smooth function from -infinity to finite b.
    *
    * @param __func The function to be integrated.
    * @param __upper The upper limit of integration.
@@ -123,7 +123,7 @@ namespace __gnu_cxx
     }
 
   /**
-   * Integrates a smooth function from finite a to +infinity.
+   * Integrate a smooth function from finite a to +infinity.
    *
    * @param __func The function to be integrated.
    * @param __upper The upper limit of integration.
@@ -177,7 +177,7 @@ namespace __gnu_cxx
     }
 
   /**
-   * Integrates a potentially singular function from -infinity to +infinity
+   * Integrate a potentially singular function from -infinity to +infinity
    *
    * @param __func The function to be integrated.
    * @param __max_abs_error The absolute error limit.
@@ -201,7 +201,7 @@ namespace __gnu_cxx
     }
 
   /**
-   * Integrates a potentially singular function from -infinity to b
+   * Integrate a potentially singular function from -infinity to b
    */
   template<typename _FuncTp, typename _Tp>
     inline std::tuple<_Tp, _Tp>
@@ -243,7 +243,7 @@ namespace __gnu_cxx
     }
 
   /**
-   * Integrates a potentially singular function.
+   * Integrate a potentially singular function.
    *
    * @param __func The function to be integrated.
    * @param __lower The lower limit of integration.
@@ -329,7 +329,7 @@ namespace __gnu_cxx
     }
 
   /**
-   * Integrates an oscillatory function.
+   * Integrate an oscillatory function.
    */
   template<typename _FuncTp, typename _Tp>
     inline std::tuple<_Tp, _Tp>
@@ -344,12 +344,12 @@ namespace __gnu_cxx
 
       __iwksp_t __w(__max_iter);
       __oitab_t __wo(__upper, _Tp{1}, __oitab_t::INTEG_SINE, __max_iter);
-      return qawo_integrate(__w, __wo, __func, _Tp{0},
+      return qawo_integrate(__w, __wo, __func, __lower,
 			    __max_abs_error, __max_rel_error);
     }
 
   /**
-   * Adaptively integrates a function with known singular/discontinuous points.
+   * Adaptively integrate a function with known singular/discontinuous points.
    *
    * @tparam _FuncTp     A function type that takes a single real scalar
    *                     argument and returns a real scalar.
@@ -373,6 +373,33 @@ namespace __gnu_cxx
       integration_workspace<_Tp> __wk(__max_iter);
       return qagp_integrate(__wk, __func, std::vector(__ptbeg, __ptend),
 			    __max_abs_error, __max_rel_error);
+    }
+
+  /**
+   * Integrate a function using an adaptive Clenshaw-Curtis algorithm.
+   *
+   * @tparam _FuncTp     A function type that takes a single real scalar
+   *                     argument and returns a real scalar.
+   * @tparam _Tp         A real type for the limits of integration and the step.
+   * @tparam _Integrator A non-adaptive integrator that is able to return
+   *                     an error estimate in addition to the result.
+   */
+  template<typename _FuncTp, typename _Tp>
+    inline std::tuple<_Tp, _Tp>
+    integrate_clenshaw_curtis(const _FuncTp& __func,
+			      _Tp __lower, _Tp __upper,
+			      _Tp __max_abs_error,
+			      _Tp __max_rel_error,
+			      std::size_t __max_iter = 1024)
+    {
+      //using __pt_t = decltype(*__ptbeg);
+      //using __ret_t = decltype(__func(__pt_t()));
+      //using __area_t = decltype(__pt_t() * __func(__pt_t()));
+      //using __err_t = decltype(std::abs(__area_t()));
+
+      cquad_workspace<_Tp> __ws(__max_iter);
+      return cquad_integrate(__ws, __func, __lower, __upper,
+			     __max_abs_error, __max_rel_error);
     }
 
 } // namespace __gnu_cxx
