@@ -1,22 +1,23 @@
-/* integration/qawo_integrate.tcc
- *
- * Copyright (C) 1996, 1997, 1998, 1999, 2000, 2007 Brian Gough
- * Copyright (C) 2016-2017 Free Software Foundation, Inc.
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 3 of the License, or (at
- * your option) any later version.
- *
- * This program is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- */
+// integration/qawo_integrate.tcc
+//
+// Copyright (C) 1996, 1997, 1998, 1999, 2000, 2007 Brian Gough
+// Copyright (C) 2016-2017 Free Software Foundation, Inc.
+//
+// This file is part of the GNU ISO C++ Library.  This library is free
+// software; you can redistribute it and/or modify it under the
+// terms of the GNU General Public License as published by the
+// Free Software Foundation; either version 3, or (at your option)
+// any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License along
+// with this library; see the file COPYING3.  If not see
+// <http://www.gnu.org/licenses/>.
+//
 // Ported from GSL by Ed Smith-Rowland
 // Originally written by Brian Gaugh
 //
@@ -45,7 +46,7 @@ namespace __gnu_cxx
 		   oscillatory_integration_table<_Tp>& __wf,
 		   const _FuncTp& __func,
 		   const _Tp __lower,
-		   const _Tp __epsabs, const _Tp __epsrel)
+		   const _Tp __max_abs_err, const _Tp __max_rel_err)
     {
       const auto _S_max = std::numeric_limits<_Tp>::max();
       const auto _S_eps = std::numeric_limits<_Tp>::epsilon();
@@ -65,7 +66,7 @@ namespace __gnu_cxx
       auto __result = _Tp{0};
       auto __abserr = _Tp{0};
 
-      if (__epsabs <= 0 && (__epsrel < 50 * _S_eps || __epsrel < 0.5e-28))
+      if (__max_abs_err <= 0 && (__max_rel_err < 50 * _S_eps || __max_rel_err < 0.5e-28))
 	std::__throw_runtime_error("qawo_integrate: "
 				   "Tolerance cannot be achieved "
 				   "with given absolute "
@@ -78,7 +79,7 @@ namespace __gnu_cxx
 
       __workspace.append(__lower, __upper, __result0, __abserr0);
 
-      auto __tolerance = std::max(__epsabs, __epsrel * std::abs(__result0));
+      auto __tolerance = std::max(__max_abs_err, __max_rel_err * std::abs(__result0));
 
       if (__abserr0 <= 100 * _S_eps * __resabs0 && __abserr0 > __tolerance)
 	__throw_integration_error("qawo_integrate: "
@@ -151,7 +152,7 @@ namespace __gnu_cxx
 	  __area += __area12 - __r_i;
 	  __errsum += __error12 - __e_i;
 
-	  __tolerance = std::max(__epsabs, __epsrel * std::abs(__area));
+	  __tolerance = std::max(__max_abs_err, __max_rel_err * std::abs(__area));
 
 	  if (__resasc1 != __error1 && __resasc2 != __error2)
 	    {
@@ -282,7 +283,7 @@ namespace __gnu_cxx
 	      __err_ext = __abseps;
 	      __res_ext = __reseps;
 	      __correc = __error_over_large_intervals;
-	      __ertest = std::max(__epsabs, __epsrel * std::abs(__reseps));
+	      __ertest = std::max(__max_abs_err, __max_rel_err * std::abs(__reseps));
 	      if (__err_ext <= __ertest)
 		break;
 	    }

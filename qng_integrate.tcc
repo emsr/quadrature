@@ -1,22 +1,22 @@
-/* integration/qng_integrate.tcc
- *
- * Copyright (C) 1996, 1997, 1998, 1999, 2000, 2007 Brian Gough
- * Copyright (C) 2016-2017 Free Software Foundation, Inc.
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 3 of the License, or (at
- * your option) any later version.
- *
- * This program is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- */
+// integration/qng_integrate.tcc
+//
+// Copyright (C) 1996, 1997, 1998, 1999, 2000, 2007 Brian Gough
+// Copyright (C) 2016-2017 Free Software Foundation, Inc.
+//
+// This file is part of the GNU ISO C++ Library.  This library is free
+// software; you can redistribute it and/or modify it under the
+// terms of the GNU General Public License as published by the
+// Free Software Foundation; either version 3, or (at your option)
+// any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License along
+// with this library; see the file COPYING3.  If not see
+// <http://www.gnu.org/licenses/>.
 
 #ifndef QNG_INTEGRATE_TCC
 #define QNG_INTEGRATE_TCC 1
@@ -25,9 +25,8 @@
 
 /**
  * Gauss-Kronrod-Patterson quadrature coefficients for use in
- * quadpack routine qng. These coefficients were calculated with
- * 101 decimal digit arithmetic by L. W. Fullerton, Bell Labs, Nov
- * 1981.
+ * QUADPACK routine QNG. These coefficients were calculated with
+ * 101 decimal digit arithmetic by L. W. Fullerton, Bell Labs, Nov 1981.
  */
 
 namespace __gnu_cxx
@@ -228,7 +227,7 @@ namespace __gnu_cxx
     std::tuple<_Tp, _Tp>
     qng_integrate(const _FuncTp& __func,
 		  _Tp __lower, _Tp __upper,
-		  _Tp __epsabs, _Tp __epsrel)
+		  _Tp __max_abs_err, _Tp __max_rel_err)
     {
       _Tp __fv1[5], __fv2[5], __fv3[5], __fv4[5];
       _Tp __savfun[21];
@@ -239,7 +238,8 @@ namespace __gnu_cxx
       const auto __center = (__upper + __lower) / _Tp{2};
       const auto __f_center = __func(__center);
 
-      if (__epsabs <= 0 && (__epsrel < 50 * _S_eps || __epsrel < 0.5e-28))
+      if (__max_abs_err <= 0 && (__max_rel_err < 50 * _S_eps
+			      || __max_rel_err < 0.5e-28))
 	std::__throw_runtime_error("qng_integrate: "
 				   "Tolerance cannot be achieved "
 				   "with given epsabs and epsrel");
@@ -299,7 +299,8 @@ namespace __gnu_cxx
       auto __result_kronrod = __res21 * __half_length;
       auto __err = __rescale_error((__res21 - __res10) * __half_length,
 				   __resabs, __resasc);
-      if (__err < __epsabs || __err < __epsrel * std::abs(__result_kronrod))
+      if (__err < __max_abs_err
+       || __err < __max_rel_err * std::abs(__result_kronrod))
 	return std::make_tuple(__result_kronrod, __err);
 
       // Compute the integral using the 43-point formula.
@@ -319,7 +320,8 @@ namespace __gnu_cxx
       __result_kronrod = __res43 * __half_length;
       __err = __rescale_error((__res43 - __res21) * __half_length,
 				 __resabs, __resasc);
-      if (__err < __epsabs || __err < __epsrel * std::abs(__result_kronrod))
+      if (__err < __max_abs_err
+       || __err < __max_rel_err * std::abs(__result_kronrod))
 	return std::make_tuple(__result_kronrod, __err);
 
       // Compute the integral using the 87-point formula.
@@ -337,7 +339,8 @@ namespace __gnu_cxx
       __result_kronrod = __res87 * __half_length;
       __err = __rescale_error((__res87 - __res43) * __half_length,
 				__resabs, __resasc);
-      if (__err < __epsabs || __err < __epsrel * std::abs(__result_kronrod))
+      if (__err < __max_abs_err
+       || __err < __max_rel_err * std::abs(__result_kronrod))
 	return std::make_tuple(__result_kronrod, __err);
 
       // Failed to converge.

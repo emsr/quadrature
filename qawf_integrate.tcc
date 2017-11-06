@@ -1,22 +1,23 @@
-/* integration/qawf.c
- *
- * Copyright (C) 1996, 1997, 1998, 1999, 2000, 2007 Brian Gough
- * Copyright (C) 2016-2017 Free Software Foundation, Inc.
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 3 of the License, or (at
- * your option) any later version.
- *
- * This program is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- */
+// integration/qawf.c
+//
+// Copyright (C) 1996, 1997, 1998, 1999, 2000, 2007 Brian Gough
+// Copyright (C) 2016-2017 Free Software Foundation, Inc.
+//
+// This file is part of the GNU ISO C++ Library.  This library is free
+// software; you can redistribute it and/or modify it under the
+// terms of the GNU General Public License as published by the
+// Free Software Foundation; either version 3, or (at your option)
+// any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License along
+// with this library; see the file COPYING3.  If not see
+// <http://www.gnu.org/licenses/>.
+//
 // Ported from GSL by Ed Smith-Rowland
 // Originally written by Brian Gaugh
 //
@@ -44,10 +45,8 @@ namespace __gnu_cxx
 		   integration_workspace<_Tp>& __cycle_workspace,
 		   oscillatory_integration_table<_Tp>& __wf,
 		   const _FuncTp& __func,
-		   const _Tp __lower,
-		   const _Tp __epsabs)
+		   _Tp __lower, _Tp __max_abs_err)
     {
-
       std::size_t __ktmin = 0;
       std::size_t __iteration = 0;
 
@@ -73,7 +72,7 @@ namespace __gnu_cxx
       //__wf.clear();
 
       // Test on accuracy.
-      if (__epsabs <= _Tp{0})
+      if (__max_abs_err <= _Tp{0})
 	std::__throw_domain_error("absolute tolerance epsabs must be positive") ;
 
       if (__omega == _Tp{0})
@@ -83,14 +82,14 @@ namespace __gnu_cxx
 	    return std::make_tuple(_Tp{0}, _Tp{0});
 	  else
 	    // The function cos(w x) f(x) is always f(x) for w = 0.
-	    return qagiu_integrate(__cycle_workspace, __func, __lower, __epsabs,
+	    return qagiu_integrate(__cycle_workspace, __func, __lower, __max_abs_err,
 				   _Tp{0});
 	}
 
-      if (__epsabs * (_Tp{1} - __p) > std::numeric_limits<_Tp>::min())
-	__eps = __epsabs * (_Tp{1} - __p);
+      if (__max_abs_err * (_Tp{1} - __p) > std::numeric_limits<_Tp>::min())
+	__eps = __max_abs_err * (_Tp{1} - __p);
       else
-	__eps = __epsabs;
+	__eps = __max_abs_err;
 
       __initial_eps = __eps;
 
@@ -112,11 +111,11 @@ namespace __gnu_cxx
 	  const auto __a1 = __lower + __iteration * __cycle;
 	  const auto __b1 = __a1 + __cycle;
 
-	  const auto __epsabs1 = __eps * __factor;
+	  const auto __max_abs_err1 = __eps * __factor;
 
 	  _Tp __area1, __error1;
 	  std::tie(__area1, __error1)
-	    = qawo_integrate(__cycle_workspace, __wf, __func, __a1, __epsabs1,
+	    = qawo_integrate(__cycle_workspace, __wf, __func, __a1, __max_abs_err1,
 			     _Tp{0});
 
 	  __workspace.append(__a1, __b1, __area1, __error1);
@@ -129,7 +128,7 @@ namespace __gnu_cxx
 	  // Estimate the truncation error as 50 times the final term.
 	  __truncation_error = 50 * std::abs(__area1);
 	  __total_error = __errsum + __truncation_error;
-	  if (__total_error < __epsabs && __iteration > 4)
+	  if (__total_error < __max_abs_err && __iteration > 4)
 	    goto compute_result;
 
 	  if (__error1 > __correc)
@@ -159,9 +158,9 @@ namespace __gnu_cxx
 	      __err_ext = __erreps;
 	      __res_ext = __reseps;
 
-	      if (__err_ext + 10 * __correc <= __epsabs)
+	      if (__err_ext + 10 * __correc <= __max_abs_err)
 		break;
-	      if (__err_ext <= __epsabs && 10 * __correc >= __epsabs)
+	      if (__err_ext <= __max_abs_err && 10 * __correc >= __max_abs_err)
 		break;
 	    }
 	}

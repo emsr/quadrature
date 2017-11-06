@@ -1,22 +1,23 @@
-/* quadrature/qaws_integrate.tcc
- *
- * Copyright (C) 1996, 1997, 1998, 1999, 2000, 2007 Brian Gough
- * Copyright (C) 2016-2017 Free Software Foundation, Inc.
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 3 of the License, or (at
- * your option) any later version.
- *
- * This program is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- */
+// quadrature/qaws_integrate.tcc
+//
+// Copyright (C) 1996, 1997, 1998, 1999, 2000, 2007 Brian Gough
+// Copyright (C) 2016-2017 Free Software Foundation, Inc.
+//
+// This file is part of the GNU ISO C++ Library.  This library is free
+// software; you can redistribute it and/or modify it under the
+// terms of the GNU General Public License as published by the
+// Free Software Foundation; either version 3, or (at your option)
+// any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License along
+// with this library; see the file COPYING3.  If not see
+// <http://www.gnu.org/licenses/>.
+//
 // Ported from GSL by Ed Smith-Rowland
 // Originally written by Brian Gaugh
 //
@@ -45,20 +46,42 @@ namespace __gnu_cxx
 		   const std::array<_Tp, 13>& cheb12,
 		   const std::array<_Tp, 25>& cheb24);
 
+  /**
+   * The singular weight function is defined by:
+   * @f[
+   *    W(x) = (x-a)^\alpha (b-x)^\beta log^\mu (x-a) log^\nu (b-x)
+   * @f]
+   * where @f$ \alpha > -1 @f$, @f$ \beta > -1 @f$,
+   * and @f$ \mu = 0 @f$, 1, @f$ \nu = 0, 1 @f$.
+   *
+   * The weight function can take four different forms depending
+   * on the values of \mu and \nu,
+   * @f[
+   *    W(x) = (x-a)^\alpha (b-x)^\beta                   (\mu = 0, \nu = 0)
+   *    W(x) = (x-a)^\alpha (b-x)^\beta log(x-a)          (\mu = 1, \nu = 0)
+   *    W(x) = (x-a)^\alpha (b-x)^\beta log(b-x)          (\mu = 0, \nu = 1)
+   *    W(x) = (x-a)^\alpha (b-x)^\beta log(x-a) log(b-x) (\mu = 1, \nu = 1)
+   * @f]
+   *
+   * The QAWS algorithm is designed for integrands with algebraic-logarithmic
+   * singularities at the end-points of an integration region.
+   * In order to work efficiently the algorithm requires a precomputed table
+   * of Chebyshev moments.
+   */
   template<typename _FuncTp, typename _Tp>
     std::tuple<_Tp, _Tp>
     qaws_integrate(integration_workspace<_Tp>& __workspace,
 		   qaws_integration_table<_Tp>& __table,
 		   const _FuncTp& __func,
 		   const _Tp __lower, const _Tp __upper,
-		   const _Tp __epsabs, const _Tp __epsrel)
+		   const _Tp __max_abs_err, const _Tp __max_rel_err)
     {
       const auto _S_eps = std::numeric_limits<_Tp>::epsilon();
 
       if (__upper <= __lower)
 	std::__throw_runtime_error("qaws_integrate: "
 				   "Limits must form an ascending sequence");
-      if (__epsabs <= 0 && (__epsrel < 50 * _S_eps || __epsrel < 0.5e-28))
+      if (__max_abs_err <= 0 && (__max_rel_err < 50 * _S_eps || __max_rel_err < 0.5e-28))
 	std::__throw_runtime_error("qaws_integrate: "
 				   "Tolerance cannot be achieved "
 				   "with given absolute "
@@ -93,7 +116,7 @@ namespace __gnu_cxx
 
       // Test on accuracy; Use 0.01 relative error as an extra safety
       // margin on the first iteration (ignored for subsequent iterations).
-      auto __tolerance = std::max(__epsabs, __epsrel * std::abs(__result0));
+      auto __tolerance = std::max(__max_abs_err, __max_rel_err * std::abs(__result0));
       if (__abserr0 < __tolerance && __abserr0 < 0.01 * std::abs(__result0))
 	return std::make_tuple(__result0, __abserr0);
       else if (__limit == 1)
@@ -144,7 +167,7 @@ namespace __gnu_cxx
 		++__roundoff_type2;
 	    }
 
-	  __tolerance = std::max(__epsabs, __epsrel * std::abs(__area));
+	  __tolerance = std::max(__max_abs_err, __max_rel_err * std::abs(__area));
 	  if (__errsum > __tolerance)
 	    {
 	      if (__roundoff_type1 >= 6 || __roundoff_type2 >= 20)

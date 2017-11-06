@@ -18,7 +18,7 @@
 // with this library; see the file COPYING3.  If not see
 // <http://www.gnu.org/licenses/>.
 //
-// Used to interpret the error estimate of the itnegration routines
+// Used to interpret the error estimate of the integration routines
 // Based on gsl/integration/err.c
 
 #ifndef INTEGRATION_ERROR_H

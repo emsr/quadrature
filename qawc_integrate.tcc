@@ -1,22 +1,23 @@
-/* integration/qagp.c
- *
- * Copyright (C) 1996, 1997, 1998, 1999, 2000, 2007 Brian Gough
- * Copyright (C) 2016-2017 Free Software Foundation, Inc.
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 3 of the License, or (at
- * your option) any later version.
- *
- * This program is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- */
+// integration/qagp.c
+//
+// Copyright (C) 1996, 1997, 1998, 1999, 2000, 2007 Brian Gough
+// Copyright (C) 2016-2017 Free Software Foundation, Inc.
+//
+// This file is part of the GNU ISO C++ Library.  This library is free
+// software; you can redistribute it and/or modify it under the
+// terms of the GNU General Public License as published by the
+// Free Software Foundation; either version 3, or (at your option)
+// any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License along
+// with this library; see the file COPYING3.  If not see
+// <http://www.gnu.org/licenses/>.
+//
 // Ported from GSL by Ed Smith-Rowland
 // Originally written by Brian Gaugh
 //
@@ -43,12 +44,24 @@ namespace __gnu_cxx
     std::vector<_Tp>
     compute_moments(std::size_t __N, _Tp __cc);
 
+  /**
+   * Adaptive integration for Cauchy principal values:
+   * @f[
+   *   I = \int_a^b dx f(x) / (x - c) 
+   * @f]
+   * The adaptive bisection algorithm of QAG is used, with modifications
+   * to ensure that subdivisions do not occur at the singular point x = c.
+   * When a subinterval contains the point x = c or is close to it then
+   * a special 25-point modified Clenshaw-Curtis rule is used to control
+   * the singularity. Further away from the singularity the algorithm uses
+   * an ordinary 15-point Gauss-Kronrod integration rule. 
+   */
   template<typename _FuncTp, typename _Tp>
     std::tuple<_Tp, _Tp>
     qawc_integrate(integration_workspace<_Tp>& __workspace,
 		   const _FuncTp& __func,
 		   _Tp __lower, _Tp __upper, _Tp __c,
-		   _Tp __epsabs, _Tp __epsrel)
+		   _Tp __max_abs_err, _Tp __max_rel_err)
     {
       auto __result = _Tp{};
       auto __abserr = _Tp{};
@@ -63,8 +76,8 @@ namespace __gnu_cxx
 	  __sign = -1;
 	}
 
-      if (__epsabs <= 0 && (__epsrel < 50 * _S_eps
-			   || __epsrel < 0.5e-28))
+      if (__max_abs_err <= 0 && (__max_rel_err < 50 * _S_eps
+			   || __max_rel_err < 0.5e-28))
 	std::__throw_runtime_error ("qawc_integrate: "
 				    "Tolerance cannot be achieved "
 				    "with given absolute "
@@ -87,13 +100,13 @@ namespace __gnu_cxx
 
       // Test on accuracy; Use 0.01 relative error as an extra safety
       // margin on the first iteration (ignored for subsequent iterations).
-      auto __tolerance = std::max(__epsabs, __epsrel * std::abs( __result0));
+      auto __tolerance = std::max(__max_abs_err, __max_rel_err * std::abs( __result0));
       if (__abserr0 < __tolerance && __abserr0 < 0.01 * std::abs(__result0))
 	return std::make_tuple(__sign * __result0, __abserr0);
       else if (__limit == 1)
 	__throw_integration_error("qawc_integrate: "
 				  "a maximum of one iteration was insufficient",
-				  MAX_ITER_ERROR, __sign * __result0, __abserr0);
+				 MAX_ITER_ERROR, __sign * __result0, __abserr0);
 
       auto __area = __result0;
       auto __errsum = __abserr0;
@@ -142,7 +155,7 @@ namespace __gnu_cxx
 		++__roundoff_type2;
 	    }
 
-	  __tolerance = std::max(__epsabs, __epsrel * std::abs(__area));
+	  __tolerance = std::max(__max_abs_err, __max_rel_err * std::abs(__area));
 	  if (__errsum > __tolerance)
 	    {
 	      if (__roundoff_type1 >= 6 || __roundoff_type2 >= 20)
@@ -186,7 +199,8 @@ namespace __gnu_cxx
     std::tuple<_Tp, _Tp, bool>
     qc25c(const _FuncTp& __func, _Tp __lower, _Tp __upper, _Tp __c)
     {
-      const auto __cc = (_Tp{2} * __c - __upper - __lower) / (__upper - __lower);
+      const auto __cc = (_Tp{2} * __c - __upper - __lower)
+		      / (__upper - __lower);
 
       _Tp __result, __abserr;
       bool __err_reliable;

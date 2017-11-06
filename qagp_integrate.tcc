@@ -54,13 +54,23 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
    * @tparam _Tp         A real type for the limits of integration and the step.
    * @tparam _Integrator A non-adaptive integrator that is able to return
    *                     an error estimate in addition to the result.
+   *
+   * @param[in] __workspace The workspace that manages adaptive quadrature
+   * @param[in] __func The single-variable function to be integrated
+   * @param[in] __pts The sorted array of points including the integration limits
+   *                  and intermediate discontinuities/singularities
+   * @param[in] __max_iter The maximum number of integration steps allowed
+   * @param[in] __max_abs_err The limit on absolute error
+   * @param[in] __max_rel_err The limit on relative error
+   * @param[in] __quad The quadrature stepper taking a function object
+   *                   and two integration limits
    */
   template<typename _FuncTp, typename _Tp, typename _Integrator>
     std::tuple<_Tp, _Tp>
     qagp_integrate(integration_workspace<_Tp>& __workspace,
 		   const _FuncTp& __func,
 		   std::vector<_Tp> __pts,
-		   _Tp __epsabs, _Tp __epsrel,
+		   _Tp __max_abs_err, _Tp __max_rel_err,
 		   _Integrator __quad)
     {
       const auto _S_max = std::numeric_limits<_Tp>::max();
@@ -71,8 +81,8 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
       bool __extrapolate = false;
       bool __disallow_extrapolation = false;
 
-      if (__epsabs <= 0
-	  && (__epsrel < 50 * _S_eps || __epsrel < 0.5e-28))
+      if (__max_abs_err <= 0
+	  && (__max_rel_err < 50 * _S_eps || __max_rel_err < 0.5e-28))
 	std::__throw_runtime_error("qagp_integrate: "
 				   "Tolerance cannot be achieved "
 				   "with given absolute "
@@ -80,9 +90,10 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
 
       if (__pts.size() > __workspace.capacity())
 	std::__throw_runtime_error("qagp_integrate: "
-				   "number of points exceeds size of workspace");
+				 "number of points exceeds size of workspace");
 
-      // Check that the integration range and break points are in ascending order.
+      // Check that the integration range and break points
+      // are in ascending order.
 
       if (!std::is_sorted(std::begin(__pts), std::end(__pts)))
 	std::__throw_runtime_error("qagp_integrate: "
@@ -127,7 +138,7 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
       __workspace.sort_error();
 
       // Test on accuracy.
-      auto __tolerance = std::max(__epsabs, __epsrel * std::abs(__result0));
+      auto __tolerance = std::max(__max_abs_err, __max_rel_err * std::abs(__result0));
 
       if (__abserr0 <= 100 * _S_eps * __resabs0
 	   && __abserr0 > __tolerance)
@@ -190,7 +201,7 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
 	  __errsum += __error12 - __e_i;
 	  __area += __area12 - __r_i;
 
-	  __tolerance = std::max(__epsabs, __epsrel * std::abs(__area));
+	  __tolerance = std::max(__max_abs_err, __max_rel_err * std::abs(__area));
 
 	  if (__resasc1 != __error1 && __resasc2 != __error2)
 	    {
@@ -296,7 +307,7 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
 	      __err_ext = __abseps;
 	      __res_ext = __reseps;
 	      __correc = __error_over_large_intervals;
-	      __ertest = std::max(__epsabs, __epsrel * std::abs(__reseps));
+	      __ertest = std::max(__max_abs_err, __max_rel_err * std::abs(__reseps));
 	      if (__err_ext <= __ertest)
 		break;
 	    }
@@ -376,21 +387,34 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
 				UNKNOWN_ERROR, __result, __abserr);
     }
 
+  /**
+   * Specialize to Gauss-Kronrod integration step with default 21-point rule.
+   *
+   * @param[in] __workspace The workspace that manages adaptive quadrature
+   * @param[in] __func The single-variable function to be integrated
+   * @param[in] __pts The sorted array of points including the integration limits
+   *                  and intermediate discontinuities/singularities
+   * @param[in] __max_iter The maximum number of integration steps allowed
+   * @param[in] __max_abs_err The limit on absolute error
+   * @param[in] __max_rel_err The limit on relative error
+   * @param[in] __qkintrule The size of the Gauss-Kronrod integration scheme
+   */
   template<typename _FuncTp, typename _Tp>
     std::tuple<_Tp, _Tp>
     qagp_integrate(integration_workspace<_Tp>& __workspace,
 		   const _FuncTp& __func,
 		   std::vector<_Tp> __pts,
-		   _Tp __epsabs, _Tp __epsrel)
+		   _Tp __max_abs_err, _Tp __max_rel_err,
+		   Kronrod_Rule __qk_rule = QK_21)
     {
-      const qk_intrule __qk_rule = QK_21;
-      auto __quad = [__qk_rule]
-		    (const _FuncTp& __func, _Tp __lower, _Tp __upper)
-		    -> std::tuple<_Tp, _Tp, _Tp, _Tp>
-		    { return qk_integrate(__func, __lower, __upper, __qk_rule); };
+      auto __quad
+	= [__qk_rule]
+	  (const _FuncTp& __func, _Tp __lower, _Tp __upper)
+	  -> std::tuple<_Tp, _Tp, _Tp, _Tp>
+	  { return qk_integrate(__func, __lower, __upper, __qk_rule); };
 
       return qagp_integrate(__workspace, __func, __pts,
-			    __epsabs, __epsrel, __quad);
+			    __max_abs_err, __max_rel_err, __quad);
     }
 
 } // namespace __gnu_cxx

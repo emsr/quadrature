@@ -31,7 +31,7 @@ namespace __gnu_cxx
     std::tuple<_Tp, _Tp, _Tp, _Tp>
     integration_rule(_FuncTp __func,
 		     _Tp __lower, _Tp __upper,
-		     const qk_intrule __qkintrule);
+		     Kronrod_Rule __qkintrule);
 */
 
   /**
@@ -46,7 +46,7 @@ namespace __gnu_cxx
    * @param __max_abs_error The absolute error limit.
    * @param __max_rel_error The relative error limit.
    * @param __max_iter is the maximum number of iterations allowed
-   * @param __qk_intrule is the Gauss-Kronrod integration rule.
+   * @param __qkintrule is the Gauss-Kronrod integration rule.
    * @return A structure containing the integration result and the error.
    */
   template<typename _FuncTp, typename _Tp>
@@ -56,7 +56,7 @@ namespace __gnu_cxx
 	      _Tp __max_abs_error,
 	      _Tp __max_rel_error,
 	      std::size_t __max_iter = 1024,
-	      qk_intrule __qkintrule = QK_61)
+	      Kronrod_Rule __qkintrule = QK_61)
     {
       integration_workspace<_Tp> __workspace(__max_iter);
       return qag_integrate(__workspace, __func,
@@ -73,7 +73,7 @@ namespace __gnu_cxx
    * @param __max_abs_error The absolute error limit.
    * @param __max_rel_error The relative error limit.
    * @param __max_iter is the maximum number of iterations allowed
-   * @param __qk_intrule is the Gauss-Kronrod integration rule.
+   * @param __qkintrule is the Gauss-Kronrod integration rule.
    * @return A structure containing the integration result and the error.
    */
   template<typename _FuncTp, typename _Tp>
@@ -82,7 +82,7 @@ namespace __gnu_cxx
 		       _Tp __max_abs_error,
 		       _Tp __max_rel_error,
 		       std::size_t __max_iter = 1024,
-		       qk_intrule __qkintrule = QK_61)
+		       Kronrod_Rule __qkintrule = QK_61)
     {
       integration_workspace<_Tp> __workspace(__max_iter);
       return qag_integrate(__workspace,
@@ -101,7 +101,7 @@ namespace __gnu_cxx
    * @param __max_abs_error The absolute error limit.
    * @param __max_rel_error The relative error limit.
    * @param __max_iter is the maximum number of iterations allowed
-   * @param __qk_intrule is the Gauss-Kronrod integration rule.
+   * @param __qkintrule is the Gauss-Kronrod integration rule.
    * @return A structure containing the integration result and the error.
    */
   template<typename _FuncTp, typename _Tp>
@@ -111,7 +111,7 @@ namespace __gnu_cxx
 			    _Tp __max_abs_error,
 			    _Tp __max_rel_error,
 			    std::size_t __max_iter = 1024,
-			    qk_intrule __qkintrule = QK_61)
+			    Kronrod_Rule __qkintrule = QK_61)
     {
       integration_workspace<_Tp> __workspace(__max_iter);
       return qag_integrate(__workspace,
@@ -130,7 +130,7 @@ namespace __gnu_cxx
    * @param __max_abs_error The absolute error limit.
    * @param __max_rel_error The relative error limit.
    * @param __max_iter is the maximum number of iterations allowed
-   * @param __qk_intrule is the Gauss-Kronrod integration rule.
+   * @param __qkintrule is the Gauss-Kronrod integration rule.
    * @return A structure containing the integration result and the error.
    */
   template<typename _FuncTp, typename _Tp>
@@ -140,7 +140,7 @@ namespace __gnu_cxx
 			  _Tp __max_abs_error,
 			  _Tp __max_rel_error,
 			  std::size_t __max_iter = 1024,
-			  qk_intrule __qkintrule = QK_61)
+			  Kronrod_Rule __qkintrule = QK_61)
     {
       integration_workspace<_Tp> __workspace(__max_iter);
       return qag_integrate(__workspace,
@@ -183,7 +183,6 @@ namespace __gnu_cxx
    * @param __max_abs_error The absolute error limit.
    * @param __max_rel_error The relative error limit.
    * @param __max_iter is the maximum number of iterations allowed
-   * @param __qk_intrule is the Gauss-Kronrod integration rule.
    * @return A structure containing the integration result and the error.
    */
   template<typename _FuncTp, typename _Tp>
@@ -225,7 +224,6 @@ namespace __gnu_cxx
    * @param __max_abs_error The absolute error limit.
    * @param __max_rel_error The relative error limit.
    * @param __max_iter is the maximum number of iterations allowed
-   * @param __qk_intrule is the Gauss-Kronrod integration rule.
    * @return A structure containing the integration result and the error.
    */
   template<typename _FuncTp, typename _Tp>
@@ -251,7 +249,6 @@ namespace __gnu_cxx
    * @param __max_abs_error The absolute error limit.
    * @param __max_rel_error The relative error limit.
    * @param __max_iter is the maximum number of iterations allowed
-   * @param __qk_intrule is the Gauss-Kronrod integration rule.
    * @return A structure containing the integration result and the error.
    */
   template<typename _FuncTp, typename _Tp>
@@ -354,8 +351,6 @@ namespace __gnu_cxx
    * @tparam _FuncTp     A function type that takes a single real scalar
    *                     argument and returns a real scalar.
    * @tparam _Tp         A real type for the limits of integration and the step.
-   * @tparam _Integrator A non-adaptive integrator that is able to return
-   *                     an error estimate in addition to the result.
    */
   template<typename _FuncTp, typename _FwdIter, typename _Tp>//, typename _Integrator>
     inline std::tuple<_Tp, _Tp>
@@ -381,8 +376,6 @@ namespace __gnu_cxx
    * @tparam _FuncTp     A function type that takes a single real scalar
    *                     argument and returns a real scalar.
    * @tparam _Tp         A real type for the limits of integration and the step.
-   * @tparam _Integrator A non-adaptive integrator that is able to return
-   *                     an error estimate in addition to the result.
    */
   template<typename _FuncTp, typename _Tp>
     inline std::tuple<_Tp, _Tp>
@@ -401,6 +394,42 @@ namespace __gnu_cxx
       return cquad_integrate(__ws, __func, __lower, __upper,
 			     __max_abs_error, __max_rel_error);
     }
+
+  /**
+   * Adaptively integrate a function using a recursive Gauss-Kronrod quadrature
+   * called the patterson algorithm.
+   */
+  template<typename _FuncTp, typename _Tp>
+    inline std::tuple<_Tp, _Tp>
+    integrate_patterson(const _FuncTp& __func,
+			_Tp __lower, _Tp __upper,
+			_Tp __max_abs_error,
+			_Tp __max_rel_error)
+    {
+      return qng_integrate(__func, __lower, __upper,
+			   __max_abs_error, __max_rel_error);
+    }
+
+   /**
+    * 
+    */
+  template<typename _FuncTp, typename _Tp>
+    inline std::tuple<_Tp, _Tp>
+    integrate_singular_endpoints(const _FuncTp& __func,
+				 _Tp __lower, _Tp __upper,
+				 _Tp __alpha, _Tp __beta,
+				 int __mu, int __nu,
+				 _Tp __max_abs_error,
+				 _Tp __max_rel_error,
+				 std::size_t __max_iter = 1024)
+    {
+      integration_workspace<_Tp> __wksp(__max_iter);
+      qaws_integration_table<_Tp> __tab(__alpha, __beta, __mu, __nu);
+
+      return qaws_integrate(__wksp, __tab, __func, __lower, __upper,
+			    __max_abs_error, __max_rel_error);
+    }
+
 
 } // namespace __gnu_cxx
 

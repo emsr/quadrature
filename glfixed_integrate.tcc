@@ -28,14 +28,13 @@ namespace __gnu_cxx
     _Tp
     glfixed_integrate(const gauss_legendre_table<_Tp>& __t,
 		      const _FuncTp& __func,
-		      _Tp __a,
-		      _Tp __b)
+		      _Tp __lower, _Tp __upper)
     {
       const int __n = __t.order;
 
       auto __m = (__n + 1) >> 1;
-      auto __A = (__b - __a) / _Tp{2};
-      auto __B = (__b + __a) / _Tp{2};
+      auto __A = (__upper - __lower) / _Tp{2};
+      auto __B = (__upper + __lower) / _Tp{2};
 
       if (__n & 1) // n is odd.
 	{

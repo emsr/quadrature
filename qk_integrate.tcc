@@ -29,7 +29,6 @@
 
 #include <vector>
 #include <cmath>
-#include <cassert>
 #include <array>
 #include <functional>
 #include <tuple>
@@ -48,28 +47,28 @@ namespace __gnu_cxx
 		(1 - 50 * std::numeric_limits<_Tp>::epsilon()) * __resabs);
     }
 
-  enum qk_intrule
+  enum Kronrod_Rule
   {
-    QK_15,
-    QK_21,
-    QK_31,
-    QK_41,
-    QK_51,
-    QK_61
+    QK_15 = 15,
+    QK_21 = 21,
+    QK_31 = 31,
+    QK_41 = 41,
+    QK_51 = 51,
+    QK_61 = 61
   };
 
   namespace __detail
   {
     // Class template for internal implementation of
     // each individual integration rule.
-    template<typename _Tp, typename _FuncTp, qk_intrule sz>
+    template<typename _Tp, typename _FuncTp, Kronrod_Rule sz>
       class qk_integrator;
   }
 
   // Integrates func from a to b using integration rule qkintrule
   // returns a tuple with the results of a single Gauss-Kronrod integration
   // Based on GSL function gsl_integration_qk()
-  // Return values are as follows:
+  // Return tuple slots are as follows:
   // 0: result - result of integration using Kronrod scheme
   // 1: abserr - Estimated error as difference between Gauss and Kronrod
   // 2: resabs - Integral of absolute value of function
@@ -78,9 +77,10 @@ namespace __gnu_cxx
   template<typename _Tp, typename _FuncTp>
     std::tuple<_Tp, _Tp, _Tp, _Tp>
     qk_integrate(const _FuncTp& __func, _Tp __lower, _Tp __upper,
-		 const qk_intrule __qkintrule)
+		 Kronrod_Rule __qkintrule)
     {
-      //Determine the integration function to use for this routine
+
+      // Determine the integration function to use for this routine
       typedef
 	std::function<void(const _FuncTp&, _Tp, _Tp,
 			   _Tp&, _Tp&, _Tp&, _Tp&)>
@@ -90,23 +90,35 @@ namespace __gnu_cxx
 
       switch(__qkintrule)
 	{
-	case QK_15: __qk_int_func =
-	  (qk_int_func_type)(&(__detail::qk_integrator<_Tp, _FuncTp, QK_15>::_S_integrate));
+	case QK_15:
+	  __qk_int_func =
+	    qk_int_func_type
+	    (&__detail::qk_integrator<_Tp, _FuncTp, QK_15>::_S_integrate);
 	  break;
-	case QK_21: __qk_int_func =
-	  (qk_int_func_type)(&(__detail::qk_integrator<_Tp, _FuncTp, QK_21>::_S_integrate));
+	case QK_21:
+	  __qk_int_func =
+	    qk_int_func_type
+	    (&__detail::qk_integrator<_Tp, _FuncTp, QK_21>::_S_integrate);
 	  break;
-	case QK_31: __qk_int_func =
-	  (qk_int_func_type)(&(__detail::qk_integrator<_Tp, _FuncTp, QK_31>::_S_integrate));
+	case QK_31:
+	  __qk_int_func =
+	    qk_int_func_type
+	    (&__detail::qk_integrator<_Tp, _FuncTp, QK_31>::_S_integrate);
 	  break;
-	case QK_41: __qk_int_func =
-	  (qk_int_func_type)(&(__detail::qk_integrator<_Tp, _FuncTp, QK_41>::_S_integrate));
+	case QK_41:
+	  __qk_int_func =
+	    qk_int_func_type
+	    (&__detail::qk_integrator<_Tp, _FuncTp, QK_41>::_S_integrate);
 	  break;
-	case QK_51: __qk_int_func =
-	  (qk_int_func_type)(&(__detail::qk_integrator<_Tp, _FuncTp, QK_51>::_S_integrate));
+	case QK_51:
+	  __qk_int_func =
+	    qk_int_func_type
+	    (&__detail::qk_integrator<_Tp, _FuncTp, QK_51>::_S_integrate);
 	  break;
-	case QK_61: __qk_int_func =
-	  (qk_int_func_type)(&(__detail::qk_integrator<_Tp, _FuncTp, QK_61>::_S_integrate));
+	case QK_61:
+	  __qk_int_func =
+	    qk_int_func_type
+	    (&__detail::qk_integrator<_Tp, _FuncTp, QK_61>::_S_integrate);
 	  break;
 	default:
 	  std::__throw_logic_error("qk_integrate: "
@@ -121,11 +133,12 @@ namespace __gnu_cxx
 namespace __detail
 {
 
-  template<typename _Tp, typename _FuncTp, std::size_t __ksz, std::size_t __gsz>
+  template<typename _Tp, typename _FuncTp,
+	   std::size_t _KronrodSz, std::size_t _GaussSz>
     void
-    qk_integrate(const std::array<_Tp, __ksz> &__xgk,
-		 const std::array<_Tp, __gsz> &__wg,
-		 const std::array<_Tp, __ksz> &__wgk,
+    qk_integrate(const std::array<_Tp, _KronrodSz> &__xgk,
+		 const std::array<_Tp, _GaussSz> &__wg,
+		 const std::array<_Tp, _KronrodSz> &__wgk,
 		 const _FuncTp& __func, _Tp __lower, _Tp __upper,
 		 _Tp& __result, _Tp& __abserr,
 		 _Tp& __resabs, _Tp& __resasc)
@@ -134,19 +147,19 @@ namespace __detail
       const auto __half_length = (__upper - __lower) / _Tp{2};
       const auto __abs_half_length = std::abs(__half_length);
       const auto __f_center = __func(__center);
-      std::array<_Tp, __ksz> __fv1;
-      std::array<_Tp, __ksz> __fv2;
+      std::array<_Tp, _KronrodSz> __fv1;
+      std::array<_Tp, _KronrodSz> __fv2;
 
-      assert((__ksz / 2) == __gsz);
+      static_assert((_KronrodSz / 2) == _GaussSz, "");
 
       auto __result_gauss = _Tp{0};
-      auto __result_kronrod = __f_center * __wgk[__ksz - 1];
+      auto __result_kronrod = __f_center * __wgk[_KronrodSz - 1];
       auto __result_abs = std::abs(__result_kronrod);
 
-      if (__ksz % 2 == 0)
-	__result_gauss = __f_center * __wg[__ksz / 2 - 1];
+      if (_KronrodSz % 2 == 0)
+	__result_gauss = __f_center * __wg[_KronrodSz / 2 - 1];
 
-      for (std::size_t __jj = 0; __jj < (__ksz - 1) / 2; ++__jj)
+      for (std::size_t __jj = 0; __jj < (_KronrodSz - 1) / 2; ++__jj)
 	{
 	  const std::size_t __jtw = __jj * 2 + 1;
 	  const auto __abscissa = __half_length * __xgk[__jtw];
@@ -162,7 +175,7 @@ namespace __detail
 			* (std::abs(__fval1) + std::abs(__fval2));
 	}
 
-      for (std::size_t __jj = 0; __jj < __ksz / 2; ++__jj)
+      for (std::size_t __jj = 0; __jj < _KronrodSz / 2; ++__jj)
 	{
 	  std::size_t __jtwm1 = __jj * 2;
 	  const auto __abscissa = __half_length * __xgk[__jtwm1];
@@ -177,9 +190,9 @@ namespace __detail
 	}
 
       auto __mean = __result_kronrod / _Tp{2};
-      auto __result_asc = __wgk[__ksz - 1] * std::abs(__f_center - __mean);
+      auto __result_asc = __wgk[_KronrodSz - 1] * std::abs(__f_center - __mean);
 
-      for (std::size_t __jj = 0; __jj < __ksz - 1; ++__jj)
+      for (std::size_t __jj = 0; __jj < _KronrodSz - 1; ++__jj)
 	__result_asc += __wgk[__jj]
 		      * (std::abs(__fv1[__jj] - __mean)
 		       + std::abs(__fv2[__jj] - __mean));

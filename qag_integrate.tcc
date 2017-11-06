@@ -40,33 +40,44 @@ namespace __gnu_cxx
 {
 
   /**
-   * Integrates a function from a to b using the Gauss-Kronrod
+   * Integrates a function from a to b using an adaptive Gauss-Kronrod
    * quadrature rule.  The integration limits are finite.
    *
    * Once either the absolute or relative error limit is reached,
    * qag_integrate() returns
+   *
+   * @tparam _FuncTp     A function type that takes a single real scalar
+   *                     argument and returns a real scalar.
+   * @tparam _Tp         A real type for the limits of integration and the step.
+   * @tparam _Integrator A non-adaptive integrator that is able to return
+   *                     an error estimate in addition to the result.
+   *
+   * @param[in] __workspace The workspace that manages adaptive quadrature
    * @param[in] __func The single-variable function to be integrated
    * @param[in] __lower The lower limit of integration
    * @param[in] __upper The upper limit of integration
    * @param[in] __max_iter The maximum number of integration steps allowed
-   * @param[in] __max_abs_error The limit on absolute error
-   * @param[in] __max_rel_error The limit on relative error
-   * @param[in] __qkintrule The size of the Gauss-Kronrod integration scheme
+   * @param[in] __max_abs_err The limit on absolute error
+   * @param[in] __max_rel_err The limit on relative error
+   * @param[in] __max_iter The maximum number of iterations
+   * @param[in] __quad The quadrature stepper taking a function object
+   *                   and two integration limits
+   *
    * @return A tuple with the first value being the integration result,
    *	     and the second value being the estimated error.
    */
-  template<typename _Tp, typename _FuncTp>
+  template<typename _Tp, typename _FuncTp, typename _Integrator>
     std::tuple<_Tp, _Tp>
     qag_integrate(integration_workspace<_Tp>& __workspace,
 		  const _FuncTp& __func,
 		  _Tp __lower, _Tp __upper,
-		  _Tp __max_abs_error, _Tp __max_rel_error,
+		  _Tp __max_abs_err, _Tp __max_rel_err,
 		  std::size_t __max_iter,
-		  qk_intrule __qkintrule)
+		  _Integrator __quad)
     {
       const auto _S_eps = std::numeric_limits<_Tp>::epsilon();
 
-      if (__max_abs_error <= 0 && (__max_rel_error < _Tp{50} * _S_eps))
+      if (__max_abs_err <= 0 && (__max_rel_err < _Tp{50} * _S_eps))
 	std::__throw_logic_error("qag_integrate: "
 				 "Tolerance cannot be achieved "
 				 "with given absolute "
@@ -74,10 +85,11 @@ namespace __gnu_cxx
 
       _Tp __result0, __abserr0, __resabs0, __resasc0;
       std::tie(__result0, __abserr0,__resabs0,__resasc0)
-	  = qk_integrate(__func, __lower, __upper, __qkintrule);
+	  = __quad(__func, __lower, __upper);
 
       // Test on accuracy
-      auto __tolerance = std::max(__max_abs_error, __max_rel_error * std::abs(__result0));
+      auto __tolerance = std::max(__max_abs_err,
+				  __max_rel_err * std::abs(__result0));
 
       // Compute roundoff
       const auto __round_off = _Tp{50} * _S_eps * __resabs0;
@@ -116,11 +128,11 @@ namespace __gnu_cxx
 
 	  _Tp __area1, __error1, __resabs1, __resasc1;
 	  std::tie(__area1,__error1,__resabs1,__resasc1)
-	      = qk_integrate(__func, __a1, __b1, __qkintrule);
+	      = __quad(__func, __a1, __b1);
 
 	  _Tp __area2, __error2, __resabs2, __resasc2;
 	  std::tie(__area2,__error2,__resabs2,__resasc2)
-	      = qk_integrate(__func, __a2, __b2, __qkintrule);
+	      = __quad(__func, __a2, __b2);
 
 	  const auto __area12 = __area1 + __area2;
 	  const auto __error12 = __error1 + __error2;
@@ -139,8 +151,8 @@ namespace __gnu_cxx
 		++__roundoff_type2;
 	    }
 
-	  __tolerance = std::max(__max_abs_error,
-				 __max_rel_error * std::abs(__area));
+	  __tolerance = std::max(__max_abs_err,
+				 __max_rel_err * std::abs(__area));
 
 	  if (__errsum > __tolerance)
 	    {
@@ -174,6 +186,38 @@ namespace __gnu_cxx
       __check_error<_Tp>(__func__, __error_type);
       __throw_integration_error("qag_integrate: Unknown error.",
 				UNKNOWN_ERROR, __result, __abserr);
+    }
+
+  /**
+   * Specialize to Gauss-Kronrod integration step with default 21-point rule.
+   *
+   * @param[in] __workspace The workspace that manages adaptive quadrature
+   * @param[in] __func The single-variable function to be integrated
+   * @param[in] __lower The lower limit of integration
+   * @param[in] __upper The upper limit of integration
+   * @param[in] __max_iter The maximum number of integration steps allowed
+   * @param[in] __max_abs_err The limit on absolute error
+   * @param[in] __max_rel_err The limit on relative error
+   * @param[in] __max_iter The maximum number of iterations
+   * @param[in] __qkintrule The size of the Gauss-Kronrod integration scheme
+   */
+  template<typename _FuncTp, typename _Tp>
+    std::tuple<_Tp, _Tp>
+    qag_integrate(integration_workspace<_Tp>& __workspace,
+		  const _FuncTp& __func,
+		  _Tp __lower, _Tp __upper,
+		  _Tp __max_abs_err, _Tp __max_rel_err,
+		  std::size_t __max_iter,
+                  Kronrod_Rule __qk_rule = QK_21)
+    {
+      auto __quad
+	= [__qk_rule]
+	  (const _FuncTp& __func, _Tp __lower, _Tp __upper)
+	  -> std::tuple<_Tp, _Tp, _Tp, _Tp>
+	  { return qk_integrate(__func, __lower, __upper, __qk_rule); };
+
+      return qag_integrate(__workspace, __func, __lower, __upper,
+			   __max_abs_err, __max_rel_err, __max_iter, __quad);
     }
 
 } // namespace __gnu_cxx
