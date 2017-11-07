@@ -20,7 +20,6 @@
 
 #include <iostream>
 #include <cmath>
-#include <functional>
 #include <stdexcept>
 #include <sstream>
 #include <string>
@@ -55,10 +54,9 @@ template<typename _Tp>
       {
 	for (int n2 = 0; n2 <= n1; ++n2)
 	  {
-	    std::function<_Tp(_Tp)>
-	      func([n1, n2](_Tp x)
-		   -> _Tp
-		   { return normalized_laguerre<_Tp>(n1, n2, x); });
+	    auto func = [n1, n2](_Tp x)
+			-> _Tp
+			{ return normalized_laguerre<_Tp>(n1, n2, x); };
 	    const _Tp integ_precision = _Tp{1000} * eps;
 	    const _Tp comp_precision = _Tp{10} * integ_precision;
 
@@ -89,10 +87,9 @@ template<typename _Tp>
 	RESTART:
 	for (int n2 = 0; n2 <= itop; n2 += del)
 	  {
-	    std::function<_Tp(_Tp)>
-	      func([itop, n2](_Tp x)
-		   -> _Tp
-		   { return normalized_laguerre<_Tp>(itop, n2, x); });
+	    auto func = [n1 = itop, n2](_Tp x)
+			-> _Tp
+			{ return normalized_laguerre<_Tp>(n1, n2, x); };
 	    const _Tp integ_precision = _Tp{1000} * eps;
 	    const _Tp comp_precision = _Tp{10} * integ_precision;
 

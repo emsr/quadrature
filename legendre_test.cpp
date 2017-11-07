@@ -20,7 +20,6 @@
 
 #include <iostream>
 #include <cmath>
-#include <functional>
 #include <stdexcept>
 #include <sstream>
 #include <string>
@@ -55,8 +54,9 @@ template<typename _Tp>
       {
 	for (int l2 = 0; l2 <= l1; ++l2)
 	  {
-	    std::function<_Tp(_Tp)> func(std::bind(&normalized_legendre<_Tp>, l1, l2,
-					 std::placeholders::_1));
+	    auto func = [l1, l2](_Tp x)
+			-> _Tp
+			{ return normalized_legendre(l1, l2, x); };
 	    const _Tp integ_precision = _Tp{1000} * eps;
 	    const _Tp comp_precision = _Tp{10} * integ_precision;
 
@@ -87,8 +87,9 @@ template<typename _Tp>
 	RESTART:
 	for (int l2 = 0; l2 <= itop; l2 += del)
 	  {
-	    std::function<_Tp(_Tp)> func(std::bind(&normalized_legendre<_Tp>, itop, l2,
-					 std::placeholders::_1));
+	    auto func = [l1 = itop, l2](_Tp x)
+			-> _Tp
+			{ return normalized_legendre(l1, l2, x); };
 	    const _Tp integ_precision = _Tp{1000} * eps;
 	    const _Tp comp_precision = _Tp{10} * integ_precision;
 

@@ -21,7 +21,6 @@
 #include <iostream>
 #include <iomanip>
 #include <cmath>
-#include <functional>
 #include <stdexcept>
 #include <sstream>
 #include <string>
@@ -81,9 +80,9 @@ template<typename _Tp>
 		  {
 		    if ((n2 - m2) & 1)
 		      continue;
-		    std::function<_Tp(_Tp)> func(std::bind(&normalized_zernike<_Tp>,
-						 n1, m1, n2, m2,
-						 std::placeholders::_1));
+		    auto func = [n1, m1, n2, m2](_Tp x)
+				-> _Tp
+				{ return normalized_zernike(n1, m1, n2, m2, x); };
 		    const _Tp integ_precision = _Tp{1000} * eps;
 		    const _Tp comp_precision = _Tp{10} * integ_precision;
 
@@ -127,9 +126,9 @@ template<typename _Tp>
 		  {
 		    if ((n2 - m2) & 1)
 		      continue;
-		    std::function<_Tp(_Tp)> func(std::bind(&normalized_zernike<_Tp>,
-						 itop, m1, n2, m2,
-						 std::placeholders::_1));
+		    auto func = [n1 = itop, m1, n2, m2](_Tp x)
+				-> _Tp
+				{ return normalized_zernike(n1, m1, n2, m2, x); };
 		    const _Tp integ_precision = _Tp{1000} * eps;
 		    const _Tp comp_precision = _Tp{10} * integ_precision;
 

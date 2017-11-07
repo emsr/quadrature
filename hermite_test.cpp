@@ -20,7 +20,6 @@
 
 #include <iostream>
 #include <cmath>
-#include <functional>
 #include <stdexcept>
 #include <sstream>
 #include <string>
@@ -60,15 +59,23 @@ template<typename _Tp>
       {
 	for (int n2 = 0; n2 <= n1; ++n2)
 	  {
-	    std::function<_Tp(_Tp)> func(std::bind(&normalized_hermite<_Tp>, n1, n2,
-					 std::placeholders::_1));
-	    const _Tp integ_precision = _Tp{1000} * eps;
-	    const _Tp comp_precision = _Tp{10} * integ_precision;
+	    auto func = [n1, n2](_Tp x)
+			-> _Tp
+			{ return normalized_hermite(n1, n2, x); };
+	    const _Tp rel_precision = _Tp{1000} * eps;
+	    const _Tp abs_precision = _Tp{10} * rel_precision;
 
 	    auto [result, error]
-		= integrate_singular(func, -infty, infty, integ_precision, _Tp{0});
+		//= integrate_singular(func, -infty, infty, rel_precision, _Tp{0});
+		//= integrate(func, -infty, infty, rel_precision, _Tp{0});
+		//= integrate_infinite(func, rel_precision, _Tp{0});
+		//= integrate_singular_infinite(func, rel_precision, _Tp{0});
+		//= integrate_oscillatory(i_transform<std::function<_Tp(_Tp)>, _Tp>(func),
+                //                        _Tp{0}, _Tp{1}, rel_precision, _Tp{0});
+		= integrate_clenshaw_curtis(i_transform<std::function<_Tp(_Tp)>, _Tp>(func),
+                                            _Tp{0}, _Tp{1}, rel_precision, _Tp{0});
 
-	    if (std::abs(delta<_Tp>(n1, n2) - result) > comp_precision)
+	    if (std::abs(delta<_Tp>(n1, n2) - result) > abs_precision)
 	      {
 		std::stringstream ss;
 		ss.precision(std::numeric_limits<_Tp>::digits10);
@@ -76,7 +83,8 @@ template<typename _Tp>
 		ss << "Integration failed at n1=" << n1 << ", n2=" << n2
 		   << ", returning result " << result
 		   << ", with error " << error
-		   << " instead of the expected " << delta<_Tp>(n1, n2) << '\n';
+		   << " instead of the expected " << delta<_Tp>(n1, n2)
+		   << " with absolute precision " << abs_precision << '\n';
 		throw std::logic_error(ss.str());
 	      }
 	  }
@@ -92,15 +100,16 @@ template<typename _Tp>
 	RESTART:
 	for (int n2 = 0; n2 <= itop; n2 += del)
 	  {
-	    std::function<_Tp(_Tp)> func(std::bind(&normalized_hermite<_Tp>, itop, n2,
-					 std::placeholders::_1));
-	    const _Tp integ_precision = _Tp{1000} * eps;
-	    const _Tp comp_precision = _Tp{10} * integ_precision;
+	    auto func = [n1 = itop, n2](_Tp x)
+			-> _Tp
+			{ return normalized_hermite(n1, n2, x); };
+	    const _Tp rel_precision = _Tp{1000} * eps;
+	    const _Tp abs_precision = _Tp{10} * rel_precision;
 
 	    auto [result, error]
-		= integrate_singular(func, -infty, infty, integ_precision, _Tp{0});
+		= integrate_singular(func, -infty, infty, rel_precision, _Tp{0});
 
-	    if (std::abs(delta<_Tp>(itop, n2) - result) > comp_precision)
+	    if (std::abs(delta<_Tp>(itop, n2) - result) > abs_precision)
 	      {
 		itop = (ibot + itop) / 2;
 		goto RESTART;

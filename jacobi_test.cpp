@@ -20,7 +20,6 @@
 
 #include <iostream>
 #include <cmath>
-#include <functional>
 #include <stdexcept>
 #include <sstream>
 #include <string>
@@ -83,21 +82,26 @@ template<typename _Tp>
   {
     const auto eps = __gnu_cxx::__epsilon(alpha + beta);
 
+    bool singular = (alpha < _Tp{0} || beta < _Tp{0});
+
     int n1 = 0;
     for (; n1 <= 128; ++n1)
       {
 	for (int n2 = 0; n2 <= n1; ++n2)
 	  {
-	    std::function<_Tp(_Tp)>
-	      func([n1, n2, alpha, beta](_Tp x)
-		   -> _Tp
-		   { return normalized_jacobi<_Tp>(n1, n2, alpha, beta, x); });
+	    auto func = [n1, n2, alpha, beta](_Tp x)
+			-> _Tp
+			{ return normalized_jacobi<_Tp>(n1, n2, alpha, beta, x); };
 	    const _Tp integ_precision = _Tp{1000} * eps;
 	    const _Tp comp_precision = _Tp{10} * integ_precision;
 
 	    auto [result, error]
-		= integrate(func, _Tp{-1}, _Tp{1}, integ_precision, _Tp{0});
-//		= integrate_singular(func, _Tp{-1}, _Tp{1}, integ_precision, _Tp{0});
+		= singular
+		? integrate_singular_endpoints(func,
+					       _Tp{-1}, _Tp{1},
+					       alpha, beta, 0, 0,
+					       integ_precision, _Tp{0})
+		: integrate(func, _Tp{-1}, _Tp{1}, integ_precision, _Tp{0});
 
 	    if (std::abs(delta<_Tp>(n1, n2) - result) > comp_precision)
 	      {
@@ -123,16 +127,19 @@ template<typename _Tp>
 	RESTART:
 	for (int n2 = 0; n2 <= itop; n2 += del)
 	  {
-	    std::function<_Tp(_Tp)>
-	      func([itop, n2, alpha, beta](_Tp x)
-		   -> _Tp
-		   { return normalized_jacobi<_Tp>(itop, n2, alpha, beta, x); });
+	    auto func = [itop, n2, alpha, beta](_Tp x)
+			-> _Tp
+			{ return normalized_jacobi<_Tp>(itop, n2, alpha, beta, x); };
 	    const _Tp integ_precision = _Tp{1000} * eps;
 	    const _Tp comp_precision = _Tp{10} * integ_precision;
 
 	    auto [result, error]
-		= integrate(func, _Tp{-1}, _Tp{1}, integ_precision, _Tp{0});
-//		= integrate_singular(func, _Tp{-1}, _Tp{1}, integ_precision, _Tp{0});
+		= singular
+		? integrate_singular_endpoints(func,
+					       _Tp{-1}, _Tp{1},
+					       alpha, beta, 0, 0,
+					       integ_precision, _Tp{0})
+		: integrate(func, _Tp{-1}, _Tp{1}, integ_precision, _Tp{0});
 
 	    if (std::abs(delta<_Tp>(itop, n2) - result) > comp_precision)
 	      {
