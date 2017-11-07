@@ -18,7 +18,7 @@
 // with this library; see the file COPYING3.  If not see
 // <http://www.gnu.org/licenses/>.
 //
-// Ported from GSL by Jason Dick
+// Ported from GSL by Edward Smith-Rowland
 // Originally written by Brian Gaugh
 //
 // This file implements Gauss-Kronrod integration with singularities
