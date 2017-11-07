@@ -28,6 +28,8 @@
 
 using namespace __gnu_cxx;
 
+/* Orthonormality only works for integer alpha. */
+
 // Try to manage the gamma ratio.
 template<typename _Tp>
   _Tp
@@ -70,6 +72,7 @@ template<typename _Tp>
 	    auto func = [n1, n2, alpha](_Tp x)
 			-> _Tp
 			{ return normalized_assoc_laguerre<_Tp>(n1, n2, alpha, x); };
+
 	    const _Tp integ_precision = _Tp{1000} * eps;
 	    const _Tp comp_precision = _Tp{10} * integ_precision;
 
@@ -132,7 +135,7 @@ main()
   std::cout << "\n\nOrthonormality tests for float\n";
   try
     {
-      test_assoc_laguerre<float>(0.5F);
+      test_assoc_laguerre<float>(0.0F);
     }
   catch (std::exception& err)
     {
@@ -142,7 +145,7 @@ main()
   std::cout << "\n\nOrthonormality tests for double\n";
   try
     {
-      test_assoc_laguerre<double>(0.5);
+      test_assoc_laguerre<double>(0.0);
     }
   catch (std::exception& err)
     {
@@ -152,7 +155,7 @@ main()
   std::cout << "\n\nOrthonormality tests for long double\n";
   try
     {
-      test_assoc_laguerre<long double>(0.5L);
+      test_assoc_laguerre<long double>(0.0L);
     }
   catch (std::exception& err)
     {
