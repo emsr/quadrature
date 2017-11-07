@@ -18,7 +18,7 @@
 // with this library; see the file COPYING3.  If not see
 // <http://www.gnu.org/licenses/>.
 //
-// Ported from GSL by Jason Dick
+// Ported from GSL by Edward Smith-Rowland
 // Originally written by Brian Gaugh
 //
 // Implements Gauss-Kronrod integration
@@ -30,7 +30,6 @@
 #include <vector>
 #include <cmath>
 #include <array>
-#include <functional>
 #include <tuple>
 #include <stdexcept>
 
@@ -43,8 +42,8 @@ namespace __gnu_cxx
     inline bool
     __test_positivity(_Tp __result, _Tp __resabs)
     {
-      return(std::abs(__result) >=
-		(1 - 50 * std::numeric_limits<_Tp>::epsilon()) * __resabs);
+      return(std::abs(__result)
+	  >= (1 - 50 * std::numeric_limits<_Tp>::epsilon()) * __resabs);
     }
 
   enum Kronrod_Rule
@@ -79,55 +78,24 @@ namespace __gnu_cxx
     qk_integrate(const _FuncTp& __func, _Tp __lower, _Tp __upper,
 		 Kronrod_Rule __qkintrule)
     {
-
-      // Determine the integration function to use for this routine
-      typedef
-	std::function<void(const _FuncTp&, _Tp, _Tp,
-			   _Tp&, _Tp&, _Tp&, _Tp&)>
-	qk_int_func_type;
-
-      qk_int_func_type __qk_int_func;
-
       switch(__qkintrule)
 	{
 	case QK_15:
-	  __qk_int_func =
-	    qk_int_func_type
-	    (&__detail::qk_integrator<_Tp, _FuncTp, QK_15>::_S_integrate);
-	  break;
+	  return __detail::qk_integrator<_Tp, _FuncTp, QK_15>::_S_integrate(__func, __lower, __upper);
 	case QK_21:
-	  __qk_int_func =
-	    qk_int_func_type
-	    (&__detail::qk_integrator<_Tp, _FuncTp, QK_21>::_S_integrate);
-	  break;
+	  return __detail::qk_integrator<_Tp, _FuncTp, QK_21>::_S_integrate(__func, __lower, __upper);
 	case QK_31:
-	  __qk_int_func =
-	    qk_int_func_type
-	    (&__detail::qk_integrator<_Tp, _FuncTp, QK_31>::_S_integrate);
-	  break;
+	  return __detail::qk_integrator<_Tp, _FuncTp, QK_31>::_S_integrate(__func, __lower, __upper);
 	case QK_41:
-	  __qk_int_func =
-	    qk_int_func_type
-	    (&__detail::qk_integrator<_Tp, _FuncTp, QK_41>::_S_integrate);
-	  break;
+	  return __detail::qk_integrator<_Tp, _FuncTp, QK_41>::_S_integrate(__func, __lower, __upper);
 	case QK_51:
-	  __qk_int_func =
-	    qk_int_func_type
-	    (&__detail::qk_integrator<_Tp, _FuncTp, QK_51>::_S_integrate);
-	  break;
+	  return __detail::qk_integrator<_Tp, _FuncTp, QK_51>::_S_integrate(__func, __lower, __upper);
 	case QK_61:
-	  __qk_int_func =
-	    qk_int_func_type
-	    (&__detail::qk_integrator<_Tp, _FuncTp, QK_61>::_S_integrate);
-	  break;
+	  return __detail::qk_integrator<_Tp, _FuncTp, QK_61>::_S_integrate(__func, __lower, __upper);
 	default:
 	  std::__throw_logic_error("qk_integrate: "
 				   "Unrecognized Gauss-Kronrod integration size");
 	}
-
-      _Tp __result, __abserr, __resabs, __resasc;
-      __qk_int_func(__func, __lower, __upper, __result, __abserr, __resabs, __resasc);
-      return std::make_tuple(__result, __abserr, __resabs, __resasc);
     }
 
 namespace __detail
@@ -135,13 +103,11 @@ namespace __detail
 
   template<typename _Tp, typename _FuncTp,
 	   std::size_t _KronrodSz, std::size_t _GaussSz>
-    void
-    qk_integrate(const std::array<_Tp, _KronrodSz> &__xgk,
-		 const std::array<_Tp, _GaussSz> &__wg,
-		 const std::array<_Tp, _KronrodSz> &__wgk,
-		 const _FuncTp& __func, _Tp __lower, _Tp __upper,
-		 _Tp& __result, _Tp& __abserr,
-		 _Tp& __resabs, _Tp& __resasc)
+    std::tuple<_Tp, _Tp, _Tp, _Tp>
+    qk_integrate(const std::array<_Tp, _KronrodSz>& __xgk,
+		 const std::array<_Tp, _GaussSz>& __wg,
+		 const std::array<_Tp, _KronrodSz>& __wgk,
+		 const _FuncTp& __func, _Tp __lower, _Tp __upper)
     {
       const auto __center = (__lower + __upper) / _Tp{2};
       const auto __half_length = (__upper - __lower) / _Tp{2};
@@ -203,12 +169,14 @@ namespace __detail
       __result_abs *= __abs_half_length;
       __result_asc *= __abs_half_length;
 
-      __result = __result_kronrod;
-      __resabs = __result_abs;
-      __resasc = __result_asc;
-      __abserr = __rescale_error(__err, __result_abs, __result_asc);
+      return std::make_tuple(__result_kronrod,
+			     __rescale_error(__err, __result_abs, __result_asc),
+			     __result_abs, __result_asc);
     }
 
+  /**
+   * Gauss-Kronrod 15-point rule implementation.
+   */
   template<typename _Tp, typename _FuncTp>
     class qk_integrator<_Tp, _FuncTp, QK_15>
     {
@@ -219,15 +187,11 @@ namespace __detail
 
     public:
 
-      static void
-      _S_integrate(const _FuncTp& __func, _Tp __lower, _Tp __upper,
-		   _Tp& __result, _Tp& __abserr,
-		   _Tp& __resabs, _Tp& __resasc)
+      static std::tuple<_Tp, _Tp, _Tp, _Tp>
+      _S_integrate(const _FuncTp& __func, _Tp __lower, _Tp __upper)
       {
-	using namespace __detail;
-
 	// Abscissae of the 15-point Kronrod rule
-	const std::array<_Tp, 8>
+	static constexpr std::array<_Tp, 8>
 	_S_xgk =
 	{
 	  _Tp{0.991455371120812639206854697526329L},
@@ -240,7 +204,7 @@ namespace __detail
 	  _Tp{0.000000000000000000000000000000000L}
 	};
 	// Weights of the 7-point Gauss rule
-	const std::array<_Tp, 4>
+	static constexpr std::array<_Tp, 4>
 	_S_wg =
 	{
 	  _Tp{0.129484966168869693270611432679082L},
@@ -249,7 +213,7 @@ namespace __detail
 	  _Tp{0.417959183673469387755102040816327L}
 	};
 	// Weights of the 15-point Kronrod rule
-	const std::array<_Tp, 8>
+	static constexpr std::array<_Tp, 8>
 	_S_wgk =
 	{
 	  _Tp{0.022935322010529224963732008058970L},
@@ -262,11 +226,13 @@ namespace __detail
 	  _Tp{0.209482141084727828012999174891714L}
 	};
 
-	qk_integrate(_S_xgk, _S_wg, _S_wgk, __func, __lower, __upper, __result,
-		     __abserr, __resabs, __resasc);
+	return qk_integrate(_S_xgk, _S_wg, _S_wgk, __func, __lower, __upper);
       }
     };
 
+  /**
+   * Gauss-Kronrod 21-point rule implementation.
+   */
   template<typename _Tp, typename _FuncTp>
     class qk_integrator<_Tp, _FuncTp, QK_21>
     {
@@ -320,18 +286,16 @@ namespace __detail
 
     public:
 
-      static void
-      _S_integrate(const _FuncTp& __func, _Tp __lower, _Tp __upper,
-		   _Tp& __result, _Tp& __abserr,
-		   _Tp& __resabs, _Tp& __resasc)
+      static std::tuple<_Tp, _Tp, _Tp, _Tp>
+      _S_integrate(const _FuncTp& __func, _Tp __lower, _Tp __upper)
       {
-	using namespace __detail;
-
-	qk_integrate(_S_xgk, _S_wg, _S_wgk, __func, __lower, __upper, __result,
-		     __abserr, __resabs, __resasc);
+	return qk_integrate(_S_xgk, _S_wg, _S_wgk, __func, __lower, __upper);
       }
     };
 
+  /**
+   * Gauss-Kronrod 31-point rule implementation.
+   */
   template<typename _Tp, typename _FuncTp>
     class qk_integrator<_Tp, _FuncTp, QK_31>
     {
@@ -398,18 +362,16 @@ namespace __detail
 
     public:
 
-      static void
-      _S_integrate(const _FuncTp& __func, _Tp __lower, _Tp __upper,
-		   _Tp& __result, _Tp& __abserr,
-		   _Tp& __resabs, _Tp& __resasc)
+      static std::tuple<_Tp, _Tp, _Tp, _Tp>
+      _S_integrate(const _FuncTp& __func, _Tp __lower, _Tp __upper)
       {
-	using namespace __detail;
-
-	qk_integrate(_S_xgk, _S_wg, _S_wgk, __func, __lower, __upper, __result,
-		     __abserr, __resabs, __resasc);
+	return qk_integrate(_S_xgk, _S_wg, _S_wgk, __func, __lower, __upper);
       }
     };
 
+  /**
+   * Gauss-Kronrod 41-point rule implementation.
+   */
   template<typename _Tp, typename _FuncTp>
     class qk_integrator<_Tp, _FuncTp, QK_41>
     {
@@ -488,18 +450,16 @@ namespace __detail
 
     public:
 
-      static void
-      _S_integrate(const _FuncTp& __func, _Tp __lower, _Tp __upper,
-		   _Tp& __result, _Tp& __abserr,
-		   _Tp& __resabs, _Tp& __resasc)
+      static std::tuple<_Tp, _Tp, _Tp, _Tp>
+      _S_integrate(const _FuncTp& __func, _Tp __lower, _Tp __upper)
       {
-	using namespace __detail;
-
-	qk_integrate(_S_xgk, _S_wg, _S_wgk, __func, __lower, __upper, __result,
-		     __abserr, __resabs, __resasc);
+	return qk_integrate(_S_xgk, _S_wg, _S_wgk, __func, __lower, __upper);
       }
     };
 
+  /**
+   * Gauss-Kronrod 51-point rule implementation.
+   */
   template<typename _Tp, typename _FuncTp>
     class qk_integrator<_Tp, _FuncTp, QK_51>
     {
@@ -591,18 +551,16 @@ namespace __detail
 
     public:
 
-      static void
-      _S_integrate(const _FuncTp& __func, _Tp __lower, _Tp __upper,
-		   _Tp& __result, _Tp& __abserr,
-		   _Tp& __resabs, _Tp& __resasc)
+      static std::tuple<_Tp, _Tp, _Tp, _Tp>
+      _S_integrate(const _FuncTp& __func, _Tp __lower, _Tp __upper)
       {
-	using namespace __detail;
-
-	qk_integrate(_S_xgk, _S_wg, _S_wgk, __func, __lower, __upper, __result,
-		     __abserr, __resabs, __resasc);
+	return qk_integrate(_S_xgk, _S_wg, _S_wgk, __func, __lower, __upper);
       }
     };
 
+  /**
+   * Gauss-Kronrod 51-point rule implementation.
+   */
   template<typename _Tp, typename _FuncTp>
     class qk_integrator<_Tp, _FuncTp, QK_61>
     {
@@ -706,15 +664,10 @@ namespace __detail
 
     public:
 
-      static void
-      _S_integrate(const _FuncTp& __func, _Tp __lower, _Tp __upper,
-		   _Tp& __result, _Tp& __abserr,
-		   _Tp& __resabs, _Tp& __resasc)
+      static std::tuple<_Tp, _Tp, _Tp, _Tp>
+      _S_integrate(const _FuncTp& __func, _Tp __lower, _Tp __upper)
       {
-	using namespace __detail;
-
-	qk_integrate(_S_xgk, _S_wg, _S_wgk, __func, __lower, __upper, __result,
-		     __abserr, __resabs, __resasc);
+	return qk_integrate(_S_xgk, _S_wg, _S_wgk, __func, __lower, __upper);
       }
     };
 
