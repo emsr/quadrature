@@ -25,6 +25,7 @@
 #ifndef INTEGRATION_WORKSPACE_H
 #define INTEGRATION_WORKSPACE_H 1
 
+#include <algorithm>
 #include <vector>
 #include <limits>
 #include <cmath>
