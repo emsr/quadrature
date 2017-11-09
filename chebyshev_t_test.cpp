@@ -118,7 +118,12 @@ template<typename _Tp>
 	std::cout << "Integration successful for chebyshev_t polynomials up to n = " << itop
 		  << '\n' << std::flush;
 	ibot = itop;
-	if (itop <= std::numeric_limits<int>::max() / 2)
+	if (itop > 1000000)
+	  {
+	    std::cout << "\nGood enough!\n" << std::flush;
+	    break;
+	  }
+	else if (itop <= std::numeric_limits<int>::max() / 2)
 	  itop *= 2;
 	else
 	  break;

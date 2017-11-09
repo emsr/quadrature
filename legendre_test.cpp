@@ -61,7 +61,7 @@ template<typename _Tp>
 	    const _Tp comp_precision = _Tp{10} * integ_precision;
 
 	    auto [result, error]
-		= integrate_singular(func, _Tp{-1}, _Tp{1}, integ_precision, _Tp{0});
+		= integrate(func, _Tp{-1}, _Tp{1}, integ_precision, _Tp{0});
 
 	    if (std::abs(delta<_Tp>(l1, l2) - result) > comp_precision)
 	      {
@@ -94,7 +94,7 @@ template<typename _Tp>
 	    const _Tp comp_precision = _Tp{10} * integ_precision;
 
 	    auto [result, error]
-		= integrate_singular(func, _Tp{-1}, _Tp{1}, integ_precision, _Tp{0});
+		= integrate(func, _Tp{-1}, _Tp{1}, integ_precision, _Tp{0});
 
 	    if (std::abs(delta<_Tp>(itop, l2) - result) > comp_precision)
 	      {
@@ -105,7 +105,12 @@ template<typename _Tp>
 	std::cout << "Integration successful for legendre polynomials up to l = " << itop
 		  << '\n' << std::flush;
 	ibot = itop;
-	if (itop <= std::numeric_limits<int>::max() / 2)
+	if (itop > 1000000)
+	  {
+	    std::cout << "\nGood enough!\n" << std::flush;
+	    break;
+	  }
+	else if (itop <= std::numeric_limits<int>::max() / 2)
 	  itop *= 2;
 	else
 	  break;

@@ -1,3 +1,19 @@
+
+
+Orthonormality tests for float
+Integration successful for hermite polynomials up to n = 0
+Integration successful for hermite polynomials up to n = 1
+Integration successful for hermite polynomials up to n = 2
+Integration successful for hermite polynomials up to n = 3
+Integration successful for hermite polynomials up to n = 4
+Integration successful for hermite polynomials up to n = 5
+Integration successful for hermite polynomials up to n = 6
+Integration successful for hermite polynomials up to n = 7
+Integration successful for hermite polynomials up to n = 8
+Integration successful for hermite polynomials up to n = 9
+
+
+Orthonormality tests for double
 Integration successful for hermite polynomials up to n = 0
 Integration successful for hermite polynomials up to n = 1
 Integration successful for hermite polynomials up to n = 2
@@ -72,6 +88,9 @@ Integration successful for hermite polynomials up to n = 70
 Integration successful for hermite polynomials up to n = 71
 Integration successful for hermite polynomials up to n = 72
 Integration successful for hermite polynomials up to n = 73
+
+
+Orthonormality tests for long double
 Integration successful for hermite polynomials up to n = 0
 Integration successful for hermite polynomials up to n = 1
 Integration successful for hermite polynomials up to n = 2

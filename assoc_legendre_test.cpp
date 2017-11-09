@@ -52,16 +52,23 @@ template<typename _Tp>
     int l1 = 0;
     for (; l1 <= 128; ++l1)
       {
+	if (m1 > l1)
+	  continue;
+
 	for (int l2 = 0; l2 <= l1; ++l2)
 	  {
+	    if (m2 > l2)
+	      continue;
+
 	    auto func = [l1, m1, l2, m2](_Tp x)
 			-> _Tp
 			{ return normalized_assoc_legendre(l1, m1, l2, m2, x); };
+
 	    const _Tp integ_precision = _Tp{1000} * eps;
 	    const _Tp comp_precision = _Tp{10} * integ_precision;
 
 	    auto [result, error]
-		= integrate_singular(func, _Tp{-1}, _Tp{1}, integ_precision, _Tp{0});
+		= integrate(func, _Tp{-1}, _Tp{1}, integ_precision, _Tp{0});
 
 	    if (std::abs(delta<_Tp>(l1, l2) * delta<_Tp>(m1, m2) - result) > comp_precision)
 	      {
@@ -94,7 +101,7 @@ template<typename _Tp>
 	    const _Tp comp_precision = _Tp{10} * integ_precision;
 
 	    auto [result, error]
-		= integrate_singular(func, _Tp{-1}, _Tp{1}, integ_precision, _Tp{0});
+		= integrate(func, _Tp{-1}, _Tp{1}, integ_precision, _Tp{0});
 
 	    if (std::abs(delta<_Tp>(itop, l2) * delta<_Tp>(m1, m2) - result) > comp_precision)
 	      {
@@ -105,7 +112,12 @@ template<typename _Tp>
 	std::cout << "Integration successful for assoc_legendre polynomials up to l = " << itop
 		  << '\n' << std::flush;
 	ibot = itop;
-	if (itop <= std::numeric_limits<int>::max() / 2)
+	if (itop > 1000000)
+	  {
+	    std::cout << "\nGood enough!\n" << std::flush;
+	    break;
+	  }
+	else if (itop <= std::numeric_limits<int>::max() / 2)
 	  itop *= 2;
 	else
 	  break;

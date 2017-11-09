@@ -1,3 +1,6 @@
+
+
+Orthonormality tests for float
 Integration successful for zernike polynomials up to n = 0
 Integration successful for zernike polynomials up to n = 1
 Integration successful for zernike polynomials up to n = 2
@@ -9,3 +12,54 @@ Integration successful for zernike polynomials up to n = 7
 Integration successful for zernike polynomials up to n = 8
 Integration successful for zernike polynomials up to n = 9
 Integration successful for zernike polynomials up to n = 10
+Integration successful for zernike polynomials up to n = 11
+Integration successful for zernike polynomials up to n = 12
+Integration successful for zernike polynomials up to n = 13
+Integration successful for zernike polynomials up to n = 14
+Integration successful for zernike polynomials up to n = 15
+Integration successful for zernike polynomials up to n = 16
+Integration successful for zernike polynomials up to n = 17
+Integration successful for zernike polynomials up to n = 18
+Integration successful for zernike polynomials up to n = 19
+
+
+Orthonormality tests for double
+Integration successful for zernike polynomials up to n = 0
+Integration successful for zernike polynomials up to n = 1
+Integration successful for zernike polynomials up to n = 2
+Integration successful for zernike polynomials up to n = 3
+Integration successful for zernike polynomials up to n = 4
+Integration successful for zernike polynomials up to n = 5
+Integration successful for zernike polynomials up to n = 6
+Integration successful for zernike polynomials up to n = 7
+Integration successful for zernike polynomials up to n = 8
+Integration successful for zernike polynomials up to n = 9
+Integration successful for zernike polynomials up to n = 10
+Integration successful for zernike polynomials up to n = 11
+Integration successful for zernike polynomials up to n = 12
+Integration successful for zernike polynomials up to n = 13
+Integration successful for zernike polynomials up to n = 14
+Integration successful for zernike polynomials up to n = 15
+Integration successful for zernike polynomials up to n = 16
+Integration successful for zernike polynomials up to n = 17
+
+
+Orthonormality tests for long double
+Integration successful for zernike polynomials up to n = 0
+Integration successful for zernike polynomials up to n = 1
+Integration successful for zernike polynomials up to n = 2
+Integration successful for zernike polynomials up to n = 3
+Integration successful for zernike polynomials up to n = 4
+Integration successful for zernike polynomials up to n = 5
+Integration successful for zernike polynomials up to n = 6
+Integration successful for zernike polynomials up to n = 7
+Integration successful for zernike polynomials up to n = 8
+Integration successful for zernike polynomials up to n = 9
+Integration successful for zernike polynomials up to n = 10
+Integration successful for zernike polynomials up to n = 11
+Integration successful for zernike polynomials up to n = 12
+Integration successful for zernike polynomials up to n = 13
+Integration successful for zernike polynomials up to n = 14
+Integration successful for zernike polynomials up to n = 15
+Integration successful for zernike polynomials up to n = 16
+Integration successful for zernike polynomials up to n = 17

@@ -1,0 +1,4 @@
+Integration failed at l1=70, l2=64, returning result -6.778646e-02, with error 4.287105e-06 instead of the expected 0.000000e+00
+
+qag_integrate: Cannot reach tolerance because of roundoff error
+qag_integrate: Cannot reach tolerance because of roundoff error

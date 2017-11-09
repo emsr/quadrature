@@ -62,6 +62,8 @@ template<typename _Tp>
 	    auto func = [n1, n2](_Tp x)
 			-> _Tp
 			{ return normalized_hermite(n1, n2, x); };
+	    using func_t = decltype(func);
+
 	    const _Tp rel_precision = _Tp{1000} * eps;
 	    const _Tp abs_precision = _Tp{10} * rel_precision;
 
@@ -70,9 +72,9 @@ template<typename _Tp>
 		//= integrate(func, -infty, infty, rel_precision, _Tp{0});
 		//= integrate_infinite(func, rel_precision, _Tp{0});
 		//= integrate_singular_infinite(func, rel_precision, _Tp{0});
-		//= integrate_oscillatory(i_transform<std::function<_Tp(_Tp)>, _Tp>(func),
+		//= integrate_oscillatory(i_transform<func_t, _Tp>(func),
                 //                        _Tp{0}, _Tp{1}, rel_precision, _Tp{0});
-		= integrate_clenshaw_curtis(i_transform<std::function<_Tp(_Tp)>, _Tp>(func),
+		= integrate_clenshaw_curtis(i_transform<func_t, _Tp>(func),
                                             _Tp{0}, _Tp{1}, rel_precision, _Tp{0});
 
 	    if (std::abs(delta<_Tp>(n1, n2) - result) > abs_precision)
@@ -118,7 +120,12 @@ template<typename _Tp>
 	std::cout << "Integration successful for hermite polynomials up to n = " << itop
 		  << '\n' << std::flush;
 	ibot = itop;
-	if (itop <= std::numeric_limits<int>::max() / 2)
+	if (itop > 1000000)
+	  {
+	    std::cout << "\nGood enough!\n" << std::flush;
+	    break;
+	  }
+	else if (itop <= std::numeric_limits<int>::max() / 2)
 	  itop *= 2;
 	else
 	  break;
