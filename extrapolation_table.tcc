@@ -108,7 +108,7 @@ namespace __gnu_cxx
 	  // Test to detect irregular behaviour in the table,
 	  // and eventually omit a part of the table by adjusting
 	  // the value of n.
-	  if (std::abs(__ss * __e1) <= 0.0001)
+	  if (std::abs(__ss * __e1) <= this->_M_irreg_test)
 	    {
 	      __n_final = 2 * __ii;
 	      break;
