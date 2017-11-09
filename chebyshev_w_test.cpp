@@ -56,7 +56,7 @@ template<typename _Tp>
   {
     const auto eps = std::numeric_limits<_Tp>::epsilon();
     const auto integ_precision = _Tp{1000} * eps;
-    const auto comp_precision = _Tp{100000} * integ_precision;
+    const auto comp_precision = _Tp{10} * integ_precision;
 
     int n1 = 0;
     for (; n1 <= 128; ++n1)
