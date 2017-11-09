@@ -81,8 +81,10 @@ template<typename _Tp>
   test_jacobi(_Tp alpha, _Tp beta)
   {
     const auto eps = __gnu_cxx::__epsilon(alpha + beta);
+    const auto integ_precision = _Tp{1000} * eps;
+    const auto comp_precision = _Tp{10} * integ_precision;
 
-    bool singular = (alpha < _Tp{0} || beta < _Tp{0});
+    const bool singular = (alpha < _Tp{0} || beta < _Tp{0});
 
     int n1 = 0;
     for (; n1 <= 128; ++n1)
@@ -92,8 +94,6 @@ template<typename _Tp>
 	    auto func = [n1, n2, alpha, beta](_Tp x)
 			-> _Tp
 			{ return normalized_jacobi<_Tp>(n1, n2, alpha, beta, x); };
-	    const _Tp integ_precision = _Tp{1000} * eps;
-	    const _Tp comp_precision = _Tp{10} * integ_precision;
 
 	    auto [result, error]
 		= singular
@@ -130,8 +130,6 @@ template<typename _Tp>
 	    auto func = [itop, n2, alpha, beta](_Tp x)
 			-> _Tp
 			{ return normalized_jacobi<_Tp>(itop, n2, alpha, beta, x); };
-	    const _Tp integ_precision = _Tp{1000} * eps;
-	    const _Tp comp_precision = _Tp{10} * integ_precision;
 
 	    auto [result, error]
 		= singular

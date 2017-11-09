@@ -52,9 +52,11 @@ template<typename _Tp>
   void
   test_gegenbauer(_Tp alpha)
   {
-    const _Tp eps = std::numeric_limits<_Tp>::epsilon();
+    const auto eps = std::numeric_limits<_Tp>::epsilon();
+    const auto integ_precision = _Tp{1000} * eps;
+    const auto comp_precision = _Tp{10} * integ_precision;
 
-    bool singular = (alpha < _Tp{0.5});
+    const bool singular = (alpha < _Tp{0.5});
 
     int n1 = 0;
     for (; n1 <= 128; ++n1)
@@ -64,8 +66,6 @@ template<typename _Tp>
 	    auto func = [n1, n2, alpha](_Tp x)
 			-> _Tp
 			{ return normalized_gegenbauer<_Tp>(n1, n2, alpha, x); };
-	    const _Tp integ_precision = _Tp{1000} * eps;
-	    const _Tp comp_precision = _Tp{10} * integ_precision;
 
 	    // Using integrate_singular works pretty well.
 	    auto [result, error]
@@ -104,8 +104,6 @@ template<typename _Tp>
 	    auto func = [n1 = itop, n2, alpha](_Tp x)
 			-> _Tp
 			{ return normalized_gegenbauer<_Tp>(n1, n2, alpha, x); };
-	    const _Tp integ_precision = _Tp{1000} * eps;
-	    const _Tp comp_precision = _Tp{10} * integ_precision;
 
 	    // Using integrate_singular works pretty well.
 	    auto [result, error]

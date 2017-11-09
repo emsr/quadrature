@@ -26,14 +26,6 @@
 namespace __gnu_cxx
 {
 
-/*
-  template<typename _FuncTp, typename _Tp>
-    std::tuple<_Tp, _Tp, _Tp, _Tp>
-    integration_rule(_FuncTp __func,
-		     _Tp __lower, _Tp __upper,
-		     Kronrod_Rule __qkintrule);
-*/
-
   /**
    * Integrate a smooth function from a to b.
    *
@@ -86,7 +78,7 @@ namespace __gnu_cxx
     {
       integration_workspace<_Tp> __workspace(__max_iter);
       return qag_integrate(__workspace,
-			   i_transform<_FuncTp, _Tp>(__func),
+			   inf_transform<_FuncTp, _Tp>(__func),
 			   _Tp{0}, _Tp{1},
 			   __max_abs_error, __max_rel_error,
 			   __max_iter,
@@ -115,7 +107,7 @@ namespace __gnu_cxx
     {
       integration_workspace<_Tp> __workspace(__max_iter);
       return qag_integrate(__workspace,
-			   il_transform<_FuncTp, _Tp>(__func, __upper),
+			   lower_inf_transform(__func, __upper),
 			   _Tp{0}, _Tp{1},
 			   __max_abs_error, __max_rel_error,
 			   __max_iter,
@@ -144,7 +136,7 @@ namespace __gnu_cxx
     {
       integration_workspace<_Tp> __workspace(__max_iter);
       return qag_integrate(__workspace,
-			   iu_transform<_FuncTp, _Tp>(__func, __lower),
+			   upper_inf_transform(__func, __lower),
 			   _Tp{0}, _Tp{1},
 			   __max_abs_error, __max_rel_error,
 			   __max_iter,
@@ -194,7 +186,7 @@ namespace __gnu_cxx
     {
       integration_workspace<_Tp> __workspace(__max_iter);
       return qags_integrate(__workspace,
-			    i_transform<_FuncTp, _Tp>(__func),
+			    inf_transform<_FuncTp, _Tp>(__func),
 			    _Tp{0}, _Tp{1},
 			    __max_abs_error, __max_rel_error);
     }
@@ -211,7 +203,7 @@ namespace __gnu_cxx
     {
       integration_workspace<_Tp> __workspace(__max_iter);
       return qags_integrate(__workspace,
-			    il_transform(__func, __upper),
+			    lower_inf_transform(__func, __upper),
 			    _Tp{0}, _Tp{1},
 			    __max_abs_error, __max_rel_error);
     }
@@ -235,7 +227,7 @@ namespace __gnu_cxx
     {
       integration_workspace<_Tp> __workspace(__max_iter);
       return qags_integrate(__workspace,
-			    iu_transform(__func, __lower),
+			    upper_inf_transform(__func, __lower),
 			    _Tp{0}, _Tp{1},
 			    __max_abs_error, __max_rel_error);
     }
@@ -410,9 +402,26 @@ namespace __gnu_cxx
 			   __max_abs_error, __max_rel_error);
     }
 
-   /**
-    * 
-    */
+  /**
+   * The singular weight function is defined by:
+   * @f[
+   *    W(x) = (x-a)^\alpha (b-x)^\beta log^\mu (x-a) log^\nu (b-x)
+   * @f]
+   * where @f$ \alpha > -1 @f$, @f$ \beta > -1 @f$,
+   * and @f$ \mu = 0 @f$, 1, @f$ \nu = 0, 1 @f$.
+   *
+   * The weight function can take four different forms depending
+   * on the values of \mu and \nu,
+   * @f[
+   *    W(x) = (x-a)^\alpha (b-x)^\beta                   (\mu = 0, \nu = 0)
+   *    W(x) = (x-a)^\alpha (b-x)^\beta log(x-a)          (\mu = 1, \nu = 0)
+   *    W(x) = (x-a)^\alpha (b-x)^\beta log(b-x)          (\mu = 0, \nu = 1)
+   *    W(x) = (x-a)^\alpha (b-x)^\beta log(x-a) log(b-x) (\mu = 1, \nu = 1)
+   * @f]
+   *
+   * The QAWS algorithm is designed for integrands with algebraic-logarithmic
+   * singularities at the end-points of an integration region.
+   */
   template<typename _FuncTp, typename _Tp>
     inline std::tuple<_Tp, _Tp>
     integrate_singular_endpoints(const _FuncTp& __func,

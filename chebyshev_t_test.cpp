@@ -54,7 +54,9 @@ template<typename _Tp>
   void
   test_chebyshev_t()
   {
-    const _Tp eps = std::numeric_limits<_Tp>::epsilon();
+    const auto eps = std::numeric_limits<_Tp>::epsilon();
+    const auto integ_precision = _Tp{1000} * eps;
+    const auto comp_precision = _Tp{10} * integ_precision;
 
     int n1 = 0;
     for (; n1 <= 128; ++n1)
@@ -62,8 +64,6 @@ template<typename _Tp>
 	for (int n2 = 0; n2 <= n1; ++n2)
 	  {
 	    auto func = [n1, n2](_Tp x)->_Tp{return normalized_chebyshev_t(n1, n2, x);};
-	    const _Tp integ_precision = _Tp{1000} * eps;
-	    const _Tp comp_precision = _Tp{10} * integ_precision;
 
 	    auto [result, error]
 //		= integrate(func, _Tp{-1}, _Tp{1}, integ_precision, _Tp{0});
@@ -98,8 +98,6 @@ template<typename _Tp>
 	for (int n2 = 0; n2 <= itop; n2 += del)
 	  {
 	    auto func = [n1 = itop, n2](_Tp x)->_Tp{return normalized_chebyshev_t(n1, n2, x);};
-	    const _Tp integ_precision = _Tp{1000} * eps;
-	    const _Tp comp_precision = _Tp{10} * integ_precision;
 
 	    auto [result, error]
 //		= integrate(func, _Tp{-1}, _Tp{1}, integ_precision, _Tp{0});

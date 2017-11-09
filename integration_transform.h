@@ -30,11 +30,11 @@ namespace __gnu_cxx
    * to one defined on (0, 1].
    */
   template<typename _FuncTp, typename _Tp>
-    struct i_transform
+    struct inf_transform
     {
       const _FuncTp& _M_func;
 
-      i_transform(const _FuncTp& __func)
+      inf_transform(const _FuncTp& __func)
       : _M_func(__func)
       { }
 
@@ -52,12 +52,12 @@ namespace __gnu_cxx
    * to one defined on (0, 1].
    */
   template<typename _FuncTp, typename _Tp>
-    struct il_transform
+    struct lower_inf_transform
     {
       const _FuncTp& _M_func;
       const _Tp _M_b;
 
-      il_transform(const _FuncTp& __func, _Tp __b)
+      lower_inf_transform(const _FuncTp& __func, _Tp __b)
       : _M_func(__func),
 	_M_b(__b)
       { }
@@ -76,12 +76,12 @@ namespace __gnu_cxx
    * to one defined on (0, 1].
    */
   template<typename _FuncTp, typename _Tp>
-    struct iu_transform
+    struct upper_inf_transform
     {
       const _FuncTp& _M_func;
       const _Tp _M_a;
 
-      iu_transform(const _FuncTp& __func, _Tp __a)
+      upper_inf_transform(const _FuncTp& __func, _Tp __a)
       : _M_func(__func),
 	_M_a(__a)
       { }

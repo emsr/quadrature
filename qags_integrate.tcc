@@ -434,7 +434,7 @@ namespace __gnu_cxx
 		   const _FuncTp& __func,
 		   _Tp __max_abs_err, _Tp __max_rel_err)
     {
-      return qags_integrate(__workspace, i_transform<_FuncTp, _Tp>(__func),
+      return qags_integrate(__workspace, inf_transform<_FuncTp, _Tp>(__func),
 			    _Tp{0}, _Tp{1}, __max_abs_err, __max_rel_err);
     }
 
@@ -447,7 +447,7 @@ namespace __gnu_cxx
 		    const _FuncTp& __func, _Tp __upper,
 		    _Tp __max_abs_err, _Tp __max_rel_err)
     {
-      return qags_integrate(__workspace, il_transform(__func, __upper),
+      return qags_integrate(__workspace, lower_inf_transform(__func, __upper),
 			    _Tp{0}, _Tp{1}, __max_abs_err, __max_rel_err);
     }
 
@@ -460,7 +460,7 @@ namespace __gnu_cxx
 		    const _FuncTp& __func, _Tp __lower,
 		    _Tp __max_abs_err, _Tp __max_rel_err)
     {
-      return qags_integrate(__workspace, iu_transform(__func, __lower),
+      return qags_integrate(__workspace, upper_inf_transform(__func, __lower),
 			    _Tp{0}, _Tp{1}, __max_abs_err, __max_rel_err);
     }
 

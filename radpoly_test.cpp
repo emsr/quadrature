@@ -56,7 +56,9 @@ template<typename _Tp>
   void
   test_radpoly()
   {
-    const _Tp eps = std::numeric_limits<_Tp>::epsilon();
+    const auto eps = std::numeric_limits<_Tp>::epsilon();
+    const auto integ_precision = _Tp{1000} * eps;
+    const auto comp_precision = _Tp{10} * integ_precision;
 
     int n1 = 0;
     for (; n1 <= 128; ++n1)
@@ -78,8 +80,6 @@ template<typename _Tp>
 		    auto func = [n1, m1, n2, m2](_Tp x)
 				-> _Tp
 				{ return normalized_radpoly(n1, m1, n2, m2, x); };
-		    const _Tp integ_precision = _Tp{1000} * eps;
-		    const _Tp comp_precision = _Tp{10} * integ_precision;
 
 		    auto [result, error]
 			= integrate_singular(func, _Tp{0}, _Tp{1}, integ_precision, _Tp{0});
@@ -128,8 +128,6 @@ template<typename _Tp>
 		    auto func = [n1 = itop, m1, n2, m2](_Tp x)
 				-> _Tp
 				{ return normalized_radpoly(n1, m1, n2, m2, x); };
-		    const _Tp integ_precision = _Tp{1000} * eps;
-		    const _Tp comp_precision = _Tp{10} * integ_precision;
 
 		    auto [result, error]
 			= integrate_singular(func, _Tp{0}, _Tp{1}, integ_precision, _Tp{0});

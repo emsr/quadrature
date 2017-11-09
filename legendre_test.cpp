@@ -47,7 +47,9 @@ template<typename _Tp>
   void
   test_legendre()
   {
-    const _Tp eps = std::numeric_limits<_Tp>::epsilon();
+    const auto eps = std::numeric_limits<_Tp>::epsilon();
+    const auto integ_precision = _Tp{1000} * eps;
+    const auto comp_precision = _Tp{10} * integ_precision;
 
     int l1 = 0;
     for (; l1 <= 128; ++l1)
@@ -57,8 +59,6 @@ template<typename _Tp>
 	    auto func = [l1, l2](_Tp x)
 			-> _Tp
 			{ return normalized_legendre(l1, l2, x); };
-	    const _Tp integ_precision = _Tp{1000} * eps;
-	    const _Tp comp_precision = _Tp{10} * integ_precision;
 
 	    auto [result, error]
 		= integrate(func, _Tp{-1}, _Tp{1}, integ_precision, _Tp{0});
@@ -90,8 +90,6 @@ template<typename _Tp>
 	    auto func = [l1 = itop, l2](_Tp x)
 			-> _Tp
 			{ return normalized_legendre(l1, l2, x); };
-	    const _Tp integ_precision = _Tp{1000} * eps;
-	    const _Tp comp_precision = _Tp{10} * integ_precision;
 
 	    auto [result, error]
 		= integrate(func, _Tp{-1}, _Tp{1}, integ_precision, _Tp{0});

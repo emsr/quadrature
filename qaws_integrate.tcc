@@ -37,7 +37,7 @@
 namespace __gnu_cxx
 {
 
-  template<typename _Tp>
+  template<typename _FuncTp, typename _Tp>
     struct fn_qaws;
 
   template<typename _Tp>
@@ -65,6 +65,7 @@ namespace __gnu_cxx
    *
    * The QAWS algorithm is designed for integrands with algebraic-logarithmic
    * singularities at the end-points of an integration region.
+   *
    * In order to work efficiently the algorithm requires a precomputed table
    * of Chebyshev moments.
    */
@@ -81,7 +82,8 @@ namespace __gnu_cxx
       if (__upper <= __lower)
 	std::__throw_runtime_error("qaws_integrate: "
 				   "Limits must form an ascending sequence");
-      if (__max_abs_err <= 0 && (__max_rel_err < 50 * _S_eps || __max_rel_err < 0.5e-28))
+      if (__max_abs_err <= 0
+		 && (__max_rel_err < 50 * _S_eps || __max_rel_err < 0.5e-28))
 	std::__throw_runtime_error("qaws_integrate: "
 				   "Tolerance cannot be achieved "
 				   "with given absolute "
@@ -209,7 +211,7 @@ namespace __gnu_cxx
     qc25s(qaws_integration_table<_Tp>& __t,
 	  const _FuncTp& __func, _Tp __lower, _Tp __upper, _Tp __a1, _Tp __b1)
     {
-      fn_qaws<_Tp> __fqaws(&__t, __func, __lower, __upper);
+      fn_qaws<_FuncTp, _Tp> __fqaws(&__t, __func, __lower, __upper);
 
       if (__a1 == __lower && (__t.alpha != _Tp{0} || __t.mu != 0))
 	{
@@ -309,18 +311,18 @@ namespace __gnu_cxx
 	}
     }
 
-  template<typename _Tp>
+  template<typename _FuncTp, typename _Tp>
     struct fn_qaws
     {
-      const qaws_integration_table<_Tp> *table;
-      std::function<_Tp(_Tp)> func;
+      const qaws_integration_table<_Tp>* table;
+      _FuncTp func;
       _Tp a;
       _Tp b;
 
-      fn_qaws(const qaws_integration_table<_Tp> *__t,
-	      std::function<_Tp(_Tp)> __f, _Tp __a_in, _Tp __b_in)
-      : table(__t),
-	func(__f), a(__a_in), b(__b_in)
+      fn_qaws(const qaws_integration_table<_Tp>* __tab,
+	      const _FuncTp& __func, _Tp __a_in, _Tp __b_in)
+      : table(__tab),
+	func(__func), a(__a_in), b(__b_in)
       { }
 
       _Tp eval_middle(_Tp) const;
@@ -328,9 +330,9 @@ namespace __gnu_cxx
       _Tp eval_right(_Tp) const;
     };
 
-  template<typename _Tp>
+  template<typename _FuncTp, typename _Tp>
     _Tp
-    fn_qaws<_Tp>::eval_middle(_Tp __x) const
+    fn_qaws<_FuncTp, _Tp>::eval_middle(_Tp __x) const
     {
       auto __factor = _Tp{1};
 
@@ -349,9 +351,9 @@ namespace __gnu_cxx
       return __factor * this->func(__x);
     }
 
-  template<typename _Tp>
+  template<typename _FuncTp, typename _Tp>
     _Tp
-    fn_qaws<_Tp>::eval_left(_Tp __x) const
+    fn_qaws<_FuncTp, _Tp>::eval_left(_Tp __x) const
     {
       auto __factor = _Tp{1};
 
@@ -364,9 +366,9 @@ namespace __gnu_cxx
       return __factor * this->func(__x);
     }
 
-  template<typename _Tp>
+  template<typename _FuncTp, typename _Tp>
     _Tp
-    fn_qaws<_Tp>::eval_right(_Tp __x) const
+    fn_qaws<_FuncTp, _Tp>::eval_right(_Tp __x) const
     {
       auto __factor = _Tp{1};
 
