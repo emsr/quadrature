@@ -79,7 +79,7 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
       const auto __n_ivals = __pts.size() - 1;
 
       bool __extrapolate = false;
-      bool __disallow_extrapolation = false;
+      bool __allow_extrapolation = true;
 
       if (__max_abs_err <= 0
 	  && (__max_rel_err < 50 * _S_eps || __max_rel_err < 0.5e-28))
@@ -253,7 +253,7 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
 	      break;
 	    }
 
-	  if (__disallow_extrapolation)
+	  if (!__allow_extrapolation)
 	    continue;
 
 	  __error_over_large_intervals -= __last_e_i;
@@ -314,7 +314,7 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
 
 	  // Prepare bisection of the smallest interval.
 	  if (__table.get_nn() == 1)
-	    __disallow_extrapolation = true;
+	    __allow_extrapolation = false;
 
 	  if (__error_type == DIVERGENCE_ERROR)
 	    break;

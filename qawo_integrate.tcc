@@ -54,7 +54,7 @@ namespace __gnu_cxx
 
       bool __extrapolate = false;
       bool __extall = false;
-      bool __disallow_extrapolation = false;
+      bool __allow_extrapolation = true;
 
       __workspace.clear();
       //__wf.clear();
@@ -213,7 +213,7 @@ namespace __gnu_cxx
 	      continue;
 	    }
 
-	  if (__disallow_extrapolation)
+	  if (!__allow_extrapolation)
 	    continue;
 
 	  if (__extall)
@@ -290,7 +290,7 @@ namespace __gnu_cxx
 
 	  // Prepare bisection of the smallest interval.
 	  if (__table.get_nn() == 1)
-	    __disallow_extrapolation = true;
+	    __allow_extrapolation = false;
 
 	  if (__error_type == DIVERGENCE_ERROR)
 	    break;
