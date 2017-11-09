@@ -94,18 +94,19 @@ template<typename _Tp>
     return 0;
   }
 
-/** Calculates the derivative of the nth order Jacobi polynomial at an array of np points given by the vector x.
-    This function needs two workspaces of size np to do its calculation. If the first one (ws1) is
-    NULL, the function will allocate the necessary memory (using malloc) to do the calculation
-
-    \param np Number of points where the polynomial will be calculated
-    \param x A vector of length np containing the points where the polynomials should be calculated. \f$-1\le x_i \le 1\f$.
-    \param n Order of the Jacobi polynomial whose derivative should be calculated
-    \param result_array An array of length np where the result will be stored
-    \param a \f$\alpha\f$ parameter of Jacobi polynomial
-    \param b \f$\beta\f$ parameter of Jacobi polynomial
-    \param ws A pointer to a block of memory 2*np doubles long to be used as workspace. If it is NULL, memory will be allocated using malloc and released at the end
-    \return Error code defined in gsl_errno.h or GSL_SUCCESS if everything was fine
+/**
+ * Calculates the derivative of the nth order Jacobi polynomial at an array of np points given by the vector x.
+ * This function needs two workspaces of size np to do its calculation. If the first one (ws1) is
+ * NULL, the function will allocate the necessary memory (using malloc) to do the calculation
+ *
+ * \param np Number of points where the polynomial will be calculated
+ * \param x A vector of length np containing the points where the polynomials should be calculated. \f$-1\le x_i \le 1\f$.
+ * \param n Order of the Jacobi polynomial whose derivative should be calculated
+ * \param result_array An array of length np where the result will be stored
+ * \param a \f$\alpha\f$ parameter of Jacobi polynomial
+ * \param b \f$\beta\f$ parameter of Jacobi polynomial
+ * \param ws A pointer to a block of memory 2*np doubles long to be used as workspace. If it is NULL, memory will be allocated using malloc and released at the end
+ * \return Error code defined in gsl_errno.h or GSL_SUCCESS if everything was fine
  */
 template<typename _Tp>
   int
