@@ -14,8 +14,8 @@ ifeq ("$(wildcard $(CXX_INST_DIR))","")
   endif
 endif
 
-OPT = -O3
-#OPT = -g
+#OPT = -O3
+OPT = -g
 GCC = $(CXX_INST_DIR)/bin/gcc $(OPT) -Wall -Wextra
 CXX = $(CXX_INST_DIR)/bin/g++ -std=gnu++14 $(OPT) -D__STDCPP_WANT_MATH_SPEC_FUNCS__ -Wall -Wextra -Wno-psabi -I..
 CXX17 = $(CXX_INST_DIR)/bin/g++ -std=gnu++17 -fconcepts $(OPT) -Wall -Wextra -Wno-psabi -I..
@@ -66,8 +66,8 @@ check:
 	$(BIN_DIR)/zernike_test > zernike_test.txt 2> zernike_test.err
 
 
-test: $(BINS)
-	./test_quadrature > test_quadrature.txt 2> test_quadrature.err
+test: $(BIN_DIR)/test_quadrature
+	$(BIN_DIR)/test_quadrature > test_quadrature.txt 2> test_quadrature.err
 
 
 # Binaries...
