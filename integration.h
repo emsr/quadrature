@@ -31,7 +31,6 @@
 #include "qaws_integrate.tcc"
 #include "qawo_integrate.tcc"
 #include "qawf_integrate.tcc"
-#include "gauss_legendre_table.h"
 #include "glfixed_integrate.tcc"
 #include "cquad_integrate.tcc"
 
