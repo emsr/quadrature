@@ -1,13 +1,15 @@
 
-#include <cmath>
+#include <limits>
+#include <cassert>
+#include <ext/cmath>
 #include "integration.h"
 
 // Function which should integrate to 1 for n1 == n2, 0 otherwise.
 template<typename _Tp>
   _Tp
-  normalized_hermite(int n1, int n2, _Tp x)
+  norm_hermite(int n1, int n2, _Tp x)
   {
-    const auto _S_pi = __gnu_cxx::__const_pi(x);
+    const auto _S_pi = __gnu_cxx::__math_constants<_Tp>::__pi;
     _Tp lnorm = _Tp{0.5} * (log(_S_pi) + (n1 + n2) * log(_Tp{2})
 			  + __gnu_cxx::lfactorial<_Tp>(n1)
 			  + __gnu_cxx::lfactorial<_Tp>(n2));
@@ -36,14 +38,14 @@ template<typename _Tp>
 	  {
 	    auto func = [n1, n2](_Tp x)
 			-> _Tp
-			{ return normalized_hermite(n1, n2, x); };
+			{ return norm_hermite(n1, n2, x); };
 	    using func_t = decltype(func);
 
 	    auto [result, error]
-		= integrate_clenshaw_curtis(i_transform<func_t, _Tp>(func),
+		= __gnu_cxx::integrate_clenshaw_curtis(i_transform<func_t, _Tp>(func),
                                             _Tp{0}, _Tp{1}, rel_precision, _Tp{0});
 
-	    assert(std::abs(delta<_Tp>(n1, n2) - result) < abs_precision);
+	    assert(std::abs(delta<_Tp>(n1, n2) - result) < cmp_prec);
 	  }
       }
   }
