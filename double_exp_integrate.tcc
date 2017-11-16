@@ -82,7 +82,7 @@ template<typename _Func, typename _Tp>
     __n /= 2;
     const auto __h = _Tp{5} / __n; // 5.0 is rough limit of K in exp(exp(K)).
 
-    const auto _S_pi_4 = __gnu_cxx::__math_constants<_Tp>::__pi_quarter<_Tp>;
+    const auto _S_pi_4 = __gnu_cxx::__math_constants<_Tp>::__pi_quarter;
     auto __sum = __func((__a + __b) / _Tp{2}) / _Tp{2};
     for (int __k = -__n; __k < 0; ++__k)
       {
@@ -114,7 +114,7 @@ template<typename _Func, typename _Tp>
     __n /= 2;
     const auto __h = _Tp{5} / __n; // 5.0 is rough limit of K in exp(exp(K)).
 
-    const auto _S_pi_4 = __gnu_cxx::__math_constants<_Tp>::__pi_quarter<_Tp>;
+    const auto _S_pi_4 = __gnu_cxx::__math_constants<_Tp>::__pi_quarter;
     auto __sum = _Tp{0};
     for (int __k = -__n; __k <= __n; ++__k)
       {
@@ -160,7 +160,7 @@ template<typename _Func, typename _Tp>
     __n /= 2;
     auto __h = _Tp{5} / __n; // 5.0 is rough limit of K in exp(exp(K)).
 
-    const auto _S_pi_4 = __gnu_cxx::__math_constants<_Tp>::__pi_quarter<_Tp>;
+    const auto _S_pi_4 = __gnu_cxx::__math_constants<_Tp>::__pi_quarter;
     auto __sum = __func((__a + __b) / _Tp{2}) / _Tp{2};
     auto __sum1 = _Tp{0};
     auto __sum2 = _Tp{0};

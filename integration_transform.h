@@ -24,17 +24,28 @@
 
 namespace __gnu_cxx
 {
-
-  /**
-   * Transform a function defined on (-\infty, +\infty)
-   * to one defined on (0, 1].
-   */
+  //  Is this useful?
   template<typename _FuncTp, typename _Tp>
-    struct inf_transform
+    struct mapper
     {
       const _FuncTp& _M_func;
 
-      inf_transform(const _FuncTp& __func)
+      mapper(const _FuncTp& __func)
+      : _M_func(__func)
+      { }
+    };
+
+  /**
+   * Map a function defined on @f$ x \in (-\infty, +\infty) @f$
+   * to one defined on @f$ t \in (0, 1] @f$.
+   * Note: g(t) actually returns [f(-x) + f(+x)]dx/dt.
+   */
+  template<typename _FuncTp, typename _Tp>
+    struct map_minf_pinf
+    {
+      const _FuncTp& _M_func;
+
+      map_minf_pinf(const _FuncTp& __func)
       : _M_func(__func)
       { }
 
@@ -48,16 +59,16 @@ namespace __gnu_cxx
     };
 
   /**
-   * Transform a function defined on (-\infty, b]
-   * to one defined on (0, 1].
+   * Map a function defined on @f$ x \in (-\infty, b] @f$
+   * to one defined on @f$ t \in (0, 1] @f$.
    */
   template<typename _FuncTp, typename _Tp>
-    struct lower_inf_transform
+    struct map_minf_b
     {
       const _FuncTp& _M_func;
       const _Tp _M_b;
 
-      lower_inf_transform(const _FuncTp& __func, _Tp __b)
+      map_minf_b(const _FuncTp& __func, _Tp __b)
       : _M_func(__func),
 	_M_b(__b)
       { }
@@ -72,16 +83,16 @@ namespace __gnu_cxx
     };
 
   /**
-   * Transform a function defined on [a, +\infty)
-   * to one defined on (0, 1].
+   * Map a function defined on @f$ x \in [a, +\infty) @f$
+   * to one defined on @f$ t \in (0, 1] @f$.
    */
   template<typename _FuncTp, typename _Tp>
-    struct upper_inf_transform
+    struct map_a_pinf
     {
       const _FuncTp& _M_func;
       const _Tp _M_a;
 
-      upper_inf_transform(const _FuncTp& __func, _Tp __a)
+      map_a_pinf(const _FuncTp& __func, _Tp __a)
       : _M_func(__func),
 	_M_a(__a)
       { }

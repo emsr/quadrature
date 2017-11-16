@@ -71,9 +71,9 @@ template<typename _Tp>
 		//= integrate(func, -infty, infty, rel_precision, _Tp{0});
 		//= integrate_infinite(func, rel_precision, _Tp{0});
 		//= integrate_singular_infinite(func, rel_precision, _Tp{0});
-		//= integrate_oscillatory(inf_transform<func_t, _Tp>(func),
+		//= integrate_oscillatory(map_minf_pinf<func_t, _Tp>(func),
                 //                        _Tp{0}, _Tp{1}, rel_precision, _Tp{0});
-		= integrate_clenshaw_curtis(inf_transform<func_t, _Tp>(func),
+		= integrate_clenshaw_curtis(map_minf_pinf<func_t, _Tp>(func),
                                             _Tp{0}, _Tp{1}, rel_precision, _Tp{0});
 
 	    if (std::abs(delta<_Tp>(n1, n2) - result) > abs_precision)

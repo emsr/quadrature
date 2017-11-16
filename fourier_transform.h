@@ -48,7 +48,8 @@ namespace __gnu_cxx
 #if REPERIOD
 	return _Tp(2 * __i) / _Tp(__m);
 #else
-	const auto _S_2pi = Tp{2} * __gnu_cxx::__math_constants<_Tp>::__pi<_Tp>;
+	const auto _S_2pi = _Tp{2}
+			  * __gnu_cxx::__math_constants<_Tp>::__pi;
 	return _S_2pi * _Tp(__i) / _Tp(__m);
 #endif
       }

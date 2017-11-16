@@ -78,7 +78,7 @@ namespace __gnu_cxx
     {
       integration_workspace<_Tp> __workspace(__max_iter);
       return qag_integrate(__workspace,
-			   inf_transform<_FuncTp, _Tp>(__func),
+			   map_minf_pinf<_FuncTp, _Tp>(__func),
 			   _Tp{0}, _Tp{1},
 			   __max_abs_error, __max_rel_error,
 			   __max_iter,
@@ -107,7 +107,7 @@ namespace __gnu_cxx
     {
       integration_workspace<_Tp> __workspace(__max_iter);
       return qag_integrate(__workspace,
-			   lower_inf_transform(__func, __upper),
+			   map_minf_b(__func, __upper),
 			   _Tp{0}, _Tp{1},
 			   __max_abs_error, __max_rel_error,
 			   __max_iter,
@@ -136,7 +136,7 @@ namespace __gnu_cxx
     {
       integration_workspace<_Tp> __workspace(__max_iter);
       return qag_integrate(__workspace,
-			   upper_inf_transform(__func, __lower),
+			   map_a_pinf(__func, __lower),
 			   _Tp{0}, _Tp{1},
 			   __max_abs_error, __max_rel_error,
 			   __max_iter,
@@ -186,7 +186,7 @@ namespace __gnu_cxx
     {
       integration_workspace<_Tp> __workspace(__max_iter);
       return qags_integrate(__workspace,
-			    inf_transform<_FuncTp, _Tp>(__func),
+			    map_minf_pinf<_FuncTp, _Tp>(__func),
 			    _Tp{0}, _Tp{1},
 			    __max_abs_error, __max_rel_error);
     }
@@ -203,7 +203,7 @@ namespace __gnu_cxx
     {
       integration_workspace<_Tp> __workspace(__max_iter);
       return qags_integrate(__workspace,
-			    lower_inf_transform(__func, __upper),
+			    map_minf_b(__func, __upper),
 			    _Tp{0}, _Tp{1},
 			    __max_abs_error, __max_rel_error);
     }
@@ -227,7 +227,7 @@ namespace __gnu_cxx
     {
       integration_workspace<_Tp> __workspace(__max_iter);
       return qags_integrate(__workspace,
-			    upper_inf_transform(__func, __lower),
+			    map_a_pinf(__func, __lower),
 			    _Tp{0}, _Tp{1},
 			    __max_abs_error, __max_rel_error);
     }
