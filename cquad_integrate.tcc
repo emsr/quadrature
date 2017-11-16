@@ -83,26 +83,26 @@ namespace __gnu_cxx
    */
   template<typename _Tp>
     void
-    downdate(_Tp* __c, std::size_t __n, std::size_t __depth,
-	     std::size_t* __NaN, std::size_t __num_NaNs)
+    downdate(_Tp* __c, std::ptrdiff_t __n, std::ptrdiff_t __depth,
+	     std::ptrdiff_t* __NaN, std::ptrdiff_t __num_NaNs)
     {
-      constexpr std::size_t __bidx[4] = { 0, 6, 16, 34 };
+      constexpr std::ptrdiff_t __bidx[4] = { 0, 6, 16, 34 };
       _Tp __b_new[34], __alpha;
 
-      for (std::size_t __i = 0; __i <= __n + 1; ++__i)
+      for (std::ptrdiff_t __i = 0; __i <= __n + 1; ++__i)
 	__b_new[__i] = bee[__bidx[__depth] + __i];
-      for (std::size_t __i = 0; __i < __num_NaNs; ++__i)
+      for (std::ptrdiff_t __i = 0; __i < __num_NaNs; ++__i)
 	{
 	  __b_new[__n + 1] = __b_new[__n + 1] / Lalpha[__n];
 	  __b_new[__n] = (__b_new[__n] + xi[__NaN[__i]] * __b_new[__n + 1])
 		       / Lalpha[__n - 1];
-	  for (std::size_t __j = __n - 1; __j > 0; --__j)
+	  for (std::ptrdiff_t __j = __n - 1; __j > 0; --__j)
 	    __b_new[__j] = (__b_new[__j] + xi[__NaN[__i]] * __b_new[__j + 1]
 			- Lgamma[__j + 1] * __b_new[__j + 2]) / Lalpha[__j - 1];
-	  for (std::size_t __j = 0; __j <= __n; ++__j)
+	  for (std::ptrdiff_t __j = 0; __j <= __n; ++__j)
 	    __b_new[__j] = __b_new[__j + 1];
 	  __alpha = __c[__n] / __b_new[__n];
-	  for (std::size_t __j = 0; __j < __n; ++__j)
+	  for (std::ptrdiff_t __j = 0; __j < __n; ++__j)
 	    __c[__j] -= __alpha * __b_new[__j];
 	  __c[__n] = 0;
 	  --__n;
@@ -144,10 +144,10 @@ namespace __gnu_cxx
 		    _Tp __epsabs, _Tp __epsrel)
     {
       // Some constants that we will need.
-      constexpr std::size_t __n[4] = { 4, 8, 16, 32 };
-      constexpr std::size_t __skip[4] = { 8, 4, 2, 1 };
-      constexpr std::size_t __idx[4] = { 0, 5, 14, 31 };
-      constexpr std::size_t __ndiv_max = 20;
+      constexpr std::ptrdiff_t __n[4] = { 4, 8, 16, 32 };
+      constexpr std::ptrdiff_t __skip[4] = { 8, 4, 2, 1 };
+      constexpr std::ptrdiff_t __idx[4] = { 0, 5, 14, 31 };
+      constexpr std::ptrdiff_t __ndiv_max = 20;
       const auto _S_eps = std::numeric_limits<_Tp>::epsilon();
       const auto _S_NaN = std::numeric_limits<_Tp>::quiet_NaN();
       const auto _S_inf = std::numeric_limits<_Tp>::infinity();
@@ -158,7 +158,7 @@ namespace __gnu_cxx
 
       // Actual variables (as opposed to constants above).
       bool __split;
-      std::size_t __num_NaNs, __NaN[32];
+      std::ptrdiff_t __num_NaNs, __NaN[32];
       _Tp __nc, __ncdiff;
 
       // Check for unreasonable accuracy demands.
@@ -173,7 +173,7 @@ namespace __gnu_cxx
       auto __m = (__a + __b) / _Tp{2};
       auto __h = (__b - __a) / _Tp{2};
       __num_NaNs = 0;
-      for (std::size_t __i = 0; __i <= __n[3]; ++__i)
+      for (std::ptrdiff_t __i = 0; __i <= __n[3]; ++__i)
 	{
 	  __iv.fx[__i] = __func(__m + xi[__i] * __h);
 	  if (std::isinf(__iv.fx[__i]) || std::isnan(__iv.fx[__i]))
@@ -185,7 +185,7 @@ namespace __gnu_cxx
       _Vinvfx(__iv.fx, &(__iv.c[__idx[0]]), 0);
       _Vinvfx(__iv.fx, &(__iv.c[__idx[3]]), 3);
       _Vinvfx(__iv.fx, &(__iv.c[__idx[2]]), 2);
-      for (std::size_t __i = 0; __i < __num_NaNs; ++__i)
+      for (std::ptrdiff_t __i = 0; __i < __num_NaNs; ++__i)
 	__iv.fx[__NaN[__i]] = _S_NaN;
       __iv._M_lower_lim = __a;
       __iv._M_upper_lim = __b;
@@ -194,13 +194,13 @@ namespace __gnu_cxx
       __iv.ndiv = 0;
       __iv._M_result = _Tp{2} * __h * __iv.c[__idx[3]] * __w;
       __nc = _Tp{0};
-      for (std::size_t __i = __n[2] + 1; __i <= __n[3]; ++__i)
+      for (std::ptrdiff_t __i = __n[2] + 1; __i <= __n[3]; ++__i)
 	{
 	  const auto __temp = __iv.c[__idx[3] + __i];
 	  __nc += __temp * __temp;
 	}
       __ncdiff = __nc;
-      for (std::size_t __i = 0; __i <= __n[2]; ++__i)
+      for (std::ptrdiff_t __i = 0; __i <= __n[2]; ++__i)
 	{
 	  const auto __temp = __iv.c[__idx[2] + __i] - __iv.c[__idx[3] + __i];
 	  __ncdiff += __temp * __temp;
@@ -245,11 +245,11 @@ namespace __gnu_cxx
 	      auto __depth = ++__iv.depth;
 
 	      // Get the new (missing) function values.
-	      for (std::size_t __i = __skip[__depth];
+	      for (std::ptrdiff_t __i = __skip[__depth];
 			__i <= 32; __i += 2 * __skip[__depth])
 		__iv.fx[__i] = __func(__m + xi[__i] * __h);
 	      __num_NaNs = 0;
-	      for (std::size_t __i = 0; __i <= 32; __i += __skip[__depth])
+	      for (std::ptrdiff_t __i = 0; __i <= 32; __i += __skip[__depth])
 		if (std::isinf(__iv.fx[__i]) || std::isnan(__iv.fx[__i]))
 		  {
 		    __NaN[__num_NaNs++] = __i;
@@ -264,19 +264,19 @@ namespace __gnu_cxx
 		{
 		  downdate(&(__iv.c[__idx[__depth]]), __n[__depth], __depth,
 			   __NaN, __num_NaNs);
-		  for (std::size_t __i = 0; __i < __num_NaNs; ++__i)
+		  for (std::ptrdiff_t __i = 0; __i < __num_NaNs; ++__i)
 		    __iv.fx[__NaN[__i]] = _S_NaN;
 		}
 
 	      // Compute the error estimate.
 	      __nc = _Tp{0};
-	      for (std::size_t __i = __n[__depth - 1] + 1; __i <= __n[__depth]; ++__i)
+	      for (std::ptrdiff_t __i = __n[__depth - 1] + 1; __i <= __n[__depth]; ++__i)
 		{
 		  const auto __temp = __iv.c[__idx[__depth] + __i];
 		  __nc += __temp * __temp;
 		}
 	      __ncdiff = __nc;
-	      for (std::size_t __i = 0; __i <= __n[__depth - 1]; ++__i)
+	      for (std::ptrdiff_t __i = 0; __i <= __n[__depth - 1]; ++__i)
 		{
 		  const auto __temp = __iv.c[__idx[__depth - 1] + __i]
 				    - __iv.c[__idx[__depth] + __i];
@@ -327,11 +327,11 @@ namespace __gnu_cxx
 	      __ivl.rdepth = __iv.rdepth + 1;
 	      __ivl.fx[0] = __iv.fx[0];
 	      __ivl.fx[32] = __iv.fx[16];
-	      for (std::size_t __i = __skip[0]; __i < 32; __i += __skip[0])
+	      for (std::ptrdiff_t __i = __skip[0]; __i < 32; __i += __skip[0])
 		__ivl.fx[__i] = __func((__ivl._M_lower_lim + __ivl._M_upper_lim)
 			      / _Tp{2} + xi[__i] * __h / _Tp{2});
 	      __num_NaNs = 0;
-	      for (std::size_t __i = 0; __i <= 32; __i += __skip[0])
+	      for (std::ptrdiff_t __i = 0; __i <= 32; __i += __skip[0])
 		{
 		  if (std::isinf(__ivl.fx[__i]) || std::isnan(__ivl.fx[__i]))
 		    {
@@ -343,24 +343,24 @@ namespace __gnu_cxx
 	      if (__num_NaNs > 0)
 		{
 		  downdate(__ivl.c, __n[0], 0, __NaN, __num_NaNs);
-		  for (std::size_t __i = 0; __i < __num_NaNs; ++__i)
+		  for (std::ptrdiff_t __i = 0; __i < __num_NaNs; ++__i)
 		    __ivl.fx[__NaN[__i]] = _S_NaN;
 		}
-	      for (std::size_t __i = 0; __i <= __n[__depth]; ++__i)
+	      for (std::ptrdiff_t __i = 0; __i <= __n[__depth]; ++__i)
 		{
 		  __ivl.c[__idx[__depth] + __i] = _Tp{0};
-		  for (std::size_t __j = __i; __j <= __n[__depth]; ++__j)
+		  for (std::ptrdiff_t __j = __i; __j <= __n[__depth]; ++__j)
 		    __ivl.c[__idx[__depth] + __i] += Tleft[__i * 33 + __j]
 						* __iv.c[__idx[__depth] + __j];
 		}
 	      __ncdiff = _Tp{0};
-	      for (std::size_t __i = 0; __i <= __n[0]; ++__i)
+	      for (std::ptrdiff_t __i = 0; __i <= __n[0]; ++__i)
 		{
 		  const auto __temp = __ivl.c[__i]
 				    - __ivl.c[__idx[__depth] + __i];
 		  __ncdiff += __temp * __temp;
 		}
-	      for (std::size_t __i = __n[0] + 1; __i <= __n[__depth]; ++__i)
+	      for (std::ptrdiff_t __i = __n[0] + 1; __i <= __n[__depth]; ++__i)
 		{
 		  const auto __temp = __ivl.c[__idx[__depth] + __i];
 		  __ncdiff += __temp * __temp;
@@ -388,11 +388,11 @@ namespace __gnu_cxx
 	      __ivr.rdepth = __iv.rdepth + 1;
 	      __ivr.fx[0] = __iv.fx[16];
 	      __ivr.fx[32] = __iv.fx[32];
-	      for (std::size_t __i = __skip[0]; __i < 32; __i += __skip[0])
+	      for (std::ptrdiff_t __i = __skip[0]; __i < 32; __i += __skip[0])
 		__ivr.fx[__i] = __func((__ivr._M_lower_lim + __ivr._M_upper_lim)
 			      / _Tp{2} + xi[__i] * __h / _Tp{2});
 	      __num_NaNs = 0;
-	      for (std::size_t __i = 0; __i <= 32; __i += __skip[0])
+	      for (std::ptrdiff_t __i = 0; __i <= 32; __i += __skip[0])
 		{
 		  if (std::isinf(__ivr.fx[__i]) || std::isnan(__ivr.fx[__i]))
 		    {
@@ -404,24 +404,24 @@ namespace __gnu_cxx
 	      if (__num_NaNs > 0)
 		{
 		  downdate(__ivr.c, __n[0], 0, __NaN, __num_NaNs);
-		  for (std::size_t __i = 0; __i < __num_NaNs; ++__i)
+		  for (std::ptrdiff_t __i = 0; __i < __num_NaNs; ++__i)
 		    __ivr.fx[__NaN[__i]] = _S_NaN;
 		}
-	      for (std::size_t __i = 0; __i <= __n[__depth]; ++__i)
+	      for (std::ptrdiff_t __i = 0; __i <= __n[__depth]; ++__i)
 		{
 		  __ivr.c[__idx[__depth] + __i] = _Tp{0};
-		  for (std::size_t __j = __i; __j <= __n[__depth]; ++__j)
+		  for (std::ptrdiff_t __j = __i; __j <= __n[__depth]; ++__j)
 		    __ivr.c[__idx[__depth] + __i] += Tright[__i * 33 + __j]
 						 * __iv.c[__idx[__depth] + __j];
 		}
 	      __ncdiff = _Tp{0};
-	      for (std::size_t __i = 0; __i <= __n[0]; ++__i)
+	      for (std::ptrdiff_t __i = 0; __i <= __n[0]; ++__i)
 		{
 		  const auto __temp = __ivr.c[__i]
 				    - __ivr.c[__idx[__depth] + __i];
 		  __ncdiff += __temp * __temp;
 		}
-	      for (std::size_t __i = __n[0] + 1; __i <= __n[__depth]; ++__i)
+	      for (std::ptrdiff_t __i = __n[0] + 1; __i <= __n[__depth]; ++__i)
 		{
 		  const auto __temp = __ivr.c[__idx[__depth] + __i];
 		  __ncdiff += __temp * __temp;
