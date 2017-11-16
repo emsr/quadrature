@@ -22,6 +22,31 @@
 #ifndef INTEGRATION_H
 #define INTEGRATION_H 1
 
+namespace __gnu_cxx _GLIBCXX_VISIBILITY(default)
+{
+_GLIBCXX_BEGIN_NAMESPACE_VERSION
+
+  /**
+   * A struct to store a cosine and a sine value.
+   * A return for sincos-type functions.
+  template<typename _Tp>
+    struct __quadrature_point_t
+    {
+      _Tp __zero;
+      _Tp __weight;
+
+      __quadrature_point_t() = default;
+
+      __quadrature_point_t(_Tp __z, _Tp __w)
+      : __zero(__z),
+	__weight(__w)
+      { }
+    };
+   */
+
+_GLIBCXX_END_NAMESPACE_VERSION
+} // namespace __gnu_cxx
+
 #include "qag_integrate.tcc"
 #include "qags_integrate.tcc"
 #include "qng_integrate.tcc"

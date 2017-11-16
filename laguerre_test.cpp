@@ -48,8 +48,8 @@ template<typename _Tp>
   test_assoc_laguerre()
   {
     const auto eps = std::numeric_limits<_Tp>::epsilon();
-    const auto integ_precision = _Tp{1000} * eps;
-    const auto comp_precision = _Tp{10} * integ_precision;
+    const auto integ_prec = _Tp{1000} * eps;
+    const auto cmp_prec = _Tp{10} * integ_prec;
 
     int n1 = 0;
     for (; n1 <= 128; ++n1)
@@ -61,9 +61,9 @@ template<typename _Tp>
 			{ return normalized_laguerre<_Tp>(n1, n2, x); };
 
 	    auto [result, error]
-		= integrate_to_infinity(func, _Tp{0}, integ_precision, _Tp{0});
+		= integrate_to_infinity(func, _Tp{0}, integ_prec, _Tp{0});
 
-	    if (std::abs(delta<_Tp>(n1, n2) - result) > comp_precision)
+	    if (std::abs(delta<_Tp>(n1, n2) - result) > cmp_prec)
 	      {
 		std::stringstream ss;
 		ss.precision(std::numeric_limits<_Tp>::digits10);
@@ -92,9 +92,9 @@ template<typename _Tp>
 			{ return normalized_laguerre<_Tp>(n1, n2, x); };
 
 	    auto [result, error]
-		= integrate_to_infinity(func, _Tp{0}, integ_precision, _Tp{0});
+		= integrate_to_infinity(func, _Tp{0}, integ_prec, _Tp{0});
 
-	    if (std::abs(delta<_Tp>(itop, n2) - result) > comp_precision)
+	    if (std::abs(delta<_Tp>(itop, n2) - result) > cmp_prec)
 	      {
 		itop = (ibot + itop) / 2;
 		goto RESTART;

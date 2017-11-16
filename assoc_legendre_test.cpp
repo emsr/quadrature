@@ -48,8 +48,8 @@ template<typename _Tp>
   test_assoc_legendre(int m1, int m2)
   {
     const auto eps = std::numeric_limits<_Tp>::epsilon();
-    const auto integ_precision = _Tp{1000} * eps;
-    const auto comp_precision = _Tp{10} * integ_precision;
+    const auto integ_prec = _Tp{1000} * eps;
+    const auto cmp_prec = _Tp{10} * integ_prec;
 
     int l1 = 0;
     for (; l1 <= 128; ++l1)
@@ -67,9 +67,9 @@ template<typename _Tp>
 			{ return normalized_assoc_legendre(l1, m1, l2, m2, x); };
 
 	    auto [result, error]
-		= integrate(func, _Tp{-1}, _Tp{1}, integ_precision, _Tp{0});
+		= integrate(func, _Tp{-1}, _Tp{1}, integ_prec, _Tp{0});
 
-	    if (std::abs(delta<_Tp>(l1, l2) * delta<_Tp>(m1, m2) - result) > comp_precision)
+	    if (std::abs(delta<_Tp>(l1, l2) * delta<_Tp>(m1, m2) - result) > cmp_prec)
 	      {
 		std::stringstream ss;
 		ss.precision(std::numeric_limits<_Tp>::digits10);
@@ -98,9 +98,9 @@ template<typename _Tp>
 			{ return normalized_assoc_legendre(l1, m1, l2, m2, x); };
 
 	    auto [result, error]
-		= integrate(func, _Tp{-1}, _Tp{1}, integ_precision, _Tp{0});
+		= integrate(func, _Tp{-1}, _Tp{1}, integ_prec, _Tp{0});
 
-	    if (std::abs(delta<_Tp>(itop, l2) * delta<_Tp>(m1, m2) - result) > comp_precision)
+	    if (std::abs(delta<_Tp>(itop, l2) * delta<_Tp>(m1, m2) - result) > cmp_prec)
 	      {
 		itop = (ibot + itop) / 2;
 		goto RESTART;
@@ -128,7 +128,7 @@ main()
   std::cout << "\n\nOrthonormality tests for float\n";
   try
     {
-      test_assoc_legendre<float>(4, 4);
+      test_assoc_legendre<float>(0, 0);
     }
   catch (std::exception& err)
     {
@@ -138,7 +138,7 @@ main()
   std::cout << "\n\nOrthonormality tests for double\n";
   try
     {
-      test_assoc_legendre<double>(4, 4);
+      test_assoc_legendre<double>(0, 0);
     }
   catch (std::exception& err)
     {
@@ -148,7 +148,7 @@ main()
   std::cout << "\n\nOrthonormality tests for long double\n";
   try
     {
-      test_assoc_legendre<long double>(4, 4);
+      test_assoc_legendre<long double>(0, 0);
     }
   catch (std::exception& err)
     {

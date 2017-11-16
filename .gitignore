@@ -19,6 +19,7 @@ legendre_test
 gegenbauer_test
 jacobi_test
 radpoly_test
+sph_legendre_test
 zernike_test
 
 test_fft

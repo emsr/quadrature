@@ -57,8 +57,8 @@ template<typename _Tp>
   test_radpoly()
   {
     const auto eps = std::numeric_limits<_Tp>::epsilon();
-    const auto integ_precision = _Tp{1000} * eps;
-    const auto comp_precision = _Tp{10} * integ_precision;
+    const auto integ_prec = _Tp{1000} * eps;
+    const auto cmp_prec = _Tp{10} * integ_prec;
 
     int n1 = 0;
     for (; n1 <= 128; ++n1)
@@ -82,9 +82,9 @@ template<typename _Tp>
 				{ return normalized_radpoly(n1, m1, n2, m2, x); };
 
 		    auto [result, error]
-			= integrate_singular(func, _Tp{0}, _Tp{1}, integ_precision, _Tp{0});
+			= integrate_singular(func, _Tp{0}, _Tp{1}, integ_prec, _Tp{0});
 
-		    if (std::abs(delta<_Tp>(n1, m1, n2, m2) - result) > comp_precision)
+		    if (std::abs(delta<_Tp>(n1, m1, n2, m2) - result) > cmp_prec)
 		      {
 			std::stringstream ss;
 			ss.precision(std::numeric_limits<_Tp>::digits10);
@@ -118,11 +118,11 @@ template<typename _Tp>
 	    for (int n2 = itop & 1; n2 <= itop; n2 += del)
 	      {
 		// The orthonormality only works for m2 == m1.
-		//for (int m2 = 0; m2 <= n2; ++m2)
-		//  {
 		int m2 = m1;
 		if (m2 > n2)
 		  continue;
+		//for (int m2 = 0; m2 <= n2; ++m2)
+		  {
 		    if ((n2 - m2) & 1)
 		      continue;
 		    auto func = [n1 = itop, m1, n2, m2](_Tp x)
@@ -130,14 +130,14 @@ template<typename _Tp>
 				{ return normalized_radpoly(n1, m1, n2, m2, x); };
 
 		    auto [result, error]
-			= integrate_singular(func, _Tp{0}, _Tp{1}, integ_precision, _Tp{0});
+			= integrate_singular(func, _Tp{0}, _Tp{1}, integ_prec, _Tp{0});
 
-		    if (std::abs(delta<_Tp>(itop, m1, n2, m2) - result) > comp_precision)
+		    if (std::abs(delta<_Tp>(itop, m1, n2, m2) - result) > cmp_prec)
 		      {
 			itop = (ibot + itop) / 2;
 			goto RESTART;
 		      }
-		//  }
+		  }
 	      }
 	  }
 	std::cout << "Integration successful for radpoly polynomials up to n = " << itop

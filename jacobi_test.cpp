@@ -34,7 +34,7 @@ template<typename _Tp>
   _Tp
   gamma_ratio(int n, _Tp alpha, _Tp beta)
   {
-    const auto _S_eps = __gnu_cxx::__epsilon(alpha);
+    const auto _S_eps = std::numeric_limits<_Tp>::epsilon();
     if (std::abs(_Tp(1) + alpha + beta) < _S_eps)
       return _Tp(0);
     else
@@ -55,7 +55,7 @@ template<typename _Tp>
   _Tp
   normalized_jacobi(int n1, int n2, _Tp alpha, _Tp beta, _Tp x)
   {
-    const auto _S_eps = __gnu_cxx::__epsilon(x);
+    const auto _S_eps = std::numeric_limits<_Tp>::epsilon();
     if (std::abs(x - _Tp{1}) < _S_eps)
       return _Tp{0};
     else if (std::abs(x + _Tp{1}) < _S_eps)
@@ -80,9 +80,9 @@ template<typename _Tp>
   void
   test_jacobi(_Tp alpha, _Tp beta)
   {
-    const auto eps = __gnu_cxx::__epsilon(alpha + beta);
-    const auto integ_precision = _Tp{1000} * eps;
-    const auto comp_precision = _Tp{10} * integ_precision;
+    const auto eps = std::numeric_limits<_Tp>::epsilon();
+    const auto integ_prec = _Tp{1000} * eps;
+    const auto cmp_prec = _Tp{10} * integ_prec;
 
     const bool singular = (alpha < _Tp{0} || beta < _Tp{0});
 
@@ -100,10 +100,10 @@ template<typename _Tp>
 		? integrate_singular_endpoints(func,
 					       _Tp{-1}, _Tp{1},
 					       alpha, beta, 0, 0,
-					       integ_precision, _Tp{0})
-		: integrate(func, _Tp{-1}, _Tp{1}, integ_precision, _Tp{0});
+					       integ_prec, _Tp{0})
+		: integrate(func, _Tp{-1}, _Tp{1}, integ_prec, _Tp{0});
 
-	    if (std::abs(delta<_Tp>(n1, n2) - result) > comp_precision)
+	    if (std::abs(delta<_Tp>(n1, n2) - result) > cmp_prec)
 	      {
 		std::stringstream ss;
 		ss.precision(std::numeric_limits<_Tp>::digits10);
@@ -136,10 +136,10 @@ template<typename _Tp>
 		? integrate_singular_endpoints(func,
 					       _Tp{-1}, _Tp{1},
 					       alpha, beta, 0, 0,
-					       integ_precision, _Tp{0})
-		: integrate(func, _Tp{-1}, _Tp{1}, integ_precision, _Tp{0});
+					       integ_prec, _Tp{0})
+		: integrate(func, _Tp{-1}, _Tp{1}, integ_prec, _Tp{0});
 
-	    if (std::abs(delta<_Tp>(itop, n2) - result) > comp_precision)
+	    if (std::abs(delta<_Tp>(itop, n2) - result) > cmp_prec)
 	      {
 		itop = (ibot + itop) / 2;
 		goto RESTART;

@@ -29,6 +29,7 @@
 #include <vector>
 #include <limits>
 #include <cmath>
+#include <iosfwd>
 
 namespace __gnu_cxx
 {
@@ -257,21 +258,7 @@ namespace __gnu_cxx
 
   template<typename _Tp>
     std::ostream&
-    operator<<(std::ostream& __out, const integration_workspace<_Tp>& __ws)
-    {
-      auto __w = __out.width();
-      __out << std::setw(0);
-      __out << ' ' << std::setw(2) << __ws.max_depth() << '\n';
-      __out << ' ' << std::setw(2) << __ws.start() << '\n';
-      for (const auto& __seg : __ws.intervals())
-	__out << ' ' << std::setw(2) << __seg._M_depth
-	      << ' ' << std::setw(__w) << __seg._M_lower_lim
-	      << ' ' << std::setw(__w) << __seg._M_upper_lim
-	      << ' ' << std::setw(__w) << __seg._M_result
-	      << ' ' << std::setw(__w) << __seg._M_abs_error
-	      << '\n';
-      return __out;
-    }
+    operator<<(std::ostream& __out, const integration_workspace<_Tp>& __ws);
 
 } // namespace __gnu_cxx
 

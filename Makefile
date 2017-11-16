@@ -34,6 +34,7 @@ BINS = \
   $(BIN_DIR)/test_gauss_hermite \
   $(BIN_DIR)/assoc_laguerre_test \
   $(BIN_DIR)/assoc_legendre_test \
+  $(BIN_DIR)/sph_legendre_test \
   $(BIN_DIR)/hermite_test \
   $(BIN_DIR)/laguerre_test \
   $(BIN_DIR)/legendre_test \
@@ -53,6 +54,7 @@ all: $(OBJ_DIR) $(BINS)
 check:
 	$(BIN_DIR)/assoc_laguerre_test > assoc_laguerre_test.txt 2> assoc_laguerre_test.err
 	$(BIN_DIR)/assoc_legendre_test > assoc_legendre_test.txt 2> assoc_legendre_test.err
+	$(BIN_DIR)/sph_legendre_test > sph_legendre_test.txt 2> sph_legendre_test.err
 	$(BIN_DIR)/chebyshev_t_test > chebyshev_t_test.txt 2> chebyshev_t_test.err
 	$(BIN_DIR)/chebyshev_u_test > chebyshev_u_test.txt 2> chebyshev_u_test.err
 	$(BIN_DIR)/chebyshev_v_test > chebyshev_v_test.txt 2> chebyshev_v_test.err
@@ -77,6 +79,9 @@ $(BIN_DIR)/assoc_laguerre_test: $(OBJ_DIR)/assoc_laguerre_test.o
 
 $(BIN_DIR)/assoc_legendre_test: $(OBJ_DIR)/assoc_legendre_test.o
 	$(CXX17) -o $(BIN_DIR)/assoc_legendre_test $(OBJ_DIR)/assoc_legendre_test.o -lquadmath
+
+$(BIN_DIR)/sph_legendre_test: $(OBJ_DIR)/sph_legendre_test.o
+	$(CXX17) -o $(BIN_DIR)/sph_legendre_test $(OBJ_DIR)/sph_legendre_test.o -lquadmath
 
 $(BIN_DIR)/test_phase_iterator: test_phase_iterator.cpp *.h *.tcc
 	$(CXX17) -o $(BIN_DIR)/test_phase_iterator test_phase_iterator.cpp -lquadmath
@@ -139,6 +144,9 @@ $(OBJ_DIR)/assoc_laguerre_test.o: *.h *.tcc assoc_laguerre_test.cpp
 
 $(OBJ_DIR)/assoc_legendre_test.o: *.h *.tcc assoc_legendre_test.cpp
 	$(CXX17) -c -o $(OBJ_DIR)/assoc_legendre_test.o assoc_legendre_test.cpp
+
+$(OBJ_DIR)/sph_legendre_test.o: *.h *.tcc sph_legendre_test.cpp
+	$(CXX17) -c -o $(OBJ_DIR)/sph_legendre_test.o sph_legendre_test.cpp
 
 $(OBJ_DIR)/hermite_test.o: *.h *.tcc hermite_test.cpp
 	$(CXX17) -c -o $(OBJ_DIR)/hermite_test.o hermite_test.cpp
