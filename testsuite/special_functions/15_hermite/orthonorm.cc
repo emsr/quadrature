@@ -42,7 +42,7 @@ template<typename _Tp>
 	    using func_t = decltype(func);
 
 	    auto [result, error]
-		= __gnu_cxx::integrate_clenshaw_curtis(i_transform<func_t, _Tp>(func),
+		= __gnu_cxx::integrate_clenshaw_curtis(map_minf_pinf<func_t, _Tp>(func),
                                             _Tp{0}, _Tp{1}, rel_precision, _Tp{0});
 
 	    assert(std::abs(delta<_Tp>(n1, n2) - result) < cmp_prec);
