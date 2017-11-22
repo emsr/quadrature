@@ -46,10 +46,10 @@ template<typename _Tp, typename... _Parms>
 /**
  *
  */
-template<typename _Tp>
+template<typename _Tp, typename _FuncTp>
   struct counted_function
   {
-    counted_function(std::function<_Tp(_Tp)> f)
+    counted_function(const _FuncTp& f)
     : func(f), neval(new int(0))
     { }
 
@@ -68,7 +68,7 @@ template<typename _Tp>
     num_evals(int num)
     { *this->neval = num; }
 
-    std::function<_Tp(_Tp)> func;
+    _FuncTp func;
     mutable std::shared_ptr<int> neval;
   };
 
@@ -460,10 +460,10 @@ test_quadrature()
     {
       std::cout << ">>>> Test Gauss-Kronrod 31 with a smooth positive function..." << std::endl;
 
-      double exp_result = 7.716049382494900855e-02;
-      double exp_abserr = 1.713503193600029893e-09;
-      double exp_resabs = 7.716049382494900855e-02;
-      double exp_resasc = 4.427995051868838933e-02;
+      double exp_result = 7.716049382494900855e-02L;
+      double exp_abserr = 1.713503193600029893e-09L;
+      double exp_resabs = 7.716049382494900855e-02L;
+      double exp_resasc = 4.427995051868838933e-02L;
       quadrature_test<double> qtest;
 
       double alpha = 2.6;
@@ -498,10 +498,10 @@ test_quadrature()
     {
       std::cout << ">>>> Test Gauss-Kronrod 41 with a smooth positive function..." << std::endl;
 
-      double exp_result = 7.716049382681375302e-02;
-      double exp_abserr = 9.576386660975511224e-11;
-      double exp_resabs = 7.716049382681375302e-02;
-      double exp_resasc = 4.421521169637691873e-02;
+      double exp_result = 7.716049382681375302e-02L;
+      double exp_abserr = 9.576386660975511224e-11L;
+      double exp_resabs = 7.716049382681375302e-02L;
+      double exp_resasc = 4.421521169637691873e-02L;
       quadrature_test<double> qtest;
 
       double alpha = 2.6;
@@ -536,10 +536,10 @@ test_quadrature()
     {
       std::cout << ">>>> Test Gauss-Kronrod 51 with a smooth positive function..." << std::endl;
 
-      double exp_result = 7.716049382708510540e-02;
-      double exp_abserr = 1.002079980317363772e-11;
-      double exp_resabs = 7.716049382708510540e-02;
-      double exp_resasc = 4.416474291216854892e-02;
+      double exp_result = 7.716049382708510540e-02L;
+      double exp_abserr = 1.002079980317363772e-11L;
+      double exp_resabs = 7.716049382708510540e-02L;
+      double exp_resasc = 4.416474291216854892e-02L;
       quadrature_test<double> qtest;
 
       double alpha = 2.6;
@@ -574,10 +574,10 @@ test_quadrature()
     {
       std::cout << ">>>> Test Gauss-Kronrod 61 with a smooth positive function..." << std::endl;
 
-      double exp_result = 7.716049382713800753e-02;
-      double exp_abserr = 1.566060362296155616e-12;
-      double exp_resabs = 7.716049382713800753e-02;
-      double exp_resasc = 4.419287685934316506e-02;
+      double exp_result = 7.716049382713800753e-02L;
+      double exp_abserr = 1.566060362296155616e-12L;
+      double exp_resabs = 7.716049382713800753e-02L;
+      double exp_resasc = 4.419287685934316506e-02L;
       quadrature_test<double> qtest;
 
       double alpha = 2.6;
@@ -616,10 +616,10 @@ test_quadrature()
     {
       std::cout << ">>>> Test Gauss-Kronrod 15 with a singular positive function..." << std::endl;
 
-      double exp_result = 1.555688196612745777e+01;
-      double exp_abserr = 2.350164577239293706e+01;
-      double exp_resabs = 1.555688196612745777e+01;
-      double exp_resasc = 2.350164577239293706e+01;
+      double exp_result = 1.555688196612745777e+01L;
+      double exp_abserr = 2.350164577239293706e+01L;
+      double exp_resabs = 1.555688196612745777e+01L;
+      double exp_resasc = 2.350164577239293706e+01L;
       quadrature_test<double> qtest;
 
       double alpha = -0.9;
@@ -654,10 +654,10 @@ test_quadrature()
     {
       std::cout << ">>>> Test Gauss-Kronrod 21 with a singular positive function..." << std::endl;
 
-      double exp_result = 1.799045317938126232e+01;
-      double exp_abserr = 2.782360287710622515e+01;
-      double exp_resabs = 1.799045317938126232e+01;
-      double exp_resasc = 2.782360287710622515e+01;
+      double exp_result = 1.799045317938126232e+01L;
+      double exp_abserr = 2.782360287710622515e+01L;
+      double exp_resabs = 1.799045317938126232e+01L;
+      double exp_resasc = 2.782360287710622515e+01L;
       quadrature_test<double> qtest;
 
       double alpha = -0.9;
@@ -692,10 +692,10 @@ test_quadrature()
     {
       std::cout << ">>>> Test Gauss-Kronrod 31 with a singular positive function..." << std::endl;
 
-      double exp_result = 2.081873305159121657e+01;
-      double exp_abserr = 3.296500137482590276e+01;
-      double exp_resabs = 2.081873305159121301e+01;
-      double exp_resasc = 3.296500137482590276e+01;
+      double exp_result = 2.081873305159121657e+01L;
+      double exp_abserr = 3.296500137482590276e+01L;
+      double exp_resabs = 2.081873305159121301e+01L;
+      double exp_resasc = 3.296500137482590276e+01L;
       quadrature_test<double> qtest;
 
       double alpha = -0.9;
@@ -730,10 +730,10 @@ test_quadrature()
     {
       std::cout << ">>>> Test Gauss-Kronrod 41 with a singular positive function..." << std::endl;
 
-      double exp_result = 2.288677623903126701e+01;
-      double exp_abserr = 3.671538820274916048e+01;
-      double exp_resabs = 2.288677623903126701e+01;
-      double exp_resasc = 3.671538820274916048e+01;
+      double exp_result = 2.288677623903126701e+01L;
+      double exp_abserr = 3.671538820274916048e+01L;
+      double exp_resabs = 2.288677623903126701e+01L;
+      double exp_resasc = 3.671538820274916048e+01L;
       quadrature_test<double> qtest;
 
       double alpha = -0.9;
@@ -768,10 +768,10 @@ test_quadrature()
     {
       std::cout << ">>>> Test Gauss-Kronrod 51 with a singular positive function..." << std::endl;
 
-      double exp_result = 2.449953612016972215e+01;
-      double exp_abserr = 3.967771249391228849e+01;
-      double exp_resabs = 2.449953612016972215e+01;
-      double exp_resasc = 3.967771249391228849e+01;
+      double exp_result = 2.449953612016972215e+01L;
+      double exp_abserr = 3.967771249391228849e+01L;
+      double exp_resabs = 2.449953612016972215e+01L;
+      double exp_resasc = 3.967771249391228849e+01L;
       quadrature_test<double> qtest;
 
       double alpha = -0.9;
@@ -806,10 +806,10 @@ test_quadrature()
     {
       std::cout << ">>>> Test Gauss-Kronrod 61 with a singular positive function..." << std::endl;
 
-      double exp_result = 2.583030240976628988e+01;
-      double exp_abserr = 4.213750493076978643e+01;
-      double exp_resabs = 2.583030240976628988e+01;
-      double exp_resasc = 4.213750493076978643e+01;
+      double exp_result = 2.583030240976628988e+01L;
+      double exp_abserr = 4.213750493076978643e+01L;
+      double exp_resabs = 2.583030240976628988e+01L;
+      double exp_resasc = 4.213750493076978643e+01L;
       quadrature_test<double> qtest;
 
       double alpha = -0.9;
@@ -848,10 +848,10 @@ test_quadrature()
     {
       std::cout << ">>>> Test Gauss-Kronrod 15 with a smooth oscillating function..." << std::endl;
 
-      double exp_result = -7.238969575483799046e-01;
-      double exp_abserr =  8.760080200939757174e-06;
-      double exp_resabs =  1.165564172429140788e+00;
-      double exp_resasc =  9.334560307787327371e-01;
+      double exp_result = -7.238969575483799046e-01L;
+      double exp_abserr =  8.760080200939757174e-06L;
+      double exp_resabs =  1.165564172429140788e+00L;
+      double exp_resasc =  9.334560307787327371e-01L;
       quadrature_test<double> qtest;
 
       double alpha = 1.3;
@@ -886,10 +886,10 @@ test_quadrature()
     {
       std::cout << ">>>> Test Gauss-Kronrod 21 with a smooth oscillating function..." << std::endl;
 
-      double exp_result =-7.238969575482959717e-01;
-      double exp_abserr = 7.999213141433641888e-11;
-      double exp_resabs = 1.150829032708484023e+00;
-      double exp_resasc = 9.297591249133687619e-01;
+      double exp_result =-7.238969575482959717e-01L;
+      double exp_abserr = 7.999213141433641888e-11L;
+      double exp_resabs = 1.150829032708484023e+00L;
+      double exp_resasc = 9.297591249133687619e-01L;
       quadrature_test<double> qtest;
 
       double alpha = 1.3;
@@ -924,10 +924,10 @@ test_quadrature()
     {
       std::cout << ">>>> Test Gauss-Kronrod 31 with a smooth oscillating function..." << std::endl;
 
-      double exp_result =-7.238969575482959717e-01;
-      double exp_abserr = 1.285805464427459261e-14;
-      double exp_resabs = 1.158150602093290571e+00;
-      double exp_resasc = 9.277828092501518853e-01;
+      double exp_result =-7.238969575482959717e-01L;
+      double exp_abserr = 1.285805464427459261e-14L;
+      double exp_resabs = 1.158150602093290571e+00L;
+      double exp_resasc = 9.277828092501518853e-01L;
       quadrature_test<double> qtest;
 
       double alpha = 1.3;
@@ -962,10 +962,10 @@ test_quadrature()
     {
       std::cout << ">>>> Test Gauss-Kronrod 41 with a smooth oscillating function..." << std::endl;
 
-      double exp_result =-7.238969575482959717e-01;
-      double exp_abserr = 1.286535726271015626e-14;
-      double exp_resabs = 1.158808363486595328e+00;
-      double exp_resasc = 9.264382258645686985e-01;
+      double exp_result =-7.238969575482959717e-01L;
+      double exp_abserr = 1.286535726271015626e-14L;
+      double exp_resabs = 1.158808363486595328e+00L;
+      double exp_resasc = 9.264382258645686985e-01L;
       quadrature_test<double> qtest;
 
       double alpha = 1.3;
@@ -1000,10 +1000,10 @@ test_quadrature()
     {
       std::cout << ">>>> Test Gauss-Kronrod 51 with a smooth oscillating function..." << std::endl;
 
-      double exp_result =-7.238969575482961938e-01;
-      double exp_abserr = 1.285290995039385778e-14;
-      double exp_resabs = 1.157687209264406381e+00;
-      double exp_resasc = 9.264666884071264263e-01;
+      double exp_result =-7.238969575482961938e-01L;
+      double exp_abserr = 1.285290995039385778e-14L;
+      double exp_resabs = 1.157687209264406381e+00L;
+      double exp_resasc = 9.264666884071264263e-01L;
       quadrature_test<double> qtest;
 
       double alpha = 1.3;
@@ -1038,10 +1038,10 @@ test_quadrature()
     {
       std::cout << ">>>> Test Gauss-Kronrod 61 with a smooth oscillating function..." << std::endl;
 
-      double exp_result =-7.238969575482959717e-01;
-      double exp_abserr = 1.286438572027470736e-14;
-      double exp_resabs = 1.158720854723590099e+00;
-      double exp_resasc = 9.270469641771273972e-01;
+      double exp_result =-7.238969575482959717e-01L;
+      double exp_abserr = 1.286438572027470736e-14L;
+      double exp_resabs = 1.158720854723590099e+00L;
+      double exp_resasc = 9.270469641771273972e-01L;
       quadrature_test<double> qtest;
 
       double alpha = 1.3;
@@ -1077,15 +1077,15 @@ test_quadrature()
       std::cout << ">>>> Test non-adaptive Gaussian integrator..." << std::endl;
 
       int status = __gnu_cxx::NO_ERROR;
-      _Tp exp_result = 7.716049379303083211e-02;
-      _Tp exp_abserr = 9.424302199601294244e-08;
+      _Tp exp_result = 7.716049379303083211e-02L;
+      _Tp exp_abserr = 9.424302199601294244e-08L;
       int exp_neval  =  21;
       int exp_ier    =   __gnu_cxx::NO_ERROR;
       quadrature_test<_Tp> qtest;
 
       _Tp alpha = _Tp{2.6};
       auto f = make_function<_Tp>(f1, alpha);
-      auto fc = counted_function<double>(f);
+      auto fc = counted_function<double, decltype(f)>(f);
 
       auto [result, abserr]
 	= __gnu_cxx::qng_integrate(fc, _Tp{0}, _Tp{1}, _Tp{1.0e-1}, _Tp{0});
@@ -1120,14 +1120,14 @@ test_quadrature()
       quadrature_test<double> qtest;
 
       int status = 0;
-      double exp_result = 7.716049382706505200e-02;
-      double exp_abserr = 2.666893044866214501e-12;
+      double exp_result = 7.716049382706505200e-02L;
+      double exp_abserr = 2.666893044866214501e-12L;
       int exp_neval  =  43;
       int exp_ier    =   __gnu_cxx::NO_ERROR;
 
       double alpha = 2.6;
       auto f = make_function<double>(f1, alpha);
-      auto fc = counted_function<double>(f);
+      auto fc = counted_function<double, decltype(f)>(f);
 
       auto [result, abserr]
 	= __gnu_cxx::qng_integrate(fc, _Tp{0}, _Tp{1}, _Tp{0}, 1.0e-9);
@@ -1160,15 +1160,15 @@ test_quadrature()
       std::cout << ">>>> Test non-adaptive Gaussian integrator..." << std::endl;
 
       int status = 0;
-      double exp_result =-7.238969575482961938e-01;
-      double exp_abserr = 1.277676889520056369e-14;
+      double exp_result =-7.238969575482961938e-01L;
+      double exp_abserr = 1.277676889520056369e-14L;
       int exp_neval  =  43;
       int exp_ier    =   __gnu_cxx::NO_ERROR;
       quadrature_test<double> qtest;
 
       double alpha = 1.3;
       auto f = make_function<double>(f3, alpha);
-      auto fc = counted_function<double>(f);
+      auto fc = counted_function<double, decltype(f)>(f);
 
       auto [result, abserr]
 	= __gnu_cxx::qng_integrate(fc, 0.3, 2.71, _Tp{0}, 1.0e-12);
@@ -1203,14 +1203,14 @@ test_quadrature()
       quadrature_test<double> qtest;
 
       int status = 0;
-      double exp_result = 7.716049382716029525e-02;
-      double exp_abserr = 8.566535680046930668e-16;
+      double exp_result = 7.716049382716029525e-02L;
+      double exp_abserr = 8.566535680046930668e-16L;
       int exp_neval  =  87;
       int exp_ier    =   __gnu_cxx::NO_ERROR;
 
       double alpha = 2.6;
       auto f = make_function<double>(f1, alpha);
-      auto fc = counted_function<double>(f);
+      auto fc = counted_function<double, decltype(f)>(f);
 
       auto [result, abserr]
 	= __gnu_cxx::qng_integrate(fc, _Tp{0}, _Tp{1}, _Tp{0}, 1.0e-13);
@@ -1245,14 +1245,14 @@ test_quadrature()
       quadrature_test<double> qtest;
 
       int status = 0;
-      double exp_result = 3.222948711817264211e+01;
-      double exp_abserr = 2.782360287710622870e+01;
+      double exp_result = 3.222948711817264211e+01L;
+      double exp_abserr = 2.782360287710622870e+01L;
       int exp_neval  =  87;
       int exp_ier    =  __gnu_cxx::TOLERANCE_ERROR;
 
       double alpha = -0.9;
       auto f = make_function<double>(f1, alpha);
-      auto fc = counted_function<double>(f);
+      auto fc = counted_function<double, decltype(f)>(f);
 
       double result, abserr;
       try
@@ -1308,8 +1308,8 @@ test_quadrature()
 
       __gnu_cxx::integration_workspace<double> w(1000);
 
-      double exp_result = 7.716049382715854665e-02;
-      double exp_abserr = 6.679384885865053037e-12;
+      double exp_result = 7.716049382715854665e-02L;
+      double exp_abserr = 6.679384885865053037e-12L;
       int exp_neval  =     165;
       int exp_ier    =       __gnu_cxx::NO_ERROR;
       int exp_last   =       6;
@@ -1317,17 +1317,17 @@ test_quadrature()
       constexpr std::size_t num_test = 6;
       test_ival<double> test[num_test]
       {
-	{0.0,     0.03125, 3.966769831709074375e-06, 6.678528276336181873e-12},
-	{0.5,     1.0,     5.491842501998222409e-02, 6.097169993333454062e-16},
-	{0.125,   0.25,    2.776531175604360531e-03, 3.082568839745514608e-17},
-	{0.0625,  0.125,   3.280661030752063693e-04, 3.642265412331439511e-18},
-	{0.25,    0.5,     1.909827770934243926e-02, 2.120334764359736934e-16},
-	{0.03125, 0.0625,  3.522704932261797744e-05, 3.910988124757650942e-19},
+	{0.0,     0.03125, 3.966769831709074375e-06L, 6.678528276336181873e-12L},
+	{0.5,     1.0,     5.491842501998222409e-02L, 6.097169993333454062e-16L},
+	{0.125,   0.25,    2.776531175604360531e-03L, 3.082568839745514608e-17L},
+	{0.0625,  0.125,   3.280661030752063693e-04L, 3.642265412331439511e-18L},
+	{0.25,    0.5,     1.909827770934243926e-02L, 2.120334764359736934e-16L},
+	{0.03125, 0.0625,  3.522704932261797744e-05L, 3.910988124757650942e-19L},
       };
 
       double alpha = 2.6;
       auto f = make_function<double>(f1, alpha);
-      auto fc = counted_function<double>(f);
+      auto fc = counted_function<double, decltype(f)>(f);
 
       auto [result, abserr]
 	= __gnu_cxx::qag_integrate(w, fc, _Tp{0}, _Tp{1}, _Tp{0}, 1.0e-10, 1000,
@@ -1382,8 +1382,8 @@ test_quadrature()
 
       __gnu_cxx::integration_workspace<double> w(1000);
 
-      double exp_result = 7.716049382716050342e-02;
-      double exp_abserr = 2.227969521869139532e-15;
+      double exp_result = 7.716049382716050342e-02L;
+      double exp_abserr = 2.227969521869139532e-15L;
       int exp_neval  =     315;
       int exp_ier    =       __gnu_cxx::NO_ERROR;
       int exp_last   =       8;
@@ -1391,19 +1391,19 @@ test_quadrature()
       constexpr std::size_t num_test = 8;
       test_ival<double> test[num_test]
       {
-	{0.0,       0.0078125, 3.696942726831556522e-08, 1.371316364034059572e-15},
-	{0.25,      0.5,	     1.909827770934243579e-02, 2.120334764359736441e-16},
-	{0.5,       1.0,	     5.491842501998223103e-02, 6.097169993333454062e-16},
-	{0.0625,    0.125,     3.280661030752062609e-04, 3.642265412331439511e-18},
-	{0.03125,   0.0625,    3.522704932261797744e-05, 3.910988124757650460e-19},
-	{0.015625,  0.03125,   3.579060884684503576e-06, 3.973555800712018091e-20},
-	{0.125,     0.25,	     2.776531175604360097e-03, 3.082568839745514608e-17},
-	{0.0078125, 0.015625,  3.507395216921808047e-07, 3.893990926286736620e-21},
+	{0.0,       0.0078125, 3.696942726831556522e-08L, 1.371316364034059572e-15L},
+	{0.25,      0.5,       1.909827770934243579e-02L, 2.120334764359736441e-16L},
+	{0.5,       1.0,       5.491842501998223103e-02L, 6.097169993333454062e-16L},
+	{0.0625,    0.125,     3.280661030752062609e-04L, 3.642265412331439511e-18L},
+	{0.03125,   0.0625,    3.522704932261797744e-05L, 3.910988124757650460e-19L},
+	{0.015625,  0.03125,   3.579060884684503576e-06L, 3.973555800712018091e-20L},
+	{0.125,     0.25,      2.776531175604360097e-03L, 3.082568839745514608e-17L},
+	{0.0078125, 0.015625,  3.507395216921808047e-07L, 3.893990926286736620e-21L},
       };
 
       double alpha = 2.6;
       auto f = make_function<double>(f1, alpha);
-      auto fc = counted_function<double>(f);
+      auto fc = counted_function<double, decltype(f)>(f);
 
       auto [result, abserr]
 	= __gnu_cxx::qag_integrate(w, fc, _Tp{0}, _Tp{1}, 1.0e-14, _Tp{0}, 1000, __gnu_cxx::QK_21);
@@ -1459,16 +1459,15 @@ test_quadrature()
 
       __gnu_cxx::integration_workspace<double> w(1000);
 
-      double exp_result = -7.238969575482959717e-01;
-      double exp_abserr =  1.285805464427459261e-14;
+      double exp_result = -7.238969575482959717e-01L;
+      double exp_abserr =  1.285805464427459261e-14L;
       int exp_neval   =     31;
       int exp_ier     =     __gnu_cxx::ROUNDOFF_ERROR;
       int exp_last    =     1;
 
       double alpha = 1.3;
       auto f = make_function<double>(f3, alpha);
-
-      auto fc = counted_function<double>(f);
+      auto fc = counted_function<double, decltype(f)>(f);
 
       double result, abserr;
       try
@@ -1536,7 +1535,7 @@ test_quadrature()
 
       double alpha = _Tp{2};
       auto f = make_function<double>(f16, alpha);
-      auto fc = counted_function<double>(f);
+      auto fc = counted_function<double, decltype(f)>(f);
 
       double result, abserr;
       try
@@ -1594,8 +1593,8 @@ test_quadrature()
 
       __gnu_cxx::integration_workspace<double> w(3);
 
-      double exp_result =  9.565151449233894709;
-      double exp_abserr =  1.570369823891028460e+01;
+      double exp_result =  9.565151449233894709L;
+      double exp_abserr =  1.570369823891028460e+01L;
       int exp_neval  =     305;
       int exp_ier    =     __gnu_cxx::MAX_ITER_ERROR;
       int exp_last   =     3;
@@ -1603,14 +1602,14 @@ test_quadrature()
       constexpr std::size_t num_test = 3;
       test_ival<double> test[num_test]
       {
-	{-5.000000000000000000e-01,  0.000000000000000000,     9.460353469435913709,     1.570369823891028460e+01},
-	{-1.000000000000000000,     -5.000000000000000000e-01, 1.388888888888888812e-02, 1.541976423090495140e-16},
-	{ 0.000000000000000000,      1.000000000000000000,     9.090909090909091161e-02, 1.009293658750142399e-15},
+	{-5.000000000000000000e-01L,  0.000000000000000000L,     9.460353469435913709L,     1.570369823891028460e+01L},
+	{-1.000000000000000000L,     -5.000000000000000000e-01L, 1.388888888888888812e-02L, 1.541976423090495140e-16L},
+	{ 0.000000000000000000L,      1.000000000000000000L,     9.090909090909091161e-02L, 1.009293658750142399e-15L},
       };
 
       double alpha = _Tp{1};
       auto f = make_function<double>(f16, alpha);
-      auto fc = counted_function<double>(f);
+      auto fc = counted_function<double, decltype(f)>(f);
 
       double result, abserr;
       try
@@ -1685,8 +1684,8 @@ test_quadrature()
 
       __gnu_cxx::integration_workspace<double> w(1000);
 
-      double exp_result = 7.716049382715789440e-02;
-      double exp_abserr = 2.216394961010438404e-12;
+      double exp_result = 7.716049382715789440e-02L;
+      double exp_abserr = 2.216394961010438404e-12L;
       int exp_neval  =     189;
       int exp_ier    =       __gnu_cxx::NO_ERROR;
       int exp_last   =       5;
@@ -1694,16 +1693,16 @@ test_quadrature()
       constexpr std::size_t num_test = 5;
       test_ival<double> test[num_test]
       {
-	0.0,    0.0625, 3.919381915366914693e-05, 2.215538742580964735e-12,
-	0.5,    1.0,    5.491842501998223103e-02, 6.097169993333454062e-16,
-	0.25,   0.5,    1.909827770934243579e-02, 2.120334764359736441e-16,
-	0.125,  0.25,   2.776531175604360097e-03, 3.082568839745514608e-17,
-	0.0625, 0.125,  3.280661030752062609e-04, 3.642265412331439511e-18,
+	0.0,    0.0625, 3.919381915366914693e-05L, 2.215538742580964735e-12L,
+	0.5,    1.0,    5.491842501998223103e-02L, 6.097169993333454062e-16L,
+	0.25,   0.5,    1.909827770934243579e-02L, 2.120334764359736441e-16L,
+	0.125,  0.25,   2.776531175604360097e-03L, 3.082568839745514608e-17L,
+	0.0625, 0.125,  3.280661030752062609e-04L, 3.642265412331439511e-18L,
       };
 
       double alpha = 2.6;
       auto f = make_function<double>(f1, alpha);
-      auto fc = counted_function<double>(f);
+      auto fc = counted_function<double, decltype(f)>(f);
 
       const auto epsabs = _Tp{1.0e-7};
       const auto epsrel = _Tp{0};
@@ -1759,8 +1758,8 @@ test_quadrature()
 
       __gnu_cxx::integration_workspace<double> w(1000);
 
-      double exp_result = -5.908755278982136588e+03;
-      double exp_abserr = 1.299646281053874554e-10;
+      double exp_result = -5.908755278982136588e+03L;
+      double exp_abserr = 1.299646281053874554e-10L;
       int exp_neval  =     357;
       int exp_ier    =       __gnu_cxx::NO_ERROR;
       int exp_last   =       9;
@@ -1768,20 +1767,20 @@ test_quadrature()
       constexpr std::size_t num_test = 9;
       test_ival<double> test[num_test]
       {
-	{1.000000000000000000e+00, 4.902343750000000000e+00, -3.890977835520834649e+00, 6.448276035006137169e-11},
-	{5.005000000000000000e+02, 1.000000000000000000e+03, -3.297343675805121620e+03, 3.660786868980994028e-11},
-	{1.258750000000000000e+02, 2.507500000000000000e+02, -6.517404019686431411e+02, 7.235772003440423011e-12},
-	{2.507500000000000000e+02, 5.005000000000000000e+02, -1.475904154146372775e+03, 1.638582774073219226e-11},
-	{3.221875000000000000e+01, 6.343750000000000000e+01, -1.201692001973227519e+02, 1.334146129098576244e-12},
-	{6.343750000000000000e+01, 1.258750000000000000e+02, -2.829354222635842007e+02, 3.141214202790722909e-12},
-	{1.660937500000000000e+01, 3.221875000000000000e+01, -4.959999906099650246e+01, 5.506706097890446534e-13},
-	{8.804687500000000000e+00, 1.660937500000000000e+01, -1.971441499411640308e+01, 2.188739744348345039e-13},
-	{4.902343750000000000e+00, 8.804687500000000000e+00, -7.457032710459004399e+00, 8.278969410534525339e-14},
+	{1.000000000000000000e+00L, 4.902343750000000000e+00L, -3.890977835520834649e+00L, 6.448276035006137169e-11L},
+	{5.005000000000000000e+02L, 1.000000000000000000e+03L, -3.297343675805121620e+03L, 3.660786868980994028e-11L},
+	{1.258750000000000000e+02L, 2.507500000000000000e+02L, -6.517404019686431411e+02L, 7.235772003440423011e-12L},
+	{2.507500000000000000e+02L, 5.005000000000000000e+02L, -1.475904154146372775e+03L, 1.638582774073219226e-11L},
+	{3.221875000000000000e+01L, 6.343750000000000000e+01L, -1.201692001973227519e+02L, 1.334146129098576244e-12L},
+	{6.343750000000000000e+01L, 1.258750000000000000e+02L, -2.829354222635842007e+02L, 3.141214202790722909e-12L},
+	{1.660937500000000000e+01L, 3.221875000000000000e+01L, -4.959999906099650246e+01L, 5.506706097890446534e-13L},
+	{8.804687500000000000e+00L, 1.660937500000000000e+01L, -1.971441499411640308e+01L, 2.188739744348345039e-13L},
+	{4.902343750000000000e+00L, 8.804687500000000000e+00L, -7.457032710459004399e+00L, 8.278969410534525339e-14L},
       };
 
       double alpha = _Tp{2};
       auto f = make_function<double>(f11, alpha);
-      auto fc = counted_function<double>(f);
+      auto fc = counted_function<double, decltype(f)>(f);
 
       const auto epsabs = _Tp{1.0e-7};
       const auto epsrel = _Tp{0};
@@ -1837,8 +1836,8 @@ test_quadrature()
 
       __gnu_cxx::integration_workspace<double> w(1000);
 
-      double exp_result = -3.616892186127022568e-01;
-      double exp_abserr = 3.016716913328831851e-06;
+      double exp_result = -3.616892186127022568e-01L;
+      double exp_abserr = 3.016716913328831851e-06L;
       int exp_neval  =      285;
       int exp_ier    =        __gnu_cxx::NO_ERROR;
       int exp_last   =       10;
@@ -1846,20 +1845,20 @@ test_quadrature()
       constexpr std::size_t num_test = 10;
       test_ival<double> test[num_test]
       {
-	{0.000000000000000000e+00, 3.125000000000000000e-02,  1.429785306003466313e-03, 2.161214992172538524e-04},
-	{8.750000000000000000e-01, 9.375000000000000000e-01, -8.653752279614615461e-02, 9.607595030230581153e-16},
-	{2.500000000000000000e-01, 5.000000000000000000e-01,  2.995321156568048898e-03, 3.325474514168701167e-17},
-	{9.375000000000000000e-01, 9.687500000000000000e-01, -8.398745675010892142e-02, 9.324480826368044019e-16},
-	{5.000000000000000000e-01, 7.500000000000000000e-01, -1.229943369113085765e-02, 5.720644840858777846e-14},
-	{1.250000000000000000e-01, 2.500000000000000000e-01,  2.785385934678596704e-03, 3.092399597147240624e-17},
-	{6.250000000000000000e-02, 1.250000000000000000e-01,  1.736218164975512294e-03, 1.927589382528252344e-17},
-	{7.500000000000000000e-01, 8.750000000000000000e-01, -4.980050133751051655e-02, 3.147380432198176412e-14},
-	{3.125000000000000000e-02, 6.250000000000000000e-02,  1.041689192004495576e-03, 1.156507325466566521e-17},
-	{9.687500000000000000e-01, 1.000000000000000000e+00, -1.390003415539725340e-01, 2.395037249893453013e-02},
+	{0.000000000000000000e+00L, 3.125000000000000000e-02L,  1.429785306003466313e-03L, 2.161214992172538524e-04L},
+	{8.750000000000000000e-01L, 9.375000000000000000e-01L, -8.653752279614615461e-02L, 9.607595030230581153e-16L},
+	{2.500000000000000000e-01L, 5.000000000000000000e-01L,  2.995321156568048898e-03L, 3.325474514168701167e-17L},
+	{9.375000000000000000e-01L, 9.687500000000000000e-01L, -8.398745675010892142e-02L, 9.324480826368044019e-16L},
+	{5.000000000000000000e-01L, 7.500000000000000000e-01L, -1.229943369113085765e-02L, 5.720644840858777846e-14L},
+	{1.250000000000000000e-01L, 2.500000000000000000e-01L,  2.785385934678596704e-03L, 3.092399597147240624e-17L},
+	{6.250000000000000000e-02L, 1.250000000000000000e-01L,  1.736218164975512294e-03L, 1.927589382528252344e-17L},
+	{7.500000000000000000e-01L, 8.750000000000000000e-01L, -4.980050133751051655e-02L, 3.147380432198176412e-14L},
+	{3.125000000000000000e-02L, 6.250000000000000000e-02L,  1.041689192004495576e-03L, 1.156507325466566521e-17L},
+	{9.687500000000000000e-01L, 1.000000000000000000e+00L, -1.390003415539725340e-01L, 2.395037249893453013e-02L},
       };
 
       auto f = make_function<double>(f455);
-      auto fc = counted_function<double>(f);
+      auto fc = counted_function<double, decltype(f)>(f);
 
       const auto epsabs = _Tp{0};
       const auto epsrel = _Tp{1.0e-3};
@@ -1905,8 +1904,8 @@ test_quadrature()
 
       __gnu_cxx::integration_workspace<double> w(1000);
 
-      double exp_result = 6.553600000000024738e+04;
-      double exp_abserr = 7.121667111456009280e-04;
+      double exp_result = 6.553600000000024738e+04L;
+      double exp_abserr = 7.121667111456009280e-04L;
       int exp_neval  =      285;
       int exp_ier    =        __gnu_cxx::NO_ERROR;
       int exp_last   =       10;
@@ -1914,22 +1913,21 @@ test_quadrature()
       constexpr std::size_t num_test = 10;
       test_ival<double> test[num_test]
       {
-	{0.000000000000000000e+00, 1.953125000000000000e-03, 1.099297665754340292e+00, 7.101865971621337814e-04},
-	{7.812500000000000000e-03, 1.562500000000000000e-02, 2.899418134793237914e+04, 1.934652413547325474e-07},
-	{1.562500000000000000e-02, 3.125000000000000000e-02, 1.574317583220441520e+04, 1.380003928453846583e-07},
-	{3.906250000000000000e-03, 7.812500000000000000e-03, 1.498314766425578091e+04, 3.408933028357320364e-07},
-	{2.500000000000000000e-01, 5.000000000000000000e-01, 8.064694554185326325e+00, 9.167763417119923333e-08},
-	{1.250000000000000000e-01, 2.500000000000000000e-01, 8.873128656118993263e+01, 3.769501719163865578e-07},
-	{6.250000000000000000e-02, 1.250000000000000000e-01, 6.977679035845269482e+02, 6.973493131275552509e-07},
-	{5.000000000000000000e-01, 1.000000000000000000e+00, 3.256176475185617591e-01, 1.912660677170175771e-08},
-	{3.125000000000000000e-02, 6.250000000000000000e-02, 4.096981198511257389e+03, 1.205653952340679711e-07},
-	{1.953125000000000000e-03, 3.906250000000000000e-03, 9.225251570832365360e+02, 2.132473175465897029e-09},
+	{0.000000000000000000e+00L, 1.953125000000000000e-03L, 1.099297665754340292e+00L, 7.101865971621337814e-04L},
+	{7.812500000000000000e-03L, 1.562500000000000000e-02L, 2.899418134793237914e+04L, 1.934652413547325474e-07L},
+	{1.562500000000000000e-02L, 3.125000000000000000e-02L, 1.574317583220441520e+04L, 1.380003928453846583e-07L},
+	{3.906250000000000000e-03L, 7.812500000000000000e-03L, 1.498314766425578091e+04L, 3.408933028357320364e-07L},
+	{2.500000000000000000e-01L, 5.000000000000000000e-01L, 8.064694554185326325e+00L, 9.167763417119923333e-08L},
+	{1.250000000000000000e-01L, 2.500000000000000000e-01L, 8.873128656118993263e+01L, 3.769501719163865578e-07L},
+	{6.250000000000000000e-02L, 1.250000000000000000e-01L, 6.977679035845269482e+02L, 6.973493131275552509e-07L},
+	{5.000000000000000000e-01L, 1.000000000000000000e+00L, 3.256176475185617591e-01L, 1.912660677170175771e-08L},
+	{3.125000000000000000e-02L, 6.250000000000000000e-02L, 4.096981198511257389e+03L, 1.205653952340679711e-07L},
+	{1.953125000000000000e-03L, 3.906250000000000000e-03L, 9.225251570832365360e+02L, 2.132473175465897029e-09L},
       };
 
       double alpha = _Tp{5};
-
       auto f = make_function<double>(f15, alpha);
-      auto fc = counted_function<double>(f);
+      auto fc = counted_function<double, decltype(f)>(f);
 
       const auto epsabs = _Tp{0};
       const auto epsrel = _Tp{1.0e-7};
@@ -1975,8 +1973,8 @@ test_quadrature()
 
       __gnu_cxx::integration_workspace<double> w(1000);
 
-      double exp_result = 1.000000000006713292e-04;
-      double exp_abserr = 3.084062020905636316e-09;
+      double exp_result = 1.000000000006713292e-04L;
+      double exp_abserr = 3.084062020905636316e-09L;
       int exp_neval  =      165;
       int exp_ier    =        __gnu_cxx::NO_ERROR;
       int exp_last   =        6;
@@ -1984,18 +1982,17 @@ test_quadrature()
       constexpr std::size_t num_test = 6;
       test_ival<double> test[num_test]
       {
-	{0.000000000000000000e+00, 3.125000000000000000e-02, 7.633587786326674618e-05, 3.084061858351569051e-09},
-	{6.250000000000000000e-02, 1.250000000000000000e-01, 6.501422186103209199e-06, 3.014338672269481784e-17},
-	{2.500000000000000000e-01, 5.000000000000000000e-01, 1.922522349322310737e-06, 4.543453652226561245e-17},
-	{5.000000000000000000e-01, 1.000000000000000000e+00, 9.900990099009899620e-07, 3.112064814755089674e-17},
-	{1.250000000000000000e-01, 2.500000000000000000e-01, 3.629434715543053753e-06, 4.908618166361344548e-17},
-	{3.125000000000000000e-02, 6.250000000000000000e-02, 1.062064387653501389e-05, 6.795996738013555461e-18},
+	{0.000000000000000000e+00L, 3.125000000000000000e-02L, 7.633587786326674618e-05L, 3.084061858351569051e-09L},
+	{6.250000000000000000e-02L, 1.250000000000000000e-01L, 6.501422186103209199e-06L, 3.014338672269481784e-17L},
+	{2.500000000000000000e-01L, 5.000000000000000000e-01L, 1.922522349322310737e-06L, 4.543453652226561245e-17L},
+	{5.000000000000000000e-01L, 1.000000000000000000e+00L, 9.900990099009899620e-07L, 3.112064814755089674e-17L},
+	{1.250000000000000000e-01L, 2.500000000000000000e-01L, 3.629434715543053753e-06L, 4.908618166361344548e-17L},
+	{3.125000000000000000e-02L, 6.250000000000000000e-02L, 1.062064387653501389e-05L, 6.795996738013555461e-18L},
       };
 
       double alpha = _Tp{1};
-
       auto f = make_function<double>(f16, alpha);
-      auto fc = counted_function<double>(f);
+      auto fc = counted_function<double, decltype(f)>(f);
 
       const auto epsabs = _Tp{1.0e-7};
       const auto epsrel = _Tp{0};
@@ -2041,8 +2038,8 @@ test_quadrature()
 
       __gnu_cxx::integration_workspace<double> w(1000);
 
-      double exp_result = 2.275875794468747770e+00;
-      double exp_abserr = 7.436490118267390744e-09;
+      double exp_result = 2.275875794468747770e+00L;
+      double exp_abserr = 7.436490118267390744e-09L;
       int exp_neval  =      270;
       int exp_ier    =        __gnu_cxx::NO_ERROR;
       int exp_last   =        5;
@@ -2050,15 +2047,15 @@ test_quadrature()
       constexpr std::size_t num_test = 5;
       test_ival<double> test[num_test]
       {
-	{0.000000000000000000e+00, 1.250000000000000000e-01, 4.379392477350953574e-20, 8.360902986775307673e-20},
-	{5.000000000000000000e-01, 1.000000000000000000e+00, 1.691664195356748834e+00, 4.265988974874425043e-09},
-	{2.500000000000000000e-01, 3.750000000000000000e-01, 1.146307471900291086e-01, 1.231954072964969637e-12},
-	{1.250000000000000000e-01, 2.500000000000000000e-01, 4.639317228058405717e-04, 3.169263960393051137e-09},
-	{3.750000000000000000e-01, 5.000000000000000000e-01, 4.691169201991640669e-01, 5.208244060463541433e-15},
+	{0.000000000000000000e+00L, 1.250000000000000000e-01L, 4.379392477350953574e-20L, 8.360902986775307673e-20L},
+	{5.000000000000000000e-01L, 1.000000000000000000e+00L, 1.691664195356748834e+00L, 4.265988974874425043e-09L},
+	{2.500000000000000000e-01L, 3.750000000000000000e-01L, 1.146307471900291086e-01L, 1.231954072964969637e-12L},
+	{1.250000000000000000e-01L, 2.500000000000000000e-01L, 4.639317228058405717e-04L, 3.169263960393051137e-09L},
+	{3.750000000000000000e-01L, 5.000000000000000000e-01L, 4.691169201991640669e-01L, 5.208244060463541433e-15L},
       };
 
       auto f = make_function<double>(myfn1);
-      auto fc = counted_function<double>(f);
+      auto fc = counted_function<double, decltype(f)>(f);
 
       const auto epsabs = _Tp{1.0e-7};
       const auto epsrel = _Tp{0};
@@ -2103,8 +2100,8 @@ test_quadrature()
 
       __gnu_cxx::integration_workspace<double> w(1000);
 
-      double exp_result = 2.718281828459044647e+00;
-      double exp_abserr = 1.588185109253204805e-10;
+      double exp_result = 2.718281828459044647e+00L;
+      double exp_abserr = 1.588185109253204805e-10L;
       int exp_neval  =      135;
       int exp_ier    =        __gnu_cxx::NO_ERROR;
       int exp_last   =        5;
@@ -2112,16 +2109,16 @@ test_quadrature()
       constexpr std::size_t num_test = 5;
       test_ival<double> test[num_test]
       {
-	{0.000000000000000000e+00, 6.250000000000000000e-02, 8.315287189746029816e-07, 1.533437090413525935e-10},
-	{2.500000000000000000e-01, 5.000000000000000000e-01, 8.646647167633871867e-01, 7.802455785301941044e-13},
-	{5.000000000000000000e-01, 1.000000000000000000e+00, 1.718281828459045091e+00, 4.117868247943567505e-12},
-	{1.250000000000000000e-01, 2.500000000000000000e-01, 1.328565310599463256e-01, 5.395586026138397182e-13},
-	{6.250000000000000000e-02, 1.250000000000000000e-01, 2.477920647947255521e-03, 3.713312434866150125e-14},
+	{0.000000000000000000e+00L, 6.250000000000000000e-02L, 8.315287189746029816e-07L, 1.533437090413525935e-10L},
+	{2.500000000000000000e-01L, 5.000000000000000000e-01L, 8.646647167633871867e-01L, 7.802455785301941044e-13L},
+	{5.000000000000000000e-01L, 1.000000000000000000e+00L, 1.718281828459045091e+00L, 4.117868247943567505e-12L},
+	{1.250000000000000000e-01L, 2.500000000000000000e-01L, 1.328565310599463256e-01L, 5.395586026138397182e-13L},
+	{6.250000000000000000e-02L, 1.250000000000000000e-01L, 2.477920647947255521e-03L, 3.713312434866150125e-14L},
       };
 
       double alpha = _Tp{1};
       auto f = make_function<double>(myfn2, alpha);
-      auto fc = counted_function<double>(f);
+      auto fc = counted_function<double, decltype(f)>(f);
 
       const auto epsabs = _Tp{1.0e-7};
       const auto epsrel = _Tp{0};
@@ -2167,39 +2164,39 @@ test_quadrature()
 
       __gnu_cxx::integration_workspace<double> w(1000);
 
-      double exp_result = 5.274080611672716401e+01;
-      double exp_abserr = 1.755703848687062418e-04;
+      double exp_result = 5.274080611672716401e+01L;
+      double exp_abserr = 1.755703848687062418e-04L;
       int exp_neval  = 777;
       int exp_ier    = __gnu_cxx::NO_ERROR;
       int exp_last   = 20;
 
       constexpr std::size_t num_test = 20;
       test_ival<double> test[num_test]
-      {
-	{1.000000000000000000e+00, 1.051776695296636976e+00, -1.830392049835374568e-01, 3.252808038935910834e-02},
-	{1.401269388548935790e+00, 1.414213562373095145e+00, -1.565132123531515207e-01, 2.730454695485963826e-02},
-	{2.207106781186547462e+00, 3.000000000000000000e+00,  4.873920540843067783e+01, 5.411138804637469780e-13},
-	{9.687500000000000000e-01, 1.000000000000000000e+00, -1.125078814079027711e-01, 2.506431410088378817e-02},
-	{1.612436867076458391e+00, 1.810660171779821415e+00,  5.911661670635662835e-01, 6.573952690524728748e-15},
-	{1.207106781186547462e+00, 1.310660171779821415e+00, -2.991531901645863023e-01, 3.321267596107916554e-15},
-	{1.362436867076458391e+00, 1.388325214724776657e+00, -1.589345454585119055e-01, 1.764527917763735212e-15},
-	{1.463769388548935790e+00, 1.513325214724776657e+00, -2.208730668000830344e-01, 2.452183642810224359e-15},
-	{1.810660171779821415e+00, 2.207106781186547462e+00,  6.032891565603589079e+00, 6.697855121200013106e-14},
-	{0.000000000000000000e+00, 5.000000000000000000e-01,  6.575875041899758092e-03, 7.300687878575027348e-17},
-	{7.500000000000000000e-01, 8.750000000000000000e-01, -5.647871991778510847e-02, 6.270397525408045936e-16},
-	{1.103553390593273731e+00, 1.207106781186547462e+00, -2.431894410706912923e-01, 2.699945168224041491e-15},
-	{1.051776695296636976e+00, 1.103553390593273731e+00, -1.305470403178642658e-01, 1.449363299575615261e-15},
-	{5.000000000000000000e-01, 7.500000000000000000e-01, -7.326282608704996063e-03, 1.417509685426979386e-16},
-	{8.750000000000000000e-01, 9.375000000000000000e-01, -7.406626263352669715e-02, 8.223007012367522077e-16},
-	{1.513325214724776657e+00, 1.612436867076458391e+00, -1.721363984401322045e-01, 1.911097929242846383e-15},
-	{1.388325214724776657e+00, 1.401269388548935790e+00, -1.048692749517999567e-01, 1.164282836272345215e-15},
-	{9.375000000000000000e-01, 9.687500000000000000e-01, -6.302287584527696551e-02, 6.996944784151910810e-16},
-	{1.310660171779821415e+00, 1.362436867076458391e+00, -2.236786562536174916e-01, 2.483331942899818875e-15},
-	{1.414213562373095145e+00, 1.463769388548935790e+00, -4.225328513207429193e-01, 1.017446081816190118e-01},
+      { 													   
+	{1.000000000000000000e+00L, 1.051776695296636976e+00L, -1.830392049835374568e-01L, 3.252808038935910834e-02L},
+	{1.401269388548935790e+00L, 1.414213562373095145e+00L, -1.565132123531515207e-01L, 2.730454695485963826e-02L},
+	{2.207106781186547462e+00L, 3.000000000000000000e+00L,  4.873920540843067783e+01L, 5.411138804637469780e-13L},
+	{9.687500000000000000e-01L, 1.000000000000000000e+00L, -1.125078814079027711e-01L, 2.506431410088378817e-02L},
+	{1.612436867076458391e+00L, 1.810660171779821415e+00L,  5.911661670635662835e-01L, 6.573952690524728748e-15L},
+	{1.207106781186547462e+00L, 1.310660171779821415e+00L, -2.991531901645863023e-01L, 3.321267596107916554e-15L},
+	{1.362436867076458391e+00L, 1.388325214724776657e+00L, -1.589345454585119055e-01L, 1.764527917763735212e-15L},
+	{1.463769388548935790e+00L, 1.513325214724776657e+00L, -2.208730668000830344e-01L, 2.452183642810224359e-15L},
+	{1.810660171779821415e+00L, 2.207106781186547462e+00L,  6.032891565603589079e+00L, 6.697855121200013106e-14L},
+	{0.000000000000000000e+00L, 5.000000000000000000e-01L,  6.575875041899758092e-03L, 7.300687878575027348e-17L},
+	{7.500000000000000000e-01L, 8.750000000000000000e-01L, -5.647871991778510847e-02L, 6.270397525408045936e-16L},
+	{1.103553390593273731e+00L, 1.207106781186547462e+00L, -2.431894410706912923e-01L, 2.699945168224041491e-15L},
+	{1.051776695296636976e+00L, 1.103553390593273731e+00L, -1.305470403178642658e-01L, 1.449363299575615261e-15L},
+	{5.000000000000000000e-01L, 7.500000000000000000e-01L, -7.326282608704996063e-03L, 1.417509685426979386e-16L},
+	{8.750000000000000000e-01L, 9.375000000000000000e-01L, -7.406626263352669715e-02L, 8.223007012367522077e-16L},
+	{1.513325214724776657e+00L, 1.612436867076458391e+00L, -1.721363984401322045e-01L, 1.911097929242846383e-15L},
+	{1.388325214724776657e+00L, 1.401269388548935790e+00L, -1.048692749517999567e-01L, 1.164282836272345215e-15L},
+	{9.375000000000000000e-01L, 9.687500000000000000e-01L, -6.302287584527696551e-02L, 6.996944784151910810e-16L},
+	{1.310660171779821415e+00L, 1.362436867076458391e+00L, -2.236786562536174916e-01L, 2.483331942899818875e-15L},
+	{1.414213562373095145e+00L, 1.463769388548935790e+00L, -4.225328513207429193e-01L, 1.017446081816190118e-01L},
       };
 
       auto f = make_function<double>(f454);
-      auto fc = counted_function<double>(f);
+      auto fc = counted_function<double, decltype(f)>(f);
 
       std::vector<double> pts{_Tp{0}, _Tp{1}, std::sqrt(_Tp{2}), _Tp{3}};
 
@@ -2247,8 +2244,8 @@ test_quadrature()
 
       __gnu_cxx::integration_workspace<double> w(1000);
 
-      double exp_result = -8.994400695837000137e-02;
-      double exp_abserr =  1.185290176227023727e-06;
+      double exp_result = -8.994400695837000137e-02L;
+      double exp_abserr =  1.185290176227023727e-06L;
       int exp_neval  =      215;
       int exp_ier    =        __gnu_cxx::NO_ERROR;
       int exp_last   =        6;
@@ -2256,16 +2253,16 @@ test_quadrature()
       constexpr std::size_t num_test = 6;
       test_ival<double> test[num_test]
       {
-	{-1.000000000000000000e+00, -7.500000000000000000e-01, -1.234231128040012976e-01, 1.172832717970022565e-06},
-	{-5.000000000000000000e-01,  6.250000000000000000e-01,  2.079093855884046535e-02, 1.245463873006391609e-08},
-	{ 6.250000000000000000e-01,  1.250000000000000000e+00,  7.214232992127905808e-02, 1.006998195150956048e-13},
-	{ 2.500000000000000000e+00,  5.000000000000000000e+00,  3.579970394639702888e-03, 9.018232896137375412e-13},
-	{ 1.250000000000000000e+00,  2.500000000000000000e+00,  2.249831615049339983e-02, 1.815172652101790755e-12},
-	{-7.500000000000000000e-01, -5.000000000000000000e-01, -8.553244917962132821e-02, 1.833082948207153514e-15},
+	{-1.000000000000000000e+00L, -7.500000000000000000e-01L, -1.234231128040012976e-01L, 1.172832717970022565e-06L},
+	{-5.000000000000000000e-01L,  6.250000000000000000e-01L,  2.079093855884046535e-02L, 1.245463873006391609e-08L},
+	{ 6.250000000000000000e-01L,  1.250000000000000000e+00L,  7.214232992127905808e-02L, 1.006998195150956048e-13L},
+	{ 2.500000000000000000e+00L,  5.000000000000000000e+00L,  3.579970394639702888e-03L, 9.018232896137375412e-13L},
+	{ 1.250000000000000000e+00L,  2.500000000000000000e+00L,  2.249831615049339983e-02L, 1.815172652101790755e-12L},
+	{-7.500000000000000000e-01L, -5.000000000000000000e-01L, -8.553244917962132821e-02L, 1.833082948207153514e-15L},
       };
 
       auto f = make_function<double>(f459);
-      auto fc = counted_function<double>(f);
+      auto fc = counted_function<double, decltype(f)>(f);
 
       const auto epsabs = _Tp{0};
       const auto epsrel = _Tp{1.0e-3};
@@ -2323,8 +2320,8 @@ test_quadrature()
 
       __gnu_cxx::integration_workspace<double> w(1000);
 
-      double exp_result = -1.892751853489401670e-01;
-      double exp_abserr = 1.129133712015747658e-08;
+      double exp_result = -1.892751853489401670e-01L;
+      double exp_abserr = 1.129133712015747658e-08L;
       int exp_neval  =      280;
       int exp_ier    =        __gnu_cxx::NO_ERROR;
       int exp_last   =        8;
@@ -2332,18 +2329,18 @@ test_quadrature()
       constexpr std::size_t num_test = 8;
       test_ival<double> test[num_test]
       {
-	{0.000000000000000000e+00, 7.812500000000000000e-03, -4.126317299834445824e-05, 1.129099387465713953e-08},
-	{2.500000000000000000e-01, 5.000000000000000000e-01, -6.240573216173390947e-02, 6.928428071454762659e-16},
-	{5.000000000000000000e-01, 1.000000000000000000e+00, -1.076283950172247789e-01, 3.423394967694403596e-13},
-	{6.250000000000000000e-02, 1.250000000000000000e-01, -3.408925115926728436e-03, 3.784667152924835070e-17},
-	{3.125000000000000000e-02, 6.250000000000000000e-02, -8.914083918175634211e-04, 9.896621209399419425e-18},
-	{1.562500000000000000e-02, 3.125000000000000000e-02, -2.574191402137795482e-04, 2.857926564445496100e-18},
-	{1.250000000000000000e-01, 2.500000000000000000e-01, -1.456169844189576269e-02, 1.616673288784094320e-16},
-	{7.812500000000000000e-03, 1.562500000000000000e-02, -8.034390712936630608e-05, 8.919965558336773736e-19},
+	{0.000000000000000000e+00L, 7.812500000000000000e-03L, -4.126317299834445824e-05L, 1.129099387465713953e-08L},
+	{2.500000000000000000e-01L, 5.000000000000000000e-01L, -6.240573216173390947e-02L, 6.928428071454762659e-16L},
+	{5.000000000000000000e-01L, 1.000000000000000000e+00L, -1.076283950172247789e-01L, 3.423394967694403596e-13L},
+	{6.250000000000000000e-02L, 1.250000000000000000e-01L, -3.408925115926728436e-03L, 3.784667152924835070e-17L},
+	{3.125000000000000000e-02L, 6.250000000000000000e-02L, -8.914083918175634211e-04L, 9.896621209399419425e-18L},
+	{1.562500000000000000e-02L, 3.125000000000000000e-02L, -2.574191402137795482e-04L, 2.857926564445496100e-18L},
+	{1.250000000000000000e-01L, 2.500000000000000000e-01L, -1.456169844189576269e-02L, 1.616673288784094320e-16L},
+	{7.812500000000000000e-03L, 1.562500000000000000e-02L, -8.034390712936630608e-05L, 8.919965558336773736e-19L},
       };
 
       auto f = make_function<double>(f458);
-      auto fc = counted_function<double>(f);
+      auto fc = counted_function<double, decltype(f)>(f);
 
       const auto epsabs = _Tp{0};
       const auto epsrel = _Tp{1.0e-7};
@@ -2374,8 +2371,8 @@ test_quadrature()
       std::tie(result, abserr)
 	= __gnu_cxx::qaws_integrate(w, tb, fc, _Tp{0}, _Tp{1}, epsabs, epsrel);
 
-      exp_result = 9.896686656601706433e-01;
-      exp_abserr = 5.888032513201251628e-08;
+      exp_result = 9.896686656601706433e-01L;
+      exp_abserr = 5.888032513201251628e-08L;
 
       qtest.test_relative(result, exp_result, 1.0e-14, "qaws(f458) AB result");
       qtest.test_relative(abserr, exp_abserr, 1.0e-6, "qaws(f458) AB abserr");
@@ -2385,8 +2382,8 @@ test_quadrature()
       std::tie(result, abserr)
 	= __gnu_cxx::qaws_integrate(w, tb, fc, _Tp{0}, _Tp{1}, epsabs, epsrel);
 
-      exp_result = -3.636679470586539620e-01;
-      exp_abserr = 2.851348775257054093e-08;
+      exp_result = -3.636679470586539620e-01L;
+      exp_abserr = 2.851348775257054093e-08L;
 
       qtest.test_relative(result, exp_result, 1.0e-14, "qaws(f458) AB ln(x-a) result");
       qtest.test_relative(abserr, exp_abserr, 1.0e-6, "qaws(f458) AB ln(x-a) abserr");
@@ -2396,8 +2393,8 @@ test_quadrature()
       std::tie(result, abserr)
 	= __gnu_cxx::qaws_integrate(w, tb, fc, _Tp{0}, _Tp{1}, epsabs, epsrel);
 
-      exp_result = -1.911489253363409802e+00;
-      exp_abserr = 9.854016753016499034e-09;
+      exp_result = -1.911489253363409802e+00L;
+      exp_abserr = 9.854016753016499034e-09L;
 
       qtest.test_relative(result,exp_result,1.0e-14,"qaws(f458) AB ln(b-x) result");
       qtest.test_relative(abserr,exp_abserr,1.0e-6,"qaws(f458) AB ln(b-x) abserr");
@@ -2407,8 +2404,8 @@ test_quadrature()
       std::tie(result, abserr)
 	= __gnu_cxx::qaws_integrate(w, tb, fc, _Tp{0}, _Tp{1}, epsabs, epsrel);
 
-      exp_result = 3.159922862811048172e-01;
-      exp_abserr = 2.336183482198144595e-08;
+      exp_result = 3.159922862811048172e-01L;
+      exp_abserr = 2.336183482198144595e-08L;
 
       qtest.test_relative(result, exp_result, 1.0e-14, "qaws(f458) AB ln(x-a)ln(b-x) result");
       qtest.test_relative(abserr, exp_abserr, 1.0e-6, "qaws(f458) AB ln(x-a)ln(b-x) abserr");
@@ -2435,8 +2432,8 @@ test_quadrature()
       __gnu_cxx::oscillatory_integration_table<double> wo(_Tp{10} * _S_pi, _Tp{1},
                                        __gnu_cxx::oscillatory_integration_table<double>::INTEG_SINE, 1000);
 
-      double exp_result = -1.281368483991674190e-01;
-      double exp_abserr =  6.875028324415666248e-12;
+      double exp_result = -1.281368483991674190e-01L;
+      double exp_abserr =  6.875028324415666248e-12L;
       int exp_neval  =      305;
       int exp_ier    =        __gnu_cxx::NO_ERROR;
       int exp_last   =        9;
@@ -2444,19 +2441,19 @@ test_quadrature()
       constexpr std::size_t num_test = 9;
       test_ival<double> test[num_test]
       {
-	{5.000000000000000000e-01, 1.000000000000000000e+00,  2.190541162282139478e-02, 1.302638552580516100e-13},
-	{2.500000000000000000e-01, 5.000000000000000000e-01, -2.587726479625663753e-02, 7.259224351945759794e-15},
-	{1.250000000000000000e-01, 2.500000000000000000e-01,  5.483209176363500886e-02, 1.249770395036711102e-14},
-	{1.562500000000000000e-02, 3.125000000000000000e-02, -3.886716016498160953e-02, 4.315121611695628020e-16},
-	{3.125000000000000000e-02, 6.250000000000000000e-02, -9.178321994387816929e-02, 1.018998440559284116e-15},
-	{6.250000000000000000e-02, 1.250000000000000000e-01, -3.081695575172510582e-02, 7.832180081562836579e-16},
-	{7.812500000000000000e-03, 1.562500000000000000e-02, -1.242306301902117854e-02, 1.379237060008662177e-16},
-	{3.906250000000000000e-03, 7.812500000000000000e-03, -3.659495117871544145e-03, 4.062855738364339357e-17},
-	{0.000000000000000000e+00, 3.906250000000000000e-03, -1.447193692377651136e-03, 8.326506625798146465e-07},
+	{5.000000000000000000e-01L, 1.000000000000000000e+00L,  2.190541162282139478e-02L, 1.302638552580516100e-13L},
+	{2.500000000000000000e-01L, 5.000000000000000000e-01L, -2.587726479625663753e-02L, 7.259224351945759794e-15L},
+	{1.250000000000000000e-01L, 2.500000000000000000e-01L,  5.483209176363500886e-02L, 1.249770395036711102e-14L},
+	{1.562500000000000000e-02L, 3.125000000000000000e-02L, -3.886716016498160953e-02L, 4.315121611695628020e-16L},
+	{3.125000000000000000e-02L, 6.250000000000000000e-02L, -9.178321994387816929e-02L, 1.018998440559284116e-15L},
+	{6.250000000000000000e-02L, 1.250000000000000000e-01L, -3.081695575172510582e-02L, 7.832180081562836579e-16L},
+	{7.812500000000000000e-03L, 1.562500000000000000e-02L, -1.242306301902117854e-02L, 1.379237060008662177e-16L},
+	{3.906250000000000000e-03L, 7.812500000000000000e-03L, -3.659495117871544145e-03L, 4.062855738364339357e-17L},
+	{0.000000000000000000e+00L, 3.906250000000000000e-03L, -1.447193692377651136e-03L, 8.326506625798146465e-07L},
       };
 
       auto f = make_function<double>(f456<double>);
-      auto fc = counted_function<double>(f);
+      auto fc = counted_function<double, decltype(f)>(f);
 
       const auto epsabs = _Tp{0};
       const auto epsrel = _Tp{1.0e-7};
@@ -2517,8 +2514,8 @@ test_quadrature()
 	wo(_S_pi / _Tp{2}, _Tp{1},
 	  __gnu_cxx::oscillatory_integration_table<double>::INTEG_COSINE, 1000);
 
-      double exp_result = 9.999999999279802765e-01;
-      double exp_abserr = 1.556289974669056164e-08;
+      double exp_result = 9.999999999279802765e-01L;
+      double exp_abserr = 1.556289974669056164e-08L;
       int exp_neval  =      590;
       int exp_ier    =        __gnu_cxx::NO_ERROR;
       int exp_last   =       12;
@@ -2526,22 +2523,22 @@ test_quadrature()
       constexpr std::size_t num_test = 12;
       test_ival<double> test[num_test]
       {
-	{0.0, 0.0,  1.013283128125232802e+00, 1.224798040766472695e-12},
-	{0.0, 0.0, -1.810857954748607349e-02, 1.396565155187268456e-13},
-	{0.0, 0.0,  7.466754034900931897e-03, 1.053844511655910310e-16},
-	{0.0, 0.0, -1.352797860944863345e-03, 5.854691731421723944e-18},
-	{0.0, 0.0,  8.136341270731781887e-04, 2.439454888092388058e-17},
-	{0.0, 0.0, -7.093931338504278145e-04, 2.130457268934021451e-17},
-	{0.0, 0.0,  1.680910783140869081e-03, 9.757819552369539906e-18},
-	{0.0, 0.0, -4.360312526786496237e-03, 6.505213034913026604e-19},
-	{0.0, 0.0,  1.119354921991485901e-03, 4.553649124439220312e-18},
-	{0.0, 0.0,  2.950184068216192904e-03, 7.155734338404329264e-18},
-	{0.0, 0.0, -9.462367583691360827e-04, 7.643625316022806260e-18},
-	{0.0, 0.0, -2.168238443073697373e-03, 1.105886215935214523e-17},
+	{0.0L, 0.0L,  1.013283128125232802e+00L, 1.224798040766472695e-12L},
+	{0.0L, 0.0L, -1.810857954748607349e-02L, 1.396565155187268456e-13L},
+	{0.0L, 0.0L,  7.466754034900931897e-03L, 1.053844511655910310e-16L},
+	{0.0L, 0.0L, -1.352797860944863345e-03L, 5.854691731421723944e-18L},
+	{0.0L, 0.0L,  8.136341270731781887e-04L, 2.439454888092388058e-17L},
+	{0.0L, 0.0L, -7.093931338504278145e-04L, 2.130457268934021451e-17L},
+	{0.0L, 0.0L,  1.680910783140869081e-03L, 9.757819552369539906e-18L},
+	{0.0L, 0.0L, -4.360312526786496237e-03L, 6.505213034913026604e-19L},
+	{0.0L, 0.0L,  1.119354921991485901e-03L, 4.553649124439220312e-18L},
+	{0.0L, 0.0L,  2.950184068216192904e-03L, 7.155734338404329264e-18L},
+	{0.0L, 0.0L, -9.462367583691360827e-04L, 7.643625316022806260e-18L},
+	{0.0L, 0.0L, -2.168238443073697373e-03L, 1.105886215935214523e-17L},
       };
 
       auto f = make_function<double>(f457);
-      auto fc = counted_function<double>(f);
+      auto fc = counted_function<double, decltype(f)>(f);
 
       const auto epsabs = _Tp{0};
       const auto epsrel = _Tp{1.0e-7};
@@ -2945,31 +2942,31 @@ test_quadrature()
       const static _Tp
       f_exact[25]
       {
-	_Tp{1.7182818284590452354},
-	_Tp{0.7},
-	_Tp{2} / _Tp{3},
-	_Tp{0.4794282266888016674},
-	_Tp{1.5822329637296729331},
-	_Tp{0.4},
-	_Tp{2},
-	_Tp{0.86697298733991103757},
-	_Tp{1.1547005383792515290},
-	_Tp{0.69314718055994530942},
-	_Tp{0.3798854930417224753},
-	_Tp{0.77750463411224827640},
-	_Tp{0.49898680869304550249},
-	_Tp{0.5},
-	_Tp{1},
-	_Tp{0.13263071079267703209e+08},
-	_Tp{0.49898680869304550249},
-	_Tp{0.83867634269442961454},
-	_Tp{-1},
-	_Tp{1.5643964440690497731},
-	_Tp{0.16349494301863722618},
-	_Tp{-0.63466518254339257343},
-	_Tp{0.013492485649467772692},
-	_Tp{17.664383539246514971},
-	_Tp{7.5}
+	_Tp{1.7182818284590452354L},
+	_Tp{0.7L},
+	_Tp{2.0L} / _Tp{3.0L},
+	_Tp{0.4794282266888016674L},
+	_Tp{1.5822329637296729331L},
+	_Tp{0.4L},
+	_Tp{2.0L},
+	_Tp{0.86697298733991103757L},
+	_Tp{1.1547005383792515290L},
+	_Tp{0.69314718055994530942L},
+	_Tp{0.3798854930417224753L},
+	_Tp{0.77750463411224827640L},
+	_Tp{0.49898680869304550249L},
+	_Tp{0.5L},
+	_Tp{1.0L},
+	_Tp{0.13263071079267703209e+08L},
+	_Tp{0.49898680869304550249L},
+	_Tp{0.83867634269442961454L},
+	_Tp{-1.0L},
+	_Tp{1.5643964440690497731L},
+	_Tp{0.16349494301863722618L},
+	_Tp{-0.63466518254339257343L},
+	_Tp{0.013492485649467772692L},
+	_Tp{17.664383539246514971L},
+	_Tp{7.5L}
       };
 
       // Loop over the functions...
