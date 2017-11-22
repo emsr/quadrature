@@ -81,20 +81,26 @@ namespace __gnu_cxx
       switch(__qkintrule)
 	{
 	case QK_15:
-	  return __detail::qk_integrator<_Tp, _FuncTp, QK_15>::_S_integrate(__func, __lower, __upper);
+	  return __detail::qk_integrator<_Tp, _FuncTp, QK_15>
+			 ::_S_integrate(__func, __lower, __upper);
 	case QK_21:
-	  return __detail::qk_integrator<_Tp, _FuncTp, QK_21>::_S_integrate(__func, __lower, __upper);
+	  return __detail::qk_integrator<_Tp, _FuncTp, QK_21>
+			 ::_S_integrate(__func, __lower, __upper);
 	case QK_31:
-	  return __detail::qk_integrator<_Tp, _FuncTp, QK_31>::_S_integrate(__func, __lower, __upper);
+	  return __detail::qk_integrator<_Tp, _FuncTp, QK_31>
+			 ::_S_integrate(__func, __lower, __upper);
 	case QK_41:
-	  return __detail::qk_integrator<_Tp, _FuncTp, QK_41>::_S_integrate(__func, __lower, __upper);
+	  return __detail::qk_integrator<_Tp, _FuncTp, QK_41>
+			 ::_S_integrate(__func, __lower, __upper);
 	case QK_51:
-	  return __detail::qk_integrator<_Tp, _FuncTp, QK_51>::_S_integrate(__func, __lower, __upper);
+	  return __detail::qk_integrator<_Tp, _FuncTp, QK_51>
+			 ::_S_integrate(__func, __lower, __upper);
 	case QK_61:
-	  return __detail::qk_integrator<_Tp, _FuncTp, QK_61>::_S_integrate(__func, __lower, __upper);
+	  return __detail::qk_integrator<_Tp, _FuncTp, QK_61>
+			 ::_S_integrate(__func, __lower, __upper);
 	default:
 	  std::__throw_logic_error("qk_integrate: "
-				   "Unrecognized Gauss-Kronrod integration size");
+				 "Unsupported Gauss-Kronrod integration size");
 	}
     }
 
