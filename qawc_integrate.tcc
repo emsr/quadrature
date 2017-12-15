@@ -1,4 +1,4 @@
-// integration/qagp.c
+// qawc_integrate.tcc
 //
 // Copyright (C) 1996, 1997, 1998, 1999, 2000, 2007 Brian Gough
 // Copyright (C) 2016-2017 Free Software Foundation, Inc.
@@ -38,7 +38,7 @@ namespace __gnu_cxx
 
   template<typename _FuncTp, typename _Tp>
     std::tuple<_Tp, _Tp, bool>
-    qc25c(const _FuncTp& __func, _Tp __lower, _Tp __upper, _Tp __c);
+    qc25c(const _FuncTp& __func, _Tp __lower, _Tp __upper, _Tp __center);
 
   template<typename _Tp>
     std::vector<_Tp>
@@ -54,13 +54,13 @@ namespace __gnu_cxx
    * When a subinterval contains the point x = c or is close to it then
    * a special 25-point modified Clenshaw-Curtis rule is used to control
    * the singularity. Further away from the singularity the algorithm uses
-   * an ordinary 15-point Gauss-Kronrod integration rule. 
+   * a user-supplied integration rule. 
    */
   template<typename _FuncTp, typename _Tp>
     std::tuple<_Tp, _Tp>
     qawc_integrate(integration_workspace<_Tp>& __workspace,
 		   const _FuncTp& __func,
-		   _Tp __lower, _Tp __upper, _Tp __c,
+		   _Tp __lower, _Tp __upper, _Tp __center,
 		   _Tp __max_abs_err, _Tp __max_rel_err)
     {
       auto __result = _Tp{};
@@ -68,6 +68,9 @@ namespace __gnu_cxx
 
       const auto _S_eps = std::numeric_limits<_Tp>::epsilon();
       const auto __limit = __workspace.capacity();
+      // Try to adjust tests for varing precision.
+      const auto _M_rel_err = std::pow(_Tp{10.0},
+				 -std::numeric_limits<_Tp>::digits / _Tp{10.0});
 
       int __sign = 1;
       if (__upper < __lower)
@@ -83,7 +86,7 @@ namespace __gnu_cxx
 				    "with given absolute "
 				    "and relative error limits.");
 
-      if (__c == __lower || __c == __upper)
+      if (__center == __lower || __center == __upper)
 	std::__throw_runtime_error ("qawc_integrate: "
 				    "Cannot integrate with singularity "
 				    "on endpoint.");
@@ -94,13 +97,14 @@ namespace __gnu_cxx
       _Tp __result0, __abserr0;
       bool __err_reliable;
       std::tie(__result0, __abserr0, __err_reliable)
-	= qc25c(__func, __lower, __upper, __c);
+	= qc25c(__func, __lower, __upper, __center);
 
       __workspace.append(__lower, __upper, __result0, __abserr0);
 
       // Test on accuracy; Use 0.01 relative error as an extra safety
       // margin on the first iteration (ignored for subsequent iterations).
-      auto __tolerance = std::max(__max_abs_err, __max_rel_err * std::abs( __result0));
+      auto __tolerance = std::max(__max_abs_err,
+				  __max_rel_err * std::abs( __result0));
       if (__abserr0 < __tolerance && __abserr0 < 0.01 * std::abs(__result0))
 	return std::make_tuple(__sign * __result0, __abserr0);
       else if (__limit == 1)
@@ -122,21 +126,21 @@ namespace __gnu_cxx
 	  const auto __a1 = __a_i;
 	  auto __b1 = (__a_i + __b_i) / _Tp{2};
 	  const auto __b2 = __b_i;
-	  if (__c > __a1 && __c <= __b1)
-	    __b1 = (__c + __b2) / _Tp{2};
-	  else if (__c > __b1 && __c < __b2)
-	    __b1 = (__a1 + __c) / _Tp{2};
+	  if (__center > __a1 && __center <= __b1)
+	    __b1 = (__center + __b2) / _Tp{2};
+	  else if (__center > __b1 && __center < __b2)
+	    __b1 = (__a1 + __center) / _Tp{2};
 	  const auto __a2 = __b1;
 
 	  _Tp __area1, __error1;
 	  bool __err_reliable1;
 	  std::tie(__area1, __error1, __err_reliable1)
-	    = qc25c(__func, __a1, __b1, __c);
+	    = qc25c(__func, __a1, __b1, __center);
 
 	  _Tp __area2, __error2;
 	  bool __err_reliable2;
 	  std::tie(__area2, __error2, __err_reliable2)
-	    = qc25c(__func, __a2, __b2, __c);
+	    = qc25c(__func, __a2, __b2, __center);
 
 	  const auto __area12 = __area1 + __area2;
 	  const auto __error12 = __error1 + __error2;
@@ -148,7 +152,7 @@ namespace __gnu_cxx
 	    {
 	      _Tp __delta = __r_i - __area12;
 
-	      if (std::abs (__delta) <= 1.0e-5 * std::abs (__area12)
+	      if (std::abs (__delta) <= _M_rel_err * std::abs (__area12)
 	    	   && __error12 >= 0.99 * __e_i)
 		++__roundoff_type1;
 	      if (__iteration >= 10 && __error12 > __e_i)
@@ -197,9 +201,9 @@ namespace __gnu_cxx
    */
   template<typename _FuncTp, typename _Tp>
     std::tuple<_Tp, _Tp, bool>
-    qc25c(const _FuncTp& __func, _Tp __lower, _Tp __upper, _Tp __c)
+    qc25c(const _FuncTp& __func, _Tp __lower, _Tp __upper, _Tp __center)
     {
-      const auto __cc = (_Tp{2} * __c - __upper - __lower)
+      const auto __cc = (_Tp{2} * __center - __upper - __lower)
 		      / (__upper - __lower);
 
       _Tp __result, __abserr;
@@ -209,9 +213,9 @@ namespace __gnu_cxx
 	{
 	  using __qk_ret = std::tuple<_Tp&, _Tp&, _Tp&, _Tp&>;
 
-	  auto __func_cauchy = [__func, __c](_Tp __x)
+	  auto __func_cauchy = [__func, __center](_Tp __x)
 				-> _Tp
-				{ return __func(__x) / (__x - __c); };
+				{ return __func(__x) / (__x - __center); };
 
 	  _Tp __resabs, __resasc;
 	  __qk_ret{__result, __abserr, __resabs, __resasc}
@@ -248,7 +252,8 @@ namespace __gnu_cxx
     }
 
   /**
-   *
+   * Compute Clenshaw-Curtis moments.
+   * An iterator range version would be nicer I think.
    */
   template<typename _Tp>
     std::vector<_Tp>

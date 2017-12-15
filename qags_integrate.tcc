@@ -72,6 +72,9 @@ namespace __gnu_cxx
       const auto _S_max = std::numeric_limits<_Tp>::max();
       const auto _S_eps = std::numeric_limits<_Tp>::epsilon();
       const auto __max_iter = __workspace.capacity();
+      // Try to adjust tests for varing precision.
+      const auto _M_rel_err = std::pow(_Tp{10.0},
+				 -std::numeric_limits<_Tp>::digits / _Tp{10.0});
 #ifdef VERBOSE_DEBUG
       std::cerr.precision(8);
       std::cerr << "\nC++\n";
@@ -183,7 +186,7 @@ namespace __gnu_cxx
 	    {
 	      const auto __delta = __r_i - __area12;
 
-	      if (std::abs(__delta) <= 1.0e-5 * std::abs(__area12)
+	      if (std::abs(__delta) <= _M_rel_err * std::abs(__area12)
 		  && __error12 >= 0.99 * __e_i)
 		{
 		  if (!__extrapolate)

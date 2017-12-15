@@ -77,6 +77,9 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
       const auto _S_eps = std::numeric_limits<_Tp>::epsilon();
       const auto __limit = __workspace.capacity();
       const auto __n_ivals = __pts.size() - 1;
+      // Try to adjust tests for varing precision.
+      const auto _M_rel_err = std::pow(_Tp{10.0},
+				 -std::numeric_limits<_Tp>::digits / _Tp{10.0});
 
       bool __extrapolate = false;
       bool __allow_extrapolation = true;
@@ -207,7 +210,7 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
 	    {
 	      const auto __delta = __r_i - __area12;
 
-	      if (std::abs(__delta) <= 1.0e-5 * std::abs(__area12)
+	      if (std::abs(__delta) <= _M_rel_err * std::abs(__area12)
 		   && __error12 >= 0.99 * __e_i)
 		{
 		  if (!__extrapolate)

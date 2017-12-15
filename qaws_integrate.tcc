@@ -1,4 +1,4 @@
-// quadrature/qaws_integrate.tcc
+// qaws_integrate.tcc
 //
 // Copyright (C) 1996, 1997, 1998, 1999, 2000, 2007 Brian Gough
 // Copyright (C) 2016-2017 Free Software Foundation, Inc.
@@ -46,6 +46,11 @@ namespace __gnu_cxx
 		   const std::array<_Tp, 13>& cheb12,
 		   const std::array<_Tp, 25>& cheb24);
 
+ template<typename _FuncTp, typename _Tp>
+    std::tuple<_Tp, _Tp, bool>
+    qc25s(qaws_integration_table<_Tp>& __t,
+	  const _FuncTp& __func, _Tp __lower, _Tp __upper, _Tp __a1, _Tp __b1);
+
   /**
    * The singular weight function is defined by:
    * @f[
@@ -74,10 +79,13 @@ namespace __gnu_cxx
     qaws_integrate(integration_workspace<_Tp>& __workspace,
 		   qaws_integration_table<_Tp>& __table,
 		   const _FuncTp& __func,
-		   const _Tp __lower, const _Tp __upper,
-		   const _Tp __max_abs_err, const _Tp __max_rel_err)
+		   _Tp __lower, _Tp __upper,
+		   _Tp __max_abs_err, _Tp __max_rel_err)
     {
       const auto _S_eps = std::numeric_limits<_Tp>::epsilon();
+      // Try to adjust tests for varing precision.
+      const auto _M_rel_err = std::pow(_Tp{10.0},
+				 -std::numeric_limits<_Tp>::digits / _Tp{10.0});
 
       if (__upper <= __lower)
 	std::__throw_runtime_error("qaws_integrate: "
@@ -162,7 +170,7 @@ namespace __gnu_cxx
 	    {
 	      const auto __delta = __r_i - __area12;
 
-	      if (std::abs (__delta) <= 1.0e-5 * std::abs(__area12)
+	      if (std::abs (__delta) <= _M_rel_err * std::abs(__area12)
 		 && __error12 >= 0.99 * __e_i)
 		++__roundoff_type1;
 	      if (__iteration >= 10 && __error12 > __e_i)
@@ -206,6 +214,9 @@ namespace __gnu_cxx
 				UNKNOWN_ERROR, __result, __abserr);
     }
 
+  /**
+   *
+   */
   template<typename _FuncTp, typename _Tp>
     std::tuple<_Tp, _Tp, bool>
     qc25s(qaws_integration_table<_Tp>& __t,
@@ -218,7 +229,8 @@ namespace __gnu_cxx
 	  const auto __factor
 	    = std::pow(0.5 * (__b1 - __a1), __t.alpha + _Tp{1});
 
-	  auto __f = [__fqaws](_Tp __x)->_Tp{ return __fqaws.eval_right(__x); };
+	  auto __f = [__fqaws](_Tp __x)
+		     -> _Tp { return __fqaws.eval_right(__x); };
 	  std::array<_Tp, 13> __cheb12;
 	  std::array<_Tp, 25> __cheb24;
 	  qcheb_integrate(__f, __a1, __b1, __cheb12, __cheb24);
@@ -257,7 +269,8 @@ namespace __gnu_cxx
 	{
 	  auto __factor = std::pow(0.5 * (__b1 - __a1), __t.beta + _Tp{1});
 
-	  auto __f = [__fqaws](_Tp __x)->_Tp{ return __fqaws.eval_left(__x); };
+	  auto __f = [__fqaws](_Tp __x)
+		     -> _Tp { return __fqaws.eval_left(__x); };
 	  std::array<_Tp, 13> __cheb12;
 	  std::array<_Tp, 25> __cheb24;
 	  qcheb_integrate(__f, __a1, __b1, __cheb12, __cheb24);
@@ -297,6 +310,7 @@ namespace __gnu_cxx
 	  auto __f = [__fqaws](_Tp __x)
 		     ->_Tp
 		     { return __fqaws.eval_middle(__x); };
+
 	  _Tp __result, __abserr, __resabs, __resasc;
 	  std::tie(__result, __abserr, __resabs, __resasc)
 	    = qk_integrate(__f, __a1, __b1, QK_15);

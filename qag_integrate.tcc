@@ -79,6 +79,9 @@ namespace __gnu_cxx
 		  _Integrator __quad)
     {
       const auto _S_eps = std::numeric_limits<_Tp>::epsilon();
+      // Try to adjust tests for varing precision.
+      const auto _M_rel_err = std::pow(_Tp{10.0},
+				 -std::numeric_limits<_Tp>::digits / _Tp{10.0});
 
       if (__max_abs_err <= 0 && (__max_rel_err < _Tp{50} * _S_eps))
 	std::__throw_logic_error("qag_integrate: "
@@ -147,7 +150,7 @@ namespace __gnu_cxx
 	    {
 	      const auto __delta = __r_i - __area12;
 
-	      if (std::abs(__delta) <= 1.0e-5 * std::abs(__area12)
+	      if (std::abs(__delta) <= _M_rel_err * std::abs(__area12)
 		 && __error12 >= 0.99 * __e_i)
 		++__roundoff_type1;
 	      if (__iteration >= 10 && __error12 > __e_i)
@@ -211,7 +214,7 @@ namespace __gnu_cxx
 		  _Tp __lower, _Tp __upper,
 		  _Tp __max_abs_err, _Tp __max_rel_err,
 		  std::size_t __max_iter,
-                  Kronrod_Rule __qk_rule = QK_21)
+		  Kronrod_Rule __qk_rule = QK_21)
     {
       auto __quad
 	= [__qk_rule]

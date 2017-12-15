@@ -383,13 +383,14 @@ namespace __gnu_cxx
       //using __err_t = decltype(std::abs(__area_t()));
 
       cquad_workspace<_Tp> __ws(__max_iter);
+
       return cquad_integrate(__ws, __func, __lower, __upper,
 			     __max_abs_error, __max_rel_error);
     }
 
   /**
    * Adaptively integrate a function using a recursive Gauss-Kronrod quadrature
-   * called the patterson algorithm.
+   * called the Patterson algorithm.
    */
   template<typename _FuncTp, typename _Tp>
     inline std::tuple<_Tp, _Tp>
@@ -437,6 +438,22 @@ namespace __gnu_cxx
 
       return qaws_integrate(__wksp, __tab, __func, __lower, __upper,
 			    __max_abs_error, __max_rel_error);
+    }
+
+  /**
+   * Integrate the principal value of a function with a Cauchy singularity.
+   */
+  template<typename _FuncTp, typename _Tp>
+    inline std::tuple<_Tp, _Tp>
+    integrate_cauchy_principal_value(const _FuncTp& __func,
+				     _Tp __lower, _Tp __upper, _Tp __center,
+				     _Tp __max_abs_err, _Tp __max_rel_err,
+				     std::size_t __max_iter = 1024)
+    {
+      integration_workspace<_Tp> __wksp(__max_iter);
+
+      return  qawc_integrate(__wksp, __func, __lower, __upper, __center,
+			     __max_abs_err, __max_rel_err);
     }
 
 
