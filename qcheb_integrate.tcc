@@ -36,7 +36,7 @@ namespace __gnu_cxx
 
       // These are the values of cos(pi*k/24) for k=1..11 needed for the
       // Chebyshev expansion of f(x).  These are the zeros of the Chebyshev
-      // finction of the second kind of order 23: U_23(x).
+      // function of the second kind of order 23: U_23(x).
 
       constexpr _Tp
       __x[11]
