@@ -56,7 +56,7 @@ template<typename _Func, typename _Tp>
   __wrap_func(_Func __func, _Tp __x)
   {
     auto __y = __func(__x);
-    if (std::__detail::__isnan(__y) || std::__detail::__isinf(__y))
+    if (std::isnan(__y) || std::isinf(__y))
       return _Tp{0};
     else
       return __y;
