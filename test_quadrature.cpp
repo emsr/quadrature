@@ -34,44 +34,93 @@ $HOME/bin/bin/g++ -std=gnu++17 -fconcepts -g -Wall -Wextra -Wno-psabi -I.. -c -o
 #include "testcase.h"
 
 /**
+ * Make a function object absorbing all parameters but a single
+ * real scalar argument.
  *
+ * This version wraps a function pointer taking and returning the same scalar real type.
  */
 template<typename _Tp, typename... _Parms>
   std::function<_Tp(_Tp)>
   make_function(_Tp(f)(_Tp, _Parms...), _Parms... p)
+  { return [f, p...](_Tp x)->_Tp{ return f(x, p...); }; }
+
+/**
+ * Make a function object absorbing all parameters but a single
+ * real scalar argument.
+ *
+ * This version wraps a more generic function object.
+ *
+ * Note to self: Argument deduction order matters.
+ */
+template<typename _Tp, typename _FuncTp, typename... _Parms,
+	 typename _Ret = std::invoke_result_t<_FuncTp, _Tp, _Parms...>>
+  std::function<_Ret(_Tp)>
+  make_function(_FuncTp&& f, _Parms... p)
   {
-    return [f, p...](_Tp x)->_Tp{ return f(x, p...); };
+    return [func = std::forward(f), p...](_Tp x)->_Ret{ return func(x, p...); };
   }
 
 /**
+ * Function wrapper to count evaluations of the target function.
  *
+ * Note to self: Argument deduction order matters.
  */
-template<typename _Tp, typename _FuncTp>
+template<typename _Tp, typename _FuncTp,
+	 typename _Ret = std::invoke_result_t<_FuncTp, _Tp>>
   struct counted_function
   {
     counted_function(const _FuncTp& f)
-    : func(f), neval(new int(0))
+    : m_func(f), m_neval(new int{0})
     { }
 
-    _Tp
+    counted_function(_FuncTp&& f)
+    : m_func(std::forward(f)), m_neval(new int{0})
+    { }
+
+    _Ret
     operator()(_Tp x) const
     {
-      ++(*this->neval);
-      return this->func(x);
+      ++(*this->m_neval);
+      return this->m_func(x);
     }
 
     int
     num_evals() const
-    { return *this->neval; }
+    { return *this->m_neval; }
 
     void
     num_evals(int num)
-    { *this->neval = num; }
+    { *this->m_neval = num; }
 
-    _FuncTp func;
-    mutable std::shared_ptr<int> neval;
+    void
+    reset()
+    { this->num_evals(0); }
+
+  private:
+
+    _FuncTp m_func;
+
+    mutable std::shared_ptr<int> m_neval;
   };
 
+/**
+ * Make a counted function object.
+ *
+ * This version wraps a more generic function object.
+ *
+ * Note to self: Argument deduction order matters.
+ */
+template<typename _Tp, typename _FuncTp, typename... _Parms,
+	 typename _Ret = std::invoke_result_t<_FuncTp, _Tp, _Parms...>>
+  counted_function<_Tp, std::function<_Ret(_Tp)>>
+  make_counted_function(_FuncTp&& f, _Parms... p)
+  {
+    return counted_function<_Tp, std::function<_Ret(_Tp)>>(make_function<_Tp>(std::forward(f), p...));
+  }
+
+/**
+ * 
+ */
 template<typename _Tp>
   struct quadrature_test
   {
