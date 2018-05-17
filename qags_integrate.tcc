@@ -73,8 +73,8 @@ namespace __gnu_cxx
       const auto _S_eps = std::numeric_limits<_Tp>::epsilon();
       const auto __max_iter = __workspace.capacity();
       // Try to adjust tests for varing precision.
-      const auto _M_rel_err = std::pow(_Tp{10.0},
-				 -std::numeric_limits<_Tp>::digits / _Tp{10.0});
+      const auto _S_rel_err = std::pow(_Tp{10},
+				 -std::numeric_limits<_Tp>::digits / _Tp{10});
 #ifdef VERBOSE_DEBUG
       std::cerr.precision(8);
       std::cerr << "\nC++\n";
@@ -82,8 +82,9 @@ namespace __gnu_cxx
       bool __extrapolate = false;
       bool __allow_extrapolation = true;
 
-      if (__max_abs_err <= 0
-	  && (__max_rel_err < 50 * _S_eps || __max_rel_err < 0.5e-28))
+      if (__max_abs_err <= _Tp{0}
+	  && (__max_rel_err < _Tp{50} * _S_eps
+	      || __max_rel_err < 0.5e-28))
 	std::__throw_runtime_error("qags_integrate: "
 				   "Tolerance cannot be achieved "
 				   "with given absolute "
@@ -186,7 +187,7 @@ namespace __gnu_cxx
 	    {
 	      const auto __delta = __r_i - __area12;
 
-	      if (std::abs(__delta) <= _M_rel_err * std::abs(__area12)
+	      if (std::abs(__delta) <= _S_rel_err * std::abs(__area12)
 		  && __error12 >= 0.99 * __e_i)
 		{
 		  if (!__extrapolate)

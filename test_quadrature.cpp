@@ -1674,8 +1674,8 @@ test_quadrature()
       auto [result, abserr]
 	= __gnu_cxx::qags_integrate(w, fc, _Tp{0}, _Tp{1}, epsabs, epsrel);
 
-      qtest.test_relative(result, exp_result, 1e-15, "qags(f1) smooth result");
-      qtest.test_relative(abserr, exp_abserr, 1e-6, "qags(f1) smooth abserr");
+      qtest.test_relative(result, exp_result, 1.0e-15, "qags(f1) smooth result");
+      qtest.test_relative(abserr, exp_abserr, 1.0e-6, "qags(f1) smooth abserr");
       qtest.test_integer(fc.num_evals(), exp_neval, "qags(f1) smooth neval");
       qtest.test_integer(w.size(), exp_last, "qags(f1) smooth last");
       qtest.test_integer(status, exp_ier, "qags(f1) smooth status");
@@ -1695,7 +1695,7 @@ test_quadrature()
 
       fc.num_evals(0);
       std::tie(result, abserr)
-	= __gnu_cxx::qags_integrate(w, fc, _Tp{1}, _Tp{0}, _Tp{0}, 1e-10);
+	= __gnu_cxx::qags_integrate(w, fc, _Tp{1}, _Tp{0}, _Tp{0}, 1.0e-10);
 
       qtest.test_relative(result, -exp_result, 1.0e-15, "qags(f1) reverse result");
       qtest.test_relative(abserr, exp_abserr, 1.0e-6, "qags(f1) reverse abserr");
@@ -1752,8 +1752,8 @@ test_quadrature()
       auto [result, abserr]
 	= __gnu_cxx::qags_integrate(w, fc, _Tp{1}, _Tp{1000}, epsabs, epsrel);
 
-      qtest.test_relative(result, exp_result, 1e-15, "qags(f11) smooth result");
-      qtest.test_relative(abserr, exp_abserr, 1e-3, "qags(f11) smooth abserr");
+      qtest.test_relative(result, exp_result, 1.0e-15, "qags(f11) smooth result");
+      qtest.test_relative(abserr, exp_abserr, 1.0e-3, "qags(f11) smooth abserr");
       qtest.test_integer(fc.num_evals(), exp_neval, "qags(f11) smooth neval");
       qtest.test_integer(w.size(), exp_last, "qags(f11) smooth last");
       qtest.test_integer(status, exp_ier, "qags(f11) smooth status");
@@ -1773,7 +1773,7 @@ test_quadrature()
 
       fc.num_evals(0);
       std::tie(result, abserr)
-	= __gnu_cxx::qags_integrate(w, fc, _Tp{1000}, _Tp{1}, 1e-7, _Tp{0});
+	= __gnu_cxx::qags_integrate(w, fc, _Tp{1000}, _Tp{1}, 1.0e-7, _Tp{0});
 
       qtest.test_relative(result, -exp_result, 1.0e-15, "qags(f11) reverse result");
       qtest.test_relative(abserr, exp_abserr, 1.0e-3, "qags(f11) reverse abserr");
@@ -2026,8 +2026,8 @@ test_quadrature()
       const auto epsrel = _Tp{0};
       auto [result, abserr] = __gnu_cxx::qagi_integrate(w, fc, epsabs, epsrel);
 
-      qtest.test_relative(result, exp_result, 1e-14, "qagi(myfn1) smooth result");
-      qtest.test_relative(abserr, exp_abserr, 1e-5, "qagi(myfn1) smooth abserr");
+      qtest.test_relative(result, exp_result, 1.0e-14, "qagi(myfn1) smooth result");
+      qtest.test_relative(abserr, exp_abserr, 1.0e-5, "qagi(myfn1) smooth abserr");
       qtest.test_integer(fc.num_evals(), exp_neval, "qagi(myfn1) smooth neval");
       qtest.test_integer(w.size(), exp_last, "qagi(myfn1) smooth last");
       qtest.test_integer(status, exp_ier, "qagi(myfn1) smooth status");
@@ -2835,7 +2835,7 @@ test_quadrature()
 	}
       std::ostringstream msg1;
       msg1 << "glfixed " << n << "-point xi,wi eval";
-      qtest.test_relative(result, 805./4, 1e-8, msg1.str().c_str());
+      qtest.test_relative(result, 805./4, 1.0e-8, msg1.str().c_str());
 
       // Even n = 4, f(x) = x**7 + x**6 + x**5 + x**4 + x**3 + x**2 + x**1 + 1
       n = 4;
@@ -2848,7 +2848,7 @@ test_quadrature()
 	}
       std::ostringstream msg2;
       msg2 << "glfixed " << n << "-point xi,wi eval";
-      qtest.test_relative(result, 73925./56, 1e-8, msg2.str().c_str());
+      qtest.test_relative(result, 73925./56, 1.0e-8, msg2.str().c_str());
     }
   catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
@@ -2949,7 +2949,7 @@ test_quadrature()
 
 	  std::ostringstream rstr;
 	  rstr << "cquad f" << fid;
-	  qtest.test_relative(result, exact, 1e-12, rstr.str().c_str());
+	  qtest.test_relative(result, exact, 1.0e-12, rstr.str().c_str());
 
 	  std::ostringstream upstr;
 	  upstr << "cquad f" << fid << " error("
