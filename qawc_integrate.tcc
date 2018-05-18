@@ -211,14 +211,14 @@ namespace __gnu_cxx
 
       if (std::abs(__cc) > 1.1)
 	{
-	  using __qk_ret = std::tuple<_Tp&, _Tp&, _Tp&, _Tp&>;
+	  using __quad_ret = std::tuple<_Tp&, _Tp&, _Tp&, _Tp&>;
 
 	  auto __func_cauchy = [__func, __center](_Tp __x)
 				-> _Tp
 				{ return __func(__x) / (__x - __center); };
 
 	  _Tp __resabs, __resasc;
-	  __qk_ret{__result, __abserr, __resabs, __resasc}
+	  __quad_ret{__result, __abserr, __resabs, __resasc}
 	    = qk_integrate(__func_cauchy, __lower, __upper, QK_15);
 
 	  if (__abserr == __resasc)
