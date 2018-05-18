@@ -82,9 +82,7 @@ namespace __gnu_cxx
       bool __extrapolate = false;
       bool __allow_extrapolation = true;
 
-      if (__max_abs_err <= _Tp{0}
-	  && (__max_rel_err < _Tp{50} * _S_eps
-	      || __max_rel_err < 0.5e-28))
+      if (valid_tolerances(__max_abs_err, __max_rel_err))
 	std::__throw_runtime_error("qags_integrate: "
 				   "Tolerance cannot be achieved "
 				   "with given absolute "

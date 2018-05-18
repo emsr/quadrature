@@ -238,9 +238,7 @@ namespace __gnu_cxx
       const auto __center = (__upper + __lower) / _Tp{2};
       const auto __f_center = __func(__center);
 
-      if (__max_abs_err <= _Tp{0}
-	  && (__max_rel_err < _Tp{50} * _S_eps
-	      || __max_rel_err < 0.5e-28))
+      if (valid_tolerances(__max_abs_err, __max_rel_err))
 	std::__throw_runtime_error("qng_integrate: "
 				   "Tolerance cannot be achieved "
 				   "with given epsabs and epsrel");

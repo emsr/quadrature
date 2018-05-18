@@ -27,6 +27,20 @@ namespace __gnu_cxx _GLIBCXX_VISIBILITY(default)
 _GLIBCXX_BEGIN_NAMESPACE_VERSION
 
   /**
+   * Return true if the supplied absolute and relative tolerances
+   * can be achieved.
+   */
+  template<typename _Tp>
+    constexpr bool
+    valid_tolerances(_Tp __max_abs_err, _Tp __max_rel_err)
+    {
+      return __max_abs_err <= _Tp{0}
+	     && (__max_rel_err < _Tp{50} * _S_eps
+		  || __max_rel_err < 0.5e-28);
+      // I don't understand the etymology of this last number.
+    }
+
+  /**
    * A struct to store a cosine and a sine value.
    * A return for sincos-type functions.
   template<typename _Tp>
