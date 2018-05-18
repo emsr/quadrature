@@ -80,10 +80,12 @@ namespace __gnu_cxx
     {
       const auto _S_eps = std::numeric_limits<_Tp>::epsilon();
       // Try to adjust tests for varing precision.
-      const auto _M_rel_err = std::pow(_Tp{10.0},
-				 -std::numeric_limits<_Tp>::digits / _Tp{10.0});
+      const auto _S_rel_err = std::pow(_Tp{10},
+				 -std::numeric_limits<_Tp>::digits / _Tp{10});
 
-      if (__max_abs_err <= 0 && (__max_rel_err < _Tp{50} * _S_eps))
+      if (__max_abs_err <= _Tp{0}
+	  && (__max_rel_err < _Tp{50} * _S_eps
+	      || __max_rel_err < 0.5e-28))
 	std::__throw_logic_error("qag_integrate: "
 				 "Tolerance cannot be achieved "
 				 "with given absolute "
@@ -106,7 +108,7 @@ namespace __gnu_cxx
 				  "of roundoff error on first attempt",
 				  ROUNDOFF_ERROR, __result0, __abserr0);
       else if ((__abserr0 <= __tolerance && __abserr0 != __resasc0)
-		|| __abserr0 == 0.0)
+		|| __abserr0 == _Tp{0})
 	return std::make_tuple(__result0, __abserr0);
       else if (__max_iter == 1)
 	__throw_integration_error("qag_integrate: "
@@ -150,7 +152,7 @@ namespace __gnu_cxx
 	    {
 	      const auto __delta = __r_i - __area12;
 
-	      if (std::abs(__delta) <= _M_rel_err * std::abs(__area12)
+	      if (std::abs(__delta) <= _S_rel_err * std::abs(__area12)
 		 && __error12 >= 0.99 * __e_i)
 		++__roundoff_type1;
 	      if (__iteration >= 10 && __error12 > __e_i)

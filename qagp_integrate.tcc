@@ -78,14 +78,15 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
       const auto __limit = __workspace.capacity();
       const auto __n_ivals = __pts.size() - 1;
       // Try to adjust tests for varing precision.
-      const auto _M_rel_err = std::pow(_Tp{10.0},
-				 -std::numeric_limits<_Tp>::digits / _Tp{10.0});
+      const auto _S_rel_err = std::pow(_Tp{10},
+				 -std::numeric_limits<_Tp>::digits / _Tp{10});
 
       bool __extrapolate = false;
       bool __allow_extrapolation = true;
 
-      if (__max_abs_err <= 0
-	  && (__max_rel_err < 50 * _S_eps || __max_rel_err < 0.5e-28))
+      if (__max_abs_err <= _Tp{0}
+	  && (__max_rel_err < _Tp{50} * _S_eps
+	      || __max_rel_err < 0.5e-28))
 	std::__throw_runtime_error("qagp_integrate: "
 				   "Tolerance cannot be achieved "
 				   "with given absolute "
@@ -210,7 +211,7 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
 	    {
 	      const auto __delta = __r_i - __area12;
 
-	      if (std::abs(__delta) <= _M_rel_err * std::abs(__area12)
+	      if (std::abs(__delta) <= _S_rel_err * std::abs(__area12)
 		   && __error12 >= 0.99 * __e_i)
 		{
 		  if (!__extrapolate)
