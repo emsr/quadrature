@@ -21,8 +21,8 @@
 // Ported from GSL by Ed Smith-Rowland
 // Originally written by Brian Gaugh
 //
-// Implements qawo integration algorithm
-// Based on gsl/integration/qawo.c
+// Implements QAWS integration algorithm
+// Based on gsl/integration/qaws.c
 
 #ifndef QAWS_INTEGRATE_TCC
 #define QAWS_INTEGRATE_TCC 1
