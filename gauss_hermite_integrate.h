@@ -28,7 +28,7 @@ namespace __gnu_cxx
 
 template<typename _Tp, typename _FuncTp>
   _Tp
-  gauss_hermite_integrate(const _FuncTp& __func, unsigned int __n)
+  gauss_hermite_integrate(_FuncTp __func, unsigned int __n)
   {
     if(__n == 0)
       std::__throw_domain_error("gauss_hermite_integrate: "

@@ -38,12 +38,16 @@ template<typename _Tp, typename _FuncTp,
 	 typename _Ret = std::invoke_result_t<_FuncTp, _Tp>>
   struct counted_function
   {
-    counted_function(const _FuncTp& f)
-    : m_func(f), m_neval(new int{0})
-    { }
+    //counted_function(const _FuncTp& f)
+    //: m_func(f), m_neval(new int{0})
+    //{ }
 
-    counted_function(_FuncTp&& f)
-    : m_func(std::forward(f)), m_neval(new int{0})
+    //counted_function(_FuncTp&& f)
+    //: m_func(std::forward(f)), m_neval(new int{0})
+    //{ }
+
+    counted_function(_FuncTp f)
+    : m_func(f), m_neval(new int{0})
     { }
 
     _Ret
