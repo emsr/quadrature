@@ -34,6 +34,7 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
     constexpr bool
     valid_tolerances(_Tp __max_abs_err, _Tp __max_rel_err)
     {
+      const auto _S_eps = std::numeric_limits<_Tp>::epsilon();
       return __max_abs_err <= _Tp{0}
 	     && (__max_rel_err < _Tp{50} * _S_eps
 		  || __max_rel_err < 0.5e-28);

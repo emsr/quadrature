@@ -232,7 +232,6 @@ namespace __gnu_cxx
       _Tp __fv1[5], __fv2[5], __fv3[5], __fv4[5];
       _Tp __savfun[21];
 
-      const auto _S_eps = std::numeric_limits<_Tp>::epsilon();
       const auto __half_length = (__upper - __lower) / _Tp{2};
       const auto __abs_half_length = std::abs(__half_length);
       const auto __center = (__upper + __lower) / _Tp{2};

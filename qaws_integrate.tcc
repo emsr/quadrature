@@ -82,7 +82,6 @@ namespace __gnu_cxx
 		   _Tp __lower, _Tp __upper,
 		   _Tp __max_abs_err, _Tp __max_rel_err)
     {
-      const auto _S_eps = std::numeric_limits<_Tp>::epsilon();
       // Try to adjust tests for varing precision.
       const auto _S_rel_err = std::pow(_Tp{10},
 				 -std::numeric_limits<_Tp>::digits / _Tp{10});

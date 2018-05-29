@@ -66,7 +66,6 @@ namespace __gnu_cxx
       auto __result = _Tp{};
       auto __abserr = _Tp{};
 
-      const auto _S_eps = std::numeric_limits<_Tp>::epsilon();
       const auto __limit = __workspace.capacity();
       // Try to adjust tests for varing precision.
       const auto _S_rel_err = std::pow(_Tp{10},
