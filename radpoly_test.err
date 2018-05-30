@@ -7,3 +7,5 @@ Integration failed at n1=111, m1=31, n2=83, m2=31, returning result =  -1.684819
 Integration failed at n1=113, m1=7, n2=47, m2=7, returning result =   1.148342e-02, with error =   2.477448e-05 instead of the expected 0.000000e+00
 Integration failed at n1=113, m1=47, n2=71, m2=47, returning result =   4.859442e-02, with error =   6.699562e-05 instead of the expected 0.000000e+00
 qags_integrate: Unknown error.
+qags_integrate: Cannot reach tolerance with maximum order rule
+qags_integrate: Number of iterations was insufficient
