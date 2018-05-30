@@ -1,4 +1,4 @@
-Integration failed at n1=97, n2=72, returning result 1.207784e-01, with error 1.182648e-04 instead of the expected 0.000000e+00
+Integration failed at n1=97, n2=72, returning result 1.207784e-01, with error 1.183021e-04 instead of the expected 0.000000e+00
 
 qag_integrate: Cannot reach tolerance because of roundoff error
 qag_integrate: Cannot reach tolerance because of roundoff error

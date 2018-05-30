@@ -1,0 +1,6 @@
+Integration failed at n1=33, n2=31, returning result -1.875952e-03, with error 1.163635e-04 instead of the expected 0.000000e+00 with absolute precision 1.192093e-03
+
+Integration failed at n1=107, n2=107, returning result 9.999999999897345e-01, with error 2.220341347646039e-13 instead of the expected 1.000000000000000e+00 with absolute precision 2.220446049250313e-12
+
+Integration failed at n1=44, n2=44, returning result 1.000000000000001092e+00, with error 9.924564351530569918e-17 instead of the expected 1.000000000000000000e+00 with absolute precision 1.084202172485504434e-15
+

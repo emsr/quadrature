@@ -326,31 +326,15 @@ PASS:  (305 observed vs 305 expected)
 PASS:  (3 observed vs 3 expected)
 PASS:  (1 observed vs 1 expected)
 >>>> Test the adaptive integrator with extrapolation...
-PASS:  (0.0771605 observed vs 0.0771605 expected)
-PASS:  (2.21639e-12 observed vs 2.21639e-12 expected)
-PASS:  (189 observed vs 189 expected)
-PASS:  (5 observed vs 5 expected)
+FAIL:  (0.077160493793030846 observed vs 0.0771604938271578944 expected)  "qags(f1) smooth result"
+FAIL:  (9.42430219424848144e-08 observed vs 2.2163949610104384e-12 expected)  "qags(f1) smooth abserr"
+FAIL:  (21 observed vs 189 expected)  "qags(f1) smooth neval"
+FAIL:  (1 observed vs 5 expected)  "qags(f1) smooth last"
 PASS:  (0 observed vs 0 expected)
 PASS:  (0 observed vs 0 expected)
-PASS:  (0.5 observed vs 0.5 expected)
-PASS:  (0.25 observed vs 0.25 expected)
-PASS:  (0.125 observed vs 0.125 expected)
-PASS:  (0.0625 observed vs 0.0625 expected)
-PASS:  (0.0625 observed vs 0.0625 expected)
-PASS:  (1 observed vs 1 expected)
-PASS:  (0.5 observed vs 0.5 expected)
-PASS:  (0.25 observed vs 0.25 expected)
-PASS:  (0.125 observed vs 0.125 expected)
-PASS:  (3.91938e-05 observed vs 3.91938e-05 expected)
-PASS:  (0.0549184 observed vs 0.0549184 expected)
-PASS:  (0.0190983 observed vs 0.0190983 expected)
-PASS:  (0.00277653 observed vs 0.00277653 expected)
-PASS:  (0.000328066 observed vs 0.000328066 expected)
-PASS:  (2.21554e-12 observed vs 2.21554e-12 expected)
-PASS:  (6.09717e-16 observed vs 6.09717e-16 expected)
-PASS:  (2.12033e-16 observed vs 2.12033e-16 expected)
-PASS:  (3.08257e-17 observed vs 3.08257e-17 expected)
-PASS:  (3.64227e-18 observed vs 3.64227e-18 expected)
+FAIL:  (1 observed vs 0.0625 expected)  "qags(f1) smooth upper lim"
+FAIL:  (0.077160493793030846 observed vs 3.91938191536691469e-05 expected)  "qags(f1) smooth integral"
+FAIL:  (9.42430219424848144e-08 observed vs 2.21553874258096473e-12 expected)  "qags(f1) smooth abs error"
 PASS:  (-0.0771605 observed vs -0.0771605 expected)
 PASS:  (2.21639e-12 observed vs 2.21639e-12 expected)
 PASS:  (189 observed vs 189 expected)
@@ -418,7 +402,7 @@ PASS:  (0.125 observed vs 0.125 expected)
 PASS:  (0.0625 observed vs 0.0625 expected)
 PASS:  (0.75 observed vs 0.75 expected)
 PASS:  (0.03125 observed vs 0.03125 expected)
-FAIL:  (-0.0999999999999090505 observed vs 0.96875 expected)  "qagiu(f455) smooth lower lim"
+FAIL:  (0 observed vs 0.96875 expected)  "qagiu(f455) smooth lower lim"
 PASS:  (0.03125 observed vs 0.03125 expected)
 PASS:  (0.9375 observed vs 0.9375 expected)
 PASS:  (0.5 observed vs 0.5 expected)
@@ -428,7 +412,7 @@ PASS:  (0.25 observed vs 0.25 expected)
 PASS:  (0.125 observed vs 0.125 expected)
 PASS:  (0.875 observed vs 0.875 expected)
 PASS:  (0.0625 observed vs 0.0625 expected)
-FAIL:  (-0.0999999999999658939 observed vs 1 expected)  "qagiu(f455) smooth upper lim"
+FAIL:  (0 observed vs 1 expected)  "qagiu(f455) smooth upper lim"
 PASS:  (0.00143005 observed vs 0.00142979 expected)
 PASS:  (-0.0865375 observed vs -0.0865375 expected)
 PASS:  (0.00299532 observed vs 0.00299532 expected)
@@ -438,7 +422,7 @@ PASS:  (0.00278539 observed vs 0.00278539 expected)
 PASS:  (0.00173622 observed vs 0.00173622 expected)
 PASS:  (-0.0498005 observed vs -0.0498005 expected)
 PASS:  (0.00104169 observed vs 0.00104169 expected)
-FAIL:  (18325484417.2815514 observed vs -0.139000341553972534 expected)  "qagiu(f455) smooth integral"
+FAIL:  (0 observed vs -0.139000341553972534 expected)  "qagiu(f455) smooth integral"
 FAIL:  (0.000215688848140732978 observed vs 0.000216121499217253852 expected)  "qagiu(f455) smooth abs error"
 PASS:  (9.6076e-16 observed vs 9.6076e-16 expected)
 PASS:  (3.32547e-17 observed vs 3.32547e-17 expected)
@@ -448,7 +432,7 @@ PASS:  (3.0924e-17 observed vs 3.0924e-17 expected)
 PASS:  (1.92759e-17 observed vs 1.92759e-17 expected)
 FAIL:  (5.52896632227800671e-16 observed vs 3.14738043219817641e-14 expected)  "qagiu(f455) smooth abs error"
 PASS:  (1.15651e-17 observed vs 1.15651e-17 expected)
-FAIL:  (498997.471939822659 observed vs 0.0239503724989345301 expected)  "qagiu(f455) smooth abs error"
+FAIL:  (0 observed vs 0.0239503724989345301 expected)  "qagiu(f455) smooth abs error"
 >>>> Test infinite range integral f15 using a relative error bound...
 PASS:  (65536 observed vs 65536 expected)
 FAIL:  (0.00147506021259102837 observed vs 0.000712166711145600928 expected)  "qagiu(f15) smooth abserr"
@@ -582,7 +566,7 @@ PASS:  (1.51333 observed vs 1.51333 expected)
 PASS:  (1.38833 observed vs 1.38833 expected)
 PASS:  (0.9375 observed vs 0.9375 expected)
 PASS:  (1.31066 observed vs 1.31066 expected)
-FAIL:  (-0.100000000002182787 observed vs 1.41421356237309515 expected)  "qagp(f454) singular lower lim"
+FAIL:  (0 observed vs 1.41421356237309515 expected)  "qagp(f454) singular lower lim"
 PASS:  (1.05178 observed vs 1.05178 expected)
 PASS:  (1.41421 observed vs 1.41421 expected)
 PASS:  (3 observed vs 3 expected)
@@ -602,7 +586,7 @@ PASS:  (1.61244 observed vs 1.61244 expected)
 PASS:  (1.40127 observed vs 1.40127 expected)
 PASS:  (0.96875 observed vs 0.96875 expected)
 PASS:  (1.36244 observed vs 1.36244 expected)
-FAIL:  (-0.100000000005820766 observed vs 1.46376938854893579 expected)  "qagp(f454) singular upper lim"
+FAIL:  (0 observed vs 1.46376938854893579 expected)  "qagp(f454) singular upper lim"
 PASS:  (-0.183039 observed vs -0.183039 expected)
 PASS:  (-0.156513 observed vs -0.156513 expected)
 PASS:  (48.7392 observed vs 48.7392 expected)
@@ -622,7 +606,7 @@ PASS:  (-0.172136 observed vs -0.172136 expected)
 PASS:  (-0.104869 observed vs -0.104869 expected)
 PASS:  (-0.0630229 observed vs -0.0630229 expected)
 PASS:  (-0.223679 observed vs -0.223679 expected)
-FAIL:  (286331483.503965557 observed vs -0.422532851320742919 expected)  "qagp(f454) singular integral"
+FAIL:  (0 observed vs -0.422532851320742919 expected)  "qagp(f454) singular integral"
 PASS:  (0.0325281 observed vs 0.0325281 expected)
 PASS:  (0.0273045 observed vs 0.0273045 expected)
 PASS:  (5.41114e-13 observed vs 5.41114e-13 expected)
@@ -642,7 +626,7 @@ PASS:  (1.9111e-15 observed vs 1.9111e-15 expected)
 PASS:  (1.16428e-15 observed vs 1.16428e-15 expected)
 PASS:  (6.99694e-16 observed vs 6.99694e-16 expected)
 PASS:  (2.48333e-15 observed vs 2.48333e-15 expected)
-FAIL:  (1095.28872702936064 observed vs 0.101744608181619012 expected)  "qagp(f454) singular abs error"
+FAIL:  (0 observed vs 0.101744608181619012 expected)  "qagp(f454) singular abs error"
 >>>> Test cauchy integration using a relative error bound...
 PASS:  (-0.089944 observed vs -0.089944 expected)
 PASS:  (1.18529e-06 observed vs 1.18529e-06 expected)
@@ -758,7 +742,7 @@ PASS:  (-0.0124231 observed vs -0.0124231 expected)
 PASS:  (-0.0036595 observed vs -0.0036595 expected)
 FAIL:  (-8.7885651091269376e-05 observed vs -0.00144719369237765114 expected)  "qawo(f456) integral"
 PASS:  (1.30264e-13 observed vs 1.30264e-13 expected)
-PASS:  (7.25922e-15 observed vs 7.25922e-15 expected)
+PASS:  (7.26045e-15 observed vs 7.25922e-15 expected)
 PASS:  (1.24977e-14 observed vs 1.24977e-14 expected)
 PASS:  (4.31512e-16 observed vs 4.31512e-16 expected)
 PASS:  (1.019e-15 observed vs 1.019e-15 expected)
@@ -790,17 +774,17 @@ PASS:  (0.00295018 observed vs 0.00295018 expected)
 PASS:  (-0.000946237 observed vs -0.000946237 expected)
 PASS:  (-0.00216824 observed vs -0.00216824 expected)
 PASS:  (1.22413e-12 observed vs 1.2248e-12 expected)
-PASS:  (1.39657e-13 observed vs 1.39657e-13 expected)
-PASS:  (1.05384e-16 observed vs 1.05384e-16 expected)
-PASS:  (5.85469e-18 observed vs 5.85469e-18 expected)
+PASS:  (1.39651e-13 observed vs 1.39657e-13 expected)
+PASS:  (9.49761e-17 observed vs 1.05384e-16 expected)
+PASS:  (6.01732e-18 observed vs 5.85469e-18 expected)
 PASS:  (2.43945e-17 observed vs 2.43945e-17 expected)
 PASS:  (2.13046e-17 observed vs 2.13046e-17 expected)
-PASS:  (9.75782e-18 observed vs 9.75782e-18 expected)
-PASS:  (6.50521e-19 observed vs 6.50521e-19 expected)
-PASS:  (4.55365e-18 observed vs 4.55365e-18 expected)
-PASS:  (7.15573e-18 observed vs 7.15573e-18 expected)
+PASS:  (9.1073e-18 observed vs 9.75782e-18 expected)
+PASS:  (1.30104e-18 observed vs 6.50521e-19 expected)
+PASS:  (4.22839e-18 observed vs 4.55365e-18 expected)
+PASS:  (5.85469e-18 observed vs 7.15573e-18 expected)
 PASS:  (7.64363e-18 observed vs 7.64363e-18 expected)
-PASS:  (1.10589e-17 observed vs 1.10589e-17 expected)
+PASS:  (1.4962e-17 observed vs 1.10589e-17 expected)
 >>>> Sanity check monomial test function for fixed Gauss-Legendre rules...
 PASS:  (4 observed vs 4 expected)
 PASS:  (4 observed vs 4 expected)
@@ -2969,4 +2953,4 @@ PASS:  (0 observed vs 0 expected)
 PASS:  (7.5 observed vs 7.5 expected)
 PASS:  cquad f24 error(4.99156e-13 actual vs 5.90397e-12 estimated)
 PASS:  (0 observed vs 0 expected)
-2923 tests, passed 2853, failed 70.
+2907 tests, passed 2830, failed 77.
