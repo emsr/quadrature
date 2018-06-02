@@ -11,31 +11,6 @@ clang-5.0 -std=c++17 -stdlib=libstdc++ -I$HOME/bin/include/c++/9.0.0 -I/home/ed/
 #include <memory>
 #include <type_traits>
 
-template<typename _Tp, typename _FuncTp, typename... _Parms,
-	 typename _Ret = std::invoke_result_t<_FuncTp, _Tp, _Parms...>>
-  std::function<_Ret(_Tp)>
-  make_function(_FuncTp f, _Parms... p)
-  { return [f, p...](_Tp x)->_Ret{ return f(x, p...); }; }
-
-template<typename _Tp, typename _FuncTp,
-	 typename _Ret = std::invoke_result_t<_FuncTp, _Tp>>
-  struct counted_function
-  {
-    counted_function(_FuncTp f)
-    : m_func(f), m_neval(new int{0})
-    { }
-
-    _Ret
-    operator()(_Tp x) const
-    {
-      ++(*this->m_neval);
-      return this->m_func(x);
-    }
-
-    _FuncTp m_func;
-    mutable std::shared_ptr<int> m_neval;
-  };
-
 enum Kronrod_Rule
 {
   QK_15 = 15,
