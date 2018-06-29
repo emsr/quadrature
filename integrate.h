@@ -41,7 +41,7 @@ namespace __gnu_cxx
    * @param __qkintrule is the Gauss-Kronrod integration rule.
    * @return A structure containing the integration result and the error.
    */
-  template<typename _FuncTp, typename _Tp>
+  template<typename _Tp, typename _FuncTp>
     inline std::tuple<_Tp, _Tp>
     integrate(_FuncTp __func,
 	      _Tp __lower, _Tp __upper,
@@ -68,7 +68,7 @@ namespace __gnu_cxx
    * @param __qkintrule is the Gauss-Kronrod integration rule.
    * @return A structure containing the integration result and the error.
    */
-  template<typename _FuncTp, typename _Tp>
+  template<typename _Tp, typename _FuncTp>
     inline std::tuple<_Tp, _Tp>
     integrate_infinite(_FuncTp __func,
 		       _Tp __max_abs_error,
@@ -78,7 +78,7 @@ namespace __gnu_cxx
     {
       integration_workspace<_Tp> __workspace(__max_iter);
       return qag_integrate(__workspace,
-			   map_minf_pinf<_FuncTp, _Tp>(__func),
+			   map_minf_pinf<_Tp, _FuncTp>(__func),
 			   _Tp{0}, _Tp{1},
 			   __max_abs_error, __max_rel_error,
 			   __max_iter,
@@ -96,7 +96,7 @@ namespace __gnu_cxx
    * @param __qkintrule is the Gauss-Kronrod integration rule.
    * @return A structure containing the integration result and the error.
    */
-  template<typename _FuncTp, typename _Tp>
+  template<typename _Tp, typename _FuncTp>
     inline std::tuple<_Tp, _Tp>
     integrate_from_infinity(_FuncTp __func,
 			    _Tp __upper,
@@ -125,7 +125,7 @@ namespace __gnu_cxx
    * @param __qkintrule is the Gauss-Kronrod integration rule.
    * @return A structure containing the integration result and the error.
    */
-  template<typename _FuncTp, typename _Tp>
+  template<typename _Tp, typename _FuncTp>
     inline std::tuple<_Tp, _Tp>
     integrate_to_infinity(_FuncTp __func,
 			  _Tp __lower,
@@ -155,7 +155,7 @@ namespace __gnu_cxx
    * @param __max_iter is the maximum number of iterations allowed
    * @return A structure containing the integration result and the error.
    */
-  template<typename _FuncTp, typename _Tp>
+  template<typename _Tp, typename _FuncTp>
     inline std::tuple<_Tp, _Tp>
     integrate_kronrod_singular(_FuncTp __func,
 			       _Tp __lower, _Tp __upper,
@@ -177,7 +177,7 @@ namespace __gnu_cxx
    * @param __max_iter is the maximum number of iterations allowed
    * @return A structure containing the integration result and the error.
    */
-  template<typename _FuncTp, typename _Tp>
+  template<typename _Tp, typename _FuncTp>
     inline std::tuple<_Tp, _Tp>
     integrate_singular_infinite(_FuncTp __func,
 				_Tp __max_abs_error,
@@ -186,7 +186,7 @@ namespace __gnu_cxx
     {
       integration_workspace<_Tp> __workspace(__max_iter);
       return qags_integrate(__workspace,
-			    map_minf_pinf<_FuncTp, _Tp>(__func),
+			    map_minf_pinf<_Tp, _FuncTp>(__func),
 			    _Tp{0}, _Tp{1},
 			    __max_abs_error, __max_rel_error);
     }
@@ -194,7 +194,7 @@ namespace __gnu_cxx
   /**
    * Integrate a potentially singular function from -infinity to b
    */
-  template<typename _FuncTp, typename _Tp>
+  template<typename _Tp, typename _FuncTp>
     inline std::tuple<_Tp, _Tp>
     integrate_singular_from_infinity(_FuncTp __func, _Tp __upper,
 				     _Tp __max_abs_error,
@@ -218,7 +218,7 @@ namespace __gnu_cxx
    * @param __max_iter is the maximum number of iterations allowed
    * @return A structure containing the integration result and the error.
    */
-  template<typename _FuncTp, typename _Tp>
+  template<typename _Tp, typename _FuncTp>
     inline std::tuple<_Tp, _Tp>
     integrate_singular_to_infinity(_FuncTp __func, _Tp __lower,
 				   _Tp __max_abs_error,
@@ -243,7 +243,7 @@ namespace __gnu_cxx
    * @param __max_iter is the maximum number of iterations allowed
    * @return A structure containing the integration result and the error.
    */
-  template<typename _FuncTp, typename _Tp>
+  template<typename _Tp, typename _FuncTp>
     inline std::tuple<_Tp, _Tp>
     integrate_singular(_FuncTp __func,
 		       _Tp __lower, _Tp __upper,
@@ -320,7 +320,7 @@ namespace __gnu_cxx
   /**
    * Integrate an oscillatory function.
    */
-  template<typename _FuncTp, typename _Tp>
+  template<typename _Tp, typename _FuncTp>
     inline std::tuple<_Tp, _Tp>
     integrate_oscillatory(_FuncTp __func,
 			  _Tp __lower, _Tp __upper,
@@ -369,7 +369,7 @@ namespace __gnu_cxx
    *                     argument and returns a real scalar.
    * @tparam _Tp         A real type for the limits of integration and the step.
    */
-  template<typename _FuncTp, typename _Tp>
+  template<typename _Tp, typename _FuncTp>
     inline std::tuple<_Tp, _Tp>
     integrate_clenshaw_curtis(_FuncTp __func,
 			      _Tp __lower, _Tp __upper,
@@ -392,7 +392,7 @@ namespace __gnu_cxx
    * Adaptively integrate a function using a recursive Gauss-Kronrod quadrature
    * called the Patterson algorithm.
    */
-  template<typename _FuncTp, typename _Tp>
+  template<typename _Tp, typename _FuncTp>
     inline std::tuple<_Tp, _Tp>
     integrate_patterson(_FuncTp __func,
 			_Tp __lower, _Tp __upper,
@@ -423,7 +423,7 @@ namespace __gnu_cxx
    * The QAWS algorithm is designed for integrands with algebraic-logarithmic
    * singularities at the end-points of an integration region.
    */
-  template<typename _FuncTp, typename _Tp>
+  template<typename _Tp, typename _FuncTp>
     inline std::tuple<_Tp, _Tp>
     integrate_singular_endpoints(_FuncTp __func,
 				 _Tp __lower, _Tp __upper,
@@ -443,7 +443,7 @@ namespace __gnu_cxx
   /**
    * Integrate the principal value of a function with a Cauchy singularity.
    */
-  template<typename _FuncTp, typename _Tp>
+  template<typename _Tp, typename _FuncTp>
     inline std::tuple<_Tp, _Tp>
     integrate_cauchy_principal_value(_FuncTp __func,
 				     _Tp __lower, _Tp __upper, _Tp __center,

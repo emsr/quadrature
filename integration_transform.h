@@ -25,7 +25,7 @@
 namespace __gnu_cxx
 {
   //  Is this useful?
-  template<typename _FuncTp, typename _Tp>
+  template<typename _Tp, typename _FuncTp>
     struct mapper
     {
       _FuncTp _M_func;
@@ -40,7 +40,7 @@ namespace __gnu_cxx
    * to one defined on @f$ t \in (0, 1] @f$.
    * Note: g(t) actually returns [f(-x) + f(+x)]dx/dt.
    */
-  template<typename _FuncTp, typename _Tp>
+  template<typename _Tp, typename _FuncTp>
     struct map_minf_pinf
     {
       _FuncTp _M_func;
@@ -62,7 +62,7 @@ namespace __gnu_cxx
    * Map a function defined on @f$ x \in (-\infty, b] @f$
    * to one defined on @f$ t \in (0, 1] @f$.
    */
-  template<typename _FuncTp, typename _Tp>
+  template<typename _Tp, typename _FuncTp>
     struct map_minf_b
     {
       _FuncTp _M_func;
@@ -86,7 +86,7 @@ namespace __gnu_cxx
    * Map a function defined on @f$ x \in [a, +\infty) @f$
    * to one defined on @f$ t \in (0, 1] @f$.
    */
-  template<typename _FuncTp, typename _Tp>
+  template<typename _Tp, typename _FuncTp>
     struct map_a_pinf
     {
       _FuncTp _M_func;

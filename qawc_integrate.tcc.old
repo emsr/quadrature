@@ -36,7 +36,7 @@
 namespace __gnu_cxx
 {
 
-  template<typename _FuncTp, typename _Tp>
+  template<typename _Tp, typename _FuncTp>
     std::tuple<_Tp, _Tp, bool>
     qc25c(_FuncTp __func, _Tp __lower, _Tp __upper, _Tp __center);
 
@@ -56,7 +56,7 @@ namespace __gnu_cxx
    * the singularity. Further away from the singularity the algorithm uses
    * a user-supplied integration rule. 
    */
-  template<typename _FuncTp, typename _Tp>
+  template<typename _Tp, typename _FuncTp>
     std::tuple<_Tp, _Tp>
     qawc_integrate(integration_workspace<_Tp>& __workspace,
 		   _FuncTp __func,
@@ -197,7 +197,7 @@ namespace __gnu_cxx
   /**
    *
    */
-  template<typename _FuncTp, typename _Tp>
+  template<typename _Tp, typename _FuncTp>
     std::tuple<_Tp, _Tp, bool>
     qc25c(_FuncTp __func, _Tp __lower, _Tp __upper, _Tp __center)
     {

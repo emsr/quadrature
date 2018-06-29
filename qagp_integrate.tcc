@@ -65,7 +65,7 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
    * @param[in] __quad The quadrature stepper taking a function object
    *                   and two integration limits
    */
-  template<typename _FuncTp, typename _Tp, typename _Integrator>
+  template<typename _Tp, typename _FuncTp, typename _Integrator>
     std::tuple<_Tp, _Tp>
     qagp_integrate(integration_workspace<_Tp>& __workspace,
 		   _FuncTp __func,
@@ -401,7 +401,7 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
    * @param[in] __max_rel_err The limit on relative error
    * @param[in] __qkintrule The size of the Gauss-Kronrod integration scheme
    */
-  template<typename _FuncTp, typename _Tp>
+  template<typename _Tp, typename _FuncTp>
     std::tuple<_Tp, _Tp>
     qagp_integrate(integration_workspace<_Tp>& __workspace,
 		   _FuncTp __func,

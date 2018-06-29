@@ -15,7 +15,7 @@ template<typename _Tp>
     for (int i = 0; i <= 100; ++i)
       {
 	auto x = _Tp{0.01} * i;
-        auto y = __gnu_cxx::map_minf_pinf<func_t, _Tp>(fun)(x);
+        auto y = __gnu_cxx::map_minf_pinf<_Tp, func_t>(fun)(x);
 	std::cout << ' ' << x << ' ' << y << '\n';
       }
   }

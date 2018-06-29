@@ -60,7 +60,7 @@ namespace __gnu_cxx
   {
     // Class template for internal implementation of
     // each individual integration rule.
-    template<typename _FuncTp, typename _Tp, Kronrod_Rule sz>
+    template<typename _Tp, typename _FuncTp, Kronrod_Rule sz>
       class qk_integrator;
   }
 
@@ -73,7 +73,7 @@ namespace __gnu_cxx
   // 2: resabs - Integral of absolute value of function
   // 3: resasc - Integral of absolute value of difference between function
   //             and weighted mean function value
-  template<typename _FuncTp, typename _Tp>
+  template<typename _Tp, typename _FuncTp>
     std::tuple<_Tp, _Tp, _Tp, _Tp>
     qk_integrate(_FuncTp __func, _Tp __lower, _Tp __upper,
 		 Kronrod_Rule __qkintrule)

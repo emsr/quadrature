@@ -136,7 +136,7 @@ namespace __gnu_cxx
    * If the highest-degree rule has already been used, or the interpolatory
    * polynomials differ significantly, the interval is bisected. 
    */
-  template<typename _FuncTp, typename _Tp>
+  template<typename _Tp, typename _FuncTp>
     std::tuple<_Tp, _Tp>
     cquad_integrate(cquad_workspace<_Tp>& __ws,
 		    _FuncTp __func,

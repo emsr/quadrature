@@ -26,7 +26,7 @@
 namespace __gnu_cxx
 {
 
-  template<typename _FuncTp, typename _Tp>
+  template<typename _Tp, typename _FuncTp>
     _Tp
     glfixed_integrate(const gauss_legendre_table<_Tp>& __t,
 		      _FuncTp __func,

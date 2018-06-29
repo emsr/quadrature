@@ -61,7 +61,7 @@ namespace __gnu_cxx
    * @param[in] __quad The quadrature stepper taking a function object
    *                   and two integration limits
    */
-  template<typename _FuncTp, typename _Tp, typename _Integrator>
+  template<typename _Tp, typename _FuncTp, typename _Integrator>
     std::tuple<_Tp, _Tp>
     qags_integrate(integration_workspace<_Tp>& __workspace,
 		   _FuncTp __func,
@@ -409,7 +409,7 @@ namespace __gnu_cxx
    * @param[in] __max_iter The maximum number of iterations
    * @param[in] __qkintrule The size of the Gauss-Kronrod integration scheme
    */
-  template<typename _FuncTp, typename _Tp>
+  template<typename _Tp, typename _FuncTp>
     std::tuple<_Tp, _Tp>
     qags_integrate(integration_workspace<_Tp>& __workspace,
 		  _FuncTp __func,
@@ -430,20 +430,20 @@ namespace __gnu_cxx
   /**
    * Integrate a potentially singular function defined over (-\infty, +\infty).
    */
-  template<typename _FuncTp, typename _Tp>
+  template<typename _Tp, typename _FuncTp>
     std::tuple<_Tp, _Tp>
     qagi_integrate(integration_workspace<_Tp>& __workspace,
 		   _FuncTp __func,
 		   _Tp __max_abs_err, _Tp __max_rel_err)
     {
-      return qags_integrate(__workspace, map_minf_pinf<_FuncTp, _Tp>(__func),
+      return qags_integrate(__workspace, map_minf_pinf<_Tp, _FuncTp>(__func),
 			    _Tp{0}, _Tp{1}, __max_abs_err, __max_rel_err);
     }
 
   /**
    * Integrate a potentially singular function defined over (-\infty, b].
    */
-  template<typename _FuncTp, typename _Tp>
+  template<typename _Tp, typename _FuncTp>
     std::tuple<_Tp, _Tp>
     qagil_integrate(integration_workspace<_Tp>& __workspace,
 		    _FuncTp __func, _Tp __upper,
@@ -456,7 +456,7 @@ namespace __gnu_cxx
   /**
    * Integrate a potentially singular function defined over [a, +\infty).
    */
-  template<typename _FuncTp, typename _Tp>
+  template<typename _Tp, typename _FuncTp>
     std::tuple<_Tp, _Tp>
     qagiu_integrate(integration_workspace<_Tp>& __workspace,
 		    _FuncTp __func, _Tp __lower,

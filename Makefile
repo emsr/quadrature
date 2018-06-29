@@ -32,6 +32,7 @@ BINS = \
   $(BIN_DIR)/test_midpoint_integral \
   $(BIN_DIR)/test_double_exp_integrate \
   $(BIN_DIR)/test_gauss_hermite \
+  $(BIN_DIR)/test_mapper \
   $(BIN_DIR)/assoc_laguerre_test \
   $(BIN_DIR)/assoc_legendre_test \
   $(BIN_DIR)/sph_legendre_test \
@@ -103,6 +104,9 @@ $(BIN_DIR)/test_double_exp_integrate: test_double_exp_integrate.cpp double_exp_i
 
 $(BIN_DIR)/test_gauss_hermite: test_gauss_hermite.cpp gauss_hermite_integrate.h
 	$(CXX17) -o $(BIN_DIR)/test_gauss_hermite test_gauss_hermite.cpp -lquadmath
+
+$(BIN_DIR)/test_mapper: test_mapper.cpp integration_transform.h
+	$(CXX17) -o $(BIN_DIR)/test_mapper test_mapper.cpp -lquadmath
 
 $(BIN_DIR)/hermite_test: $(OBJ_DIR)/hermite_test.o
 	$(CXX17) -o $(BIN_DIR)/hermite_test $(OBJ_DIR)/hermite_test.o -lquadmath

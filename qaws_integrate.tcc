@@ -37,7 +37,7 @@
 namespace __gnu_cxx
 {
 
-  template<typename _FuncTp, typename _Tp>
+  template<typename _Tp, typename _FuncTp>
     struct fn_qaws;
 
   template<typename _Tp>
@@ -46,7 +46,7 @@ namespace __gnu_cxx
 		   const std::array<_Tp, 13>& cheb12,
 		   const std::array<_Tp, 25>& cheb24);
 
- template<typename _FuncTp, typename _Tp>
+ template<typename _Tp, typename _FuncTp>
     std::tuple<_Tp, _Tp, bool>
     qc25s(qaws_integration_table<_Tp>& __t,
 	  _FuncTp __func, _Tp __lower, _Tp __upper, _Tp __a1, _Tp __b1);
@@ -74,7 +74,7 @@ namespace __gnu_cxx
    * In order to work efficiently the algorithm requires a precomputed table
    * of Chebyshev moments.
    */
-  template<typename _FuncTp, typename _Tp>
+  template<typename _Tp, typename _FuncTp>
     std::tuple<_Tp, _Tp>
     qaws_integrate(integration_workspace<_Tp>& __workspace,
 		   qaws_integration_table<_Tp>& __table,
@@ -215,12 +215,12 @@ namespace __gnu_cxx
   /**
    *
    */
-  template<typename _FuncTp, typename _Tp>
+  template<typename _Tp, typename _FuncTp>
     std::tuple<_Tp, _Tp, bool>
     qc25s(qaws_integration_table<_Tp>& __t,
 	  _FuncTp __func, _Tp __lower, _Tp __upper, _Tp __a1, _Tp __b1)
     {
-      fn_qaws<_FuncTp, _Tp> __fqaws(&__t, __func, __lower, __upper);
+      fn_qaws<_Tp, _FuncTp> __fqaws(&__t, __func, __lower, __upper);
 
       if (__a1 == __lower && (__t.alpha != _Tp{0} || __t.mu != 0))
 	{
@@ -323,7 +323,7 @@ namespace __gnu_cxx
 	}
     }
 
-  template<typename _FuncTp, typename _Tp>
+  template<typename _Tp, typename _FuncTp>
     struct fn_qaws
     {
       const qaws_integration_table<_Tp>* table;
@@ -342,9 +342,9 @@ namespace __gnu_cxx
       _Tp eval_right(_Tp) const;
     };
 
-  template<typename _FuncTp, typename _Tp>
+  template<typename _Tp, typename _FuncTp>
     _Tp
-    fn_qaws<_FuncTp, _Tp>::eval_middle(_Tp __x) const
+    fn_qaws<_Tp, _FuncTp>::eval_middle(_Tp __x) const
     {
       auto __factor = _Tp{1};
 
@@ -363,9 +363,9 @@ namespace __gnu_cxx
       return __factor * this->func(__x);
     }
 
-  template<typename _FuncTp, typename _Tp>
+  template<typename _Tp, typename _FuncTp>
     _Tp
-    fn_qaws<_FuncTp, _Tp>::eval_left(_Tp __x) const
+    fn_qaws<_Tp, _FuncTp>::eval_left(_Tp __x) const
     {
       auto __factor = _Tp{1};
 
@@ -378,9 +378,9 @@ namespace __gnu_cxx
       return __factor * this->func(__x);
     }
 
-  template<typename _FuncTp, typename _Tp>
+  template<typename _Tp, typename _FuncTp>
     _Tp
-    fn_qaws<_FuncTp, _Tp>::eval_right(_Tp __x) const
+    fn_qaws<_Tp, _FuncTp>::eval_right(_Tp __x) const
     {
       auto __factor = _Tp{1};
 

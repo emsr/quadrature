@@ -207,7 +207,7 @@ namespace __gnu_cxx
    * @param[in] __max_iter The maximum number of iterations
    * @param[in] __qkintrule The size of the Gauss-Kronrod integration scheme
    */
-  template<typename _FuncTp, typename _Tp>
+  template<typename _Tp, typename _FuncTp>
     std::tuple<_Tp, _Tp>
     qag_integrate(integration_workspace<_Tp>& __workspace,
 		  _FuncTp __func,
