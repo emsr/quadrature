@@ -29,7 +29,7 @@ namespace __gnu_cxx
   template<typename _FuncTp, typename _Tp>
     _Tp
     glfixed_integrate(const gauss_legendre_table<_Tp>& __t,
-		      const _FuncTp& __func,
+		      _FuncTp __func,
 		      _Tp __lower, _Tp __upper)
     {
       const int __n = __t.order;

@@ -64,7 +64,7 @@ namespace __gnu_cxx
   template<typename _FuncTp, typename _Tp, typename _Integrator>
     std::tuple<_Tp, _Tp>
     qags_integrate(integration_workspace<_Tp>& __workspace,
-		   const _FuncTp& __func,
+		   _FuncTp __func,
 		   _Tp __lower, _Tp __upper,
 		   _Tp __max_abs_err, _Tp __max_rel_err,
 		   _Integrator __quad)
@@ -412,14 +412,14 @@ namespace __gnu_cxx
   template<typename _FuncTp, typename _Tp>
     std::tuple<_Tp, _Tp>
     qags_integrate(integration_workspace<_Tp>& __workspace,
-		  const _FuncTp& __func,
+		  _FuncTp __func,
 		  _Tp __lower, _Tp __upper,
 		  _Tp __max_abs_err, _Tp __max_rel_err,
                   Kronrod_Rule __qk_rule = QK_21)
     {
       auto __quad
 	= [__qk_rule]
-	  (const _FuncTp& __func, _Tp __lower, _Tp __upper)
+	  (_FuncTp __func, _Tp __lower, _Tp __upper)
 	  -> std::tuple<_Tp, _Tp, _Tp, _Tp>
 	  { return qk_integrate(__func, __lower, __upper, __qk_rule); };
 
@@ -433,7 +433,7 @@ namespace __gnu_cxx
   template<typename _FuncTp, typename _Tp>
     std::tuple<_Tp, _Tp>
     qagi_integrate(integration_workspace<_Tp>& __workspace,
-		   const _FuncTp& __func,
+		   _FuncTp __func,
 		   _Tp __max_abs_err, _Tp __max_rel_err)
     {
       return qags_integrate(__workspace, map_minf_pinf<_FuncTp, _Tp>(__func),
@@ -446,7 +446,7 @@ namespace __gnu_cxx
   template<typename _FuncTp, typename _Tp>
     std::tuple<_Tp, _Tp>
     qagil_integrate(integration_workspace<_Tp>& __workspace,
-		    const _FuncTp& __func, _Tp __upper,
+		    _FuncTp __func, _Tp __upper,
 		    _Tp __max_abs_err, _Tp __max_rel_err)
     {
       return qags_integrate(__workspace, map_minf_b(__func, __upper),
@@ -459,7 +459,7 @@ namespace __gnu_cxx
   template<typename _FuncTp, typename _Tp>
     std::tuple<_Tp, _Tp>
     qagiu_integrate(integration_workspace<_Tp>& __workspace,
-		    const _FuncTp& __func, _Tp __lower,
+		    _FuncTp __func, _Tp __lower,
 		    _Tp __max_abs_err, _Tp __max_rel_err)
     {
       return qags_integrate(__workspace, map_a_pinf(__func, __lower),

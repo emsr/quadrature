@@ -43,7 +43,7 @@ namespace __gnu_cxx
    */
   template<typename _FuncTp, typename _Tp>
     inline std::tuple<_Tp, _Tp>
-    integrate(const _FuncTp& __func,
+    integrate(_FuncTp __func,
 	      _Tp __lower, _Tp __upper,
 	      _Tp __max_abs_error,
 	      _Tp __max_rel_error,
@@ -70,7 +70,7 @@ namespace __gnu_cxx
    */
   template<typename _FuncTp, typename _Tp>
     inline std::tuple<_Tp, _Tp>
-    integrate_infinite(const _FuncTp& __func,
+    integrate_infinite(_FuncTp __func,
 		       _Tp __max_abs_error,
 		       _Tp __max_rel_error,
 		       std::size_t __max_iter = 1024,
@@ -98,7 +98,7 @@ namespace __gnu_cxx
    */
   template<typename _FuncTp, typename _Tp>
     inline std::tuple<_Tp, _Tp>
-    integrate_from_infinity(const _FuncTp& __func,
+    integrate_from_infinity(_FuncTp __func,
 			    _Tp __upper,
 			    _Tp __max_abs_error,
 			    _Tp __max_rel_error,
@@ -127,7 +127,7 @@ namespace __gnu_cxx
    */
   template<typename _FuncTp, typename _Tp>
     inline std::tuple<_Tp, _Tp>
-    integrate_to_infinity(const _FuncTp& __func,
+    integrate_to_infinity(_FuncTp __func,
 			  _Tp __lower,
 			  _Tp __max_abs_error,
 			  _Tp __max_rel_error,
@@ -157,7 +157,7 @@ namespace __gnu_cxx
    */
   template<typename _FuncTp, typename _Tp>
     inline std::tuple<_Tp, _Tp>
-    integrate_kronrod_singular(const _FuncTp& __func,
+    integrate_kronrod_singular(_FuncTp __func,
 			       _Tp __lower, _Tp __upper,
 			       _Tp __max_abs_error,
 			       _Tp __max_rel_error,
@@ -179,7 +179,7 @@ namespace __gnu_cxx
    */
   template<typename _FuncTp, typename _Tp>
     inline std::tuple<_Tp, _Tp>
-    integrate_singular_infinite(const _FuncTp& __func,
+    integrate_singular_infinite(_FuncTp __func,
 				_Tp __max_abs_error,
 				_Tp __max_rel_error,
 				std::size_t __max_iter = 1024)
@@ -196,7 +196,7 @@ namespace __gnu_cxx
    */
   template<typename _FuncTp, typename _Tp>
     inline std::tuple<_Tp, _Tp>
-    integrate_singular_from_infinity(const _FuncTp& __func, _Tp __upper,
+    integrate_singular_from_infinity(_FuncTp __func, _Tp __upper,
 				     _Tp __max_abs_error,
 				     _Tp __max_rel_error,
 				     std::size_t __max_iter = 1024)
@@ -220,7 +220,7 @@ namespace __gnu_cxx
    */
   template<typename _FuncTp, typename _Tp>
     inline std::tuple<_Tp, _Tp>
-    integrate_singular_to_infinity(const _FuncTp& __func, _Tp __lower,
+    integrate_singular_to_infinity(_FuncTp __func, _Tp __lower,
 				   _Tp __max_abs_error,
 				   _Tp __max_rel_error,
 				   std::size_t __max_iter = 1024)
@@ -245,7 +245,7 @@ namespace __gnu_cxx
    */
   template<typename _FuncTp, typename _Tp>
     inline std::tuple<_Tp, _Tp>
-    integrate_singular(const _FuncTp& __func,
+    integrate_singular(_FuncTp __func,
 		       _Tp __lower, _Tp __upper,
 		       _Tp __max_abs_error,
 		       _Tp __max_rel_error,
@@ -322,7 +322,7 @@ namespace __gnu_cxx
    */
   template<typename _FuncTp, typename _Tp>
     inline std::tuple<_Tp, _Tp>
-    integrate_oscillatory(const _FuncTp& __func,
+    integrate_oscillatory(_FuncTp __func,
 			  _Tp __lower, _Tp __upper,
 			  _Tp __max_abs_error,
 			  _Tp __max_rel_error,
@@ -346,7 +346,7 @@ namespace __gnu_cxx
    */
   template<typename _FuncTp, typename _FwdIter, typename _Tp>//, typename _Integrator>
     inline std::tuple<_Tp, _Tp>
-    integrate_multisingular(const _FuncTp& __func,
+    integrate_multisingular(_FuncTp __func,
 			    _FwdIter __ptbeg, _FwdIter __ptend,
 			    _Tp __max_abs_error,
 			    _Tp __max_rel_error,
@@ -371,7 +371,7 @@ namespace __gnu_cxx
    */
   template<typename _FuncTp, typename _Tp>
     inline std::tuple<_Tp, _Tp>
-    integrate_clenshaw_curtis(const _FuncTp& __func,
+    integrate_clenshaw_curtis(_FuncTp __func,
 			      _Tp __lower, _Tp __upper,
 			      _Tp __max_abs_error,
 			      _Tp __max_rel_error,
@@ -394,7 +394,7 @@ namespace __gnu_cxx
    */
   template<typename _FuncTp, typename _Tp>
     inline std::tuple<_Tp, _Tp>
-    integrate_patterson(const _FuncTp& __func,
+    integrate_patterson(_FuncTp __func,
 			_Tp __lower, _Tp __upper,
 			_Tp __max_abs_error,
 			_Tp __max_rel_error)
@@ -425,7 +425,7 @@ namespace __gnu_cxx
    */
   template<typename _FuncTp, typename _Tp>
     inline std::tuple<_Tp, _Tp>
-    integrate_singular_endpoints(const _FuncTp& __func,
+    integrate_singular_endpoints(_FuncTp __func,
 				 _Tp __lower, _Tp __upper,
 				 _Tp __alpha, _Tp __beta,
 				 int __mu, int __nu,
@@ -445,7 +445,7 @@ namespace __gnu_cxx
    */
   template<typename _FuncTp, typename _Tp>
     inline std::tuple<_Tp, _Tp>
-    integrate_cauchy_principal_value(const _FuncTp& __func,
+    integrate_cauchy_principal_value(_FuncTp __func,
 				     _Tp __lower, _Tp __upper, _Tp __center,
 				     _Tp __max_abs_err, _Tp __max_rel_err,
 				     std::size_t __max_iter = 1024)

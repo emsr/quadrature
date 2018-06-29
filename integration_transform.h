@@ -28,9 +28,9 @@ namespace __gnu_cxx
   template<typename _FuncTp, typename _Tp>
     struct mapper
     {
-      const _FuncTp& _M_func;
+      _FuncTp _M_func;
 
-      mapper(const _FuncTp& __func)
+      mapper(_FuncTp __func)
       : _M_func(__func)
       { }
     };
@@ -43,9 +43,9 @@ namespace __gnu_cxx
   template<typename _FuncTp, typename _Tp>
     struct map_minf_pinf
     {
-      const _FuncTp& _M_func;
+      _FuncTp _M_func;
 
-      map_minf_pinf(const _FuncTp& __func)
+      map_minf_pinf(_FuncTp __func)
       : _M_func(__func)
       { }
 
@@ -65,10 +65,10 @@ namespace __gnu_cxx
   template<typename _FuncTp, typename _Tp>
     struct map_minf_b
     {
-      const _FuncTp& _M_func;
+      _FuncTp _M_func;
       const _Tp _M_b;
 
-      map_minf_b(const _FuncTp& __func, _Tp __b)
+      map_minf_b(_FuncTp __func, _Tp __b)
       : _M_func(__func),
 	_M_b(__b)
       { }
@@ -89,10 +89,10 @@ namespace __gnu_cxx
   template<typename _FuncTp, typename _Tp>
     struct map_a_pinf
     {
-      const _FuncTp& _M_func;
+      _FuncTp _M_func;
       const _Tp _M_a;
 
-      map_a_pinf(const _FuncTp& __func, _Tp __a)
+      map_a_pinf(_FuncTp __func, _Tp __a)
       : _M_func(__func),
 	_M_a(__a)
       { }

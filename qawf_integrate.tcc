@@ -44,7 +44,7 @@ namespace __gnu_cxx
     qawf_integrate(integration_workspace<_Tp>& __workspace,
 		   integration_workspace<_Tp>& __cycle_workspace,
 		   oscillatory_integration_table<_Tp>& __wf,
-		   const _FuncTp& __func,
+		   _FuncTp __func,
 		   _Tp __lower, _Tp __max_abs_err)
     {
       std::size_t __ktmin = 0;

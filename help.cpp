@@ -21,9 +21,9 @@ enum Kronrod_Rule
   QK_61 = 61
 };
 
-template<typename _FuncTp, typename _Tp, typename _Integrator>
+template<typename _Ret, typename _Tp, typename _Integrator>
   std::tuple<_Tp, _Tp, bool>
-  qc25c(_FuncTp func, _Tp lower, _Tp upper, _Tp center,
+  qc25c(std::function<_Ret(_Tp)> func, _Tp lower, _Tp upper, _Tp center,
 	_Integrator quad)
   {
     using quad_ret = std::tuple<_Tp&, _Tp&, _Tp&, _Tp&>;
@@ -38,17 +38,17 @@ template<typename _FuncTp, typename _Tp, typename _Integrator>
     return std::make_tuple(_Tp{}, _Tp{}, true);
   }
 
-template<typename _Tp, typename _FuncTp>
+template<typename _Ret, typename _Tp>
   std::tuple<_Tp, _Tp, _Tp, _Tp>
-  qk_integrate(_FuncTp __func, _Tp __lower, _Tp __upper,
+  qk_integrate(std::function<_Ret(_Tp)> __func, _Tp __lower, _Tp __upper,
 	       Kronrod_Rule __qkintrule)
   {
     return std::make_tuple(_Tp{}, _Tp{}, _Tp{}, _Tp{});
   }
 
-template<typename _FuncTp, typename _Tp, typename _Integrator>
+template<typename _Ret, typename _Tp, typename _Integrator>
   std::tuple<_Tp, _Tp>
-  qawc_integrate(_FuncTp __func,
+  qawc_integrate(std::function<_Ret(_Tp)> __func,
 		 _Tp __lower, _Tp __upper, _Tp __center,
 		 _Tp __max_abs_err, _Tp __max_rel_err,
 		 _Integrator __quad)
@@ -60,16 +60,16 @@ template<typename _FuncTp, typename _Tp, typename _Integrator>
     return std::make_tuple(_Tp{}, _Tp{});
   }
 
-template<typename _FuncTp, typename _Tp>
+template<typename _Ret, typename _Tp>
   std::tuple<_Tp, _Tp>
-  qawc_integrate(_FuncTp __func,
+  qawc_integrate(std::function<_Ret(_Tp)> __func,
 		 _Tp __lower, _Tp __upper, _Tp __center,
 		 _Tp __max_abs_err, _Tp __max_rel_err,
 		 Kronrod_Rule __qk_rule = QK_15)
   {
     auto __quad
       = [__qk_rule]
-	(_FuncTp __func, _Tp __lower, _Tp __upper)
+	(std::function<_Ret(_Tp)> __func, _Tp __lower, _Tp __upper)
 	-> std::tuple<_Tp, _Tp, _Tp, _Tp>
 	{ return qk_integrate(__func, __lower, __upper, __qk_rule); };
 

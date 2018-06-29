@@ -28,7 +28,7 @@ namespace __gnu_cxx
 
   template<typename _FuncTp, typename _Tp>
     void
-    qcheb_integrate(const _FuncTp& __func, _Tp __lower, _Tp __upper,
+    qcheb_integrate(_FuncTp __func, _Tp __lower, _Tp __upper,
 		    std::array<_Tp, 13>& __cheb12,
 		    std::array<_Tp, 25>& __cheb24)
     {

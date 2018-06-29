@@ -26,9 +26,9 @@
 namespace __gnu_cxx
 {
 
-template<typename _Tp, typename _FuncTp>
+template<typename _FuncTp, typename _Tp>
   _Tp
-  gauss_laguerre_integrate(const _FuncTp& __func,
+  gauss_laguerre_integrate(_FuncTp __func,
 			   unsigned int __n, _Tp __alpha)
   {
     if(__n == 0)

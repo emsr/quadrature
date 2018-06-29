@@ -36,9 +36,10 @@
 namespace __gnu_cxx
 {
 
-  template<typename _FuncTp, typename _Tp>
+  template<typename _FuncTp, typename _Tp, typename _Integrator>
     std::tuple<_Tp, _Tp, bool>
-    qc25c(_FuncTp __func, _Tp __lower, _Tp __upper, _Tp __center);
+    qc25c(_FuncTp __func, _Tp __lower, _Tp __upper, _Tp __center,
+	  _Integrator __quad);
 
   template<typename _Tp>
     std::vector<_Tp>
@@ -47,7 +48,7 @@ namespace __gnu_cxx
   /**
    * Adaptive integration for Cauchy principal values:
    * @f[
-   *   I = \int_a^b dx f(x) / (x - c) 
+   *   I = \int_a^b f(x) / (x - c) dx
    * @f]
    * The adaptive bisection algorithm of QAG is used, with modifications
    * to ensure that subdivisions do not occur at the singular point x = c.
@@ -56,20 +57,21 @@ namespace __gnu_cxx
    * the singularity. Further away from the singularity the algorithm uses
    * a user-supplied integration rule. 
    */
-  template<typename _FuncTp, typename _Tp>
+  template<typename _FuncTp, typename _Tp, typename _Integrator>
     std::tuple<_Tp, _Tp>
     qawc_integrate(integration_workspace<_Tp>& __workspace,
 		   _FuncTp __func,
 		   _Tp __lower, _Tp __upper, _Tp __center,
-		   _Tp __max_abs_err, _Tp __max_rel_err)
+		   _Tp __max_abs_err, _Tp __max_rel_err,
+		   _Integrator __quad)
     {
       auto __result = _Tp{};
       auto __abserr = _Tp{};
 
       const auto __limit = __workspace.capacity();
       // Try to adjust tests for varing precision.
-      const auto _M_rel_err = std::pow(_Tp{10},
-				 -std::numeric_limits<_Tp>::digits / _Tp{10});
+      const auto _M_rel_err = std::pow(_Tp{10.0},
+				 -std::numeric_limits<_Tp>::digits / _Tp{10.0});
 
       int __sign = 1;
       if (__upper < __lower)
@@ -95,7 +97,7 @@ namespace __gnu_cxx
       _Tp __result0, __abserr0;
       bool __err_reliable;
       std::tie(__result0, __abserr0, __err_reliable)
-	= qc25c(__func, __lower, __upper, __center);
+	= qc25c(__func, __lower, __upper, __center, __quad);
 
       __workspace.append(__lower, __upper, __result0, __abserr0);
 
@@ -133,12 +135,12 @@ namespace __gnu_cxx
 	  _Tp __area1, __error1;
 	  bool __err_reliable1;
 	  std::tie(__area1, __error1, __err_reliable1)
-	    = qc25c(__func, __a1, __b1, __center);
+	    = qc25c(__func, __a1, __b1, __center, __quad);
 
 	  _Tp __area2, __error2;
 	  bool __err_reliable2;
 	  std::tie(__area2, __error2, __err_reliable2)
-	    = qc25c(__func, __a2, __b2, __center);
+	    = qc25c(__func, __a2, __b2, __center, __quad);
 
 	  const auto __area12 = __area1 + __area2;
 	  const auto __error12 = __error1 + __error2;
@@ -195,11 +197,42 @@ namespace __gnu_cxx
     }
 
   /**
-   *
+   * Adaptive integration for Cauchy principal values:
+   * @f[
+   *   I = \int_a^b dx f(x) / (x - c) 
+   * @f]
+   * The adaptive bisection algorithm of QAG is used, with modifications
+   * to ensure that subdivisions do not occur at the singular point x = c.
+   * When a subinterval contains the point x = c or is close to it then
+   * a special 25-point modified Clenshaw-Curtis rule is used to control
+   * the singularity. Further away from the singularity the algorithm uses
+   * an ordinary Gauss-Kronrod integration rule (15-point by default). 
    */
   template<typename _FuncTp, typename _Tp>
+    std::tuple<_Tp, _Tp>
+    qawc_integrate(integration_workspace<_Tp>& __workspace,
+		   _FuncTp __func,
+		   _Tp __lower, _Tp __upper, _Tp __center,
+		   _Tp __max_abs_err, _Tp __max_rel_err,
+		   Kronrod_Rule __qk_rule = QK_15)
+    {
+      auto __quad
+	= [__qk_rule]
+	  (_FuncTp __func, _Tp __lower, _Tp __upper)
+	  -> std::tuple<_Tp, _Tp, _Tp, _Tp>
+	  { return qk_integrate(__func, __lower, __upper, __qk_rule); };
+
+      return qawc_integrate(__workspace, __func, __lower, __upper, __center,
+			    __max_abs_err, __max_rel_err, __quad);
+    }
+
+  /**
+   *
+   */
+  template<typename _FuncTp, typename _Tp, typename _Integrator>
     std::tuple<_Tp, _Tp, bool>
-    qc25c(_FuncTp __func, _Tp __lower, _Tp __upper, _Tp __center)
+    qc25c(_FuncTp __func, _Tp __lower, _Tp __upper, _Tp __center,
+	  _Integrator __quad)
     {
       const auto __cc = (_Tp{2} * __center - __upper - __lower)
 		      / (__upper - __lower);
@@ -217,7 +250,7 @@ namespace __gnu_cxx
 
 	  _Tp __resabs, __resasc;
 	  __quad_ret{__result, __abserr, __resabs, __resasc}
-	    = qk_integrate(__func_cauchy, __lower, __upper, QK_15);
+	    = __quad(__func_cauchy, __lower, __upper);
 
 	  if (__abserr == __resasc)
 	    __err_reliable = false;

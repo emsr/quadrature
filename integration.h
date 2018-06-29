@@ -62,6 +62,7 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
 _GLIBCXX_END_NAMESPACE_VERSION
 } // namespace __gnu_cxx
 
+#include "qk_integrate.tcc"
 #include "qag_integrate.tcc"
 #include "qags_integrate.tcc"
 #include "qng_integrate.tcc"

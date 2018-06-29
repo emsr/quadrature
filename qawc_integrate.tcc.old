@@ -38,7 +38,7 @@ namespace __gnu_cxx
 
   template<typename _FuncTp, typename _Tp>
     std::tuple<_Tp, _Tp, bool>
-    qc25c(const _FuncTp& __func, _Tp __lower, _Tp __upper, _Tp __center);
+    qc25c(_FuncTp __func, _Tp __lower, _Tp __upper, _Tp __center);
 
   template<typename _Tp>
     std::vector<_Tp>
@@ -59,7 +59,7 @@ namespace __gnu_cxx
   template<typename _FuncTp, typename _Tp>
     std::tuple<_Tp, _Tp>
     qawc_integrate(integration_workspace<_Tp>& __workspace,
-		   const _FuncTp& __func,
+		   _FuncTp __func,
 		   _Tp __lower, _Tp __upper, _Tp __center,
 		   _Tp __max_abs_err, _Tp __max_rel_err)
     {
@@ -68,7 +68,7 @@ namespace __gnu_cxx
 
       const auto __limit = __workspace.capacity();
       // Try to adjust tests for varing precision.
-      const auto _S_rel_err = std::pow(_Tp{10},
+      const auto _M_rel_err = std::pow(_Tp{10},
 				 -std::numeric_limits<_Tp>::digits / _Tp{10});
 
       int __sign = 1;
@@ -150,7 +150,7 @@ namespace __gnu_cxx
 	    {
 	      _Tp __delta = __r_i - __area12;
 
-	      if (std::abs (__delta) <= _S_rel_err * std::abs (__area12)
+	      if (std::abs (__delta) <= _M_rel_err * std::abs (__area12)
 	    	   && __error12 >= 0.99 * __e_i)
 		++__roundoff_type1;
 	      if (__iteration >= 10 && __error12 > __e_i)
@@ -199,7 +199,7 @@ namespace __gnu_cxx
    */
   template<typename _FuncTp, typename _Tp>
     std::tuple<_Tp, _Tp, bool>
-    qc25c(const _FuncTp& __func, _Tp __lower, _Tp __upper, _Tp __center)
+    qc25c(_FuncTp __func, _Tp __lower, _Tp __upper, _Tp __center)
     {
       const auto __cc = (_Tp{2} * __center - __upper - __lower)
 		      / (__upper - __lower);

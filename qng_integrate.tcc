@@ -225,7 +225,7 @@ namespace __gnu_cxx
 
   template<typename _FuncTp, typename _Tp>
     std::tuple<_Tp, _Tp>
-    qng_integrate(const _FuncTp& __func,
+    qng_integrate(_FuncTp __func,
 		  _Tp __lower, _Tp __upper,
 		  _Tp __max_abs_err, _Tp __max_rel_err)
     {

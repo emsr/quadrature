@@ -335,11 +335,10 @@ template<typename _Tp>
   };
 
 
+template<typename _Tp>
 void
 test_quadrature()
 {
-  using _Tp = double;
-
   const auto _S_pi = __gnu_cxx::__const_pi<_Tp>();
 
   // Test the basic Gauss-Kronrod rules with a smooth positive function.
@@ -348,14 +347,14 @@ test_quadrature()
     {
       std::cout << ">>>> Test Gauss-Kronrod 15 with a smooth positive function..." << std::endl;
 
-      double exp_result = 7.716049357767090777e-02;
-      double exp_abserr = 2.990224871000550874e-06;
-      double exp_resabs = 7.716049357767090777e-02;
-      double exp_resasc = 4.434273814139995384e-02;
+      double exp_result = 7.716049357767090777e-02L;
+      double exp_abserr = 2.990224871000550874e-06L;
+      double exp_resabs = 7.716049357767090777e-02L;
+      double exp_resasc = 4.434273814139995384e-02L;
       quadrature_test<double> qtest;
 
-      double alpha = 2.6;
-      auto f = make_function<double>(f1, alpha);
+      double alpha = 2.6L;
+      auto f = make_function<double>(f1<double>, alpha);
 
       auto [result, abserr, resabs, resasc]
 	= qk_integrate(f, _Tp{0}, _Tp{1}, __gnu_cxx::QK_15);
@@ -387,14 +386,14 @@ test_quadrature()
     {
       std::cout << ">>>> Test Gauss-Kronrod 21 with a smooth positive function..." << std::endl;
 
-      double exp_result = 7.716049379303084599e-02;
-      double exp_abserr = 9.424302194248481445e-08;
-      double exp_resabs = 7.716049379303084599e-02;
-      double exp_resasc = 4.434311425038358484e-02;
+      double exp_result = 7.716049379303084599e-02L;
+      double exp_abserr = 9.424302194248481445e-08L;
+      double exp_resabs = 7.716049379303084599e-02L;
+      double exp_resasc = 4.434311425038358484e-02L;
       quadrature_test<double> qtest;
 
-      double alpha = 2.6;
-      auto f = make_function<double>(f1, alpha);
+      double alpha = 2.6L;
+      auto f = make_function<double>(f1<double>, alpha);
 
       auto [result, abserr, resabs, resasc]
 	= __gnu_cxx::qk_integrate(f, _Tp{0}, _Tp{1}, __gnu_cxx::QK_21);
@@ -431,8 +430,8 @@ test_quadrature()
       double exp_resasc = 4.427995051868838933e-02L;
       quadrature_test<double> qtest;
 
-      double alpha = 2.6;
-      auto f = make_function<double>(f1, alpha);
+      double alpha = 2.6L;
+      auto f = make_function<double>(f1<double>, alpha);
 
       auto [result, abserr, resabs, resasc]
 	= __gnu_cxx::qk_integrate(f, _Tp{0}, _Tp{1}, __gnu_cxx::QK_31);
@@ -469,8 +468,8 @@ test_quadrature()
       double exp_resasc = 4.421521169637691873e-02L;
       quadrature_test<double> qtest;
 
-      double alpha = 2.6;
-      auto f = make_function<double>(f1, alpha);
+      double alpha = 2.6L;
+      auto f = make_function<double>(f1<double>, alpha);
 
       auto [result, abserr, resabs, resasc]
 	= __gnu_cxx::qk_integrate(f, _Tp{0}, _Tp{1}, __gnu_cxx::QK_41);
@@ -507,8 +506,8 @@ test_quadrature()
       double exp_resasc = 4.416474291216854892e-02L;
       quadrature_test<double> qtest;
 
-      double alpha = 2.6;
-      auto f = make_function<double>(f1, alpha);
+      double alpha = 2.6L;
+      auto f = make_function<double>(f1<double>, alpha);
 
       auto [result, abserr, resabs, resasc]
 	= __gnu_cxx::qk_integrate(f, _Tp{0}, _Tp{1}, __gnu_cxx::QK_51);
@@ -545,8 +544,8 @@ test_quadrature()
       double exp_resasc = 4.419287685934316506e-02L;
       quadrature_test<double> qtest;
 
-      double alpha = 2.6;
-      auto f = make_function<double>(f1, alpha);
+      double alpha = 2.6L;
+      auto f = make_function<double>(f1<double>, alpha);
 
       auto [result, abserr, resabs, resasc]
 	= __gnu_cxx::qk_integrate(f, _Tp{0}, _Tp{1}, __gnu_cxx::QK_61);
@@ -587,8 +586,8 @@ test_quadrature()
       double exp_resasc = 2.350164577239293706e+01L;
       quadrature_test<double> qtest;
 
-      double alpha = -0.9;
-      auto f = make_function<double>(f1, alpha);
+      double alpha = -0.9L;
+      auto f = make_function<double>(f1<double>, alpha);
 
       auto [result, abserr, resabs, resasc]
 	= __gnu_cxx::qk_integrate(f, _Tp{0}, _Tp{1}, __gnu_cxx::QK_15);
@@ -625,8 +624,8 @@ test_quadrature()
       double exp_resasc = 2.782360287710622515e+01L;
       quadrature_test<double> qtest;
 
-      double alpha = -0.9;
-      auto f = make_function<double>(f1, alpha);
+      double alpha = -0.9L;
+      auto f = make_function<double>(f1<double>, alpha);
 
       auto [result, abserr, resabs, resasc]
 	= __gnu_cxx::qk_integrate(f, _Tp{0}, _Tp{1}, __gnu_cxx::QK_21);
@@ -663,8 +662,8 @@ test_quadrature()
       double exp_resasc = 3.296500137482590276e+01L;
       quadrature_test<double> qtest;
 
-      double alpha = -0.9;
-      auto f = make_function<double>(f1, alpha);
+      double alpha = -0.9L;
+      auto f = make_function<double>(f1<double>, alpha);
 
       auto [result, abserr, resabs, resasc]
 	= __gnu_cxx::qk_integrate(f, _Tp{0}, _Tp{1}, __gnu_cxx::QK_31);
@@ -701,8 +700,8 @@ test_quadrature()
       double exp_resasc = 3.671538820274916048e+01L;
       quadrature_test<double> qtest;
 
-      double alpha = -0.9;
-      auto f = make_function<double>(f1, alpha);
+      double alpha = -0.9L;
+      auto f = make_function<double>(f1<double>, alpha);
 
       auto [result, abserr, resabs, resasc]
 	= __gnu_cxx::qk_integrate(f, _Tp{0}, _Tp{1}, __gnu_cxx::QK_41);
@@ -739,8 +738,8 @@ test_quadrature()
       double exp_resasc = 3.967771249391228849e+01L;
       quadrature_test<double> qtest;
 
-      double alpha = -0.9;
-      auto f = make_function<double>(f1, alpha);
+      double alpha = -0.9L;
+      auto f = make_function<double>(f1<double>, alpha);
 
       auto [result, abserr, resabs, resasc]
 	= __gnu_cxx::qk_integrate(f, _Tp{0}, _Tp{1}, __gnu_cxx::QK_51);
@@ -777,8 +776,8 @@ test_quadrature()
       double exp_resasc = 4.213750493076978643e+01L;
       quadrature_test<double> qtest;
 
-      double alpha = -0.9;
-      auto f = make_function<double>(f1, alpha);
+      double alpha = -0.9L;
+      auto f = make_function<double>(f1<double>, alpha);
 
       auto [result, abserr, resabs, resasc]
 	= __gnu_cxx::qk_integrate(f, _Tp{0}, _Tp{1}, __gnu_cxx::QK_61);
@@ -819,8 +818,8 @@ test_quadrature()
       double exp_resasc =  9.334560307787327371e-01L;
       quadrature_test<double> qtest;
 
-      double alpha = 1.3;
-      auto f = make_function<double>(f3, alpha);
+      double alpha = 1.3L;
+      auto f = make_function<double, decltype(f1<double>)>(f3<double>, alpha);
 
       auto [result, abserr, resabs, resasc]
 	= __gnu_cxx::qk_integrate(f, 0.3, 2.71, __gnu_cxx::QK_15);
@@ -857,8 +856,8 @@ test_quadrature()
       double exp_resasc = 9.297591249133687619e-01L;
       quadrature_test<double> qtest;
 
-      double alpha = 1.3;
-      auto f = make_function<double>(f3, alpha);
+      double alpha = 1.3L;
+      auto f = make_function<double>(f3<double>, alpha);
 
       auto [result, abserr, resabs, resasc]
 	= __gnu_cxx::qk_integrate(f, 0.3, 2.71, __gnu_cxx::QK_21);
@@ -895,8 +894,8 @@ test_quadrature()
       double exp_resasc = 9.277828092501518853e-01L;
       quadrature_test<double> qtest;
 
-      double alpha = 1.3;
-      auto f = make_function<double>(f3, alpha);
+      double alpha = 1.3L;
+      auto f = make_function<double>(f3<double>, alpha);
 
       auto [result, abserr, resabs, resasc]
 	= __gnu_cxx::qk_integrate(f, 0.3, 2.71, __gnu_cxx::QK_31);
@@ -933,8 +932,8 @@ test_quadrature()
       double exp_resasc = 9.264382258645686985e-01L;
       quadrature_test<double> qtest;
 
-      double alpha = 1.3;
-      auto f = make_function<double>(f3, alpha);
+      double alpha = 1.3L;
+      auto f = make_function<double>(f3<double>, alpha);
 
       auto [result, abserr, resabs, resasc]
 	= __gnu_cxx::qk_integrate(f, 0.3, 2.71, __gnu_cxx::QK_41);
@@ -971,8 +970,8 @@ test_quadrature()
       double exp_resasc = 9.264666884071264263e-01L;
       quadrature_test<double> qtest;
 
-      double alpha = 1.3;
-      auto f = make_function<double>(f3, alpha);
+      double alpha = 1.3L;
+      auto f = make_function<double>(f3<double>, alpha);
 
       auto [result, abserr, resabs, resasc]
 	= __gnu_cxx::qk_integrate(f, 0.3, 2.71, __gnu_cxx::QK_51);
@@ -1009,8 +1008,8 @@ test_quadrature()
       double exp_resasc = 9.270469641771273972e-01L;
       quadrature_test<double> qtest;
 
-      double alpha = 1.3;
-      auto f = make_function<double>(f3, alpha);
+      double alpha = 1.3L;
+      auto f = make_function<double>(f3<double>, alpha);
 
       auto [result, abserr, resabs, resasc]
 	= __gnu_cxx::qk_integrate(f, 0.3, 2.71, __gnu_cxx::QK_61);
@@ -1049,7 +1048,7 @@ test_quadrature()
       quadrature_test<_Tp> qtest;
 
       _Tp alpha = _Tp{2.6};
-      auto f = make_function<_Tp>(f1, alpha);
+      auto f = make_function<_Tp>(f1<double>, alpha);
       auto fc = counted_function<double, decltype(f)>(f);
 
       auto [result, abserr]
@@ -1090,8 +1089,8 @@ test_quadrature()
       int exp_neval  =  43;
       int exp_ier    =   __gnu_cxx::NO_ERROR;
 
-      double alpha = 2.6;
-      auto f = make_function<double>(f1, alpha);
+      double alpha = 2.6L;
+      auto f = make_function<double>(f1<double>, alpha);
       auto fc = counted_function<double, decltype(f)>(f);
 
       auto [result, abserr]
@@ -1131,8 +1130,8 @@ test_quadrature()
       int exp_ier    =   __gnu_cxx::NO_ERROR;
       quadrature_test<double> qtest;
 
-      double alpha = 1.3;
-      auto f = make_function<double>(f3, alpha);
+      double alpha = 1.3L;
+      auto f = make_function<double>(f3<double>, alpha);
       auto fc = counted_function<double, decltype(f)>(f);
 
       auto [result, abserr]
@@ -1173,8 +1172,8 @@ test_quadrature()
       int exp_neval  =  87;
       int exp_ier    =   __gnu_cxx::NO_ERROR;
 
-      double alpha = 2.6;
-      auto f = make_function<double>(f1, alpha);
+      double alpha = 2.6L;
+      auto f = make_function<double>(f1<double>, alpha);
       auto fc = counted_function<double, decltype(f)>(f);
 
       auto [result, abserr]
@@ -1215,8 +1214,8 @@ test_quadrature()
       int exp_neval  =  87;
       int exp_ier    =  __gnu_cxx::TOLERANCE_ERROR;
 
-      double alpha = -0.9;
-      auto f = make_function<double>(f1, alpha);
+      double alpha = -0.9L;
+      auto f = make_function<double>(f1<double>, alpha);
       auto fc = counted_function<double, decltype(f)>(f);
 
       double result, abserr;
@@ -1290,8 +1289,8 @@ test_quadrature()
 	{0.03125, 0.0625,  3.522704932261797744e-05L, 3.910988124757650942e-19L},
       };
 
-      double alpha = 2.6;
-      auto f = make_function<double>(f1, alpha);
+      double alpha = 2.6L;
+      auto f = make_function<double>(f1<double>, alpha);
       auto fc = counted_function<double, decltype(f)>(f);
 
       auto [result, abserr]
@@ -1366,8 +1365,8 @@ test_quadrature()
 	{0.0078125, 0.015625,  3.507395216921808047e-07L, 3.893990926286736620e-21L},
       };
 
-      double alpha = 2.6;
-      auto f = make_function<double>(f1, alpha);
+      double alpha = 2.6L;
+      auto f = make_function<double>(f1<double>, alpha);
       auto fc = counted_function<double, decltype(f)>(f);
 
       auto [result, abserr]
@@ -1430,8 +1429,8 @@ test_quadrature()
       int exp_ier     =     __gnu_cxx::ROUNDOFF_ERROR;
       int exp_last    =     1;
 
-      double alpha = 1.3;
-      auto f = make_function<double>(f3, alpha);
+      double alpha = 1.3L;
+      auto f = make_function<double>(f3<double>, alpha);
       auto fc = counted_function<double, decltype(f)>(f);
 
       double result, abserr;
@@ -1499,7 +1498,7 @@ test_quadrature()
       int exp_last   =     51;
 
       double alpha = _Tp{2};
-      auto f = make_function<double>(f16, alpha);
+      auto f = make_function<double>(f16<double>, alpha);
       auto fc = counted_function<double, decltype(f)>(f);
 
       double result, abserr;
@@ -1573,7 +1572,7 @@ test_quadrature()
       };
 
       double alpha = _Tp{1};
-      auto f = make_function<double>(f16, alpha);
+      auto f = make_function<double>(f16<double>, alpha);
       auto fc = counted_function<double, decltype(f)>(f);
 
       double result, abserr;
@@ -1658,15 +1657,15 @@ test_quadrature()
       constexpr std::size_t num_test = 5;
       test_ival<double> test[num_test]
       {
-	0.0,    0.0625, 3.919381915366914693e-05L, 2.215538742580964735e-12L,
-	0.5,    1.0,    5.491842501998223103e-02L, 6.097169993333454062e-16L,
-	0.25,   0.5,    1.909827770934243579e-02L, 2.120334764359736441e-16L,
-	0.125,  0.25,   2.776531175604360097e-03L, 3.082568839745514608e-17L,
-	0.0625, 0.125,  3.280661030752062609e-04L, 3.642265412331439511e-18L,
+	0.0L,    0.0625L, 3.919381915366914693e-05L, 2.215538742580964735e-12L,
+	0.5L,    1.0L,    5.491842501998223103e-02L, 6.097169993333454062e-16L,
+	0.25L,   0.5L,    1.909827770934243579e-02L, 2.120334764359736441e-16L,
+	0.125L,  0.25L,   2.776531175604360097e-03L, 3.082568839745514608e-17L,
+	0.0625L, 0.125L,  3.280661030752062609e-04L, 3.642265412331439511e-18L,
       };
 
-      double alpha = 2.6;
-      auto f = make_function<double>(f1, alpha);
+      double alpha = 2.6L;
+      auto f = make_function<double>(f1<double>, alpha);
       auto fc = counted_function<double, decltype(f)>(f);
 
       const auto epsabs = _Tp{1.0e-7};
@@ -1744,7 +1743,7 @@ test_quadrature()
       };
 
       double alpha = _Tp{2};
-      auto f = make_function<double>(f11, alpha);
+      auto f = make_function<double>(f11<double>, alpha);
       auto fc = counted_function<double, decltype(f)>(f);
 
       const auto epsabs = _Tp{1.0e-7};
@@ -1822,7 +1821,7 @@ test_quadrature()
 	{9.687500000000000000e-01L, 1.000000000000000000e+00L, -1.390003415539725340e-01L, 2.395037249893453013e-02L},
       };
 
-      auto f = make_function<double>(f455);
+      auto f = make_function<double>(f455<double>);
       auto fc = counted_function<double, decltype(f)>(f);
 
       const auto epsabs = _Tp{0};
@@ -1891,7 +1890,7 @@ test_quadrature()
       };
 
       double alpha = _Tp{5};
-      auto f = make_function<double>(f15, alpha);
+      auto f = make_function<double>(f15<double>, alpha);
       auto fc = counted_function<double, decltype(f)>(f);
 
       const auto epsabs = _Tp{0};
@@ -1956,7 +1955,7 @@ test_quadrature()
       };
 
       double alpha = _Tp{1};
-      auto f = make_function<double>(f16, alpha);
+      auto f = make_function<double>(f16<double>, alpha);
       auto fc = counted_function<double, decltype(f)>(f);
 
       const auto epsabs = _Tp{1.0e-7};
@@ -2019,7 +2018,7 @@ test_quadrature()
 	{3.750000000000000000e-01L, 5.000000000000000000e-01L, 4.691169201991640669e-01L, 5.208244060463541433e-15L},
       };
 
-      auto f = make_function<double>(myfn1);
+      auto f = make_function<double>(myfn1<double>);
       auto fc = counted_function<double, decltype(f)>(f);
 
       const auto epsabs = _Tp{1.0e-7};
@@ -2082,7 +2081,7 @@ test_quadrature()
       };
 
       double alpha = _Tp{1};
-      auto f = make_function<double>(myfn2, alpha);
+      auto f = make_function<double>(myfn2<double>, alpha);
       auto fc = counted_function<double, decltype(f)>(f);
 
       const auto epsabs = _Tp{1.0e-7};
@@ -2160,7 +2159,7 @@ test_quadrature()
 	{1.414213562373095145e+00L, 1.463769388548935790e+00L, -4.225328513207429193e-01L, 1.017446081816190118e-01L},
       };
 
-      auto f = make_function<double>(f454);
+      auto f = make_function<double>(f454<double>);
       auto fc = counted_function<double, decltype(f)>(f);
 
       std::vector<double> pts{_Tp{0}, _Tp{1}, std::sqrt(_Tp{2}), _Tp{3}};
@@ -2226,7 +2225,7 @@ test_quadrature()
 	{-7.500000000000000000e-01L, -5.000000000000000000e-01L, -8.553244917962132821e-02L, 1.833082948207153514e-15L},
       };
 
-      auto f = make_function<double>(f459);
+      auto f = make_function<double>(f459<double>);
       auto fc = counted_function<double, decltype(f)>(f);
 
       const auto epsabs = _Tp{0};
@@ -2304,7 +2303,7 @@ test_quadrature()
 	{7.812500000000000000e-03L, 1.562500000000000000e-02L, -8.034390712936630608e-05L, 8.919965558336773736e-19L},
       };
 
-      auto f = make_function<double>(f458);
+      auto f = make_function<double>(f458<double>);
       auto fc = counted_function<double, decltype(f)>(f);
 
       const auto epsabs = _Tp{0};
@@ -2502,7 +2501,7 @@ test_quadrature()
 	{0.0L, 0.0L, -2.168238443073697373e-03L, 1.105886215935214523e-17L},
       };
 
-      auto f = make_function<double>(f457);
+      auto f = make_function<double>(f457<double>);
       auto fc = counted_function<double, decltype(f)>(f);
 
       const auto epsabs = _Tp{0};
@@ -2878,31 +2877,31 @@ test_quadrature()
       const static _Tp
       ranges[50]
       {
-	 0, 1,
-	 0, 1,
-	 0, 1,
-	-1, 1,
-	-1, 1,
-	 0, 1,
-	 0, 1,
-	 0, 1,
-	 0, 1,
-	 0, 1,
-	 0, 1,
-	 0, 1,
-	 0, 1,
-	 0, 10,
-	 0, 10,
-	 0, 10,
-	 0, 1,
-	 0, _S_pi,
-	 0, 1,
-	-1, 1,
-	 0, 1,
-	 0, 1,
-	 0, 1,
-	 0, 3,
-	 0, 5
+	 0.0L, 1.0L,
+	 0.0L, 1.0L,
+	 0.0L, 1.0L,
+	-1.0L, 1.0L,
+	-1.0L, 1.0L,
+	 0.0L, 1.0L,
+	 0.0L, 1.0L,
+	 0.0L, 1.0L,
+	 0.0L, 1.0L,
+	 0.0L, 1.0L,
+	 0.0L, 1.0L,
+	 0.0L, 1.0L,
+	 0.0L, 1.0L,
+	 0.0L, 10.0L,
+	 0.0L, 10.0L,
+	 0.0L, 10.0L,
+	 0.0L, 1.0L,
+	 0.0L, _S_pi,
+	 0.0L, 1.0L,
+	-1.0L, 1.0L,
+	 0.0L, 1.0L,
+	 0.0L, 1.0L,
+	 0.0L, 1.0L,
+	 0.0L, 3.0L,
+	 0.0L, 5.0L
       };
       const static _Tp
       f_exact[25]
@@ -2977,5 +2976,5 @@ test_quadrature()
 int
 main()
 {
-  test_quadrature();
+  test_quadrature<double>();
 }

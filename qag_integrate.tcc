@@ -72,7 +72,7 @@ namespace __gnu_cxx
   template<typename _Tp, typename _FuncTp, typename _Integrator>
     std::tuple<_Tp, _Tp>
     qag_integrate(integration_workspace<_Tp>& __workspace,
-		  const _FuncTp& __func,
+		  _FuncTp __func,
 		  _Tp __lower, _Tp __upper,
 		  _Tp __max_abs_err, _Tp __max_rel_err,
 		  std::size_t __max_iter,
@@ -210,7 +210,7 @@ namespace __gnu_cxx
   template<typename _FuncTp, typename _Tp>
     std::tuple<_Tp, _Tp>
     qag_integrate(integration_workspace<_Tp>& __workspace,
-		  const _FuncTp& __func,
+		  _FuncTp __func,
 		  _Tp __lower, _Tp __upper,
 		  _Tp __max_abs_err, _Tp __max_rel_err,
 		  std::size_t __max_iter,
@@ -218,7 +218,7 @@ namespace __gnu_cxx
     {
       auto __quad
 	= [__qk_rule]
-	  (const _FuncTp& __func, _Tp __lower, _Tp __upper)
+	  (_FuncTp __func, _Tp __lower, _Tp __upper)
 	  -> std::tuple<_Tp, _Tp, _Tp, _Tp>
 	  { return qk_integrate(__func, __lower, __upper, __qk_rule); };
 

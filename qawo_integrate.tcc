@@ -37,14 +37,14 @@ namespace __gnu_cxx
   template<typename _Tp, typename _FuncTp>
     std::tuple<_Tp, _Tp, _Tp, _Tp>
     qc25f(oscillatory_integration_table<_Tp>& __wf,
-	  const _FuncTp& __func, _Tp __lower, _Tp __upper,
+	  _FuncTp __func, _Tp __lower, _Tp __upper,
 	  std::size_t __depth);
 
   template<typename _Tp, typename _FuncTp>
     std::tuple<_Tp, _Tp>
     qawo_integrate(integration_workspace<_Tp>& __workspace,
 		   oscillatory_integration_table<_Tp>& __wf,
-		   const _FuncTp& __func,
+		   _FuncTp __func,
 		   const _Tp __lower,
 		   const _Tp __max_abs_err, const _Tp __max_rel_err)
     {
@@ -369,7 +369,7 @@ namespace __gnu_cxx
   template<typename _Tp, typename _FuncTp>
     std::tuple<_Tp, _Tp, _Tp, _Tp>
     qc25f(oscillatory_integration_table<_Tp>& __wf,
-	  const _FuncTp& __func, _Tp __lower, _Tp __upper,
+	  _FuncTp __func, _Tp __lower, _Tp __upper,
 	  std::size_t __depth)
     {
       const auto _S_max = std::numeric_limits<_Tp>::max();

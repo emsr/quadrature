@@ -139,7 +139,7 @@ namespace __gnu_cxx
   template<typename _FuncTp, typename _Tp>
     std::tuple<_Tp, _Tp>
     cquad_integrate(cquad_workspace<_Tp>& __ws,
-		    const _FuncTp& __func,
+		    _FuncTp __func,
 		    _Tp __a, _Tp __b,
 		    _Tp __epsabs, _Tp __epsrel)
     {

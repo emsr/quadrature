@@ -46,10 +46,11 @@ namespace __gnu_cxx
 		   const std::array<_Tp, 13>& cheb12,
 		   const std::array<_Tp, 25>& cheb24);
 
- template<typename _FuncTp, typename _Tp>
+ template<typename _FuncTp, typename _Tp, typename _Integrator>
     std::tuple<_Tp, _Tp, bool>
     qc25s(qaws_integration_table<_Tp>& __t,
-	  _FuncTp __func, _Tp __lower, _Tp __upper, _Tp __a1, _Tp __b1);
+	  const _FuncTp& __func, _Tp __lower, _Tp __upper, _Tp __a1, _Tp __b1,
+	  _Integrator __quad);
 
   /**
    * The singular weight function is defined by:
@@ -74,17 +75,18 @@ namespace __gnu_cxx
    * In order to work efficiently the algorithm requires a precomputed table
    * of Chebyshev moments.
    */
-  template<typename _FuncTp, typename _Tp>
+  template<typename _FuncTp, typename _Tp, typename _Integrator>
     std::tuple<_Tp, _Tp>
     qaws_integrate(integration_workspace<_Tp>& __workspace,
 		   qaws_integration_table<_Tp>& __table,
-		   _FuncTp __func,
+		   const _FuncTp& __func,
 		   _Tp __lower, _Tp __upper,
-		   _Tp __max_abs_err, _Tp __max_rel_err)
+		   _Tp __max_abs_err, _Tp __max_rel_err,
+		   _Integrator __quad)
     {
       // Try to adjust tests for varing precision.
-      const auto _M_rel_err = std::pow(_Tp{10},
-				 -std::numeric_limits<_Tp>::digits / _Tp{10});
+      const auto _M_rel_err = std::pow(_Tp{10.0},
+				 -std::numeric_limits<_Tp>::digits / _Tp{10.0});
 
       if (__upper <= __lower)
 	std::__throw_runtime_error("qaws_integrate: "
@@ -109,13 +111,13 @@ namespace __gnu_cxx
 	_Tp __area1, __error1;
 	bool __err_reliable1;
 	std::tie(__area1, __error1, __err_reliable1)
-	  = qc25s(__table, __func, __lower, __upper, __a1, __b1);
+	  = qc25s(__table, __func, __lower, __upper, __a1, __b1, __quad);
 	__workspace.append(__a1, __b1, __area1, __error1);
 
 	_Tp __area2, __error2;
 	bool __err_reliable2;
 	std::tie(__area2, __error2, __err_reliable2)
-	  = qc25s(__table, __func, __lower, __upper, __a2, __b2);
+	  = qc25s(__table, __func, __lower, __upper, __a2, __b2, __quad);
 	__workspace.append(__a2, __b2, __area2, __error2);
 
 	__result0 = __area1 + __area2;
@@ -151,12 +153,12 @@ namespace __gnu_cxx
 	  _Tp __area1, __error1;
 	  bool __err_reliable1;
 	  std::tie(__area1, __error1, __err_reliable1)
-	    = qc25s(__table, __func, __lower, __upper, __a1, __b1);
+	    = qc25s(__table, __func, __lower, __upper, __a1, __b1, __quad);
 
 	  _Tp __area2, __error2;
 	  bool __err_reliable2;
 	  std::tie(__area2, __error2, __err_reliable2)
-	    = qc25s(__table, __func, __lower, __upper, __a2, __b2);
+	    = qc25s(__table, __func, __lower, __upper, __a2, __b2, __quad);
 
 	  const auto __area12 = __area1 + __area2;
 	  const auto __error12 = __error1 + __error2;
@@ -213,12 +215,56 @@ namespace __gnu_cxx
     }
 
   /**
+   * The singular weight function is defined by:
+   * @f[
+   *    W(x) = (x-a)^\alpha (b-x)^\beta log^\mu (x-a) log^\nu (b-x)
+   * @f]
+   * where @f$ \alpha > -1 @f$, @f$ \beta > -1 @f$,
+   * and @f$ \mu = 0 @f$, 1, @f$ \nu = 0, 1 @f$.
    *
+   * The weight function can take four different forms depending
+   * on the values of \mu and \nu,
+   * @f[
+   *    W(x) = (x-a)^\alpha (b-x)^\beta                   (\mu = 0, \nu = 0)
+   *    W(x) = (x-a)^\alpha (b-x)^\beta log(x-a)          (\mu = 1, \nu = 0)
+   *    W(x) = (x-a)^\alpha (b-x)^\beta log(b-x)          (\mu = 0, \nu = 1)
+   *    W(x) = (x-a)^\alpha (b-x)^\beta log(x-a) log(b-x) (\mu = 1, \nu = 1)
+   * @f]
+   *
+   * The QAWS algorithm is designed for integrands with algebraic-logarithmic
+   * singularities at the end-points of an integration region.
+   *
+   * In order to work efficiently the algorithm requires a precomputed table
+   * of Chebyshev moments.
    */
   template<typename _FuncTp, typename _Tp>
+    std::tuple<_Tp, _Tp>
+    qaws_integrate(integration_workspace<_Tp>& __workspace,
+		   qaws_integration_table<_Tp>& __table,
+		   const _FuncTp& __func,
+		   _Tp __lower, _Tp __upper,
+		   _Tp __max_abs_err, _Tp __max_rel_err,
+		   Kronrod_Rule __qk_rule = QK_15)
+    {
+      auto __quad
+	= [__qk_rule]
+	  (const _FuncTp& __func, _Tp __lower, _Tp __upper)
+	  -> std::tuple<_Tp, _Tp, _Tp, _Tp>
+	  { return qk_integrate(__func, __lower, __upper, __qk_rule); };
+
+      return qaws_integrate(__workspace, __table, __func,
+			    __lower, __upper,
+			    __max_abs_err, __max_rel_err, __quad);
+    }
+
+  /**
+   *
+   */
+  template<typename _FuncTp, typename _Tp, typename _Integrator>
     std::tuple<_Tp, _Tp, bool>
     qc25s(qaws_integration_table<_Tp>& __t,
-	  _FuncTp __func, _Tp __lower, _Tp __upper, _Tp __a1, _Tp __b1)
+	  const _FuncTp& __func, _Tp __lower, _Tp __upper, _Tp __a1, _Tp __b1,
+	  _Integrator __quad)
     {
       fn_qaws<_FuncTp, _Tp> __fqaws(&__t, __func, __lower, __upper);
 
@@ -311,7 +357,7 @@ namespace __gnu_cxx
 
 	  _Tp __result, __abserr, __resabs, __resasc;
 	  std::tie(__result, __abserr, __resabs, __resasc)
-	    = qk_integrate(__f, __a1, __b1, QK_15);
+	    = __quad(__f, __a1, __b1);
 
 	  bool __err_reliable;
 	  if (__abserr == __resasc)
@@ -332,7 +378,7 @@ namespace __gnu_cxx
       _Tp b;
 
       fn_qaws(const qaws_integration_table<_Tp>* __tab,
-	      _FuncTp __func, _Tp __a_in, _Tp __b_in)
+	      const _FuncTp& __func, _Tp __a_in, _Tp __b_in)
       : table(__tab),
 	func(__func), a(__a_in), b(__b_in)
       { }

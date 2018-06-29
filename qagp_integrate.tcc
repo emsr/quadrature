@@ -68,7 +68,7 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
   template<typename _FuncTp, typename _Tp, typename _Integrator>
     std::tuple<_Tp, _Tp>
     qagp_integrate(integration_workspace<_Tp>& __workspace,
-		   const _FuncTp& __func,
+		   _FuncTp __func,
 		   std::vector<_Tp> __pts,
 		   _Tp __max_abs_err, _Tp __max_rel_err,
 		   _Integrator __quad)
@@ -404,14 +404,14 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
   template<typename _FuncTp, typename _Tp>
     std::tuple<_Tp, _Tp>
     qagp_integrate(integration_workspace<_Tp>& __workspace,
-		   const _FuncTp& __func,
+		   _FuncTp __func,
 		   std::vector<_Tp> __pts,
 		   _Tp __max_abs_err, _Tp __max_rel_err,
 		   Kronrod_Rule __qk_rule = QK_21)
     {
       auto __quad
 	= [__qk_rule]
-	  (const _FuncTp& __func, _Tp __lower, _Tp __upper)
+	  (_FuncTp __func, _Tp __lower, _Tp __upper)
 	  -> std::tuple<_Tp, _Tp, _Tp, _Tp>
 	  { return qk_integrate(__func, __lower, __upper, __qk_rule); };
 
