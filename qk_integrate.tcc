@@ -81,22 +81,22 @@ namespace __gnu_cxx
       switch(__qkintrule)
 	{
 	case QK_15:
-	  return __detail::qk_integrator<_FuncTp, _Tp, QK_15>
+	  return __detail::qk_integrator<_Tp, _FuncTp, QK_15>
 			 ::_S_integrate(__func, __lower, __upper);
 	case QK_21:
-	  return __detail::qk_integrator<_FuncTp, _Tp, QK_21>
+	  return __detail::qk_integrator<_Tp, _FuncTp, QK_21>
 			 ::_S_integrate(__func, __lower, __upper);
 	case QK_31:
-	  return __detail::qk_integrator<_FuncTp, _Tp, QK_31>
+	  return __detail::qk_integrator<_Tp, _FuncTp, QK_31>
 			 ::_S_integrate(__func, __lower, __upper);
 	case QK_41:
-	  return __detail::qk_integrator<_FuncTp, _Tp, QK_41>
+	  return __detail::qk_integrator<_Tp, _FuncTp, QK_41>
 			 ::_S_integrate(__func, __lower, __upper);
 	case QK_51:
-	  return __detail::qk_integrator<_FuncTp, _Tp, QK_51>
+	  return __detail::qk_integrator<_Tp, _FuncTp, QK_51>
 			 ::_S_integrate(__func, __lower, __upper);
 	case QK_61:
-	  return __detail::qk_integrator<_FuncTp, _Tp, QK_61>
+	  return __detail::qk_integrator<_Tp, _FuncTp, QK_61>
 			 ::_S_integrate(__func, __lower, __upper);
 	default:
 	  std::__throw_logic_error("qk_integrate: "
@@ -184,7 +184,7 @@ namespace __detail
    * Gauss-Kronrod 15-point rule implementation.
    */
   template<typename _Tp, typename _FuncTp>
-    class qk_integrator<_FuncTp, _Tp, QK_15>
+    class qk_integrator<_Tp, _FuncTp, QK_15>
     {
 
     private:
@@ -240,7 +240,7 @@ namespace __detail
    * Gauss-Kronrod 21-point rule implementation.
    */
   template<typename _Tp, typename _FuncTp>
-    class qk_integrator<_FuncTp, _Tp, QK_21>
+    class qk_integrator<_Tp, _FuncTp, QK_21>
     {
 
     private:
@@ -303,7 +303,7 @@ namespace __detail
    * Gauss-Kronrod 31-point rule implementation.
    */
   template<typename _Tp, typename _FuncTp>
-    class qk_integrator<_FuncTp, _Tp, QK_31>
+    class qk_integrator<_Tp, _FuncTp, QK_31>
     {
 
     private:
@@ -379,7 +379,7 @@ namespace __detail
    * Gauss-Kronrod 41-point rule implementation.
    */
   template<typename _Tp, typename _FuncTp>
-    class qk_integrator<_FuncTp, _Tp, QK_41>
+    class qk_integrator<_Tp, _FuncTp, QK_41>
     {
 
     private:
@@ -467,7 +467,7 @@ namespace __detail
    * Gauss-Kronrod 51-point rule implementation.
    */
   template<typename _Tp, typename _FuncTp>
-    class qk_integrator<_FuncTp, _Tp, QK_51>
+    class qk_integrator<_Tp, _FuncTp, QK_51>
     {
 
     private:
@@ -568,7 +568,7 @@ namespace __detail
    * Gauss-Kronrod 51-point rule implementation.
    */
   template<typename _Tp, typename _FuncTp>
-    class qk_integrator<_FuncTp, _Tp, QK_61>
+    class qk_integrator<_Tp, _FuncTp, QK_61>
     {
 
     private:
