@@ -102,15 +102,15 @@ namespace __gnu_cxx
       _Tp __result0, __abserr0;
       {
 	const auto __a1 = __lower;
-	const auto __b1 = (__lower + __upper) / _Tp{2};
-	const auto __a2 = __b1;
+	const auto __mid = (__lower + __upper) / _Tp{2};
+	const auto __a2 = __mid;
 	const auto __b2 = __upper;
 
 	_Tp __area1, __error1;
 	bool __err_reliable1;
 	std::tie(__area1, __error1, __err_reliable1)
-	  = qc25s(__table, __func, __lower, __upper, __a1, __b1);
-	__workspace.append(__a1, __b1, __area1, __error1);
+	  = qc25s(__table, __func, __lower, __upper, __a1, __mid);
+	__workspace.append(__a1, __mid, __area1, __error1);
 
 	_Tp __area2, __error2;
 	bool __err_reliable2;
@@ -140,18 +140,17 @@ namespace __gnu_cxx
       do
 	{
 	  // Bisect the subinterval with the largest error estimate.
-	  _Tp __a_i, __b_i, __r_i, __e_i;
-	  __workspace.retrieve(__a_i, __b_i, __r_i, __e_i);
+	  const auto& __curr = __workspace.retrieve();
 
-	  const auto __a1 = __a_i;
-	  const auto __b1 = (__a_i + __b_i) / _Tp{2};
-	  const auto __a2 = __b1;
-	  const auto __b2 = __b_i;
+	  const auto __a1 = __curr.__lower_lim;
+	  const auto __mid = (__curr.__lower_lim + __curr.__upper_lim) / _Tp{2};
+	  const auto __a2 = __mid;
+	  const auto __b2 = __curr.__upper_lim;
 
 	  _Tp __area1, __error1;
 	  bool __err_reliable1;
 	  std::tie(__area1, __error1, __err_reliable1)
-	    = qc25s(__table, __func, __lower, __upper, __a1, __b1);
+	    = qc25s(__table, __func, __lower, __upper, __a1, __mid);
 
 	  _Tp __area2, __error2;
 	  bool __err_reliable2;
@@ -161,17 +160,17 @@ namespace __gnu_cxx
 	  const auto __area12 = __area1 + __area2;
 	  const auto __error12 = __error1 + __error2;
 
-	  __errsum += __error12 - __e_i;
-	  __area += __area12 - __r_i;
+	  __errsum += __error12 - __curr.__abs_error;
+	  __area += __area12 - __curr.__result;
 
 	  if (__err_reliable1 && __err_reliable2)
 	    {
-	      const auto __delta = __r_i - __area12;
+	      const auto __delta = __curr.__result - __area12;
 
 	      if (std::abs (__delta) <= _M_rel_err * std::abs(__area12)
-		 && __error12 >= 0.99 * __e_i)
+		 && __error12 >= 0.99 * __curr.__abs_error)
 		++__roundoff_type1;
-	      if (__iteration >= 10 && __error12 > __e_i)
+	      if (__iteration >= 10 && __error12 > __curr.__abs_error)
 		++__roundoff_type2;
 	    }
 
@@ -187,9 +186,7 @@ namespace __gnu_cxx
 		__error_type = SINGULAR_ERROR;
 	    }
 
-	  __workspace.split(__b1, __area1, __error1, __area2, __error2);
-
-	  __workspace.retrieve(__a_i, __b_i, __r_i, __e_i);
+	  __workspace.split(__mid, __area1, __error1, __area2, __error2);
 
 	  ++__iteration;
 	}

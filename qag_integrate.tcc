@@ -120,21 +120,21 @@ namespace __gnu_cxx
       auto __errsum = __abserr0;
       int __error_type = NO_ERROR;
       std::size_t __iteration = 1;
+
       int __roundoff_type1 = 0, __roundoff_type2 = 0;
       do
 	{
 	  // Bisect the subinterval with the largest error estimate
-	  _Tp __a_i, __b_i, __r_i, __e_i;
-	  __workspace.retrieve(__a_i, __b_i, __r_i, __e_i);
+	  const auto& __curr = __workspace.retrieve();
 
-	  const auto __a1 = __a_i;
-	  const auto __b1 = (__a_i + __b_i) / _Tp{2};
-	  const auto __a2 = __b1;
-	  const auto __b2 = __b_i;
+	  const auto __a1 = __curr.__lower_lim;
+	  const auto __mid = (__curr.__lower_lim + __curr.__upper_lim) / _Tp{2};
+	  const auto __a2 = __mid;
+	  const auto __b2 = __curr.__upper_lim;
 
 	  _Tp __area1, __error1, __resabs1, __resasc1;
 	  std::tie(__area1,__error1,__resabs1,__resasc1)
-	      = __quad(__func, __a1, __b1);
+	      = __quad(__func, __a1, __mid);
 
 	  _Tp __area2, __error2, __resabs2, __resasc2;
 	  std::tie(__area2,__error2,__resabs2,__resasc2)
@@ -143,17 +143,17 @@ namespace __gnu_cxx
 	  const auto __area12 = __area1 + __area2;
 	  const auto __error12 = __error1 + __error2;
 
-	  __area += __area12 - __r_i;
-	  __errsum += __error12 - __e_i;
+	  __area += __area12 - __curr.__result;
+	  __errsum += __error12 - __curr.__abs_error;
 
 	  if (__resasc1 != __error1 && __resasc2 != __error2)
 	    {
-	      const auto __delta = __r_i - __area12;
+	      const auto __delta = __curr.__result - __area12;
 
 	      if (std::abs(__delta) <= _S_rel_err * std::abs(__area12)
-		 && __error12 >= 0.99 * __e_i)
+		 && __error12 >= 0.99 * __curr.__abs_error)
 		++__roundoff_type1;
-	      if (__iteration >= 10 && __error12 > __e_i)
+	      if (__iteration >= 10 && __error12 > __curr.__abs_error)
 		++__roundoff_type2;
 	    }
 
@@ -171,13 +171,14 @@ namespace __gnu_cxx
 		__error_type = SINGULAR_ERROR;
 	    }
 
-	  __workspace.split(__b1, __area1, __error1, __area2, __error2);
+	  __workspace.split(__mid, __area1, __error1, __area2, __error2);
 
-	  __workspace.retrieve(__a_i, __b_i, __r_i, __e_i);
+	  ////FIXME Why I had this? __curr = __workspace.retrieve();
 
 	  ++__iteration;
 	}
-      while (__iteration < __max_iter && !__error_type
+      while (__iteration < __max_iter
+	     && !__error_type
 	     && __errsum > __tolerance);
 
       auto __result = __workspace.total_integral();

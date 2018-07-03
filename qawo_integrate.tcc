@@ -51,7 +51,7 @@ namespace __gnu_cxx
       const auto _S_max = std::numeric_limits<_Tp>::max();
       const auto _S_eps = std::numeric_limits<_Tp>::epsilon();
       const auto __limit = __workspace.capacity();
-      // Try to adjust tests for varing precision.
+      // Try to adjust tests for varing precision. 10^{-5.3} for double.
       const auto _S_rel_err = std::pow(_Tp{10},
 				 -std::numeric_limits<_Tp>::digits / _Tp{10});
 
@@ -82,14 +82,16 @@ namespace __gnu_cxx
 
       __workspace.append(__lower, __upper, __result0, __abserr0);
 
-      auto __tolerance = std::max(__max_abs_err, __max_rel_err * std::abs(__result0));
+      auto __tolerance = std::max(__max_abs_err,
+				  __max_rel_err * std::abs(__result0));
 
       if (__abserr0 <= 100 * _S_eps * __resabs0 && __abserr0 > __tolerance)
 	__throw_integration_error("qawo_integrate: "
 				  "cannot reach tolerance because "
 				  "of roundoff error on first attempt",
 				  ROUNDOFF_ERROR, __result0, __abserr0);
-      else if ((__abserr0 <= __tolerance && __abserr0 != __resasc0) || __abserr0 == 0.0)
+      else if ((__abserr0 <= __tolerance && __abserr0 != __resasc0)
+		|| __abserr0 == 0.0)
 	return std::make_tuple(__result0, __abserr0);
       else if (__limit == 1)
 	__throw_integration_error("qawo_integrate: "
@@ -116,14 +118,10 @@ namespace __gnu_cxx
       int __error_type = NO_ERROR, __error_type2 = NO_ERROR;
       do
 	{
-	  std::size_t __current_depth;
-
 	  // Bisect the subinterval with the largest error estimate.
+	  const auto& __curr = __workspace.retrieve();
 
-	  _Tp __a_i, __b_i, __r_i, __e_i;
-	  __workspace.retrieve(__a_i, __b_i, __r_i, __e_i);
-
-	  __current_depth = __workspace.current_depth() + 1;
+	  const auto __current_depth = __workspace.curr_depth() + 1;
 
 	  if (__current_depth >= __wf.n)
 	    {
@@ -131,16 +129,16 @@ namespace __gnu_cxx
 	      break;
 	    }
 
-	  const auto __a1 = __a_i;
-	  const auto __b1 = (__a_i + __b_i) / _Tp{2};
-	  const auto __a2 = __b1;
-	  const auto __b2 = __b_i;
+	  const auto __a1 = __curr.__lower_lim;
+	  const auto __mid = (__curr.__lower_lim + __curr.__upper_lim) / _Tp{2};
+	  const auto __a2 = __mid;
+	  const auto __b2 = __curr.__upper_lim;
 
 	  ++__iteration;
 
 	  _Tp __area1, __error1, __resabs1, __resasc1;
 	  std::tie(__area1, __error1, __resabs1, __resasc1)
-	    = qc25f(__wf, __func, __a1, __b1, __current_depth);
+	    = qc25f(__wf, __func, __a1, __mid, __current_depth);
 
 	  _Tp __area2, __error2, __resabs2, __resasc2;
 	  std::tie(__area2, __error2, __resabs2, __resasc2)
@@ -148,28 +146,29 @@ namespace __gnu_cxx
 
 	  const auto __area12 = __area1 + __area2;
 	  const auto __error12 = __error1 + __error2;
-	  const auto __last_e_i = __e_i;
+	  const auto __last_e_i = __curr.__abs_error;
 
 	  // Improve previous approximations to the integral and test
 	  // for accuracy.
-	  __area += __area12 - __r_i;
-	  __errsum += __error12 - __e_i;
+	  __area += __area12 - __curr.__result;
+	  __errsum += __error12 - __curr.__abs_error;
 
-	  __tolerance = std::max(__max_abs_err, __max_rel_err * std::abs(__area));
+	  __tolerance = std::max(__max_abs_err,
+				 __max_rel_err * std::abs(__area));
 
 	  if (__resasc1 != __error1 && __resasc2 != __error2)
 	    {
-	      const auto __delta = __r_i - __area12;
+	      const auto __delta = __curr.__result - __area12;
 
 	      if (std::abs(__delta) <= _S_rel_err * std::abs(__area12)
-			 && __error12 >= 0.99 * __e_i)
+			 && __error12 >= 0.99 * __curr.__abs_error)
 		{
 		  if (!__extrapolate)
 		    ++__roundoff_type1;
 		  else
 		    ++__roundoff_type2;
 		}
-	      if (__iteration > 10 && __error12 > __e_i)
+	      if (__iteration > 10 && __error12 > __curr.__abs_error)
 		++__roundoff_type3;
 	    }
 
@@ -188,7 +187,7 @@ namespace __gnu_cxx
 	    __error_type = EXTRAP_ROUNDOFF_ERROR;
 
 	  // Split the current interval in two.
-	  __workspace.split(__b1, __area1, __error1, __area2, __error2);
+	  __workspace.split(__mid, __area1, __error1, __area2, __error2);
 
 	  if (__errsum <= __tolerance)
 	    {
@@ -229,7 +228,7 @@ namespace __gnu_cxx
 	      if (__extrapolate)
 		if (__error_type2 != NO_ERROR
 		 && __error_over_large_intervals > __ertest)
-		  if (__workspace.increment_start())
+		  if (__workspace.increment_curr_index())
 		    continue;
 	    }
 
@@ -239,7 +238,7 @@ namespace __gnu_cxx
 	  if (__extall)
 	    {
 	      __extrapolate = true;
-	      __workspace.set_start(1);
+	      __workspace.increment_curr_index();
 	    }
 	  else
 	    {
@@ -258,7 +257,7 @@ namespace __gnu_cxx
 
 	  if (__error_type2 != NO_ERROR
 	   && __error_over_large_intervals > __ertest)
-	    if (__workspace.increment_start())
+	    if (__workspace.increment_curr_index())
 	      continue;
 
 	  // Perform extrapolation.
@@ -267,7 +266,7 @@ namespace __gnu_cxx
 
 	  if (__table.get_nn() < 3)
 	    {
-	      __workspace.reset_start();
+	      __workspace.reset_curr_index();
 	      __extrapolate = false;
 	      __error_over_large_intervals = __errsum;
 	      continue;
@@ -286,7 +285,8 @@ namespace __gnu_cxx
 	      __err_ext = __abseps;
 	      __res_ext = __reseps;
 	      __correc = __error_over_large_intervals;
-	      __ertest = std::max(__max_abs_err, __max_rel_err * std::abs(__reseps));
+	      __ertest = std::max(__max_abs_err,
+				  __max_rel_err * std::abs(__reseps));
 	      if (__err_ext <= __ertest)
 		break;
 	    }
@@ -299,7 +299,7 @@ namespace __gnu_cxx
 	    break;
 
 	  // Work on interval with largest error.
-	  __workspace.reset_start();
+	  __workspace.reset_curr_index();
 	  __extrapolate = false;
 	  __error_over_large_intervals = __errsum;
 	}
@@ -330,7 +330,8 @@ namespace __gnu_cxx
 		{
 		  __result = __workspace.total_integral();
 		  __abserr = __errsum;
-		  __check_error<_Tp>(__func__, __error_type, __result, __abserr);
+		  __check_error<_Tp>(__func__, __error_type,
+				     __result, __abserr);
 		  return std::make_tuple(__result, __abserr);
 		}
 	    }
