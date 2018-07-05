@@ -119,10 +119,10 @@ template<typename _Tp>
       {
 	printf(status ? "FAIL: " : "PASS: ");
 
+	printf("%s", test_desc);
+
 	if (status && !this->verbose)
           printf(" [%u]", this->num_tests);
-
-	printf(" %s", test_desc);
 
 	printf("\n");
 	fflush(stdout);
@@ -135,7 +135,7 @@ template<typename _Tp>
 				      const char* test_desc)
   {
     // Check for NaN vs inf vs number.
-    int status;
+    int status = 0;
     if (std::isnan(result) || std::isnan(expected))
       status = std::isnan(result) != std::isnan(expected);
     else if (std::isinf(result) || std::isinf(expected))
@@ -154,11 +154,12 @@ template<typename _Tp>
       {
 	printf(status ? "FAIL: " : "PASS: ");
 
+	printf("%s", test_desc);
+
 	if (status == 0)
           printf(" (%g observed vs %g expected)", result, expected);
 	else
-          printf(" (%.18g observed vs %.18g expected)  \"%s\"",
-		 result, expected, test_desc);
+          printf(" (%.18g observed vs %.18g expected)", result, expected);
 
 	if (status == -1)
           printf(" [test uses subnormal value]");
@@ -177,7 +178,7 @@ template<typename _Tp>
 				      const char* test_desc)
   {
     // Check for NaN vs inf vs number.
-    int status;
+    int status = 0;
     if (std::isnan(result) || std::isnan(expected))
       status = std::isnan(result) != std::isnan(expected);
     else if (std::isinf(result) || std::isinf(expected))
@@ -194,11 +195,12 @@ template<typename _Tp>
       {
 	printf(status ? "FAIL: " : "PASS: ");
 
+	printf("%s", test_desc);
+
 	if (status == 0)
           printf(" (%g observed vs %g expected)", result, expected);
 	else
-          printf(" (%.18g observed vs %.18g expected)  \"%s\"",
-		 result, expected, test_desc);
+          printf(" (%.18g observed vs %.18g expected)", result, expected);
 
 	if (status == -1)
           printf(" [test uses subnormal value]");
@@ -216,7 +218,7 @@ template<typename _Tp>
   quadrature_test<_Tp>::test_factor(_Tp result, _Tp expected, _Tp factor,
 				    const char* test_desc)
   {
-    int status;
+    int status = 0;
     if ((expected > 0 && expected < std::numeric_limits<_Tp>::min())
 	|| (expected < 0 && expected > -(std::numeric_limits<_Tp>::min())))
       status = -1;
@@ -236,11 +238,12 @@ template<typename _Tp>
       {
 	printf(status ? "FAIL: " : "PASS: ");
 
+	printf("%s", test_desc);
+
 	if (status == 0)
           printf(" (%g observed vs %g expected)", result, expected);
 	else
-          printf(" (%.18g observed vs %.18g expected)  \"%s\"",
-		 result, expected, test_desc);
+          printf(" (%.18g observed vs %.18g expected)", result, expected);
 
 	if (status == -1)
           printf(" [test uses subnormal value]");
@@ -266,11 +269,12 @@ template<typename _Tp>
       {
 	printf(status ? "FAIL: " : "PASS: ");
 
+	printf("%s", test_desc);
+
 	if (status == 0)
           printf(" (%d observed vs %d expected)", result, expected);
 	else
-          printf(" (%d observed vs %d expected)  \"%s\"",
-		 result, expected, test_desc);
+          printf(" (%d observed vs %d expected)", result, expected);
 
 	if (status && !this->verbose)
           printf(" [%u]", this->num_tests);
@@ -346,7 +350,7 @@ test_quadrature()
   const auto _S_eps = std::numeric_limits<_Tp>::epsilon();
   try
     {
-      std::cout << ">>>> Test Gauss-Kronrod 15 with a smooth positive function..." << std::endl;
+      //std::cout << ">>>> Test Gauss-Kronrod 15 with a smooth positive function..." << std::endl;
 
       double exp_result = 7.716049357767090777e-02L;
       double exp_abserr = 2.990224871000550874e-06L;
@@ -385,7 +389,7 @@ test_quadrature()
   // Test Gauss-Kronrod 21 with a smooth positive function.
   try
     {
-      std::cout << ">>>> Test Gauss-Kronrod 21 with a smooth positive function..." << std::endl;
+      //std::cout << ">>>> Test Gauss-Kronrod 21 with a smooth positive function..." << std::endl;
 
       double exp_result = 7.716049379303084599e-02L;
       double exp_abserr = 9.424302194248481445e-08L;
@@ -423,7 +427,7 @@ test_quadrature()
   // Test Gauss-Kronrod 31 with a smooth positive function.
   try
     {
-      std::cout << ">>>> Test Gauss-Kronrod 31 with a smooth positive function..." << std::endl;
+      //std::cout << ">>>> Test Gauss-Kronrod 31 with a smooth positive function..." << std::endl;
 
       double exp_result = 7.716049382494900855e-02L;
       double exp_abserr = 1.713503193600029893e-09L;
@@ -461,7 +465,7 @@ test_quadrature()
   // Test Gauss-Kronrod 41 with a smooth positive function.
   try
     {
-      std::cout << ">>>> Test Gauss-Kronrod 41 with a smooth positive function..." << std::endl;
+      //std::cout << ">>>> Test Gauss-Kronrod 41 with a smooth positive function..." << std::endl;
 
       double exp_result = 7.716049382681375302e-02L;
       double exp_abserr = 9.576386660975511224e-11L;
@@ -499,7 +503,7 @@ test_quadrature()
   // Test Gauss-Kronrod 51 with a smooth positive function.
   try
     {
-      std::cout << ">>>> Test Gauss-Kronrod 51 with a smooth positive function..." << std::endl;
+      //std::cout << ">>>> Test Gauss-Kronrod 51 with a smooth positive function..." << std::endl;
 
       double exp_result = 7.716049382708510540e-02L;
       double exp_abserr = 1.002079980317363772e-11L;
@@ -537,7 +541,7 @@ test_quadrature()
   // Test Gauss-Kronrod 61 with a smooth positive function.
   try
     {
-      std::cout << ">>>> Test Gauss-Kronrod 61 with a smooth positive function..." << std::endl;
+      //std::cout << ">>>> Test Gauss-Kronrod 61 with a smooth positive function..." << std::endl;
 
       double exp_result = 7.716049382713800753e-02L;
       double exp_abserr = 1.566060362296155616e-12L;
@@ -572,14 +576,14 @@ test_quadrature()
       std::cerr << "ERROR: " << ex.what() << '\n';
     }
 
-  /* Now test the basic rules with a positive function that has a
-     singularity. This should give large values of abserr which would
-     find discrepancies in the abserr calculation. */
+  // Now test the basic rules with a positive function that has a
+  // singularity. This should give large values of abserr which would
+  // find discrepancies in the abserr calculation.
 
   // Test Gauss-Kronrod 15 with a singular positive function.
   try
     {
-      std::cout << ">>>> Test Gauss-Kronrod 15 with a singular positive function..." << std::endl;
+      //std::cout << ">>>> Test Gauss-Kronrod 15 with a singular positive function..." << std::endl;
 
       double exp_result = 1.555688196612745777e+01L;
       double exp_abserr = 2.350164577239293706e+01L;
@@ -617,7 +621,7 @@ test_quadrature()
   // Test Gauss-Kronrod 21 with a singular positive function.
   try
     {
-      std::cout << ">>>> Test Gauss-Kronrod 21 with a singular positive function..." << std::endl;
+      //std::cout << ">>>> Test Gauss-Kronrod 21 with a singular positive function..." << std::endl;
 
       double exp_result = 1.799045317938126232e+01L;
       double exp_abserr = 2.782360287710622515e+01L;
@@ -655,7 +659,7 @@ test_quadrature()
   // Test Gauss-Kronrod 31 with a singular positive function.
   try
     {
-      std::cout << ">>>> Test Gauss-Kronrod 31 with a singular positive function..." << std::endl;
+      //std::cout << ">>>> Test Gauss-Kronrod 31 with a singular positive function..." << std::endl;
 
       double exp_result = 2.081873305159121657e+01L;
       double exp_abserr = 3.296500137482590276e+01L;
@@ -693,7 +697,7 @@ test_quadrature()
   // Test Gauss-Kronrod 41 with a singular positive function.
   try
     {
-      std::cout << ">>>> Test Gauss-Kronrod 41 with a singular positive function..." << std::endl;
+      //std::cout << ">>>> Test Gauss-Kronrod 41 with a singular positive function..." << std::endl;
 
       double exp_result = 2.288677623903126701e+01L;
       double exp_abserr = 3.671538820274916048e+01L;
@@ -731,7 +735,7 @@ test_quadrature()
   // Test Gauss-Kronrod 51 with a singular positive function.
   try
     {
-      std::cout << ">>>> Test Gauss-Kronrod 51 with a singular positive function..." << std::endl;
+      //std::cout << ">>>> Test Gauss-Kronrod 51 with a singular positive function..." << std::endl;
 
       double exp_result = 2.449953612016972215e+01L;
       double exp_abserr = 3.967771249391228849e+01L;
@@ -769,7 +773,7 @@ test_quadrature()
   // Test Gauss-Kronrod 61 with a singular positive function.
   try
     {
-      std::cout << ">>>> Test Gauss-Kronrod 61 with a singular positive function..." << std::endl;
+      //std::cout << ">>>> Test Gauss-Kronrod 61 with a singular positive function..." << std::endl;
 
       double exp_result = 2.583030240976628988e+01L;
       double exp_abserr = 4.213750493076978643e+01L;
@@ -804,14 +808,14 @@ test_quadrature()
       std::cerr << "ERROR: " << ex.what() << '\n';
     }
 
-  /* Test the basic Gauss-Kronrod rules with a smooth oscillating
-     function, over an unsymmetric range. This should find any
-     discrepancies in the abscissae. */
+  // Test the basic Gauss-Kronrod rules with a smooth oscillating
+  // function, over an unsymmetric range. This should find any
+  // discrepancies in the abscissae.
 
   // Test Gauss-Kronrod 15 with a smooth oscillating function.
   try
     {
-      std::cout << ">>>> Test Gauss-Kronrod 15 with a smooth oscillating function..." << std::endl;
+      //std::cout << ">>>> Test Gauss-Kronrod 15 with a smooth oscillating function..." << std::endl;
 
       double exp_result = -7.238969575483799046e-01L;
       double exp_abserr =  8.760080200939757174e-06L;
@@ -849,7 +853,7 @@ test_quadrature()
   // Test Gauss-Kronrod 21 with a smooth oscillating function.
   try
     {
-      std::cout << ">>>> Test Gauss-Kronrod 21 with a smooth oscillating function..." << std::endl;
+      //std::cout << ">>>> Test Gauss-Kronrod 21 with a smooth oscillating function..." << std::endl;
 
       double exp_result =-7.238969575482959717e-01L;
       double exp_abserr = 7.999213141433641888e-11L;
@@ -887,7 +891,7 @@ test_quadrature()
   // Test Gauss-Kronrod 31 with a smooth oscillating function.
   try
     {
-      std::cout << ">>>> Test Gauss-Kronrod 31 with a smooth oscillating function..." << std::endl;
+      //std::cout << ">>>> Test Gauss-Kronrod 31 with a smooth oscillating function..." << std::endl;
 
       double exp_result =-7.238969575482959717e-01L;
       double exp_abserr = 1.285805464427459261e-14L;
@@ -925,7 +929,7 @@ test_quadrature()
   // Test Gauss-Kronrod 41 with a smooth oscillating function.
   try
     {
-      std::cout << ">>>> Test Gauss-Kronrod 41 with a smooth oscillating function..." << std::endl;
+      //std::cout << ">>>> Test Gauss-Kronrod 41 with a smooth oscillating function..." << std::endl;
 
       double exp_result =-7.238969575482959717e-01L;
       double exp_abserr = 1.286535726271015626e-14L;
@@ -963,7 +967,7 @@ test_quadrature()
   // Test Gauss-Kronrod 51 with a smooth oscillating function.
   try
     {
-      std::cout << ">>>> Test Gauss-Kronrod 51 with a smooth oscillating function..." << std::endl;
+      //std::cout << ">>>> Test Gauss-Kronrod 51 with a smooth oscillating function..." << std::endl;
 
       double exp_result =-7.238969575482961938e-01L;
       double exp_abserr = 1.285290995039385778e-14L;
@@ -1001,7 +1005,7 @@ test_quadrature()
   // Test Gauss-Kronrod 61 with a smooth oscillating function.
   try
     {
-      std::cout << ">>>> Test Gauss-Kronrod 61 with a smooth oscillating function..." << std::endl;
+      //std::cout << ">>>> Test Gauss-Kronrod 61 with a smooth oscillating function..." << std::endl;
 
       double exp_result =-7.238969575482959717e-01L;
       double exp_abserr = 1.286438572027470736e-14L;
@@ -1039,7 +1043,7 @@ test_quadrature()
   // Test the non-adaptive Gaussian integrator.
   try
     {
-      std::cout << ">>>> Test non-adaptive Gaussian integrator..." << std::endl;
+      //std::cout << ">>>> Test non-adaptive Gaussian integrator..." << std::endl;
 
       int status = __gnu_cxx::NO_ERROR;
       _Tp exp_result = 7.716049379303083211e-02L;
@@ -1080,7 +1084,7 @@ test_quadrature()
   // Test the non-adaptive Gaussian integrator.
   try
     {
-      std::cout << ">>>> Test non-adaptive Gaussian integrator..." << std::endl;
+      //std::cout << ">>>> Test non-adaptive Gaussian integrator..." << std::endl;
 
       quadrature_test<double> qtest;
 
@@ -1122,7 +1126,7 @@ test_quadrature()
   // Test the non-adaptive Gaussian integrator.
   try
     {
-      std::cout << ">>>> Test non-adaptive Gaussian integrator..." << std::endl;
+      //std::cout << ">>>> Test non-adaptive Gaussian integrator..." << std::endl;
 
       int status = 0;
       double exp_result =-7.238969575482961938e-01L;
@@ -1163,7 +1167,7 @@ test_quadrature()
   // Test the non-adaptive Gaussian integrator.
   try
     {
-      std::cout << ">>>> Test non-adaptive Gaussian integrator..." << std::endl;
+      //std::cout << ">>>> Test non-adaptive Gaussian integrator..." << std::endl;
 
       quadrature_test<double> qtest;
 
@@ -1205,7 +1209,7 @@ test_quadrature()
   // Test the non-adaptive Gaussian integrator.
   try
     {
-      std::cout << ">>>> Test non-adaptive Gaussian integrator..." << std::endl;
+      //std::cout << ">>>> Test non-adaptive Gaussian integrator..." << std::endl;
 
       quadrature_test<double> qtest;
 
@@ -1266,7 +1270,7 @@ test_quadrature()
   // Test the adaptive Gaussian integrator.
   try
     {
-      std::cout << ">>>> Test adaptive Gaussian integrator..." << std::endl;
+      //std::cout << ">>>> Test adaptive Gaussian integrator..." << std::endl;
 
       int status = 0;
       quadrature_test<double> qtest;
@@ -1340,7 +1344,7 @@ test_quadrature()
 
   try
     {
-      std::cout << ">>>> Test adaptive Gaussian integrator with absolute error bound..." << std::endl;
+      //std::cout << ">>>> Test adaptive Gaussian integrator with absolute error bound..." << std::endl;
 
       int status = 0;
       quadrature_test<double> qtest;
@@ -1416,8 +1420,8 @@ test_quadrature()
   // of roundoff error, uses the 31-pt rule.
   try
     {
-      std::cout << ">>>> Test adaptive integration of an oscillatory function\n"
-		   ">>>> which terminates because of roundoff error, uses the 31-pt rule..." << std::endl;
+      //std::cout << ">>>> Test adaptive integration of an oscillatory function\n"
+	//	   ">>>> which terminates because of roundoff error, uses the 31-pt rule..." << std::endl;
 
       int status = __gnu_cxx::NO_ERROR;
       quadrature_test<double> qtest;
@@ -1487,7 +1491,7 @@ test_quadrature()
   // Check the singularity detection (singularity at x=-0.1 in this example).
   try
     {
-      std::cout << ">>>> Test singularity detection (singularity at x=-0.1 in this example)..." << std::endl;
+      //std::cout << ">>>> Test singularity detection (singularity at x=-0.1 in this example)..." << std::endl;
 
       int status = __gnu_cxx::NO_ERROR;
       quadrature_test<double> qtest;
@@ -1551,7 +1555,7 @@ test_quadrature()
   // Check for hitting the iteration limit.
   try
     {
-      std::cout << ">>>> Test hitting the iteration limit..." << std::endl;
+      //std::cout << ">>>> Test hitting the iteration limit..." << std::endl;
 
       int status = __gnu_cxx::NO_ERROR;
       quadrature_test<double> qtest;
@@ -1642,7 +1646,7 @@ test_quadrature()
   // Test the adaptive integrator with extrapolation.
   try
     {
-      std::cout << ">>>> Test the adaptive integrator with extrapolation..." << std::endl;
+      //std::cout << ">>>> Test the adaptive integrator with extrapolation..." << std::endl;
 
       int status = 0;
       quadrature_test<double> qtest;
@@ -1716,7 +1720,7 @@ test_quadrature()
   // Test f11 using an absolute error bound.
   try
     {
-      std::cout << ">>>> Test f11 using an absolute error bound..." << std::endl;
+      //std::cout << ">>>> Test f11 using an absolute error bound..." << std::endl;
 
       int status = 0;
       quadrature_test<double> qtest;
@@ -1794,7 +1798,7 @@ test_quadrature()
   // Test infinite range integral f455 using a relative error bound.
   try
     {
-      std::cout << ">>>> Test infinite range integral f455 using a relative error bound..." << std::endl;
+      //std::cout << ">>>> Test infinite range integral f455 using a relative error bound..." << std::endl;
 
       int status = 0;
       quadrature_test<double> qtest;
@@ -1862,7 +1866,7 @@ test_quadrature()
   // Test infinite range integral f15 using a relative error bound.
   try
     {
-      std::cout << ">>>> Test infinite range integral f15 using a relative error bound..." << std::endl;
+      //std::cout << ">>>> Test infinite range integral f15 using a relative error bound..." << std::endl;
 
       int status = 0;
       quadrature_test<double> qtest;
@@ -1931,7 +1935,7 @@ test_quadrature()
   // Test infinite range integral f16 using an absolute error bound.
   try
     {
-      std::cout << ">>>> Test infinite range integral f16 using an absolute error bound..." << std::endl;
+      //std::cout << ">>>> Test infinite range integral f16 using an absolute error bound..." << std::endl;
 
       int status = 0;
       quadrature_test<double> qtest;
@@ -1996,7 +2000,7 @@ test_quadrature()
   // Test infinite range integral myfn1 using an absolute error bound.
   try
     {
-      std::cout << ">>>> Test infinite range integral myfn1 using an absolute error bound..." << std::endl;
+      //std::cout << ">>>> Test infinite range integral myfn1 using an absolute error bound..." << std::endl;
 
       int status = 0;
       quadrature_test<double> qtest;
@@ -2058,7 +2062,7 @@ test_quadrature()
   // Test infinite range integral myfn2 using an absolute error bound.
   try
     {
-      std::cout << ">>>> Test infinite range integral myfn2 using an absolute error bound..." << std::endl;
+      //std::cout << ">>>> Test infinite range integral myfn2 using an absolute error bound..." << std::endl;
 
       int status = 0;
       quadrature_test<double> qtest;
@@ -2122,7 +2126,7 @@ test_quadrature()
   // Test integral f454 with integrable singular points.
   try
     {
-      std::cout << ">>>> Test integral f454 with integrable singular points..." << std::endl;
+      //std::cout << ">>>> Test integral f454 with integrable singular points..." << std::endl;
 
       int status = 0;
       quadrature_test<double> qtest;
@@ -2137,7 +2141,7 @@ test_quadrature()
 
       constexpr std::size_t num_test = 20;
       test_ival<double> test[num_test]
-      { 													   
+      {
 	{1.000000000000000000e+00L, 1.051776695296636976e+00L, -1.830392049835374568e-01L, 3.252808038935910834e-02L},
 	{1.401269388548935790e+00L, 1.414213562373095145e+00L, -1.565132123531515207e-01L, 2.730454695485963826e-02L},
 	{2.207106781186547462e+00L, 3.000000000000000000e+00L,  4.873920540843067783e+01L, 5.411138804637469780e-13L},
@@ -2151,7 +2155,7 @@ test_quadrature()
 	{7.500000000000000000e-01L, 8.750000000000000000e-01L, -5.647871991778510847e-02L, 6.270397525408045936e-16L},
 	{1.103553390593273731e+00L, 1.207106781186547462e+00L, -2.431894410706912923e-01L, 2.699945168224041491e-15L},
 	{1.051776695296636976e+00L, 1.103553390593273731e+00L, -1.305470403178642658e-01L, 1.449363299575615261e-15L},
-	{5.000000000000000000e-01L, 7.500000000000000000e-01L, -7.326282608704996063e-03L, 1.417509685426979386e-16L},
+{0,0,0,0},
 	{8.750000000000000000e-01L, 9.375000000000000000e-01L, -7.406626263352669715e-02L, 8.223007012367522077e-16L},
 	{1.513325214724776657e+00L, 1.612436867076458391e+00L, -1.721363984401322045e-01L, 1.911097929242846383e-15L},
 	{1.388325214724776657e+00L, 1.401269388548935790e+00L, -1.048692749517999567e-01L, 1.164282836272345215e-15L},
@@ -2202,7 +2206,7 @@ test_quadrature()
   // Test Cauchy integration using a relative error bound.
   try
     {
-      std::cout << ">>>> Test cauchy integration using a relative error bound..." << std::endl;
+      //std::cout << ">>>> Test cauchy integration using a relative error bound..." << std::endl;
 
       int status = 0;
       quadrature_test<double> qtest;
@@ -2276,7 +2280,7 @@ test_quadrature()
   // Test singular integration using a relative error bound.
   try
     {
-      std::cout << ">>>> Test adaptive singular integration using a relative error bound..." << std::endl;
+      //std::cout << ">>>> Test adaptive singular integration using a relative error bound..." << std::endl;
 
       int status = 0;
       quadrature_test<double> qtest;
@@ -2388,7 +2392,7 @@ test_quadrature()
   // Test oscillatory integration using a relative error bound.
   try
     {
-      std::cout << ">>>> Test oscillatory integration using a relative error bound..." << std::endl;
+      //std::cout << ">>>> Test oscillatory integration using a relative error bound..." << std::endl;
 
       int status = 0;
       quadrature_test<double> qtest;
@@ -2468,7 +2472,7 @@ test_quadrature()
   // Test Fourier integration using an absolute error bound.
   try
     {
-      std::cout << ">>>> Test Fourier integration using an absolute error bound..." << std::endl;
+      //std::cout << ">>>> Test Fourier integration using an absolute error bound..." << std::endl;
 
       int status = 0;
       quadrature_test<double> qtest;
@@ -2538,7 +2542,7 @@ test_quadrature()
   // Sanity check monomial test function for fixed Gauss-Legendre rules.
   try
     {
-      std::cout << ">>>> Sanity check monomial test function for fixed Gauss-Legendre rules..." << std::endl;
+      //std::cout << ">>>> Sanity check monomial test function for fixed Gauss-Legendre rules..." << std::endl;
 
       quadrature_test<double> qtest;
       using dmon_t = monomial<double>;
@@ -2564,7 +2568,7 @@ test_quadrature()
   // Test the fixed-order Gauss-Legendre rules with a monomial.
   try
     {
-      std::cout << ">>>> Test the fixed-order Gauss-Legendre rules with a monomial..." << std::endl;
+      //std::cout << ">>>> Test the fixed-order Gauss-Legendre rules with a monomial..." << std::endl;
 
       const double a = _Tp{0}, b = _Tp{1.2};
 
@@ -2577,22 +2581,16 @@ test_quadrature()
           double expected      = integrate(mon, a, b);
           double result        = __gnu_cxx::glfixed_integrate(tbl, mon, a, b);
 
+	  double rel_tol;
           if (tbl.precomputed)
-            {
-	      std::ostringstream str;
-	      str << "glfixed " << n << "-point: Integrating ("
-		  << mon.constant << "*x^" << mon.degree
-		  << ") over [" << a << "," << a << "]";
-              qtest.test_relative(result, expected, 1.0e-12, str.str().c_str());
-            }
+            rel_tol = 1.0e-12;
           else
-            {
-	      std::ostringstream str;
-	      str << "glfixed " << n << "-point: Integrating ("
-		  << mon.constant << "*x^" << mon.degree
-		  << ") over [" << a << "," << a << "]";
-              qtest.test_relative(result, expected, 1.0e-7, str.str().c_str());
-            }
+            rel_tol = 1.0e-7;
+	  std::ostringstream str;
+	  str << "glfixed " << n << "-point: Integrating ("
+	      << mon.constant << "*x^" << mon.degree
+	      << ") over [" << a << "," << b << "]";
+          qtest.test_relative(result, expected, rel_tol, str.str().c_str());
 	}
     }
   catch (__gnu_cxx::__integration_error<double>& iex)
@@ -2608,7 +2606,7 @@ test_quadrature()
   // Sanity check sin(x) test function for fixed Gauss-Legendre rules.
   try
     {
-      std::cout << "Sanity check sin(x) test function for fixed Gauss-Legendre rules..." << std::endl;
+      //std::cout << ">>>> Sanity check sin(x) test function for fixed Gauss-Legendre rules..." << std::endl;
 
       quadrature_test<double> qtest;
 
@@ -2630,7 +2628,7 @@ test_quadrature()
   // Test the fixed-order Gauss-Legendre rules against sin(x) on [0, pi].
   try
     {
-      std::cout << ">>>> Test fixed-order Gauss-Legendre rules against sin(x) on [0, pi]..." << std::endl;
+      //std::cout << ">>>> Test fixed-order Gauss-Legendre rules against sin(x) on [0, pi]..." << std::endl;
 
       const int n_max = 1024;
       const std::function<_Tp(_Tp)> f = f_sin<_Tp>;
@@ -2689,7 +2687,7 @@ test_quadrature()
   // This verifies the (point, weight) retrieval API behaves sanely.
   try
     {
-      std::cout << ">>>> Test fixed-order Gauss-Legendre rule points and weights on [-1, 1]..." << std::endl;
+      //std::cout << ">>>> Test fixed-order Gauss-Legendre rule points and weights on [-1, 1]..." << std::endl;
 
       const _Tp eps = _S_eps;
       std::size_t n;
@@ -2818,7 +2816,7 @@ test_quadrature()
   // This verifies the (point, weight) retrieval API is okay on non-[-1,1].
   try
     {
-      std::cout << ">>>> Test some fixed-order Gauss-Legendre rule points and weights on [-2, 3]..." << std::endl;
+      //std::cout << ">>>> Test some fixed-order Gauss-Legendre rule points and weights on [-2, 3]..." << std::endl;
 
       quadrature_test<_Tp> qtest;
       std::size_t n = 0;
@@ -2863,7 +2861,7 @@ test_quadrature()
   // Test this newfangled cquad.
   try
     {
-      std::cout << ">>>> Test this newfangled cquad..." << std::endl;
+      //std::cout << ">>>> Test this newfangled cquad..." << std::endl;
       typedef _Tp (*fptr) (_Tp);
       quadrature_test<_Tp> qtest;
 
@@ -2971,6 +2969,236 @@ test_quadrature()
       std::cerr << "ERROR: " << ex.what() << '\n';
     }
 
+  // Test fixed quadrature GSL-2.4+
+/*
+  {
+    size_t n;
+    struct monomial_params params;
+    gsl_function f;
+    double exact;
+    double a, b;
+    int deg = 5; // monomial degree
+    double dterm = (deg % 2) == 0 ? 1.0 : -1.0;
+
+    f.function = &f_monomial;
+    f.params = &params;
+
+    params.degree   = deg;
+    params.constant = 1.0;
+
+    std::size_t n = 15;
+    for (b = 1.1; b <= 4.0; b += 0.1)
+      {
+        // Test with a < b
+        a = b - 1.0;
+
+        // Legendre quadrature
+        exact = (std::pow(b,params.degree+1.0) - std::pow(a,params.degree+1.0))/(params.degree+1.0);
+        test_fixed_quadrature(gsl_integration_fixed_legendre, n, a, b, 0.0, 0.0, 1.0e-12, exact, &f, "legendre monomial");
+
+        // Chebyshev type 1 quadrature
+        exact = GSL_SIGN(b-a)*M_PI*std::pow(0.5*(a+b),params.degree)*gsl_sf_hyperg_2F1(0.5*(1-params.degree),-0.5*params.degree,1.0,(b-a)*(b-a)/((b+a)*(b+a)));
+        test_fixed_quadrature(gsl_integration_fixed_chebyshev, n, a, b, 0.0, 0.0, 1.0e-12, exact, &f, "chebyshev monomial");
+
+        // Laguerre quadrature
+        exact = std::pow(b, -1.0 - deg) * exp(a * b) * gsl_sf_gamma_inc(1.0 + deg, a * b);
+        test_fixed_quadrature(gsl_integration_fixed_laguerre, n, a, b, 0.0, 0.0, 1.0e-12, exact, &f, "laguerre monomial");
+
+        // Hermite quadrature
+        exact = 0.5 * std::pow(b, -0.5*deg) * (-(-1.0 + dterm) * a * deg * gsl_sf_gamma(0.5*deg) * gsl_sf_hyperg_1F1(0.5 - 0.5*deg, 1.5, -a*a*b) +
+                                           (1.0 + dterm) * gsl_sf_gamma(0.5*(1.0+deg)) * gsl_sf_hyperg_1F1(-0.5*deg, 0.5, -a*a*b) / sqrt(b));
+        test_fixed_quadrature(gsl_integration_fixed_hermite, n, a, b, 0.0, 0.0, 1.0e-12, exact, &f, "hermite monomial");
+
+        // Chebyshev type 2 quadrature
+        exact = GSL_SIGN(b-a)*M_PI_2*std::pow(0.5*(a+b),params.degree)*gsl_sf_hyperg_2F1(0.5*(1-params.degree),-0.5*params.degree,2.0,(b-a)*(b-a)/((b+a)*(b+a)))*0.25*(b-a)*(b-a);
+        test_fixed_quadrature(gsl_integration_fixed_chebyshev2, n, a, b, 0.0, 0.0, 1.0e-12, exact, &f, "chebyshev2 monomial");
+
+        // now test with a > b
+        a = b + 1.0;
+
+        // Legendre quadrature
+        exact = (std::pow(b,params.degree+1.0) - std::pow(a,params.degree+1.0))/(params.degree+1.0);
+        test_fixed_quadrature(gsl_integration_fixed_legendre, n, a, b, 0.0, 0.0, 1.0e-12, exact, &f, "legendre monomial");
+
+        // Laguerre quadrature
+        exact = std::pow(b, -1.0 - deg) * exp(a * b) * gsl_sf_gamma_inc(1.0 + deg, a * b);
+        test_fixed_quadrature(gsl_integration_fixed_laguerre, n, a, b, 0.0, 0.0, 1.0e-12, exact, &f, "laguerre monomial");
+
+        // Hermite quadrature
+        exact = 0.5 * std::pow(b, -0.5*deg) * (-(-1.0 + dterm) * a * deg * gsl_sf_gamma(0.5*deg) * gsl_sf_hyperg_1F1(0.5 - 0.5*deg, 1.5, -a*a*b) +
+                                           (1.0 + dterm) * gsl_sf_gamma(0.5*(1.0+deg)) * gsl_sf_hyperg_1F1(-0.5*deg, 0.5, -a*a*b) / sqrt(b));
+        test_fixed_quadrature(gsl_integration_fixed_hermite, n, a, b, 0.0, 0.0, 1.0e-12, exact, &f, "hermite monomial");
+
+#if 0 // FIXME: Chebyshev doesn't work when a > b
+        // Chebyshev type 1 quadrature
+        exact = -M_PI / 8.0 * (3.0*a*a + 2.0*a*b + 3.0*b*b);
+        test_fixed_quadrature(gsl_integration_fixed_chebyshev, n, a, b, 0.0, 0.0, 1.0e-12, exact, &f, "chebyshev monomial");
+
+        // Chebyshev type 2 quadrature
+        exact = -M_PI / 128.0 * (a - b) * (a - b) *(5.0*a*a + 6.0*a*b + 5.0*b*b);
+        test_fixed_quadrature(gsl_integration_fixed_chebyshev2, n, a, b, 0.0, 0.0, 1.0e-12, exact, &f, "chebyshev2 monomial");
+#endif
+      }
+  }
+
+  {
+    // now test on myfn1
+    f = make_function(&myfn1, 0);
+    n = 200;
+
+    test_fixed_quadrature(gsl_integration_fixed_legendre, n, 1.2, 1.6, 0.0, 0.0, 1.0e-12, 0.01505500344456001, &f, "legendre myfn1");
+    test_fixed_quadrature(gsl_integration_fixed_chebyshev, n, 1.2, 2.6, 0.0, 0.0, 1.0e-12, 0.0582346516219999, &f, "chebyshev myfn1");
+    test_fixed_quadrature(gsl_integration_fixed_gegenbauer, n, 1.2, 1.6, 2.0, 0.0, 1.0e-12, 1.2279468957162412661311711271e-5, &f, "gegenbauer myfn1");
+    test_fixed_quadrature(gsl_integration_fixed_gegenbauer, n, 1.2, 1.6, -0.5, 0.0, 1.0e-12, 1.228256086101808986e-1, &f, "gegenbauer myfn1");
+    test_fixed_quadrature(gsl_integration_fixed_jacobi, n, 1.2, 1.6, 2.0, 1.5, 1.0e-12, 3.173064776410033e-5, &f, "jacobi myfn1");
+    test_fixed_quadrature(gsl_integration_fixed_jacobi, n, 1.2, 1.6, -0.5, -0.5, 1.0e-12, 1.228256086101808986e-1, &f, "jacobi myfn1");
+    test_fixed_quadrature(gsl_integration_fixed_laguerre, n, 1.2, 0.6, 0.5, 0.0, 1.0e-12, 0.006604180366378123, &f, "laguerre myfn1");
+    test_fixed_quadrature(gsl_integration_fixed_hermite, n, 1.2, 0.6, 1.0, 0.0, 1.0e-12, 0.6542819629825344, &f, "hermite myfn1");
+    test_fixed_quadrature(gsl_integration_fixed_exponential, n, 1.2, 1.6, 2.0, 0.0, 1.0e-12, 2.1315535492168832898083633e-4, &f, "exponential myfn1");
+    test_fixed_quadrature(gsl_integration_fixed_rational, 15, 1.2, 1.6, 2.0, -33.4, 1.0e-9, 4.8457468060064844e-20, &f, "rational myfn1");
+    test_fixed_quadrature(gsl_integration_fixed_chebyshev2, n, 1.2, 2.6, 0.0, 0.0, 1.0e-12, 0.0081704088896491, &f, "chebyshev2 myfn1");
+  }
+
+  // Test Gegenbauer quadrature
+  {
+    struct monomial_params params;
+    gsl_function f;
+    const double exactarray[5] = {4.15933612154155020161400717857e-7, 744697.808572324010134504819452, 55.2024994284578980512106835228, 7.95574829722734114107142857143, 0.00179653588816666666666666666667};
+    const double aarray[5] = {0.123,7.747,1.47,-1.47,0.0};
+    const double barray[5] = {0.456,12.0,2.0,2.0,0.47};
+    const double alphaarray[5] = {2.0,0.5,-0.5,1.0,0.0};
+
+    constexpr std::size_t num_test = 5;
+    test_fixed<double> test[num_test]
+    {
+      { 0.123L,  0.456L, 4.15933612154155020161400717857e-7L,  2.0L, 0.0L},
+      { 7.747L, 12.0L,   7.44697808572324010134504819452e+5L,  0.5L, 0.0L},
+      { 1.47L,   2.0L,   5.52024994284578980512106835228e+1L, -0.5L, 0.0L},
+      {-1.47L,   2.0L,   7.95574829722734114107142857143L,     1.0L, 0.0L},
+      { 0.0L,    0.47L,  1.79653588816666666666666666667e-3L,  0.0L, 0.0L}
+    };
+
+    f.function = &f_monomial;
+    f.params = &params;
+
+    params.degree   = 5;
+    params.constant = 1.0;
+
+    std::size_t n = 50;
+    for (std::size_t k = 0; k < 5; ++k)
+      {
+        test_fixed_quadrature(gsl_integration_fixed_gegenbauer,
+			      n, test[k].a, test[k].b, test[k].alpha, 0.0,
+                              1.0e-12, test[k].r, &f, "gegenbauer monomial");
+      }
+  }
+
+  // Test Jacobi quadrature
+  {
+    struct monomial_params params;
+    gsl_function f;
+    const double exactarray[5] = {9.052430592016123480501898e-7,3.131716150347619771233591755e6,0.04435866422797298224404592896,5.287059602300844442782407,2.5337038518475893688512749675e-6};
+    const double aarray[5] = {0.123,7.747,1.47,-1.47,0.0};
+    const double barray[5] = {0.456,12.0,2.0,2.0,0.47};
+    double alpha, beta;
+
+    constexpr std::size_t num_test = 5;
+    test_fixed<double> test[num_test]
+    {
+      { 0.123L,  0.456L, 9.052430592016123480501898e-7L,     2.0L, 1.5L},
+      { 7.747L, 12.0L,   3.131716150347619771233591755e+6L,  2.0L, 1.5L},
+      { 1.47L,   2.0L,   0.0443586642279729822440459289+6L,  2.0L, 1.5L},
+      {-1.47L,   2.0L,   5.287059602300844442782407L,        2.0L, 1.5L},
+      { 0.0L,    0.47L,  2.5337038518475893688512749675e-6L, 2.0L, 1.5L}
+    };
+
+    f.function = &f_monomial;
+    f.params = &params;
+
+    params.degree   = 5;
+    params.constant = 1.0;
+
+    alpha = 2.0;
+    beta = 1.5;
+    std::size_t n = 50;
+    for (std::size_t k = 0; k < 5; ++k)
+      {
+        test_fixed_quadrature(gsl_integration_fixed_jacobi,
+			      n, test[k].a, test[k].b, alpha, beta,
+                              1.0e-12, test[k].r, &f, "jacobi monomial");
+      }
+  }
+
+  // Test Exponential quadrature
+  {
+    struct monomial_params params;
+    gsl_function f;
+    const double exactarray[5] = {1.598864206823942764921875e-4, 624615.81848571833291063083819, 0.222578063871903188095238095238, 28.8968950008739567709168294271, 4.62725113500425479890950520833e-7};
+    const double aarray[5] = {0.123,7.747,1.47,-1.47,0.0};
+    const double barray[5] = {0.456,12.0,2.0,2.0,0.47};
+    const double alphaarray[5] = {1.0,1.5,2.0,3.0,5.0};
+
+    constexpr std::size_t num_test = 5;
+    test_fixed<double> test[num_test]
+    {
+      { 0.123L,  0.456L, 1.598864206823942764921875e-4L,      1.0L, 0.0L},
+      { 7.747L, 12.0L,   6.2461581848571833291063083819e+5L,  1.5L, 0.0L},
+      { 1.47L,   2.0L,   2.22578063871903188095238095238e-1L, 2.0L, 0.0L},
+      {-1.47L,   2.0L,   2.88968950008739567709168294271e+1L, 3.0L, 0.0L},
+      { 0.0L,    0.47L,  4.62725113500425479890950520833e-7L, 5.0L, 0.0L}
+    };
+
+    f.function = &f_monomial;
+    f.params = &params;
+
+    params.degree   = 5;
+    params.constant = 1.0;
+
+    std::size_t n = 50;
+    for (std::size_t k = 0; k < 5; ++k)
+      {
+        test_fixed_quadrature(gsl_integration_fixed_exponential,
+			      n, test[k].a, test[k].b, test[k].alpha, 0.0,
+                              1.0e-12, test[k].r, &f, "exponential monomial");
+      }
+  }
+
+  // Test Rational quadrature
+  {
+    struct monomial_params params;
+    gsl_function f;
+    const double exactarray[6] = {1.312245361412108703130374957e-10,0.0170362044485924082779613124672, 8.93065131938394658578136414201e-11, 7.17990217357447544326794457270e-13, -11.0760676986664098133970869634, 0.00290392485414197833688178206557};
+    const double aarray[6] = {0.0,0.123,7.747,1.47,-1.47,0.0};
+    const double barray[6] = {2.0,0.456,12.0,2.0,2.0,0.47};
+    const double alphaarray[6] = {0.0,1.0,1.5,2.0,3.0,5.0};
+    const double betaarray[6] = {-21.0,-12.0,-13.0,-22.0,-21.0,-16.0};
+
+    constexpr std::size_t num_test = 6;
+    test_fixed<double> test[num_test]
+    {
+      { 0.0L,    2.0L,    1.312245361412108703130374957e-10,    0.0L, -21.0L},
+      { 0.123L,  0.456L,  1.70362044485924082779613124672e-2L,  1.0L, -12.0L},
+      { 7.747L, 12.0L,    8.93065131938394658578136414201e-11L, 1.5L, -13.0L},
+      { 1.47L,   2.0L,    7.17990217357447544326794457270e-13L, 2.0L, -22.0L},
+      {-1.47L,   2.0L,   -1.10760676986664098133970869634e+1L,  3.0L, -21.0L},
+      { 0.0L,    0.47L,   2.90392485414197833688178206557e-3L,  5.0L, -16.0L}
+    };
+
+    f.function = &f_monomial;
+    f.params = &params;
+
+    params.degree   = 5;
+    params.constant = 1.0;
+
+    std::size_t n = 5;
+    for (std::size_t k = 0; k < 5; ++k)
+      {
+        test_fixed_quadrature(gsl_integration_fixed_rational,
+			      n, test[k].a, test[k].b, test[k].alpha, test[k].beta,
+                              1.0e-12, test[k].r, &f, "rational monomial");
+      }
+  }
+*/
   exit(quadrature_test<double>::test_summary());
 }
 

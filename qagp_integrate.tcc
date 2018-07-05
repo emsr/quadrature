@@ -57,8 +57,8 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
    *
    * @param[in] __workspace The workspace that manages adaptive quadrature
    * @param[in] __func The single-variable function to be integrated
-   * @param[in] __pts The sorted array of points including the integration limits
-   *                  and intermediate discontinuities/singularities
+   * @param[in] __pts The sorted array of points including the integration
+   *                  limits and intermediate discontinuities/singularities
    * @param[in] __max_iter The maximum number of integration steps allowed
    * @param[in] __max_abs_err The limit on absolute error
    * @param[in] __max_rel_err The limit on relative error
@@ -140,7 +140,8 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
       __workspace.sort_error();
 
       // Test on accuracy.
-      auto __tolerance = std::max(__max_abs_err, __max_rel_err * std::abs(__result0));
+      auto __tolerance = std::max(__max_abs_err,
+				  __max_rel_err * std::abs(__result0));
 
       if (__abserr0 <= 100 * _S_eps * __resabs0
 	   && __abserr0 > __tolerance)
@@ -172,22 +173,20 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
       do
 	{
 	  // Bisect the subinterval with the largest error estimate.
+	  const auto& __curr = __workspace.retrieve();
 
-	  _Tp __a_i, __b_i, __r_i, __e_i;
-	  __workspace.retrieve(__a_i, __b_i, __r_i, __e_i);
+	  const auto __current_depth = __workspace.curr_depth() + 1;
 
-	  const auto __current_depth = __workspace.current_depth() + 1;
-
-	  const auto __a1 = __a_i;
-	  const auto __b1 = (__a_i + __b_i) / _Tp{2};
-	  const auto __a2 = __b1;
-	  const auto __b2 = __b_i;
+	  const auto __a1 = __curr.__lower_lim;
+	  const auto __mid = (__curr.__lower_lim + __curr.__upper_lim) / _Tp{2};
+	  const auto __a2 = __mid;
+	  const auto __b2 = __curr.__upper_lim;
 
 	  ++__iteration;
 
 	  _Tp __area1, __error1, __resabs1, __resasc1;
 	  std::tie(__area1, __error1, __resabs1, __resasc1)
-	    = __quad(__func, __a1, __b1);
+	    = __quad(__func, __a1, __mid);
 
 	  _Tp __area2, __error2, __resabs2, __resasc2;
 	  std::tie(__area2, __error2, __resabs2, __resasc2)
@@ -195,29 +194,30 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
 
 	  const auto __area12 = __area1 + __area2;
 	  const auto __error12 = __error1 + __error2;
-	  const auto __last_e_i = __e_i;
+	  const auto __last_e_i = __curr.__abs_error;
 
 	  // Improve previous approximations to the integral and test for
 	  // accuracy.
 
-	  __errsum += __error12 - __e_i;
-	  __area += __area12 - __r_i;
+	  __errsum += __error12 - __curr.__abs_error;
+	  __area += __area12 - __curr.__result;
 
-	  __tolerance = std::max(__max_abs_err, __max_rel_err * std::abs(__area));
+	  __tolerance = std::max(__max_abs_err,
+				 __max_rel_err * std::abs(__area));
 
 	  if (__resasc1 != __error1 && __resasc2 != __error2)
 	    {
-	      const auto __delta = __r_i - __area12;
+	      const auto __delta = __curr.__result - __area12;
 
 	      if (std::abs(__delta) <= _S_rel_err * std::abs(__area12)
-		   && __error12 >= 0.99 * __e_i)
+		   && __error12 >= 0.99 * __curr.__abs_error)
 		{
 		  if (!__extrapolate)
 		    ++__roundoff_type1;
 		  else
 		    ++__roundoff_type2;
 		}
-	      if (__iteration > 10 && __error12 > __e_i)
+	      if (__iteration > 10 && __error12 > __curr.__abs_error)
 		++__roundoff_type3;
 	    }
 
@@ -237,7 +237,7 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
 	    __error_type = EXTRAP_ROUNDOFF_ERROR;
 
 	  // Split the current interval in two.
-	  __workspace.split(__b1, __area1, __error1, __area2, __error2);
+	  __workspace.split(__mid, __area1, __error1, __area2, __error2);
 
 	  if (__errsum <= __tolerance)
 	    {
@@ -272,7 +272,7 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
 	      else
 		{
 		  __extrapolate = true;
-		  __workspace.set_start(1);
+		  __workspace.increment_curr_index();
 		}
 	    }
 
@@ -283,7 +283,7 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
 
 	  if (__error_type2 == NO_ERROR
 	   && __error_over_large_intervals > __ertest)
-	    if (__workspace.increment_start())
+	    if (__workspace.increment_curr_index())
 	      continue;
 
 	  // Perform extrapolation.
@@ -291,7 +291,7 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
 
 	  if (__table.get_nn() < 3)
 	    {
-	      __workspace.reset_start();
+	      __workspace.reset_curr_index();
 	      __extrapolate = false;
 	      __error_over_large_intervals = __errsum;
 	      continue;
@@ -309,7 +309,8 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
 	      __err_ext = __abseps;
 	      __res_ext = __reseps;
 	      __correc = __error_over_large_intervals;
-	      __ertest = std::max(__max_abs_err, __max_rel_err * std::abs(__reseps));
+	      __ertest = std::max(__max_abs_err,
+				  __max_rel_err * std::abs(__reseps));
 	      if (__err_ext <= __ertest)
 		break;
 	    }
@@ -321,8 +322,8 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
 	  if (__error_type == DIVERGENCE_ERROR)
 	    break;
 
-	  // Work on interval with largest error.
-	  __workspace.reset_start();
+	  // Work on interval with largest absolute error.
+	  __workspace.reset_curr_index();
 	  __extrapolate = false;
 	  __error_over_large_intervals = __errsum;
 	}
@@ -394,8 +395,8 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
    *
    * @param[in] __workspace The workspace that manages adaptive quadrature
    * @param[in] __func The single-variable function to be integrated
-   * @param[in] __pts The sorted array of points including the integration limits
-   *                  and intermediate discontinuities/singularities
+   * @param[in] __pts The sorted array of points including the integration
+   *                  limits and intermediate discontinuities/singularities
    * @param[in] __max_iter The maximum number of integration steps allowed
    * @param[in] __max_abs_err The limit on absolute error
    * @param[in] __max_rel_err The limit on relative error

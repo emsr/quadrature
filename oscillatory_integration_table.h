@@ -62,6 +62,13 @@ namespace __gnu_cxx
 	  {
 	    this->compute_moments(this->par * __scale, __i);
 	    __scale *= 0.5;
+	    // Prevent divide by zero.
+	    if (const auto __scale2 = __scale * __scale;
+		__scale2 * __scale2 == _Tp{0})
+	      {
+		this->n = __i;
+		break;
+	      }
 	  }
       }
 

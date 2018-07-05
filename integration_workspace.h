@@ -41,42 +41,47 @@ namespace __gnu_cxx
 
       struct interval
       {
-	_Tp _M_lower_lim;
-	_Tp _M_upper_lim;
-	_Tp _M_result;
-	_Tp _M_abs_error;
-	std::size_t _M_depth;
+	_Tp __lower_lim;
+	_Tp __upper_lim;
+	_Tp __result;
+	_Tp __abs_error;
+	std::size_t __depth;
 
 	bool
 	operator<(const interval& __iv)
-	{ return this->_M_abs_error < __iv._M_abs_error; }
+	{ return this->__abs_error < __iv.__abs_error; }
       };
 
       /**
        * Comparison of quadrature intervals.
+       * The comparison is by absolute error.
        */
       struct interval_comp
       {
 	bool
 	operator()(const interval& __ivl,
 		   const interval& __ivr)
-	{ return __ivl._M_abs_error < __ivr._M_abs_error; }
+	{ return __ivl.__abs_error < __ivr.__abs_error; }
       };
 
       // The start of the heap.
       // This allows to skip the actual max error.
-      std::size_t _M_start;
+      std::size_t _M_curr_index;
 
       // The current maximum depth.
       std::size_t _M_max_depth;
+
+      // The maximum size of the workspace.
+      std::size_t _M_max_size;
 
       std::vector<interval> _M_ival;
 
     public:
 
       integration_workspace(std::size_t __cap)
-      : _M_start{0},
+      : _M_curr_index{0},
 	_M_max_depth{0},
+	_M_max_size(__cap),
 	_M_ival{}
       {
 	_M_ival.reserve(__cap);
@@ -91,55 +96,74 @@ namespace __gnu_cxx
 		 _Tp __area1, _Tp __error1,
 		 _Tp __area2, _Tp __error2);
 
-      void
-      retrieve(_Tp& __lolim, _Tp& __uplim, _Tp& __res, _Tp& __err) const
-      {
-	__lolim = this->_M_ival[this->_M_start]._M_lower_lim;
-	__uplim = this->_M_ival[this->_M_start]._M_upper_lim;
-	__res = this->_M_ival[this->_M_start]._M_result;
-	__err = this->_M_ival[this->_M_start]._M_abs_error;
-      }
+      const interval&
+      retrieve() const
+      { return this->_M_ival[this->curr_index()]; }
 
       std::size_t
       size() const
       { return this->_M_ival.size(); }
 
       std::size_t
+      max_size() const
+      { return this->_M_max_size; }
+
+      std::size_t
       capacity() const
       { return this->_M_ival.capacity(); }
 
+      /**
+       * Return the current segment - the beginning of the vector + start
+       * as an iterator.
+       */
       typename std::vector<interval>::iterator
       begin()
-      { return this->_M_ival.begin() + this->_M_start; }
+      { return this->_M_ival.begin() + this->curr_index(); }
 
+      /**
+       * Return the end iterator of the vector.
+       */
       typename std::vector<interval>::iterator
       end()
       { return this->_M_ival.end(); }
 
+      /**
+       * Return the current segment - the top of the heap - as an lvalue.
+       */
       const interval&
       top() const
-      { return this->_M_ival[this->_M_start]; }
+      { return this->_M_ival[this->curr_index()]; }
 
+      /**
+       * Return the current segment - the top of the heap - as an rvalue.
+       */
       interval&
       top()
-      { return this->_M_ival[this->_M_start]; }
+      { return this->_M_ival[this->curr_index()]; }
 
       void
       clear()
       {
-	this->_M_start = 0;
+	this->_M_curr_index = 0;
 	this->_M_max_depth = 0;
 	this->_M_ival.clear();
       }
 
+      /**
+       * Push a new segment into the current heap.
+       * N.B. this->begin() includes curr_index()!
+       */
       void
       push(const interval& __iv)
       {
 	this->_M_ival.push_back(__iv);
-	std::push_heap(this->begin(), this->end(),
-		       interval_comp{});
+	std::push_heap(this->begin(), this->end(), interval_comp{});
       }
 
+      /**
+       * Pop the current segment out of teh heap and erase it from the vector.
+       * N.B. this->begin() includes curr_index()!
+       */
       void
       pop()
       {
@@ -147,68 +171,97 @@ namespace __gnu_cxx
 	this->_M_ival.pop_back();
       }
 
+      /**
+       * Return the lower limit for the segment at start + ii.
+       */
       _Tp
       lower_lim(std::size_t __ii = 0) const
-      { return this->_M_ival[this->_M_start + __ii]._M_lower_lim; }
+      { return this->_M_ival[this->curr_index() + __ii].__lower_lim; }
 
+      /**
+       * Return the upper limit for the segment at start + ii.
+       */
       _Tp
       upper_lim(std::size_t __ii = 0) const
-      { return this->_M_ival[this->_M_start + __ii]._M_upper_lim; }
+      { return this->_M_ival[this->curr_index() + __ii].__upper_lim; }
 
+      /**
+       * Return the integration result for the segment at start + ii.
+       */
       _Tp
       result(std::size_t __ii = 0) const
-      { return this->_M_ival[this->_M_start + __ii]._M_result; }
+      { return this->_M_ival[this->curr_index() + __ii].__result; }
 
+      /**
+       * Return the absolute error for the segment at start + ii.
+       */
       _Tp
       abs_error(std::size_t __ii = 0) const
-      { return this->_M_ival[this->_M_start + __ii]._M_abs_error; }
+      { return this->_M_ival[this->curr_index() + __ii].__abs_error; }
 
+      /**
+       * Return the subdivision depth for the segment at start + ii.
+       */
       size_t
       depth(std::size_t __ii = 0) const
-      { return this->_M_ival[this->_M_start + __ii]._M_depth; }
+      { return this->_M_ival[this->curr_index() + __ii].__depth; }
 
-      // Only used by qagp
+      /**
+       * Set the absolute error of the segment at start + ii to the given value.
+       * Only used by qagp.
+       */
       _Tp
       set_abs_error(std::size_t __ii, _Tp __abserr)
-      { return this->_M_ival[this->_M_start + __ii]._M_abs_error = __abserr; }
+      { return this->_M_ival[this->curr_index() + __ii].__abs_error = __abserr; }
 
-      // Only used by qagp
+      /**
+       * Set the depth of segment at start + ii to the given value.
+       * Only used by qagp.
+       */
       void
       set_depth(std::size_t __ii, std::size_t __d)
-      { this->_M_ival[this->_M_start + __ii]._M_depth = __d; }
+      { this->_M_ival[this->curr_index() + __ii].__depth = __d; }
 
+      bool increment_curr_index();
+
+      /**
+       * Reset the index of the current segment to zero.
+       * The entire segment vector will me made into a heap.
+       */
       void
-      set_start(std::size_t __start)
+      reset_curr_index()
       {
-	this->_M_start = __start;
+	this->_M_curr_index = 0;
 	this->sort_error();
       }
 
-      bool increment_start();
-
-      void
-      reset_start()
-      {
-	this->_M_start = 0;
-	this->sort_error();
-      }
-
+      /**
+       * Return the depth of the current segment.
+       */
       std::size_t
-      current_depth() const
-      { return this->_M_ival[this->_M_start]._M_depth; }
+      curr_depth() const
+      { return this->_M_ival[this->curr_index()].__depth; }
 
       std::size_t
       max_depth() const
       { return this->_M_max_depth; }
 
+      /**
+       * Return the index of the current segment in the segment vector.
+       * The segments in [start, end) will be maintained in a heap.
+       */
       std::size_t
-      start() const
-      { return this->_M_start; }
+      curr_index() const
+      { return this->_M_curr_index; }
 
+      /**
+       * Return true if the subdivision depth of the current segment
+       * is less than the maximum depth.
+       */
       bool
       large_interval() const
       {
-	if (this->current_depth() < this->max_depth())
+	if (this->curr_depth() < this->max_depth())
 	  return true;
 	else
 	  return false;
@@ -221,7 +274,7 @@ namespace __gnu_cxx
       {
 	auto __result_sum = _Tp{0};
 	for (const auto& __iv : this->_M_ival)
-	  __result_sum += __iv._M_result;
+	  __result_sum += __iv.__result;
 	return __result_sum;
       }
 
@@ -231,7 +284,7 @@ namespace __gnu_cxx
       {
 	auto __tot_error = _Tp{0};
 	for (auto& __iv : this->_M_ival)
-	  __tot_error += __iv._M_abs_error;
+	  __tot_error += __iv.__abs_error;
 	return __tot_error;
       }
 
