@@ -70,6 +70,8 @@ check:
 
 
 test: $(BIN_DIR)/test_quadrature
+	$(BIN_DIR)/test_phase_iterator > test_phase_iterator.txt 2> test_phase_iterator.err
+	$(BIN_DIR)/test_mapper > test_mapper.txt 2> test_mapper.err
 	$(BIN_DIR)/test_quadrature > test_quadrature.txt 2> test_quadrature.err
 
 

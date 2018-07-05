@@ -52,9 +52,17 @@ namespace __gnu_cxx
       _Tp
       operator()(_Tp __t) const
       {
-	auto __x = (_Tp{1} - __t) / __t;
-	auto __y = _M_func(__x) + _M_func(-__x);
-	return (__y / __t) / __t;
+	if (__t == _Tp{0})
+	  return -std::numeric_limits<_Tp>::infinity();
+	else if (__t == _Tp{1})
+	  return +std::numeric_limits<_Tp>::infinity();
+	else
+	  {
+	    auto __x = -_Tp{1} / __t + _Tp{1} / (_Tp{1} - __t);
+	    auto __y = _M_func(__x);
+	    return __y * (_Tp{1} / __t / __t
+			+ _Tp{1} / (_Tp{1} - __t) / (_Tp{1} - __t));
+	  }
       }
     };
 
@@ -76,9 +84,14 @@ namespace __gnu_cxx
       _Tp
       operator()(_Tp __t) const
       {
-	auto __x = _M_b - (_Tp{1} - __t) / __t;
-	auto __y = _M_func(__x);
-	return (__y / __t) / __t;
+	if (__t == _Tp{0})
+	  return -std::numeric_limits<_Tp>::infinity();
+	else
+	  {
+	    auto __x = _M_b - (_Tp{1} - __t) / __t;
+	    auto __y = _M_func(__x);
+	    return __y / __t / __t;
+	  }
       }
     };
 
@@ -100,9 +113,14 @@ namespace __gnu_cxx
       _Tp
       operator()(_Tp __t) const
       {
-	_Tp __x = _M_a + (_Tp{1} - __t) / __t;
-	_Tp __y = _M_func(__x);
-	return (__y / __t) / __t;
+	if (__t == _Tp{1})
+	  return +std::numeric_limits<_Tp>::infinity();
+	else
+	  {
+	    _Tp __x = _M_a + __t / (_Tp{1} - __t);
+	    _Tp __y = _M_func(__x);
+	    return __y / (_Tp{1} - __t) / (_Tp{1} - __t);
+	  }
       }
     };
 
