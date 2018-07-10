@@ -413,7 +413,7 @@ namespace __gnu_cxx
 		  _FuncTp __func,
 		  _Tp __lower, _Tp __upper,
 		  _Tp __max_abs_err, _Tp __max_rel_err,
-                  Kronrod_Rule __qk_rule = QK_21)
+                  Kronrod_Rule __qk_rule = QK_15)
     {
       auto __quad
 	= [__qk_rule]
