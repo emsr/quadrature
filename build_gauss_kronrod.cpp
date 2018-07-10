@@ -107,7 +107,7 @@ template<typename _Tp>
 	std::ostringstream __msg;
 	__msg << "\nget_kronrod: Iteration limit reached. eps = " << __eps
 	      << "; Last delta was " << __delta << ".\n";
-	throw std::runtime_error(__msg.str());
+	std::__throw_runtime_error(__msg.str().c_str());
       }
 
     // Computation of the weight.
@@ -217,7 +217,7 @@ template<typename _Tp>
 	std::ostringstream __msg;
 	__msg << "__get_gauss: Iteration limit reached."<< " eps = " << __eps
 	      << "; Last delta was " << __delta << ".\n";
-	throw std::runtime_error(__msg.str());
+	std::__throw_runtime_error(__msg.str().c_str());
       }
 
     // Computation of the weights.
