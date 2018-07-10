@@ -53,26 +53,26 @@ all: $(OBJ_DIR) $(BINS)
 
 
 check:
-	$(BIN_DIR)/assoc_laguerre_test > assoc_laguerre_test.txt 2> assoc_laguerre_test.err
-	$(BIN_DIR)/assoc_legendre_test > assoc_legendre_test.txt 2> assoc_legendre_test.err
-	$(BIN_DIR)/sph_legendre_test > sph_legendre_test.txt 2> sph_legendre_test.err
-	$(BIN_DIR)/chebyshev_t_test > chebyshev_t_test.txt 2> chebyshev_t_test.err
-	$(BIN_DIR)/chebyshev_u_test > chebyshev_u_test.txt 2> chebyshev_u_test.err
-	$(BIN_DIR)/chebyshev_v_test > chebyshev_v_test.txt 2> chebyshev_v_test.err
-	$(BIN_DIR)/chebyshev_w_test > chebyshev_w_test.txt 2> chebyshev_w_test.err
-	$(BIN_DIR)/gegenbauer_test > gegenbauer_test.txt 2> gegenbauer_test.err
-	$(BIN_DIR)/hermite_test > hermite_test.txt 2> hermite_test.err
-	$(BIN_DIR)/jacobi_test > jacobi_test.txt 2> jacobi_test.err
-	$(BIN_DIR)/laguerre_test > laguerre_test.txt 2> laguerre_test.err
-	$(BIN_DIR)/legendre_test > legendre_test.txt 2> legendre_test.err
-	$(BIN_DIR)/radpoly_test > radpoly_test.txt 2> radpoly_test.err
-	$(BIN_DIR)/zernike_test > zernike_test.txt 2> zernike_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/assoc_laguerre_test > assoc_laguerre_test.txt 2> assoc_laguerre_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/assoc_legendre_test > assoc_legendre_test.txt 2> assoc_legendre_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/sph_legendre_test > sph_legendre_test.txt 2> sph_legendre_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/chebyshev_t_test > chebyshev_t_test.txt 2> chebyshev_t_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/chebyshev_u_test > chebyshev_u_test.txt 2> chebyshev_u_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/chebyshev_v_test > chebyshev_v_test.txt 2> chebyshev_v_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/chebyshev_w_test > chebyshev_w_test.txt 2> chebyshev_w_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/gegenbauer_test > gegenbauer_test.txt 2> gegenbauer_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/hermite_test > hermite_test.txt 2> hermite_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/jacobi_test > jacobi_test.txt 2> jacobi_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/laguerre_test > laguerre_test.txt 2> laguerre_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/legendre_test > legendre_test.txt 2> legendre_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/radpoly_test > radpoly_test.txt 2> radpoly_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/zernike_test > zernike_test.txt 2> zernike_test.err
 
 
 test: $(BIN_DIR)/test_quadrature
-	$(BIN_DIR)/test_phase_iterator > test_phase_iterator.txt 2> test_phase_iterator.err
-	$(BIN_DIR)/test_mapper > test_mapper.txt 2> test_mapper.err
-	$(BIN_DIR)/test_quadrature > test_quadrature.txt 2> test_quadrature.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_phase_iterator > test_phase_iterator.txt 2> test_phase_iterator.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_mapper > test_mapper.txt 2> test_mapper.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_quadrature > test_quadrature.txt 2> test_quadrature.err
 
 
 # Binaries...
