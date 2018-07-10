@@ -15,7 +15,7 @@ ifeq ("$(wildcard $(CXX_INST_DIR))","")
 endif
 
 #OPT = -O3
-OPT = -g -fsanitize=float-divide-by-zero -fsanitize=float-cast-overflow
+OPT = -g -fsanitize=float-divide-by-zero -fsanitize=float-cast-overflow -fsanitize=alignment
 GCC = $(CXX_INST_DIR)/bin/gcc $(OPT) -Wall -Wextra
 CXX = $(CXX_INST_DIR)/bin/g++ -std=gnu++14 $(OPT) -D__STDCPP_WANT_MATH_SPEC_FUNCS__ -Wall -Wextra -Wno-psabi -I..
 CXX17 = $(CXX_INST_DIR)/bin/g++ -std=gnu++17 -fconcepts $(OPT) -Wall -Wextra -Wno-psabi -I..
@@ -70,6 +70,8 @@ check:
 
 
 test: $(BIN_DIR)/test_quadrature
+	$(BIN_DIR)/test_phase_iterator > test_phase_iterator.txt 2> test_phase_iterator.err
+	$(BIN_DIR)/test_mapper > test_mapper.txt 2> test_mapper.err
 	$(BIN_DIR)/test_quadrature > test_quadrature.txt 2> test_quadrature.err
 
 
