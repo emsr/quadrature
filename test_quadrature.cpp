@@ -34,6 +34,20 @@ $HOME/bin/bin/g++ -std=gnu++17 -fconcepts -g -Wall -Wextra -Wno-psabi -I.. -c -o
 #include "testcase.h"
 #include "func_utils.h"
 
+template<typename _Tp>
+  inline constexpr _Tp
+  prec_fixed = _Tp{1.0e-12}; // 10^{digits/10}*epsilon()?
+
+template<>
+  inline constexpr float
+  prec_fixed<float> = 1.0e-6F;
+
+template<>
+  inline constexpr long double
+  prec_fixed<long double> = 1.0e-14F;
+
+
+
 /**
  * 
  */
@@ -213,6 +227,7 @@ template<typename _Tp>
       }
   }
 
+
 template<typename _Tp>
   void
   quadrature_test<_Tp>::test_factor(_Tp result, _Tp expected, _Tp factor,
@@ -317,7 +332,7 @@ template<typename _Tp>
 
 template<typename _Tp>
   void
-  belch(const __gnu_cxx::__integration_error<double>& iex)
+  belch(const __gnu_cxx::__integration_error<_Tp>& iex)
   {
     std::cout << "ERROR: " << iex.what()
 	      << "       status = " << iex.error_code()
@@ -352,14 +367,14 @@ test_quadrature()
     {
       //std::cout << ">>>> Test Gauss-Kronrod 15 with a smooth positive function..." << std::endl;
 
-      double exp_result = 7.716049357767090777e-02L;
-      double exp_abserr = 2.990224871000550874e-06L;
-      double exp_resabs = 7.716049357767090777e-02L;
-      double exp_resasc = 4.434273814139995384e-02L;
-      quadrature_test<double> qtest;
+      const auto exp_result = _Tp{7.716049357767090777e-02L};
+      const auto exp_abserr = _Tp{2.990224871000550874e-06L};
+      const auto exp_resabs = _Tp{7.716049357767090777e-02L};
+      const auto exp_resasc = _Tp{4.434273814139995384e-02L};
+      quadrature_test<_Tp> qtest;
 
-      double alpha = 2.6L;
-      auto f = make_function<double>(f1<double>, alpha);
+      const auto alpha = _Tp{2.6L};
+      auto f = make_function<_Tp>(f1<_Tp>, alpha);
 
       auto [result, abserr, resabs, resasc]
 	= qk_integrate(f, _Tp{0}, _Tp{1}, __gnu_cxx::QK_15);
@@ -376,9 +391,9 @@ test_quadrature()
       qtest.test_relative(resabs, exp_resabs, fpeps, "qk15(f1) reverse resabs");
       qtest.test_relative(resasc, exp_resasc, fpeps, "qk15(f1) reverse resasc");
     }
-  catch (__gnu_cxx::__integration_error<double>& iex)
+  catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
-      belch<double>(iex);
+      belch<_Tp>(iex);
     }
   catch (std::exception& ex)
     {
@@ -391,14 +406,14 @@ test_quadrature()
     {
       //std::cout << ">>>> Test Gauss-Kronrod 21 with a smooth positive function..." << std::endl;
 
-      double exp_result = 7.716049379303084599e-02L;
-      double exp_abserr = 9.424302194248481445e-08L;
-      double exp_resabs = 7.716049379303084599e-02L;
-      double exp_resasc = 4.434311425038358484e-02L;
-      quadrature_test<double> qtest;
+      const auto exp_result = _Tp{7.716049379303084599e-02L};
+      const auto exp_abserr = _Tp{9.424302194248481445e-08L};
+      const auto exp_resabs = _Tp{7.716049379303084599e-02L};
+      const auto exp_resasc = _Tp{4.434311425038358484e-02L};
+      quadrature_test<_Tp> qtest;
 
-      double alpha = 2.6L;
-      auto f = make_function<double>(f1<double>, alpha);
+      const auto alpha = _Tp{2.6L};
+      auto f = make_function<_Tp>(f1<_Tp>, alpha);
 
       auto [result, abserr, resabs, resasc]
 	= __gnu_cxx::qk_integrate(f, _Tp{0}, _Tp{1}, __gnu_cxx::QK_21);
@@ -414,9 +429,9 @@ test_quadrature()
       qtest.test_relative(resabs, exp_resabs, fpeps, "qk21(f1) reverse resabs");
       qtest.test_relative(resasc, exp_resasc, fpeps, "qk21(f1) reverse resasc");
     }
-  catch (__gnu_cxx::__integration_error<double>& iex)
+  catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
-      belch<double>(iex);
+      belch<_Tp>(iex);
     }
   catch (std::exception& ex)
     {
@@ -429,14 +444,14 @@ test_quadrature()
     {
       //std::cout << ">>>> Test Gauss-Kronrod 31 with a smooth positive function..." << std::endl;
 
-      double exp_result = 7.716049382494900855e-02L;
-      double exp_abserr = 1.713503193600029893e-09L;
-      double exp_resabs = 7.716049382494900855e-02L;
-      double exp_resasc = 4.427995051868838933e-02L;
-      quadrature_test<double> qtest;
+      const auto exp_result = _Tp{7.716049382494900855e-02L};
+      const auto exp_abserr = _Tp{1.713503193600029893e-09L};
+      const auto exp_resabs = _Tp{7.716049382494900855e-02L};
+      const auto exp_resasc = _Tp{4.427995051868838933e-02L};
+      quadrature_test<_Tp> qtest;
 
-      double alpha = 2.6L;
-      auto f = make_function<double>(f1<double>, alpha);
+      const auto alpha = _Tp{2.6L};
+      auto f = make_function<_Tp>(f1<_Tp>, alpha);
 
       auto [result, abserr, resabs, resasc]
 	= __gnu_cxx::qk_integrate(f, _Tp{0}, _Tp{1}, __gnu_cxx::QK_31);
@@ -452,9 +467,9 @@ test_quadrature()
       qtest.test_relative(resabs, exp_resabs, fpeps, "qk31(f1) reverse resabs");
       qtest.test_relative(resasc, exp_resasc, fpeps, "qk31(f1) reverse resasc");
     }
-  catch (__gnu_cxx::__integration_error<double>& iex)
+  catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
-      belch<double>(iex);
+      belch<_Tp>(iex);
     }
   catch (std::exception& ex)
     {
@@ -467,14 +482,14 @@ test_quadrature()
     {
       //std::cout << ">>>> Test Gauss-Kronrod 41 with a smooth positive function..." << std::endl;
 
-      double exp_result = 7.716049382681375302e-02L;
-      double exp_abserr = 9.576386660975511224e-11L;
-      double exp_resabs = 7.716049382681375302e-02L;
-      double exp_resasc = 4.421521169637691873e-02L;
-      quadrature_test<double> qtest;
+      const auto exp_result = _Tp{7.716049382681375302e-02L};
+      const auto exp_abserr = _Tp{9.576386660975511224e-11L};
+      const auto exp_resabs = _Tp{7.716049382681375302e-02L};
+      const auto exp_resasc = _Tp{4.421521169637691873e-02L};
+      quadrature_test<_Tp> qtest;
 
-      double alpha = 2.6L;
-      auto f = make_function<double>(f1<double>, alpha);
+      const auto alpha = _Tp{2.6L};
+      auto f = make_function<_Tp>(f1<_Tp>, alpha);
 
       auto [result, abserr, resabs, resasc]
 	= __gnu_cxx::qk_integrate(f, _Tp{0}, _Tp{1}, __gnu_cxx::QK_41);
@@ -490,9 +505,9 @@ test_quadrature()
       qtest.test_relative(resabs, exp_resabs, fpeps, "qk41(f1) reverse resabs");
       qtest.test_relative(resasc, exp_resasc, fpeps, "qk41(f1) reverse resasc");
     }
-  catch (__gnu_cxx::__integration_error<double>& iex)
+  catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
-      belch<double>(iex);
+      belch<_Tp>(iex);
     }
   catch (std::exception& ex)
     {
@@ -505,14 +520,14 @@ test_quadrature()
     {
       //std::cout << ">>>> Test Gauss-Kronrod 51 with a smooth positive function..." << std::endl;
 
-      double exp_result = 7.716049382708510540e-02L;
-      double exp_abserr = 1.002079980317363772e-11L;
-      double exp_resabs = 7.716049382708510540e-02L;
-      double exp_resasc = 4.416474291216854892e-02L;
-      quadrature_test<double> qtest;
+      const auto exp_result = _Tp{7.716049382708510540e-02L};
+      const auto exp_abserr = _Tp{1.002079980317363772e-11L};
+      const auto exp_resabs = _Tp{7.716049382708510540e-02L};
+      const auto exp_resasc = _Tp{4.416474291216854892e-02L};
+      quadrature_test<_Tp> qtest;
 
-      double alpha = 2.6L;
-      auto f = make_function<double>(f1<double>, alpha);
+      const auto alpha = 2.6L;
+      auto f = make_function<_Tp>(f1<_Tp>, alpha);
 
       auto [result, abserr, resabs, resasc]
 	= __gnu_cxx::qk_integrate(f, _Tp{0}, _Tp{1}, __gnu_cxx::QK_51);
@@ -528,9 +543,9 @@ test_quadrature()
       qtest.test_relative(resabs, exp_resabs, fpeps, "qk51(f1) reverse resabs");
       qtest.test_relative(resasc, exp_resasc, fpeps, "qk51(f1) reverse resasc");
     }
-  catch (__gnu_cxx::__integration_error<double>& iex)
+  catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
-      belch<double>(iex);
+      belch<_Tp>(iex);
     }
   catch (std::exception& ex)
     {
@@ -543,14 +558,14 @@ test_quadrature()
     {
       //std::cout << ">>>> Test Gauss-Kronrod 61 with a smooth positive function..." << std::endl;
 
-      double exp_result = 7.716049382713800753e-02L;
-      double exp_abserr = 1.566060362296155616e-12L;
-      double exp_resabs = 7.716049382713800753e-02L;
-      double exp_resasc = 4.419287685934316506e-02L;
-      quadrature_test<double> qtest;
+      const auto exp_result = _Tp{7.716049382713800753e-02L};
+      const auto exp_abserr = _Tp{1.566060362296155616e-12L};
+      const auto exp_resabs = _Tp{7.716049382713800753e-02L};
+      const auto exp_resasc = _Tp{4.419287685934316506e-02L};
+      quadrature_test<_Tp> qtest;
 
-      double alpha = 2.6L;
-      auto f = make_function<double>(f1<double>, alpha);
+      const auto alpha = 2.6L;
+      auto f = make_function<_Tp>(f1<_Tp>, alpha);
 
       auto [result, abserr, resabs, resasc]
 	= __gnu_cxx::qk_integrate(f, _Tp{0}, _Tp{1}, __gnu_cxx::QK_61);
@@ -566,9 +581,9 @@ test_quadrature()
       qtest.test_relative(resabs, exp_resabs, fpeps, "qk61(f1) reverse resabs");
       qtest.test_relative(resasc, exp_resasc, fpeps, "qk61(f1) reverse resasc");
     }
-  catch (__gnu_cxx::__integration_error<double>& iex)
+  catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
-      belch<double>(iex);
+      belch<_Tp>(iex);
     }
   catch (std::exception& ex)
     {
@@ -585,14 +600,14 @@ test_quadrature()
     {
       //std::cout << ">>>> Test Gauss-Kronrod 15 with a singular positive function..." << std::endl;
 
-      double exp_result = 1.555688196612745777e+01L;
-      double exp_abserr = 2.350164577239293706e+01L;
-      double exp_resabs = 1.555688196612745777e+01L;
-      double exp_resasc = 2.350164577239293706e+01L;
-      quadrature_test<double> qtest;
+      const auto exp_result = _Tp{1.555688196612745777e+01L};
+      const auto exp_abserr = _Tp{2.350164577239293706e+01L};
+      const auto exp_resabs = _Tp{1.555688196612745777e+01L};
+      const auto exp_resasc = _Tp{2.350164577239293706e+01L};
+      quadrature_test<_Tp> qtest;
 
-      double alpha = -0.9L;
-      auto f = make_function<double>(f1<double>, alpha);
+      const auto alpha = -0.9L;
+      auto f = make_function<_Tp>(f1<_Tp>, alpha);
 
       auto [result, abserr, resabs, resasc]
 	= __gnu_cxx::qk_integrate(f, _Tp{0}, _Tp{1}, __gnu_cxx::QK_15);
@@ -608,9 +623,9 @@ test_quadrature()
       qtest.test_relative(resabs, exp_resabs, fpeps, "qk15(f1) reverse resabs");
       qtest.test_relative(resasc, exp_resasc, fpeps, "qk15(f1) reverse resasc");
     }
-  catch (__gnu_cxx::__integration_error<double>& iex)
+  catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
-      belch<double>(iex);
+      belch<_Tp>(iex);
     }
   catch (std::exception& ex)
     {
@@ -623,14 +638,14 @@ test_quadrature()
     {
       //std::cout << ">>>> Test Gauss-Kronrod 21 with a singular positive function..." << std::endl;
 
-      double exp_result = 1.799045317938126232e+01L;
-      double exp_abserr = 2.782360287710622515e+01L;
-      double exp_resabs = 1.799045317938126232e+01L;
-      double exp_resasc = 2.782360287710622515e+01L;
-      quadrature_test<double> qtest;
+      const auto exp_result = _Tp{1.799045317938126232e+01L};
+      const auto exp_abserr = _Tp{2.782360287710622515e+01L};
+      const auto exp_resabs = _Tp{1.799045317938126232e+01L};
+      const auto exp_resasc = _Tp{2.782360287710622515e+01L};
+      quadrature_test<_Tp> qtest;
 
-      double alpha = -0.9L;
-      auto f = make_function<double>(f1<double>, alpha);
+      const auto alpha = -0.9L;
+      auto f = make_function<_Tp>(f1<_Tp>, alpha);
 
       auto [result, abserr, resabs, resasc]
 	= __gnu_cxx::qk_integrate(f, _Tp{0}, _Tp{1}, __gnu_cxx::QK_21);
@@ -646,9 +661,9 @@ test_quadrature()
       qtest.test_relative(resabs, exp_resabs, fpeps, "qk21(f1) reverse resabs");
       qtest.test_relative(resasc, exp_resasc, fpeps, "qk21(f1) reverse resasc");
     }
-  catch (__gnu_cxx::__integration_error<double>& iex)
+  catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
-      belch<double>(iex);
+      belch<_Tp>(iex);
     }
   catch (std::exception& ex)
     {
@@ -661,14 +676,14 @@ test_quadrature()
     {
       //std::cout << ">>>> Test Gauss-Kronrod 31 with a singular positive function..." << std::endl;
 
-      double exp_result = 2.081873305159121657e+01L;
-      double exp_abserr = 3.296500137482590276e+01L;
-      double exp_resabs = 2.081873305159121301e+01L;
-      double exp_resasc = 3.296500137482590276e+01L;
-      quadrature_test<double> qtest;
+      const auto exp_result = _Tp{2.081873305159121657e+01L};
+      const auto exp_abserr = _Tp{3.296500137482590276e+01L};
+      const auto exp_resabs = _Tp{2.081873305159121301e+01L};
+      const auto exp_resasc = _Tp{3.296500137482590276e+01L};
+      quadrature_test<_Tp> qtest;
 
-      double alpha = -0.9L;
-      auto f = make_function<double>(f1<double>, alpha);
+      const auto alpha = -0.9L;
+      auto f = make_function<_Tp>(f1<_Tp>, alpha);
 
       auto [result, abserr, resabs, resasc]
 	= __gnu_cxx::qk_integrate(f, _Tp{0}, _Tp{1}, __gnu_cxx::QK_31);
@@ -684,9 +699,9 @@ test_quadrature()
       qtest.test_relative(resabs, exp_resabs, fpeps, "qk31(f1) reverse resabs");
       qtest.test_relative(resasc, exp_resasc, fpeps, "qk31(f1) reverse resasc");
     }
-  catch (__gnu_cxx::__integration_error<double>& iex)
+  catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
-      belch<double>(iex);
+      belch<_Tp>(iex);
     }
   catch (std::exception& ex)
     {
@@ -699,14 +714,14 @@ test_quadrature()
     {
       //std::cout << ">>>> Test Gauss-Kronrod 41 with a singular positive function..." << std::endl;
 
-      double exp_result = 2.288677623903126701e+01L;
-      double exp_abserr = 3.671538820274916048e+01L;
-      double exp_resabs = 2.288677623903126701e+01L;
-      double exp_resasc = 3.671538820274916048e+01L;
-      quadrature_test<double> qtest;
+      const auto exp_result = _Tp{2.288677623903126701e+01L};
+      const auto exp_abserr = _Tp{3.671538820274916048e+01L};
+      const auto exp_resabs = _Tp{2.288677623903126701e+01L};
+      const auto exp_resasc = _Tp{3.671538820274916048e+01L};
+      quadrature_test<_Tp> qtest;
 
-      double alpha = -0.9L;
-      auto f = make_function<double>(f1<double>, alpha);
+      const auto alpha = -0.9L;
+      auto f = make_function<_Tp>(f1<_Tp>, alpha);
 
       auto [result, abserr, resabs, resasc]
 	= __gnu_cxx::qk_integrate(f, _Tp{0}, _Tp{1}, __gnu_cxx::QK_41);
@@ -722,9 +737,9 @@ test_quadrature()
       qtest.test_relative(resabs, exp_resabs, fpeps, "qk41(f1) reverse resabs");
       qtest.test_relative(resasc, exp_resasc, fpeps, "qk41(f1) reverse resasc");
     }
-  catch (__gnu_cxx::__integration_error<double>& iex)
+  catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
-      belch<double>(iex);
+      belch<_Tp>(iex);
     }
   catch (std::exception& ex)
     {
@@ -737,14 +752,14 @@ test_quadrature()
     {
       //std::cout << ">>>> Test Gauss-Kronrod 51 with a singular positive function..." << std::endl;
 
-      double exp_result = 2.449953612016972215e+01L;
-      double exp_abserr = 3.967771249391228849e+01L;
-      double exp_resabs = 2.449953612016972215e+01L;
-      double exp_resasc = 3.967771249391228849e+01L;
-      quadrature_test<double> qtest;
+      const auto exp_result = _Tp{2.449953612016972215e+01L};
+      const auto exp_abserr = _Tp{3.967771249391228849e+01L};
+      const auto exp_resabs = _Tp{2.449953612016972215e+01L};
+      const auto exp_resasc = _Tp{3.967771249391228849e+01L};
+      quadrature_test<_Tp> qtest;
 
-      double alpha = -0.9L;
-      auto f = make_function<double>(f1<double>, alpha);
+      const auto alpha = -0.9L;
+      auto f = make_function<_Tp>(f1<_Tp>, alpha);
 
       auto [result, abserr, resabs, resasc]
 	= __gnu_cxx::qk_integrate(f, _Tp{0}, _Tp{1}, __gnu_cxx::QK_51);
@@ -760,9 +775,9 @@ test_quadrature()
       qtest.test_relative(resabs, exp_resabs, fpeps, "qk51(f1) reverse resabs");
       qtest.test_relative(resasc, exp_resasc, fpeps, "qk51(f1) reverse resasc");
     }
-  catch (__gnu_cxx::__integration_error<double>& iex)
+  catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
-      belch<double>(iex);
+      belch<_Tp>(iex);
     }
   catch (std::exception& ex)
     {
@@ -775,14 +790,14 @@ test_quadrature()
     {
       //std::cout << ">>>> Test Gauss-Kronrod 61 with a singular positive function..." << std::endl;
 
-      double exp_result = 2.583030240976628988e+01L;
-      double exp_abserr = 4.213750493076978643e+01L;
-      double exp_resabs = 2.583030240976628988e+01L;
-      double exp_resasc = 4.213750493076978643e+01L;
-      quadrature_test<double> qtest;
+      const auto exp_result = _Tp{2.583030240976628988e+01L};
+      const auto exp_abserr = _Tp{4.213750493076978643e+01L};
+      const auto exp_resabs = _Tp{2.583030240976628988e+01L};
+      const auto exp_resasc = _Tp{4.213750493076978643e+01L};
+      quadrature_test<_Tp> qtest;
 
-      double alpha = -0.9L;
-      auto f = make_function<double>(f1<double>, alpha);
+      const auto alpha = -0.9L;
+      auto f = make_function<_Tp>(f1<_Tp>, alpha);
 
       auto [result, abserr, resabs, resasc]
 	= __gnu_cxx::qk_integrate(f, _Tp{0}, _Tp{1}, __gnu_cxx::QK_61);
@@ -798,9 +813,9 @@ test_quadrature()
       qtest.test_relative(resabs, exp_resabs, fpeps, "qk61(f1) reverse resabs");
       qtest.test_relative(resasc, exp_resasc, fpeps, "qk61(f1) reverse resasc");
     }
-  catch (__gnu_cxx::__integration_error<double>& iex)
+  catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
-      belch<double>(iex);
+      belch<_Tp>(iex);
     }
   catch (std::exception& ex)
     {
@@ -817,14 +832,14 @@ test_quadrature()
     {
       //std::cout << ">>>> Test Gauss-Kronrod 15 with a smooth oscillating function..." << std::endl;
 
-      double exp_result = -7.238969575483799046e-01L;
-      double exp_abserr =  8.760080200939757174e-06L;
-      double exp_resabs =  1.165564172429140788e+00L;
-      double exp_resasc =  9.334560307787327371e-01L;
-      quadrature_test<double> qtest;
+      const auto exp_result = _Tp{-7.238969575483799046e-01L};
+      const auto exp_abserr = _Tp{8.760080200939757174e-06L};
+      const auto exp_resabs = _Tp{1.165564172429140788e+00L};
+      const auto exp_resasc = _Tp{9.334560307787327371e-01L};
+      quadrature_test<_Tp> qtest;
 
-      double alpha = 1.3L;
-      auto f = make_function<double, decltype(f1<double>)>(f3<double>, alpha);
+      const auto alpha = 1.3L;
+      auto f = make_function<_Tp, decltype(f1<_Tp>)>(f3<_Tp>, alpha);
 
       auto [result, abserr, resabs, resasc]
 	= __gnu_cxx::qk_integrate(f, 0.3, 2.71, __gnu_cxx::QK_15);
@@ -840,9 +855,9 @@ test_quadrature()
       qtest.test_relative(resabs, exp_resabs, fpeps, "qk15(f3) reverse resabs");
       qtest.test_relative(resasc, exp_resasc, fpeps, "qk15(f3) reverse resasc");
     }
-  catch (__gnu_cxx::__integration_error<double>& iex)
+  catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
-      belch<double>(iex);
+      belch<_Tp>(iex);
     }
   catch (std::exception& ex)
     {
@@ -855,14 +870,14 @@ test_quadrature()
     {
       //std::cout << ">>>> Test Gauss-Kronrod 21 with a smooth oscillating function..." << std::endl;
 
-      double exp_result =-7.238969575482959717e-01L;
-      double exp_abserr = 7.999213141433641888e-11L;
-      double exp_resabs = 1.150829032708484023e+00L;
-      double exp_resasc = 9.297591249133687619e-01L;
-      quadrature_test<double> qtest;
+      const auto exp_result = _Tp{-7.238969575482959717e-01L};
+      const auto exp_abserr = _Tp{7.999213141433641888e-11L};
+      const auto exp_resabs = _Tp{1.150829032708484023e+00L};
+      const auto exp_resasc = _Tp{9.297591249133687619e-01L};
+      quadrature_test<_Tp> qtest;
 
-      double alpha = 1.3L;
-      auto f = make_function<double>(f3<double>, alpha);
+      const auto alpha = 1.3L;
+      auto f = make_function<_Tp>(f3<_Tp>, alpha);
 
       auto [result, abserr, resabs, resasc]
 	= __gnu_cxx::qk_integrate(f, 0.3, 2.71, __gnu_cxx::QK_21);
@@ -878,9 +893,9 @@ test_quadrature()
       qtest.test_relative(resabs, exp_resabs, fpeps, "qk21(f3) reverse resabs");
       qtest.test_relative(resasc, exp_resasc, fpeps, "qk21(f3) reverse resasc");
     }
-  catch (__gnu_cxx::__integration_error<double>& iex)
+  catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
-      belch<double>(iex);
+      belch<_Tp>(iex);
     }
   catch (std::exception& ex)
     {
@@ -893,14 +908,14 @@ test_quadrature()
     {
       //std::cout << ">>>> Test Gauss-Kronrod 31 with a smooth oscillating function..." << std::endl;
 
-      double exp_result =-7.238969575482959717e-01L;
-      double exp_abserr = 1.285805464427459261e-14L;
-      double exp_resabs = 1.158150602093290571e+00L;
-      double exp_resasc = 9.277828092501518853e-01L;
-      quadrature_test<double> qtest;
+      const auto exp_result = _Tp{-7.238969575482959717e-01L};
+      const auto exp_abserr = _Tp{1.285805464427459261e-14L};
+      const auto exp_resabs = _Tp{1.158150602093290571e+00L};
+      const auto exp_resasc = _Tp{9.277828092501518853e-01L};
+      quadrature_test<_Tp> qtest;
 
-      double alpha = 1.3L;
-      auto f = make_function<double>(f3<double>, alpha);
+      const auto alpha = 1.3L;
+      auto f = make_function<_Tp>(f3<_Tp>, alpha);
 
       auto [result, abserr, resabs, resasc]
 	= __gnu_cxx::qk_integrate(f, 0.3, 2.71, __gnu_cxx::QK_31);
@@ -916,9 +931,9 @@ test_quadrature()
       qtest.test_relative(resabs, exp_resabs, fpeps, "qk31(f3) reverse resabs");
       qtest.test_relative(resasc, exp_resasc, fpeps, "qk31(f3) reverse resasc");
     }
-  catch (__gnu_cxx::__integration_error<double>& iex)
+  catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
-      belch<double>(iex);
+      belch<_Tp>(iex);
     }
   catch (std::exception& ex)
     {
@@ -931,14 +946,14 @@ test_quadrature()
     {
       //std::cout << ">>>> Test Gauss-Kronrod 41 with a smooth oscillating function..." << std::endl;
 
-      double exp_result =-7.238969575482959717e-01L;
-      double exp_abserr = 1.286535726271015626e-14L;
-      double exp_resabs = 1.158808363486595328e+00L;
-      double exp_resasc = 9.264382258645686985e-01L;
-      quadrature_test<double> qtest;
+      const auto exp_result = _Tp{-7.238969575482959717e-01L};
+      const auto exp_abserr = _Tp{1.286535726271015626e-14L};
+      const auto exp_resabs = _Tp{1.158808363486595328e+00L};
+      const auto exp_resasc = _Tp{9.264382258645686985e-01L};
+      quadrature_test<_Tp> qtest;
 
-      double alpha = 1.3L;
-      auto f = make_function<double>(f3<double>, alpha);
+      const auto alpha = 1.3L;
+      auto f = make_function<_Tp>(f3<_Tp>, alpha);
 
       auto [result, abserr, resabs, resasc]
 	= __gnu_cxx::qk_integrate(f, 0.3, 2.71, __gnu_cxx::QK_41);
@@ -954,9 +969,9 @@ test_quadrature()
       qtest.test_relative(resabs, exp_resabs, fpeps, "qk41(f3) reverse resabs");
       qtest.test_relative(resasc, exp_resasc, fpeps, "qk41(f3) reverse resasc");
     }
-  catch (__gnu_cxx::__integration_error<double>& iex)
+  catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
-      belch<double>(iex);
+      belch<_Tp>(iex);
     }
   catch (std::exception& ex)
     {
@@ -969,14 +984,14 @@ test_quadrature()
     {
       //std::cout << ">>>> Test Gauss-Kronrod 51 with a smooth oscillating function..." << std::endl;
 
-      double exp_result =-7.238969575482961938e-01L;
-      double exp_abserr = 1.285290995039385778e-14L;
-      double exp_resabs = 1.157687209264406381e+00L;
-      double exp_resasc = 9.264666884071264263e-01L;
-      quadrature_test<double> qtest;
+      const auto exp_result = _Tp{-7.238969575482961938e-01L};
+      const auto exp_abserr = _Tp{1.285290995039385778e-14L};
+      const auto exp_resabs = _Tp{1.157687209264406381e+00L};
+      const auto exp_resasc = _Tp{9.264666884071264263e-01L};
+      quadrature_test<_Tp> qtest;
 
-      double alpha = 1.3L;
-      auto f = make_function<double>(f3<double>, alpha);
+      const auto alpha = 1.3L;
+      auto f = make_function<_Tp>(f3<_Tp>, alpha);
 
       auto [result, abserr, resabs, resasc]
 	= __gnu_cxx::qk_integrate(f, 0.3, 2.71, __gnu_cxx::QK_51);
@@ -992,9 +1007,9 @@ test_quadrature()
       qtest.test_relative(resabs, exp_resabs, fpeps, "qk51(f3) reverse resabs");
       qtest.test_relative(resasc, exp_resasc, fpeps, "qk51(f3) reverse resasc");
     }
-  catch (__gnu_cxx::__integration_error<double>& iex)
+  catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
-      belch<double>(iex);
+      belch<_Tp>(iex);
     }
   catch (std::exception& ex)
     {
@@ -1007,14 +1022,14 @@ test_quadrature()
     {
       //std::cout << ">>>> Test Gauss-Kronrod 61 with a smooth oscillating function..." << std::endl;
 
-      double exp_result =-7.238969575482959717e-01L;
-      double exp_abserr = 1.286438572027470736e-14L;
-      double exp_resabs = 1.158720854723590099e+00L;
-      double exp_resasc = 9.270469641771273972e-01L;
-      quadrature_test<double> qtest;
+      const auto exp_result = _Tp{-7.238969575482959717e-01L};
+      const auto exp_abserr = _Tp{1.286438572027470736e-14L};
+      const auto exp_resabs = _Tp{1.158720854723590099e+00L};
+      const auto exp_resasc = _Tp{9.270469641771273972e-01L};
+      quadrature_test<_Tp> qtest;
 
-      double alpha = 1.3L;
-      auto f = make_function<double>(f3<double>, alpha);
+      const auto alpha = 1.3L;
+      auto f = make_function<_Tp>(f3<_Tp>, alpha);
 
       auto [result, abserr, resabs, resasc]
 	= __gnu_cxx::qk_integrate(f, 0.3, 2.71, __gnu_cxx::QK_61);
@@ -1030,9 +1045,9 @@ test_quadrature()
       qtest.test_relative(resabs, exp_resabs, fpeps, "qk61(f3) reverse resabs");
       qtest.test_relative(resasc, exp_resasc, fpeps, "qk61(f3) reverse resasc");
     }
-  catch (__gnu_cxx::__integration_error<double>& iex)
+  catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
-      belch<double>(iex);
+      belch<_Tp>(iex);
     }
   catch (std::exception& ex)
     {
@@ -1046,15 +1061,15 @@ test_quadrature()
       //std::cout << ">>>> Test non-adaptive Gaussian integrator..." << std::endl;
 
       int status = __gnu_cxx::NO_ERROR;
-      _Tp exp_result = 7.716049379303083211e-02L;
-      _Tp exp_abserr = 9.424302199601294244e-08L;
+      const auto exp_result = _Tp{7.716049379303083211e-02L};
+      const auto exp_abserr = _Tp{9.424302199601294244e-08L};
       int exp_neval  =  21;
       int exp_ier    =   __gnu_cxx::NO_ERROR;
       quadrature_test<_Tp> qtest;
 
       _Tp alpha = _Tp{2.6};
-      auto f = make_function<_Tp>(f1<double>, alpha);
-      auto fc = counted_function<double, decltype(f)>(f);
+      auto f = make_function<_Tp>(f1<_Tp>, alpha);
+      auto fc = counted_function<_Tp, decltype(f)>(f);
 
       auto [result, abserr]
 	= __gnu_cxx::qng_integrate(fc, _Tp{0}, _Tp{1}, _Tp{1.0e-1}, _Tp{0});
@@ -1086,17 +1101,17 @@ test_quadrature()
     {
       //std::cout << ">>>> Test non-adaptive Gaussian integrator..." << std::endl;
 
-      quadrature_test<double> qtest;
+      quadrature_test<_Tp> qtest;
 
       int status = 0;
-      double exp_result = 7.716049382706505200e-02L;
-      double exp_abserr = 2.666893044866214501e-12L;
+      const auto exp_result = _Tp{7.716049382706505200e-02L};
+      const auto exp_abserr = _Tp{2.666893044866214501e-12L};
       int exp_neval  =  43;
       int exp_ier    =   __gnu_cxx::NO_ERROR;
 
-      double alpha = 2.6L;
-      auto f = make_function<double>(f1<double>, alpha);
-      auto fc = counted_function<double, decltype(f)>(f);
+      const auto alpha = 2.6L;
+      auto f = make_function<_Tp>(f1<_Tp>, alpha);
+      auto fc = counted_function<_Tp, decltype(f)>(f);
 
       auto [result, abserr]
 	= __gnu_cxx::qng_integrate(fc, _Tp{0}, _Tp{1}, _Tp{0}, 1.0e-9);
@@ -1113,9 +1128,9 @@ test_quadrature()
       qtest.test_integer(fc.num_evals(), exp_neval, "qng(f1) reverse 43pt neval");
       qtest.test_integer(status, exp_ier, "qng(f1) reverse 43pt status");
     }
-  catch (__gnu_cxx::__integration_error<double>& iex)
+  catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
-      belch<double>(iex);
+      belch<_Tp>(iex);
     }
   catch (std::exception& ex)
     {
@@ -1129,18 +1144,18 @@ test_quadrature()
       //std::cout << ">>>> Test non-adaptive Gaussian integrator..." << std::endl;
 
       int status = 0;
-      double exp_result =-7.238969575482961938e-01L;
-      double exp_abserr = 1.277676889520056369e-14L;
+      const auto exp_result = _Tp{-7.238969575482961938e-01L};
+      const auto exp_abserr = _Tp{1.277676889520056369e-14L};
       int exp_neval  =  43;
       int exp_ier    =   __gnu_cxx::NO_ERROR;
-      quadrature_test<double> qtest;
+      quadrature_test<_Tp> qtest;
 
-      double alpha = 1.3L;
-      auto f = make_function<double>(f3<double>, alpha);
-      auto fc = counted_function<double, decltype(f)>(f);
+      const auto alpha = 1.3L;
+      auto f = make_function<_Tp>(f3<_Tp>, alpha);
+      auto fc = counted_function<_Tp, decltype(f)>(f);
 
       auto [result, abserr]
-	= __gnu_cxx::qng_integrate(fc, 0.3, 2.71, _Tp{0}, 1.0e-12);
+	= __gnu_cxx::qng_integrate(fc, 0.3, 2.71, _Tp{0}, prec_fixed<_Tp>);
       qtest.test_relative(result, exp_result, fpeps, "qnq(f3) oscill result");
       qtest.test_relative(abserr, exp_abserr, 1.0e-7, "qng(f3) oscill abserr");
       qtest.test_integer(fc.num_evals(), exp_neval, "qng(f3) oscill neval");
@@ -1148,15 +1163,15 @@ test_quadrature()
 
       fc.num_evals(0);
       std::tie(result, abserr)
-	= __gnu_cxx::qng_integrate(fc, 2.71, 0.3, _Tp{0}, 1.0e-12);
+	= __gnu_cxx::qng_integrate(fc, 2.71, 0.3, _Tp{0}, prec_fixed<_Tp>);
       qtest.test_relative(result, -exp_result, fpeps, "qnq(f3) reverse result");
       qtest.test_relative(abserr, exp_abserr, 1.0e-7, "qng(f3) reverse abserr");
       qtest.test_integer(fc.num_evals(), exp_neval, "qng(f3) reverse neval");
       qtest.test_integer(status, exp_ier, "qng(f3) reverse status");
     }
-  catch (__gnu_cxx::__integration_error<double>& iex)
+  catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
-      belch<double>(iex);
+      belch<_Tp>(iex);
     }
   catch (std::exception& ex)
     {
@@ -1169,17 +1184,17 @@ test_quadrature()
     {
       //std::cout << ">>>> Test non-adaptive Gaussian integrator..." << std::endl;
 
-      quadrature_test<double> qtest;
+      quadrature_test<_Tp> qtest;
 
       int status = 0;
-      double exp_result = 7.716049382716029525e-02L;
-      double exp_abserr = 8.566535680046930668e-16L;
+      const auto exp_result = _Tp{7.716049382716029525e-02L};
+      const auto exp_abserr = _Tp{8.566535680046930668e-16L};
       int exp_neval  =  87;
       int exp_ier    =   __gnu_cxx::NO_ERROR;
 
-      double alpha = 2.6L;
-      auto f = make_function<double>(f1<double>, alpha);
-      auto fc = counted_function<double, decltype(f)>(f);
+      const auto alpha = 2.6L;
+      auto f = make_function<_Tp>(f1<_Tp>, alpha);
+      auto fc = counted_function<_Tp, decltype(f)>(f);
 
       auto [result, abserr]
 	= __gnu_cxx::qng_integrate(fc, _Tp{0}, _Tp{1}, _Tp{0}, 1.0e-13);
@@ -1196,9 +1211,9 @@ test_quadrature()
       qtest.test_integer(fc.num_evals(), exp_neval, "qng(f1) 87pt reverse neval");
       qtest.test_integer(status, exp_ier, "qng(f1) 87pt reverse status");
     }
-  catch (__gnu_cxx::__integration_error<double>& iex)
+  catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
-      belch<double>(iex);
+      belch<_Tp>(iex);
     }
   catch (std::exception& ex)
     {
@@ -1211,25 +1226,25 @@ test_quadrature()
     {
       //std::cout << ">>>> Test non-adaptive Gaussian integrator..." << std::endl;
 
-      quadrature_test<double> qtest;
+      quadrature_test<_Tp> qtest;
 
       int status = 0;
-      double exp_result = 3.222948711817264211e+01L;
-      double exp_abserr = 2.782360287710622870e+01L;
+      const auto exp_result = _Tp{3.222948711817264211e+01L};
+      const auto exp_abserr = _Tp{2.782360287710622870e+01L};
       int exp_neval  =  87;
       int exp_ier    =  __gnu_cxx::TOLERANCE_ERROR;
 
-      double alpha = -0.9L;
-      auto f = make_function<double>(f1<double>, alpha);
-      auto fc = counted_function<double, decltype(f)>(f);
+      const auto alpha = -0.9L;
+      auto f = make_function<_Tp>(f1<_Tp>, alpha);
+      auto fc = counted_function<_Tp, decltype(f)>(f);
 
-      double result, abserr;
+      _Tp result, abserr;
       try
 	{
 	  std::tie(result, abserr)
 	    = __gnu_cxx::qng_integrate(fc, _Tp{0}, _Tp{1}, _Tp{0}, 1.0e-3);
 	}
-      catch (__gnu_cxx::__integration_error<double>& iex)
+      catch (__gnu_cxx::__integration_error<_Tp>& iex)
 	{
 	  status = iex.error_code();
 	  result = iex.result();
@@ -1246,7 +1261,7 @@ test_quadrature()
 	  std::tie(result, abserr)
 	    = __gnu_cxx::qng_integrate(fc, _Tp{1}, _Tp{0}, _Tp{0}, 1.0e-3);
 	}
-      catch (__gnu_cxx::__integration_error<double>& iex)
+      catch (__gnu_cxx::__integration_error<_Tp>& iex)
 	{
 	  status = iex.error_code();
 	  result = iex.result();
@@ -1257,9 +1272,9 @@ test_quadrature()
       qtest.test_integer(fc.num_evals(), exp_neval, "qng(f1) rev beyond 87pt neval");
       qtest.test_integer(status, exp_ier, "qng(f1) rev beyond 87pt status");
     }
-  catch (__gnu_cxx::__integration_error<double>& iex)
+  catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
-      belch<double>(iex);
+      belch<_Tp>(iex);
     }
   catch (std::exception& ex)
     {
@@ -1273,34 +1288,34 @@ test_quadrature()
       //std::cout << ">>>> Test adaptive Gaussian integrator..." << std::endl;
 
       int status = 0;
-      quadrature_test<double> qtest;
+      quadrature_test<_Tp> qtest;
 
-      __gnu_cxx::integration_workspace<double> w(1000);
+      __gnu_cxx::integration_workspace<_Tp> w(1000);
 
-      double exp_result = 7.716049382715854665e-02L;
-      double exp_abserr = 6.679384885865053037e-12L;
+      const auto exp_result = _Tp{7.716049382715854665e-02L};
+      const auto exp_abserr = _Tp{6.679384885865053037e-12L};
       int exp_neval  =     165;
       int exp_ier    =       __gnu_cxx::NO_ERROR;
       int exp_last   =       6;
 
       constexpr std::size_t num_test = 6;
-      test_ival<double> test[num_test]
+      test_ival<_Tp> test[num_test]
       {
-	{0.0,     0.03125, 3.966769831709074375e-06L, 6.678528276336181873e-12L},
-	{0.5,     1.0,     5.491842501998222409e-02L, 6.097169993333454062e-16L},
-	{0.125,   0.25,    2.776531175604360531e-03L, 3.082568839745514608e-17L},
-	{0.0625,  0.125,   3.280661030752063693e-04L, 3.642265412331439511e-18L},
-	{0.25,    0.5,     1.909827770934243926e-02L, 2.120334764359736934e-16L},
-	{0.03125, 0.0625,  3.522704932261797744e-05L, 3.910988124757650942e-19L},
+	{0.0L,     0.03125L, 3.966769831709074375e-06L, 6.678528276336181873e-12L},
+	{0.5L,     1.0L,     5.491842501998222409e-02L, 6.097169993333454062e-16L},
+	{0.125L,   0.25L,    2.776531175604360531e-03L, 3.082568839745514608e-17L},
+	{0.0625L,  0.125L,   3.280661030752063693e-04L, 3.642265412331439511e-18L},
+	{0.25L,    0.5L,     1.909827770934243926e-02L, 2.120334764359736934e-16L},
+	{0.03125L, 0.0625L,  3.522704932261797744e-05L, 3.910988124757650942e-19L},
       };
 
-      double alpha = 2.6L;
-      auto f = make_function<double>(f1<double>, alpha);
-      auto fc = counted_function<double, decltype(f)>(f);
+      const auto alpha = 2.6L;
+      auto f = make_function<_Tp>(f1<_Tp>, alpha);
+      auto fc = counted_function<_Tp, decltype(f)>(f);
 
       auto [result, abserr]
 	= __gnu_cxx::qag_integrate(w, fc, _Tp{0}, _Tp{1}, _Tp{0}, 1.0e-10, 1000,
-				    __gnu_cxx::QK_15);
+				   __gnu_cxx::QK_15);
 
       qtest.test_relative(result, exp_result, fpeps, "qag(f1) smooth result");
       qtest.test_relative(abserr, exp_abserr, 1.0e-6, "qag(f1) smooth abserr");
@@ -1332,9 +1347,9 @@ test_quadrature()
       qtest.test_integer(w.size(), exp_last, "qag(f1) reverse last");
       qtest.test_integer(status, exp_ier, "qag(f1) reverse status");
     }
-  catch (__gnu_cxx::__integration_error<double>& iex)
+  catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
-      belch<double>(iex);
+      belch<_Tp>(iex);
     }
   catch (std::exception& ex)
     {
@@ -1347,32 +1362,32 @@ test_quadrature()
       //std::cout << ">>>> Test adaptive Gaussian integrator with absolute error bound..." << std::endl;
 
       int status = 0;
-      quadrature_test<double> qtest;
+      quadrature_test<_Tp> qtest;
 
-      __gnu_cxx::integration_workspace<double> w(1000);
+      __gnu_cxx::integration_workspace<_Tp> w(1000);
 
-      double exp_result = 7.716049382716050342e-02L;
-      double exp_abserr = 2.227969521869139532e-15L;
+      const auto exp_result = _Tp{7.716049382716050342e-02L};
+      const auto exp_abserr = _Tp{2.227969521869139532e-15L};
       int exp_neval  =     315;
       int exp_ier    =       __gnu_cxx::NO_ERROR;
       int exp_last   =       8;
 
       constexpr std::size_t num_test = 8;
-      test_ival<double> test[num_test]
+      test_ival<_Tp> test[num_test]
       {
-	{0.0,       0.0078125, 3.696942726831556522e-08L, 1.371316364034059572e-15L},
-	{0.25,      0.5,       1.909827770934243579e-02L, 2.120334764359736441e-16L},
-	{0.5,       1.0,       5.491842501998223103e-02L, 6.097169993333454062e-16L},
-	{0.0625,    0.125,     3.280661030752062609e-04L, 3.642265412331439511e-18L},
-	{0.03125,   0.0625,    3.522704932261797744e-05L, 3.910988124757650460e-19L},
-	{0.015625,  0.03125,   3.579060884684503576e-06L, 3.973555800712018091e-20L},
-	{0.125,     0.25,      2.776531175604360097e-03L, 3.082568839745514608e-17L},
-	{0.0078125, 0.015625,  3.507395216921808047e-07L, 3.893990926286736620e-21L},
+	{0.0L,       0.0078125L, 3.696942726831556522e-08L, 1.371316364034059572e-15L},
+	{0.25L,      0.5L,       1.909827770934243579e-02L, 2.120334764359736441e-16L},
+	{0.5L,       1.0L,       5.491842501998223103e-02L, 6.097169993333454062e-16L},
+	{0.0625L,    0.125L,     3.280661030752062609e-04L, 3.642265412331439511e-18L},
+	{0.03125L,   0.0625L,    3.522704932261797744e-05L, 3.910988124757650460e-19L},
+	{0.015625L,  0.03125L,   3.579060884684503576e-06L, 3.973555800712018091e-20L},
+	{0.125L,     0.25L,      2.776531175604360097e-03L, 3.082568839745514608e-17L},
+	{0.0078125L, 0.015625L,  3.507395216921808047e-07L, 3.893990926286736620e-21L},
       };
 
-      double alpha = 2.6L;
-      auto f = make_function<double>(f1<double>, alpha);
-      auto fc = counted_function<double, decltype(f)>(f);
+      const auto alpha = 2.6L;
+      auto f = make_function<_Tp>(f1<_Tp>, alpha);
+      auto fc = counted_function<_Tp, decltype(f)>(f);
 
       auto [result, abserr]
 	= __gnu_cxx::qag_integrate(w, fc, _Tp{0}, _Tp{1}, 1.0e-14, _Tp{0}, 1000, __gnu_cxx::QK_21);
@@ -1406,9 +1421,9 @@ test_quadrature()
       qtest.test_integer(w.size(), exp_last, "qag(f1, 21pt) reverse last");
       qtest.test_integer(status, exp_ier, "qag(f1, 21pt) reverse status");
     }
-  catch (__gnu_cxx::__integration_error<double>& iex)
+  catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
-      belch<double>(iex);
+      belch<_Tp>(iex);
     }
   catch (std::exception& ex)
     {
@@ -1424,28 +1439,28 @@ test_quadrature()
 	//	   ">>>> which terminates because of roundoff error, uses the 31-pt rule..." << std::endl;
 
       int status = __gnu_cxx::NO_ERROR;
-      quadrature_test<double> qtest;
+      quadrature_test<_Tp> qtest;
 
-      __gnu_cxx::integration_workspace<double> w(1000);
+      __gnu_cxx::integration_workspace<_Tp> w(1000);
 
-      double exp_result = -7.238969575482959717e-01L;
-      double exp_abserr =  1.285805464427459261e-14L;
+      const auto exp_result = _Tp{-7.238969575482959717e-01L};
+      const auto exp_abserr = _Tp{1.285805464427459261e-14L};
       int exp_neval   =     31;
       int exp_ier     =     __gnu_cxx::ROUNDOFF_ERROR;
       int exp_last    =     1;
 
-      double alpha = 1.3L;
-      auto f = make_function<double>(f3<double>, alpha);
-      auto fc = counted_function<double, decltype(f)>(f);
+      _Tp alpha = 1.3L;
+      auto f = make_function<_Tp>(f3<_Tp>, alpha);
+      auto fc = counted_function<_Tp, decltype(f)>(f);
 
-      double result, abserr;
+      _Tp result, abserr;
       try
 	{
 	  std::tie(result, abserr)
 	    = __gnu_cxx::qag_integrate(w, fc, 0.3, 2.71, 1.0e-14, _Tp{0}, 1000,
 				       __gnu_cxx::QK_31);
 	}
-      catch (__gnu_cxx::__integration_error<double>& iex)
+      catch (__gnu_cxx::__integration_error<_Tp>& iex)
 	{
 	  result = iex.result();
 	  abserr = iex.abserr();
@@ -1465,7 +1480,7 @@ test_quadrature()
 	    = __gnu_cxx::qag_integrate(w, fc, 2.71, 0.3, 1.0e-14, _Tp{0}, 1000,
 				       __gnu_cxx::QK_31);
 	}
-      catch (__gnu_cxx::__integration_error<double>& iex)
+      catch (__gnu_cxx::__integration_error<_Tp>& iex)
 	{
 	  result = iex.result();
 	  abserr = iex.abserr();
@@ -1478,9 +1493,9 @@ test_quadrature()
       qtest.test_integer(w.size(), exp_last, "qag(f3, 31pt) reverse last");
       qtest.test_integer(status, exp_ier, "qag(f3, 31pt) reverse status");
     }
-  catch (__gnu_cxx::__integration_error<double>& iex)
+  catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
-      belch<double>(iex);
+      belch<_Tp>(iex);
     }
   catch (std::exception& ex)
     {
@@ -1494,26 +1509,26 @@ test_quadrature()
       //std::cout << ">>>> Test singularity detection (singularity at x=-0.1 in this example)..." << std::endl;
 
       int status = __gnu_cxx::NO_ERROR;
-      quadrature_test<double> qtest;
+      quadrature_test<_Tp> qtest;
 
-      __gnu_cxx::integration_workspace<double> w(1000);
+      __gnu_cxx::integration_workspace<_Tp> w(1000);
 
       int exp_neval  =     5151;
       int exp_ier    =     __gnu_cxx::SINGULAR_ERROR;
       int exp_last   =     51;
 
-      double alpha = _Tp{2};
-      auto f = make_function<double>(f16<double>, alpha);
-      auto fc = counted_function<double, decltype(f)>(f);
+      auto alpha = _Tp{2};
+      auto f = make_function<_Tp>(f16<_Tp>, alpha);
+      auto fc = counted_function<_Tp, decltype(f)>(f);
 
-      double result, abserr;
+      _Tp result, abserr;
       try
 	{
 	  std::tie(result, abserr)
 	    = __gnu_cxx::qag_integrate(w, fc, _Tp{-1}, _Tp{1}, 1.0e-14, _Tp{0}, 1000,
 					__gnu_cxx::QK_51);
 	}
-      catch (__gnu_cxx::__integration_error<double>& iex)
+      catch (__gnu_cxx::__integration_error<_Tp>& iex)
 	{
 	  result = iex.result();
 	  abserr = iex.abserr();
@@ -1531,7 +1546,7 @@ test_quadrature()
 	    = __gnu_cxx::qag_integrate(w, fc, _Tp{1}, _Tp{-1}, 1.0e-14, _Tp{0}, 1000,
 					__gnu_cxx::QK_51);
 	}
-      catch (__gnu_cxx::__integration_error<double>& iex)
+      catch (__gnu_cxx::__integration_error<_Tp>& iex)
 	{
 	  result = iex.result();
 	  abserr = iex.abserr();
@@ -1542,9 +1557,9 @@ test_quadrature()
       qtest.test_integer(w.size(), exp_last, "qag(f16, 51pt) rev last");
       qtest.test_integer(status, exp_ier, "qag(f16, 51pt) rev status");
     }
-  catch (__gnu_cxx::__integration_error<double>& iex)
+  catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
-      belch<double>(iex);
+      belch<_Tp>(iex);
     }
   catch (std::exception& ex)
     {
@@ -1558,36 +1573,36 @@ test_quadrature()
       //std::cout << ">>>> Test hitting the iteration limit..." << std::endl;
 
       int status = __gnu_cxx::NO_ERROR;
-      quadrature_test<double> qtest;
+      quadrature_test<_Tp> qtest;
 
-      __gnu_cxx::integration_workspace<double> w(3);
+      __gnu_cxx::integration_workspace<_Tp> w(3);
 
-      double exp_result =  9.565151449233894709L;
-      double exp_abserr =  1.570369823891028460e+01L;
+      const auto exp_result =  9.565151449233894709L;
+      const auto exp_abserr = _Tp{1.570369823891028460e+01L};
       int exp_neval  =     305;
       int exp_ier    =     __gnu_cxx::MAX_ITER_ERROR;
       int exp_last   =     3;
 
       constexpr std::size_t num_test = 3;
-      test_ival<double> test[num_test]
+      test_ival<_Tp> test[num_test]
       {
 	{-5.000000000000000000e-01L,  0.000000000000000000L,     9.460353469435913709L,     1.570369823891028460e+01L},
 	{-1.000000000000000000L,     -5.000000000000000000e-01L, 1.388888888888888812e-02L, 1.541976423090495140e-16L},
 	{ 0.000000000000000000L,      1.000000000000000000L,     9.090909090909091161e-02L, 1.009293658750142399e-15L},
       };
 
-      double alpha = _Tp{1};
-      auto f = make_function<double>(f16<double>, alpha);
-      auto fc = counted_function<double, decltype(f)>(f);
+      _Tp alpha = _Tp{1};
+      auto f = make_function<_Tp>(f16<_Tp>, alpha);
+      auto fc = counted_function<_Tp, decltype(f)>(f);
 
-      double result, abserr;
+      _Tp result, abserr;
       try
 	{
 	  std::tie(result, abserr)
 	    = __gnu_cxx::qag_integrate(w, fc, _Tp{-1}, _Tp{1}, 1.0e-14, _Tp{0}, 3,
 					__gnu_cxx::QK_61);
 	}
-      catch (__gnu_cxx::__integration_error<double>& iex)
+      catch (__gnu_cxx::__integration_error<_Tp>& iex)
 	{
 	  result = iex.result();
 	  abserr = iex.abserr();
@@ -1620,7 +1635,7 @@ test_quadrature()
 	    = __gnu_cxx::qag_integrate(w, fc, _Tp{1}, _Tp{-1}, 1.0e-14, _Tp{0}, 3,
 					__gnu_cxx::QK_61);
 	}
-      catch (__gnu_cxx::__integration_error<double>& iex)
+      catch (__gnu_cxx::__integration_error<_Tp>& iex)
 	{
 	  result = iex.result();
 	  abserr = iex.abserr();
@@ -1633,9 +1648,9 @@ test_quadrature()
       qtest.test_integer(w.size(), exp_last, "qag(f16, 61pt) reverse last");
       qtest.test_integer(status, exp_ier, "qag(f16, 61pt) reverse status");
     }
-  catch (__gnu_cxx::__integration_error<double>& iex)
+  catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
-      belch<double>(iex);
+      belch<_Tp>(iex);
     }
   catch (std::exception& ex)
     {
@@ -1649,18 +1664,18 @@ test_quadrature()
       //std::cout << ">>>> Test the adaptive integrator with extrapolation..." << std::endl;
 
       int status = 0;
-      quadrature_test<double> qtest;
+      quadrature_test<_Tp> qtest;
 
-      __gnu_cxx::integration_workspace<double> w(1000);
+      __gnu_cxx::integration_workspace<_Tp> w(1000);
 
-      double exp_result = 7.716049382715789440e-02L;
-      double exp_abserr = 2.216394961010438404e-12L;
+      const auto exp_result = _Tp{7.716049382715789440e-02L};
+      const auto exp_abserr = _Tp{2.216394961010438404e-12L};
       int exp_neval  =     189;
       int exp_ier    =       __gnu_cxx::NO_ERROR;
       int exp_last   =       5;
 
       constexpr std::size_t num_test = 5;
-      test_ival<double> test[num_test]
+      test_ival<_Tp> test[num_test]
       {
 	0.0L,    0.0625L, 3.919381915366914693e-05L, 2.215538742580964735e-12L,
 	0.5L,    1.0L,    5.491842501998223103e-02L, 6.097169993333454062e-16L,
@@ -1669,9 +1684,9 @@ test_quadrature()
 	0.0625L, 0.125L,  3.280661030752062609e-04L, 3.642265412331439511e-18L,
       };
 
-      double alpha = 2.6L;
-      auto f = make_function<double>(f1<double>, alpha);
-      auto fc = counted_function<double, decltype(f)>(f);
+      _Tp alpha = 2.6L;
+      auto f = make_function<_Tp>(f1<_Tp>, alpha);
+      auto fc = counted_function<_Tp, decltype(f)>(f);
 
       const auto epsabs = _Tp{1.0e-7};
       const auto epsrel = _Tp{0};
@@ -1707,9 +1722,9 @@ test_quadrature()
       qtest.test_integer(w.size(), exp_last, "qags(f1) reverse last");
       qtest.test_integer(status, exp_ier, "qags(f1) reverse status");
     }
-  catch (__gnu_cxx::__integration_error<double>& iex)
+  catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
-      belch<double>(iex);
+      belch<_Tp>(iex);
     }
   catch (std::exception& ex)
     {
@@ -1723,18 +1738,18 @@ test_quadrature()
       //std::cout << ">>>> Test f11 using an absolute error bound..." << std::endl;
 
       int status = 0;
-      quadrature_test<double> qtest;
+      quadrature_test<_Tp> qtest;
 
-      __gnu_cxx::integration_workspace<double> w(1000);
+      __gnu_cxx::integration_workspace<_Tp> w(1000);
 
-      double exp_result = -5.908755278982136588e+03L;
-      double exp_abserr = 1.299646281053874554e-10L;
-      int exp_neval  =     357;
-      int exp_ier    =       __gnu_cxx::NO_ERROR;
-      int exp_last   =       9;
+      const auto exp_result = _Tp{-5.908755278982136588e+03L};
+      const auto exp_abserr = _Tp{1.299646281053874554e-10L};
+      int exp_neval  = 357;
+      int exp_ier    = __gnu_cxx::NO_ERROR;
+      int exp_last   = 9;
 
       constexpr std::size_t num_test = 9;
-      test_ival<double> test[num_test]
+      test_ival<_Tp> test[num_test]
       {
 	{1.000000000000000000e+00L, 4.902343750000000000e+00L, -3.890977835520834649e+00L, 6.448276035006137169e-11L},
 	{5.005000000000000000e+02L, 1.000000000000000000e+03L, -3.297343675805121620e+03L, 3.660786868980994028e-11L},
@@ -1743,13 +1758,13 @@ test_quadrature()
 	{3.221875000000000000e+01L, 6.343750000000000000e+01L, -1.201692001973227519e+02L, 1.334146129098576244e-12L},
 	{6.343750000000000000e+01L, 1.258750000000000000e+02L, -2.829354222635842007e+02L, 3.141214202790722909e-12L},
 	{1.660937500000000000e+01L, 3.221875000000000000e+01L, -4.959999906099650246e+01L, 5.506706097890446534e-13L},
-	{8.804687500000000000e+00L, 1.660937500000000000e+01L, -1.971441499411640308e+01L, 2.188739744348345039e-13L},
 	{4.902343750000000000e+00L, 8.804687500000000000e+00L, -7.457032710459004399e+00L, 8.278969410534525339e-14L},
+	{8.804687500000000000e+00L, 1.660937500000000000e+01L, -1.971441499411640308e+01L, 2.188739744348345039e-13L},
       };
 
-      double alpha = _Tp{2};
-      auto f = make_function<double>(f11<double>, alpha);
-      auto fc = counted_function<double, decltype(f)>(f);
+      auto alpha = _Tp{2};
+      auto f = make_function<_Tp>(f11<_Tp>, alpha);
+      auto fc = counted_function<_Tp, decltype(f)>(f);
 
       const auto epsabs = _Tp{1.0e-7};
       const auto epsrel = _Tp{0};
@@ -1785,9 +1800,9 @@ test_quadrature()
       qtest.test_integer(w.size(), exp_last, "qags(f11) reverse last");
       qtest.test_integer(status, exp_ier, "qags(f11) reverse status");
     }
-  catch (__gnu_cxx::__integration_error<double>& iex)
+  catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
-      belch<double>(iex);
+      belch<_Tp>(iex);
     }
   catch (std::exception& ex)
     {
@@ -1801,33 +1816,33 @@ test_quadrature()
       //std::cout << ">>>> Test infinite range integral f455 using a relative error bound..." << std::endl;
 
       int status = 0;
-      quadrature_test<double> qtest;
+      quadrature_test<_Tp> qtest;
 
-      __gnu_cxx::integration_workspace<double> w(1000);
+      __gnu_cxx::integration_workspace<_Tp> w(1000);
 
-      double exp_result = -3.616892186127022568e-01L;
-      double exp_abserr = 3.016716913328831851e-06L;
+      const auto exp_result = _Tp{-3.616892186127022568e-01L};
+      const auto exp_abserr = _Tp{3.016716913328831851e-06L};
       int exp_neval  =      285;
       int exp_ier    =        __gnu_cxx::NO_ERROR;
       int exp_last   =       10;
 
       constexpr std::size_t num_test = 10;
-      test_ival<double> test[num_test]
+      test_ival<_Tp> test[num_test]
       {
-	{9.687500000000000000e-01L, 1.000000000000000000e+00L, -1.390003415539725340e-01L, 2.395037249893453013e-02L},
-	{6.250000000000000000e-02L, 1.250000000000000000e-01L,  1.736218164975512294e-03L, 1.927589382528252344e-17L},
-	{5.000000000000000000e-01L, 7.500000000000000000e-01L, -1.229943369113085765e-02L, 5.720644840858777846e-14L},
-	{3.125000000000000000e-02L, 6.250000000000000000e-02L,  1.041689192004495576e-03L, 1.156507325466566521e-17L},
-	{2.500000000000000000e-01L, 5.000000000000000000e-01L,  2.995321156568048898e-03L, 3.325474514168701167e-17L},
-	{8.750000000000000000e-01L, 9.375000000000000000e-01L, -8.653752279614615461e-02L, 9.607595030230581153e-16L},
-	{7.500000000000000000e-01L, 8.750000000000000000e-01L, -4.980050133751051655e-02L, 3.147380432198176412e-14L},
-	{9.375000000000000000e-01L, 9.687500000000000000e-01L, -8.398745675010892142e-02L, 9.324480826368044019e-16L},
-	{1.250000000000000000e-01L, 2.500000000000000000e-01L,  2.785385934678596704e-03L, 3.092399597147240624e-17L},
-	{0.000000000000000000e+00L, 3.125000000000000000e-02L,  1.429785306003466313e-03L, 2.161214992172538524e-04L},
+	{9.687500000000000000e-01L, 1.000000000000000000e+00L,  1.429785306003466313e-03L, 2.161214992172538524e-04L},
+	{2.500000000000000000e-01L, 5.000000000000000000e-01L, -1.229943369113085765e-02L, 5.720644840858777846e-14L},
+	{6.250000000000000000e-02L, 1.250000000000000000e-01L, -8.653752279614615461e-02L, 9.607595030230581153e-16L},
+	{1.250000000000000000e-01L, 2.500000000000000000e-01L, -4.980050133751051655e-02L, 3.147380432198176412e-14L},
+	{5.000000000000000000e-01L, 7.500000000000000000e-01L,  2.995321156568048898e-03L, 3.325474514168701167e-17L},
+	{8.750000000000000000e-01L, 9.375000000000000000e-01L,  1.736218164975512294e-03L, 1.927589382528252344e-17L},
+	{7.500000000000000000e-01L, 8.750000000000000000e-01L,  2.785385934678596704e-03L, 3.092399597147240624e-17L},
+	{9.375000000000000000e-01L, 9.687500000000000000e-01L,  1.041689192004495576e-03L, 1.156507325466566521e-17L},
+	{3.125000000000000000e-02L, 6.250000000000000000e-02L, -8.398745675010892142e-02L, 9.324480826368044019e-16L},
+	{0.000000000000000000e+00L, 3.125000000000000000e-02L, -1.390003415539725340e-01L, 2.395037249893453013e-02L},
       };
 
-      auto f = make_function<double>(f455<double>);
-      auto fc = counted_function<double, decltype(f)>(f);
+      auto f = make_function<_Tp>(f455<_Tp>);
+      auto fc = counted_function<_Tp, decltype(f)>(f);
 
       const auto epsabs = _Tp{0};
       const auto epsrel = _Tp{1.0e-3};
@@ -1853,9 +1868,9 @@ test_quadrature()
       for (std::size_t i = 0; i < m; ++i)
 	qtest.test_relative(w.abs_error(i), test[i].e, 1.0e-4, "qagiu(f455) smooth abs error");
     }
-  catch (__gnu_cxx::__integration_error<double>& iex)
+  catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
-      belch<double>(iex);
+      belch<_Tp>(iex);
     }
   catch (std::exception& ex)
     {
@@ -1869,18 +1884,18 @@ test_quadrature()
       //std::cout << ">>>> Test infinite range integral f15 using a relative error bound..." << std::endl;
 
       int status = 0;
-      quadrature_test<double> qtest;
+      quadrature_test<_Tp> qtest;
 
-      __gnu_cxx::integration_workspace<double> w(1000);
+      __gnu_cxx::integration_workspace<_Tp> w(1000);
 
-      double exp_result = 6.553600000000024738e+04L;
-      double exp_abserr = 7.121667111456009280e-04L;
+      const auto exp_result = _Tp{6.553600000000024738e+04L};
+      const auto exp_abserr = _Tp{7.121667111456009280e-04L};
       int exp_neval  =      285;
       int exp_ier    =        __gnu_cxx::NO_ERROR;
       int exp_last   =       10;
 
       constexpr std::size_t num_test = 10;
-      test_ival<double> test[num_test]
+      test_ival<_Tp> test[num_test]
       {
 	{0.000000000000000000e+00L, 1.953125000000000000e-03L, 1.099297665754340292e+00L, 7.101865971621337814e-04L},
 	{7.812500000000000000e-03L, 1.562500000000000000e-02L, 2.899418134793237914e+04L, 1.934652413547325474e-07L},
@@ -1894,9 +1909,9 @@ test_quadrature()
 	{1.953125000000000000e-03L, 3.906250000000000000e-03L, 9.225251570832365360e+02L, 2.132473175465897029e-09L},
       };
 
-      double alpha = _Tp{5};
-      auto f = make_function<double>(f15<double>, alpha);
-      auto fc = counted_function<double, decltype(f)>(f);
+      auto alpha = _Tp{5};
+      auto f = make_function<_Tp>(f15<_Tp>, alpha);
+      auto fc = counted_function<_Tp, decltype(f)>(f);
 
       const auto epsabs = _Tp{0};
       const auto epsrel = _Tp{1.0e-7};
@@ -1922,9 +1937,9 @@ test_quadrature()
       for (std::size_t i = 0; i < m; ++i)
 	qtest.test_relative(w.abs_error(i), test[i].e, 1.0e-4, "qagiu(f15) smooth abs error");
     }
-  catch (__gnu_cxx::__integration_error<double>& iex)
+  catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
-      belch<double>(iex);
+      belch<_Tp>(iex);
     }
   catch (std::exception& ex)
     {
@@ -1938,18 +1953,18 @@ test_quadrature()
       //std::cout << ">>>> Test infinite range integral f16 using an absolute error bound..." << std::endl;
 
       int status = 0;
-      quadrature_test<double> qtest;
+      quadrature_test<_Tp> qtest;
 
-      __gnu_cxx::integration_workspace<double> w(1000);
+      __gnu_cxx::integration_workspace<_Tp> w(1000);
 
-      double exp_result = 1.000000000006713292e-04L;
-      double exp_abserr = 3.084062020905636316e-09L;
+      const auto exp_result = _Tp{1.000000000006713292e-04L};
+      const auto exp_abserr = _Tp{3.084062020905636316e-09L};
       int exp_neval  =      165;
       int exp_ier    =        __gnu_cxx::NO_ERROR;
       int exp_last   =        6;
 
       constexpr std::size_t num_test = 6;
-      test_ival<double> test[num_test]
+      test_ival<_Tp> test[num_test]
       {
 	{0.000000000000000000e+00L, 3.125000000000000000e-02L, 7.633587786326674618e-05L, 3.084061858351569051e-09L},
 	{6.250000000000000000e-02L, 1.250000000000000000e-01L, 6.501422186103209199e-06L, 3.014338672269481784e-17L},
@@ -1959,9 +1974,9 @@ test_quadrature()
 	{3.125000000000000000e-02L, 6.250000000000000000e-02L, 1.062064387653501389e-05L, 6.795996738013555461e-18L},
       };
 
-      double alpha = _Tp{1};
-      auto f = make_function<double>(f16<double>, alpha);
-      auto fc = counted_function<double, decltype(f)>(f);
+      const auto alpha = _Tp{1};
+      auto f = make_function<_Tp>(f16<_Tp>, alpha);
+      auto fc = counted_function<_Tp, decltype(f)>(f);
 
       const auto epsabs = _Tp{1.0e-7};
       const auto epsrel = _Tp{0};
@@ -1987,9 +2002,9 @@ test_quadrature()
       for (std::size_t i = 0; i < m; ++i)
 	qtest.test_relative(w.abs_error(i), test[i].e, 1.0e-4, "qagiu(f16) smooth abs error");
     }
-  catch (__gnu_cxx::__integration_error<double>& iex)
+  catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
-      belch<double>(iex);
+      belch<_Tp>(iex);
     }
   catch (std::exception& ex)
     {
@@ -2003,28 +2018,28 @@ test_quadrature()
       //std::cout << ">>>> Test infinite range integral myfn1 using an absolute error bound..." << std::endl;
 
       int status = 0;
-      quadrature_test<double> qtest;
+      quadrature_test<_Tp> qtest;
 
-      __gnu_cxx::integration_workspace<double> w(1000);
+      __gnu_cxx::integration_workspace<_Tp> w(1000);
 
-      double exp_result = 2.275875794468747770e+00L;
-      double exp_abserr = 7.436490118267390744e-09L;
+      const auto exp_result = _Tp{2.275875794468747770e+00L};
+      const auto exp_abserr = _Tp{7.436490118267390744e-09L};
       int exp_neval  =      270;
       int exp_ier    =        __gnu_cxx::NO_ERROR;
       int exp_last   =        5;
 
       constexpr std::size_t num_test = 5;
-      test_ival<double> test[num_test]
+      test_ival<_Tp> test[num_test]
       {
-	{2.500000000000000000e-01L, 3.750000000000000000e-01L, 1.146307471900291086e-01L, 1.231954072964969637e-12L},
-	{0.000000000000000000e+00L, 1.250000000000000000e-01L, 4.379392477350953574e-20L, 8.360902986775307673e-20L},
 	{5.000000000000000000e-01L, 1.000000000000000000e+00L, 1.691664195356748834e+00L, 4.265988974874425043e-09L},
+	{2.500000000000000000e-01L, 3.750000000000000000e-01L, 1.146307471900291086e-01L, 1.231954072964969637e-12L},
 	{1.250000000000000000e-01L, 2.500000000000000000e-01L, 4.639317228058405717e-04L, 3.169263960393051137e-09L},
+	{0.000000000000000000e+00L, 1.250000000000000000e-01L, 4.379392477350953574e-20L, 8.360902986775307673e-20L},
 	{3.750000000000000000e-01L, 5.000000000000000000e-01L, 4.691169201991640669e-01L, 5.208244060463541433e-15L},
       };
 
-      auto f = make_function<double>(myfn1<double>);
-      auto fc = counted_function<double, decltype(f)>(f);
+      auto f = make_function<_Tp>(myfn1<_Tp>);
+      auto fc = counted_function<_Tp, decltype(f)>(f);
 
       const auto epsabs = _Tp{1.0e-7};
       const auto epsrel = _Tp{0};
@@ -2049,9 +2064,9 @@ test_quadrature()
       for (std::size_t i = 0; i < m; ++i)
 	qtest.test_relative(w.abs_error(i), test[i].e, 1.0e-4, "qagi(myfn1) smooth abs error");
     }
-  catch (__gnu_cxx::__integration_error<double>& iex)
+  catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
-      belch<double>(iex);
+      belch<_Tp>(iex);
     }
   catch (std::exception& ex)
     {
@@ -2065,29 +2080,29 @@ test_quadrature()
       //std::cout << ">>>> Test infinite range integral myfn2 using an absolute error bound..." << std::endl;
 
       int status = 0;
-      quadrature_test<double> qtest;
+      quadrature_test<_Tp> qtest;
 
-      __gnu_cxx::integration_workspace<double> w(1000);
+      __gnu_cxx::integration_workspace<_Tp> w(1000);
 
-      double exp_result = 2.718281828459044647e+00L;
-      double exp_abserr = 1.588185109253204805e-10L;
+      const auto exp_result = _Tp{2.718281828459044647e+00L};
+      const auto exp_abserr = _Tp{1.588185109253204805e-10L};
       int exp_neval  =      135;
       int exp_ier    =        __gnu_cxx::NO_ERROR;
       int exp_last   =        5;
 
       constexpr std::size_t num_test = 5;
-      test_ival<double> test[num_test]
+      test_ival<_Tp> test[num_test]
       {
 	{0.000000000000000000e+00L, 6.250000000000000000e-02L, 8.315287189746029816e-07L, 1.533437090413525935e-10L},
-	{2.500000000000000000e-01L, 5.000000000000000000e-01L, 8.646647167633871867e-01L, 7.802455785301941044e-13L},
 	{5.000000000000000000e-01L, 1.000000000000000000e+00L, 1.718281828459045091e+00L, 4.117868247943567505e-12L},
+	{2.500000000000000000e-01L, 5.000000000000000000e-01L, 8.646647167633871867e-01L, 7.802455785301941044e-13L},
 	{1.250000000000000000e-01L, 2.500000000000000000e-01L, 1.328565310599463256e-01L, 5.395586026138397182e-13L},
 	{6.250000000000000000e-02L, 1.250000000000000000e-01L, 2.477920647947255521e-03L, 3.713312434866150125e-14L},
       };
 
-      double alpha = _Tp{1};
-      auto f = make_function<double>(myfn2<double>, alpha);
-      auto fc = counted_function<double, decltype(f)>(f);
+      const auto alpha = _Tp{1};
+      auto f = make_function<_Tp>(myfn2<_Tp>, alpha);
+      auto fc = counted_function<_Tp, decltype(f)>(f);
 
       const auto epsabs = _Tp{1.0e-7};
       const auto epsrel = _Tp{0};
@@ -2113,9 +2128,9 @@ test_quadrature()
       for (std::size_t i = 0; i < m; ++i)
 	qtest.test_relative(w.abs_error(i), test[i].e, 1.0e-4, "qagil(myfn2) smooth abs error");
     }
-  catch (__gnu_cxx::__integration_error<double>& iex)
+  catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
-      belch<double>(iex);
+      belch<_Tp>(iex);
     }
   catch (std::exception& ex)
     {
@@ -2129,18 +2144,18 @@ test_quadrature()
       //std::cout << ">>>> Test integral f454 with integrable singular points..." << std::endl;
 
       int status = 0;
-      quadrature_test<double> qtest;
+      quadrature_test<_Tp> qtest;
 
-      __gnu_cxx::integration_workspace<double> w(1000);
+      __gnu_cxx::integration_workspace<_Tp> w(1000);
 
-      double exp_result = 5.274080611672716401e+01L;
-      double exp_abserr = 1.755703848687062418e-04L;
+      const auto exp_result = _Tp{5.274080611672716401e+01L};
+      const auto exp_abserr = _Tp{1.755703848687062418e-04L};
       int exp_neval  = 777;
       int exp_ier    = __gnu_cxx::NO_ERROR;
       int exp_last   = 20;
 
       constexpr std::size_t num_test = 20;
-      test_ival<double> test[num_test]
+      test_ival<_Tp> test[num_test]
       {
 	{1.000000000000000000e+00L, 1.051776695296636976e+00L, -1.830392049835374568e-01L, 3.252808038935910834e-02L},
 	{1.401269388548935790e+00L, 1.414213562373095145e+00L, -1.565132123531515207e-01L, 2.730454695485963826e-02L},
@@ -2164,10 +2179,10 @@ test_quadrature()
 	{1.414213562373095145e+00L, 1.463769388548935790e+00L, -4.225328513207429193e-01L, 1.017446081816190118e-01L},
       };
 
-      auto f = make_function<double>(f454<double>);
-      auto fc = counted_function<double, decltype(f)>(f);
+      auto f = make_function<_Tp>(f454<_Tp>);
+      auto fc = counted_function<_Tp, decltype(f)>(f);
 
-      std::vector<double> pts{_Tp{0}, _Tp{1}, std::sqrt(_Tp{2}), _Tp{3}};
+      std::vector<_Tp> pts{_Tp{0}, _Tp{1}, std::sqrt(_Tp{2}), _Tp{3}};
 
       const auto epsabs = _Tp{0};
       const auto epsrel = _Tp{1.0e-3};
@@ -2192,9 +2207,9 @@ test_quadrature()
       for (std::size_t i = 0; i < m; ++i)
 	qtest.test_relative(w.abs_error(i), test[i].e, 1.0e-4, "qagp(f454) singular abs error");
     }
-  catch (__gnu_cxx::__integration_error<double>& iex)
+  catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
-      belch<double>(iex);
+      belch<_Tp>(iex);
     }
   catch (std::exception& ex)
     {
@@ -2209,18 +2224,18 @@ test_quadrature()
       //std::cout << ">>>> Test cauchy integration using a relative error bound..." << std::endl;
 
       int status = 0;
-      quadrature_test<double> qtest;
+      quadrature_test<_Tp> qtest;
 
-      __gnu_cxx::integration_workspace<double> w(1000);
+      __gnu_cxx::integration_workspace<_Tp> w(1000);
 
-      double exp_result = -8.994400695837000137e-02L;
-      double exp_abserr =  1.185290176227023727e-06L;
+      const auto exp_result = _Tp{-8.994400695837000137e-02L};
+      const auto exp_abserr = _Tp{1.185290176227023727e-06L};
       int exp_neval  =      215;
       int exp_ier    =        __gnu_cxx::NO_ERROR;
       int exp_last   =        6;
 
       constexpr std::size_t num_test = 6;
-      test_ival<double> test[num_test]
+      test_ival<_Tp> test[num_test]
       {
 	{-1.000000000000000000e+00L, -7.500000000000000000e-01L, -1.234231128040012976e-01L, 1.172832717970022565e-06L},
 	{-5.000000000000000000e-01L,  6.250000000000000000e-01L,  2.079093855884046535e-02L, 1.245463873006391609e-08L},
@@ -2230,8 +2245,8 @@ test_quadrature()
 	{-7.500000000000000000e-01L, -5.000000000000000000e-01L, -8.553244917962132821e-02L, 1.833082948207153514e-15L},
       };
 
-      auto f = make_function<double>(f459<double>);
-      auto fc = counted_function<double, decltype(f)>(f);
+      auto f = make_function<_Tp>(f459<_Tp>);
+      auto fc = counted_function<_Tp, decltype(f)>(f);
 
       const auto epsabs = _Tp{0};
       const auto epsrel = _Tp{1.0e-3};
@@ -2267,9 +2282,9 @@ test_quadrature()
       qtest.test_integer(w.size(), exp_last, "qawc(f459) rev last");
       qtest.test_integer(status, exp_ier, "qawc(f459) rev status");
     }
-  catch (__gnu_cxx::__integration_error<double>& iex)
+  catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
-      belch<double>(iex);
+      belch<_Tp>(iex);
     }
   catch (std::exception& ex)
     {
@@ -2283,20 +2298,20 @@ test_quadrature()
       //std::cout << ">>>> Test adaptive singular integration using a relative error bound..." << std::endl;
 
       int status = 0;
-      quadrature_test<double> qtest;
+      quadrature_test<_Tp> qtest;
 
-      __gnu_cxx::qaws_integration_table<double> tb(_Tp{0}, _Tp{0}, 1, 0);
+      __gnu_cxx::qaws_integration_table<_Tp> tb(_Tp{0}, _Tp{0}, 1, 0);
 
-      __gnu_cxx::integration_workspace<double> w(1000);
+      __gnu_cxx::integration_workspace<_Tp> w(1000);
 
-      double exp_result = -1.892751853489401670e-01L;
-      double exp_abserr = 1.129133712015747658e-08L;
+      const auto exp_result = _Tp{-1.892751853489401670e-01L};
+      const auto exp_abserr = _Tp{1.129133712015747658e-08L};
       int exp_neval  =      280;
       int exp_ier    =        __gnu_cxx::NO_ERROR;
       int exp_last   =        8;
 
       constexpr std::size_t num_test = 8;
-      test_ival<double> test[num_test]
+      test_ival<_Tp> test[num_test]
       {
 	{0.000000000000000000e+00L, 7.812500000000000000e-03L, -4.126317299834445824e-05L, 1.129099387465713953e-08L},
 	{2.500000000000000000e-01L, 5.000000000000000000e-01L, -6.240573216173390947e-02L, 6.928428071454762659e-16L},
@@ -2308,8 +2323,8 @@ test_quadrature()
 	{7.812500000000000000e-03L, 1.562500000000000000e-02L, -8.034390712936630608e-05L, 8.919965558336773736e-19L},
       };
 
-      auto f = make_function<double>(f458<double>);
-      auto fc = counted_function<double, decltype(f)>(f);
+      auto f = make_function<_Tp>(f458<_Tp>);
+      auto fc = counted_function<_Tp, decltype(f)>(f);
 
       const auto epsabs = _Tp{0};
       const auto epsrel = _Tp{1.0e-7};
@@ -2340,48 +2355,48 @@ test_quadrature()
       std::tie(result, abserr)
 	= __gnu_cxx::qaws_integrate(w, tb, fc, _Tp{0}, _Tp{1}, epsabs, epsrel);
 
-      exp_result = 9.896686656601706433e-01L;
-      exp_abserr = 5.888032513201251628e-08L;
+      const auto exp_nolog_result = _Tp{9.896686656601706433e-01L};
+      const auto exp_nolog_abserr = _Tp{5.888032513201251628e-08L};
 
-      qtest.test_relative(result, exp_result, 1.0e-14, "qaws(f458) AB result");
-      qtest.test_relative(abserr, exp_abserr, 1.0e-6, "qaws(f458) AB abserr");
+      qtest.test_relative(result, exp_nolog_result, 1.0e-14, "qaws(f458) AB result");
+      qtest.test_relative(abserr, exp_nolog_abserr, 1.0e-6, "qaws(f458) AB abserr");
 
       // Test with ln(x - a)
       tb.set(-0.5, -0.3, 1, 0);
       std::tie(result, abserr)
 	= __gnu_cxx::qaws_integrate(w, tb, fc, _Tp{0}, _Tp{1}, epsabs, epsrel);
 
-      exp_result = -3.636679470586539620e-01L;
-      exp_abserr = 2.851348775257054093e-08L;
+      const auto exp_logxma_result = _Tp{-3.636679470586539620e-01L};
+      const auto exp_logxma_abserr = _Tp{2.851348775257054093e-08L};
 
-      qtest.test_relative(result, exp_result, 1.0e-14, "qaws(f458) AB ln(x-a) result");
-      qtest.test_relative(abserr, exp_abserr, 1.0e-6, "qaws(f458) AB ln(x-a) abserr");
+      qtest.test_relative(result, exp_logxma_result, 1.0e-14, "qaws(f458) AB ln(x-a) result");
+      qtest.test_relative(abserr, exp_logxma_abserr, 1.0e-6, "qaws(f458) AB ln(x-a) abserr");
 
       // Test with ln(b - x)
       tb.set(-0.5, -0.3, 0, 1);
       std::tie(result, abserr)
 	= __gnu_cxx::qaws_integrate(w, tb, fc, _Tp{0}, _Tp{1}, epsabs, epsrel);
 
-      exp_result = -1.911489253363409802e+00L;
-      exp_abserr = 9.854016753016499034e-09L;
+      const auto exp_logbmx_result = _Tp{-1.911489253363409802e+00L};
+      const auto exp_logbmx_abserr = _Tp{9.854016753016499034e-09L};
 
-      qtest.test_relative(result,exp_result,1.0e-14,"qaws(f458) AB ln(b-x) result");
-      qtest.test_relative(abserr,exp_abserr,1.0e-6,"qaws(f458) AB ln(b-x) abserr");
+      qtest.test_relative(result, exp_logbmx_result, 1.0e-14, "qaws(f458) AB ln(b-x) result");
+      qtest.test_relative(abserr, exp_logbmx_abserr, 1.0e-6, "qaws(f458) AB ln(b-x) abserr");
 
       // Test with ln(x - a) ln(b - x)
       tb.set(-0.5, -0.3, 1, 1);
       std::tie(result, abserr)
 	= __gnu_cxx::qaws_integrate(w, tb, fc, _Tp{0}, _Tp{1}, epsabs, epsrel);
 
-      exp_result = 3.159922862811048172e-01L;
-      exp_abserr = 2.336183482198144595e-08L;
+      const auto exp_wlogs_result = _Tp{3.159922862811048172e-01L};
+      const auto exp_wlogs_abserr = _Tp{2.336183482198144595e-08L};
 
-      qtest.test_relative(result, exp_result, 1.0e-14, "qaws(f458) AB ln(x-a)ln(b-x) result");
-      qtest.test_relative(abserr, exp_abserr, 1.0e-6, "qaws(f458) AB ln(x-a)ln(b-x) abserr");
+      qtest.test_relative(result, exp_wlogs_result, 1.0e-14, "qaws(f458) AB ln(x-a)ln(b-x) result");
+      qtest.test_relative(abserr, exp_wlogs_abserr, 1.0e-6, "qaws(f458) AB ln(x-a)ln(b-x) abserr");
     }
-  catch (__gnu_cxx::__integration_error<double>& iex)
+  catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
-      belch<double>(iex);
+      belch<_Tp>(iex);
     }
   catch (std::exception& ex)
     {
@@ -2395,20 +2410,20 @@ test_quadrature()
       //std::cout << ">>>> Test oscillatory integration using a relative error bound..." << std::endl;
 
       int status = 0;
-      quadrature_test<double> qtest;
+      quadrature_test<_Tp> qtest;
 
-      __gnu_cxx::integration_workspace<double> w(1000);
-      __gnu_cxx::oscillatory_integration_table<double> wo(_Tp{10} * _S_pi, _Tp{1},
-                                       __gnu_cxx::oscillatory_integration_table<double>::INTEG_SINE, 1000);
+      __gnu_cxx::integration_workspace<_Tp> w(1000);
+      __gnu_cxx::oscillatory_integration_table<_Tp> wo(_Tp{10} * _S_pi, _Tp{1},
+                                       __gnu_cxx::oscillatory_integration_table<_Tp>::INTEG_SINE, 1000);
 
-      double exp_result = -1.281368483991674190e-01L;
-      double exp_abserr =  6.875028324415666248e-12L;
+      const auto exp_result = _Tp{-1.281368483991674190e-01L};
+      const auto exp_abserr = _Tp{6.875028324415666248e-12L};
       int exp_neval  =      305;
       int exp_ier    =        __gnu_cxx::NO_ERROR;
       int exp_last   =        9;
 
       constexpr std::size_t num_test = 9;
-      test_ival<double> test[num_test]
+      test_ival<_Tp> test[num_test]
       {
 	{5.000000000000000000e-01L, 1.000000000000000000e+00L,  2.190541162282139478e-02L, 1.302638552580516100e-13L},
 	{2.500000000000000000e-01L, 5.000000000000000000e-01L, -2.587726479625663753e-02L, 7.259224351945759794e-15L},
@@ -2421,8 +2436,8 @@ test_quadrature()
 	{0.000000000000000000e+00L, 3.906250000000000000e-03L, -1.447193692377651136e-03L, 8.326506625798146465e-07L},
       };
 
-      auto f = make_function<double>(f456<double>);
-      auto fc = counted_function<double, decltype(f)>(f);
+      auto f = make_function<_Tp>(f456<_Tp>);
+      auto fc = counted_function<_Tp, decltype(f)>(f);
 
       const auto epsabs = _Tp{0};
       const auto epsrel = _Tp{1.0e-7};
@@ -2459,9 +2474,9 @@ test_quadrature()
       qtest.test_integer(w.size(), exp_last, "qawo(f456) rev last");
       qtest.test_integer(status, exp_ier, "qawo(f456) rev status");
     }
-  catch (__gnu_cxx::__integration_error<double>& iex)
+  catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
-      belch<double>(iex);
+      belch<_Tp>(iex);
     }
   catch (std::exception& ex)
     {
@@ -2475,22 +2490,22 @@ test_quadrature()
       //std::cout << ">>>> Test Fourier integration using an absolute error bound..." << std::endl;
 
       int status = 0;
-      quadrature_test<double> qtest;
+      quadrature_test<_Tp> qtest;
 
-      __gnu_cxx::integration_workspace<double> w(1000);
-      __gnu_cxx::integration_workspace<double> wc(1000);
-      __gnu_cxx::oscillatory_integration_table<double>
+      __gnu_cxx::integration_workspace<_Tp> w(1000);
+      __gnu_cxx::integration_workspace<_Tp> wc(1000);
+      __gnu_cxx::oscillatory_integration_table<_Tp>
 	wo(_S_pi / _Tp{2}, _Tp{1},
-	  __gnu_cxx::oscillatory_integration_table<double>::INTEG_COSINE, 1000);
+	  __gnu_cxx::oscillatory_integration_table<_Tp>::INTEG_COSINE, 1000);
 
-      double exp_result = 9.999999999279802765e-01L;
-      double exp_abserr = 1.556289974669056164e-08L;
+      const auto exp_result = _Tp{9.999999999279802765e-01L};
+      const auto exp_abserr = _Tp{1.556289974669056164e-08L};
       int exp_neval  =      590;
       int exp_ier    =        __gnu_cxx::NO_ERROR;
       int exp_last   =       12;
 
       constexpr std::size_t num_test = 12;
-      test_ival<double> test[num_test]
+      test_ival<_Tp> test[num_test]
       {
 	{0.0L, 0.0L,  1.013283128125232802e+00L, 1.224798040766472695e-12L},
 	{0.0L, 0.0L, -1.810857954748607349e-02L, 1.396565155187268456e-13L},
@@ -2506,8 +2521,8 @@ test_quadrature()
 	{0.0L, 0.0L, -2.168238443073697373e-03L, 1.105886215935214523e-17L},
       };
 
-      auto f = make_function<double>(f457<double>);
-      auto fc = counted_function<double, decltype(f)>(f);
+      auto f = make_function<_Tp>(f457<_Tp>);
+      auto fc = counted_function<_Tp, decltype(f)>(f);
 
       const auto epsabs = _Tp{0};
       const auto epsrel = _Tp{1.0e-7};
@@ -2529,9 +2544,9 @@ test_quadrature()
       for (std::size_t i = 0; i < m; ++i)
 	qtest.test_relative(w.abs_error(i), test[i].e, _Tp{50}, "qawf(f457) abs error");
     }
-  catch (__gnu_cxx::__integration_error<double>& iex)
+  catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
-      belch<double>(iex);
+      belch<_Tp>(iex);
     }
   catch (std::exception& ex)
     {
@@ -2544,8 +2559,8 @@ test_quadrature()
     {
       //std::cout << ">>>> Sanity check monomial test function for fixed Gauss-Legendre rules..." << std::endl;
 
-      quadrature_test<double> qtest;
-      using dmon_t = monomial<double>;
+      quadrature_test<_Tp> qtest;
+      using dmon_t = monomial<_Tp>;
 
       qtest.test_absolute(dmon_t(2, _Tp{1})(_Tp{2}), _Tp{4}, 8*_S_eps, "monomial sanity check 1");
 
@@ -2555,9 +2570,9 @@ test_quadrature()
           (_Tp{2}/_Tp{3})*(_Tp{2}*_Tp{2}*_Tp{2} - _Tp{1}*_Tp{1}*_Tp{1}), 8*_S_eps,
           "integrate(monomial) sanity check");
     }
-  catch (__gnu_cxx::__integration_error<double>& iex)
+  catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
-      belch<double>(iex);
+      belch<_Tp>(iex);
     }
   catch (std::exception& ex)
     {
@@ -2570,20 +2585,20 @@ test_quadrature()
     {
       //std::cout << ">>>> Test the fixed-order Gauss-Legendre rules with a monomial..." << std::endl;
 
-      const double a = _Tp{0}, b = _Tp{1.2};
+      const auto a = _Tp{0}, b = _Tp{1.2};
 
       for (int n = 1; n < 1025; ++n)
 	{
-	  quadrature_test<double> qtest;
-          __gnu_cxx::gauss_legendre_table<double> tbl(n);
+	  quadrature_test<_Tp> qtest;
+          __gnu_cxx::gauss_legendre_table<_Tp> tbl(n);
 
-          monomial<double> mon(2*n-1, _Tp{1}); // n point rule exact for 2n-1 degree poly
-          double expected      = integrate(mon, a, b);
-          double result        = __gnu_cxx::glfixed_integrate(tbl, mon, a, b);
+          monomial<_Tp> mon(2*n-1, _Tp{1}); // n point rule exact for 2n-1 degree poly
+          auto expected = integrate(mon, a, b);
+          auto result   = __gnu_cxx::glfixed_integrate(tbl, mon, a, b);
 
-	  double rel_tol;
+	  _Tp rel_tol;
           if (tbl.precomputed)
-            rel_tol = 1.0e-12;
+            rel_tol = prec_fixed<_Tp>;
           else
             rel_tol = 1.0e-7;
 	  std::ostringstream str;
@@ -2593,9 +2608,9 @@ test_quadrature()
           qtest.test_relative(result, expected, rel_tol, str.str().c_str());
 	}
     }
-  catch (__gnu_cxx::__integration_error<double>& iex)
+  catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
-      belch<double>(iex);
+      belch<_Tp>(iex);
     }
   catch (std::exception& ex)
     {
@@ -2608,16 +2623,16 @@ test_quadrature()
     {
       //std::cout << ">>>> Sanity check sin(x) test function for fixed Gauss-Legendre rules..." << std::endl;
 
-      quadrature_test<double> qtest;
+      quadrature_test<_Tp> qtest;
 
       qtest.test_absolute(f_sin(_Tp{2}), std::sin(_Tp{2}), _Tp{0}, "f_sin sanity check 1");
       qtest.test_absolute(f_sin(_Tp{7}), std::sin(_Tp{7}), _Tp{0}, "f_sin sanity check 2");
       qtest.test_absolute(integ_f_sin(_Tp{0}, _S_pi), _Tp{2}, _S_eps,
           "integ_f_sin sanity check");
     }
-  catch (__gnu_cxx::__integration_error<double>& iex)
+  catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
-      belch<double>(iex);
+      belch<_Tp>(iex);
     }
   catch (std::exception& ex)
     {
@@ -2633,17 +2648,16 @@ test_quadrature()
       const int n_max = 1024;
       const std::function<_Tp(_Tp)> f = f_sin<_Tp>;
       const _Tp a = _Tp{0}, b = _S_pi;
-      const _Tp expected = integ_f_sin(a, b);
-      _Tp result, abserr, prev_abserr = _Tp{0};
-      int n;
+      const auto expected = integ_f_sin(a, b);
+      auto prev_abserr = _Tp{0};
       quadrature_test<_Tp> qtest;
 
-      for (n = 1; n <= n_max; ++n)
+      for (int n = 1; n <= n_max; ++n)
 	{
           __gnu_cxx::gauss_legendre_table<_Tp> tbl(n);
 
-          result = __gnu_cxx::glfixed_integrate(tbl, f, a, b);
-          abserr = std::abs(expected - result);
+          auto result = __gnu_cxx::glfixed_integrate(tbl, f, a, b);
+          auto abserr = std::abs(expected - result);
 
           if (n == 1)
 	    {
@@ -2707,7 +2721,7 @@ test_quadrature()
       const _Tp
       e2[2][2]
       {
-	{-_Tp{1}/std::sqrt(_Tp{3}), _Tp{1}},
+	{_Tp{-1}/std::sqrt(_Tp{3}), _Tp{1}},
 	{ _Tp{1}/std::sqrt(_Tp{3}), _Tp{1}}
       };
 
@@ -2971,72 +2985,83 @@ test_quadrature()
 
   // Test fixed quadrature GSL-2.4+
 /*
+
   {
     size_t n;
     struct monomial_params params;
     gsl_function f;
-    double exact;
-    double a, b;
+    _Tp exact;
+    _Tp a, b;
     int deg = 5; // monomial degree
-    double dterm = (deg % 2) == 0 ? 1.0 : -1.0;
+    _Tp dterm = (deg % 2) == 0 ? _Tp{1} : _Tp{-1};
 
     f.function = &f_monomial;
     f.params = &params;
 
     params.degree   = deg;
-    params.constant = 1.0;
+    params.constant = _Tp{1};
 
     std::size_t n = 15;
-    for (b = 1.1; b <= 4.0; b += 0.1)
+    for (b = 1.1; b <= _Tp{4}; b += 0.1)
       {
         // Test with a < b
-        a = b - 1.0;
+        a = b - _Tp{1};
 
         // Legendre quadrature
-        exact = (std::pow(b,params.degree+1.0) - std::pow(a,params.degree+1.0))/(params.degree+1.0);
-        test_fixed_quadrature(gsl_integration_fixed_legendre, n, a, b, 0.0, 0.0, 1.0e-12, exact, &f, "legendre monomial");
+        exact = (std::pow(b,params.degree+_Tp{1}) - std::pow(a,params.degree+_Tp{1}))
+	      / (params.degree + _Tp{1});
+        test_fixed_quadrature(integrate_fixed_legendre, n, a, b, _Tp{0}, _Tp{0}, prec_fixed<_Tp>, exact, &f, "legendre monomial");
 
         // Chebyshev type 1 quadrature
-        exact = GSL_SIGN(b-a)*M_PI*std::pow(0.5*(a+b),params.degree)*gsl_sf_hyperg_2F1(0.5*(1-params.degree),-0.5*params.degree,1.0,(b-a)*(b-a)/((b+a)*(b+a)));
-        test_fixed_quadrature(gsl_integration_fixed_chebyshev, n, a, b, 0.0, 0.0, 1.0e-12, exact, &f, "chebyshev monomial");
+        exact = GSL_SIGN(b-a) * M_PI * std::pow(0.5 * (a + b), params.degree)
+	      * __gnu_cxx::hyperg(0.5 * (1 - params.degree), -0.5 * params.degree, _Tp{1}, (b - a) * (b - a) / ((b + a) * (b + a)));
+        test_fixed_quadrature(integrate_fixed_chebyshev, n, a, b, _Tp{0}, _Tp{0}, prec_fixed<_Tp>, exact, &f, "chebyshev monomial");
 
         // Laguerre quadrature
-        exact = std::pow(b, -1.0 - deg) * exp(a * b) * gsl_sf_gamma_inc(1.0 + deg, a * b);
-        test_fixed_quadrature(gsl_integration_fixed_laguerre, n, a, b, 0.0, 0.0, 1.0e-12, exact, &f, "laguerre monomial");
+        exact = std::pow(b, _Tp{-1} - deg) * exp(a * b) * gsl_sf_gamma_inc(_Tp{1} + deg, a * b);
+        test_fixed_quadrature(integrate_fixed_laguerre, n, a, b, _Tp{0}, _Tp{0}, prec_fixed<_Tp>, exact, &f, "laguerre monomial");
 
         // Hermite quadrature
-        exact = 0.5 * std::pow(b, -0.5*deg) * (-(-1.0 + dterm) * a * deg * gsl_sf_gamma(0.5*deg) * gsl_sf_hyperg_1F1(0.5 - 0.5*deg, 1.5, -a*a*b) +
-                                           (1.0 + dterm) * gsl_sf_gamma(0.5*(1.0+deg)) * gsl_sf_hyperg_1F1(-0.5*deg, 0.5, -a*a*b) / sqrt(b));
-        test_fixed_quadrature(gsl_integration_fixed_hermite, n, a, b, 0.0, 0.0, 1.0e-12, exact, &f, "hermite monomial");
+        exact = 0.5 * std::pow(b, -0.5 * deg) * (
+	     - (_Tp{-1} + dterm) * a * deg * std::tgamma(0.5 * deg)
+		  * __gnu_cxx::conf_hyperg(0.5 - 0.5 * deg, 1.5, -a * a * b)
+             + (_Tp{1} + dterm) * std::tgamma(0.5*(_Tp{1} + deg))
+		  * __gnu_cxx::conf_hyperg(-0.5 * deg, 0.5, -a * a * b) / std::sqrt(b));
+        test_fixed_quadrature(integrate_fixed_hermite, n, a, b, _Tp{0}, _Tp{0}, prec_fixed<_Tp>, exact, &f, "hermite monomial");
 
         // Chebyshev type 2 quadrature
-        exact = GSL_SIGN(b-a)*M_PI_2*std::pow(0.5*(a+b),params.degree)*gsl_sf_hyperg_2F1(0.5*(1-params.degree),-0.5*params.degree,2.0,(b-a)*(b-a)/((b+a)*(b+a)))*0.25*(b-a)*(b-a);
-        test_fixed_quadrature(gsl_integration_fixed_chebyshev2, n, a, b, 0.0, 0.0, 1.0e-12, exact, &f, "chebyshev2 monomial");
+        exact = GSL_SIGN(b-a) * M_PI_2 * std::pow(0.5*(a+b), params.degree)
+	      * __gnu_cxx::hyperg(0.5 * (1 - params.degree), -0.5 * params.degree, _Tp{2}, (b - a) * (b - a) / ((b + a) * (b + a)))
+	      * 0.25 * (b-a) * (b-a);
+        test_fixed_quadrature(integrate_fixed_chebyshev2, n, a, b, _Tp{0}, _Tp{0}, prec_fixed<_Tp>, exact, &f, "chebyshev2 monomial");
 
         // now test with a > b
-        a = b + 1.0;
+        a = b + _Tp{1};
 
         // Legendre quadrature
-        exact = (std::pow(b,params.degree+1.0) - std::pow(a,params.degree+1.0))/(params.degree+1.0);
-        test_fixed_quadrature(gsl_integration_fixed_legendre, n, a, b, 0.0, 0.0, 1.0e-12, exact, &f, "legendre monomial");
+        exact = (std::pow(b,params.degree+_Tp{1}) - std::pow(a,params.degree+_Tp{1}))/(params.degree+_Tp{1});
+        test_fixed_quadrature(integrate_fixed_legendre, n, a, b, _Tp{0}, _Tp{0}, prec_fixed<_Tp>, exact, &f, "legendre monomial");
 
         // Laguerre quadrature
-        exact = std::pow(b, -1.0 - deg) * exp(a * b) * gsl_sf_gamma_inc(1.0 + deg, a * b);
-        test_fixed_quadrature(gsl_integration_fixed_laguerre, n, a, b, 0.0, 0.0, 1.0e-12, exact, &f, "laguerre monomial");
+        exact = std::pow(b, _Tp{-1} - deg) * exp(a * b) * gsl_sf_gamma_inc(_Tp{1} + deg, a * b);
+        test_fixed_quadrature(integrate_fixed_laguerre, n, a, b, _Tp{0}, _Tp{0}, prec_fixed<_Tp>, exact, &f, "laguerre monomial");
 
         // Hermite quadrature
-        exact = 0.5 * std::pow(b, -0.5*deg) * (-(-1.0 + dterm) * a * deg * gsl_sf_gamma(0.5*deg) * gsl_sf_hyperg_1F1(0.5 - 0.5*deg, 1.5, -a*a*b) +
-                                           (1.0 + dterm) * gsl_sf_gamma(0.5*(1.0+deg)) * gsl_sf_hyperg_1F1(-0.5*deg, 0.5, -a*a*b) / sqrt(b));
-        test_fixed_quadrature(gsl_integration_fixed_hermite, n, a, b, 0.0, 0.0, 1.0e-12, exact, &f, "hermite monomial");
+        exact = 0.5 * std::pow(b, -0.5*deg) * (
+	      - (_Tp{-1} + dterm) * a * deg * std::tgamma(0.5 * deg)
+		 * __gnu_cxx::conf_hyperg(0.5 - 0.5 * deg, 1.5, -a * a * b)
+	      + (_Tp{1} + dterm) * std::tgamma(0.5 * (_Tp{1} + deg))
+		 * __gnu_cxx::conf_hyperg(-0.5 * deg, 0.5, -a * a * b) / std::sqrt(b));
+        test_fixed_quadrature(integrate_fixed_hermite, n, a, b, _Tp{0}, _Tp{0}, prec_fixed<_Tp>, exact, &f, "hermite monomial");
 
 #if 0 // FIXME: Chebyshev doesn't work when a > b
         // Chebyshev type 1 quadrature
-        exact = -M_PI / 8.0 * (3.0*a*a + 2.0*a*b + 3.0*b*b);
-        test_fixed_quadrature(gsl_integration_fixed_chebyshev, n, a, b, 0.0, 0.0, 1.0e-12, exact, &f, "chebyshev monomial");
+        exact = -M_PI * (_Tp{3} * a * a + _Tp{2} * a * b + _Tp{3} * b * b) / _Tp{8};
+        test_fixed_quadrature(integrate_fixed_chebyshev, n, a, b, _Tp{0}, _Tp{0}, prec_fixed<_Tp>, exact, &f, "chebyshev monomial");
 
         // Chebyshev type 2 quadrature
-        exact = -M_PI / 128.0 * (a - b) * (a - b) *(5.0*a*a + 6.0*a*b + 5.0*b*b);
-        test_fixed_quadrature(gsl_integration_fixed_chebyshev2, n, a, b, 0.0, 0.0, 1.0e-12, exact, &f, "chebyshev2 monomial");
+        exact = -M_PI * (a - b) * (a - b) * (_Tp{5} * a * a + _Tp{6} * a * b + _Tp{5} * b * b) / _Tp{128};
+        test_fixed_quadrature(integrate_fixed_chebyshev2, n, a, b, _Tp{0}, _Tp{0}, prec_fixed<_Tp>, exact, &f, "chebyshev2 monomial");
 #endif
       }
   }
@@ -3046,50 +3071,46 @@ test_quadrature()
     f = make_function(&myfn1, 0);
     n = 200;
 
-    test_fixed_quadrature(gsl_integration_fixed_legendre, n, 1.2, 1.6, 0.0, 0.0, 1.0e-12, 0.01505500344456001, &f, "legendre myfn1");
-    test_fixed_quadrature(gsl_integration_fixed_chebyshev, n, 1.2, 2.6, 0.0, 0.0, 1.0e-12, 0.0582346516219999, &f, "chebyshev myfn1");
-    test_fixed_quadrature(gsl_integration_fixed_gegenbauer, n, 1.2, 1.6, 2.0, 0.0, 1.0e-12, 1.2279468957162412661311711271e-5, &f, "gegenbauer myfn1");
-    test_fixed_quadrature(gsl_integration_fixed_gegenbauer, n, 1.2, 1.6, -0.5, 0.0, 1.0e-12, 1.228256086101808986e-1, &f, "gegenbauer myfn1");
-    test_fixed_quadrature(gsl_integration_fixed_jacobi, n, 1.2, 1.6, 2.0, 1.5, 1.0e-12, 3.173064776410033e-5, &f, "jacobi myfn1");
-    test_fixed_quadrature(gsl_integration_fixed_jacobi, n, 1.2, 1.6, -0.5, -0.5, 1.0e-12, 1.228256086101808986e-1, &f, "jacobi myfn1");
-    test_fixed_quadrature(gsl_integration_fixed_laguerre, n, 1.2, 0.6, 0.5, 0.0, 1.0e-12, 0.006604180366378123, &f, "laguerre myfn1");
-    test_fixed_quadrature(gsl_integration_fixed_hermite, n, 1.2, 0.6, 1.0, 0.0, 1.0e-12, 0.6542819629825344, &f, "hermite myfn1");
-    test_fixed_quadrature(gsl_integration_fixed_exponential, n, 1.2, 1.6, 2.0, 0.0, 1.0e-12, 2.1315535492168832898083633e-4, &f, "exponential myfn1");
-    test_fixed_quadrature(gsl_integration_fixed_rational, 15, 1.2, 1.6, 2.0, -33.4, 1.0e-9, 4.8457468060064844e-20, &f, "rational myfn1");
-    test_fixed_quadrature(gsl_integration_fixed_chebyshev2, n, 1.2, 2.6, 0.0, 0.0, 1.0e-12, 0.0081704088896491, &f, "chebyshev2 myfn1");
+    test_fixed_quadrature(integrate_fixed_legendre, n, 1.2, 1.6, _Tp{0}, _Tp{0}, prec_fixed<_Tp>, 0.01505500344456001L, &f, "legendre myfn1");
+    test_fixed_quadrature(integrate_fixed_chebyshev, n, 1.2, 2.6, _Tp{0}, _Tp{0}, prec_fixed<_Tp>, 0.0582346516219999L, &f, "chebyshev myfn1");
+    test_fixed_quadrature(integrate_fixed_gegenbauer, n, 1.2, 1.6, _Tp{2}, _Tp{0}, prec_fixed<_Tp>, 1.2279468957162412661311711271e-5L, &f, "gegenbauer myfn1");
+    test_fixed_quadrature(integrate_fixed_gegenbauer, n, 1.2, 1.6, -0.5, _Tp{0}, prec_fixed<_Tp>, 1.228256086101808986e-1L, &f, "gegenbauer myfn1");
+    test_fixed_quadrature(integrate_fixed_jacobi, n, 1.2, 1.6, _Tp{2}, 1.5, prec_fixed<_Tp>, 3.173064776410033e-5L, &f, "jacobi myfn1");
+    test_fixed_quadrature(integrate_fixed_jacobi, n, 1.2, 1.6, -0.5, -0.5, prec_fixed<_Tp>, 1.228256086101808986e-1L, &f, "jacobi myfn1");
+    test_fixed_quadrature(integrate_fixed_laguerre, n, 1.2, 0.6, 0.5, _Tp{0}, prec_fixed<_Tp>, 0.006604180366378123L, &f, "laguerre myfn1");
+    test_fixed_quadrature(integrate_fixed_hermite, n, 1.2, 0.6, _Tp{1}, _Tp{0}, prec_fixed<_Tp>, 0.6542819629825344L, &f, "hermite myfn1");
+    test_fixed_quadrature(integrate_fixed_exponential, n, 1.2, 1.6, _Tp{2}, _Tp{0}, prec_fixed<_Tp>, 2.1315535492168832898083633e-4L, &f, "exponential myfn1");
+    test_fixed_quadrature(integrate_fixed_rational, 15, 1.2, 1.6, _Tp{2}, -33.4, 1.0e-9, 4.8457468060064844e-20L, &f, "rational myfn1");
+    test_fixed_quadrature(integrate_fixed_chebyshev2, n, 1.2, 2.6, _Tp{0}, _Tp{0}, prec_fixed<_Tp>, 0.0081704088896491L, &f, "chebyshev2 myfn1");
   }
 
   // Test Gegenbauer quadrature
   {
     struct monomial_params params;
     gsl_function f;
-    const double exactarray[5] = {4.15933612154155020161400717857e-7, 744697.808572324010134504819452, 55.2024994284578980512106835228, 7.95574829722734114107142857143, 0.00179653588816666666666666666667};
-    const double aarray[5] = {0.123,7.747,1.47,-1.47,0.0};
-    const double barray[5] = {0.456,12.0,2.0,2.0,0.47};
-    const double alphaarray[5] = {2.0,0.5,-0.5,1.0,0.0};
 
     constexpr std::size_t num_test = 5;
-    test_fixed<double> test[num_test]
+    fixed_gegenbauer_test<_Tp> test[num_test]
     {
-      { 0.123L,  0.456L, 4.15933612154155020161400717857e-7L,  2.0L, 0.0L},
-      { 7.747L, 12.0L,   7.44697808572324010134504819452e+5L,  0.5L, 0.0L},
-      { 1.47L,   2.0L,   5.52024994284578980512106835228e+1L, -0.5L, 0.0L},
-      {-1.47L,   2.0L,   7.95574829722734114107142857143L,     1.0L, 0.0L},
-      { 0.0L,    0.47L,  1.79653588816666666666666666667e-3L,  0.0L, 0.0L}
+      { 0.123L,  0.456L, 4.15933612154155020161400717857e-7L,  2.0L},
+      { 7.747L, 12.0L,   7.44697808572324010134504819452e+5L,  0.5L},
+      { 1.47L,   2.0L,   5.52024994284578980512106835228e+1L, -0.5L},
+      {-1.47L,   2.0L,   7.95574829722734114107142857143L,     1.0L},
+      { 0.0L,    0.47L,  1.79653588816666666666666666667e-3L,  0.0L}
     };
 
     f.function = &f_monomial;
     f.params = &params;
 
     params.degree   = 5;
-    params.constant = 1.0;
+    params.constant = _Tp{1};
 
     std::size_t n = 50;
     for (std::size_t k = 0; k < 5; ++k)
       {
-        test_fixed_quadrature(gsl_integration_fixed_gegenbauer,
+        test_fixed_quadrature(integrate_fixed_gegenbauer,
 			      n, test[k].a, test[k].b, test[k].alpha, 0.0,
-                              1.0e-12, test[k].r, &f, "gegenbauer monomial");
+                              prec_fixed<_Tp>, test[k].r, &f, "gegenbauer monomial");
       }
   }
 
@@ -3097,35 +3118,33 @@ test_quadrature()
   {
     struct monomial_params params;
     gsl_function f;
-    const double exactarray[5] = {9.052430592016123480501898e-7,3.131716150347619771233591755e6,0.04435866422797298224404592896,5.287059602300844442782407,2.5337038518475893688512749675e-6};
-    const double aarray[5] = {0.123,7.747,1.47,-1.47,0.0};
-    const double barray[5] = {0.456,12.0,2.0,2.0,0.47};
-    double alpha, beta;
+    const auto alpha = _Tp{2};
+    const auto beta = _Tp{1.5L}};
 
     constexpr std::size_t num_test = 5;
-    test_fixed<double> test[num_test]
+    fixed_jacobi_test<_Tp> test[num_test]
     {
-      { 0.123L,  0.456L, 9.052430592016123480501898e-7L,     2.0L, 1.5L},
-      { 7.747L, 12.0L,   3.131716150347619771233591755e+6L,  2.0L, 1.5L},
-      { 1.47L,   2.0L,   0.0443586642279729822440459289+6L,  2.0L, 1.5L},
-      {-1.47L,   2.0L,   5.287059602300844442782407L,        2.0L, 1.5L},
-      { 0.0L,    0.47L,  2.5337038518475893688512749675e-6L, 2.0L, 1.5L}
+      { 0.123L,  0.456L, 9.052430592016123480501898e-7L,     alpha, beta},
+      { 7.747L, 12.0L,   3.131716150347619771233591755e+6L,  alpha, beta},
+      { 1.47L,   2.0L,   0.0443586642279729822440459289+6L,  alpha, beta},
+      {-1.47L,   2.0L,   5.287059602300844442782407L,        alpha, beta},
+      { 0.0L,    0.47L,  2.5337038518475893688512749675e-6L, alpha, beta}
     };
 
     f.function = &f_monomial;
     f.params = &params;
 
     params.degree   = 5;
-    params.constant = 1.0;
+    params.constant = _Tp{1};
 
     alpha = 2.0;
     beta = 1.5;
     std::size_t n = 50;
     for (std::size_t k = 0; k < 5; ++k)
       {
-        test_fixed_quadrature(gsl_integration_fixed_jacobi,
+        test_fixed_quadrature(integrate_fixed_jacobi,
 			      n, test[k].a, test[k].b, alpha, beta,
-                              1.0e-12, test[k].r, &f, "jacobi monomial");
+                              prec_fixed<_Tp>, test[k].r, &f, "jacobi monomial");
       }
   }
 
@@ -3133,19 +3152,15 @@ test_quadrature()
   {
     struct monomial_params params;
     gsl_function f;
-    const double exactarray[5] = {1.598864206823942764921875e-4, 624615.81848571833291063083819, 0.222578063871903188095238095238, 28.8968950008739567709168294271, 4.62725113500425479890950520833e-7};
-    const double aarray[5] = {0.123,7.747,1.47,-1.47,0.0};
-    const double barray[5] = {0.456,12.0,2.0,2.0,0.47};
-    const double alphaarray[5] = {1.0,1.5,2.0,3.0,5.0};
 
     constexpr std::size_t num_test = 5;
-    test_fixed<double> test[num_test]
+    fixed_exp_test<_Tp> test[num_test]
     {
-      { 0.123L,  0.456L, 1.598864206823942764921875e-4L,      1.0L, 0.0L},
-      { 7.747L, 12.0L,   6.2461581848571833291063083819e+5L,  1.5L, 0.0L},
-      { 1.47L,   2.0L,   2.22578063871903188095238095238e-1L, 2.0L, 0.0L},
-      {-1.47L,   2.0L,   2.88968950008739567709168294271e+1L, 3.0L, 0.0L},
-      { 0.0L,    0.47L,  4.62725113500425479890950520833e-7L, 5.0L, 0.0L}
+      { 0.123L,  0.456L, 1.598864206823942764921875e-4L,      1.0L},
+      { 7.747L, 12.0L,   6.2461581848571833291063083819e+5L,  1.5L},
+      { 1.47L,   2.0L,   2.22578063871903188095238095238e-1L, 2.0L},
+      {-1.47L,   2.0L,   2.88968950008739567709168294271e+1L, 3.0L},
+      { 0.0L,    0.47L,  4.62725113500425479890950520833e-7L, 5.0L}
     };
 
     f.function = &f_monomial;
@@ -3157,9 +3172,9 @@ test_quadrature()
     std::size_t n = 50;
     for (std::size_t k = 0; k < 5; ++k)
       {
-        test_fixed_quadrature(gsl_integration_fixed_exponential,
+        test_fixed_quadrature(integrate_fixed_exponential,
 			      n, test[k].a, test[k].b, test[k].alpha, 0.0,
-                              1.0e-12, test[k].r, &f, "exponential monomial");
+                              prec_fixed<_Tp>, test[k].r, &f, "exponential monomial");
       }
   }
 
@@ -3167,14 +3182,9 @@ test_quadrature()
   {
     struct monomial_params params;
     gsl_function f;
-    const double exactarray[6] = {1.312245361412108703130374957e-10,0.0170362044485924082779613124672, 8.93065131938394658578136414201e-11, 7.17990217357447544326794457270e-13, -11.0760676986664098133970869634, 0.00290392485414197833688178206557};
-    const double aarray[6] = {0.0,0.123,7.747,1.47,-1.47,0.0};
-    const double barray[6] = {2.0,0.456,12.0,2.0,2.0,0.47};
-    const double alphaarray[6] = {0.0,1.0,1.5,2.0,3.0,5.0};
-    const double betaarray[6] = {-21.0,-12.0,-13.0,-22.0,-21.0,-16.0};
 
     constexpr std::size_t num_test = 6;
-    test_fixed<double> test[num_test]
+    fixed_rational_test<_Tp> test[num_test]
     {
       { 0.0L,    2.0L,    1.312245361412108703130374957e-10,    0.0L, -21.0L},
       { 0.123L,  0.456L,  1.70362044485924082779613124672e-2L,  1.0L, -12.0L},
@@ -3188,18 +3198,18 @@ test_quadrature()
     f.params = &params;
 
     params.degree   = 5;
-    params.constant = 1.0;
+    params.constant = _Tp{1};
 
     std::size_t n = 5;
     for (std::size_t k = 0; k < 5; ++k)
       {
-        test_fixed_quadrature(gsl_integration_fixed_rational,
+        test_fixed_quadrature(integrate_fixed_rational,
 			      n, test[k].a, test[k].b, test[k].alpha, test[k].beta,
-                              1.0e-12, test[k].r, &f, "rational monomial");
+                              prec_fixed<_Tp>, test[k].r, &f, "rational monomial");
       }
   }
 */
-  exit(quadrature_test<double>::test_summary());
+  exit(quadrature_test<_Tp>::test_summary());
 }
 
 int
