@@ -60,16 +60,14 @@ namespace __gnu_cxx
                        std::size_t __i,
                        std::size_t __len,
                        bool __past_end = false)
-      :
-	_M_omega_pow_i(std::polar(_Tp{1},
+      : _M_omega_pow_i(std::polar(_Tp{1},
 				  -__sign * _S_rational_arg(__i, __len))),
 	_M_omega_pow_ik(_Tp{1}),
 	_M_k(__past_end ? __len : 0)
       { }
 
       __phase_iterator(_Tp __delta)
-      :
-	_M_omega_pow_i(std::polar(_Tp{1}, __delta)),
+      : _M_omega_pow_i(std::polar(_Tp{1}, __delta)),
 	_M_omega_pow_ik(_Tp{1}),
 	_M_k(0)
       { }
@@ -81,8 +79,8 @@ namespace __gnu_cxx
       __phase_iterator&
       operator++()
       {
-	++_M_k;
-	_M_omega_pow_ik *= _M_omega_pow_i;
+	++this->_M_k;
+	this->_M_omega_pow_ik *= this->_M_omega_pow_i;
 	return *this;
       }
 
@@ -90,7 +88,8 @@ namespace __gnu_cxx
       operator++(int)
       {
 	__phase_iterator __dummy(*this);
-	++_M_k;
+	++this->_M_k;
+	this->_M_omega_pow_ik *= this->_M_omega_pow_i;
 	return __dummy;
       }
 
