@@ -122,7 +122,7 @@ namespace __detail
       std::array<_Tp, _KronrodSz> __fv1;
       std::array<_Tp, _KronrodSz> __fv2;
 
-      static_assert((_KronrodSz / 2) == _GaussSz, "");
+      static_assert(_KronrodSz == 2 * _GaussSz + (_KronrodSz & 1), "");
 
       auto __result_gauss = _Tp{0};
       auto __result_kronrod = __f_center * __wgk[_KronrodSz - 1];
