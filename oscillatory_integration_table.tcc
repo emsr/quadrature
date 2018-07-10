@@ -28,11 +28,15 @@
 #ifndef OSCILLATORY_INTEGRATION_TABLE_TCC
 #define OSCILLATORY_INTEGRATION_TABLE_TCC 1
 
+#include <type_traits> // For decay.
+
 namespace __gnu_cxx
 {
-  template<typename _Tp>
+  template<typename _RandAccIter, typename _RandAccIterRHS>
     int
-    _S_tridiag(size_t __n, _Tp *__c, _Tp *__d, _Tp *__e, _Tp *__b);
+    _S_tridiag(size_t __n,
+	       _RandAccIter __dsub, _RandAccIter __diag, _RandAccIter __dsup,
+	       _RandAccIterRHS __b);
 
   /**
    * Compute Chebyshev moments at level @c level.
@@ -42,7 +46,8 @@ namespace __gnu_cxx
     oscillatory_integration_table<_Tp>::
     compute_moments(_Tp __par, std::size_t __level)
     {
-      _Tp __v[28], __d[25], __d1[25], __d2[25];
+      _Tp __v[28];
+      std::array<_Tp, 25> __diag, __dsub, __dsup;
 
       const size_t __noeq = 25;
 
@@ -75,23 +80,23 @@ namespace __gnu_cxx
 	  for (auto __k = 0u; __k < __noeq - 1; ++__k)
 	    {
 	      auto __an2 = __an * __an;
-	      __d[__k] = _Tp{-2} * (__an2 - _Tp{4})
+	      __diag[__k] = _Tp{-2} * (__an2 - _Tp{4})
 			 * (__par22 - _Tp{2} * __an2);
-	      __d2[__k] = (__an - 1) * (__an - _Tp{2}) * __par2;
-	      __d1[__k + 1] = (__an + _Tp{3}) * (__an + _Tp{4}) * __par2;
+	      __dsup[__k] = (__an - 1) * (__an - _Tp{2}) * __par2;
+	      __dsub[__k + 1] = (__an + _Tp{3}) * (__an + _Tp{4}) * __par2;
 	      __v[__k + 3] = __as - (__an2 - _Tp{4}) * __ac;
 	      __an += _Tp{2};
 	    }
 
-	  auto __an2 = __an * __an;
+	  const auto __an2 = __an * __an;
 
-	  __d[__noeq - 1] = _Tp{-2} * (__an2 - _Tp{4})
+	  __diag[__noeq - 1] = _Tp{-2} * (__an2 - _Tp{4})
 			  * (__par22 - _Tp{2} * __an2);
 	  __v[__noeq + 2] = __as - (__an2 - _Tp{4}) * __ac;
 	  __v[3] = __v[3] - _Tp{56} * __par2 * __v[2];
 
-	  auto __ass = __par * __sinpar;
-	  auto __asap = (((((_Tp{210} * __par2 - 1) * __cospar
+	  const auto __ass = __par * __sinpar;
+	  const auto __asap = (((((_Tp{210} * __par2 - 1) * __cospar
 			    - (_Tp{105} * __par2 - _Tp{63}) * __ass) / __an2
 			   - (_Tp{1} - _Tp{15} * __par2) * __cospar
 				 + _Tp{15} * __ass) / __an2
@@ -100,7 +105,7 @@ namespace __gnu_cxx
 	  __v[__noeq + 2] -= _Tp{2} * __asap * __par2
 			   * (__an - _Tp{1}) * (__an - _Tp{2});
 
-	  _S_tridiag(__noeq, __d1, __d, __d2, __v + 3);
+	  _S_tridiag(__noeq, __dsub, __diag, __dsup, __v + 3);
 	}
       else
 	{
@@ -112,8 +117,9 @@ namespace __gnu_cxx
 	      __v[__k] = ((__an2 - _Tp{4})
 		       * (_Tp{2} * (__par22 - _Tp{2} * __an2)
 				 * __v[__k - 1] - __ac)
-		  + __as - __par2 * (__an + 1) * (__an + _Tp{2}) * __v[__k - 2])
-		/ (__par2 * (__an - 1) * (__an - _Tp{2}));
+		  + __as
+		  - __par2 * (__an + _Tp{1}) * (__an + _Tp{2}) * __v[__k - 2])
+		  / (__par2 * (__an - _Tp{1}) * (__an - _Tp{2}));
 	      __an += _Tp{2};
 	    }
 	}
@@ -141,21 +147,22 @@ namespace __gnu_cxx
 	  for (auto __k = 0u; __k < __noeq - 1; ++__k)
 	    {
 	      auto __an2 = __an * __an;
-	      __d[__k] = -_Tp{2} * (__an2 - _Tp{4})
+	      __diag[__k] = -_Tp{2} * (__an2 - _Tp{4})
 			 * (__par22 - _Tp{2} * __an2);
-	      __d2[__k] = (__an - 1) * (__an - _Tp{2}) * __par2;
-	      __d1[__k + 1] = (__an + 3) * (__an + _Tp{4}) * __par2;
+	      __dsup[__k] = (__an - 1) * (__an - _Tp{2}) * __par2;
+	      __dsub[__k + 1] = (__an + 3) * (__an + _Tp{4}) * __par2;
 	      __v[__k + 2] = __ac + (__an2 - _Tp{4}) * __as;
 	      __an += _Tp{2};
 	    }
-	  auto __an2 = __an * __an;
+	  const auto __an2 = __an * __an;
 
-	  __d[__noeq - 1] = -_Tp{2} * (__an2 - _Tp{4}) * (__par22 - 2 * __an2);
+	  __diag[__noeq - 1] = -_Tp{2} * (__an2 - _Tp{4})
+			     * (__par22 - 2 * __an2);
 	  __v[__noeq + 1] = __ac + (__an2 - _Tp{4}) * __as;
 	  __v[2] = __v[2] - _Tp{42} * __par2 * __v[1];
 
-	  auto __ass = __par * __cospar;
-	  auto __asap = (((((_Tp{105} * __par2 - _Tp{63}) * __ass
+	  const auto __ass = __par * __cospar;
+	  const auto __asap = (((((_Tp{105} * __par2 - _Tp{63}) * __ass
 			 - (_Tp{210} * __par2 - _Tp{1}) * __sinpar) / __an2
 		    + (_Tp{15} * __par2 - 1) * __sinpar
 		    - _Tp{15} * __ass) / __an2 - __sinpar - _Tp{3} * __ass)
@@ -163,7 +170,7 @@ namespace __gnu_cxx
 	  __v[__noeq + 1] -= _Tp{2} * __asap * __par2
 			   * (__an - _Tp{1}) * (__an - _Tp{2});
 
-	  _S_tridiag(__noeq, __d1, __d, __d2, __v + 2);
+	  _S_tridiag(__noeq, __dsub, __diag, __dsup, __v + 2);
 	}
       else
 	{
@@ -171,9 +178,10 @@ namespace __gnu_cxx
 	  auto __an = _Tp{3};
 	  for (auto __k = 2u; __k < 12u; ++__k)
 	    {
-	      auto __an2 = __an * __an;
+	      const auto __an2 = __an * __an;
 	      __v[__k] = ((__an2 - _Tp{4})
-		 * (_Tp{2} * (__par22 - _Tp{2} * __an2) * __v[__k - 1] + __as)
+		       * (_Tp{2} * (__par22 - _Tp{2} * __an2)
+				 * __v[__k - 1] + __as)
 		   + __ac
 		   - __par2 * (__an + _Tp{1}) * (__an + _Tp{2}) * __v[__k - 2])
 		   / (__par2 * (__an - _Tp{1}) * (__an - _Tp{2}));
@@ -188,69 +196,73 @@ namespace __gnu_cxx
   /**
    * Solve a tridiagonal system A x = b:
    *
-   *   c[1 .. n - 1]   subdiagonal of the matrix A
-   *   d[0 .. n - 1]   diagonal of the matrix A
-   *   e[0 .. n - 2]   superdiagonal of the matrix A
+   *   dsub[1 ... n - 1]   subdiagonal of the matrix A
+   *   diag[0 ... n - 1]   diagonal of the matrix A
+   *   dsup[0 ... n - 2]   superdiagonal of the matrix A
    *
-   *   b[0 .. n - 1]   right hand side, replaced by the solution vector x
+   *   b[0 ... n - 1]   right hand side, replaced by the solution vector x
    */
-  template<typename _Tp>
+  template<typename _RandAccIter, typename _RandAccIterRHS>
     int
-    _S_tridiag(size_t __n, _Tp *__c, _Tp *__d, _Tp *__e, _Tp *__b)
+    _S_tridiag(size_t __n,
+	       _RandAccIter __dsub, _RandAccIter __diag, _RandAccIter __dsup,
+	       _RandAccIterRHS __b)
     {
-      __c[0] = __d[0];
+      using _Tp = std::decay_t<decltype(__dsub[0])>;
+
+      __dsub[0] = __diag[0];
 
       if (__n == 0)
 	return 0;
 
       if (__n == 1)
 	{
-	  __b[0] = __b[0] / __d[0];
+	  __b[0] = __b[0] / __diag[0];
 	  return 0;
 	}
 
-      __d[0] = __e[0];
-      __e[0] = _Tp{0};
-      __e[__n - 1] = 0;
+      __diag[0] = __dsup[0];
+      __dsup[0] = _Tp{0};
+      __dsup[__n - 1] = 0;
 
-      for (std::size_t __k = 0u; __k < __n - 1; ++__k)
+      for (auto __k = 0u; __k < __n - 1; ++__k)
 	{
-	  std::size_t __k1 = __k + 1;
+	  const auto __k1 = __k + 1;
 
-	  if (std::abs(__c[__k1]) >= std::abs(__c[__k]))
+	  if (std::abs(__dsub[__k1]) >= std::abs(__dsub[__k]))
 	    {
-	      std::swap(__c[__k1], __c[__k]);
-	      std::swap(__d[__k1], __d[__k]);
-	      std::swap(__e[__k1], __e[__k]);
+	      std::swap(__dsub[__k1], __dsub[__k]);
+	      std::swap(__diag[__k1], __diag[__k]);
+	      std::swap(__dsup[__k1], __dsup[__k]);
 	      std::swap(__b[__k1], __b[__k]);
 	    }
 
-	  if (__c[__k] == 0)
+	  if (__dsub[__k] == 0)
 	    return 1;
 
 	  {
-	    auto __t = -__c[__k1] / __c[__k];
+	    const auto __t = -__dsub[__k1] / __dsub[__k];
 
-	    __c[__k1] = __d[__k1] + __t * __d[__k];
-	    __d[__k1] = __e[__k1] + __t * __e[__k];
-	    __e[__k1] = _Tp{0};
+	    __dsub[__k1] = __diag[__k1] + __t * __diag[__k];
+	    __diag[__k1] = __dsup[__k1] + __t * __dsup[__k];
+	    __dsup[__k1] = _Tp{0};
 	    __b[__k1] = __b[__k1] + __t * __b[__k];
 	  }
 	}
 
-      if (__c[__n - 1] == 0)
+      if (__dsub[__n - 1] == 0)
 	return 1;
 
-      __b[__n - 1] = __b[__n - 1] / __c[__n - 1];
+      __b[__n - 1] = __b[__n - 1] / __dsub[__n - 1];
 
-      __b[__n - 2] = (__b[__n - 2] - __d[__n - 2] * __b[__n - 1])
-		   / __c[__n - 2];
+      __b[__n - 2] = (__b[__n - 2] - __diag[__n - 2] * __b[__n - 1])
+		   / __dsub[__n - 2];
 
-      for (std::size_t __k = __n ; __k > 2; --__k)
+      for (std::ptrdiff_t __k = __n ; __k > 2; --__k)
 	{
-	  std::size_t __kb = __k - 3;
-	  __b[__kb] = (__b[__kb] - __d[__kb] * __b[__kb + 1]
-		     - __e[__kb] * __b[__kb + 2]) / __c[__kb];
+	  const auto __kb = __k - 3;
+	  __b[__kb] = (__b[__kb] - __diag[__kb] * __b[__kb + 1]
+		     - __dsup[__kb] * __b[__kb + 2]) / __dsub[__kb];
 	}
 
       return 0;
