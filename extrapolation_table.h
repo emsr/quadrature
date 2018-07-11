@@ -55,9 +55,10 @@ namespace __gnu_cxx
       : _M_nn(0),
 	_M_nres(0)
       {
-	// Try to adjust tests for varing precision.
-	this->_M_irreg_test = std::pow(10.0,
-				 -std::numeric_limits<_Tp>::digits10 / 4.0);
+	// Try to adjust tests for varing precision?
+	// I don't think this is a precision-sensitive limit.
+	//this->_M_irreg_test = std::pow(10.0,
+	//			 -std::numeric_limits<_Tp>::digits10 / 4.0);
       }
 
       explicit extrapolation_table(_Tp __y)

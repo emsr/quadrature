@@ -71,11 +71,11 @@ namespace __gnu_cxx
 
 	  const auto __e1abs = std::abs(__e1);
 	  const auto __delta2 = __e2 - __e1;
-	  auto __err2 = std::abs(__delta2);
-	  auto __tol2 = std::max(std::abs(__e2), __e1abs) * _S_eps;
-	  auto __delta3 = __e1 - __e0;
-	  auto __err3 = std::abs(__delta3);
-	  auto __tol3 = std::max(__e1abs, std::abs(__e0)) * _S_eps;
+	  const auto __err2 = std::abs(__delta2);
+	  const auto __tol2 = std::max(std::abs(__e2), __e1abs) * _S_eps;
+	  const auto __delta3 = __e1 - __e0;
+	  const auto __err3 = std::abs(__delta3);
+	  const auto __tol3 = std::max(__e1abs, std::abs(__e0)) * _S_eps;
 
 	  if (__err2 <= __tol2 && __err3 <= __tol3)
 	    {
@@ -88,11 +88,11 @@ namespace __gnu_cxx
 	      return std::make_tuple(__result, __abserr);
 	    }
 
-	  auto __e3 = this->_M_rlist2[__cur_n - 2 * __ii];
+	  const auto __e3 = this->_M_rlist2[__cur_n - 2 * __ii];
 	  this->_M_rlist2[__cur_n - 2 * __ii] = __e1;
-	  auto __delta1 = __e1 - __e3;
-	  auto __err1 = std::abs(__delta1);
-	  auto __tol1 = std::max(__e1abs, std::abs(__e3)) * _S_eps;
+	  const auto __delta1 = __e1 - __e3;
+	  const auto __err1 = std::abs(__delta1);
+	  const auto __tol1 = std::max(__e1abs, std::abs(__e3)) * _S_eps;
 
 	  // If two elements are very close to each other, omit a part of
 	  // the table by adjusting the value of n.
@@ -102,8 +102,8 @@ namespace __gnu_cxx
 	      break;
 	    }
 
-	  auto __ss = (_Tp{1} / __delta1 + _Tp{1} / __delta2)
-		    - _Tp{1} / __delta3;
+	  const auto __ss = (_Tp{1} / __delta1 + _Tp{1} / __delta2)
+			  - _Tp{1} / __delta3;
 
 	  // Test to detect irregular behaviour in the table,
 	  // and eventually omit a part of the table by adjusting
@@ -140,7 +140,7 @@ namespace __gnu_cxx
       if (__n_orig % 2 == 1)
 	{
 	  for (size_t __ii = 0; __ii <= __newelm; ++__ii)
-	    this->_M_rlist2[1 + __ii * 2] = this->_M_rlist2[__ii * 2 + 3];
+	    this->_M_rlist2[__ii * 2 + 1] = this->_M_rlist2[__ii * 2 + 3];
 	}
       else
 	{
@@ -151,7 +151,7 @@ namespace __gnu_cxx
       if (__n_orig != __n_final)
 	{
 	  for (size_t __ii = 0; __ii <= __n_final; ++__ii)
-	    this->_M_rlist2[__ii] = this->_M_rlist2[__n_orig - __n_final + __ii];
+	    this->_M_rlist2[__ii] = this->_M_rlist2[__ii + __n_orig - __n_final];
 	}
 
       this->_M_nn = __n_final + 1;
