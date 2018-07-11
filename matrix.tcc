@@ -1,3 +1,22 @@
+// -*- C++ -*-
+// Integration utilities for the C++ library testsuite.
+//
+// Copyright (C) 2018 Free Software Foundation, Inc.
+//
+// This file is part of the GNU ISO C++ Library.  This library is free
+// software; you can redistribute it and/or modify it under the
+// terms of the GNU General Public License as published by the
+// Free Software Foundation; either version 3, or (at your option)
+// any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License along
+// with this library; see the file COPYING3.  If not see
+// <http://www.gnu.org/licenses/>.
 
 #ifndef MATRIX_TCC
 #define MATRIX_TCC 1
@@ -10,17 +29,18 @@ namespace __gnu_cxx
   /**
    * Solve a tridiagonal system A x = b:
    *
-   *   dsub[1 ... n - 1]   subdiagonal of the matrix A
-   *   diag[0 ... n - 1]   diagonal of the matrix A
-   *   dsup[0 ... n - 2]   superdiagonal of the matrix A
+   * @param[in]  dsup  The superdiagonal of the matrix in [0, n - 2]
+   * @param[in]  diag  The diagonal of the matrix in [0, n - 1]
+   * @param[in]  dsub  The subdiagonal of the matrix in [1, n - 1]
    *
-   *   b[0 ... n - 1]   right hand side, replaced by the solution vector x
+   * @param[out]  rhs  The right hand side in [0 ... n - 1],
+   *                   replaced by the solution vector x
    */
   template<typename _RandAccIter, typename _RandAccIterRHS>
     int
     _S_tridiag(size_t __n,
-	       _RandAccIter __dsub, _RandAccIter __diag, _RandAccIter __dsup,
-	       _RandAccIterRHS __b)
+	       _RandAccIter __dsup, _RandAccIter __diag, _RandAccIter __dsub,
+	       _RandAccIterRHS __rhs)
     {
       using _Tp = std::decay_t<decltype(__dsub[0])>;
 
@@ -31,7 +51,7 @@ namespace __gnu_cxx
 
       if (__n == 1)
 	{
-	  __b[0] = __b[0] / __diag[0];
+	  __rhs[0] = __rhs[0] / __diag[0];
 	  return 0;
 	}
 
@@ -48,7 +68,7 @@ namespace __gnu_cxx
 	      std::swap(__dsub[__k1], __dsub[__k]);
 	      std::swap(__diag[__k1], __diag[__k]);
 	      std::swap(__dsup[__k1], __dsup[__k]);
-	      std::swap(__b[__k1], __b[__k]);
+	      std::swap(__rhs[__k1], __rhs[__k]);
 	    }
 
 	  if (__dsub[__k] == 0)
@@ -60,23 +80,23 @@ namespace __gnu_cxx
 	    __dsub[__k1] = __diag[__k1] + __t * __diag[__k];
 	    __diag[__k1] = __dsup[__k1] + __t * __dsup[__k];
 	    __dsup[__k1] = _Tp{0};
-	    __b[__k1] = __b[__k1] + __t * __b[__k];
+	    __rhs[__k1] = __rhs[__k1] + __t * __rhs[__k];
 	  }
 	}
 
       if (__dsub[__n - 1] == 0)
 	return 1;
 
-      __b[__n - 1] = __b[__n - 1] / __dsub[__n - 1];
+      __rhs[__n - 1] = __rhs[__n - 1] / __dsub[__n - 1];
 
-      __b[__n - 2] = (__b[__n - 2] - __diag[__n - 2] * __b[__n - 1])
+      __rhs[__n - 2] = (__rhs[__n - 2] - __diag[__n - 2] * __rhs[__n - 1])
 		   / __dsub[__n - 2];
 
       for (std::ptrdiff_t __k = __n ; __k > 2; --__k)
 	{
 	  const auto __kb = __k - 3;
-	  __b[__kb] = (__b[__kb] - __diag[__kb] * __b[__kb + 1]
-		     - __dsup[__kb] * __b[__kb + 2]) / __dsub[__kb];
+	  __rhs[__kb] = (__rhs[__kb] - __diag[__kb] * __rhs[__kb + 1]
+		     - __dsup[__kb] * __rhs[__kb + 2]) / __dsub[__kb];
 	}
 
       return 0;
@@ -229,9 +249,7 @@ namespace __gnu_cxx
 	    {
 	      __diag[__k-1] = __diag[__i-1];
 	      __diag[__i-1] = p;
-	      p = z[__i-1];
-	      z[__i-1] = z[__k-1];
-	      z[__k-1] = p;
+	      std::swap(z[__i-1], z[__k-1]);
 	    }
 	}
 

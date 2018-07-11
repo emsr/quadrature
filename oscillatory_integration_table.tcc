@@ -41,7 +41,7 @@ namespace __gnu_cxx
     oscillatory_integration_table<_Tp>::
     compute_moments(_Tp __par, std::size_t __level)
     {
-      _Tp __v[28];
+      std::array<_Tp, 28> __v;
       std::array<_Tp, 25> __diag, __dsub, __dsup;
 
       const size_t __noeq = 25;
@@ -100,7 +100,7 @@ namespace __gnu_cxx
 	  __v[__noeq + 2] -= _Tp{2} * __asap * __par2
 			   * (__an - _Tp{1}) * (__an - _Tp{2});
 
-	  _S_tridiag(__noeq, __dsub, __diag, __dsup, __v + 3);
+	  _S_tridiag(__noeq, __dsup, __diag, __dsub, __v.begin() + 3);
 	}
       else
 	{
@@ -165,7 +165,7 @@ namespace __gnu_cxx
 	  __v[__noeq + 1] -= _Tp{2} * __asap * __par2
 			   * (__an - _Tp{1}) * (__an - _Tp{2});
 
-	  _S_tridiag(__noeq, __dsub, __diag, __dsup, __v + 2);
+	  _S_tridiag(__noeq, __dsup, __diag, __dsub, __v.begin() + 2);
 	}
       else
 	{
