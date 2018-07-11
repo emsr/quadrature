@@ -28,15 +28,10 @@
 #ifndef OSCILLATORY_INTEGRATION_TABLE_TCC
 #define OSCILLATORY_INTEGRATION_TABLE_TCC 1
 
-#include <type_traits> // For decay.
+#include "matrix.h"
 
 namespace __gnu_cxx
 {
-  template<typename _RandAccIter, typename _RandAccIterRHS>
-    int
-    _S_tridiag(size_t __n,
-	       _RandAccIter __dsub, _RandAccIter __diag, _RandAccIter __dsup,
-	       _RandAccIterRHS __b);
 
   /**
    * Compute Chebyshev moments at level @c level.
@@ -191,81 +186,6 @@ namespace __gnu_cxx
 
       for (auto __i = 0u; __i < 12u; ++__i)
 	this->chebmo[25 * __level + 2 * __i + 1] = __v[__i];
-    }
-
-  /**
-   * Solve a tridiagonal system A x = b:
-   *
-   *   dsub[1 ... n - 1]   subdiagonal of the matrix A
-   *   diag[0 ... n - 1]   diagonal of the matrix A
-   *   dsup[0 ... n - 2]   superdiagonal of the matrix A
-   *
-   *   b[0 ... n - 1]   right hand side, replaced by the solution vector x
-   */
-  template<typename _RandAccIter, typename _RandAccIterRHS>
-    int
-    _S_tridiag(size_t __n,
-	       _RandAccIter __dsub, _RandAccIter __diag, _RandAccIter __dsup,
-	       _RandAccIterRHS __b)
-    {
-      using _Tp = std::decay_t<decltype(__dsub[0])>;
-
-      __dsub[0] = __diag[0];
-
-      if (__n == 0)
-	return 0;
-
-      if (__n == 1)
-	{
-	  __b[0] = __b[0] / __diag[0];
-	  return 0;
-	}
-
-      __diag[0] = __dsup[0];
-      __dsup[0] = _Tp{0};
-      __dsup[__n - 1] = 0;
-
-      for (auto __k = 0u; __k < __n - 1; ++__k)
-	{
-	  const auto __k1 = __k + 1;
-
-	  if (std::abs(__dsub[__k1]) >= std::abs(__dsub[__k]))
-	    {
-	      std::swap(__dsub[__k1], __dsub[__k]);
-	      std::swap(__diag[__k1], __diag[__k]);
-	      std::swap(__dsup[__k1], __dsup[__k]);
-	      std::swap(__b[__k1], __b[__k]);
-	    }
-
-	  if (__dsub[__k] == 0)
-	    return 1;
-
-	  {
-	    const auto __t = -__dsub[__k1] / __dsub[__k];
-
-	    __dsub[__k1] = __diag[__k1] + __t * __diag[__k];
-	    __diag[__k1] = __dsup[__k1] + __t * __dsup[__k];
-	    __dsup[__k1] = _Tp{0};
-	    __b[__k1] = __b[__k1] + __t * __b[__k];
-	  }
-	}
-
-      if (__dsub[__n - 1] == 0)
-	return 1;
-
-      __b[__n - 1] = __b[__n - 1] / __dsub[__n - 1];
-
-      __b[__n - 2] = (__b[__n - 2] - __diag[__n - 2] * __b[__n - 1])
-		   / __dsub[__n - 2];
-
-      for (std::ptrdiff_t __k = __n ; __k > 2; --__k)
-	{
-	  const auto __kb = __k - 3;
-	  __b[__kb] = (__b[__kb] - __diag[__kb] * __b[__kb + 1]
-		     - __dsup[__kb] * __b[__kb + 2]) / __dsub[__kb];
-	}
-
-      return 0;
     }
 
 } // namespace __gnu_cxx
