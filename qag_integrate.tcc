@@ -98,7 +98,7 @@ namespace __gnu_cxx
 				  __max_rel_err * std::abs(__result0));
 
       // Compute roundoff
-      const auto __round_off = _Tp{50} * _S_eps * __resabs0;
+      const auto __round_off = _Tp{100} * _S_eps * __resabs0;
 
       if (__abserr0 <= __round_off && __abserr0 > __tolerance)
 	__throw_integration_error("qag_integrate: "
