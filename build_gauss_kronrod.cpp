@@ -25,7 +25,7 @@ g++ -std=c++14 -Wall -Wextra -o build_gauss_kronrod build_gauss_kronrod.cpp
  *  @param[in] even    true if n is even.
  *  @param[in] b[m+1]  The Chebyshev coefficients.
  *
- *  @param[inout] x   On input, an estimate for the abscissa,
+ *  @param[in,out] x   On input, an estimate for the abscissa,
  *                    and on output, the computed abscissa.
  *  @param[out]   wk  The Kronrod weight.
  */
@@ -145,7 +145,7 @@ template<typename _Tp>
  *  @param[in] even   Is true if n is even.
  *  @param[in] b[m+1] The Chebyshev coefficients.
  *
- *  @param[inout] x   On input, an estimate for the abscissa,
+ *  @param[in,out] x   On input, an estimate for the abscissa,
  *                    and on output, the computed abscissa.
  *  @param[out]   wk  The Gauss-Kronrod weight.
  *  @param[out]   wg  The Gauss weight.
