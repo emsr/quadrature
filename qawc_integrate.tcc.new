@@ -48,7 +48,7 @@ namespace __gnu_cxx
   /**
    * Adaptive integration for Cauchy principal values:
    * @f[
-   *   I = \int_a^b f(x) / (x - c) dx
+   *   I = \int_a^b dx f(x) / (x - c)
    * @f]
    * The adaptive bisection algorithm of QAG is used, with modifications
    * to ensure that subdivisions do not occur at the singular point x = c.
@@ -120,22 +120,21 @@ namespace __gnu_cxx
       do
 	{
 	  // Bisect the subinterval with the largest error estimate.
-	  _Tp __a_i, __b_i, __r_i, __e_i;
-	  __workspace.retrieve(__a_i, __b_i, __r_i, __e_i);
+	  const auto& __curr = __workspace.retrieve();
 
-	  const auto __a1 = __a_i;
-	  auto __b1 = (__a_i + __b_i) / _Tp{2};
-	  const auto __b2 = __b_i;
-	  if (__center > __a1 && __center <= __b1)
-	    __b1 = (__center + __b2) / _Tp{2};
-	  else if (__center > __b1 && __center < __b2)
-	    __b1 = (__a1 + __center) / _Tp{2};
-	  const auto __a2 = __b1;
+	  const auto __a1 = __curr.__lower_lim;
+	  const auto __b2 = __curr.__upper_lim;
+	  auto __mid = (__curr.__lower_lim + __curr.__upper_lim) / _Tp{2};
+	  if (__center > __a1 && __center <= __mid)
+	    __mid = (__center + __b2) / _Tp{2};
+	  else if (__center > __mid && __center < __b2)
+	    __mid = (__a1 + __center) / _Tp{2};
+	  const auto __a2 = __mid;
 
 	  _Tp __area1, __error1;
 	  bool __err_reliable1;
 	  std::tie(__area1, __error1, __err_reliable1)
-	    = qc25c(__func, __a1, __b1, __center, __quad);
+	    = qc25c(__func, __a1, __mid, __center, __quad);
 
 	  _Tp __area2, __error2;
 	  bool __err_reliable2;
@@ -145,17 +144,17 @@ namespace __gnu_cxx
 	  const auto __area12 = __area1 + __area2;
 	  const auto __error12 = __error1 + __error2;
 
-	  __errsum += (__error12 - __e_i);
-	  __area += __area12 - __r_i;
+	  __errsum += (__error12 - __curr.__abs_error);
+	  __area += __area12 - __curr.__result;
 
 	  if (__err_reliable1 && __err_reliable2)
 	    {
-	      _Tp __delta = __r_i - __area12;
+	      const auto __delta = __curr.__result - __area12;
 
 	      if (std::abs (__delta) <= _M_rel_err * std::abs (__area12)
-	    	   && __error12 >= 0.99 * __e_i)
+	    	   && __error12 >= 0.99 * __curr.__abs_error)
 		++__roundoff_type1;
-	      if (__iteration >= 10 && __error12 > __e_i)
+	      if (__iteration >= 10 && __error12 > __curr.__abs_error)
 		++__roundoff_type2;
 	    }
 
@@ -171,9 +170,7 @@ namespace __gnu_cxx
 		__error_type = SINGULAR_ERROR;
 	    }
 
-	  __workspace.split(__b1, __area1, __error1, __area2, __error2);
-
-	  __workspace.retrieve(__a_i, __b_i, __r_i, __e_i);
+	  __workspace.split(__mid, __area1, __error1, __area2, __error2);
 
 	  ++__iteration;
 	}
