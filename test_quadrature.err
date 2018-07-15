@@ -1,0 +1,4 @@
+testcase.tcc:345:19: runtime error: division by zero
+testcase.tcc:381:14: runtime error: division by zero
+testcase.tcc:388:42: runtime error: division by zero
+testcase.tcc:417:23: runtime error: division by zero

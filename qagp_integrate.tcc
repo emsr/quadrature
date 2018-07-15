@@ -364,7 +364,7 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
 	    }
 	  else if (__area == _Tp{0})
 	    {
-	      __check_error<_Tp>(__func__, __error_type);
+	      __check_error<_Tp>(__func__, __error_type, __result, __abserr);
 	      std::__throw_runtime_error("qagp_integrate: Unknown error.");
 	    }
 	}
@@ -374,7 +374,7 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
       auto __max_area = std::max(std::abs(__res_ext), std::abs(__area));
       if (!__positive_integrand && __max_area < 0.01 * __resabs0)
 	{
-	  __check_error<_Tp>(__func__, __error_type);
+	  __check_error<_Tp>(__func__, __error_type, __result, __abserr);
 	  std::__throw_runtime_error("qagp_integrate: Unknown error.");
 	}
 
@@ -385,7 +385,7 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
       if (__error_type == NO_ERROR)
 	return std::make_tuple(__result, __abserr);
 
-      __check_error<_Tp>(__func__, __error_type);
+      __check_error<_Tp>(__func__, __error_type, __result, __abserr);
       __throw_integration_error("qagp_integrate: Unknown error.",
 				UNKNOWN_ERROR, __result, __abserr);
     }
