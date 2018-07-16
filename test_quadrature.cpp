@@ -157,7 +157,7 @@ template<typename _Tp>
     else if ((expected > 0 && expected < std::numeric_limits<_Tp>::min())
 	  || (expected < 0 && expected > -(std::numeric_limits<_Tp>::min())))
       status = -1;
-    else if (expected != 0)
+    else if (expected != _Tp{0})
       status = (std::abs(result - expected) > rel_error * std::abs(expected));
     else
       status = (std::abs(result) > rel_error);
@@ -1688,7 +1688,7 @@ test_quadrature()
       auto f = make_function<_Tp>(f1<_Tp>, alpha);
       auto fc = counted_function<_Tp, decltype(f)>(f);
 
-      const auto epsabs = _Tp{1.0e-7};
+      const auto epsabs = _Tp{1.0e-10};
       const auto epsrel = _Tp{0};
       auto [result, abserr]
 	= __gnu_cxx::qags_integrate(w, fc, _Tp{0}, _Tp{1}, epsabs, epsrel);
@@ -2059,7 +2059,7 @@ test_quadrature()
 	qtest.test_relative(w.upper_lim(i), test[i].b, fpeps, "qagi(myfn1) smooth upper lim");
 
       for (std::size_t i = 0; i < m; ++i)
-	qtest.test_relative(w.result(i), test[i].r, /*1.0e-14*/epsabs, "qagi(myfn1) smooth integral");
+	qtest.test_relative(w.result(i), test[i].r, 1.0e-14, "qagi(myfn1) smooth integral");
 
       for (std::size_t i = 0; i < m; ++i)
 	qtest.test_relative(w.abs_error(i), test[i].e, 1.0e-4, "qagi(myfn1) smooth abs error");
