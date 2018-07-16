@@ -158,7 +158,7 @@ template<typename _Tp>
     else if ((expected > 0 && expected < std::numeric_limits<_Tp>::min())
 	  || (expected < 0 && expected > -(std::numeric_limits<_Tp>::min())))
       status = -1;
-    else if (expected != 0)
+    else if (expected != _Tp{0})
       status = (std::abs(result - expected) > rel_error * std::abs(expected));
     else
       status = (std::abs(result) > rel_error);
@@ -1930,10 +1930,10 @@ test_quadrature()
 
       const auto m = std::min(num_test, w.size());
       for (std::size_t i = 0; i < m; ++i)
-	qtest.test_relative(w.lower_lim(i), test[i].a, fpeps, "qagiu(f15) smooth lower lim");
+	qtest.test_relative(w.lower_lim(i), _Tp{1} - test[i].b, fpeps, "qagiu(f15) smooth lower lim");
 
       for (std::size_t i = 0; i < m; ++i)
-	qtest.test_relative(w.upper_lim(i), test[i].b, fpeps, "qagiu(f15) smooth upper lim");
+	qtest.test_relative(w.upper_lim(i), _Tp{1} - test[i].a, fpeps, "qagiu(f15) smooth upper lim");
 
       for (std::size_t i = 0; i < m; ++i)
 	qtest.test_relative(w.result(i), test[i].r, epsrel, "qagiu(f15) smooth integral");
@@ -1995,13 +1995,13 @@ test_quadrature()
 
       const auto m = std::min(num_test, w.size());
       for (std::size_t i = 0; i < m; ++i)
-	qtest.test_relative(w.lower_lim(i), test[i].a, fpeps, "qagiu(f16) smooth lower lim");
+	qtest.test_relative(w.lower_lim(i), _Tp{1} - test[i].b, fpeps, "qagiu(f16) smooth lower lim");
 
       for (std::size_t i = 0; i < m; ++i)
-	qtest.test_relative(w.upper_lim(i), test[i].b, fpeps, "qagiu(f16) smooth upper lim");
+	qtest.test_relative(w.upper_lim(i), _Tp{1} - test[i].a, fpeps, "qagiu(f16) smooth upper lim");
 
       for (std::size_t i = 0; i < m; ++i)
-	qtest.test_relative(w.result(i), test[i].r, /*fpeps*/epsabs, "qagiu(f16) smooth integral");
+	qtest.test_relative(w.result(i), test[i].r, epsabs, "qagiu(f16) smooth integral");
 
       for (std::size_t i = 0; i < m; ++i)
 	qtest.test_relative(w.abs_error(i), test[i].e, 1.0e-4, "qagiu(f16) smooth abs error");
@@ -2036,9 +2036,9 @@ test_quadrature()
       test_ival<_Tp> test[num_test]
       {
 	{5.000000000000000000e-01L, 1.000000000000000000e+00L, 1.691664195356748834e+00L, 4.265988974874425043e-09L},
-	{2.500000000000000000e-01L, 3.750000000000000000e-01L, 1.146307471900291086e-01L, 1.231954072964969637e-12L},
 	{1.250000000000000000e-01L, 2.500000000000000000e-01L, 4.639317228058405717e-04L, 3.169263960393051137e-09L},
 	{0.000000000000000000e+00L, 1.250000000000000000e-01L, 4.379392477350953574e-20L, 8.360902986775307673e-20L},
+	{2.500000000000000000e-01L, 3.750000000000000000e-01L, 1.146307471900291086e-01L, 1.231954072964969637e-12L},
 	{3.750000000000000000e-01L, 5.000000000000000000e-01L, 4.691169201991640669e-01L, 5.208244060463541433e-15L},
       };
 
@@ -2047,7 +2047,8 @@ test_quadrature()
 
       const auto epsabs = _Tp{1.0e-7};
       const auto epsrel = _Tp{0};
-      auto [result, abserr] = __gnu_cxx::qagi_integrate(w, fc, epsabs, epsrel);
+      //auto [result, abserr] = __gnu_cxx::qagi_integrate(w, fc, epsabs, epsrel);
+      auto [result, abserr] = __gnu_cxx::qagis_integrate(w, fc, epsabs, epsrel);
 
       qtest.test_relative(result, exp_result, 1.0e-14, "qagi(myfn1) smooth result");
       qtest.test_relative(abserr, exp_abserr, 1.0e-5, "qagi(myfn1) smooth abserr");
@@ -2063,7 +2064,7 @@ test_quadrature()
 	qtest.test_relative(w.upper_lim(i), test[i].b, fpeps, "qagi(myfn1) smooth upper lim");
 
       for (std::size_t i = 0; i < m; ++i)
-	qtest.test_relative(w.result(i), test[i].r, /*1.0e-14*/epsabs, "qagi(myfn1) smooth integral");
+	qtest.test_relative(w.result(i), test[i].r, 1.0e-14, "qagi(myfn1) smooth integral");
 
       for (std::size_t i = 0; i < m; ++i)
 	qtest.test_relative(w.abs_error(i), test[i].e, 1.0e-4, "qagi(myfn1) smooth abs error");
@@ -2127,7 +2128,7 @@ test_quadrature()
 	qtest.test_relative(w.upper_lim(i), test[i].b, fpeps, "qagil(myfn2) smooth upper lim");
 
       for (std::size_t i = 0; i < m; ++i)
-	qtest.test_relative(w.result(i), test[i].r, /*1.0e-14*/epsabs, "qagil(myfn2) smooth integral");
+	qtest.test_relative(w.result(i), test[i].r, epsabs, "qagil(myfn2) smooth integral");
 
       for (std::size_t i = 0; i < m; ++i)
 	qtest.test_relative(w.abs_error(i), test[i].e, 1.0e-4, "qagil(myfn2) smooth abs error");
@@ -2206,7 +2207,7 @@ test_quadrature()
 	qtest.test_relative(w.upper_lim(i), test[i].b, fpeps, "qagp(f454) singular upper lim");
 
       for (std::size_t i = 0; i < m; ++i)
-	qtest.test_relative(w.result(i), test[i].r, /*1.0e-14*/epsrel, "qagp(f454) singular integral");
+	qtest.test_relative(w.result(i), test[i].r, epsrel, "qagp(f454) singular integral");
 
       for (std::size_t i = 0; i < m; ++i)
 	qtest.test_relative(w.abs_error(i), test[i].e, 1.0e-4, "qagp(f454) singular abs error");

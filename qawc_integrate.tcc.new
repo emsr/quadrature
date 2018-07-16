@@ -144,7 +144,7 @@ namespace __gnu_cxx
 	  const auto __area12 = __area1 + __area2;
 	  const auto __error12 = __error1 + __error2;
 
-	  __errsum += (__error12 - __curr.__abs_error);
+	  __errsum += __error12 - __curr.__abs_error;
 	  __area += __area12 - __curr.__result;
 
 	  if (__err_reliable1 && __err_reliable2)
@@ -196,7 +196,7 @@ namespace __gnu_cxx
   /**
    * Adaptive integration for Cauchy principal values:
    * @f[
-   *   I = \int_a^b dx f(x) / (x - c) 
+   *   I = \int_a^b dx f(x) / (x - c)
    * @f]
    * The adaptive bisection algorithm of QAG is used, with modifications
    * to ensure that subdivisions do not occur at the singular point x = c.
@@ -224,7 +224,16 @@ namespace __gnu_cxx
     }
 
   /**
-   *
+   * Adaptive integration for Cauchy principal values:
+   * @f[
+   *   I = \int_a^b dx f(x) / (x - c)
+   * @f]
+   * The adaptive bisection algorithm of QAG is used, with modifications
+   * to ensure that subdivisions do not occur at the singular point x = c.
+   * When a subinterval contains the point x = c or is close to it then
+   * a special 25-point modified Clenshaw-Curtis rule is used to control
+   * the singularity. Further away from the singularity the algorithm uses
+   * a user-supplied integration rule. 
    */
   template<typename _Tp, typename _FuncTp, typename _Integrator>
     std::tuple<_Tp, _Tp, bool>

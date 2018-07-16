@@ -439,6 +439,20 @@ namespace __gnu_cxx
     }
 
   /**
+   * Integrate a potentially singular symmetric function
+   * defined over (-\infty, +\infty).
+   */
+  template<typename _Tp, typename _FuncTp>
+    std::tuple<_Tp, _Tp>
+    qagis_integrate(integration_workspace<_Tp>& __workspace,
+		    _FuncTp __func,
+		    _Tp __max_abs_err, _Tp __max_rel_err)
+    {
+      return qags_integrate(__workspace, map_minf_pinf_symm<_Tp, _FuncTp>(__func),
+			    _Tp{0}, _Tp{1}, __max_abs_err, __max_rel_err);
+    }
+
+  /**
    * Integrate a potentially singular function defined over (-\infty, b].
    */
   template<typename _Tp, typename _FuncTp>
