@@ -142,7 +142,7 @@ namespace __gnu_cxx
 	  const auto __area12 = __area1 + __area2;
 	  const auto __error12 = __error1 + __error2;
 
-	  __errsum += (__error12 - __curr.__abs_error);
+	  __errsum += __error12 - __curr.__abs_error;
 	  __area += __area12 - __curr.__result;
 
 	  if (__err_reliable1 && __err_reliable2)
