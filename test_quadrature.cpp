@@ -29,6 +29,7 @@ $HOME/bin/bin/g++ -std=gnu++17 -fconcepts -g -Wall -Wextra -Wno-psabi -I.. -c -o
 #include <functional>
 #include <iostream>
 #include <memory>
+#include <cfenv>
 
 #include "integration.h"
 #include "testcase.h"
@@ -358,6 +359,9 @@ template<typename _Tp>
 void
 test_quadrature()
 {
+  //feenableexcept(FE_OVERFLOW | FE_UNDERFLOW);
+  //feenableexcept(FE_OVERFLOW);
+
   const auto _S_pi = __gnu_cxx::__const_pi<_Tp>();
   const auto fpeps = 1.0e-15;
 
@@ -1063,11 +1067,11 @@ test_quadrature()
       int status = __gnu_cxx::NO_ERROR;
       const auto exp_result = _Tp{7.716049379303083211e-02L};
       const auto exp_abserr = _Tp{9.424302199601294244e-08L};
-      int exp_neval  =  21;
-      int exp_ier    =   __gnu_cxx::NO_ERROR;
+      const int exp_neval  = 21;
+      const int exp_ier    = __gnu_cxx::NO_ERROR;
       quadrature_test<_Tp> qtest;
 
-      _Tp alpha = _Tp{2.6};
+      const auto alpha = _Tp{2.6};
       auto f = make_function<_Tp>(f1<_Tp>, alpha);
       auto fc = counted_function<_Tp, decltype(f)>(f);
 
@@ -1106,8 +1110,8 @@ test_quadrature()
       int status = 0;
       const auto exp_result = _Tp{7.716049382706505200e-02L};
       const auto exp_abserr = _Tp{2.666893044866214501e-12L};
-      int exp_neval  =  43;
-      int exp_ier    =   __gnu_cxx::NO_ERROR;
+      const int exp_neval  = 43;
+      const int exp_ier    = __gnu_cxx::NO_ERROR;
 
       const auto alpha = 2.6L;
       auto f = make_function<_Tp>(f1<_Tp>, alpha);
@@ -1146,8 +1150,8 @@ test_quadrature()
       int status = 0;
       const auto exp_result = _Tp{-7.238969575482961938e-01L};
       const auto exp_abserr = _Tp{1.277676889520056369e-14L};
-      int exp_neval  =  43;
-      int exp_ier    =   __gnu_cxx::NO_ERROR;
+      const int exp_neval  = 43;
+      const int exp_ier    = __gnu_cxx::NO_ERROR;
       quadrature_test<_Tp> qtest;
 
       const auto alpha = 1.3L;
@@ -1189,8 +1193,8 @@ test_quadrature()
       int status = 0;
       const auto exp_result = _Tp{7.716049382716029525e-02L};
       const auto exp_abserr = _Tp{8.566535680046930668e-16L};
-      int exp_neval  =  87;
-      int exp_ier    =   __gnu_cxx::NO_ERROR;
+      const int exp_neval  = 87;
+      const int exp_ier    = __gnu_cxx::NO_ERROR;
 
       const auto alpha = 2.6L;
       auto f = make_function<_Tp>(f1<_Tp>, alpha);
@@ -1231,8 +1235,8 @@ test_quadrature()
       int status = 0;
       const auto exp_result = _Tp{3.222948711817264211e+01L};
       const auto exp_abserr = _Tp{2.782360287710622870e+01L};
-      int exp_neval  =  87;
-      int exp_ier    =  __gnu_cxx::TOLERANCE_ERROR;
+      const int exp_neval  = 87;
+      const int exp_ier    = __gnu_cxx::TOLERANCE_ERROR;
 
       const auto alpha = -0.9L;
       auto f = make_function<_Tp>(f1<_Tp>, alpha);
@@ -1294,9 +1298,9 @@ test_quadrature()
 
       const auto exp_result = _Tp{7.716049382715854665e-02L};
       const auto exp_abserr = _Tp{6.679384885865053037e-12L};
-      int exp_neval  =     165;
-      int exp_ier    =       __gnu_cxx::NO_ERROR;
-      int exp_last   =       6;
+      const int exp_neval  = 165;
+      const int exp_ier    = __gnu_cxx::NO_ERROR;
+      const int exp_last   = 6;
 
       constexpr std::size_t num_test = 6;
       test_ival<_Tp> test[num_test]
@@ -1368,9 +1372,9 @@ test_quadrature()
 
       const auto exp_result = _Tp{7.716049382716050342e-02L};
       const auto exp_abserr = _Tp{2.227969521869139532e-15L};
-      int exp_neval  =     315;
-      int exp_ier    =       __gnu_cxx::NO_ERROR;
-      int exp_last   =       8;
+      const int exp_neval  = 315;
+      const int exp_ier    = __gnu_cxx::NO_ERROR;
+      const int exp_last   = 8;
 
       constexpr std::size_t num_test = 8;
       test_ival<_Tp> test[num_test]
@@ -1445,11 +1449,11 @@ test_quadrature()
 
       const auto exp_result = _Tp{-7.238969575482959717e-01L};
       const auto exp_abserr = _Tp{1.285805464427459261e-14L};
-      int exp_neval   =     31;
-      int exp_ier     =     __gnu_cxx::ROUNDOFF_ERROR;
-      int exp_last    =     1;
+      const int exp_neval   = 31;
+      const int exp_ier     = __gnu_cxx::ROUNDOFF_ERROR;
+      const int exp_last    = 1;
 
-      _Tp alpha = 1.3L;
+      const auto alpha = _Tp{1.3L};
       auto f = make_function<_Tp>(f3<_Tp>, alpha);
       auto fc = counted_function<_Tp, decltype(f)>(f);
 
@@ -1513,11 +1517,11 @@ test_quadrature()
 
       __gnu_cxx::integration_workspace<_Tp> w(1000);
 
-      int exp_neval  =     5151;
-      int exp_ier    =     __gnu_cxx::SINGULAR_ERROR;
-      int exp_last   =     51;
+      const int exp_neval  = 5151;
+      const int exp_ier    = __gnu_cxx::SINGULAR_ERROR;
+      const int exp_last   = 51;
 
-      auto alpha = _Tp{2};
+      const auto alpha = _Tp{2};
       auto f = make_function<_Tp>(f16<_Tp>, alpha);
       auto fc = counted_function<_Tp, decltype(f)>(f);
 
@@ -1577,11 +1581,11 @@ test_quadrature()
 
       __gnu_cxx::integration_workspace<_Tp> w(3);
 
-      const auto exp_result =  9.565151449233894709L;
+      const auto exp_result = _Tp{9.565151449233894709L};
       const auto exp_abserr = _Tp{1.570369823891028460e+01L};
-      int exp_neval  =     305;
-      int exp_ier    =     __gnu_cxx::MAX_ITER_ERROR;
-      int exp_last   =     3;
+      const int exp_neval  = 305;
+      const int exp_ier    = __gnu_cxx::MAX_ITER_ERROR;
+      const int exp_last   = 3;
 
       constexpr std::size_t num_test = 3;
       test_ival<_Tp> test[num_test]
@@ -1591,7 +1595,7 @@ test_quadrature()
 	{ 0.000000000000000000L,      1.000000000000000000L,     9.090909090909091161e-02L, 1.009293658750142399e-15L},
       };
 
-      _Tp alpha = _Tp{1};
+      const auto alpha = _Tp{1};
       auto f = make_function<_Tp>(f16<_Tp>, alpha);
       auto fc = counted_function<_Tp, decltype(f)>(f);
 
@@ -1670,9 +1674,9 @@ test_quadrature()
 
       const auto exp_result = _Tp{7.716049382715789440e-02L};
       const auto exp_abserr = _Tp{2.216394961010438404e-12L};
-      int exp_neval  =     189;
-      int exp_ier    =       __gnu_cxx::NO_ERROR;
-      int exp_last   =       5;
+      const int exp_neval  = 189;
+      const int exp_ier    = __gnu_cxx::NO_ERROR;
+      const int exp_last   = 5;
 
       constexpr std::size_t num_test = 5;
       test_ival<_Tp> test[num_test]
@@ -1680,16 +1684,16 @@ test_quadrature()
 	0.0L,    0.0625L, 3.919381915366914693e-05L, 2.215538742580964735e-12L,
 	0.5L,    1.0L,    5.491842501998223103e-02L, 6.097169993333454062e-16L,
 	0.25L,   0.5L,    1.909827770934243579e-02L, 2.120334764359736441e-16L,
-	0.125L,  0.25L,   2.776531175604360097e-03L, 3.082568839745514608e-17L,
 	0.0625L, 0.125L,  3.280661030752062609e-04L, 3.642265412331439511e-18L,
+	0.125L,  0.25L,   2.776531175604360097e-03L, 3.082568839745514608e-17L,
       };
 
-      _Tp alpha = 2.6L;
+      const auto alpha = _Tp{2.6L};
       auto f = make_function<_Tp>(f1<_Tp>, alpha);
       auto fc = counted_function<_Tp, decltype(f)>(f);
 
-      const auto epsabs = _Tp{1.0e-10};
-      const auto epsrel = _Tp{0};
+      const auto epsabs = _Tp{0};
+      const auto epsrel = _Tp{1.0e-10};
       auto [result, abserr]
 	= __gnu_cxx::qags_integrate(w, fc, _Tp{0}, _Tp{1}, epsabs, epsrel);
 
@@ -1714,7 +1718,7 @@ test_quadrature()
 
       fc.num_evals(0);
       std::tie(result, abserr)
-	= __gnu_cxx::qags_integrate(w, fc, _Tp{1}, _Tp{0}, _Tp{0}, 1.0e-10);
+	= __gnu_cxx::qags_integrate(w, fc, _Tp{1}, _Tp{0}, epsabs, epsrel);
 
       qtest.test_relative(result, -exp_result, fpeps, "qags(f1) reverse result");
       qtest.test_relative(abserr, exp_abserr, 1.0e-6, "qags(f1) reverse abserr");
@@ -1744,9 +1748,9 @@ test_quadrature()
 
       const auto exp_result = _Tp{-5.908755278982136588e+03L};
       const auto exp_abserr = _Tp{1.299646281053874554e-10L};
-      int exp_neval  = 357;
-      int exp_ier    = __gnu_cxx::NO_ERROR;
-      int exp_last   = 9;
+      const int exp_neval  = 357;
+      const int exp_ier    = __gnu_cxx::NO_ERROR;
+      const int exp_last   = 9;
 
       constexpr std::size_t num_test = 9;
       test_ival<_Tp> test[num_test]
@@ -1792,7 +1796,7 @@ test_quadrature()
 
       fc.num_evals(0);
       std::tie(result, abserr)
-	= __gnu_cxx::qags_integrate(w, fc, _Tp{1000}, _Tp{1}, 1.0e-7, _Tp{0});
+	= __gnu_cxx::qags_integrate(w, fc, _Tp{1000}, _Tp{1}, epsabs, epsrel);
 
       qtest.test_relative(result, -exp_result, fpeps, "qags(f11) reverse result");
       qtest.test_relative(abserr, exp_abserr, 1.0e-3, "qags(f11) reverse abserr");
@@ -1822,9 +1826,9 @@ test_quadrature()
 
       const auto exp_result = _Tp{-3.616892186127022568e-01L};
       const auto exp_abserr = _Tp{3.016716913328831851e-06L};
-      int exp_neval  =      285;
-      int exp_ier    =        __gnu_cxx::NO_ERROR;
-      int exp_last   =       10;
+      const int exp_neval  = 285;
+      const int exp_ier    = __gnu_cxx::NO_ERROR;
+      const int exp_last   = 10;
 
       constexpr std::size_t num_test = 10;
       test_ival<_Tp> test[num_test]
@@ -1890,9 +1894,9 @@ test_quadrature()
 
       const auto exp_result = _Tp{6.553600000000024738e+04L};
       const auto exp_abserr = _Tp{7.121667111456009280e-04L};
-      int exp_neval  =      285;
-      int exp_ier    =        __gnu_cxx::NO_ERROR;
-      int exp_last   =       10;
+      const int exp_neval  = 285;
+      const int exp_ier    = __gnu_cxx::NO_ERROR;
+      const int exp_last   = 10;
 
       constexpr std::size_t num_test = 10;
       test_ival<_Tp> test[num_test]
@@ -1918,7 +1922,7 @@ test_quadrature()
       auto [result, abserr]
 	= __gnu_cxx::qagiu_integrate(w, fc, _Tp{0}, epsabs, epsrel);
 
-      qtest.test_relative(result, exp_result, /*1.0e-14*/epsrel, "qagiu(f15) smooth result");
+      qtest.test_relative(result, exp_result, epsrel, "qagiu(f15) smooth result");
       qtest.test_relative(abserr, exp_abserr, 1.0e-5, "qagiu(f15) smooth abserr");
       qtest.test_integer(fc.num_evals(), exp_neval, "qagiu(f15) smooth neval");
       qtest.test_integer(w.size(), exp_last, "qagiu(f15) smooth last");
@@ -1932,7 +1936,7 @@ test_quadrature()
 	qtest.test_relative(w.upper_lim(i), test[i].b, fpeps, "qagiu(f15) smooth upper lim");
 
       for (std::size_t i = 0; i < m; ++i)
-	qtest.test_relative(w.result(i), test[i].r, /*fpeps*/epsrel, "qagiu(f15) smooth integral");
+	qtest.test_relative(w.result(i), test[i].r, epsrel, "qagiu(f15) smooth integral");
 
       for (std::size_t i = 0; i < m; ++i)
 	qtest.test_relative(w.abs_error(i), test[i].e, 1.0e-4, "qagiu(f15) smooth abs error");
@@ -1959,9 +1963,9 @@ test_quadrature()
 
       const auto exp_result = _Tp{1.000000000006713292e-04L};
       const auto exp_abserr = _Tp{3.084062020905636316e-09L};
-      int exp_neval  =      165;
-      int exp_ier    =        __gnu_cxx::NO_ERROR;
-      int exp_last   =        6;
+      const int exp_neval  = 165;
+      const int exp_ier    = __gnu_cxx::NO_ERROR;
+      const int exp_last   = 6;
 
       constexpr std::size_t num_test = 6;
       test_ival<_Tp> test[num_test]
@@ -2024,9 +2028,9 @@ test_quadrature()
 
       const auto exp_result = _Tp{2.275875794468747770e+00L};
       const auto exp_abserr = _Tp{7.436490118267390744e-09L};
-      int exp_neval  =      270;
-      int exp_ier    =        __gnu_cxx::NO_ERROR;
-      int exp_last   =        5;
+      const int exp_neval  = 270;
+      const int exp_ier    = __gnu_cxx::NO_ERROR;
+      const int exp_last   = 5;
 
       constexpr std::size_t num_test = 5;
       test_ival<_Tp> test[num_test]
@@ -2086,9 +2090,9 @@ test_quadrature()
 
       const auto exp_result = _Tp{2.718281828459044647e+00L};
       const auto exp_abserr = _Tp{1.588185109253204805e-10L};
-      int exp_neval  =      135;
-      int exp_ier    =        __gnu_cxx::NO_ERROR;
-      int exp_last   =        5;
+      const int exp_neval  = 135;
+      const int exp_ier    = __gnu_cxx::NO_ERROR;
+      const int exp_last   = 5;
 
       constexpr std::size_t num_test = 5;
       test_ival<_Tp> test[num_test]
@@ -2150,9 +2154,9 @@ test_quadrature()
 
       const auto exp_result = _Tp{5.274080611672716401e+01L};
       const auto exp_abserr = _Tp{1.755703848687062418e-04L};
-      int exp_neval  = 777;
-      int exp_ier    = __gnu_cxx::NO_ERROR;
-      int exp_last   = 20;
+      const int exp_neval  = 777;
+      const int exp_ier    = __gnu_cxx::NO_ERROR;
+      const int exp_last   = 20;
 
       constexpr std::size_t num_test = 20;
       test_ival<_Tp> test[num_test]
@@ -2230,9 +2234,9 @@ test_quadrature()
 
       const auto exp_result = _Tp{-8.994400695837000137e-02L};
       const auto exp_abserr = _Tp{1.185290176227023727e-06L};
-      int exp_neval  =      215;
-      int exp_ier    =        __gnu_cxx::NO_ERROR;
-      int exp_last   =        6;
+      const int exp_neval  = 215;
+      const int exp_ier    = __gnu_cxx::NO_ERROR;
+      const int exp_last   = 6;
 
       constexpr std::size_t num_test = 6;
       test_ival<_Tp> test[num_test]
@@ -2306,9 +2310,9 @@ test_quadrature()
 
       const auto exp_result = _Tp{-1.892751853489401670e-01L};
       const auto exp_abserr = _Tp{1.129133712015747658e-08L};
-      int exp_neval  =      280;
-      int exp_ier    =        __gnu_cxx::NO_ERROR;
-      int exp_last   =        8;
+      const int exp_neval  = 280;
+      const int exp_ier    = __gnu_cxx::NO_ERROR;
+      const int exp_last   = 8;
 
       constexpr std::size_t num_test = 8;
       test_ival<_Tp> test[num_test]
@@ -2418,9 +2422,9 @@ test_quadrature()
 
       const auto exp_result = _Tp{-1.281368483991674190e-01L};
       const auto exp_abserr = _Tp{6.875028324415666248e-12L};
-      int exp_neval  =      305;
-      int exp_ier    =        __gnu_cxx::NO_ERROR;
-      int exp_last   =        9;
+      const int exp_neval  = 305;
+      const int exp_ier    = __gnu_cxx::NO_ERROR;
+      const int exp_last   = 9;
 
       constexpr std::size_t num_test = 9;
       test_ival<_Tp> test[num_test]
@@ -2500,9 +2504,9 @@ test_quadrature()
 
       const auto exp_result = _Tp{9.999999999279802765e-01L};
       const auto exp_abserr = _Tp{1.556289974669056164e-08L};
-      int exp_neval  =      590;
-      int exp_ier    =        __gnu_cxx::NO_ERROR;
-      int exp_last   =       12;
+      const int exp_neval  = 590;
+      const int exp_ier    = __gnu_cxx::NO_ERROR;
+      const int exp_last   = 12;
 
       constexpr std::size_t num_test = 12;
       test_ival<_Tp> test[num_test]

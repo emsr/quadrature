@@ -49,7 +49,7 @@ namespace __gnu_cxx
  template<typename _Tp, typename _FuncTp, typename _Integrator>
     std::tuple<_Tp, _Tp, bool>
     qc25s(qaws_integration_table<_Tp>& __t,
-	  _FuncTp __func, _Tp __lower, _Tp __upper, _Tp __a1, _Tp __b1,
+	  _FuncTp __func, _Tp __lower, _Tp __upper, _Tp __a1, _Tp __mid,
 	  _Integrator __quad);
 
   /**
@@ -85,8 +85,8 @@ namespace __gnu_cxx
 		   _Integrator __quad)
     {
       // Try to adjust tests for varing precision.
-      const auto _M_rel_err = std::pow(_Tp{10.0},
-				 -std::numeric_limits<_Tp>::digits / _Tp{10.0});
+      const auto _M_rel_err = std::pow(_Tp{10},
+				 -std::numeric_limits<_Tp>::digits / _Tp{10});
 
       if (__upper <= __lower)
 	std::__throw_runtime_error("qaws_integrate: "

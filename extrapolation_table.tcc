@@ -21,8 +21,8 @@
 // Ported from GSL by Ed Smith-Rowland
 // Originally written by Brian Gaugh
 //
-//This file implements an extrapolation table for use in integration schemes
-//Based on gsl/integration/qelg.c
+// This file implements an extrapolation table for use in integration schemes
+// Based on gsl/integration/qelg.c
 
 #ifndef EXTRAPOLATION_TABLE_TCC
 #define EXTRAPOLATION_TABLE_TCC 1
@@ -38,7 +38,8 @@ namespace __gnu_cxx
       const auto __current = this->_M_rlist2[__cur_n];
 
       const auto _S_eps = std::numeric_limits<_Tp>::epsilon();
-      const auto _S_max = std::numeric_limits<_Tp>::max();
+      // Less than max to prevent overflow.
+      const auto _S_max = std::numeric_limits<_Tp>::max() / _Tp{100};
 
       auto __absolute = _S_max;
       auto __relative = 5 * _S_eps * std::abs(__current);
@@ -102,7 +103,7 @@ namespace __gnu_cxx
 	      break;
 	    }
 
-	  const auto __ss = (_Tp{1} / __delta1 + _Tp{1} / __delta2)
+	  const auto __ss = _Tp{1} / __delta1 + _Tp{1} / __delta2
 			  - _Tp{1} / __delta3;
 
 	  // Test to detect irregular behaviour in the table,

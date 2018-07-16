@@ -190,7 +190,7 @@ namespace __gnu_cxx
       if (__error_type == NO_ERROR && __iteration >= __max_iter)
 	__error_type = MAX_ITER_ERROR;
 
-      __check_error<_Tp>(__func__, __error_type);
+      __check_error<_Tp>(__func__, __error_type, __result, __abserr);
       __throw_integration_error("qag_integrate: Unknown error.",
 				UNKNOWN_ERROR, __result, __abserr);
     }

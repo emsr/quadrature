@@ -368,7 +368,7 @@ namespace __gnu_cxx
 	    }
 	  else if (__area == _Tp{0})
 	    {
-	      __check_error<_Tp>(__func__, __error_type);
+	      __check_error<_Tp>(__func__, __error_type, __result, __errsum);
 	      std::__throw_runtime_error("qags_integrate: Unknown error.");
 	    }
 	}

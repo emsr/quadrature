@@ -149,7 +149,7 @@ namespace __gnu_cxx
 
 	  if (__err_reliable1 && __err_reliable2)
 	    {
-	      _Tp __delta = __curr.__result - __area12;
+	      const auto __delta = __curr.__result - __area12;
 
 	      if (std::abs (__delta) <= _M_rel_err * std::abs (__area12)
 	    	   && __error12 >= 0.99 * __curr.__abs_error)

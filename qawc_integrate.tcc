@@ -186,7 +186,7 @@ namespace __gnu_cxx
       if (__error_type == NO_ERROR)
 	return std::make_tuple(__result, __abserr);
 
-      __check_error<_Tp>(__func__, __error_type);
+      __check_error<_Tp>(__func__, __error_type, __result, __abserr);
       __throw_integration_error("qawc_integrate: Unknown error.",
 				UNKNOWN_ERROR, __result, __abserr);
     }
