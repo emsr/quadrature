@@ -1,0 +1,4 @@
+test_mapper.cpp:16:56: runtime error: division by zero
+test_mapper.cpp:16:69: runtime error: division by zero
+test_mapper.cpp:38:52: runtime error: division by zero
+test_mapper.cpp:60:62: runtime error: division by zero
