@@ -173,8 +173,6 @@ namespace __gnu_cxx
 
 	  __workspace.split(__mid, __area1, __error1, __area2, __error2);
 
-	  ////FIXME Why I had this? __curr = __workspace.retrieve();
-
 	  ++__iteration;
 	}
       while (__iteration < __max_iter
