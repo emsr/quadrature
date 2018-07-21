@@ -26,9 +26,9 @@ template<typename _Tp>
     int degree;
     _Tp constant;
 
-    monomial(int deg, _Tp c)
+    monomial(int deg, _Tp con)
     : degree(deg),
-      constant(c)
+      constant(con)
     { }
 
     _Tp
@@ -37,13 +37,13 @@ template<typename _Tp>
 
     monomial
     integral() const
-    { return monomial(degree + 1, constant / (degree + 1)); }
+    { return monomial(degree + 1, constant / _Tp(degree + 1)); }
 
     monomial
     derivative() const
     {
       auto deg = std::max(0, degree - 1);
-      return monomial(deg, deg * constant);
+      return monomial(deg, _Tp(deg) * constant);
     }
   };
 

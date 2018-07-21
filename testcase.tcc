@@ -42,7 +42,8 @@ template<typename _Tp>
   inline _Tp
   f2(_Tp x, _Tp alpha)
   {
-    return std::pow(_Tp{4}, -alpha) / (std::pow((x - M_PI / _Tp{4}), _Tp{2}) + std::pow(_Tp{16}, -alpha));
+    const auto _S_pi_4 = __gnu_cxx::__const_pi_quarter<_Tp>();
+    return std::pow(_Tp{4}, -alpha) / (std::pow((x - _S_pi_4), _Tp{2}) + std::pow(_Tp{16}, -alpha));
   }
 
 /* f3(x) = cos(2^alpha * sin(x)) */
@@ -76,7 +77,8 @@ template<typename _Tp>
   inline _Tp
   f8(_Tp x, _Tp alpha)
   {
-    return std::pow(std::abs(x - (M_PI/_Tp{4})),alpha);
+    const auto _S_pi_4 = __gnu_cxx::__const_pi_quarter<_Tp>();
+    return std::pow(std::abs(x - _S_pi_4), alpha);
   }
 
 /* f9(x) = sqrt(1 - x^2) / (x + 1 + 2^-alpha) */
@@ -86,7 +88,7 @@ template<typename _Tp>
   inline _Tp
   f9(_Tp x, _Tp alpha)
   {
-    return 1 / ((x + 1 + std::pow(_Tp{2},-alpha)) * std::sqrt(1-x*x));
+    return 1 / ((x + 1 + std::pow(_Tp{2}, -alpha)) * std::sqrt(1 - x * x));
   }
 
 /* f10(x) = std::sin(x)^(alpha - 1) */
@@ -357,7 +359,8 @@ template<typename _Tp>
   inline _Tp
   cqf9(_Tp x)
   {
-    return _Tp{2} / (_Tp{2} + std::sin(_Tp{10} * M_PI * x));
+    const auto _S_pi = __gnu_cxx::__const_pi<_Tp>();
+    return _Tp{2} / (_Tp{2} + std::sin(_Tp{10} * _S_pi * x));
   }
 
 template<typename _Tp>
@@ -385,14 +388,16 @@ template<typename _Tp>
   inline _Tp
   cqf13(_Tp x)
   {
-    return std::sin(_Tp{100} * M_PI * x) / (M_PI * x);
+    const auto _S_pi = __gnu_cxx::__const_pi<_Tp>();
+    return std::sin(_Tp{100} * _S_pi * x) / (_S_pi * x);
   }
 
 template<typename _Tp>
   inline _Tp
   cqf14(_Tp x)
   {
-    return std::sqrt(_Tp{50}) * std::exp(-_Tp{50} * M_PI * x * x);
+    const auto _S_pi = __gnu_cxx::__const_pi<_Tp>();
+    return std::sqrt(_Tp{50}) * std::exp(-_Tp{50} * _S_pi * x * x);
   }
 
 template<typename _Tp>
@@ -406,14 +411,16 @@ template<typename _Tp>
   inline _Tp
   cqf16(_Tp x)
   {
-    return _Tp{50} / M_PI * (_Tp{2500} * x * x + _Tp{1});
+    const auto _S_pi = __gnu_cxx::__const_pi<_Tp>();
+    return _Tp{50} / _S_pi * (_Tp{2500} * x * x + _Tp{1});
   }
 
 template<typename _Tp>
   inline _Tp
   cqf17(_Tp x)
   {
-    _Tp t1 = _Tp{50} * M_PI * x, t2;
+    const auto _S_pi = __gnu_cxx::__const_pi<_Tp>();
+    _Tp t1 = _Tp{50} * _S_pi * x, t2;
     t2 = std::sin(t1) / t1;
     return _Tp{50} * t2 * t2;
   }
@@ -456,8 +463,10 @@ template<typename _Tp>
   inline _Tp
   cqf22(_Tp x)
   {
-    return _Tp{4} * M_PI * M_PI * x
-	  * std::sin(_Tp{20} * M_PI * x) * std::cos(_Tp{2} * M_PI * x);
+    const auto _S_pi = __gnu_cxx::__const_pi<_Tp>();
+    return _Tp{4} * _S_pi * _S_pi * x
+	  * std::sin(_Tp{20} * _S_pi * x)
+	  * std::cos(_Tp{2} * _S_pi * x);
   }
 
 template<typename _Tp>

@@ -41,24 +41,6 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
       // I don't understand the etymology of this last number.
     }
 
-  /**
-   * A struct to store a cosine and a sine value.
-   * A return for sincos-type functions.
-  template<typename _Tp>
-    struct __quadrature_point_t
-    {
-      _Tp __zero;
-      _Tp __weight;
-
-      __quadrature_point_t() = default;
-
-      __quadrature_point_t(_Tp __z, _Tp __w)
-      : __zero(__z),
-	__weight(__w)
-      { }
-    };
-   */
-
 _GLIBCXX_END_NAMESPACE_VERSION
 } // namespace __gnu_cxx
 
@@ -74,6 +56,8 @@ _GLIBCXX_END_NAMESPACE_VERSION
 #include "qawf_integrate.tcc"
 #include "glfixed_integrate.tcc"
 #include "cquad_integrate.tcc"
+
+#include "gauss_quadrature.h"
 
 #include "integrate.h"
 

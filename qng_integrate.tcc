@@ -281,7 +281,7 @@ namespace __gnu_cxx
       __resabs *= __abs_half_length;
 
       // Approximation to the integral of abs(f-i/(b-a)).
-      const auto __mean = 0.5 * __res21;
+      const auto __mean = _Tp{0.5L} * __res21;
       auto __resasc = _Tp(qng_w21b[5]) * std::abs(__f_center - __mean);
       for (int __k = 0; __k < 5; ++__k)
 	{

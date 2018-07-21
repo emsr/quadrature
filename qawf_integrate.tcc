@@ -135,7 +135,7 @@ namespace __gnu_cxx
 	    __correc = __error1;
 
 	  if (__status)
-	    __eps = std::max(__initial_eps, __correc * (1.0 - __p));
+	    __eps = std::max(__initial_eps, __correc * (_Tp{1} - __p));
 
 	  if (__status && __total_error < 10 * __correc && __iteration > 3)
 	    goto compute_result;
@@ -149,7 +149,7 @@ namespace __gnu_cxx
 	  std::tie(__reseps, __erreps) = __table.qelg();
 
 	  ++__ktmin;
-	  if (__ktmin >= 15 && __err_ext < 0.001 * __total_error)
+	  if (__ktmin >= 15 && __err_ext < _Tp{0.001L} * __total_error)
 	    __error_type = EXTRAP_ROUNDOFF_ERROR;
 
 	  if (__erreps < __err_ext)

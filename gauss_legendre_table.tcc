@@ -68,7 +68,7 @@ namespace __gnu_cxx
       const auto __midpt = (__lower + __upper) / _Tp{2};
 
       if (__i >= this->order)
-	std::__throw_domain_error("i must be less than n");
+	std::__throw_domain_error("gauss_legendre_table: i must be less than n");
 
       // See comments above gauss_legendre_table for struct's x, w layout.
       // Simply unpack that layout into a sorted set of points, weights.
@@ -107,7 +107,7 @@ namespace __gnu_cxx
 	else
 	  return _Tp(gauss_legendre_precomp[this->i_precomp].point[__i]);
       else
-	return this->rule[__i + this->order / 2].__zero;
+	return this->rule[__i + this->order / 2].__point;
     }
 
   template<typename _Tp>
