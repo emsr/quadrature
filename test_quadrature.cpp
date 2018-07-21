@@ -3087,9 +3087,9 @@ test_quadrature()
         auto a = b - _Tp{1};
 	auto bpa = b + a;
 	auto bma = b - a;
-        auto exact = integrate(mon, a, b);
 
         // Legendre quadrature
+        auto exact = integrate(mon, a, b);
         test_quadrature_rule(mon, a, b,
 			     prec_fixed<_Tp>, exact, "legendre monomial",
 			     __gnu_cxx::gauss_legendre_rule<_Tp>(n), n);
@@ -3100,12 +3100,23 @@ test_quadrature()
 	      * __gnu_cxx::hyperg(_Tp(0.5L * (1 - deg)), _Tp(-0.5L * deg),
 				  _Tp{1}, bma * bma / (bpa * bpa));
         test_quadrature_rule(mon, a, b,
-			     prec_fixed<_Tp>, exact, "chebyshev monomial",
+			     prec_fixed<_Tp>, exact, "chebyshev_t monomial",
+			     __gnu_cxx::gauss_chebyshev_u_rule<_Tp>(n), n);
+
+        // Chebyshev U quadrature
+        exact = std::copysign(_Tp{1}, bma)
+	      * _S_pi_2 * std::pow(_Tp{0.5L} * (a + b), _Tp(deg))
+	      * __gnu_cxx::hyperg(_Tp(0.5L * (1 - deg)), _Tp(-0.5L * deg),
+				  _Tp{2}, bma * bma / (bpa * bpa))
+	      * _Tp{0.25L} * bma * bma;
+        test_quadrature_rule(mon, a, b,
+			     prec_fixed<_Tp>, exact, "chebyshev_u monomial",
 			     __gnu_cxx::gauss_chebyshev_u_rule<_Tp>(n), n);
 
         // Laguerre quadrature
         exact = std::pow(b, _Tp(-1 - deg))
-	      * std::exp(a * b) * __gnu_cxx::tgamma(_Tp(1 + deg), a * b);
+	      * std::exp(a * b)
+	      * __gnu_cxx::tgamma(_Tp(1 + deg), a * b);
         test_quadrature_rule(mon, a, b,
 			     prec_fixed<_Tp>, exact, "laguerre monomial",
 			     __gnu_cxx::gauss_laguerre_rule<_Tp>(n, _Tp{0}),
@@ -3122,28 +3133,40 @@ test_quadrature()
 			     __gnu_cxx::gauss_hermite_rule<_Tp>(n, _Tp{0}),
 			     n, _Tp{0});
 
-        // Chebyshev U quadrature
-        exact = std::copysign(_Tp{1}, bma) * _S_pi_2 * std::pow(_Tp{0.5L} * (a + b), _Tp(deg))
-	      * __gnu_cxx::hyperg(_Tp(0.5L * (1 - deg)), _Tp(-0.5L * deg),
-				  _Tp{2}, bma * bma / (bpa * bpa))
-	      * _Tp{0.25L} * bma * bma;
-        test_quadrature_rule(mon, a, b,
-			     prec_fixed<_Tp>, exact, "chebyshev_u monomial",
-			     __gnu_cxx::gauss_chebyshev_u_rule<_Tp>(n), n);
-
         // now test with a > b
         a = b + _Tp{1};
 	bpa = b + a;
 	bma = b - a;
-        exact = integrate(mon, a, b);
 
         // Legendre quadrature
+        exact = integrate(mon, a, b);
         test_quadrature_rule(mon, a, b,
 			     prec_fixed<_Tp>,  exact, "legendre monomial",
 			     __gnu_cxx::gauss_legendre_rule<_Tp>(n), n);
 
+        // Chebyshev T quadrature
+        exact = std::copysign(_Tp{1}, bma)
+	      * _S_pi * std::pow(_Tp{0.5L} * bpa, _Tp(deg))
+	      * __gnu_cxx::hyperg(_Tp(0.5L * (1 - deg)), _Tp(-0.5L * deg),
+				  _Tp{1}, bma * bma / (bpa * bpa));
+        test_quadrature_rule(mon, a, b,
+			     prec_fixed<_Tp>, exact, "chebyshev_t monomial",
+			     __gnu_cxx::gauss_chebyshev_t_rule<_Tp>(n), n);
+
+        // Chebyshev U quadrature
+        exact = std::copysign(_Tp{1}, bma)
+	      * _S_pi_2 * std::pow(_Tp{0.5L} * (a + b), _Tp(deg))
+	      * __gnu_cxx::hyperg(_Tp(0.5L * (1 - deg)), _Tp(-0.5L * deg),
+				  _Tp{2}, bma * bma / (bpa * bpa))
+	      * _Tp{0.25L} * bma * bma;
+        test_quadrature_rule(mon, a, b, 
+			     prec_fixed<_Tp>, exact, "chebyshev_u monomial",
+			     __gnu_cxx::gauss_chebyshev_u_rule<_Tp>(n), n);
+
         // Laguerre quadrature
-        exact = std::pow(b, _Tp(-1 - deg)) * std::exp(a * b) * __gnu_cxx::tgamma(_Tp(1 + deg), a * b);
+        exact = std::pow(b, _Tp(-1 - deg))
+	      * std::exp(a * b)
+	      * __gnu_cxx::tgamma(_Tp(1 + deg), a * b);
         test_quadrature_rule(mon, a, b,
 			     prec_fixed<_Tp>, exact, "laguerre monomial",
 			     __gnu_cxx::gauss_laguerre_rule<_Tp>(n, _Tp{0}),
@@ -3152,25 +3175,13 @@ test_quadrature()
         // Hermite quadrature
         exact = _Tp{0.5L} * std::pow(b, _Tp(-0.5L * deg))
 	      * (_Tp((1 - dterm) * deg) * a * std::tgamma(_Tp(0.5L * deg))
-		 * __gnu_cxx::conf_hyperg(_Tp(0.5L * (1 - deg)), _Tp{1.5L}, -a * a * b)
-	      + _Tp(1 + dterm) * std::tgamma(_Tp(0.5L * (1 + deg)))
-		 * __gnu_cxx::conf_hyperg(_Tp(-0.5L * deg), _Tp{0.5L}, -a * a * b) / std::sqrt(b));
+		  * __gnu_cxx::conf_hyperg(_Tp(0.5L * (1 - deg)), _Tp{1.5L}, -a * a * b)
+               + _Tp(1 + dterm) * std::tgamma(_Tp(0.5L * (1 + deg)))
+		  * __gnu_cxx::conf_hyperg(_Tp(-0.5L * deg), _Tp{0.5L}, -a * a * b) / std::sqrt(b));
         test_quadrature_rule(mon, a, b, 
 			     prec_fixed<_Tp>, exact, "hermite monomial",
 			     __gnu_cxx::gauss_hermite_rule<_Tp>(n, _Tp{0}),
 			     n, _Tp{0});
-
-        // Chebyshev T quadrature
-        exact = -_S_pi * (_Tp{3} * a * a + _Tp{2} * a * b + _Tp{3} * b * b) / _Tp{8};
-        test_quadrature_rule(mon, a, b,
-			     prec_fixed<_Tp>, exact, "chebyshev_t monomial",
-			     __gnu_cxx::gauss_chebyshev_t_rule<_Tp>(n), n);
-
-        // Chebyshev U quadrature
-        exact = -_S_pi * (a - b) * (a - b) * (_Tp{5} * a * a + _Tp{6} * a * b + _Tp{5} * b * b) / _Tp{128};
-        test_quadrature_rule(mon, a, b, 
-			     prec_fixed<_Tp>, exact, "chebyshev_u monomial",
-			     __gnu_cxx::gauss_chebyshev_u_rule<_Tp>(n), n);
       }
   }
 
@@ -3260,7 +3271,7 @@ test_quadrature()
     {
       { 0.123L,  0.456L, 9.052430592016123480501898e-7L,     alpha, beta, 0.0L, 0.0L},
       { 7.747L, 12.0L,   3.131716150347619771233591755e+6L,  alpha, beta, 0.0L, 0.0L},
-      { 1.47L,   2.0L,   0.0443586642279729822440459289+6L,  alpha, beta, 0.0L, 0.0L},
+      { 1.47L,   2.0L,   0.04435866422797298224404592896L,   alpha, beta, 0.0L, 0.0L},
       {-1.47L,   2.0L,   5.287059602300844442782407L,        alpha, beta, 0.0L, 0.0L},
       { 0.0L,    0.47L,  2.5337038518475893688512749675e-6L, alpha, beta, 0.0L, 0.0L}
     };
@@ -3270,8 +3281,8 @@ test_quadrature()
 	//exact = integrate(mon, test[k].a, test[k].b);
         test_quadrature_rule(mon, test[k].a, test[k].b,
                              prec_fixed<_Tp>, test[k].r, "jacobi monomial",
-			     __gnu_cxx::gauss_jacobi_rule<_Tp>(n, alpha, beta),
-			     n, alpha, beta);
+			     __gnu_cxx::gauss_jacobi_rule<_Tp>(n, test[k].alpha, test[k].beta),
+			     n, test[k].alpha, test[k].beta);
       }
   }
 

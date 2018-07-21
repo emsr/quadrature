@@ -29,7 +29,7 @@ namespace __gnu_cxx
   /**
    * Solve a tridiagonal system A x = b:
    *
-   * @param[in]  dsup  The superdiagonal of the matrix in [0, n - 2]
+   * @param[in]  supd  The superdiagonal of the matrix in [0, n - 2]
    * @param[in]  diag  The diagonal of the matrix in [0, n - 1]
    * @param[in]  subd  The subdiagonal of the matrix in [1, n - 1]
    *
@@ -39,7 +39,7 @@ namespace __gnu_cxx
   template<typename _RandAccIter, typename _RandAccIterRHS>
     int
     _S_tridiag(size_t __n,
-	       _RandAccIter __dsup, _RandAccIter __diag, _RandAccIter __subd,
+	       _RandAccIter __supd, _RandAccIter __diag, _RandAccIter __subd,
 	       _RandAccIterRHS __rhs)
     {
       using _Tp = std::decay_t<decltype(__subd[0])>;
@@ -55,9 +55,9 @@ namespace __gnu_cxx
 	  return 0;
 	}
 
-      __diag[0] = __dsup[0];
-      __dsup[0] = _Tp{0};
-      __dsup[__n - 1] = _Tp{0};
+      __diag[0] = __supd[0];
+      __supd[0] = _Tp{0};
+      __supd[__n - 1] = _Tp{0};
 
       for (auto __k = 0u; __k < __n - 1; ++__k)
 	{
@@ -67,7 +67,7 @@ namespace __gnu_cxx
 	    {
 	      std::swap(__subd[__k1], __subd[__k]);
 	      std::swap(__diag[__k1], __diag[__k]);
-	      std::swap(__dsup[__k1], __dsup[__k]);
+	      std::swap(__supd[__k1], __supd[__k]);
 	      std::swap(__rhs[__k1], __rhs[__k]);
 	    }
 
@@ -78,8 +78,8 @@ namespace __gnu_cxx
 	    const auto __t = -__subd[__k1] / __subd[__k];
 
 	    __subd[__k1] = __diag[__k1] + __t * __diag[__k];
-	    __diag[__k1] = __dsup[__k1] + __t * __dsup[__k];
-	    __dsup[__k1] = _Tp{0};
+	    __diag[__k1] = __supd[__k1] + __t * __supd[__k];
+	    __supd[__k1] = _Tp{0};
 	    __rhs[__k1] = __rhs[__k1] + __t * __rhs[__k];
 	  }
 	}
@@ -96,7 +96,7 @@ namespace __gnu_cxx
 	{
 	  const auto __kb = __k - 3;
 	  __rhs[__kb] = (__rhs[__kb] - __diag[__kb] * __rhs[__kb + 1]
-		     - __dsup[__kb] * __rhs[__kb + 2]) / __subd[__kb];
+		     - __supd[__kb] * __rhs[__kb + 2]) / __subd[__kb];
 	}
 
       return 0;
@@ -138,8 +138,8 @@ namespace __gnu_cxx
    */
   template<typename _RandAccIter, typename _RandAccIterRHS>
     int
-    _S_tridiag_symm(std::size_t __n, _RandAccIter __diag, _RandAccIter __subd,
-		    _RandAccIterRHS __rhs)
+    _S_tridiag_symm(std::size_t __n, _RandAccIter& __diag, _RandAccIter& __subd,
+		    _RandAccIterRHS& __rhs)
     {
       using _Tp = std::decay_t<decltype(__subd[0])>;
 

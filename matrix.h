@@ -27,14 +27,14 @@ namespace __gnu_cxx
   template<typename _RandAccIter, typename _RandAccIterRHS>
     int
     _S_tridiag(std::size_t __n,
-	       _RandAccIter __dsup, _RandAccIter __diag, _RandAccIter __subd,
+	       _RandAccIter __supd, _RandAccIter __diag, _RandAccIter __subd,
 	       _RandAccIterRHS __rhs);
 
   template<typename _RandAccIter, typename _RandAccIterRHS>
     int
     _S_tridiag_symm(std::size_t __n,
-		    _RandAccIter __diag, _RandAccIter __subd,
-		    _RandAccIterRHS __rhs);
+		    _RandAccIter& __diag, _RandAccIter& __subd,
+		    _RandAccIterRHS& __rhs);
 
 } // namespace __gnu_cxx
 
