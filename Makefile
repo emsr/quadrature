@@ -75,6 +75,13 @@ test: $(BIN_DIR)/test_quadrature
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_quadrature > test_quadrature.txt 2> test_quadrature.err
 
 
+docs:
+	rm -rf html/*
+	rm -rf latex/*
+	doxygen
+	cd latex && make
+
+
 # Binaries...
 
 $(BIN_DIR)/assoc_laguerre_test: $(OBJ_DIR)/assoc_laguerre_test.o
