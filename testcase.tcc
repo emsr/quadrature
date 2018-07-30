@@ -25,9 +25,14 @@
 
 /* These are the test functions from table 4.1 of the QUADPACK book */
 
-/* f1(x) = x^alpha * log(1/x) */
-/* integ(f1,x,0,1) = 1/(alpha + 1)^2 */
-
+/**
+ * @f[
+ *    f1(x) = x^\alpha * \log(1/x)
+ * @f]
+ * @f[
+ *    \int_{0}^{1} dx f1(x) = 1/(\alpha + 1)^2
+ * @f]
+ */
 template<typename _Tp>
   inline _Tp
   f1(_Tp x, _Tp alpha)
@@ -35,9 +40,15 @@ template<typename _Tp>
     return std::pow(x,alpha) * std::log(1/x);
   }
 
-/* f2(x) = 4^-alpha / ((x-pi/4)^2 + 16^-alpha) */
-/* integ(f2,x,0,1) = arctan((4-pi)4^(alpha-1)) + arctan(pi 4^(alpha-1)) */
-
+/**
+ * @f[
+ *    f2(x) = 4^-alpha / ((x-pi/4)^2 + 16^-alpha)
+ * @f]
+ * @f[
+ *    \int_{0}^{1} dx f2(x) = \arctan((4-\pi)4^(\alpha-1))
+ *                           + \arctan(\pi 4^(\alpha-1))
+ * @f]
+ */
 template<typename _Tp>
   inline _Tp
   f2(_Tp x, _Tp alpha)
@@ -46,9 +57,14 @@ template<typename _Tp>
     return std::pow(_Tp{4}, -alpha) / (std::pow((x - _S_pi_4), _Tp{2}) + std::pow(_Tp{16}, -alpha));
   }
 
-/* f3(x) = cos(2^alpha * sin(x)) */
-/* integ(f3,x,0,pi) = pi J_0(2^alpha) */
-
+/**
+ * @f[
+ *    f3(x) = cos(2^alpha * sin(x))
+ * @f]
+ * @f[
+ *    \int_{0}^{\pi} dx f3(x) = \pi J_0(2^\alpha)
+ * @f]
+ */
 template<typename _Tp>
   inline _Tp
   f3(_Tp x, _Tp alpha)
@@ -59,9 +75,14 @@ template<typename _Tp>
 /* Functions 4, 5 and 6 are duplicates of functions  1, 2 and 3 */
 /* ....                                                         */
 
-/* f7(x) = |x - 1/3|^alpha */
-/* integ(f7,x,0,1) = ((2/3)^(alpha+1) + (1/3)^(alpha+1))/(alpha + 1) */
-
+/**
+ * @f[
+ *    f7(x) = |x - 1/3|^\alpha
+ * @f]
+ * @f[
+ *    \int_{0}{1} dx f7(x) = ((2/3)^(alpha+1) + (1/3)^(alpha+1))/(alpha + 1)
+ * @f]
+ */
 template<typename _Tp>
   inline _Tp
   f7(_Tp x, _Tp alpha)
@@ -69,10 +90,15 @@ template<typename _Tp>
     return std::pow(std::abs(x - (_Tp{1}/_Tp{3})),alpha);
   }
 
-/* f8(x) = |x - pi/4|^alpha */
-/* integ(f8,x,0,1) =
-   ((1 - pi/4)^(alpha+1) + (pi/4)^(alpha+1))/(alpha + 1) */
-
+/**
+ * @f[
+ *    f8(x) = |x - \pi/4|^\alpha
+ * @f]
+ * @f[
+ *    \int_{0}{1} dx f8(x) = ((1 - \pi/4)^(\alpha + 1) + (\pi/4)^(\alpha + 1))
+ *                         / (\alpha + 1)
+ * @f]
+ */
 template<typename _Tp>
   inline _Tp
   f8(_Tp x, _Tp alpha)
@@ -81,9 +107,14 @@ template<typename _Tp>
     return std::pow(std::abs(x - _S_pi_4), alpha);
   }
 
-/* f9(x) = sqrt(1 - x^2) / (x + 1 + 2^-alpha) */
-/* integ(f9,x,-1,1) = pi/sqrt((1+2^-alpha)^2-1) */
-
+/**
+ * @f[
+ *    f9(x) = \sqrt(1 - x^2) / (x + 1 + 2^{-\alpha})
+ * @f]
+ * @f[
+ *    \int_{-1}{+1} dx f9(x) = \pi/\sqrt((1+2^{-\alpha})^2-1)
+ * @f]
+ */
 template<typename _Tp>
   inline _Tp
   f9(_Tp x, _Tp alpha)
@@ -91,9 +122,14 @@ template<typename _Tp>
     return 1 / ((x + 1 + std::pow(_Tp{2}, -alpha)) * std::sqrt(1 - x * x));
   }
 
-/* f10(x) = std::sin(x)^(alpha - 1) */
-/* integ(f10,x,0,pi/2) = 2^(alpha-2) ((Gamma(alpha/2))^2)/Gamma(alpha) */
-
+/**
+ * @f[
+ *    f10(x) = std::sin(x)^(alpha - 1)
+ * @f]
+ * @f[
+ *    \int_{0}{pi/2} dx f10(x) = 2^(\alpha-2) ((\Gamma(\alpha/2))^2)/\Gamma(\alpha)
+ * @f]
+ */
 template<typename _Tp>
   inline _Tp
   f10(_Tp x, _Tp alpha)
@@ -101,9 +137,14 @@ template<typename _Tp>
     return std::pow(std::sin(x), alpha-1);
   }
 
-/* f11(x) = log(1/x)^(alpha - 1) */
-/* integ(f11,x,0,1) = Gamma(alpha) */
-
+/**
+ * @f[
+ *    f11(x) = \log(1/x)^(\alpha - 1)
+ * @f]
+ * @f[
+ *    \int_{0}{1} dx f11(x) = \Gamma(\alpha)
+ * @f]
+ */
 template<typename _Tp>
   inline _Tp
   f11(_Tp x, _Tp alpha)
@@ -111,11 +152,16 @@ template<typename _Tp>
     return std::pow(std::log(1/x), alpha-1);
   }
 
-/* f12(x) = std::exp(20*(x-1)) * sin(2^alpha * x) */
-/* integ(f12,x,0,1) =
-   (20 sin(2^alpha) - 2^alpha cos(2^alpha) + 2^alpha exp(-20))
-   /(400 + 4^alpha) */
-
+/**
+ * @f[
+ *    f12(x) = \exp(20(x-1)) \sin(2^\alpha x)
+ * @f]
+ * @f[
+ *    \int_{0}{1} dx f12(x) =
+ *      (20 \sin(2^\alpha) - 2^\alpha \cos(2^\alpha) + 2^\alpha \exp(-20))
+ *       /(400 + 4^\alpha)
+ * @f]
+ */
 template<typename _Tp>
   inline _Tp
   f12(_Tp x, _Tp alpha)
@@ -123,9 +169,14 @@ template<typename _Tp>
     return std::exp(20 * (x - 1)) * std::sin(std::pow(_Tp{2}, alpha) * x);
   }
 
-/* f13(x) = cos(2^alpha * x)/sqrt(x(1 - x)) */
-/* integ(f13,x,0,1) = pi cos(2^(alpha-1)) J_0(2^(alpha-1))  */
-
+/**
+ * @f[
+ *    f13(x) = \cos(2^\alpha x)/\sqrt(x(1 - x))
+ * @f]
+ * @f[
+ *    \int_{0}{1} dx f13(x) = \pi \cos(2^(\alpha-1)) J_0(2^(\alpha-1))
+ * @f]
+ */
 template<typename _Tp>
   inline _Tp
   f13(_Tp x, _Tp alpha)
@@ -133,6 +184,11 @@ template<typename _Tp>
     return std::cos(std::pow(_Tp{2}, alpha) * x) / std::sqrt(x * (1 - x));
   }
 
+/**
+ * @f[
+ *    f14(x) = \exp(-2^{-\alpha} x)\cos(x)/\sqrt(x)
+ * @f]
+ */
 template<typename _Tp>
   inline _Tp
   f14(_Tp x, _Tp alpha)
@@ -140,6 +196,11 @@ template<typename _Tp>
     return std::exp(-std::pow(_Tp{2}, -alpha) * x) * std::cos(x) / std::sqrt(x);
   }
 
+/**
+ * @f[
+ *    f15(x) = x^2 \exp(-2^{-\alpha} x)
+ * @f]
+ */
 template<typename _Tp>
   inline _Tp
   f15(_Tp x, _Tp alpha)
@@ -147,17 +208,27 @@ template<typename _Tp>
     return x * x * std::exp(-std::pow(_Tp{2}, -alpha) * x);
   }
 
+/**
+ * @f[
+ *    f16(x) = x^{\alpha - 1} / (1 + 10x)^2
+ * @f]
+ */
 template<typename _Tp>
   inline _Tp
   f16(_Tp x, _Tp alpha)
   {
-    if (x==0 && alpha == 1)
+    if (x == 0 && alpha == 1)
       return 1;  /* make the function continuous in x */
-    if (x==0 && alpha > 1)
+    if (x == 0 && alpha > 1)
       return 0;   /* avoid problems with pow(0,1) */
     return std::pow(x, alpha - 1) / std::pow((1 + 10 * x), _Tp{2});
   }
 
+/**
+ * @f[
+ *    f17(x) = 2^{-\alpha} / (((x - 1)^2 + 4^{-\alpha})(x-2))
+ * @f]
+ */
 template<typename _Tp>
   inline _Tp
   f17(_Tp x, _Tp alpha)
@@ -166,9 +237,14 @@ template<typename _Tp>
   	  / (((x - 1) * (x - 1) + std::pow(_Tp{4}, -alpha)) * (x - 2));
   }
 
-/* f454(x) = x^3 log|(x^2-1)(x^2-2)| */
-/* integ(f454,x,0,inf) = 61 log(2) + (77/4) log(7) - 27 */
-
+/**
+ * @f[
+ *    f454(x) = x^3 \log|(x^2-1)(x^2-2)|
+ * @f]
+ * @f[
+ *    \int_{0}{\infty} dx f454(x) = 61 \log(2) + (77/4) \log(7) - 27
+ * @f]
+ */
 template<typename _Tp>
   inline _Tp
   f454(_Tp x)
@@ -178,9 +254,14 @@ template<typename _Tp>
     return x3 * std::log(std::abs((x2 - _Tp{1}) * (x2 - _Tp{2})));
   }
 
-/* f455(x) = log(x)/(1+100*x^2) */
-/* integ(f455,x,0,inf) = -log(10)/20 */
-
+/**
+ * @f[
+ *    f455(x) = log(x)/(1+100*x^2)
+ * @f]
+ * @f[
+ *    \int_{0}{\infty} dx f455 = -\log(10)/20
+ * @f]
+ */
 template<typename _Tp>
   inline _Tp
   f455(_Tp x)
@@ -188,9 +269,15 @@ template<typename _Tp>
     return std::log(x) / (_Tp{1} + _Tp{100} * x * x);
   }
 
-/* f456(x) = log(x) */
-/* integ(f456*std::sin(10 pi x),x,0,1) = -(gamma + log(10pi) - Ci(10pi))/(10pi) */
-
+/**
+ * @f[
+ *    f456(x) = \log(x)
+ * @f]
+ * @f[
+ *    \int_{0}{1} dx f456(x)\sin(10\pi x) = -(\gamma + \log(10pi) - Ci(10\pi))
+ *                                        / (10 \pi)
+ * @f]
+ */
 template<typename _Tp>
   inline _Tp
   f456(_Tp x)
@@ -200,9 +287,14 @@ template<typename _Tp>
     return std::log(x);
   }
 
-/* f457(x) = 1/sqrt(x) */
-/* integ(f457*cos(pi x / 2),x,0,+inf) = 1 */
-
+/**
+ * @f[
+ *    f457(x) = 1/\sqrt(x)
+ * @f]
+ * @f[
+ *    \int_{0}{+\infty} dx f457(x)\cos(\pi x/2) = 1
+ * @f]
+ */
 template<typename _Tp>
   inline _Tp
   f457(_Tp x)
@@ -212,10 +304,16 @@ template<typename _Tp>
     return 1 / std::sqrt(x);
   }
 
-/* f458(x) = 1/(1 + log(x)^2)^2 */
-/* integ(log(x) f458(x),x,0,1) = (Ci(1) std::sin(1) + (pi/2 - Si(1)) cos(1))/pi
-                               = -0.1892752 */
-
+/**
+ * @f[
+ *    f458(x) = 1/(1 + \log(x)^2)^2
+ * @f]
+ * @f[
+ *    \int_{0}{1} dx log(x) f458(x) = (Ci(1) \sin(1) + (\pi/2 - Si(1)) \cos(1))
+ *                                  / \pi
+ *                             = -0.1892752
+ * @f]
+ */
 template<typename _Tp>
   inline _Tp
   f458(_Tp x)
@@ -230,9 +328,14 @@ template<typename _Tp>
       }
   }
 
-/* f459(x) = 1/(5 x^3 + 6) */
-/* integ(f459/(x-0),x,-1,5) = log(125/631)/18 */
-
+/**
+ * @f[
+ *    f459(x) = 1/(5 x^3 + 6)
+ * @f]
+ * @f[
+ *    \int_{-1}{5} dx f459(x)/(x-0) = \log(125/631)/18
+ * @f]
+ */
 template<typename _Tp>
   inline _Tp
   f459(_Tp x)
@@ -240,9 +343,14 @@ template<typename _Tp>
     return _Tp{1} / (_Tp{5} * x * x * x + _Tp{6});
   }
 
-/* myfn1(x) = exp(-x - x^2) */
-/* integ(myfn1,x,-inf,inf) = sqrt(pi) exp(-1/4) */
-
+/**
+ * @f[
+ *    myfn1(x) = \exp(-x - x^2)
+ * @f]
+ * @f[
+ *    \int_{-\infty}{+\infty} dx myfn1(x) = \sqrt(\pi) \exp(-1/4)
+ * @f]
+ */
 template<typename _Tp>
   inline _Tp
   myfn1(_Tp x)
@@ -250,9 +358,14 @@ template<typename _Tp>
     return std::exp(-x - x * x);
   }
 
-/* myfn2(x) = exp(alpha*x) */
-/* integ(myfn2,x,-inf,b) = exp(alpha*b)/alpha */
-
+/**
+ * @f[
+ *    myfn2(x) = \exp(\alpha x)
+ * @f]
+ * @f[
+ *    \int_{-\infty}{b} dx myfn2(x) = \exp(\alpha b)/\alpha
+ * @f]
+ */
 template<typename _Tp>
   inline _Tp
   myfn2(_Tp x, _Tp alpha)
