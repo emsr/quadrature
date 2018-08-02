@@ -2808,8 +2808,8 @@ test_quadrature()
       const _Tp
       e2[2][2]
       {
-	{_Tp{-1}/std::sqrt(_Tp{3}), _Tp{1}},
-	{ _Tp{1}/std::sqrt(_Tp{3}), _Tp{1}}
+	{_Tp{-1} / std::sqrt(_Tp{3}), _Tp{1}},
+	{ _Tp{1} / std::sqrt(_Tp{3}), _Tp{1}}
       };
 
       const _Tp
@@ -2820,7 +2820,7 @@ test_quadrature()
 	{ std::sqrt(_Tp{15}) / _Tp{5}, _Tp{5} / _Tp{9}}
       };
 
-      const _Tp e4c1 = _Tp{2}*std::sqrt(_Tp{6}/_Tp{5});
+      const _Tp e4c1 = _Tp{2} * std::sqrt(_Tp{6} / _Tp{5});
       const _Tp e4c2 = std::sqrt(_Tp{30});
       const _Tp
       e4[4][2]
@@ -2930,7 +2930,7 @@ test_quadrature()
       for (auto i = 0u; i < n; ++i)
 	{
           auto [x, w] = tbl1.get_point(_Tp{-2}, _Tp{3}, i);
-          result += w * (1 + x*(1 + x*(1 + x*(1 + x*(1 + x)))));
+          result += w * (1 + x * (1 + x * (1 + x * (1 + x * (1 + x)))));
 	}
       std::ostringstream msg1;
       msg1 << "glfixed " << n << "-point xi,wi eval";
@@ -2943,7 +2943,7 @@ test_quadrature()
       for (auto i = 0u; i < n; ++i)
 	{
           auto [x, w] = tbl2.get_point(_Tp{-2}, _Tp{3}, i);
-          result += w * (1 + x*(1 + x*(1 + x*(1 + x*(1 + x*(1 + x*(1 + x)))))));
+          result += w * (1 + x * (1 + x * (1 + x * (1 + x * (1 + x * (1 + x * (1 + x)))))));
 	}
       std::ostringstream msg2;
       msg2 << "glfixed " << n << "-point xi,wi eval";
@@ -3083,7 +3083,7 @@ test_quadrature()
 	const auto deg = mon.degree;
         const auto dterm = (deg % 2) == 0 ? _Tp{1} : _Tp{-1};
 
-        // Test with a < b
+        // Test with a < b.
         auto a = b - _Tp{1};
 	auto bpa = b + a;
 	auto bma = b - a;
@@ -3094,18 +3094,18 @@ test_quadrature()
 			     prec_fixed<_Tp>, exact, "legendre monomial",
 			     __gnu_cxx::gauss_legendre_rule<_Tp>(n), n);
 
-        // Chebyshev T quadrature
+        // Chebyshev T (first kind) quadrature
         exact = std::copysign(_Tp{1}, bma)
 	      * _S_pi * std::pow(_Tp{0.5L} * bpa, _Tp(deg))
 	      * __gnu_cxx::hyperg(_Tp(0.5L * (1 - deg)), _Tp(-0.5L * deg),
 				  _Tp{1}, bma * bma / (bpa * bpa));
         test_quadrature_rule(mon, a, b,
 			     prec_fixed<_Tp>, exact, "chebyshev_t monomial",
-			     __gnu_cxx::gauss_chebyshev_u_rule<_Tp>(n), n);
+			     __gnu_cxx::gauss_chebyshev_t_rule<_Tp>(n), n);
 
-        // Chebyshev U quadrature
+        // Chebyshev U (second kind) quadrature
         exact = std::copysign(_Tp{1}, bma)
-	      * _S_pi_2 * std::pow(_Tp{0.5L} * (a + b), _Tp(deg))
+	      * _S_pi_2 * std::pow(_Tp{0.5L} * bpa, _Tp(deg))
 	      * __gnu_cxx::hyperg(_Tp(0.5L * (1 - deg)), _Tp(-0.5L * deg),
 				  _Tp{2}, bma * bma / (bpa * bpa))
 	      * _Tp{0.25L} * bma * bma;
@@ -3133,7 +3133,7 @@ test_quadrature()
 			     __gnu_cxx::gauss_hermite_rule<_Tp>(n, _Tp{0}),
 			     n, _Tp{0});
 
-        // now test with a > b
+        // Now test with a > b.
         a = b + _Tp{1};
 	bpa = b + a;
 	bma = b - a;
@@ -3144,7 +3144,7 @@ test_quadrature()
 			     prec_fixed<_Tp>,  exact, "legendre monomial",
 			     __gnu_cxx::gauss_legendre_rule<_Tp>(n), n);
 
-        // Chebyshev T quadrature
+        // Chebyshev T (first kind) quadrature
         exact = std::copysign(_Tp{1}, bma)
 	      * _S_pi * std::pow(_Tp{0.5L} * bpa, _Tp(deg))
 	      * __gnu_cxx::hyperg(_Tp(0.5L * (1 - deg)), _Tp(-0.5L * deg),
@@ -3153,9 +3153,9 @@ test_quadrature()
 			     prec_fixed<_Tp>, exact, "chebyshev_t monomial",
 			     __gnu_cxx::gauss_chebyshev_t_rule<_Tp>(n), n);
 
-        // Chebyshev U quadrature
+        // Chebyshev U (second kind) quadrature
         exact = std::copysign(_Tp{1}, bma)
-	      * _S_pi_2 * std::pow(_Tp{0.5L} * (a + b), _Tp(deg))
+	      * _S_pi_2 * std::pow(_Tp{0.5L} * bpa, _Tp(deg))
 	      * __gnu_cxx::hyperg(_Tp(0.5L * (1 - deg)), _Tp(-0.5L * deg),
 				  _Tp{2}, bma * bma / (bpa * bpa))
 	      * _Tp{0.25L} * bma * bma;
@@ -3246,10 +3246,23 @@ test_quadrature()
       { 0.0L,    0.47L,  1.79653588816666666666666666667e-3L,  0.0L, 0.0L, 0.0L, 0.0L}
     };
 
+/* This is simpler - hyperg turns into a pochhammer.
+    auto gegenbauer_moment
+      = [n = mon.degree, alpha](auto a, auto b) -> auto
+	{
+	  using _Tp = decltype(alpha);
+	  return n % 2 == 1
+		 ? _Tp{0}
+		 : _Tp{2} * std::tgamma(alpha + _Tp{1}) * std::tgamma(n + _Tp{1})
+		   / std::tgamma(alpha + _Tp(n + 2))
+		   * __gnu_cxx::hyperg(-alpha, _Tp(n + 1), alpha + _Tp(n + 2), _Tp{-1});
+	};
+*/
+
     std::size_t n = 50;
     for (std::size_t k = 0; k < num_test; ++k)
       {
-	//exact = integrate(mon, test[k].a, test[k].b);
+	//exact = gegenbauer_moment(test[k].a, test[k].b);
         test_quadrature_rule(mon, test[k].a, test[k].b,
                              prec_fixed<_Tp>, test[k].r, "gegenbauer monomial",
 			     __gnu_cxx::gauss_gegenbauer_rule<_Tp>(n, test[k].alpha),
@@ -3276,9 +3289,24 @@ test_quadrature()
       { 0.0L,    0.47L,  2.5337038518475893688512749675e-6L, alpha, beta, 0.0L, 0.0L}
     };
 
+/*
+    auto jacobi_moment
+      = [n = mon.degree, alpha, beta](auto a, auto b) -> auto
+	{
+	  using _Tp = decltype(alpha + beta);
+	  return std::tgamma(alpha + _Tp{1}) * std::tgamma(n + _Tp{1})
+	       / std::tgamma(alpha + _Tp(n + 2))
+	       * __gnu_cxx::hyperg(-beta, _Tp(n + 1), alpha + _Tp(n + 2), _Tp{-1})
+	       + _Tp(n % 2 == 0 ? +1 : -1)
+	       * std::tgamma(beta + _Tp{1}) * std::tgamma(n + _Tp{1})
+	       / std::tgamma(beta + _Tp(n + 2))
+	       * __gnu_cxx::hyperg(-alpha, _Tp(n + 1), beta + _Tp(n + 2), _Tp{-1});
+	};
+*/
+
     for (std::size_t k = 0; k < num_test; ++k)
       {
-	//exact = integrate(mon, test[k].a, test[k].b);
+	//exact = jacobi_moment(test[k].a, test[k].b);
         test_quadrature_rule(mon, test[k].a, test[k].b,
                              prec_fixed<_Tp>, test[k].r, "jacobi monomial",
 			     __gnu_cxx::gauss_jacobi_rule<_Tp>(n, test[k].alpha, test[k].beta),
