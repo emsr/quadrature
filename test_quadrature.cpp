@@ -362,6 +362,8 @@ test_quadrature()
   //feenableexcept(FE_OVERFLOW | FE_UNDERFLOW);
   //feenableexcept(FE_OVERFLOW);
 
+  constexpr bool is_double = std::is_same_v<std::decay_t<_Tp>, double>;
+
   const auto _S_pi = __gnu_cxx::__const_pi<_Tp>();
   const auto fpeps = 1.0e-15;
 
@@ -1337,8 +1339,9 @@ test_quadrature()
       for (std::size_t i = 0; i < m; ++i)
 	qtest.test_relative(w.result(i), test[i].r, fpeps, "qag(f1) smooth integral");
 
-      for (std::size_t i = 0; i < m; ++i)
-	qtest.test_relative(w.abs_error(i), test[i].e, 1.0e-6, "qag(f1) smooth abs error");
+      if (is_double)
+	for (std::size_t i = 0; i < m; ++i)
+	  qtest.test_relative(w.abs_error(i), test[i].e, 1.0e-6, "qag(f1) smooth abs error");
 
       fc.num_evals(0);
       std::tie(result, abserr)
@@ -1412,8 +1415,9 @@ test_quadrature()
       for (std::size_t i = 0; i < m; ++i)
 	qtest.test_relative(w.result(i), test[i].r, fpeps, "qag(f1, 21pt) smooth integral");
 
-      for (std::size_t i = 0; i < m; ++i)
-	qtest.test_relative(w.abs_error(i), test[i].e, 1.0e-6, "qag(f1, 21pt) smooth abs error");
+      if (is_double)
+	for (std::size_t i = 0; i < m; ++i)
+	  qtest.test_relative(w.abs_error(i), test[i].e, 1.0e-6, "qag(f1, 21pt) smooth abs error");
 
       fc.num_evals(0);
       std::tie(result, abserr)
@@ -1629,8 +1633,9 @@ test_quadrature()
       for (std::size_t i = 0; i < m; ++i)
 	qtest.test_relative(w.result(i), test[i].r, fpeps, "qag(f16, 61pt) limit integral");
 
-      for (std::size_t i = 0; i < m; ++i)
-	qtest.test_relative(w.abs_error(i), test[i].e, 1.0e-6, "qag(f16, 61pt) limit abs error");
+      if (is_double)
+	for (std::size_t i = 0; i < m; ++i)
+	  qtest.test_relative(w.abs_error(i), test[i].e, 1.0e-6, "qag(f16, 61pt) limit abs error");
 
       fc.num_evals(0);
       try
@@ -1713,8 +1718,9 @@ test_quadrature()
       for (std::size_t i = 0; i < m; ++i)
 	qtest.test_relative(w.result(i), test[i].r, fpeps, "qags(f1) smooth integral");
 
-      for (std::size_t i = 0; i < m; ++i)
-	qtest.test_relative(w.abs_error(i), test[i].e, 1.0e-6, "qags(f1) smooth abs error");
+      if (is_double)
+	for (std::size_t i = 0; i < m; ++i)
+	  qtest.test_relative(w.abs_error(i), test[i].e, 1.0e-6, "qags(f1) smooth abs error");
 
       fc.num_evals(0);
       std::tie(result, abserr)
@@ -1791,8 +1797,9 @@ test_quadrature()
       for (std::size_t i = 0; i < m; ++i)
 	qtest.test_relative(w.result(i), test[i].r, fpeps, "qags(f11) smooth integral");
 
-      for (std::size_t i = 0; i < m; ++i)
-	qtest.test_relative(w.abs_error(i), test[i].e, 1.0e-5, "qags(f11) smooth abs error");
+      if (is_double)
+	for (std::size_t i = 0; i < m; ++i)
+	  qtest.test_relative(w.abs_error(i), test[i].e, 1.0e-5, "qags(f11) smooth abs error");
 
       fc.num_evals(0);
       std::tie(result, abserr)
@@ -1869,8 +1876,9 @@ test_quadrature()
       for (std::size_t i = 0; i < m; ++i)
 	qtest.test_relative(w.result(i), test[i].r, /*fpeps*/epsrel, "qagiu(f455) smooth integral");
 
-      for (std::size_t i = 0; i < m; ++i)
-	qtest.test_relative(w.abs_error(i), test[i].e, 1.0e-4, "qagiu(f455) smooth abs error");
+      if (is_double)
+	for (std::size_t i = 0; i < m; ++i)
+	  qtest.test_relative(w.abs_error(i), test[i].e, 1.0e-4, "qagiu(f455) smooth abs error");
     }
   catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
@@ -1938,8 +1946,9 @@ test_quadrature()
       for (std::size_t i = 0; i < m; ++i)
 	qtest.test_relative(w.result(i), test[i].r, epsrel, "qagiu(f15) smooth integral");
 
-      for (std::size_t i = 0; i < m; ++i)
-	qtest.test_relative(w.abs_error(i), test[i].e, 1.0e-4, "qagiu(f15) smooth abs error");
+      if (is_double)
+	for (std::size_t i = 0; i < m; ++i)
+	  qtest.test_relative(w.abs_error(i), test[i].e, 1.0e-4, "qagiu(f15) smooth abs error");
     }
   catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
@@ -2003,8 +2012,9 @@ test_quadrature()
       for (std::size_t i = 0; i < m; ++i)
 	qtest.test_relative(w.result(i), test[i].r, epsabs, "qagiu(f16) smooth integral");
 
-      for (std::size_t i = 0; i < m; ++i)
-	qtest.test_relative(w.abs_error(i), test[i].e, 1.0e-4, "qagiu(f16) smooth abs error");
+      if (is_double)
+	for (std::size_t i = 0; i < m; ++i)
+	  qtest.test_relative(w.abs_error(i), test[i].e, 1.0e-4, "qagiu(f16) smooth abs error");
     }
   catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
@@ -2066,8 +2076,9 @@ test_quadrature()
       for (std::size_t i = 0; i < m; ++i)
 	qtest.test_relative(w.result(i), test[i].r, 1.0e-14, "qagi(myfn1) smooth integral");
 
-      for (std::size_t i = 0; i < m; ++i)
-	qtest.test_relative(w.abs_error(i), test[i].e, 1.0e-4, "qagi(myfn1) smooth abs error");
+      if (is_double)
+	for (std::size_t i = 0; i < m; ++i)
+	  qtest.test_relative(w.abs_error(i), test[i].e, 1.0e-4, "qagi(myfn1) smooth abs error");
     }
   catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
@@ -2130,8 +2141,9 @@ test_quadrature()
       for (std::size_t i = 0; i < m; ++i)
 	qtest.test_relative(w.result(i), test[i].r, epsabs, "qagil(myfn2) smooth integral");
 
-      for (std::size_t i = 0; i < m; ++i)
-	qtest.test_relative(w.abs_error(i), test[i].e, 1.0e-4, "qagil(myfn2) smooth abs error");
+      if (is_double)
+	for (std::size_t i = 0; i < m; ++i)
+	  qtest.test_relative(w.abs_error(i), test[i].e, 1.0e-4, "qagil(myfn2) smooth abs error");
     }
   catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
@@ -2209,8 +2221,9 @@ test_quadrature()
       for (std::size_t i = 0; i < m; ++i)
 	qtest.test_relative(w.result(i), test[i].r, epsrel, "qagp(f454) singular integral");
 
-      for (std::size_t i = 0; i < m; ++i)
-	qtest.test_relative(w.abs_error(i), test[i].e, 1.0e-4, "qagp(f454) singular abs error");
+      if (is_double)
+	for (std::size_t i = 0; i < m; ++i)
+	  qtest.test_relative(w.abs_error(i), test[i].e, 1.0e-4, "qagp(f454) singular abs error");
     }
   catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
@@ -2274,8 +2287,9 @@ test_quadrature()
       for (std::size_t i = 0; i < m; ++i)
 	qtest.test_relative(w.result(i), test[i].r, /*1.0e-14*/epsrel, "qawc(f459) integral");
 
-      for (std::size_t i = 0; i < m; ++i)
-	qtest.test_relative(w.abs_error(i), test[i].e, 1.0e-4, "qawc(f459) abs error");
+      if (is_double)
+	for (std::size_t i = 0; i < m; ++i)
+	  qtest.test_relative(w.abs_error(i), test[i].e, 1.0e-4, "qawc(f459) abs error");
 
       fc.num_evals(0);
       std::tie(result, abserr)
@@ -2352,8 +2366,9 @@ test_quadrature()
       for (std::size_t i = 0; i < m; ++i)
 	qtest.test_relative(w.result(i), test[i].r, /*1.0e-14*/epsrel, "qaws(f458) ln(x-a) integral");
 
-      for (std::size_t i = 0; i < m; ++i)
-	qtest.test_relative(w.abs_error(i), test[i].e, 1.0e-4, "qaws(f458) ln(x-a) abs error");
+      if (is_double)
+	for (std::size_t i = 0; i < m; ++i)
+	  qtest.test_relative(w.abs_error(i), test[i].e, 1.0e-4, "qaws(f458) ln(x-a) abs error");
 
       // Test without logs
       tb.set(-0.5, -0.3, 0, 0);
@@ -2464,8 +2479,9 @@ test_quadrature()
       for (std::size_t i = 0; i < m; ++i)
 	qtest.test_relative(w.result(i), test[i].r, 1.0e-14, "qawo(f456) integral");
 
-      for (std::size_t i = 0; i < m; ++i)
-	qtest.test_relative(w.abs_error(i), test[i].e, 1.0e-2, "qawo(f456) abs error");
+      if (is_double)
+	for (std::size_t i = 0; i < m; ++i)
+	  qtest.test_relative(w.abs_error(i), test[i].e, 1.0e-2, "qawo(f456) abs error");
 
       // In reverse, flip limit and sign of length
 
@@ -2546,8 +2562,9 @@ test_quadrature()
 
       // We can only get within two orders of magnitude on the error
       // here, which is very sensitive to the floating point precision
-      for (std::size_t i = 0; i < m; ++i)
-	qtest.test_relative(w.abs_error(i), test[i].e, _Tp{50}, "qawf(f457) abs error");
+      if (is_double)
+	for (std::size_t i = 0; i < m; ++i)
+	  qtest.test_relative(w.abs_error(i), test[i].e, _Tp{50}, "qawf(f457) abs error");
     }
   catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
