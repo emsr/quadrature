@@ -79,9 +79,8 @@ namespace __detail
 
 
   /**
-   * Gauss-Legendre rule.
+   * Construct a Gauss-Legendre rule of order @c n.
    *
-   * Interval: @f$ (a, b) @f$
    * Weight function: @f$ 1 @f$
    * Constraints: @f$ b > a @f$
    */
@@ -104,9 +103,10 @@ namespace __detail
     }
 
   /**
-   * Gauss-Legendre rule.
+   * Evaluate the integral of a function @c func from limits @c a to @c b
+   * using the Gauss-Legendre rule.
    *
-   * 
+   * Interval: @f$ (a, b) @f$
    */
   template<typename _Tp>
     template<typename _FuncTp>
@@ -134,11 +134,10 @@ namespace __detail
       }
 
   /**
-   * Gauss-Chebyshev_T rule.
+   * Construct a Gauss-Chebyshev-T rule of order @c n.
    *
-   * Interval: @f$ (a, b) @f$
-   * Weight function: @f$ ((b-x)(x-a))^{-1/2} @f$
-   * Constraints: @f$ b > a @f$
+   * Interval: @f$ (-1, +1) @f$
+   * Weight function: @f$ [(1-x)(1+x)]^{-1/2} @f$
    * Jacobi parameter: @f$ \alpha = 1/2 @f$
    * Jacobi parameter: @f$ \beta = 1/2 @f$
    */
@@ -160,9 +159,11 @@ namespace __detail
     }
 
   /**
-   * Gauss-Chebyshev_T rule.
+   * Evaluate the integral of a function @c func from limits @c a to @c b
+   * using the Gauss-Chebyshev-T rule.
    *
-   * 
+   * Weight function: @f$ ((b-x)(x-a))^{-1/2} @f$
+   * Constraints: @f$ b > a @f$
    */
   template<typename _Tp>
     template<typename _FuncTp>
@@ -190,12 +191,12 @@ namespace __detail
       }
 
   /**
-   * Gauss-Chebyshev_U rule.
+   * Construct a Gauss-Chebyshev-U rule of order @c n.
    *
-   * Interval: @f$ (a, b), b > a @f$
-   * Weight function: @f$ ((b-x)(x-a))^{1/2} @f$
-   * Constraints: @f$ \alpha = -1/2 @f$
-   * Constraints: @f$ \beta = -1/2 @f$
+   * Interval: @f$ (a, b) @f$
+   * Weight function: @f$ [(b-x)(x-a)]^{-1/2} @f$
+   * Jacobi parameter: @f$ \alpha = -1/2 @f$
+   * Jacobi parameter: @f$ \beta = -1/2 @f$
    */
   template<typename _Tp>
     gauss_chebyshev_u_rule<_Tp>::gauss_chebyshev_u_rule(int __n)
@@ -216,9 +217,11 @@ namespace __detail
     }
 
   /**
-   * Gauss-Chebyshev_U rule.
+   * Evaluate the integral of a function @c func from limits @c a to @c b
+   * using the Gauss-Chebyshev-U rule.
    *
-   * 
+   * Interval: @f$ (a, b), b > a @f$
+   * Weight function: @f$ [(b-x)(x-a)]^{1/2} @f$
    */
   template<typename _Tp>
     template<typename _FuncTp>
@@ -246,12 +249,12 @@ namespace __detail
       }
 
   /**
-   * Gauss-Chebyshev_V rule.
+   * Construct a Gauss-Chebyshev-V rule of order @c n.
    *
-   * Interval: @f$ (a, b), b > a @f$
-   * Weight function: @f$ ((x-a)/(b-x))^{1/2} @f$
-   * Constraints: @f$ \alpha = +1/2 @f$
-   * Constraints: @f$ \beta = -1/2 @f$
+   * Interval: @f$ (-1, +1) @f$
+   * Weight function: @f$ [(x-a)/(b-x)]^{1/2} @f$
+   * Jacobi parameter: @f$ \alpha = +1/2 @f$
+   * Jacobi parameter: @f$ \beta = -1/2 @f$
    */
   template<typename _Tp>
     gauss_chebyshev_v_rule<_Tp>::gauss_chebyshev_v_rule(int __n)
@@ -275,8 +278,11 @@ namespace __detail
     }
 
   /**
-   * Gauss-Chebyshev_V rule.
+   * Evaluate the integral of a function @c func from limits @c a to @c b
+   * using the Gauss-Chebyshev-V rule.
    *
+   * Interval: @f$ (a, b), b > a @f$
+   * Weight function: @f$ [(x-a)/(b-x)]^{1/2} @f$
    * 
    */
   template<typename _Tp>
@@ -305,12 +311,12 @@ namespace __detail
       }
 
   /**
-   * Gauss-Chebyshev_W rule.
+   * Construct a Gauss-Chebyshev-W rule of order @c n.
    *
-   * Interval: @f$ (a, b), b > a @f$
-   * Weight function: @f$ ((b-x)/(x-a))^{1/2} @f$
-   * Constraints: @f$ \alpha = -1/2 @f$
-   * Constraints: @f$ \beta = +1/2 @f$
+   * Interval: @f$ (-1, +1) @f$
+   * Weight function: @f$ [(1-x)/(1+x)]^{1/2} @f$
+   * Jacobi parameter: @f$ \alpha = -1/2 @f$
+   * Jacobi parameter: @f$ \beta = +1/2 @f$
    */
   template<typename _Tp>
     gauss_chebyshev_w_rule<_Tp>::gauss_chebyshev_w_rule(int __n)
@@ -334,9 +340,11 @@ namespace __detail
     }
 
   /**
-   * Gauss-Chebyshev_W rule.
+   * Evaluate the integral of a function @c func from limits @c a to @c b
+   * using the Gauss-Chebyshev-W rule.
    *
-   * 
+   * Interval: @f$ (a, b), b > a @f$
+   * Weight function: @f$ [(b-x)/(x-a)]^{1/2} @f$
    */
   template<typename _Tp>
     template<typename _FuncTp>
@@ -364,12 +372,10 @@ namespace __detail
       }
 
   /**
-   * Gauss-Gegenbauer rule.
+   * Construct a Gauss-Gegenbauer rule of order @c n.
    *
-   * Interval: @f$ (a, b) @f$
-   * Weight function: @f$ ((b-x)(x-a))^\alpha @f$
+   * Weight function: @f$ [(b-x)(x-a)]^\alpha @f$
    * Constraints: @f$ \alpha > -1 @f$
-   * Constraints: @f$ b > a @f$
    */
   template<typename _Tp>
     gauss_gegenbauer_rule<_Tp>::gauss_gegenbauer_rule(int __n, _Tp __alf)
@@ -398,9 +404,11 @@ namespace __detail
     }
 
   /**
-   * Gauss-Gegenbauer rule.
+   * Evaluate the integral of a function @c func from limits @c a to @c b
+   * using the Gauss-Gegenbauer rule.
    *
-   * 
+   * Interval: @f$ (a, b) @f$
+   * Constraints: @f$ b > a @f$
    */
   template<typename _Tp>
     template<typename _FuncTp>
@@ -428,12 +436,10 @@ namespace __detail
       }
 
   /**
-   * Gauss-Jacobi rule.
+   * Construct a Gauss-Jacobi rule of order @c n.
    *
-   * Interval: @f$ (a, b) @f$
    * Weight function: @f$ (b-x)^\alpha (x-a)^\beta @f$
    * Constraints: @f$ \alpha, \beta > -1 @f$
-   * Constraints: @f$ b > a @f$
    */
   template<typename _Tp>
     gauss_jacobi_rule<_Tp>::gauss_jacobi_rule(int __n, _Tp __alf, _Tp __bet)
@@ -475,9 +481,11 @@ namespace __detail
     }
 
   /**
-   * Gauss-Jacobi rule.
+   * Evaluate the integral of a function @c func from limits @c a to @c b
+   * using the Gauss-Jacobi rule.
    *
-   * 
+   * Interval: @f$ (a, b) @f$
+   * Constraints: @f$ b > a @f$
    */
   template<typename _Tp>
     template<typename _FuncTp>
@@ -505,12 +513,11 @@ namespace __detail
       }
 
   /**
-   * Gauss-Laguerre rule.
+   * Construct a Gauss-Laguerre rule of order @c n.
    *
    * Interval: @f$ (a, \infty) @f$
    * Weight function: @f$ (x-a)^\alpha \exp(-b(x-a)) @f$
    * Constraints: @f$ \alpha > -1 @f$
-   * Constraints: @f$ b > 0 @f$
    */
   template<typename _Tp>
     gauss_laguerre_rule<_Tp>::gauss_laguerre_rule(int __n, _Tp __alf)
@@ -535,9 +542,10 @@ namespace __detail
     }
 
   /**
-   * Gauss-Laguerre rule.
+   * Evaluate the integral of a function @c func from limits @c a to @c b
+   * using the Gauss-Laguerre rule.
    *
-   * 
+   * Constraints: @f$ b > 0 @f$
    */
   template<typename _Tp>
     template<typename _FuncTp>
@@ -565,12 +573,11 @@ namespace __detail
       }
 
   /**
-   * Generalized Gauss-Hermite rule.
+   * Construct a Generalized Gauss-Hermite rule of order @c n.
    *
    * Interval: @f$ (-\infty, \infty) @f$
    * Weight function: @f$ |x-a|^\alpha \exp(-b(x-a)^2) @f$
    * Constraints: @f$ \alpha > -1 @f$
-   * Constraints: @f$ b > 0 @f$
    */
   template<typename _Tp>
     gauss_hermite_rule<_Tp>::gauss_hermite_rule(int __n, _Tp __alf)
@@ -593,9 +600,10 @@ namespace __detail
     }
 
   /**
-   * Generalized Gauss-Hermite rule.
+   * Evaluate the integral of a function @c func from limits @c a to @c b
+   * using the Generalized Gauss-Hermite rule.
    *
-   * 
+   * Constraints: @f$ b > 0 @f$
    */
   template<typename _Tp>
     template<typename _FuncTp>
@@ -623,12 +631,11 @@ namespace __detail
       }
 
   /**
-   * Generalized Gauss-Exponential rule.
+   * Construct a Generalized Gauss-Exponential rule of order @c n.
    *
    * Interval: @f$ (a, b) @f$
-   * Weight function: @f$ |x-(a+b)/2|^\alpha @f$
+   * Weight function: @f$ |x - (a + b) / 2|^\alpha @f$
    * Constraints: @f$ \alpha > -1 @f$
-   * Constraints: @f$ b > a @f$
    */
   template<typename _Tp>
     gauss_exponential_rule<_Tp>::gauss_exponential_rule(int __n, _Tp __alf)
@@ -655,9 +662,10 @@ namespace __detail
     }
 
   /**
-   * Generalized Gauss-Exponential rule.
+   * Evaluate the integral of a function @c func from limits @c a to @c b
+   * using the Generalized Gauss-Exponential rule.
    *
-   * 
+   * Constraints: @f$ b > a @f$
    */
   template<typename _Tp>
     template<typename _FuncTp>
@@ -685,11 +693,10 @@ namespace __detail
       }
 
   /**
-   * Gauss-Rational rule.
+   * Construct a Gauss-Rational rule of order @c n.
    *
-   * Interval: @f$ (a, \infty) @f$
-   * Weight function: @f$ (x-a)^\alpha*(b+x)^\beta @f$
-   * Constraints: @f$ \alpha > -1, \alpha + \beta + 2n < 0, a + b > 0 @f$
+   * Weight function: @f$ (x - a)^\alpha (b + x)^\beta @f$
+   * Constraints: @f$ \alpha > -1, \alpha + \beta + 2n < 0
    */
   template<typename _Tp>
     gauss_rational_rule<_Tp>::gauss_rational_rule(int __n, _Tp __alf, _Tp __bet)
@@ -736,9 +743,11 @@ namespace __detail
     }
 
   /**
-   * Gauss-Rational rule.
+   * Evaluate the integral of a function @c func from limits @c a to @c b
+   * using the Gauss-Rational rule.
    *
-   * 
+   * Interval: @f$ (a, \infty) @f$
+   * Constraints: @f$ a + b > 0 @f$
    */
   template<typename _Tp>
     template<typename _FuncTp>
