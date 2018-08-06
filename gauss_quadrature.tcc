@@ -457,7 +457,7 @@ namespace __detail
 				   / (__abp2i + _Tp{1})) / __abp2i;
       const auto a2mb2 = (this->beta - this->alpha)
 			* (this->beta + this->alpha);
-      for (int __i = 1; __i <= this->order; ++__i)
+      for (int __i = 1; __i < this->order; ++__i)
 	{
 	  const auto abp2ip2 = __abp2i + _Tp{2};
 	  __diag[__i] = a2mb2 / __abp2i / abp2ip2;
@@ -637,7 +637,7 @@ namespace __detail
 	{
 	  __ap2i += _Tp{2};
 	  __subd[__i - 1] = (_Tp(__i) + _Tp(__i % 2) * this->alpha)
-		      / std::sqrt((__ap2i * __ap2i - _Tp{1}));
+			  / std::sqrt((__ap2i * __ap2i - _Tp{1}));
 	}
 
       __detail::golub_welsch(__mu_0, this->order, __diag, __subd,
@@ -712,10 +712,10 @@ namespace __detail
       for (int __i = 2; __i <= this->order - 1; ++__i)
 	{
 	  const auto __abp2i = __ab + _Tp(2 * __i);
-	  __subd[__i-1] = _Tp(__i) * (this->alpha + _Tp(__i))
-			/ (__abp2i - _Tp{1}) * (this->beta + _Tp(__i))
-			/ (__abp2i * __abp2i) * (__ab + _Tp(__i))
-			/ (__abp2i + _Tp{1});
+	  __subd[__i - 1] = _Tp(__i) * (this->alpha + _Tp(__i))
+			  / (__abp2i - _Tp{1}) * (this->beta + _Tp(__i))
+			  / (__abp2i * __abp2i) * (__ab + _Tp(__i))
+			  / (__abp2i + _Tp{1});
 	}
       __subd[this->order - 1] = _Tp{0};
       for (int __i = 0; __i < this->order; ++__i)
