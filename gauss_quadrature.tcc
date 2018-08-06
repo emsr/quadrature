@@ -365,30 +365,30 @@ namespace __detail
   /**
    * Construct a Gauss-Gegenbauer rule of order @c n.
    *
-   * Weight function: @f$ [(b-x)(x-a)]^\alpha @f$
-   * Constraints: @f$ \alpha > -1 @f$
+   * Weight function: @f$ [(b-x)(x-a)]^\lambda @f$
+   * Constraints: @f$ \lambda > -1 @f$
    */
   template<typename _Tp>
-    gauss_gegenbauer_rule<_Tp>::gauss_gegenbauer_rule(int __n, _Tp __alf)
+    gauss_gegenbauer_rule<_Tp>::gauss_gegenbauer_rule(int __n, _Tp __lam)
     : order(__n),
-      alpha(__alf),
+      lambda(__lam),
       point(__n),
       weight(__n)
     {
-      const auto __ab = _Tp{2} * this->alpha;
-      const auto __gam = std::tgamma(this->alpha + _Tp{1});
+      const auto __ab = _Tp{2} * this->lambda;
+      const auto __gam = std::tgamma(this->lambda + _Tp{1});
       const auto __mu_0 = std::pow(_Tp{2}, __ab + _Tp{1})
 			* __gam * __gam / std::tgamma(__ab + _Tp{2});
 
       std::vector<_Tp> __diag(this->order, _Tp{0});
       std::vector<_Tp> __subd(this->order);
 
-      __subd[0] = std::sqrt(_Tp{1} / (_Tp{2} * this->alpha + _Tp{3}));
+      __subd[0] = std::sqrt(_Tp{1} / (_Tp{2} * this->lambda + _Tp{3}));
 
       for (int __i = 2; __i <= this->order; ++__i)
-	__subd[__i-1] = std::sqrt(_Tp(__i) * (__ab + _Tp(__i))
-		      / (_Tp{4}
-			* std::pow(this->alpha + _Tp(__i), _Tp{2}) - _Tp{1}));
+	__subd[__i - 1] = std::sqrt(_Tp(__i) * (__ab + _Tp(__i))
+		        / (_Tp{4}
+			  * std::pow(this->lambda + _Tp(__i), _Tp{2}) - _Tp{1}));
 
       __detail::golub_welsch(__mu_0, this->order, __diag, __subd,
 			     this->point, this->weight);
@@ -416,7 +416,7 @@ namespace __detail
 
 	const auto __shift = (__b + __a) / _Tp{2};
 	const auto __slope = (__b - __a) / _Tp{2};
-	const auto __fact = std::pow(__slope, _Tp{2} * this->alpha + _Tp{1});
+	const auto __fact = std::pow(__slope, _Tp{2} * this->lambda + _Tp{1});
 
 	auto __sum = _Tp{0};
 	for (int __i = 0; __i < this->order; ++__i)
