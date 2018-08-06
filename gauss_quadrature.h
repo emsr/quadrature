@@ -129,9 +129,9 @@ namespace __gnu_cxx
     struct gauss_gegenbauer_rule
     {
       int order;
-      _Tp alpha;
+      _Tp lambda;
 
-      explicit gauss_gegenbauer_rule(int __n, _Tp __alf);
+      explicit gauss_gegenbauer_rule(int __n, _Tp __lam);
 
       template<typename _FuncTp>
 	_Tp
