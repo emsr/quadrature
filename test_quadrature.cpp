@@ -3347,9 +3347,9 @@ main()
 
   std::cout << "\n\nTest long double\n";
   std::cout << "=====================================\n";
-  //test_quadrature<long double>();
+  test_quadrature<long double>();
 
   std::cout << "\n\nTest float\n";
   std::cout << "=====================================\n";
-  //test_quadrature<float>();
+  test_quadrature<float>();
 }
