@@ -140,7 +140,7 @@ template<typename _Tp>
 	std::cout << test_desc;
 
 	if (status && !this->verbose)
-          std::cout << " [" << this->num_tests << ']';
+	  std::cout << " [" << this->num_tests << ']';
 
 	std::cout << '\n';
 	std::cout << std::flush;
@@ -175,21 +175,21 @@ template<typename _Tp>
 	std::cout << test_desc;
 
 	if (status == 0)
-          std::cout << " (" << result << " observed vs " << expected << " expected)";
+	  std::cout << " (" << result << " observed vs " << expected << " expected)";
 	else
 	  {
 	    const auto prec_old = std::cout.precision();
 	    const auto prec_new = std::numeric_limits<_Tp>::max_digits10;
 	    std::cout << std::setprecision(prec_new);
-            std::cout << " (" << result << " observed vs " << expected << " expected)";
+	    std::cout << " (" << result << " observed vs " << expected << " expected)";
 	    std::cout << std::setprecision(prec_old);
 	  }
 
 	if (status == -1)
-          std::cout << " [test uses subnormal value]";
+	  std::cout << " [test uses subnormal value]";
 
 	if (status && !this->verbose)
-          std::cout << " [" << this->num_tests << ']';
+	  std::cout << " [" << this->num_tests << ']';
 
 	std::cout << '\n';
 	std::cout << std::flush;
@@ -222,21 +222,21 @@ template<typename _Tp>
 	std::cout << test_desc;
 
 	if (status == 0)
-          std::cout << " (" << result << " observed vs " << expected << " expected)";
+	  std::cout << " (" << result << " observed vs " << expected << " expected)";
 	else
 	  {
 	    const auto prec_old = std::cout.precision();
 	    const auto prec_new = std::numeric_limits<_Tp>::max_digits10;
 	    std::cout << std::setprecision(prec_new);
-            std::cout << " (" << result << " observed vs " << expected << " expected)";
+	    std::cout << " (" << result << " observed vs " << expected << " expected)";
 	    std::cout << std::setprecision(prec_old);
 	  }
 
 	if (status == -1)
-          std::cout << " [test uses subnormal value]";
+	  std::cout << " [test uses subnormal value]";
 
 	if (status && !this->verbose)
-          std::cout << " [" << this->num_tests << ']';
+	  std::cout << " [" << this->num_tests << ']';
 
 	std::cout << '\n';
 	std::cout << std::flush;
@@ -272,21 +272,21 @@ template<typename _Tp>
 	std::cout << test_desc;
 
 	if (status == 0)
-          std::cout << " (" << result << " observed vs " << expected << " expected)";
+	  std::cout << " (" << result << " observed vs " << expected << " expected)";
 	else
 	  {
 	    const auto prec_old = std::cout.precision();
 	    const auto prec_new = std::numeric_limits<_Tp>::max_digits10;
 	    std::cout << std::setprecision(prec_new);
-            std::cout << " (" << result << " observed vs " << expected << " expected)";
+	    std::cout << " (" << result << " observed vs " << expected << " expected)";
 	    std::cout << std::setprecision(prec_old);
 	  }
 
 	if (status == -1)
-          std::cout << " [test uses subnormal value]";
+	  std::cout << " [test uses subnormal value]";
 
 	if (status && !this->verbose)
-          std::cout << " [" << this->num_tests << ']';
+	  std::cout << " [" << this->num_tests << ']';
 
 	std::cout << '\n';
 	std::cout << std::flush;
@@ -311,7 +311,7 @@ template<typename _Tp>
 	std::cout << " (" << result << " observed vs " << expected << " expected)";
 
 	if (status && !this->verbose)
-          std::cout << " [" << this->num_tests << ']';
+	  std::cout << " [" << this->num_tests << ']';
 
 	std::cout << '\n';
 	std::cout << std::flush;
@@ -333,7 +333,7 @@ template<typename _Tp>
     if (tot_num_tests !=  tot_num_passed +  tot_num_failed)
       {
 	if (tot_verbose)
-          std::cout << "TEST RESULTS DO NOT ADD UP " << tot_num_tests
+	  std::cout << "TEST RESULTS DO NOT ADD UP " << tot_num_tests
 		    << " != " << tot_num_passed << " + " << tot_num_failed << "\n";
 	return FAILURE;
       }
@@ -341,7 +341,7 @@ template<typename _Tp>
     if (tot_num_passed ==  tot_num_tests)
       {
 	if (! tot_verbose)
-          std::cout << "Completed [" << tot_num_passed << '/' << tot_num_tests << "]\n";
+	  std::cout << "Completed [" << tot_num_passed << '/' << tot_num_tests << "]\n";
 
 	return SUCCESS;
       }
@@ -360,8 +360,8 @@ template<typename _Tp>
 template<typename _Tp, typename _RuleTp, typename _FuncTp, typename... _Params>
   int
   test_quadrature_rule(_FuncTp f, _Tp a, _Tp b,
-                	_Tp tol, _Tp exact, const char* desc,
-                	_RuleTp rule, size_t n, _Params... params)
+			_Tp tol, _Tp exact, const char* desc,
+			_RuleTp rule, size_t n, _Params... params)
   {
     int status = 0;
     _RuleTp quad_rule(n, params...);
@@ -2518,7 +2518,7 @@ test_quadrature()
 
       __gnu_cxx::integration_workspace<_Tp> w(1000);
       __gnu_cxx::oscillatory_integration_table<_Tp> wo(_Tp{10} * _S_pi, _Tp{1},
-                                       __gnu_cxx::oscillatory_integration_table<_Tp>::INTEG_SINE, 1000);
+				       __gnu_cxx::oscillatory_integration_table<_Tp>::INTEG_SINE, 1000);
 
       const auto exp_result = _Tp{-1.281368483991674190e-01L};
       const auto exp_abserr = _Tp{6.875028324415666248e-12L};
@@ -2673,8 +2673,8 @@ test_quadrature()
       qtest.test_absolute(dmon_t(1, _Tp{2})(_Tp{2}), _Tp{4}, 8*_S_eps, "monomial sanity check 2");
 
       qtest.test_absolute(integrate(dmon_t(2, _Tp{2}), _Tp{1}, _Tp{2}),
-          (_Tp{2}/_Tp{3})*(_Tp{2}*_Tp{2}*_Tp{2} - _Tp{1}*_Tp{1}*_Tp{1}), 8*_S_eps,
-          "integrate(monomial) sanity check");
+	  (_Tp{2}/_Tp{3})*(_Tp{2}*_Tp{2}*_Tp{2} - _Tp{1}*_Tp{1}*_Tp{1}), 8*_S_eps,
+	  "integrate(monomial) sanity check");
     }
   catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
@@ -2696,22 +2696,22 @@ test_quadrature()
       for (int n = 1; n < 1025; ++n)
 	{
 	  quadrature_test<_Tp> qtest;
-          __gnu_cxx::gauss_legendre_table<_Tp> tbl(n);
+	  __gnu_cxx::gauss_legendre_table<_Tp> tbl(n);
 
-          monomial<_Tp> mon(2*n-1, _Tp{1}); // n point rule exact for 2n-1 degree poly
-          auto expected = integrate(mon, a, b);
-          auto result   = __gnu_cxx::glfixed_integrate(tbl, mon, a, b);
+	  monomial<_Tp> mon(2*n-1, _Tp{1}); // n point rule exact for 2n-1 degree poly
+	  auto expected = integrate(mon, a, b);
+	  auto result   = __gnu_cxx::glfixed_integrate(tbl, mon, a, b);
 
 	  _Tp rel_tol;
-          if (tbl.precomputed)
-            rel_tol = prec_fixed<_Tp>;
-          else
-            rel_tol = _Tp{1.0e-7L};
+	  if (tbl.precomputed)
+	    rel_tol = prec_fixed<_Tp>;
+	  else
+	    rel_tol = _Tp{1.0e-7L};
 	  std::ostringstream str;
 	  str << "glfixed " << n << "-point: Integrating ("
 	      << mon.constant << "*x^" << mon.degree
 	      << ") over [" << a << "," << b << "]";
-          qtest.test_relative(result, expected, rel_tol, str.str().c_str());
+	  qtest.test_relative(result, expected, rel_tol, str.str().c_str());
 	}
     }
   catch (__gnu_cxx::__integration_error<_Tp>& iex)
@@ -2734,7 +2734,7 @@ test_quadrature()
       qtest.test_absolute(f_sin(_Tp{2}), std::sin(_Tp{2}), _Tp{0}, "f_sin sanity check 1");
       qtest.test_absolute(f_sin(_Tp{7}), std::sin(_Tp{7}), _Tp{0}, "f_sin sanity check 2");
       qtest.test_absolute(integ_f_sin(_Tp{0}, _S_pi), _Tp{2}, _S_eps,
-          "integ_f_sin sanity check");
+	  "integ_f_sin sanity check");
     }
   catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
@@ -2759,37 +2759,37 @@ test_quadrature()
 
       for (int n = 1; n <= n_max; ++n)
 	{
-          __gnu_cxx::gauss_legendre_table<_Tp> tbl(n);
+	  __gnu_cxx::gauss_legendre_table<_Tp> tbl(n);
 
-          auto result = __gnu_cxx::glfixed_integrate(tbl, f_sin<_Tp>, a, b);
-          auto abserr = std::abs(expected - result);
+	  auto result = __gnu_cxx::glfixed_integrate(tbl, f_sin<_Tp>, a, b);
+	  auto abserr = std::abs(expected - result);
 
-          if (n == 1)
+	  if (n == 1)
 	    {
 	      std::ostringstream str;
 	      str << "glfixed " << n << "-point: behavior for n == 1";
-              qtest.test_absolute(result, (b - a) * f_sin<_Tp>((b + a) / _Tp{2}), _Tp{0}, str.str().c_str());
+	      qtest.test_absolute(result, (b - a) * f_sin<_Tp>((b + a) / _Tp{2}), _Tp{0}, str.str().c_str());
 	    }
-          else if (n < 9)
+	  else if (n < 9)
 	    {
 	      std::ostringstream str;
 	      str << "glfixed " << n << "-point: observed drop in absolute error versus " << n-1 << "-points";
 	      qtest.test_update(! (abserr < prev_abserr), str.str().c_str());
 	    }
-          else if (tbl.precomputed)
+	  else if (tbl.precomputed)
 	    {
 	      std::ostringstream str;
 	      str << "glfixed " << n << "-point: very low absolute error for high precision coefficients";
 	      qtest.test_absolute(result, expected, _Tp{2} * n * _S_eps, str.str().c_str());
 	    }
-          else
+	  else
 	    {
 	      std::ostringstream str;
 	      str << "glfixed " << n << "-point: acceptable absolute error for on-the-fly coefficients";
 	      qtest.test_absolute(result, expected, _Tp{1.0e+6} * _S_eps, str.str().c_str());
 	    }
 
-          prev_abserr = abserr;
+	  prev_abserr = abserr;
 	}
     }
   catch (__gnu_cxx::__integration_error<_Tp>& iex)
@@ -2833,7 +2833,7 @@ test_quadrature()
       e3[3][2]
       {
 	{-std::sqrt(_Tp{15}) / _Tp{5}, _Tp{5} / _Tp{9}},
-	{                      _Tp{0}, _Tp{8} / _Tp{9}},
+	{		      _Tp{0}, _Tp{8} / _Tp{9}},
 	{ std::sqrt(_Tp{15}) / _Tp{5}, _Tp{5} / _Tp{9}}
       };
 
@@ -2855,7 +2855,7 @@ test_quadrature()
       {
 	{-std::sqrt((_Tp{5} + _Tp{2} * e5c1)) / _Tp{3}, (_Tp{322} - e5c2) / _Tp{900}},
 	{-std::sqrt((_Tp{5} - _Tp{2} * e5c1)) / _Tp{3}, (_Tp{322} + e5c2) / _Tp{900}},
-	{                                       _Tp{0},          _Tp{128} / _Tp{225}},
+	{				       _Tp{0},	  _Tp{128} / _Tp{225}},
 	{ std::sqrt((_Tp{5} - _Tp{2} * e5c1)) / _Tp{3}, (_Tp{322} + e5c2) / _Tp{900}},
 	{ std::sqrt((_Tp{5} + _Tp{2} * e5c1)) / _Tp{3}, (_Tp{322} - e5c2) / _Tp{900}}
       };
@@ -2864,60 +2864,60 @@ test_quadrature()
       __gnu_cxx::gauss_legendre_table<_Tp> tbl1(n);
       for (auto i = 0u; i < n; ++i)
 	{
-          auto [xi, wi] = tbl1.get_point(_Tp{-1}, _Tp{1}, i);
+	  auto [xi, wi] = tbl1.get_point(_Tp{-1}, _Tp{1}, i);
 	  std::ostringstream msg1, msg2;
 	  msg1 << "glfixed " << n << "-point lookup: x(" << i << ')';
-          qtest.test_absolute(xi, e1[i][0], _S_eps, msg1.str().c_str());
+	  qtest.test_absolute(xi, e1[i][0], _S_eps, msg1.str().c_str());
 	  msg2 << "glfixed " << n << "-point lookup: w(" << i << ')';
-          qtest.test_absolute(wi, e1[i][1], _S_eps, msg2.str().c_str());
+	  qtest.test_absolute(wi, e1[i][1], _S_eps, msg2.str().c_str());
 	}
 
       n = 2;
       __gnu_cxx::gauss_legendre_table<_Tp> tbl2(n);
       for (auto i = 0u; i < n; ++i)
 	{
-          auto [xi, wi] = tbl2.get_point(_Tp{-1}, _Tp{1}, i);
+	  auto [xi, wi] = tbl2.get_point(_Tp{-1}, _Tp{1}, i);
 	  std::ostringstream msg1, msg2;
 	  msg1 << "glfixed " << n << "-point lookup: x(" << i << ')';
-          qtest.test_absolute(xi, e2[i][0], _S_eps, msg1.str().c_str());
+	  qtest.test_absolute(xi, e2[i][0], _S_eps, msg1.str().c_str());
 	  msg2 << "glfixed " << n << "-point lookup: w(" << i << ')';
-          qtest.test_absolute(wi, e2[i][1], _S_eps, msg2.str().c_str());
+	  qtest.test_absolute(wi, e2[i][1], _S_eps, msg2.str().c_str());
 	}
 
       n = 3;
       __gnu_cxx::gauss_legendre_table<_Tp> tbl3(n);
       for (auto i = 0u; i < n; ++i)
 	{
-          auto [xi, wi] = tbl3.get_point(_Tp{-1}, _Tp{1}, i);
+	  auto [xi, wi] = tbl3.get_point(_Tp{-1}, _Tp{1}, i);
 	  std::ostringstream msg1, msg2;
 	  msg1 << "glfixed " << n << "-point lookup: x(" << i << ')';
-          qtest.test_absolute(xi, e3[i][0], _S_eps, msg1.str().c_str());
+	  qtest.test_absolute(xi, e3[i][0], _S_eps, msg1.str().c_str());
 	  msg2 << "glfixed " << n << "-point lookup: w(" << i << ')';
-          qtest.test_absolute(wi, e3[i][1], _S_eps, msg2.str().c_str());
+	  qtest.test_absolute(wi, e3[i][1], _S_eps, msg2.str().c_str());
 	}
 
       n = 4;
       __gnu_cxx::gauss_legendre_table<_Tp> tbl4(n);
       for (auto i = 0u; i < n; ++i)
 	{
-          auto [xi, wi] = tbl4.get_point(_Tp{-1}, _Tp{1}, i);
+	  auto [xi, wi] = tbl4.get_point(_Tp{-1}, _Tp{1}, i);
 	  std::ostringstream msg1, msg2;
 	  msg1 << "glfixed " << n << "-point lookup: x(" << i << ')';
-          qtest.test_absolute(xi, e4[i][0], _S_eps, msg1.str().c_str());
+	  qtest.test_absolute(xi, e4[i][0], _S_eps, msg1.str().c_str());
 	  msg2 << "glfixed " << n << "-point lookup: w(" << i << ')';
-          qtest.test_absolute(wi, e4[i][1], _S_eps, msg2.str().c_str());
+	  qtest.test_absolute(wi, e4[i][1], _S_eps, msg2.str().c_str());
 	}
 
       n = 5;
       __gnu_cxx::gauss_legendre_table<_Tp> tbl5(n);
       for (auto i = 0u; i < n; ++i)
 	{
-          auto [xi, wi] = tbl5.get_point(_Tp{-1}, _Tp{1}, i);
+	  auto [xi, wi] = tbl5.get_point(_Tp{-1}, _Tp{1}, i);
 	  std::ostringstream msg1, msg2;
 	  msg1 << "glfixed " << n << "-point lookup: x(" << i << ')';
-          qtest.test_absolute(xi, e5[i][0], _S_eps, msg1.str().c_str());
+	  qtest.test_absolute(xi, e5[i][0], _S_eps, msg1.str().c_str());
 	  msg2 << "glfixed " << n << "-point lookup: w(" << i << ')';
-          qtest.test_absolute(wi, e5[i][1], _S_eps, msg2.str().c_str());
+	  qtest.test_absolute(wi, e5[i][1], _S_eps, msg2.str().c_str());
 	}
     }
   catch (__gnu_cxx::__integration_error<_Tp>& iex)
@@ -2946,8 +2946,8 @@ test_quadrature()
       __gnu_cxx::gauss_legendre_table<_Tp> tbl1(n);
       for (auto i = 0u; i < n; ++i)
 	{
-          auto [x, w] = tbl1.get_point(_Tp{-2}, _Tp{3}, i);
-          result += w * (1 + x * (1 + x * (1 + x * (1 + x * (1 + x)))));
+	  auto [x, w] = tbl1.get_point(_Tp{-2}, _Tp{3}, i);
+	  result += w * (1 + x * (1 + x * (1 + x * (1 + x * (1 + x)))));
 	}
       std::ostringstream msg1;
       msg1 << "glfixed " << n << "-point xi,wi eval";
@@ -2959,8 +2959,8 @@ test_quadrature()
       __gnu_cxx::gauss_legendre_table<_Tp> tbl2(n);
       for (auto i = 0u; i < n; ++i)
 	{
-          auto [x, w] = tbl2.get_point(_Tp{-2}, _Tp{3}, i);
-          result += w * (1 + x * (1 + x * (1 + x * (1 + x * (1 + x * (1 + x * (1 + x)))))));
+	  auto [x, w] = tbl2.get_point(_Tp{-2}, _Tp{3}, i);
+	  result += w * (1 + x * (1 + x * (1 + x * (1 + x * (1 + x * (1 + x * (1 + x)))))));
 	}
       std::ostringstream msg2;
       msg2 << "glfixed " << n << "-point xi,wi eval";
@@ -3087,9 +3087,6 @@ test_quadrature()
       std::cerr << "ERROR: " << ex.what() << '\n';
     }
 
-  // Test fixed quadrature GSL-2.4+
-///*
-
   {
     using dmon_t = monomial<_Tp>;
     const dmon_t mon(5, _Tp{1});
@@ -3098,112 +3095,66 @@ test_quadrature()
     for (auto b = _Tp{1.1L}; b <= _Tp{4}; b += _Tp{0.1L})
       {
 	const auto deg = mon.degree;
-        const auto dterm = (deg % 2) == 0 ? _Tp{1} : _Tp{-1};
+	const auto dterm = (deg % 2) == 0 ? _Tp{1} : _Tp{-1};
 
-        // Test with a < b.
-        auto a = b - _Tp{1};
-	auto bpa = b + a;
-	auto bma = b - a;
+	// Test with a < b.
+	// Then test with a > b.
+	for (int k = -1; k != 3; k += 2)
+	  {
+	    auto a = b + _Tp(k);
+	    auto bpa = b + a;
+	    auto bma = b - a;
 
-        // Legendre quadrature
-        auto exact = integrate(mon, a, b);
-        test_quadrature_rule(mon, a, b,
-			     prec_fixed<_Tp>, exact, "legendre monomial",
-			     __gnu_cxx::gauss_legendre_rule<_Tp>(n), n);
+	    // Test Legendre quadrature.
+	    auto exact = integrate(mon, a, b);
+	    test_quadrature_rule(mon, a, b,
+				 prec_fixed<_Tp>, exact, "legendre monomial",
+				 __gnu_cxx::gauss_legendre_rule<_Tp>(n), n);
 
-        // Chebyshev T (first kind) quadrature
-        exact = std::copysign(_Tp{1}, bma)
-	      * _S_pi * std::pow(_Tp{0.5L} * bpa, _Tp(deg))
-	      * __gnu_cxx::hyperg(_Tp(0.5L * (1 - deg)), _Tp(-0.5L * deg),
-				  _Tp{1}, bma * bma / (bpa * bpa));
-        test_quadrature_rule(mon, a, b,
-			     prec_fixed<_Tp>, exact, "chebyshev_t monomial",
-			     __gnu_cxx::gauss_chebyshev_t_rule<_Tp>(n), n);
+	    // Test Chebyshev T (first kind) quadrature.
+	    exact = std::copysign(_Tp{1}, bma)
+		  * _S_pi * std::pow(_Tp{0.5L} * bpa, _Tp(deg))
+		  * __gnu_cxx::hyperg(_Tp(0.5L * (1 - deg)), _Tp(-0.5L * deg),
+				      _Tp{1}, bma * bma / (bpa * bpa));
+	    test_quadrature_rule(mon, a, b,
+				 prec_fixed<_Tp>, exact, "chebyshev_t monomial",
+				 __gnu_cxx::gauss_chebyshev_t_rule<_Tp>(n), n);
 
-        // Chebyshev U (second kind) quadrature
-        exact = std::copysign(_Tp{1}, bma)
-	      * _S_pi_2 * std::pow(_Tp{0.5L} * bpa, _Tp(deg))
-	      * __gnu_cxx::hyperg(_Tp(0.5L * (1 - deg)), _Tp(-0.5L * deg),
-				  _Tp{2}, bma * bma / (bpa * bpa))
-	      * _Tp{0.25L} * bma * bma;
-        test_quadrature_rule(mon, a, b,
-			     prec_fixed<_Tp>, exact, "chebyshev_u monomial",
-			     __gnu_cxx::gauss_chebyshev_u_rule<_Tp>(n), n);
+	    // Test Chebyshev U (second kind) quadrature.
+	    exact = std::copysign(_Tp{1}, bma)
+		  * _S_pi_2 * std::pow(_Tp{0.5L} * bpa, _Tp(deg))
+		  * __gnu_cxx::hyperg(_Tp(0.5L * (1 - deg)), _Tp(-0.5L * deg),
+				      _Tp{2}, bma * bma / (bpa * bpa))
+		  * _Tp{0.25L} * bma * bma;
+	    test_quadrature_rule(mon, a, b,
+				 prec_fixed<_Tp>, exact, "chebyshev_u monomial",
+				 __gnu_cxx::gauss_chebyshev_u_rule<_Tp>(n), n);
 
-        // Laguerre quadrature
-        exact = std::pow(b, _Tp(-1 - deg))
-	      * std::exp(a * b)
-	      * __gnu_cxx::tgamma(_Tp(1 + deg), a * b);
-        test_quadrature_rule(mon, a, b,
-			     prec_fixed<_Tp>, exact, "laguerre monomial",
-			     __gnu_cxx::gauss_laguerre_rule<_Tp>(n, _Tp{0}),
-			     n, _Tp{0});
+	    // Test Laguerre quadrature.
+	    exact = std::pow(b, _Tp(-1 - deg))
+		  * std::exp(a * b)
+		  * __gnu_cxx::tgamma(_Tp(1 + deg), a * b);
+	    test_quadrature_rule(mon, a, b,
+				 prec_fixed<_Tp>, exact, "laguerre monomial",
+				 __gnu_cxx::gauss_laguerre_rule<_Tp>(n, _Tp{0}),
+				 n, _Tp{0});
 
-        // Hermite quadrature
-        exact = _Tp{0.5L} * std::pow(b, _Tp(-0.5L * deg))
-	      * (_Tp((1 - dterm) * deg) * a * std::tgamma(_Tp(0.5L * deg))
-		  * __gnu_cxx::conf_hyperg(_Tp(0.5L * (1 - deg)), _Tp{1.5L}, -a * a * b)
-               + _Tp(1 + dterm) * std::tgamma(_Tp(0.5L * (1 + deg)))
-		  * __gnu_cxx::conf_hyperg(_Tp(-0.5L * deg), _Tp{0.5L}, -a * a * b) / std::sqrt(b));
-        test_quadrature_rule(mon, a, b,
-			     prec_fixed<_Tp>, exact, "hermite monomial",
-			     __gnu_cxx::gauss_hermite_rule<_Tp>(n, _Tp{0}),
-			     n, _Tp{0});
-
-        // Now test with a > b.
-        a = b + _Tp{1};
-	bpa = b + a;
-	bma = b - a;
-
-        // Legendre quadrature
-        exact = integrate(mon, a, b);
-        test_quadrature_rule(mon, a, b,
-			     prec_fixed<_Tp>,  exact, "legendre monomial",
-			     __gnu_cxx::gauss_legendre_rule<_Tp>(n), n);
-
-        // Chebyshev T (first kind) quadrature
-        exact = std::copysign(_Tp{1}, bma)
-	      * _S_pi * std::pow(_Tp{0.5L} * bpa, _Tp(deg))
-	      * __gnu_cxx::hyperg(_Tp(0.5L * (1 - deg)), _Tp(-0.5L * deg),
-				  _Tp{1}, bma * bma / (bpa * bpa));
-        test_quadrature_rule(mon, a, b,
-			     prec_fixed<_Tp>, exact, "chebyshev_t monomial",
-			     __gnu_cxx::gauss_chebyshev_t_rule<_Tp>(n), n);
-
-        // Chebyshev U (second kind) quadrature
-        exact = std::copysign(_Tp{1}, bma)
-	      * _S_pi_2 * std::pow(_Tp{0.5L} * bpa, _Tp(deg))
-	      * __gnu_cxx::hyperg(_Tp(0.5L * (1 - deg)), _Tp(-0.5L * deg),
-				  _Tp{2}, bma * bma / (bpa * bpa))
-	      * _Tp{0.25L} * bma * bma;
-        test_quadrature_rule(mon, a, b, 
-			     prec_fixed<_Tp>, exact, "chebyshev_u monomial",
-			     __gnu_cxx::gauss_chebyshev_u_rule<_Tp>(n), n);
-
-        // Laguerre quadrature
-        exact = std::pow(b, _Tp(-1 - deg))
-	      * std::exp(a * b)
-	      * __gnu_cxx::tgamma(_Tp(1 + deg), a * b);
-        test_quadrature_rule(mon, a, b,
-			     prec_fixed<_Tp>, exact, "laguerre monomial",
-			     __gnu_cxx::gauss_laguerre_rule<_Tp>(n, _Tp{0}),
-			     n, _Tp{0});
-
-        // Hermite quadrature
-        exact = _Tp{0.5L} * std::pow(b, _Tp(-0.5L * deg))
-	      * (_Tp((1 - dterm) * deg) * a * std::tgamma(_Tp(0.5L * deg))
-		  * __gnu_cxx::conf_hyperg(_Tp(0.5L * (1 - deg)), _Tp{1.5L}, -a * a * b)
-               + _Tp(1 + dterm) * std::tgamma(_Tp(0.5L * (1 + deg)))
-		  * __gnu_cxx::conf_hyperg(_Tp(-0.5L * deg), _Tp{0.5L}, -a * a * b) / std::sqrt(b));
-        test_quadrature_rule(mon, a, b, 
-			     prec_fixed<_Tp>, exact, "hermite monomial",
-			     __gnu_cxx::gauss_hermite_rule<_Tp>(n, _Tp{0}),
-			     n, _Tp{0});
+	    // Test Hermite quadrature.
+	    exact = _Tp{0.5L} * std::pow(b, _Tp(-0.5L * deg))
+		  * (_Tp((1 - dterm) * deg) * a * std::tgamma(_Tp(0.5L * deg))
+		      * __gnu_cxx::conf_hyperg(_Tp(0.5L * (1 - deg)), _Tp{1.5L}, -a * a * b)
+		   + _Tp(1 + dterm) * std::tgamma(_Tp(0.5L * (1 + deg)))
+		      * __gnu_cxx::conf_hyperg(_Tp(-0.5L * deg), _Tp{0.5L}, -a * a * b) / std::sqrt(b));
+	    test_quadrature_rule(mon, a, b,
+				 prec_fixed<_Tp>, exact, "hermite monomial",
+				 __gnu_cxx::gauss_hermite_rule<_Tp>(n, _Tp{0}),
+				 n, _Tp{0});
+	  }
       }
   }
 
   {
-    // now test on myfn1
+    // Now test Gaussian rules on myfn1.
     int n = 200;
 
     test_quadrature_rule(myfn1<_Tp>, _Tp{1.2L}, _Tp{1.6L},
@@ -3280,8 +3231,8 @@ test_quadrature()
     for (std::size_t k = 0; k < num_test; ++k)
       {
 	//exact = gegenbauer_moment(test[k].a, test[k].b);
-        test_quadrature_rule(mon, test[k].a, test[k].b,
-                             prec_fixed<_Tp>, test[k].r, "gegenbauer monomial",
+	test_quadrature_rule(mon, test[k].a, test[k].b,
+			     prec_fixed<_Tp>, test[k].r, "gegenbauer monomial",
 			     __gnu_cxx::gauss_gegenbauer_rule<_Tp>(n, test[k].alpha),
 			     n, test[k].alpha);
       }
@@ -3302,7 +3253,7 @@ test_quadrature()
       { 0.123L,  0.456L, 9.052430592016123480501898e-7L,     alpha, beta, 0.0L, 0.0L},
       { 7.747L, 12.0L,   3.131716150347619771233591755e+6L,  alpha, beta, 0.0L, 0.0L},
       { 1.47L,   2.0L,   0.04435866422797298224404592896L,   alpha, beta, 0.0L, 0.0L},
-      {-1.47L,   2.0L,   5.287059602300844442782407L,        alpha, beta, 0.0L, 0.0L},
+      {-1.47L,   2.0L,   5.287059602300844442782407L,	alpha, beta, 0.0L, 0.0L},
       { 0.0L,    0.47L,  2.5337038518475893688512749675e-6L, alpha, beta, 0.0L, 0.0L}
     };
 
@@ -3324,8 +3275,8 @@ test_quadrature()
     for (std::size_t k = 0; k < num_test; ++k)
       {
 	//exact = jacobi_moment(test[k].a, test[k].b);
-        test_quadrature_rule(mon, test[k].a, test[k].b,
-                             prec_fixed<_Tp>, test[k].r, "jacobi monomial",
+	test_quadrature_rule(mon, test[k].a, test[k].b,
+			     prec_fixed<_Tp>, test[k].r, "jacobi monomial",
 			     __gnu_cxx::gauss_jacobi_rule<_Tp>(n, test[k].alpha, test[k].beta),
 			     n, test[k].alpha, test[k].beta);
       }
@@ -3350,8 +3301,8 @@ test_quadrature()
     for (std::size_t k = 0; k < num_test; ++k)
       {
 	//exact = integrate(mon, test[k].a, test[k].b);
-        test_quadrature_rule(mon, test[k].a, test[k].b,
-                             prec_fixed<_Tp>, test[k].r, "exponential monomial",
+	test_quadrature_rule(mon, test[k].a, test[k].b,
+			     prec_fixed<_Tp>, test[k].r, "exponential monomial",
 			     __gnu_cxx::gauss_exponential_rule<_Tp>(n, test[k].alpha),
 			     n, test[k].alpha);
       }
@@ -3377,13 +3328,13 @@ test_quadrature()
     for (std::size_t k = 0; k < num_test; ++k)
       {
 	//exact = integrate(mon, test[k].a, test[k].b);
-        test_quadrature_rule(mon, test[k].a, test[k].b,
+	test_quadrature_rule(mon, test[k].a, test[k].b,
 			     prec_fixed<_Tp>, test[k].r, "rational monomial",
-                             __gnu_cxx::gauss_rational_rule<_Tp>(n, test[k].alpha, test[k].beta),
-                             n, test[k].alpha, test[k].beta);
+			     __gnu_cxx::gauss_rational_rule<_Tp>(n, test[k].alpha, test[k].beta),
+			     n, test[k].alpha, test[k].beta);
       }
   }
-//*/
+
   return quadrature_test<_Tp>::test_summary();
 }
 

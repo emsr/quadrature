@@ -206,9 +206,6 @@ namespace __detail
     {
       const auto __mu_0 = __gnu_cxx::__const_pi<_Tp>() / _Tp{2};
 
-      this->point.resize(this->order);
-      this->weight.resize(this->order);
-
       std::vector<_Tp> __diag(this->order, _Tp{0});
       std::vector<_Tp> __subd(this->order, _Tp{0.5L});
 
@@ -263,9 +260,6 @@ namespace __detail
       weight(__n)
     {
       const auto __mu_0 = __gnu_cxx::__const_pi<_Tp>();
-
-      this->point.resize(this->order);
-      this->weight.resize(this->order);
 
       std::vector<_Tp> __diag(this->order, _Tp{0});
       std::vector<_Tp> __subd(this->order, _Tp{0.5L});
@@ -325,9 +319,6 @@ namespace __detail
       weight(__n)
     {
       const auto __mu_0 = __gnu_cxx::__const_pi<_Tp>();
-
-      this->point.resize(this->order);
-      this->weight.resize(this->order);
 
       std::vector<_Tp> __diag(this->order, _Tp{0});
       std::vector<_Tp> __subd(this->order, _Tp{0.5L});
@@ -438,7 +429,8 @@ namespace __detail
   /**
    * Construct a Gauss-Jacobi rule of order @c n.
    *
-   * Weight function: @f$ (b-x)^\alpha (x-a)^\beta @f$
+   * Interval: @f$ (-1, +1) @f$
+   * Weight function: @f$ (1-x)^\alpha (1+x)^\beta @f$
    * Constraints: @f$ \alpha, \beta > -1 @f$
    */
   template<typename _Tp>
@@ -485,6 +477,7 @@ namespace __detail
    * using the Gauss-Jacobi rule.
    *
    * Interval: @f$ (a, b) @f$
+   * Weight function: @f$ (b-x)^\alpha (x-a)^\beta @f$
    * Constraints: @f$ b > a @f$
    */
   template<typename _Tp>
@@ -515,8 +508,8 @@ namespace __detail
   /**
    * Construct a Gauss-Laguerre rule of order @c n.
    *
-   * Interval: @f$ (a, \infty) @f$
-   * Weight function: @f$ (x-a)^\alpha \exp(-b(x-a)) @f$
+   * Interval: @f$ (0, \infty) @f$
+   * Weight function: @f$ x^\alpha \exp(-b(x-a)) @f$
    * Constraints: @f$ \alpha > -1 @f$
    */
   template<typename _Tp>
@@ -545,6 +538,8 @@ namespace __detail
    * Evaluate the integral of a function @c func from limits @c a to @c b
    * using the Gauss-Laguerre rule.
    *
+   * Interval: @f$ (a, \infty) @f$
+   * Weight function: @f$ (x-a)^\alpha \exp(-b(x-a)) @f$
    * Constraints: @f$ b > 0 @f$
    */
   template<typename _Tp>
@@ -553,13 +548,6 @@ namespace __detail
       gauss_laguerre_rule<_Tp>::operator()(_FuncTp __func,
 					   _Tp __a, _Tp __b) const
       {
-	auto __sign = _Tp{1};
-	if (__b < __a)
-	  {
-	    __sign = _Tp{-1};
-	    std::swap(__a, __b);
-	  }
-
 	const auto __shift = __a;
 	const auto __slope = _Tp{1} / __b;
 	const auto __fact = std::pow(__slope, this->alpha + _Tp{1});
@@ -569,7 +557,7 @@ namespace __detail
 	  __sum += this->weight[__i]
 		 * __func(__shift + __slope * this->point[__i]);
 
-	return __sign * __fact * __sum;
+	return __fact * __sum;
       }
 
   /**
@@ -603,6 +591,8 @@ namespace __detail
    * Evaluate the integral of a function @c func from limits @c a to @c b
    * using the Generalized Gauss-Hermite rule.
    *
+   * Interval: @f$ (-\infty, \infty) @f$
+   * Weight function: @f$ |x-a|^\alpha \exp(-b(x-a)^2) @f$
    * Constraints: @f$ b > 0 @f$
    */
   template<typename _Tp>
@@ -611,13 +601,6 @@ namespace __detail
       gauss_hermite_rule<_Tp>::operator()(_FuncTp __func,
 					  _Tp __a, _Tp __b) const
       {
-	auto __sign = _Tp{1};
-	if (__b < __a)
-	  {
-	    __sign = _Tp{-1};
-	    std::swap(__a, __b);
-	  }
-
 	const auto __shift = __a;
 	const auto __slope = _Tp{1} / std::sqrt(__b);
 	const auto __fact = std::pow(__slope, this->alpha + _Tp{1});
@@ -627,7 +610,7 @@ namespace __detail
 	  __sum += this->weight[__i]
 		 * __func(__shift + __slope * this->point[__i]);
 
-	return __sign * __fact * __sum;
+	return __fact * __sum;
       }
 
   /**
