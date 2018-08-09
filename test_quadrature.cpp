@@ -427,6 +427,17 @@ template<typename _Tp>
 /**
  *
  */
+void
+belch(const std::exception& ex)
+{
+  std::cout << "ERROR: " << ex.what() << std::endl;
+  std::cerr << "ERROR: " << ex.what() << '\n';
+}
+
+
+/**
+ *
+ */
 template<typename _Tp>
   struct
   test_ival
@@ -487,8 +498,7 @@ test_quadrature()
     }
   catch (std::exception& ex)
     {
-      std::cout << "ERROR: " << ex.what() << std::endl;
-      std::cerr << "ERROR: " << ex.what() << '\n';
+      belch(ex);
     }
 
   // Test Gauss-Kronrod 21 with a smooth positive function.
@@ -525,8 +535,7 @@ test_quadrature()
     }
   catch (std::exception& ex)
     {
-      std::cout << "ERROR: " << ex.what() << std::endl;
-      std::cerr << "ERROR: " << ex.what() << '\n';
+      belch(ex);
     }
 
   // Test Gauss-Kronrod 31 with a smooth positive function.
@@ -563,8 +572,7 @@ test_quadrature()
     }
   catch (std::exception& ex)
     {
-      std::cout << "ERROR: " << ex.what() << std::endl;
-      std::cerr << "ERROR: " << ex.what() << '\n';
+      belch(ex);
     }
 
   // Test Gauss-Kronrod 41 with a smooth positive function.
@@ -601,8 +609,7 @@ test_quadrature()
     }
   catch (std::exception& ex)
     {
-      std::cout << "ERROR: " << ex.what() << std::endl;
-      std::cerr << "ERROR: " << ex.what() << '\n';
+      belch(ex);
     }
 
   // Test Gauss-Kronrod 51 with a smooth positive function.
@@ -639,8 +646,7 @@ test_quadrature()
     }
   catch (std::exception& ex)
     {
-      std::cout << "ERROR: " << ex.what() << std::endl;
-      std::cerr << "ERROR: " << ex.what() << '\n';
+      belch(ex);
     }
 
   // Test Gauss-Kronrod 61 with a smooth positive function.
@@ -677,8 +683,7 @@ test_quadrature()
     }
   catch (std::exception& ex)
     {
-      std::cout << "ERROR: " << ex.what() << std::endl;
-      std::cerr << "ERROR: " << ex.what() << '\n';
+      belch(ex);
     }
 
   // Now test the basic rules with a positive function that has a
@@ -719,8 +724,7 @@ test_quadrature()
     }
   catch (std::exception& ex)
     {
-      std::cout << "ERROR: " << ex.what() << std::endl;
-      std::cerr << "ERROR: " << ex.what() << '\n';
+      belch(ex);
     }
 
   // Test Gauss-Kronrod 21 with a singular positive function.
@@ -757,8 +761,7 @@ test_quadrature()
     }
   catch (std::exception& ex)
     {
-      std::cout << "ERROR: " << ex.what() << std::endl;
-      std::cerr << "ERROR: " << ex.what() << '\n';
+      belch(ex);
     }
 
   // Test Gauss-Kronrod 31 with a singular positive function.
@@ -795,8 +798,7 @@ test_quadrature()
     }
   catch (std::exception& ex)
     {
-      std::cout << "ERROR: " << ex.what() << std::endl;
-      std::cerr << "ERROR: " << ex.what() << '\n';
+      belch(ex);
     }
 
   // Test Gauss-Kronrod 41 with a singular positive function.
@@ -833,8 +835,7 @@ test_quadrature()
     }
   catch (std::exception& ex)
     {
-      std::cout << "ERROR: " << ex.what() << std::endl;
-      std::cerr << "ERROR: " << ex.what() << '\n';
+      belch(ex);
     }
 
   // Test Gauss-Kronrod 51 with a singular positive function.
@@ -871,8 +872,7 @@ test_quadrature()
     }
   catch (std::exception& ex)
     {
-      std::cout << "ERROR: " << ex.what() << std::endl;
-      std::cerr << "ERROR: " << ex.what() << '\n';
+      belch(ex);
     }
 
   // Test Gauss-Kronrod 61 with a singular positive function.
@@ -909,8 +909,7 @@ test_quadrature()
     }
   catch (std::exception& ex)
     {
-      std::cout << "ERROR: " << ex.what() << std::endl;
-      std::cerr << "ERROR: " << ex.what() << '\n';
+      belch(ex);
     }
 
   // Test the basic Gauss-Kronrod rules with a smooth oscillating
@@ -951,8 +950,7 @@ test_quadrature()
     }
   catch (std::exception& ex)
     {
-      std::cout << "ERROR: " << ex.what() << std::endl;
-      std::cerr << "ERROR: " << ex.what() << '\n';
+      belch(ex);
     }
 
   // Test Gauss-Kronrod 21 with a smooth oscillating function.
@@ -989,8 +987,7 @@ test_quadrature()
     }
   catch (std::exception& ex)
     {
-      std::cout << "ERROR: " << ex.what() << std::endl;
-      std::cerr << "ERROR: " << ex.what() << '\n';
+      belch(ex);
     }
 
   // Test Gauss-Kronrod 31 with a smooth oscillating function.
@@ -1027,8 +1024,7 @@ test_quadrature()
     }
   catch (std::exception& ex)
     {
-      std::cout << "ERROR: " << ex.what() << std::endl;
-      std::cerr << "ERROR: " << ex.what() << '\n';
+      belch(ex);
     }
 
   // Test Gauss-Kronrod 41 with a smooth oscillating function.
@@ -1065,8 +1061,7 @@ test_quadrature()
     }
   catch (std::exception& ex)
     {
-      std::cout << "ERROR: " << ex.what() << std::endl;
-      std::cerr << "ERROR: " << ex.what() << '\n';
+      belch(ex);
     }
 
   // Test Gauss-Kronrod 51 with a smooth oscillating function.
@@ -1103,8 +1098,7 @@ test_quadrature()
     }
   catch (std::exception& ex)
     {
-      std::cout << "ERROR: " << ex.what() << std::endl;
-      std::cerr << "ERROR: " << ex.what() << '\n';
+      belch(ex);
     }
 
   // Test Gauss-Kronrod 61 with a smooth oscillating function.
@@ -1141,8 +1135,7 @@ test_quadrature()
     }
   catch (std::exception& ex)
     {
-      std::cout << "ERROR: " << ex.what() << std::endl;
-      std::cerr << "ERROR: " << ex.what() << '\n';
+      belch(ex);
     }
 
   // Test the non-adaptive Gaussian integrator.
@@ -1182,8 +1175,7 @@ test_quadrature()
     }
   catch (std::exception& ex)
     {
-      std::cout << "ERROR: " << ex.what() << std::endl;
-      std::cerr << "ERROR: " << ex.what() << '\n';
+      belch(ex);
     }
 
   // Test the non-adaptive Gaussian integrator.
@@ -1224,8 +1216,7 @@ test_quadrature()
     }
   catch (std::exception& ex)
     {
-      std::cout << "ERROR: " << ex.what() << std::endl;
-      std::cerr << "ERROR: " << ex.what() << '\n';
+      belch(ex);
     }
 
   // Test the non-adaptive Gaussian integrator.
@@ -1265,8 +1256,7 @@ test_quadrature()
     }
   catch (std::exception& ex)
     {
-      std::cout << "ERROR: " << ex.what() << std::endl;
-      std::cerr << "ERROR: " << ex.what() << '\n';
+      belch(ex);
     }
 
   // Test the non-adaptive Gaussian integrator.
@@ -1307,8 +1297,7 @@ test_quadrature()
     }
   catch (std::exception& ex)
     {
-      std::cout << "ERROR: " << ex.what() << std::endl;
-      std::cerr << "ERROR: " << ex.what() << '\n';
+      belch(ex);
     }
 
   // Test the non-adaptive Gaussian integrator.
@@ -1368,8 +1357,7 @@ test_quadrature()
     }
   catch (std::exception& ex)
     {
-      std::cout << "ERROR: " << ex.what() << std::endl;
-      std::cerr << "ERROR: " << ex.what() << '\n';
+      belch(ex);
     }
 
   // Test the adaptive Gaussian integrator.
@@ -1444,8 +1432,7 @@ test_quadrature()
     }
   catch (std::exception& ex)
     {
-      std::cout << "ERROR: " << ex.what() << std::endl;
-      std::cerr << "ERROR: " << ex.what() << '\n';
+      belch(ex);
     }
 
   try
@@ -1519,8 +1506,7 @@ test_quadrature()
     }
   catch (std::exception& ex)
     {
-      std::cout << "ERROR: " << ex.what() << std::endl;
-      std::cerr << "ERROR: " << ex.what() << '\n';
+      belch(ex);
     }
 
   // Adaptive integration of an oscillatory function which terminates because
@@ -1591,8 +1577,7 @@ test_quadrature()
     }
   catch (std::exception& ex)
     {
-      std::cout << "ERROR: " << ex.what() << std::endl;
-      std::cerr << "ERROR: " << ex.what() << '\n';
+      belch(ex);
     }
 
   // Check the singularity detection (singularity at x=-0.1 in this example).
@@ -1655,8 +1640,7 @@ test_quadrature()
     }
   catch (std::exception& ex)
     {
-      std::cout << "ERROR: " << ex.what() << std::endl;
-      std::cerr << "ERROR: " << ex.what() << '\n';
+      belch(ex);
     }
 
   // Check for hitting the iteration limit.
@@ -1747,8 +1731,7 @@ test_quadrature()
     }
   catch (std::exception& ex)
     {
-      std::cout << "ERROR: " << ex.what() << std::endl;
-      std::cerr << "ERROR: " << ex.what() << '\n';
+      belch(ex);
     }
 
   // Test the adaptive integrator with extrapolation.
@@ -1822,8 +1805,7 @@ test_quadrature()
     }
   catch (std::exception& ex)
     {
-      std::cout << "ERROR: " << ex.what() << std::endl;
-      std::cerr << "ERROR: " << ex.what() << '\n';
+      belch(ex);
     }
 
   // Test f11 using an absolute error bound.
@@ -1901,8 +1883,7 @@ test_quadrature()
     }
   catch (std::exception& ex)
     {
-      std::cout << "ERROR: " << ex.what() << std::endl;
-      std::cerr << "ERROR: " << ex.what() << '\n';
+      belch(ex);
     }
 
   // Test infinite range integral f455 using a relative error bound.
@@ -1970,8 +1951,7 @@ test_quadrature()
     }
   catch (std::exception& ex)
     {
-      std::cout << "ERROR: " << ex.what() << std::endl;
-      std::cerr << "ERROR: " << ex.what() << '\n';
+      belch(ex);
     }
 
   // Test infinite range integral f15 using a relative error bound.
@@ -2040,8 +2020,7 @@ test_quadrature()
     }
   catch (std::exception& ex)
     {
-      std::cout << "ERROR: " << ex.what() << std::endl;
-      std::cerr << "ERROR: " << ex.what() << '\n';
+      belch(ex);
     }
 
   // Test infinite range integral f16 using an absolute error bound.
@@ -2106,8 +2085,7 @@ test_quadrature()
     }
   catch (std::exception& ex)
     {
-      std::cout << "ERROR: " << ex.what() << std::endl;
-      std::cerr << "ERROR: " << ex.what() << '\n';
+      belch(ex);
     }
 
   // Test infinite range integral myfn1 using an absolute error bound.
@@ -2170,8 +2148,7 @@ test_quadrature()
     }
   catch (std::exception& ex)
     {
-      std::cout << "ERROR: " << ex.what() << std::endl;
-      std::cerr << "ERROR: " << ex.what() << '\n';
+      belch(ex);
     }
 
   // Test infinite range integral myfn2 using an absolute error bound.
@@ -2235,8 +2212,7 @@ test_quadrature()
     }
   catch (std::exception& ex)
     {
-      std::cout << "ERROR: " << ex.what() << std::endl;
-      std::cerr << "ERROR: " << ex.what() << '\n';
+      belch(ex);
     }
 
   // Test integral f454 with integrable singular points.
@@ -2315,8 +2291,7 @@ test_quadrature()
     }
   catch (std::exception& ex)
     {
-      std::cout << "ERROR: " << ex.what() << std::endl;
-      std::cerr << "ERROR: " << ex.what() << '\n';
+      belch(ex);
     }
 
 
@@ -2391,8 +2366,7 @@ test_quadrature()
     }
   catch (std::exception& ex)
     {
-      std::cout << "ERROR: " << ex.what() << std::endl;
-      std::cerr << "ERROR: " << ex.what() << '\n';
+      belch(ex);
     }
 
   // Test singular integration using a relative error bound.
@@ -2504,8 +2478,7 @@ test_quadrature()
     }
   catch (std::exception& ex)
     {
-      std::cout << "ERROR: " << ex.what() << std::endl;
-      std::cerr << "ERROR: " << ex.what() << '\n';
+      belch(ex);
     }
 
   // Test oscillatory integration using a relative error bound.
@@ -2585,8 +2558,7 @@ test_quadrature()
     }
   catch (std::exception& ex)
     {
-      std::cout << "ERROR: " << ex.what() << std::endl;
-      std::cerr << "ERROR: " << ex.what() << '\n';
+      belch(ex);
     }
 
   // Test Fourier integration using an absolute error bound.
@@ -2656,8 +2628,7 @@ test_quadrature()
     }
   catch (std::exception& ex)
     {
-      std::cout << "ERROR: " << ex.what() << std::endl;
-      std::cerr << "ERROR: " << ex.what() << '\n';
+      belch(ex);
     }
 
   // Sanity check monomial test function for fixed Gauss-Legendre rules.
@@ -2682,8 +2653,7 @@ test_quadrature()
     }
   catch (std::exception& ex)
     {
-      std::cout << "ERROR: " << ex.what() << std::endl;
-      std::cerr << "ERROR: " << ex.what() << '\n';
+      belch(ex);
     }
 
   // Test the fixed-order Gauss-Legendre rules with a monomial.
@@ -2700,6 +2670,8 @@ test_quadrature()
 
 	  monomial<_Tp> mon(2*n-1, _Tp{1}); // n point rule exact for 2n-1 degree poly
 	  auto expected = integrate(mon, a, b);
+	  if (std::isinf(expected))
+	    break;
 	  auto result   = __gnu_cxx::glfixed_integrate(tbl, mon, a, b);
 
 	  _Tp rel_tol;
@@ -2720,8 +2692,7 @@ test_quadrature()
     }
   catch (std::exception& ex)
     {
-      std::cout << "ERROR: " << ex.what() << std::endl;
-      std::cerr << "ERROR: " << ex.what() << '\n';
+      belch(ex);
     }
 
   // Sanity check sin(x) test function for fixed Gauss-Legendre rules.
@@ -2742,8 +2713,7 @@ test_quadrature()
     }
   catch (std::exception& ex)
     {
-      std::cout << "ERROR: " << ex.what() << std::endl;
-      std::cerr << "ERROR: " << ex.what() << '\n';
+      belch(ex);
     }
 
   // Test the fixed-order Gauss-Legendre rules against sin(x) on [0, pi].
@@ -2798,8 +2768,7 @@ test_quadrature()
     }
   catch (std::exception& ex)
     {
-      std::cout << "ERROR: " << ex.what() << std::endl;
-      std::cerr << "ERROR: " << ex.what() << '\n';
+      belch(ex);
     }
 
   // Test some fixed-order Gauss-Legendre rule points and weights on [-1, 1].
@@ -2926,8 +2895,7 @@ test_quadrature()
     }
   catch (std::exception& ex)
     {
-      std::cout << "ERROR: " << ex.what() << std::endl;
-      std::cerr << "ERROR: " << ex.what() << '\n';
+      belch(ex);
     }
 
   // Test some fixed-order Gauss-Legendre rule points and weights on [-2, 3].
@@ -2972,8 +2940,7 @@ test_quadrature()
     }
   catch (std::exception& ex)
     {
-      std::cout << "ERROR: " << ex.what() << std::endl;
-      std::cerr << "ERROR: " << ex.what() << '\n';
+      belch(ex);
     }
 
   // Test this newfangled cquad.
@@ -3083,8 +3050,7 @@ test_quadrature()
     }
   catch (std::exception& ex)
     {
-      std::cout << "ERROR: " << ex.what() << std::endl;
-      std::cerr << "ERROR: " << ex.what() << '\n';
+      belch(ex);
     }
 
   {
