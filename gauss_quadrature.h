@@ -85,7 +85,10 @@ namespace __gnu_cxx
     };
 
   /**
-   * 
+   * Majid Tavassoli Kajani, Adem KJlJçman, and Mohammad Maleki
+   * The Rational Third-Kind Chebyshev Pseudospectral Method
+   * for the Solution of the Thomas-Fermi Equation over Infinite Interval
+   *
    */
   template<typename _Tp>
     struct gauss_chebyshev_v_rule
