@@ -19,10 +19,8 @@ g++ -std=c++14 -Wall -Wextra -o build_gauss_kronrod build_gauss_kronrod.cpp
  *       Volume 28, Number 125, January 1974, pages 135-139.
  *
  *  @param[in] n       The order of the Gauss rule.
- *  @param[in] m       The value of (n + 1) / 2.
  *  @param[in] eps     The requested absolute accuracy of the abscissas.
  *  @param[in] coef2   A value needed to compute weights.
- *  @param[in] even    true if n is even.
  *  @param[in] b[m+1]  The Chebyshev coefficients.
  *
  *  @param[in,out] x   On input, an estimate for the abscissa,
@@ -31,11 +29,14 @@ g++ -std=c++14 -Wall -Wextra -o build_gauss_kronrod build_gauss_kronrod.cpp
  */
 template<typename _Tp>
   void
-  __get_kronrod(int __n, int __m, _Tp __eps, _Tp __coef2, bool __even,
+  __get_kronrod(int __n, _Tp __eps, _Tp __coef2,
 		const std::vector<_Tp>& __b,
 		_Tp& __x, _Tp& __wk)
   {
     const int __max_iter = 100;
+
+    const int __m = (__n + 1) / 2;
+    const bool __even = (2 * __m == __n);
 
     int __ka = __x == _Tp{0} ? 1 : 0;
 
@@ -139,10 +140,8 @@ template<typename _Tp>
  *       Volume 28, Number 125, January 1974, pages 135-139.
  *
  *  @param[in] n      The order of the Gauss rule.
- *  @param[in] m      The value of (n + 1) / 2.
  *  @param[in] eps    The requested absolute accuracy of the abscissas.
  *  @param[in] coef2  A value needed to compute weights.
- *  @param[in] even   Is true if n is even.
  *  @param[in] b[m+1] The Chebyshev coefficients.
  *
  *  @param[in,out] x   On input, an estimate for the abscissa,
@@ -152,11 +151,14 @@ template<typename _Tp>
  */
 template<typename _Tp>
   void
-  __get_gauss(int __n, int __m, _Tp __eps, _Tp __coef2, bool __even,
+  __get_gauss(int __n, _Tp __eps, _Tp __coef2,
 	      const std::vector<_Tp>& __b,
 	      _Tp& __x, _Tp& __wk, _Tp& __wg)
   {
     const int __max_iter = 100;
+
+    const int __m = (__n + 1) / 2;
+    const bool __even = (2 * __m == __n);
 
     int __ka = __x == _Tp{0} ? 1 : 0;
 
@@ -312,15 +314,15 @@ template<typename _Tp>
 		      std::vector<_Tp>& __x,
 		      std::vector<_Tp>& __wk, std::vector<_Tp>& __wg)
   {
+    const int __m = (__n + 1) / 2;
+    const bool __even = (2 * __m == __n);
+
     __x.resize(__n + 1);
     __wk.resize(__n + 1);
     __wg.resize(__n + 1);
 
     std::vector<_Tp> __b((__n + 1) / 2 + 1);
     std::vector<_Tp> __tau((__n + 1) / 2);
-
-    int __m = (__n + 1) / 2;
-    bool __even = (2 * __m == __n);
 
     auto __d = _Tp{2};
     auto __an = _Tp{0};
@@ -368,7 +370,7 @@ template<typename _Tp>
     // corresponding weight.
     for (int __k = 1; __k <= __n; __k += 2)
       {
-	__get_kronrod(__n, __m, __eps, __coef2, __even, __b, __xx, __wk[__k-1]);
+	__get_kronrod(__n, __eps, __coef2, __b, __xx, __wk[__k - 1]);
 	__wg[__k - 1] = _Tp{0};
 	__x[__k - 1] = __xx;
 	auto __aa = __x1;
@@ -379,8 +381,7 @@ template<typename _Tp>
 
 	// Calculation of the k+1 abscissa (a Gaussian abscissa) and the
 	// corresponding weights.
-	__get_gauss(__n, __m, __eps, __coef2, __even, __b,
-		    __xx, __wk[__k], __wg[__k]);
+	__get_gauss(__n, __eps, __coef2, __b, __xx, __wk[__k], __wg[__k]);
 
 	__x[__k] = __xx;
 	__aa = __x1;
@@ -394,7 +395,7 @@ template<typename _Tp>
     if (__even)
       {
 	__xx = _Tp{0};
-	__get_kronrod(__n, __m, __eps, __coef2, __even, __b, __xx, __wk[__n]);
+	__get_kronrod(__n, __eps, __coef2, __b, __xx, __wk[__n]);
 	__wg[__n] = _Tp{0};
 	__x[__n] = __xx;
       }
