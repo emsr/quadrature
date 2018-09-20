@@ -361,7 +361,7 @@ template<typename _Tp, typename _RuleTp, typename _FuncTp, typename... _Params>
   int
   test_quadrature_rule(_FuncTp f, _Tp a, _Tp b,
 			_Tp tol, _Tp exact, const char* desc,
-			_RuleTp rule, size_t n, _Params... params)
+			_RuleTp /*rule*/, size_t n, _Params... params)
   {
     int status = 0;
     _RuleTp quad_rule(n, params...);
@@ -377,7 +377,7 @@ template<typename _Tp, typename _RuleTp, typename _FuncTp, typename... _Params>
       }
     else if constexpr (sizeof...(_Params) < 5)
       {
-	_Tp param[sizeof...(_Params)]{(params , ...)};
+	_Tp param[sizeof...(_Params)]{params...};
 	if constexpr (sizeof...(_Params) > 0)
 	  buf << " alpha=" << param[0];
 	if constexpr (sizeof...(_Params) > 1)
@@ -389,7 +389,7 @@ template<typename _Tp, typename _RuleTp, typename _FuncTp, typename... _Params>
       }
     else
       {
-	_Tp param[sizeof...(_Params)]{(params , ...)};
+	_Tp param[sizeof...(_Params)]{params...};
 	buf << " params=";
 	const auto n = sizeof...(_Params);
 	for (int p = 0; p < n; ++p)
