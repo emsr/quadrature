@@ -239,8 +239,8 @@ namespace __gnu_cxx
 
       if (valid_tolerances(__max_abs_err, __max_rel_err))
 	std::__throw_runtime_error("qng_integrate: "
-				   "Tolerance cannot be achieved "
-				   "with given epsabs and epsrel");
+				   "Tolerance cannot be achieved with given "
+				   "absolute and relative error limits");
 
       // Compute the integral using the 10- and 21-point formula.
 
