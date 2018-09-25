@@ -79,10 +79,13 @@ namespace __gnu_cxx
 	}
 
       if (valid_tolerances(__max_abs_err, __max_rel_err))
-	std::__throw_runtime_error ("qawc_integrate: "
-				    "Tolerance cannot be achieved "
-				    "with given absolute "
-				    "and relative error limits.");
+	{
+	  std::ostringstream __msg;
+	  __msg << "qawc_integrate: Tolerance cannot be achieved with given "
+		   "absolute (" << __max_abs_err << ") and relative ("
+		<< __max_rel_err << ") error limits.";
+	  std::__throw_runtime_error(__msg.str().c_str());
+	}
 
       if (__center == __lower || __center == __upper)
 	std::__throw_runtime_error ("qawc_integrate: "

@@ -70,10 +70,13 @@ namespace __gnu_cxx
       auto __abserr = _Tp{0};
 
       if (valid_tolerances(__max_abs_err, __max_rel_err))
-	std::__throw_runtime_error("qawo_integrate: "
-				   "Tolerance cannot be achieved "
-				   "with given absolute "
-				   "and relative error limits.");
+	{
+	  std::ostringstream __msg;
+	  __msg << "qawo_integrate: Tolerance cannot be achieved with given "
+		   "absolute (" << __max_abs_err << ") and relative ("
+		<< __max_rel_err << ") error limits.";
+	  std::__throw_runtime_error(__msg.str().c_str());
+	}
 
       // Perform the first integration.
       _Tp __result0, __abserr0, __resabs0, __resasc0;

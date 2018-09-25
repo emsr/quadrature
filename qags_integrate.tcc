@@ -83,10 +83,13 @@ namespace __gnu_cxx
       bool __allow_extrapolation = true;
 
       if (valid_tolerances(__max_abs_err, __max_rel_err))
-	std::__throw_runtime_error("qags_integrate: "
-				   "Tolerance cannot be achieved "
-				   "with given absolute "
-				   "and relative error limits.");
+	{
+	  std::ostringstream __msg;
+	  __msg << "qags_integrate: Tolerance cannot be achieved with given "
+		   "absolute (" << __max_abs_err << ") and relative ("
+		<< __max_rel_err << ") error limits.";
+	  std::__throw_runtime_error(__msg.str().c_str());
+	}
 
       __workspace.clear();
 

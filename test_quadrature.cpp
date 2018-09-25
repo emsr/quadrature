@@ -38,11 +38,21 @@ $HOME/bin/bin/g++ -std=gnu++17 -fconcepts -g -Wall -Wextra -Wno-psabi -I.. -c -o
 
 template<typename _Tp>
   inline constexpr _Tp
+//  eps_ratio = _Tp{1};
+  eps_ratio = std::numeric_limits<_Tp>::epsilon()
+	    / std::numeric_limits<double>::epsilon();
+
+template<typename _Tp>
+  inline constexpr _Tp
+  prec_fixed = _Tp{1.0e-12}; // 10^{digits/10}*epsilon()?
+
+template<typename _Tp>
+  inline constexpr _Tp
   prec_fixed = _Tp{1.0e-12}; // 10^{digits/10}*epsilon()?
 
 template<>
   inline constexpr float
-  prec_fixed<float> = 1.0e-6F;
+  prec_fixed<float> = 1.0e-5F;
 
 template<>
   inline constexpr long double
@@ -155,16 +165,16 @@ template<typename _Tp>
     // Check for NaN vs inf vs number.
     int status = 0;
     if (std::isnan(result) || std::isnan(expected))
-      status = std::isnan(result) != std::isnan(expected);
+      status = std::isnan(result) || std::isnan(expected);
     else if (std::isinf(result) || std::isinf(expected))
-      status = std::isinf(result) != std::isinf(expected);
-    else if ((expected > 0 && expected < std::numeric_limits<_Tp>::min())
-	  || (expected < 0 && expected > -(std::numeric_limits<_Tp>::min())))
+      status = std::isinf(result) ^ std::isinf(expected);
+    else if ((expected > _Tp{0} && expected < std::numeric_limits<_Tp>::min())
+	  || (expected < _Tp{0} && expected > -(std::numeric_limits<_Tp>::min())))
       status = -1;
     else if (expected != _Tp{0})
-      status = (std::abs(result - expected) > rel_error * std::abs(expected));
+      status = std::abs(result - expected) > rel_error * std::abs(expected);
     else
-      status = (std::abs(result) > rel_error);
+      status = std::abs(result) > rel_error;
 
     this->test_update(status);
 
@@ -1196,7 +1206,7 @@ test_quadrature()
       auto fc = counted_function<_Tp, decltype(f)>(f);
 
       auto [result, abserr]
-	= __gnu_cxx::qng_integrate(fc, _Tp{0}, _Tp{1}, _Tp{0}, _Tp{1.0e-9L});
+	= __gnu_cxx::qng_integrate(fc, _Tp{0}, _Tp{1}, _Tp{0}, _Tp{1.0e-9L * eps_ratio<_Tp>});
       qtest.test_relative(result, exp_result, fpeps, "qng(f1) smooth 43pt result");
       qtest.test_relative(abserr, exp_abserr, _Tp{1.0e-5L}, "qng(f1) smooth 43pt abserr");
       qtest.test_integer(fc.num_evals(), exp_neval, "qng(f1) smooth 43pt neval");
@@ -1204,7 +1214,7 @@ test_quadrature()
 
       fc.num_evals(0);
       std::tie(result, abserr)
-	= __gnu_cxx::qng_integrate(fc, _Tp{1}, _Tp{0}, _Tp{0}, _Tp{1.0e-9L});
+	= __gnu_cxx::qng_integrate(fc, _Tp{1}, _Tp{0}, _Tp{0}, _Tp{1.0e-9L * eps_ratio<_Tp>});
       qtest.test_relative(result, -exp_result, fpeps, "qng(f1) reverse 43pt result");
       qtest.test_relative(abserr, exp_abserr, _Tp{1.0e-5L}, "qng(f1) reverse 43pt abserr");
       qtest.test_integer(fc.num_evals(), exp_neval, "qng(f1) reverse 43pt neval");
@@ -1277,7 +1287,7 @@ test_quadrature()
       auto fc = counted_function<_Tp, decltype(f)>(f);
 
       auto [result, abserr]
-	= __gnu_cxx::qng_integrate(fc, _Tp{0}, _Tp{1}, _Tp{0}, _Tp{1.0e-13L});
+	= __gnu_cxx::qng_integrate(fc, _Tp{0}, _Tp{1}, _Tp{0}, _Tp{1.0e-13L * eps_ratio<_Tp>});
       qtest.test_relative(result, exp_result, fpeps, "qng(f1) 87pt smooth result");
       qtest.test_relative(abserr, exp_abserr, _Tp{1.0e-7L}, "qng(f1) 87pt smooth abserr");
       qtest.test_integer(fc.num_evals(), exp_neval, "qng(f1) 87pt smooth neval");
@@ -1285,7 +1295,7 @@ test_quadrature()
 
       fc.num_evals(0);
       std::tie(result, abserr)
-	= __gnu_cxx::qng_integrate(fc, _Tp{1}, _Tp{0}, _Tp{0}, _Tp{1.0e-13L});
+	= __gnu_cxx::qng_integrate(fc, _Tp{1}, _Tp{0}, _Tp{0}, _Tp{1.0e-13L * eps_ratio<_Tp>});
       qtest.test_relative(result, -exp_result, fpeps, "qng(f1) 87pt reverse result");
       qtest.test_relative(abserr, exp_abserr, _Tp{1.0e-7L}, "qng(f1) 87pt reverse abserr");
       qtest.test_integer(fc.num_evals(), exp_neval, "qng(f1) 87pt reverse neval");
@@ -3309,13 +3319,19 @@ main()
 {
   std::cout << "\n\nTest double\n";
   std::cout << "=====================================\n";
+  std::cerr << "\n\nTest double\n";
+  std::cerr << "=====================================\n";
   test_quadrature<double>();
 
   std::cout << "\n\nTest long double\n";
   std::cout << "=====================================\n";
+  std::cerr << "\n\nTest long double\n";
+  std::cerr << "=====================================\n";
   test_quadrature<long double>();
 
   std::cout << "\n\nTest float\n";
   std::cout << "=====================================\n";
+  std::cerr << "\n\nTest float\n";
+  std::cerr << "=====================================\n";
   test_quadrature<float>();
 }

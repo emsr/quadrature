@@ -85,10 +85,13 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
       bool __allow_extrapolation = true;
 
       if (valid_tolerances(__max_abs_err, __max_rel_err))
-	std::__throw_runtime_error("qagp_integrate: "
-				   "Tolerance cannot be achieved "
-				   "with given absolute "
-				   "and relative error limits.");
+	{
+	  std::ostringstream __msg;
+	  __msg << "qagp_integrate: Tolerance cannot be achieved with given "
+		   "absolute (" << __max_abs_err << ") and relative ("
+		<< __max_rel_err << ") error limits.";
+	  std::__throw_runtime_error(__msg.str().c_str());
+	}
 
       if (__pts.size() > __workspace.capacity())
 	std::__throw_runtime_error("qagp_integrate: "
