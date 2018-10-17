@@ -39,7 +39,7 @@ template<typename _Tp, typename _FuncTp>
 	auto __sum = _Tp{0};
 	for (const auto& __pt : __rule)
 	  {
-	    const auto __x = __pt.__zero;
+	    const auto __x = __pt.__point;
 	    const auto __w = __pt.__weight;
 	    __sum += __w * __func(__x);
 	  }

@@ -4,7 +4,7 @@
 #include <ext/cmath>
 
 #include "midpoint_integral.h"
-#include "polynomial/polynomial.h"
+#include "polynomial/ext/polynomial.h"
 
 template<typename Tp>
   void
