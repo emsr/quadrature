@@ -72,7 +72,7 @@ template<typename _Func, typename _Tp>
 	  return this->_M_result;
         const auto __ddel = _Tp{2} * __del;
         auto __x = this->_M_lower_lim + __del / _Tp{2};
-        auto __sum = _Tp{0};
+        auto __sum = _AreaTp{};
         for (auto __j = 1u; __j <= this->_M_pow3; ++__j)
 	  {
             __sum += this->_M_fun(__x);
@@ -81,7 +81,7 @@ template<typename _Func, typename _Tp>
             __x += __del;
           }
 	this->_M_result += (this->_M_upper_lim - this->_M_lower_lim) * __sum
-			 / this->_M_pow3;
+			 / _Tp(this->_M_pow3);
         this->_M_result /= _Tp{3};
         this->_M_pow3 *= 3;
       }

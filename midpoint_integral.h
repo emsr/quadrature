@@ -34,6 +34,7 @@ template<typename _Func, typename _Tp>
 
     using _RetTp = std::invoke_result_t<_Func, _Tp>;
     using _AreaTp = decltype(_RetTp{} * _Tp{});
+    using _AbsAreaTp = decltype(std::abs(_AreaTp{}));
 
     midpoint_integral(_Func __fun, _Tp __a, _Tp __b, _Tp __tol)
     : _M_fun(__fun), _M_lower_lim(__a), _M_upper_lim(__b),
@@ -42,7 +43,7 @@ template<typename _Func, typename _Tp>
 
     _AreaTp operator()();
 
-    _AreaTp abs_error() const
+    _AbsAreaTp abs_error() const
     { return this->_M_abs_error; }
 
   private:
@@ -56,9 +57,9 @@ template<typename _Func, typename _Tp>
     _Func _M_fun;
     _Tp _M_lower_lim;
     _Tp _M_upper_lim;
-    _AreaTp _M_rel_tol;
+    _AbsAreaTp _M_rel_tol;
     _AreaTp _M_result;
-    _AreaTp _M_abs_error;
+    _AbsAreaTp _M_abs_error;
     std::size_t _M_iter = 0;
     std::size_t _M_pow3 = 0;
   };

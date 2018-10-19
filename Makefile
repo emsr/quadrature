@@ -70,6 +70,8 @@ check:
 
 
 test: $(BIN_DIR)/test_quadrature
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_trapezoid_integral > test_trapezoid_integral.txt 2> test_trapezoid_integral.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_midpoint_integral > test_midpoint_integral.txt 2> test_midpoint_integral.err
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_phase_iterator > test_phase_iterator.txt 2> test_phase_iterator.err
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_mapper > test_mapper.txt 2> test_mapper.err
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_quadrature > test_quadrature.txt 2> test_quadrature.err

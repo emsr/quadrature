@@ -52,7 +52,7 @@ template<typename _Func, typename _Tp>
  * Chances are, if the function returns Nan or inf, we stepped on a pole.
  */
 template<typename _Func, typename _Tp>
-  _Tp
+  std::invoke_result_t<_Func, _Tp>
   __wrap_func(_Func __func, _Tp __x)
   {
     auto __y = __func(__x);
@@ -86,7 +86,7 @@ template<typename _Func, typename _Tp>
 	if (std::abs(__del) < _S_min_delta)
 	  return this->_M_result;
         auto __x = this->_M_lower_lim + __del / _Tp{2};
-	auto __sum = _Tp{0};
+	auto __sum = _AreaTp{};
         for (std::size_t __j = 0; __j < this->_M_pow2; ++__j, __x += __del)
 	  __sum += __wrap_func(this->_M_fun, __x);
         this->_M_result = (this->_M_result + __del * __sum) / _Tp{2};

@@ -28,6 +28,7 @@ template<typename Tp>
     auto one = [](Tp) ->Tp { return Tp{1}; };
     auto ex = [](Tp x) ->Tp { return x; };
     __gnu_cxx::_Polynomial<Tp> poly1({1.0l, -0.5l, -3.5l, 2.0l});
+    auto chank2 = [](Tp x) ->std::complex<Tp> { return __gnu_cxx::cyl_hankel_2(Tp{1}, x); };
 
     auto fun = [](Tp x) -> Tp { return std::sin(x); };
     using fun_t = decltype(fun);
@@ -151,6 +152,17 @@ template<typename Tp>
 	      << ' ' << std::setw(w) << e8n
 	      << ' ' << std::setw(w) << a8n - e8n
 	      << ' ' << std::setw(w) << t8n.abs_error() << '\n';
+
+    __gnu_cxx::midpoint_integral<decltype(chank2), Tp> thank2(chank2, b / Tp{2}, b, err);
+    auto ahank2 = thank2();
+    auto reehank2 = std::cyl_bessel_j(Tp{0}, b / Tp{2}) - std::cyl_bessel_j(Tp{0}, b);
+    auto imehank2 = std::cyl_neumann(Tp{0}, b / Tp{2}) - std::cyl_neumann(Tp{0}, b);
+    auto ehank2 = std::complex(reehank2, -imehank2);
+    std::cout << "cyl_hankel_2: "
+	      << ' ' << std::setw(w) << ahank2
+	      << ' ' << std::setw(w) << ehank2
+	      << ' ' << std::setw(w) << ahank2 - ehank2
+	      << ' ' << std::setw(w) << thank2.abs_error() << '\n';
   }
 
 int
