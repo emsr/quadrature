@@ -1,0 +1,2 @@
+test_trapezoid_integral.cpp:26:55: runtime error: division by zero
+test_trapezoid_integral.cpp:28:65: runtime error: division by zero
