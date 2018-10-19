@@ -3424,13 +3424,13 @@ FAIL: qng(f1) reverse result (-0.0771604937930308367114 observed vs -0.077160493
 PASS: qng(f1) reverse abserr (9.4243e-08 observed vs 9.4243e-08 expected)
 PASS: qng(f1) reverse neval (21 observed vs 21 expected)
 PASS: qng(f1) reverse status (0 observed vs 0 expected)
-FAIL: qng(f1) smooth 43pt result (0.0771604938271602879365 observed vs 0.0771604938270650519971 expected)
-FAIL: qng(f1) smooth 43pt abserr (3.94813439554474743576e-16 observed vs 2.66689304486621450107e-12 expected)
-FAIL: qng(f1) smooth 43pt neval (87 observed vs 43 expected)
+FAIL: qng(f1) smooth 43pt result (0.0771604938270650434116 observed vs 0.0771604938270650519971 expected)
+PASS: qng(f1) smooth 43pt abserr (2.66689e-12 observed vs 2.66689e-12 expected)
+PASS: qng(f1) smooth 43pt neval (43 observed vs 43 expected)
 PASS: qng(f1) smooth 43pt status (0 observed vs 0 expected)
-FAIL: qng(f1) reverse 43pt result (-0.0771604938271602879365 observed vs -0.0771604938270650519971 expected)
-FAIL: qng(f1) reverse 43pt abserr (3.94813439554474743576e-16 observed vs 2.66689304486621450107e-12 expected)
-FAIL: qng(f1) reverse 43pt neval (87 observed vs 43 expected)
+FAIL: qng(f1) reverse 43pt result (-0.0771604938270650434116 observed vs -0.0771604938270650519971 expected)
+PASS: qng(f1) reverse 43pt abserr (2.66689e-12 observed vs 2.66689e-12 expected)
+PASS: qng(f1) reverse 43pt neval (43 observed vs 43 expected)
 PASS: qng(f1) reverse 43pt status (0 observed vs 0 expected)
 FAIL: qnq(f3) oscill result (-0.723896957548296146189 observed vs -0.723896957548296193785 expected)
 FAIL: qng(f3) oscill abserr (6.23865668710964860373e-18 observed vs 1.277676889520056369e-14 expected)
@@ -3440,7 +3440,14 @@ FAIL: qnq(f3) reverse result (0.723896957548296146189 observed vs 0.723896957548
 FAIL: qng(f3) reverse abserr (6.23865668710964860373e-18 observed vs 1.277676889520056369e-14 expected)
 PASS: qng(f3) reverse neval (43 observed vs 43 expected)
 PASS: qng(f3) reverse status (0 observed vs 0 expected)
-ERROR: qng_integrate: Failed to reach tolerance with highest-order rule       status = 7       result = 0.0771605       abserr = 3.94813e-16
+FAIL: qng(f1) 87pt smooth result (0.0771604938271602879365 observed vs 0.0771604938271602952481 expected)
+FAIL: qng(f1) 87pt smooth abserr (3.94813439554474743576e-16 observed vs 8.566535680046930668e-16 expected)
+PASS: qng(f1) 87pt smooth neval (87 observed vs 87 expected)
+PASS: qng(f1) 87pt smooth status (0 observed vs 0 expected)
+FAIL: qng(f1) 87pt reverse result (-0.0771604938271602879365 observed vs -0.0771604938271602952481 expected)
+FAIL: qng(f1) 87pt reverse abserr (3.94813439554474743576e-16 observed vs 8.566535680046930668e-16 expected)
+PASS: qng(f1) 87pt reverse neval (87 observed vs 87 expected)
+PASS: qng(f1) 87pt reverse status (0 observed vs 0 expected)
 FAIL: qng(f1) sing beyond 87pt result (32.2294871181709440509 observed vs 32.2294871181726421093 expected)
 PASS: qng(f1) sing beyond 87pt abserr (27.8236 observed vs 27.8236 expected)
 PASS: qng(f1) sing beyond 87pt neval (87 observed vs 87 expected)
@@ -6418,7 +6425,7 @@ PASS: rational monomial a=7.747 b=12 n=5 alpha=1.5 beta=-13 (8.93065e-11 observe
 PASS: rational monomial a=1.47 b=2 n=5 alpha=2 beta=-22 (7.1799e-13 observed vs 7.1799e-13 expected)
 PASS: rational monomial a=-1.47 b=2 n=5 alpha=3 beta=-21 (-11.0761 observed vs -11.0761 expected)
 PASS: rational monomial a=0 b=0.47 n=5 alpha=5 beta=-16 (0.00290392 observed vs 0.00290392 expected)
-3145 tests, passed 2896, failed 249.
+3153 tests, passed 2904, failed 249.
 
 
 Test float
@@ -6575,14 +6582,7 @@ PASS: qng(f1) reverse result (-0.0771605 observed vs -0.0771605 expected)
 FAIL: qng(f1) reverse abserr (4.59912428e-07 observed vs 9.42430205e-08 expected)
 PASS: qng(f1) reverse neval (21 observed vs 21 expected)
 PASS: qng(f1) reverse status (0 observed vs 0 expected)
-PASS: qng(f1) smooth 43pt result (0.0771605 observed vs 0.0771605 expected)
-FAIL: qng(f1) smooth 43pt abserr (4.59912428e-07 observed vs 2.66689297e-12 expected)
-FAIL: qng(f1) smooth 43pt neval (21 observed vs 43 expected)
-PASS: qng(f1) smooth 43pt status (0 observed vs 0 expected)
-PASS: qng(f1) reverse 43pt result (-0.0771605 observed vs -0.0771605 expected)
-FAIL: qng(f1) reverse 43pt abserr (4.59912428e-07 observed vs 2.66689297e-12 expected)
-FAIL: qng(f1) reverse 43pt neval (21 observed vs 43 expected)
-PASS: qng(f1) reverse 43pt status (0 observed vs 0 expected)
+ERROR: qng_integrate: Tolerance cannot be achieved with given absolute and relative error limits
 PASS: qnq(f3) oscill result (-0.723897 observed vs -0.723897 expected)
 FAIL: qng(f3) oscill abserr (6.85947634e-06 observed vs 1.27767686e-14 expected)
 FAIL: qng(f3) oscill neval (21 observed vs 43 expected)
@@ -6591,14 +6591,7 @@ PASS: qnq(f3) reverse result (0.723897 observed vs 0.723897 expected)
 FAIL: qng(f3) reverse abserr (6.85947634e-06 observed vs 1.27767686e-14 expected)
 FAIL: qng(f3) reverse neval (21 observed vs 43 expected)
 PASS: qng(f3) reverse status (0 observed vs 0 expected)
-PASS: qng(f1) 87pt smooth result (0.0771605 observed vs 0.0771605 expected)
-FAIL: qng(f1) 87pt smooth abserr (4.59912428e-07 observed vs 8.56653547e-16 expected)
-FAIL: qng(f1) 87pt smooth neval (21 observed vs 87 expected)
-PASS: qng(f1) 87pt smooth status (0 observed vs 0 expected)
-PASS: qng(f1) 87pt reverse result (-0.0771605 observed vs -0.0771605 expected)
-FAIL: qng(f1) 87pt reverse abserr (4.59912428e-07 observed vs 8.56653547e-16 expected)
-FAIL: qng(f1) 87pt reverse neval (21 observed vs 87 expected)
-PASS: qng(f1) 87pt reverse status (0 observed vs 0 expected)
+ERROR: qng_integrate: Tolerance cannot be achieved with given absolute and relative error limits
 FAIL: qng(f1) sing beyond 87pt result (32.2281609 observed vs 32.2294884 expected)
 FAIL: qng(f1) sing beyond 87pt abserr (27.8235283 observed vs 27.8236027 expected)
 PASS: qng(f1) sing beyond 87pt neval (87 observed vs 87 expected)
@@ -6607,7 +6600,7 @@ FAIL: qng(f1) reverse beyond 87pt result (-32.2281609 observed vs -32.2294884 ex
 FAIL: qng(f1) rev beyond 87pt abserr (27.8235283 observed vs 27.8236027 expected)
 PASS: qng(f1) rev beyond 87pt neval (87 observed vs 87 expected)
 PASS: qng(f1) rev beyond 87pt status (7 observed vs 7 expected)
-ERROR: qag_integrate: Tolerance cannot be achieved with given absolute (0) and relative (1e-10) error limits.
+ERROR: qag_integrate: Tolerance cannot be achieved with given absolute and relative error limits.
 ERROR: qag_integrate: cannot reach tolerance because of roundoff error on first attempt       status = 2       result = 0.0771605       abserr = 4.59912e-07
 PASS: qag(f3, 31pt) oscill result (-0.723897 observed vs -0.723897 expected)
 FAIL: qag(f3, 31pt) oscill abserr (6.90311572e-06 observed vs 1.2858055e-14 expected)
@@ -6644,7 +6637,7 @@ FAIL: qag(f16, 61pt) reverse abserr (15.703125 observed vs 15.7036982 expected)
 PASS: qag(f16, 61pt) reverse neval (305 observed vs 305 expected)
 PASS: qag(f16, 61pt) reverse last (3 observed vs 3 expected)
 PASS: qag(f16, 61pt) reverse status (1 observed vs 1 expected)
-ERROR: qags_integrate: Tolerance cannot be achieved with given absolute (0) and relative (1e-10) error limits.
+ERROR: qags_integrate: Tolerance cannot be achieved with given absolute and relative error limits.
 ERROR: qags_integrate: Cannot reach tolerance because of roundoff error       status = 2       result = -5908.76       abserr = 0.0354686
 PASS: qagiu(f455) smooth result (-0.361689 observed vs -0.361689 expected)
 FAIL: qagiu(f455) smooth abserr (3.03983688e-06 observed vs 3.01671685e-06 expected)
@@ -6681,7 +6674,7 @@ PASS: qagiu(f455) smooth integral (0.00278539 observed vs 0.00278539 expected)
 PASS: qagiu(f455) smooth integral (0.00104169 observed vs 0.00104169 expected)
 FAIL: qagiu(f455) smooth integral (-0.0498005003 observed vs -0.0839874595 expected)
 FAIL: qagiu(f455) smooth integral (-49.5999985 observed vs -0.139000341 expected)
-ERROR: qags_integrate: Tolerance cannot be achieved with given absolute (0) and relative (1e-07) error limits.
+ERROR: qags_integrate: Tolerance cannot be achieved with given absolute and relative error limits.
 FAIL: qagiu(f16) smooth result (9.99999902e-05 observed vs 9.99999975e-05 expected)
 FAIL: qagiu(f16) smooth abserr (2.78475909e-09 observed vs 3.08406212e-09 expected)
 PASS: qagiu(f16) smooth neval (165 observed vs 165 expected)
@@ -6800,8 +6793,8 @@ FAIL: qawc(f459) rev abserr (2.16218177e-06 observed vs 1.18529022e-06 expected)
 PASS: qawc(f459) rev neval (215 observed vs 215 expected)
 PASS: qawc(f459) rev last (6 observed vs 6 expected)
 PASS: qawc(f459) rev status (0 observed vs 0 expected)
-ERROR: qaws_integrate: Tolerance cannot be achieved with given absolute (0) and relative (1e-07) error limits.
-ERROR: qawo_integrate: Tolerance cannot be achieved with given absolute (0) and relative (1e-07) error limits.
+ERROR: qaws_integrate: Tolerance cannot be achieved with given absolute and relative error limits.
+ERROR: qawo_integrate: Tolerance cannot be achieved with given absolute and relative error limits.
 ERROR: qawo_integrate: Roundoff error detected in the extrapolation       status = 4       result = 1.01328       abserr = 6.03964e-07
 PASS: monomial sanity check 1 (4 observed vs 4 expected)
 PASS: monomial sanity check 2 (4 observed vs 4 expected)
@@ -8458,4 +8451,4 @@ PASS: rational monomial a=7.747 b=12 n=5 alpha=1.5 beta=-13 (8.93065e-11 observe
 PASS: rational monomial a=1.47 b=2 n=5 alpha=2 beta=-22 (7.17991e-13 observed vs 7.1799e-13 expected)
 PASS: rational monomial a=-1.47 b=2 n=5 alpha=3 beta=-21 (-11.0761 observed vs -11.0761 expected)
 PASS: rational monomial a=0 b=0.47 n=5 alpha=5 beta=-16 (0.00290393 observed vs 0.00290392 expected)
-2024 tests, passed 1627, failed 397.
+2008 tests, passed 1619, failed 389.

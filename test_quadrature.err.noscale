@@ -1,32 +1,21 @@
-
-
-Test double
-=====================================
 testcase.tcc:460:19: runtime error: division by zero
 testcase.tcc:497:14: runtime error: division by zero
 testcase.tcc:505:43: runtime error: division by zero
 testcase.tcc:537:23: runtime error: division by zero
-
-
-Test long double
-=====================================
-ERROR: qng_integrate: Failed to reach tolerance with highest-order rule       status = 7       result = 0.0771605       abserr = 3.94813e-16
 testcase.tcc:460:19: runtime error: division by zero
 testcase.tcc:497:14: runtime error: division by zero
 testcase.tcc:505:43: runtime error: division by zero
 testcase.tcc:537:23: runtime error: division by zero
-
-
-Test float
-=====================================
-ERROR: qag_integrate: Tolerance cannot be achieved with given absolute (0) and relative (1e-10) error limits.
+ERROR: qng_integrate: Tolerance cannot be achieved with given absolute and relative error limits
+ERROR: qng_integrate: Tolerance cannot be achieved with given absolute and relative error limits
+ERROR: qag_integrate: Tolerance cannot be achieved with given absolute and relative error limits.
 ERROR: qag_integrate: cannot reach tolerance because of roundoff error on first attempt       status = 2       result = 0.0771605       abserr = 4.59912e-07
-ERROR: qags_integrate: Tolerance cannot be achieved with given absolute (0) and relative (1e-10) error limits.
+ERROR: qags_integrate: Tolerance cannot be achieved with given absolute and relative error limits.
 ERROR: qags_integrate: Cannot reach tolerance because of roundoff error       status = 2       result = -5908.76       abserr = 0.0354686
-ERROR: qags_integrate: Tolerance cannot be achieved with given absolute (0) and relative (1e-07) error limits.
+ERROR: qags_integrate: Tolerance cannot be achieved with given absolute and relative error limits.
 ERROR: qags_integrate: Cannot reach tolerance because of roundoff error       status = 2       result = 2.27588       abserr = 1.35779e-05
 ERROR: qags_integrate: Cannot reach tolerance because of roundoff error       status = 2       result = 2.71828       abserr = 1.67031e-05
-ERROR: qaws_integrate: Tolerance cannot be achieved with given absolute (0) and relative (1e-07) error limits.
-ERROR: qawo_integrate: Tolerance cannot be achieved with given absolute (0) and relative (1e-07) error limits.
+ERROR: qaws_integrate: Tolerance cannot be achieved with given absolute and relative error limits.
+ERROR: qawo_integrate: Tolerance cannot be achieved with given absolute and relative error limits.
 ERROR: qawo_integrate: Roundoff error detected in the extrapolation       status = 4       result = 1.01328       abserr = 6.03964e-07
 ERROR: unreasonable accuracy requirement
