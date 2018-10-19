@@ -32,6 +32,7 @@ BINS = \
   $(BIN_DIR)/test_midpoint_integral \
   $(BIN_DIR)/test_double_exp_integrate \
   $(BIN_DIR)/test_gauss_hermite \
+  $(BIN_DIR)/test_gauss_laguerre \
   $(BIN_DIR)/test_mapper \
   $(BIN_DIR)/assoc_laguerre_test \
   $(BIN_DIR)/assoc_legendre_test \
@@ -75,6 +76,8 @@ test: $(BIN_DIR)/test_quadrature
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_phase_iterator > test_phase_iterator.txt 2> test_phase_iterator.err
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_mapper > test_mapper.txt 2> test_mapper.err
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_quadrature > test_quadrature.txt 2> test_quadrature.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_gauss_hermite > test_gauss_hermite.txt 2> test_gauss_hermite.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_gauss_laguerre > test_gauss_laguerre.txt 2> test_gauss_laguerre.err
 
 
 docs:
@@ -115,6 +118,9 @@ $(BIN_DIR)/test_double_exp_integrate: test_double_exp_integrate.cpp double_exp_i
 
 $(BIN_DIR)/test_gauss_hermite: test_gauss_hermite.cpp gauss_hermite_integrate.h
 	$(CXX17) -o $(BIN_DIR)/test_gauss_hermite test_gauss_hermite.cpp -lquadmath
+
+$(BIN_DIR)/test_gauss_laguerre: test_gauss_laguerre.cpp gauss_laguerre_integrate.h
+	$(CXX17) -o $(BIN_DIR)/test_gauss_laguerre test_gauss_laguerre.cpp -lquadmath
 
 $(BIN_DIR)/test_mapper: test_mapper.cpp integration_transform.h
 	$(CXX17) -o $(BIN_DIR)/test_mapper test_mapper.cpp -lquadmath

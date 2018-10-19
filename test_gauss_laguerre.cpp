@@ -34,19 +34,27 @@ template<typename _Tp>
     { return a * std::cos(b * x + c); }
   };
 
-void
-test_laguerre_quad()
+template<typename _Tp>
+  void
+  test_laguerre_quad()
+  {
+    my_f<_Tp> params{ 0.5, 0.0, 0.0, -1.0, 1.3 };
+    my_fc<_Tp> cparams{ 1.0, 1.0, 0.0 };
+
+    //pfoo2 = __gnu_cxx::gauss_laguerre_prob_integrate<_Tp>(params, 3);
+    //pfooc = __gnu_cxx::gauss_laguerre_prob_integrate<_Tp>(cparams, 29);
+
+    auto xfoo2 = __gnu_cxx::gauss_laguerre_integrate<_Tp>(params, 3, 0.0);
+    std::cout << "xfoo2 = " << xfoo2 << '\n';
+    std::cout << "delta = " << xfoo2 - 0.0L << '\n';
+    auto xfooc = __gnu_cxx::gauss_laguerre_integrate<_Tp>(cparams, 29, 0.0);
+    std::cout << "xfooc = " << xfooc << '\n';
+    std::cout << "delta = " << xfooc - 0.0L << '\n';
+  }
+
+int
+main()
 {
-  my_f<double> params{ 0.5, 0.0, 0.0, -1.0, 1.3 };
-  my_fc<double> cparams{ 1.0, 1.0, 0.0 };
-
-  //pfoo2 = __gnu_cxx::gauss_laguerre_prob_integrate<double>(params, 3);
-  //pfooc = __gnu_cxx::gauss_laguerre_prob_integrate<double>(cparams, 29);
-
-  auto xfoo2 = __gnu_cxx::gauss_laguerre_integrate<double>(params, 3, 0.0);
-  std::cout << "xfoo2 = " << xfoo2 << '\n';
-  std::cout << "delta = " << xfoo2 - 0.0L << '\n';
-  auto xfooc = __gnu_cxx::gauss_laguerre_integrate<double>(cparams, 29, 0.0);
-  std::cout << "xfooc = " << xfooc << '\n';
-  std::cout << "delta = " << xfooc - 0.0L << '\n';
+  test_laguerre_quad<double>();
+  test_laguerre_quad<long double>();
 }

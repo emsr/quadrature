@@ -26,18 +26,22 @@
 namespace __gnu_cxx
 {
 
-template<typename _Tp, typename _FuncTp>
-  _Tp
-  gauss_laguerre_integrate(_FuncTp __func,
+template<typename _Tp, typename _Func>
+  decltype(std::invoke_result_t<_Func, _Tp>{} * _Tp{})
+  gauss_laguerre_integrate(_Func __func,
 			   unsigned int __n, _Tp __alpha)
   {
+    using _RetTp = std::invoke_result_t<_Func, _Tp>;
+    using _AreaTp = decltype(_RetTp{} * _Tp{});
+    //using _AbsAreaTp = decltype(std::abs(_AreaTp{}));
+
     if(__n == 0)
       std::__throw_domain_error("gauss_laguerre_integrate: "
     				"laguerre order must be greater than 0");
     else
      {
 	auto __rule = std::__detail::__laguerre_zeros(__n, __alpha);
-	auto __sum = _Tp{0};
+	auto __sum = _AreaTp{};
 	for (const auto& __pt : __rule)
 	  {
 	    auto __x = __pt.__point;
