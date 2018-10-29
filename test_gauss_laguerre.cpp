@@ -55,6 +55,9 @@ template<typename _Tp>
 int
 main()
 {
+  std::cout << "\n\ndouble\n";
   test_laguerre_quad<double>();
+
+  std::cout << "\n\nlong double\n";
   test_laguerre_quad<long double>();
 }
