@@ -1,7 +1,10 @@
+/*
+g++ -std=c++17 -I../polynomial -I../include/ext -o test_simpson_integral test_simpson_integral.cpp
+*/
 
 #include <iostream>
 #include <iomanip>
-#include <cmath>
+#include <ext/cmath>
 
 #include "simpson_integral.h"
 #include "ext/polynomial.h"

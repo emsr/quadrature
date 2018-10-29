@@ -2,7 +2,9 @@
 $HOME/bin/bin/g++ -std=gnu++17 -g -Wall -Wextra -I.. -o test_gauss_hermite test_gauss_hermite.cpp -lquadmath
 */
 
-#include <cmath>
+#include <ext/cmath>
+#include <iostream>
+#include <iomanip>
 
 #include "gauss_hermite_integrate.h"
 

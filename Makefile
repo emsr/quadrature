@@ -54,18 +54,18 @@ all: $(OBJ_DIR) $(BINS)
 
 
 check:
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/assoc_laguerre_test > assoc_laguerre_test.txt 2> assoc_laguerre_test.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/assoc_legendre_test > assoc_legendre_test.txt 2> assoc_legendre_test.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/sph_legendre_test > sph_legendre_test.txt 2> sph_legendre_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/legendre_test > legendre_test.txt 2> legendre_test.err
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/chebyshev_t_test > chebyshev_t_test.txt 2> chebyshev_t_test.err
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/chebyshev_u_test > chebyshev_u_test.txt 2> chebyshev_u_test.err
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/chebyshev_v_test > chebyshev_v_test.txt 2> chebyshev_v_test.err
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/chebyshev_w_test > chebyshev_w_test.txt 2> chebyshev_w_test.err
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/gegenbauer_test > gegenbauer_test.txt 2> gegenbauer_test.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/hermite_test > hermite_test.txt 2> hermite_test.err
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/jacobi_test > jacobi_test.txt 2> jacobi_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/assoc_laguerre_test > assoc_laguerre_test.txt 2> assoc_laguerre_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/assoc_legendre_test > assoc_legendre_test.txt 2> assoc_legendre_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/hermite_test > hermite_test.txt 2> hermite_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/sph_legendre_test > sph_legendre_test.txt 2> sph_legendre_test.err
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/laguerre_test > laguerre_test.txt 2> laguerre_test.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/legendre_test > legendre_test.txt 2> legendre_test.err
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/radpoly_test > radpoly_test.txt 2> radpoly_test.err
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/zernike_test > zernike_test.txt 2> zernike_test.err
 
@@ -90,7 +90,7 @@ docs:
 # Binaries...
 
 $(BIN_DIR)/assoc_laguerre_test: $(OBJ_DIR)/assoc_laguerre_test.o
-	$(CXX17) -o $(BIN_DIR)/assoc_laguerre_test $(OBJ_DIR)/assoc_laguerre_test.o -lquadmath
+	$(CXX17) -I../include -o $(BIN_DIR)/assoc_laguerre_test $(OBJ_DIR)/assoc_laguerre_test.o -lquadmath
 
 $(BIN_DIR)/assoc_legendre_test: $(OBJ_DIR)/assoc_legendre_test.o
 	$(CXX17) -o $(BIN_DIR)/assoc_legendre_test $(OBJ_DIR)/assoc_legendre_test.o -lquadmath
@@ -99,28 +99,28 @@ $(BIN_DIR)/sph_legendre_test: $(OBJ_DIR)/sph_legendre_test.o
 	$(CXX17) -o $(BIN_DIR)/sph_legendre_test $(OBJ_DIR)/sph_legendre_test.o -lquadmath
 
 $(BIN_DIR)/test_phase_iterator: test_phase_iterator.cpp *.h *.tcc
-	$(CXX17) -o $(BIN_DIR)/test_phase_iterator test_phase_iterator.cpp -lquadmath
+	$(CXX17) -I../include -o $(BIN_DIR)/test_phase_iterator test_phase_iterator.cpp -lquadmath
 
 $(BIN_DIR)/test_quadrature: test_quadrature.cpp *.h *.tcc
-	$(CXX17) -o $(BIN_DIR)/test_quadrature test_quadrature.cpp -lquadmath -lubsan
+	$(CXX17) -I../include -o $(BIN_DIR)/test_quadrature test_quadrature.cpp -lquadmath -lubsan
 
 $(BIN_DIR)/test_trapezoid_integral: test_trapezoid_integral.cpp trapezoid_integral.h trapezoid_integral.tcc
-	$(CXX17) -o $(BIN_DIR)/test_trapezoid_integral test_trapezoid_integral.cpp -lquadmath
+	$(CXX17) -I../include -o $(BIN_DIR)/test_trapezoid_integral test_trapezoid_integral.cpp -lquadmath
 
 $(BIN_DIR)/test_simpson_integral: test_simpson_integral.cpp simpson_integral.h simpson_integral.tcc
 	$(CXX17) -o $(BIN_DIR)/test_simpson_integral test_simpson_integral.cpp -lquadmath
 
 $(BIN_DIR)/test_midpoint_integral: test_midpoint_integral.cpp midpoint_integral.h midpoint_integral.tcc
-	$(CXX17) -o $(BIN_DIR)/test_midpoint_integral test_midpoint_integral.cpp -lquadmath
+	$(CXX17) -I../include -o $(BIN_DIR)/test_midpoint_integral test_midpoint_integral.cpp -lquadmath
 
 $(BIN_DIR)/test_double_exp_integrate: test_double_exp_integrate.cpp double_exp_integrate.tcc
-	$(CXX17) -o $(BIN_DIR)/test_double_exp_integrate test_double_exp_integrate.cpp -lquadmath
+	$(CXX17) -I../include -o $(BIN_DIR)/test_double_exp_integrate test_double_exp_integrate.cpp -lquadmath
 
 $(BIN_DIR)/test_gauss_hermite: test_gauss_hermite.cpp gauss_hermite_integrate.h
-	$(CXX17) -o $(BIN_DIR)/test_gauss_hermite test_gauss_hermite.cpp -lquadmath
+	$(CXX17) -I../include -o $(BIN_DIR)/test_gauss_hermite test_gauss_hermite.cpp -lquadmath
 
 $(BIN_DIR)/test_gauss_laguerre: test_gauss_laguerre.cpp gauss_laguerre_integrate.h
-	$(CXX17) -o $(BIN_DIR)/test_gauss_laguerre test_gauss_laguerre.cpp -lquadmath
+	$(CXX17) -I../include -o $(BIN_DIR)/test_gauss_laguerre test_gauss_laguerre.cpp -lquadmath
 
 $(BIN_DIR)/test_mapper: test_mapper.cpp integration_transform.h
 	$(CXX17) -o $(BIN_DIR)/test_mapper test_mapper.cpp -lquadmath
@@ -161,46 +161,46 @@ $(BIN_DIR)/zernike_test: $(OBJ_DIR)/zernike_test.o
 # Objects...
 
 $(OBJ_DIR)/assoc_laguerre_test.o: *.h *.tcc assoc_laguerre_test.cpp
-	$(CXX17) -c -o $(OBJ_DIR)/assoc_laguerre_test.o assoc_laguerre_test.cpp
+	$(CXX17) -c -I../include -o $(OBJ_DIR)/assoc_laguerre_test.o assoc_laguerre_test.cpp
 
 $(OBJ_DIR)/assoc_legendre_test.o: *.h *.tcc assoc_legendre_test.cpp
-	$(CXX17) -c -o $(OBJ_DIR)/assoc_legendre_test.o assoc_legendre_test.cpp
+	$(CXX17) -c -I../include -o $(OBJ_DIR)/assoc_legendre_test.o assoc_legendre_test.cpp
 
 $(OBJ_DIR)/sph_legendre_test.o: *.h *.tcc sph_legendre_test.cpp
-	$(CXX17) -c -o $(OBJ_DIR)/sph_legendre_test.o sph_legendre_test.cpp
+	$(CXX17) -c -I../include -o $(OBJ_DIR)/sph_legendre_test.o sph_legendre_test.cpp
 
 $(OBJ_DIR)/hermite_test.o: *.h *.tcc hermite_test.cpp
-	$(CXX17) -c -o $(OBJ_DIR)/hermite_test.o hermite_test.cpp
+	$(CXX17) -c -I../include -o $(OBJ_DIR)/hermite_test.o hermite_test.cpp
 
 $(OBJ_DIR)/laguerre_test.o: *.h *.tcc laguerre_test.cpp
-	$(CXX17) -c -o $(OBJ_DIR)/laguerre_test.o laguerre_test.cpp
+	$(CXX17) -c -I../include -o $(OBJ_DIR)/laguerre_test.o laguerre_test.cpp
 
 $(OBJ_DIR)/legendre_test.o: *.h *.tcc legendre_test.cpp
-	$(CXX17) -c -o $(OBJ_DIR)/legendre_test.o legendre_test.cpp
+	$(CXX17) -c -I../include -o $(OBJ_DIR)/legendre_test.o legendre_test.cpp
 
 $(OBJ_DIR)/gegenbauer_test.o: *.h *.tcc gegenbauer_test.cpp
-	$(CXX17) -c -o $(OBJ_DIR)/gegenbauer_test.o gegenbauer_test.cpp
+	$(CXX17) -c -I../include -o $(OBJ_DIR)/gegenbauer_test.o gegenbauer_test.cpp
 
 $(OBJ_DIR)/jacobi_test.o: *.h *.tcc jacobi_test.cpp
-	$(CXX17) -c -o $(OBJ_DIR)/jacobi_test.o jacobi_test.cpp
+	$(CXX17) -c -I../include -o $(OBJ_DIR)/jacobi_test.o jacobi_test.cpp
 
 $(OBJ_DIR)/chebyshev_t_test.o: *.h *.tcc chebyshev_t_test.cpp
-	$(CXX17) -c -o $(OBJ_DIR)/chebyshev_t_test.o chebyshev_t_test.cpp
+	$(CXX17) -c -I../include -o $(OBJ_DIR)/chebyshev_t_test.o chebyshev_t_test.cpp
 
 $(OBJ_DIR)/chebyshev_u_test.o: *.h *.tcc chebyshev_u_test.cpp
-	$(CXX17) -c -o $(OBJ_DIR)/chebyshev_u_test.o chebyshev_u_test.cpp
+	$(CXX17) -c -I../include -o $(OBJ_DIR)/chebyshev_u_test.o chebyshev_u_test.cpp
 
 $(OBJ_DIR)/chebyshev_v_test.o: *.h *.tcc chebyshev_v_test.cpp
-	$(CXX17) -c -o $(OBJ_DIR)/chebyshev_v_test.o chebyshev_v_test.cpp
+	$(CXX17) -c -I../include -o $(OBJ_DIR)/chebyshev_v_test.o chebyshev_v_test.cpp
 
 $(OBJ_DIR)/chebyshev_w_test.o: *.h *.tcc chebyshev_w_test.cpp
-	$(CXX17) -c -o $(OBJ_DIR)/chebyshev_w_test.o chebyshev_w_test.cpp
+	$(CXX17) -c -I../include -o $(OBJ_DIR)/chebyshev_w_test.o chebyshev_w_test.cpp
 
 $(OBJ_DIR)/radpoly_test.o: *.h *.tcc radpoly_test.cpp
-	$(CXX17) -c -o $(OBJ_DIR)/radpoly_test.o radpoly_test.cpp
+	$(CXX17) -c -I../include -o $(OBJ_DIR)/radpoly_test.o radpoly_test.cpp
 
 $(OBJ_DIR)/zernike_test.o: *.h *.tcc zernike_test.cpp
-	$(CXX17) -c -o $(OBJ_DIR)/zernike_test.o zernike_test.cpp
+	$(CXX17) -c -I../include -o $(OBJ_DIR)/zernike_test.o zernike_test.cpp
 
 
 $(OBJ_DIR): $(OUT_DIR)
