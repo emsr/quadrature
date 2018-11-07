@@ -116,7 +116,7 @@ $(BIN_DIR)/test_trapezoid_integral: test_trapezoid_integral.cpp trapezoid_integr
 	$(CXX17) -I../include -o $(BIN_DIR)/test_trapezoid_integral test_trapezoid_integral.cpp -lquadmath
 
 $(BIN_DIR)/test_simpson_integral: test_simpson_integral.cpp simpson_integral.h simpson_integral.tcc
-	$(CXX17) -o $(BIN_DIR)/test_simpson_integral test_simpson_integral.cpp -lquadmath
+	$(CXX17) -I.. -I../polynomial -o $(BIN_DIR)/test_simpson_integral test_simpson_integral.cpp -lquadmath
 
 $(BIN_DIR)/test_midpoint_integral: test_midpoint_integral.cpp midpoint_integral.h midpoint_integral.tcc
 	$(CXX17) -I../include -o $(BIN_DIR)/test_midpoint_integral test_midpoint_integral.cpp -lquadmath
