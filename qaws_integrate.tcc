@@ -245,9 +245,8 @@ namespace __gnu_cxx
 	    {
 	      const auto __u = __factor;
 
-	      auto __out = compute_result(__t.ri, __cheb12, __cheb24);
-	      auto __res12 = __out.__res12;
-	      auto __res24 = __out.__res24;
+	      auto [__res12, __res24]
+		= compute_result(__t.ri, __cheb12, __cheb24);
 
 	      const auto __result = __u * __res24;
 	      const auto __abserr = std::abs(__u * (__res24 - __res12));
@@ -258,13 +257,11 @@ namespace __gnu_cxx
 	      const auto __u = __factor * std::log(__b1 - __a1);
 	      const auto __v = __factor;
 
-	      auto __outa = compute_result(__t.ri, __cheb12, __cheb24);
-	      auto __res12a = __outa.__res12;
-	      auto __res24a = __outa.__res24;
+	      auto [__res12a, __res24a]
+		= compute_result(__t.ri, __cheb12, __cheb24);
 
-	      auto __outb = compute_result(__t.rg, __cheb12, __cheb24);
-	      auto __res12b = __outb.__res12;
-	      auto __res24b = __outb.__res24;
+	      auto [__res12b, __res24b]
+		= compute_result(__t.rg, __cheb12, __cheb24);
 
 	      const auto __result = __u * __res24a + __v * __res24b;
 	      const auto __abserr = std::abs(__u * (__res24a - __res12a))
@@ -286,9 +283,8 @@ namespace __gnu_cxx
 	    {
 	      const auto __u = __factor;
 
-	      auto __out = compute_result(__t.rj, __cheb12, __cheb24);
-	      auto __res12 = __out.__res12;
-	      auto __res24 = __out.__res24;
+	      auto [__res12, __res24]
+		= compute_result(__t.rj, __cheb12, __cheb24);
 
 	      const auto __result = __u * __res24;
 	      const auto __abserr = std::abs(__u * (__res24 - __res12));
@@ -299,13 +295,11 @@ namespace __gnu_cxx
 	      const auto __u = __factor * std::log(__b1 - __a1);
 	      const auto __v = __factor;
 
-	      auto __outa = compute_result(__t.rj, __cheb12, __cheb24);
-	      auto __res12a = __outa.__res12;
-	      auto __res24a = __outa.__res24;
+	      auto [__res12a, __res24a]
+		= compute_result(__t.rj, __cheb12, __cheb24);
 
-	      auto __outb = compute_result(__t.rh, __cheb12, __cheb24);
-	      auto __res12b = __outb.__res12;
-	      auto __res24b = __outb.__res24;
+	      auto [__res12b, __res24b]
+		= compute_result(__t.rh, __cheb12, __cheb24);
 
 	      const auto __result = __u * __res24a + __v * __res24b;
 	      const auto __abserr = std::abs(__u * (__res24a - __res12a))
@@ -319,11 +313,8 @@ namespace __gnu_cxx
 		     ->_Tp
 		     { return __fqaws.eval_middle(__x); };
 
-	  auto __out = qk_integrate(__f, __a1, __b1, Kronrod_15);
-	  auto __result = __out.__result;
-	  auto __abserr = __out.__abserr;
-	  //auto __resabs = __out.__resabs;
-	  auto __resasc = __out.__resasc;
+	  auto [__result, __abserr, __resabs, __resasc]
+	    = qk_integrate(__f, __a1, __b1, Kronrod_15);
 
 	  bool __err_reliable;
 	  if (__abserr == __resasc)
@@ -420,6 +411,7 @@ namespace __gnu_cxx
     -> compute_result_t<decltype(_Tp{} * _RetTp{})>
     {
       using _AreaTp = decltype(_RetTp{} * _Tp{});
+
       auto __res12 = _AreaTp{};
       for (size_t __i = 0; __i < __cheb12.size(); ++__i)
 	__res12 += __r[__i] * __cheb12[__i];
