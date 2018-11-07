@@ -1,8 +1,8 @@
 /*
-$HOME/bin/bin/g++ -std=gnu++17 -g -Wall -Wextra -Wno-psabi -I.. -DREPERIOD=0 -o test_fft test_fft.cpp -lquadmath
+$HOME/bin/bin/g++ -std=gnu++17 -g -Wall -Wextra -Wno-psabi -I../include -DREPERIOD=0 -o test_fft test_fft.cpp -lquadmath
 ./test_fft > test_fft.txt
 
-$HOME/bin/bin/g++ -std=gnu++17 -g -Wall -Wextra -Wno-psabi -I.. -DREPERIOD=1 -o test_fft test_fft.cpp -lquadmath
+$HOME/bin/bin/g++ -std=gnu++17 -g -Wall -Wextra -Wno-psabi -I../include -DREPERIOD=1 -o test_fft test_fft.cpp -lquadmath
 ./test_fft > test_fft_pi.txt
 */
 

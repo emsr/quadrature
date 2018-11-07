@@ -19,7 +19,7 @@
  */
 
 /*
-$HOME/bin/bin/g++ -std=gnu++17 -fconcepts -g -Wall -Wextra -Wno-psabi -I.. -c -o obj/test_quadrature..o test_quadrature.cpp
+$HOME/bin/bin/g++ -std=gnu++17 -fconcepts -g -Wall -Wextra -Wno-psabi -I../include -c -o obj/test_quadrature..o test_quadrature.cpp
 */
 
 #include <cstdlib>
