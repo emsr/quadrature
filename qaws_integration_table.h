@@ -33,7 +33,7 @@ namespace __gnu_cxx
    *   log(x - \alpha) log(\beta - x)
    * @f]
    */
-  template<typename _Tp>
+  template<typename _Tp, typename _FuncTp>
     struct qaws_integration_table
     {
       _Tp alpha;

@@ -54,10 +54,9 @@ template<typename _Tp>
     auto norm = _Tp{1} / std::sqrt(_Tp(2 * n1 + 2) * _Tp(2 * n2 + 2));
     auto fun = [n1, m1, rho, z1, z2, norm](_Tp phi)
 		->_Tp { return rho * z1(phi) * z2(phi) / norm; };
-    _Tp val;
-    std::tie(val, std::ignore)
-	= integrate(fun, _Tp{0}, _Tp{_S_2pi}, _S_eps, _Tp{0}, 1024, QK_61);
-    return _Tp{2} * val / _S_2pi / epsilon<_Tp>(m1);
+    auto val
+	= integrate(fun, _Tp{0}, _Tp{_S_2pi}, _S_eps, _Tp{0}, 1024, Kronrod_61);
+    return _Tp{2} * val.__result / _S_2pi / epsilon<_Tp>(m1);
   }
 
 template<typename _Tp>

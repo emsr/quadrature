@@ -28,17 +28,16 @@
 #define QAWC_INTEGRATE_TCC 1
 
 #include <array>
-#include <tuple>
 
 #include "integration_workspace.h"
-#include "qk_integrate.tcc"
 
 namespace __gnu_cxx
 {
 
   template<typename _Tp, typename _FuncTp>
-    std::tuple<_Tp, _Tp, bool>
-    qc25c(_FuncTp __func, _Tp __lower, _Tp __upper, _Tp __center);
+    auto
+    qc25c(_FuncTp __func, _Tp __lower, _Tp __upper, _Tp __center)
+    -> std::tuple<decltype(_Tp{} * __func(_Tp{})), _Tp, bool>;
 
   template<typename _Tp>
     std::vector<_Tp>
@@ -57,11 +56,13 @@ namespace __gnu_cxx
    * a user-supplied integration rule. 
    */
   template<typename _Tp, typename _FuncTp>
-    std::tuple<_Tp, _Tp>
-    qawc_integrate(integration_workspace<_Tp>& __workspace,
+    auto
+    qawc_integrate(integration_workspace<_Tp,
+			std::invoke_result_t<_FuncTp, _Tp>>& __workspace,
 		   _FuncTp __func,
 		   _Tp __lower, _Tp __upper, _Tp __center,
 		   _Tp __max_abs_err, _Tp __max_rel_err)
+    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
     {
       auto __result = _Tp{};
       auto __abserr = _Tp{};
@@ -78,7 +79,7 @@ namespace __gnu_cxx
 	  __sign = -1;
 	}
 
-      if (valid_tolerances(__max_abs_err, __max_rel_err))
+      if (!valid_tolerances(__max_abs_err, __max_rel_err))
 	{
 	  std::ostringstream __msg;
 	  __msg << "qawc_integrate: Tolerance cannot be achieved with given "
@@ -107,7 +108,7 @@ namespace __gnu_cxx
       auto __tolerance = std::max(__max_abs_err,
 				  __max_rel_err * std::abs( __result0));
       if (__abserr0 < __tolerance && __abserr0 < 0.01 * std::abs(__result0))
-	return std::make_tuple(__sign * __result0, __abserr0);
+	return {__sign * __result0, __abserr0};
       else if (__limit == 1)
 	__throw_integration_error("qawc_integrate: "
 				  "a maximum of one iteration was insufficient",
@@ -184,10 +185,10 @@ namespace __gnu_cxx
 	__error_type = MAX_SUBDIV_ERROR;
 
       if (__errsum <= __tolerance)
-	return std::make_tuple(__result, __abserr);
+	return {__result, __abserr};
 
       if (__error_type == NO_ERROR)
-	return std::make_tuple(__result, __abserr);
+	return {__result, __abserr};
 
       __check_error<_Tp>(__func__, __error_type, __result, __abserr);
       __throw_integration_error("qawc_integrate: Unknown error.",
@@ -207,8 +208,9 @@ namespace __gnu_cxx
    * the 15-point Gauss-Kronrod rule. 
    */
   template<typename _Tp, typename _FuncTp>
-    std::tuple<_Tp, _Tp, bool>
+    auto
     qc25c(_FuncTp __func, _Tp __lower, _Tp __upper, _Tp __center)
+    -> std::tuple<decltype(_Tp{} * __func(_Tp{})), _Tp, bool>
     {
       const auto __cc = (_Tp{2} * __center - __upper - __lower)
 		      / (__upper - __lower);
@@ -218,28 +220,25 @@ namespace __gnu_cxx
 
       if (std::abs(__cc) > 1.1)
 	{
-	  using __quad_ret = std::tuple<_Tp&, _Tp&, _Tp&, _Tp&>;
-
 	  auto __func_cauchy = [__func, __center](_Tp __x)
 				-> _Tp
 				{ return __func(__x) / (__x - __center); };
 
-	  _Tp __resabs, __resasc;
-	  __quad_ret{__result, __abserr, __resabs, __resasc}
-	    = qk_integrate(__func_cauchy, __lower, __upper, QK_15);
+	  auto __out = qk_integrate(__func_cauchy, __lower, __upper, Kronrod_15);
 
-	  if (__abserr == __resasc)
+	  if (__out.__abserr == __out.__resasc)
 	    __err_reliable = false;
 	  else
 	    __err_reliable = true;
 
-	  return std::make_tuple(__result, __abserr, __err_reliable);
+	  return std::make_tuple(__out.__result, __out.__abserr,
+				 __err_reliable);
 	}
       else
 	{
-	  std::array<_Tp, 13> __cheb12;
-	  std::array<_Tp, 25> __cheb24;
-	  qcheb_integrate(__func, __lower, __upper, __cheb12, __cheb24);
+	  auto __chout = qcheb_integrate(__func, __lower, __upper);
+	  const auto& __cheb12 = __chout.__cheb12;
+	  const auto& __cheb24 = __chout.__cheb24;
 	  const auto __moment = compute_moments(__cheb24.size(), __cc);
 
 	  auto __res12 = _Tp{0};

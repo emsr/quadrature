@@ -61,7 +61,7 @@ template<typename _Tp>
 			{ return normalized_laguerre<_Tp>(n1, n2, x); };
 
 	    auto [result, error]
-		= integrate_to_infinity(func, _Tp{0}, integ_prec, _Tp{0});
+		= integrate_lower_pinf(func, _Tp{0}, integ_prec, _Tp{0});
 
 	    if (std::abs(delta<_Tp>(n1, n2) - result) > cmp_prec)
 	      {
@@ -92,7 +92,7 @@ template<typename _Tp>
 			{ return normalized_laguerre<_Tp>(n1, n2, x); };
 
 	    auto [result, error]
-		= integrate_to_infinity(func, _Tp{0}, integ_prec, _Tp{0});
+		= integrate_lower_pinf(func, _Tp{0}, integ_prec, _Tp{0});
 
 	    if (std::abs(delta<_Tp>(itop, n2) - result) > cmp_prec)
 	      {

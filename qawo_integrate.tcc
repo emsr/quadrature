@@ -35,18 +35,21 @@ namespace __gnu_cxx
 {
 
   template<typename _Tp, typename _FuncTp>
-    std::tuple<_Tp, _Tp, _Tp, _Tp>
+    auto
     qc25f(oscillatory_integration_table<_Tp>& __wf,
 	  _FuncTp __func, _Tp __lower, _Tp __upper,
-	  std::size_t __depth);
+	  std::size_t __depth)
+    -> gauss_kronrod_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>;
 
   template<typename _Tp, typename _FuncTp>
-    std::tuple<_Tp, _Tp>
-    qawo_integrate(integration_workspace<_Tp>& __workspace,
+    auto
+    qawo_integrate(integration_workspace<_Tp,
+			std::invoke_result_t<_FuncTp, _Tp>>& __workspace,
 		   oscillatory_integration_table<_Tp>& __wf,
 		   _FuncTp __func,
 		   const _Tp __lower,
 		   const _Tp __max_abs_err, const _Tp __max_rel_err)
+    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
     {
       const auto _S_max = std::numeric_limits<_Tp>::max();
       const auto _S_eps = std::numeric_limits<_Tp>::epsilon();
@@ -69,7 +72,7 @@ namespace __gnu_cxx
       auto __result = _Tp{0};
       auto __abserr = _Tp{0};
 
-      if (valid_tolerances(__max_abs_err, __max_rel_err))
+      if (!valid_tolerances(__max_abs_err, __max_rel_err))
 	{
 	  std::ostringstream __msg;
 	  __msg << "qawo_integrate: Tolerance cannot be achieved with given "
@@ -79,9 +82,11 @@ namespace __gnu_cxx
 	}
 
       // Perform the first integration.
-      _Tp __result0, __abserr0, __resabs0, __resasc0;
-      std::tie(__result0, __abserr0, __resabs0, __resasc0)
-	= qc25f(__wf, __func, __lower, __upper, 0);
+      auto __out0 = qc25f(__wf, __func, __lower, __upper, 0);
+      auto __result0 = __out0.__result;
+      auto __abserr0 = __out0.__abserr;
+      auto __resabs0 = __out0.__resabs;
+      auto __resasc0 = __out0.__resasc;
 
       __workspace.append(__lower, __upper, __result0, __abserr0);
 
@@ -95,7 +100,7 @@ namespace __gnu_cxx
 				  ROUNDOFF_ERROR, __result0, __abserr0);
       else if ((__abserr0 <= __tolerance && __abserr0 != __resasc0)
 		|| __abserr0 == 0.0)
-	return std::make_tuple(__result0, __abserr0);
+	return {__result0, __abserr0};
       else if (__limit == 1)
 	__throw_integration_error("qawo_integrate: "
 				  "a maximum of one iteration was insufficient",
@@ -139,13 +144,17 @@ namespace __gnu_cxx
 
 	  ++__iteration;
 
-	  _Tp __area1, __error1, __resabs1, __resasc1;
-	  std::tie(__area1, __error1, __resabs1, __resasc1)
-	    = qc25f(__wf, __func, __a1, __mid, __current_depth);
+	  auto __out1 = qc25f(__wf, __func, __a1, __mid, __current_depth);
+	  auto __area1 = __out1.__result;
+	  auto __error1 = __out1.__abserr;
+	  //auto __resabs1 = __out1.__resabs;
+	  auto __resasc1 = __out1.__resasc;
 
-	  _Tp __area2, __error2, __resabs2, __resasc2;
-	  std::tie(__area2, __error2, __resabs2, __resasc2)
-	    = qc25f(__wf, __func, __a2, __b2, __current_depth);
+	  auto __out2 = qc25f(__wf, __func, __a2, __b2, __current_depth);
+	  auto __area2 = __out2.__result;
+	  auto __error2 = __out2.__abserr;
+	  //auto __resabs2 = __out2.__resabs;
+	  auto __resasc2 = __out2.__resasc;
 
 	  const auto __area12 = __area1 + __area2;
 	  const auto __error12 = __error1 + __error2;
@@ -197,7 +206,7 @@ namespace __gnu_cxx
 	      __result = __workspace.total_integral();
 	      __abserr = __errsum;
 	      __check_error<_Tp>(__func__, __error_type, __result, __abserr);
-	      return std::make_tuple(__result, __abserr);
+	      return {__result, __abserr};
 	    }
 
 	  if (__error_type != NO_ERROR)
@@ -316,7 +325,7 @@ namespace __gnu_cxx
 	  __result = __workspace.total_integral();
 	  __abserr = __errsum;
 	  __check_error<_Tp>(__func__, __error_type, __result, __abserr);
-	  return std::make_tuple(__result, __abserr);
+	  return {__result, __abserr};
 	}
 
       if (__error_type != NO_ERROR || __error_type2 != NO_ERROR)
@@ -335,7 +344,7 @@ namespace __gnu_cxx
 		  __abserr = __errsum;
 		  __check_error<_Tp>(__func__, __error_type,
 				     __result, __abserr);
-		  return std::make_tuple(__result, __abserr);
+		  return {__result, __abserr};
 		}
 	    }
 	  else if (__err_ext > __errsum)
@@ -343,12 +352,12 @@ namespace __gnu_cxx
 	      __result = __workspace.total_integral();
 	      __abserr = __errsum;
 	      __check_error<_Tp>(__func__, __error_type, __result, __abserr);
-	      return std::make_tuple(__result, __abserr);
+	      return {__result, __abserr};
 	    }
 	  else if (__area == _Tp{0})
 	    {
 	      __check_error<_Tp>(__func__, __error_type, __result, __abserr);
-	      return std::make_tuple(__result, __abserr);
+	      return {__result, __abserr};
 	    }
 	}
 
@@ -358,7 +367,7 @@ namespace __gnu_cxx
       if (!__positive_integrand && __max_area < 0.01 * __resabs0)
 	{
 	  __check_error<_Tp>(__func__, __error_type, __result, __abserr);
-	  return std::make_tuple(__result, __abserr);
+	  return {__result, __abserr};
 	}
 
       auto __ratio = __res_ext / __area;
@@ -366,15 +375,16 @@ namespace __gnu_cxx
 	__error_type = UNKNOWN_ERROR;
 
       __check_error<_Tp>(__func__, __error_type, __result, __abserr);
-      return std::make_tuple(__result, __abserr);
+      return {__result, __abserr};
     }
 
 
   template<typename _Tp, typename _FuncTp>
-    std::tuple<_Tp, _Tp, _Tp, _Tp>
+    auto
     qc25f(oscillatory_integration_table<_Tp>& __wf,
 	  _FuncTp __func, _Tp __lower, _Tp __upper,
 	  std::size_t __depth)
+    -> gauss_kronrod_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
     {
       const auto _S_max = std::numeric_limits<_Tp>::max();
       const auto __center = ( __lower + __upper) / _Tp{2};
@@ -390,22 +400,21 @@ namespace __gnu_cxx
 	      auto __wfun = [__func, __omega](_Tp __x)
 			    ->_Tp
 			    { return std::sin(__omega * __x) * __func(__x); };
-	      return qk_integrate(__wfun, __lower, __upper, QK_15);
+	      return qk_integrate(__wfun, __lower, __upper, Kronrod_15);
 	    }
 	  else
 	    {
 	      auto __wfun = [__func, __omega](_Tp __x)
 			    ->_Tp
 			    { return std::cos(__omega * __x) * __func(__x); };
-	      return qk_integrate(__wfun, __lower, __upper, QK_15);
+	      return qk_integrate(__wfun, __lower, __upper, Kronrod_15);
 	    }
 	}
       else
 	{
-	  std::array<_Tp, 13> __cheb12;
-	  std::array<_Tp, 25> __cheb24;
-
-	  qcheb_integrate(__func, __lower, __upper, __cheb12, __cheb24);
+	  auto __chout = qcheb_integrate(__func, __lower, __upper);
+	  const auto& __cheb12 = __chout.__cheb12;
+	  const auto& __cheb24 = __chout.__cheb24;
 
 	  if (__depth >= __wf.n)
 	    {
@@ -457,7 +466,7 @@ namespace __gnu_cxx
 	  __resabs = __result_abs * __half_length;
 	  __resasc = _S_max;
 
-	  return std::make_tuple(__result, __abserr, __resabs, __resasc);
+	  return {__result, __abserr, __resabs, __resasc};
 	}
     }
 

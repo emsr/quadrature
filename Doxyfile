@@ -815,7 +815,7 @@ INPUT                  = \
 	   qaws_integration_table.h \
 	   qaws_integration_table.tcc \
 	   qcheb_integrate.tcc \
-	   qk_integrate.tcc \
+	   gauss_kronrod_integral.tcc \
 	   qng_integrate.tcc \
 	   simpson_integral.h \
 	   simpson_integral.tcc \

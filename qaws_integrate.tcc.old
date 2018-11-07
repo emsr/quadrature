@@ -28,9 +28,7 @@
 #define QAWS_INTEGRATE_TCC 1
 
 #include <array>
-#include <tuple>
 
-#include "qk_integrate.tcc"
 #include "integration_workspace.h"
 #include "qaws_integration_table.h"
 
@@ -40,15 +38,23 @@ namespace __gnu_cxx
   template<typename _Tp, typename _FuncTp>
     struct fn_qaws;
 
-  template<typename _Tp>
-    std::tuple<_Tp, _Tp>
-    compute_result(const std::array<_Tp, 25>& r,
-		   const std::array<_Tp, 13>& cheb12,
-		   const std::array<_Tp, 25>& cheb24);
+  template<typename _AreaTp>
+    struct compute_result_t
+    {
+      _AreaTp __res12;
+      _AreaTp __res24;
+    };
+
+  template<typename _Tp, typename _RetTp>
+    auto
+    compute_result(const std::array<_Tp, 25>& __r,
+		   const std::array<_RetTp, 13>& __cheb12,
+		   const std::array<_RetTp, 25>& __cheb24)
+    -> compute_result_t<decltype(_Tp{} * _RetTp{})>;
 
  template<typename _Tp, typename _FuncTp>
     std::tuple<_Tp, _Tp, bool>
-    qc25s(qaws_integration_table<_Tp>& __t,
+    qc25s(qaws_integration_table<_Tp, _FuncTp>& __t,
 	  _FuncTp __func, _Tp __lower, _Tp __upper, _Tp __a1, _Tp __b1);
 
   /**
@@ -75,12 +81,14 @@ namespace __gnu_cxx
    * of Chebyshev moments.
    */
   template<typename _Tp, typename _FuncTp>
-    std::tuple<_Tp, _Tp>
-    qaws_integrate(integration_workspace<_Tp>& __workspace,
-		   qaws_integration_table<_Tp>& __table,
+    auto
+    qaws_integrate(integration_workspace<_Tp,
+			std::invoke_result_t<_FuncTp, _Tp>>& __workspace,
+		   qaws_integration_table<_Tp, _FuncTp>& __table,
 		   _FuncTp __func,
 		   _Tp __lower, _Tp __upper,
 		   _Tp __max_abs_err, _Tp __max_rel_err)
+    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
     {
       // Try to adjust tests for varing precision.
       const auto _M_rel_err = std::pow(_Tp{10},
@@ -89,11 +97,14 @@ namespace __gnu_cxx
       if (__upper <= __lower)
 	std::__throw_runtime_error("qaws_integrate: "
 				   "Limits must form an ascending sequence");
-      if (valid_tolerances(__max_abs_err, __max_rel_err))
-	std::__throw_runtime_error("qaws_integrate: "
-				   "Tolerance cannot be achieved "
-				   "with given absolute "
-				   "and relative error limits.");
+      if (!valid_tolerances(__max_abs_err, __max_rel_err))
+	{
+	  std::ostringstream __msg;
+	  __msg << "qaws_integrate: Tolerance cannot be achieved with given "
+		   "absolute (" << __max_abs_err << ") and relative ("
+		<< __max_rel_err << ") error limits.";
+	  std::__throw_runtime_error(__msg.str().c_str());
+	}
 
       const auto __limit = __workspace.capacity();
       __workspace.clear();
@@ -126,7 +137,7 @@ namespace __gnu_cxx
       // margin on the first iteration (ignored for subsequent iterations).
       auto __tolerance = std::max(__max_abs_err, __max_rel_err * std::abs(__result0));
       if (__abserr0 < __tolerance && __abserr0 < 0.01 * std::abs(__result0))
-	return std::make_tuple(__result0, __abserr0);
+	return {__result0, __abserr0};
       else if (__limit == 1)
 	__throw_integration_error("qaws_integrate: "
 				  "a maximum of one iteration was insufficient",
@@ -199,10 +210,10 @@ namespace __gnu_cxx
 	__error_type = MAX_SUBDIV_ERROR;
 
       if (__errsum <= __tolerance)
-	return std::make_tuple(__result, __abserr);
+	return {__result, __abserr};
 
       if (__error_type == NO_ERROR)
-	return std::make_tuple(__result, __abserr);
+	return {__result, __abserr};
 
       __check_error<_Tp>(__func__, __error_type, __result, __abserr);
       __throw_integration_error("qaws_integrate: Unknown error.",
@@ -214,7 +225,7 @@ namespace __gnu_cxx
    */
   template<typename _Tp, typename _FuncTp>
     std::tuple<_Tp, _Tp, bool>
-    qc25s(qaws_integration_table<_Tp>& __t,
+    qc25s(qaws_integration_table<_Tp, _FuncTp>& __t,
 	  _FuncTp __func, _Tp __lower, _Tp __upper, _Tp __a1, _Tp __b1)
     {
       fn_qaws<_Tp, _FuncTp> __fqaws(&__t, __func, __lower, __upper);
@@ -226,17 +237,17 @@ namespace __gnu_cxx
 
 	  auto __f = [__fqaws](_Tp __x)
 		     -> _Tp { return __fqaws.eval_right(__x); };
-	  std::array<_Tp, 13> __cheb12;
-	  std::array<_Tp, 25> __cheb24;
-	  qcheb_integrate(__f, __a1, __b1, __cheb12, __cheb24);
+	  auto __chout = qcheb_integrate(__f, __a1, __b1);
+	  const auto& __cheb12 = __chout.__cheb12;
+	  const auto& __cheb24 = __chout.__cheb24;
 
 	  if (__t.mu == 0)
 	    {
 	      const auto __u = __factor;
 
-	      _Tp __res12 = 0, __res24 = 0;
-	      std::tie(__res12, __res24)
-		= compute_result(__t.ri, __cheb12, __cheb24);
+	      auto __out = compute_result(__t.ri, __cheb12, __cheb24);
+	      auto __res12 = __out.__res12;
+	      auto __res24 = __out.__res24;
 
 	      const auto __result = __u * __res24;
 	      const auto __abserr = std::abs(__u * (__res24 - __res12));
@@ -247,12 +258,13 @@ namespace __gnu_cxx
 	      const auto __u = __factor * std::log(__b1 - __a1);
 	      const auto __v = __factor;
 
-	      _Tp __res12a = 0, __res24a = 0;
-	      std::tie(__res12a, __res24a)
-		= compute_result(__t.ri, __cheb12, __cheb24);
-	      _Tp __res12b = 0, __res24b = 0;
-	      std::tie(__res12b, __res24b)
-		= compute_result(__t.rg, __cheb12, __cheb24);
+	      auto __outa = compute_result(__t.ri, __cheb12, __cheb24);
+	      auto __res12a = __outa.__res12;
+	      auto __res24a = __outa.__res24;
+
+	      auto __outb = compute_result(__t.rg, __cheb12, __cheb24);
+	      auto __res12b = __outb.__res12;
+	      auto __res24b = __outb.__res24;
 
 	      const auto __result = __u * __res24a + __v * __res24b;
 	      const auto __abserr = std::abs(__u * (__res24a - __res12a))
@@ -266,17 +278,17 @@ namespace __gnu_cxx
 
 	  auto __f = [__fqaws](_Tp __x)
 		     -> _Tp { return __fqaws.eval_left(__x); };
-	  std::array<_Tp, 13> __cheb12;
-	  std::array<_Tp, 25> __cheb24;
-	  qcheb_integrate(__f, __a1, __b1, __cheb12, __cheb24);
+	  auto __chout = qcheb_integrate(__f, __a1, __b1);
+	  const auto& __cheb12 = __chout.__cheb12;
+	  const auto& __cheb24 = __chout.__cheb24;
 
 	  if (__t.nu == 0)
 	    {
 	      const auto __u = __factor;
 
-	      _Tp __res12, __res24;
-	      std::tie(__res12, __res24)
-		= compute_result(__t.rj, __cheb12, __cheb24);
+	      auto __out = compute_result(__t.rj, __cheb12, __cheb24);
+	      auto __res12 = __out.__res12;
+	      auto __res24 = __out.__res24;
 
 	      const auto __result = __u * __res24;
 	      const auto __abserr = std::abs(__u * (__res24 - __res12));
@@ -287,12 +299,13 @@ namespace __gnu_cxx
 	      const auto __u = __factor * std::log(__b1 - __a1);
 	      const auto __v = __factor;
 
-	      _Tp __res12a, __res24a;
-	      std::tie(__res12a, __res24a)
-		= compute_result(__t.rj, __cheb12, __cheb24);
-	      _Tp __res12b, __res24b;
-	      std::tie(__res12b, __res24b)
-		= compute_result(__t.rh, __cheb12, __cheb24);
+	      auto __outa = compute_result(__t.rj, __cheb12, __cheb24);
+	      auto __res12a = __outa.__res12;
+	      auto __res24a = __outa.__res24;
+
+	      auto __outb = compute_result(__t.rh, __cheb12, __cheb24);
+	      auto __res12b = __outb.__res12;
+	      auto __res24b = __outb.__res24;
 
 	      const auto __result = __u * __res24a + __v * __res24b;
 	      const auto __abserr = std::abs(__u * (__res24a - __res12a))
@@ -306,9 +319,11 @@ namespace __gnu_cxx
 		     ->_Tp
 		     { return __fqaws.eval_middle(__x); };
 
-	  _Tp __result, __abserr, __resabs, __resasc;
-	  std::tie(__result, __abserr, __resabs, __resasc)
-	    = qk_integrate(__f, __a1, __b1, QK_15);
+	  auto __out = qk_integrate(__f, __a1, __b1, Kronrod_15);
+	  auto __result = __out.__result;
+	  auto __abserr = __out.__abserr;
+	  //auto __resabs = __out.__resabs;
+	  auto __resasc = __out.__resasc;
 
 	  bool __err_reliable;
 	  if (__abserr == __resasc)
@@ -320,27 +335,34 @@ namespace __gnu_cxx
 	}
     }
 
+  /*
+   *
+   */
   template<typename _Tp, typename _FuncTp>
     struct fn_qaws
     {
-      const qaws_integration_table<_Tp>* table;
+      using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
+      using _AreaTp = decltype(_RetTp{} * _Tp{});
+
+      const qaws_integration_table<_Tp, _FuncTp>* table;
+
       _FuncTp func;
       _Tp a;
       _Tp b;
 
-      fn_qaws(const qaws_integration_table<_Tp>* __tab,
+      fn_qaws(const qaws_integration_table<_Tp, _FuncTp>* __tab,
 	      _FuncTp __func, _Tp __a_in, _Tp __b_in)
       : table(__tab),
 	func(__func), a(__a_in), b(__b_in)
       { }
 
-      _Tp eval_middle(_Tp) const;
-      _Tp eval_left(_Tp) const;
-      _Tp eval_right(_Tp) const;
+      _RetTp eval_middle(_Tp) const;
+      _RetTp eval_left(_Tp) const;
+      _RetTp eval_right(_Tp) const;
     };
 
   template<typename _Tp, typename _FuncTp>
-    _Tp
+    std::invoke_result_t<_FuncTp, _Tp>
     fn_qaws<_Tp, _FuncTp>::eval_middle(_Tp __x) const
     {
       auto __factor = _Tp{1};
@@ -361,7 +383,7 @@ namespace __gnu_cxx
     }
 
   template<typename _Tp, typename _FuncTp>
-    _Tp
+    std::invoke_result_t<_FuncTp, _Tp>
     fn_qaws<_Tp, _FuncTp>::eval_left(_Tp __x) const
     {
       auto __factor = _Tp{1};
@@ -376,7 +398,7 @@ namespace __gnu_cxx
     }
 
   template<typename _Tp, typename _FuncTp>
-    _Tp
+    std::invoke_result_t<_FuncTp, _Tp>
     fn_qaws<_Tp, _FuncTp>::eval_right(_Tp __x) const
     {
       auto __factor = _Tp{1};
@@ -390,21 +412,23 @@ namespace __gnu_cxx
       return __factor * this->func(__x);
     }
 
-  template<typename _Tp>
-    std::tuple<_Tp, _Tp>
+  template<typename _Tp, typename _RetTp>
+    auto
     compute_result(const std::array<_Tp, 25>& __r,
-		   const std::array<_Tp, 13>& __cheb12,
-		   const std::array<_Tp, 25>& __cheb24)
+		   const std::array<_RetTp, 13>& __cheb12,
+		   const std::array<_RetTp, 25>& __cheb24)
+    -> compute_result_t<decltype(_Tp{} * _RetTp{})>
     {
-      auto __res12 = _Tp{0};
+      using _AreaTp = decltype(_RetTp{} * _Tp{});
+      auto __res12 = _AreaTp{};
       for (size_t __i = 0; __i < __cheb12.size(); ++__i)
 	__res12 += __r[__i] * __cheb12[__i];
 
-      auto __res24 = _Tp{0};
+      auto __res24 = _AreaTp{};
       for (size_t __i = 0; __i < __cheb24.size(); ++__i)
 	__res24 += __r[__i] * __cheb24[__i];
 
-      return std::make_tuple(__res12, __res24);
+      return compute_result_t<_AreaTp>{__res12, __res24};
     }
 
 } // namespace __gnu_cxx

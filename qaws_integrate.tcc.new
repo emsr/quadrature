@@ -30,7 +30,7 @@
 #include <array>
 #include <tuple>
 
-#include "qk_integrate.tcc"
+#include "gauss_kronrod_integral.tcc"
 #include "integration_workspace.h"
 #include "qaws_integration_table.h"
 

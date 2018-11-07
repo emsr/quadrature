@@ -26,13 +26,24 @@
 namespace __gnu_cxx
 {
 
-  template<typename _Tp, typename _FuncTp>
-    void
-    qcheb_integrate(_FuncTp __func, _Tp __lower, _Tp __upper,
-		    std::array<_Tp, 13>& __cheb12,
-		    std::array<_Tp, 25>& __cheb24)
+  template<typename _RetTp>
+    struct chebyshev_integral_t
     {
-      _Tp __fval[25], __v[12];
+      std::array<_RetTp, 13> __cheb12;
+      std::array<_RetTp, 25> __cheb24;
+    };
+
+  template<typename _Tp, typename _FuncTp>
+    auto
+    qcheb_integrate(_FuncTp __func, _Tp __lower, _Tp __upper)
+    -> chebyshev_integral_t<std::invoke_result_t<_FuncTp, _Tp>>
+    {
+      using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
+
+      chebyshev_integral_t<_RetTp> __out;
+      auto& __cheb12 = __out.__cheb12;
+      auto& __cheb24 = __out.__cheb24;
+      _RetTp __fval[25], __v[12];
 
       // These are the values of cos(pi*k/24) for k=1..11 needed for the
       // Chebyshev expansion of f(x).  These are the zeros of the Chebyshev
@@ -231,6 +242,8 @@ namespace __gnu_cxx
 
       __cheb24[0] *= _Tp{1} / _Tp{24};
       __cheb24[24] *= _Tp{1} / _Tp{24};
+
+      return __out;
     }
 
 } // namespace __gnu_cxx

@@ -40,12 +40,15 @@ namespace __gnu_cxx
    * over the semi-infinite interval [a,+\infty)
    */
   template<typename _Tp, typename _FuncTp>
-    std::tuple<_Tp, _Tp>
-    qawf_integrate(integration_workspace<_Tp>& __workspace,
-		   integration_workspace<_Tp>& __cycle_workspace,
+    auto
+    qawf_integrate(integration_workspace<_Tp,
+			std::invoke_result_t<_FuncTp, _Tp>>& __workspace,
+		   integration_workspace<_Tp,
+			std::invoke_result_t<_FuncTp, _Tp>>& __cycle_workspace,
 		   oscillatory_integration_table<_Tp>& __wf,
 		   _FuncTp __func,
 		   _Tp __lower, _Tp __max_abs_err)
+    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
     {
       std::size_t __ktmin = 0;
       std::size_t __iteration = 0;
@@ -79,7 +82,7 @@ namespace __gnu_cxx
 	{
 	  if (__wf.circfun == oscillatory_integration_table<_Tp>::INTEG_SINE)
 	    // The function sin(w x) f(x) is always zero for w = 0.
-	    return std::make_tuple(_Tp{0}, _Tp{0});
+	    return {_Tp{0}, _Tp{0}};
 	  else
 	    // The function cos(w x) f(x) is always f(x) for w = 0.
 	    return qagiu_integrate(__cycle_workspace, __func, __lower, __max_abs_err,
@@ -113,10 +116,10 @@ namespace __gnu_cxx
 
 	  const auto __max_abs_err1 = __eps * __factor;
 
-	  _Tp __area1, __error1;
-	  std::tie(__area1, __error1)
-	    = qawo_integrate(__cycle_workspace, __wf, __func, __a1, __max_abs_err1,
-			     _Tp{0});
+	  auto __out1 = qawo_integrate(__cycle_workspace, __wf, __func, __a1,
+			     __max_abs_err1, _Tp{0});
+	  auto __area1 = __out1.__result;
+	  auto __error1 = __out1.__abserr;
 
 	  __workspace.append(__a1, __b1, __area1, __error1);
 
@@ -177,7 +180,7 @@ namespace __gnu_cxx
       __abserr = __err_ext;
 
       if (__error_type == NO_ERROR)
-	return std::make_tuple(__result, __abserr);
+	return {__result, __abserr};
 
       if (__res_ext != _Tp{0} && __area != _Tp{0})
 	{
@@ -200,7 +203,7 @@ namespace __gnu_cxx
       __abserr = __total_error;
 
       if (__error_type == NO_ERROR)
-	return std::make_tuple(__result, __abserr);
+	return {__result, __abserr};
 
     return_error:
 

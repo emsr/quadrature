@@ -24,8 +24,8 @@
 namespace __gnu_cxx
 {
 
-  template<typename _Tp>
-    qaws_integration_table<_Tp>::
+  template<typename _Tp, typename _FuncTp>
+    qaws_integration_table<_Tp, _FuncTp>::
     qaws_integration_table(_Tp __alpha_in, _Tp __beta_in,
 			   int __mu_in, int __nu_in)
     : alpha(__alpha_in),
@@ -49,10 +49,11 @@ namespace __gnu_cxx
       this->initialise();
     }
 
-  template<typename _Tp>
+  template<typename _Tp, typename _FuncTp>
     void
-    qaws_integration_table<_Tp>::set(_Tp __alpha_in, _Tp __beta_in,
-				     int __mu_in, int __nu_in)
+    qaws_integration_table<_Tp, _FuncTp>::
+    set(_Tp __alpha_in, _Tp __beta_in,
+	int __mu_in, int __nu_in)
     {
       if (__alpha_in < _Tp{-1})
 	std::__throw_domain_error("qaws_integration_table: "
@@ -75,9 +76,9 @@ namespace __gnu_cxx
       this->initialise();
     }
 
-  template<typename _Tp>
+  template<typename _Tp, typename _FuncTp>
     void
-    qaws_integration_table<_Tp>::initialise()
+    qaws_integration_table<_Tp, _FuncTp>::initialise()
     {
       const auto __alpha_p1 = this->alpha + _Tp{1};
       const auto __beta_p1 = this->beta + _Tp{1};
@@ -96,7 +97,7 @@ namespace __gnu_cxx
 	{
 	  this->ri[__i] = -(__r_alpha
 			  + __an * (__an - __alpha_p2) * this->ri[__i - 1])
-		      / (__anm1 * (__an + __alpha_p1));
+			/ (__anm1 * (__an + __alpha_p1));
 	  __anm1 = __an;
 	  __an += _Tp{1};
 	}
@@ -108,8 +109,8 @@ namespace __gnu_cxx
       for (size_t __i = 2; __i < this->rj.size(); ++__i)
 	{
 	  this->rj[__i] = -(__r_beta
-				+ __an * (__an - __beta_p2) * this->rj[__i - 1])
-	    / (__anm1 * (__an + __beta_p1));
+			  + __an * (__an - __beta_p2) * this->rj[__i - 1])
+			/ (__anm1 * (__an + __beta_p1));
 	  __anm1 = __an;
 	  __an += _Tp{1};
 	}

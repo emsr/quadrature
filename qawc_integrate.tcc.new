@@ -31,7 +31,7 @@
 #include <tuple>
 
 #include "integration_workspace.h"
-#include "qk_integrate.tcc"
+#include "gauss_kronrod_integral.tcc"
 
 namespace __gnu_cxx
 {

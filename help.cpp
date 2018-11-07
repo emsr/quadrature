@@ -57,7 +57,8 @@ template<typename _Ret, typename _Tp, typename _Integrator>
     bool __err_reliable;
     std::tie(__result0, __abserr0, __err_reliable)
       = qc25c(__func, __lower, __upper, __center, __quad);
-    return std::make_tuple(_Tp{}, _Tp{});
+    //return std::make_tuple(_Tp{}, _Tp{}); // ???
+    return std::make_tuple(__result0, __abserr0);
   }
 
 template<typename _Ret, typename _Tp>

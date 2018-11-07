@@ -6,7 +6,6 @@ cmake_install.cmake
 error.txt
 
 build_clenshaw_curtis
-build_gauss_kronrod
 
 assoc_laguerre_test
 assoc_legendre_test
@@ -24,6 +23,7 @@ sph_legendre_test
 zernike_test
 
 test_fft
+test_gauss_kronrod_rule
 test_gauss_hermite
 test_gauss_laguerre
 test_quadrature

@@ -1,5 +1,5 @@
 // -*- C++ -*-
-// Integration utilities for the C++ library testsuite.
+// Integration utilities for C++.
 //
 // Copyright (C) 2011-2018 Free Software Foundation, Inc.
 //
@@ -34,17 +34,20 @@
 namespace __gnu_cxx
 {
 
-  template<typename _Tp>
+  template<typename _Tp, typename _RetTp>
     class integration_workspace
     {
     private:
+
+      using _AreaTp = decltype(_RetTp{} * _Tp{});
+      using _ErrorTp = decltype(std::abs(_AreaTp{}));
 
       struct interval
       {
 	_Tp __lower_lim;
 	_Tp __upper_lim;
-	_Tp __result;
-	_Tp __abs_error;
+	_AreaTp __result;
+	_ErrorTp __abs_error;
 	std::size_t __depth;
 
 	bool
@@ -89,12 +92,12 @@ namespace __gnu_cxx
 
       void sort_error();
 
-      void append(_Tp __a, _Tp __b, _Tp __area, _Tp __error,
+      void append(_Tp __a, _Tp __b, _AreaTp __area, _ErrorTp __error,
 		  std::size_t __depth = 0);
 
       void split(_Tp __ab,
-		 _Tp __area1, _Tp __error1,
-		 _Tp __area2, _Tp __error2);
+		 _AreaTp __area1, _ErrorTp __error1,
+		 _AreaTp __area2, _ErrorTp __error2);
 
       const interval&
       retrieve() const
@@ -188,14 +191,14 @@ namespace __gnu_cxx
       /**
        * Return the integration result for the segment at start + ii.
        */
-      _Tp
+      _AreaTp
       result(std::size_t __ii = 0) const
       { return this->_M_ival[this->curr_index() + __ii].__result; }
 
       /**
        * Return the absolute error for the segment at start + ii.
        */
-      _Tp
+      _ErrorTp
       abs_error(std::size_t __ii = 0) const
       { return this->_M_ival[this->curr_index() + __ii].__abs_error; }
 
@@ -210,8 +213,8 @@ namespace __gnu_cxx
        * Set the absolute error of the segment at start + ii to the given value.
        * Only used by qagp.
        */
-      _Tp
-      set_abs_error(std::size_t __ii, _Tp __abserr)
+      _ErrorTp
+      set_abs_error(std::size_t __ii, _ErrorTp __abserr)
       { return this->_M_ival[this->curr_index() + __ii].__abs_error = __abserr; }
 
       /**
@@ -269,20 +272,20 @@ namespace __gnu_cxx
 
       /// Return the total integral:
       /// the sum of the results over all integration segments.
-      _Tp
+      _AreaTp
       total_integral() const
       {
-	auto __result_sum = _Tp{0};
+	auto __result_sum = _AreaTp{0};
 	for (const auto& __iv : this->_M_ival)
 	  __result_sum += __iv.__result;
 	return __result_sum;
       }
 
       /// Return the sum of the absolute errors over all integration segments.
-      _Tp
+      _ErrorTp
       total_error() const
       {
-	auto __tot_error = _Tp{0};
+	auto __tot_error = _ErrorTp{0};
 	for (auto& __iv : this->_M_ival)
 	  __tot_error += __iv.__abs_error;
 	return __tot_error;
@@ -309,9 +312,10 @@ namespace __gnu_cxx
       }
     };
 
-  template<typename _Tp>
+  template<typename _Tp, typename _RetTp>
     std::ostream&
-    operator<<(std::ostream& __out, const integration_workspace<_Tp>& __ws);
+    operator<<(std::ostream& __out,
+	       const integration_workspace<_Tp, _RetTp>& __ws);
 
 } // namespace __gnu_cxx
 

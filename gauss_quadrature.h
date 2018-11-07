@@ -1,5 +1,5 @@
 // -*- C++ -*-
-// Integration utilities for the C++ library testsuite.
+// Integration utilities for C++.
 //
 // Copyright (C) 2018 Free Software Foundation, Inc.
 //
@@ -38,7 +38,7 @@ namespace __gnu_cxx
       explicit gauss_legendre_rule(int __n);
 
       template<typename _FuncTp>
-	_Tp
+	decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
 	operator()(_FuncTp, _Tp __a, _Tp __b) const;
 
     private:
@@ -57,7 +57,7 @@ namespace __gnu_cxx
       explicit gauss_chebyshev_t_rule(int __n);
 
       template<typename _FuncTp>
-	_Tp
+	decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
 	operator()(_FuncTp, _Tp __a, _Tp __b) const;
 
     private:
@@ -76,7 +76,7 @@ namespace __gnu_cxx
       explicit gauss_chebyshev_u_rule(int __n);
 
       template<typename _FuncTp>
-	_Tp
+	decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
 	operator()(_FuncTp, _Tp __a, _Tp __b) const;
 
     private:
@@ -98,7 +98,7 @@ namespace __gnu_cxx
       explicit gauss_chebyshev_v_rule(int __n);
 
       template<typename _FuncTp>
-	_Tp
+	decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
 	operator()(_FuncTp, _Tp __a, _Tp __b) const;
 
     private:
@@ -117,7 +117,7 @@ namespace __gnu_cxx
       explicit gauss_chebyshev_w_rule(int __n);
 
       template<typename _FuncTp>
-	_Tp
+	decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
 	operator()(_FuncTp, _Tp __a, _Tp __b) const;
 
     private:
@@ -137,7 +137,7 @@ namespace __gnu_cxx
       explicit gauss_gegenbauer_rule(int __n, _Tp __lam);
 
       template<typename _FuncTp>
-	_Tp
+	decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
 	operator()(_FuncTp, _Tp __a, _Tp __b) const;
 
     private:
@@ -158,7 +158,7 @@ namespace __gnu_cxx
       explicit gauss_jacobi_rule(int __n, _Tp __alf, _Tp __bet);
 
       template<typename _FuncTp>
-	_Tp
+	decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
 	operator()(_FuncTp, _Tp __a, _Tp __b) const;
 
     private:
@@ -178,7 +178,7 @@ namespace __gnu_cxx
       explicit gauss_laguerre_rule(int n, _Tp __alf);
 
       template<typename _FuncTp>
-	_Tp
+	decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
 	operator()(_FuncTp, _Tp __a, _Tp __b) const;
 
     private:
@@ -198,7 +198,7 @@ namespace __gnu_cxx
       explicit gauss_hermite_rule(int __n, _Tp __alf);
 
       template<typename _FuncTp>
-	_Tp
+	decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
 	operator()(_FuncTp, _Tp __a, _Tp __b) const;
 
     private:
@@ -218,7 +218,7 @@ namespace __gnu_cxx
       explicit gauss_exponential_rule(int __n, _Tp __alf);
 
       template<typename _FuncTp>
-	_Tp
+	decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
 	operator()(_FuncTp, _Tp __a, _Tp __b) const;
 
     private:
@@ -239,7 +239,7 @@ namespace __gnu_cxx
       explicit gauss_rational_rule(int __n, _Tp __alf, _Tp __bet);
 
       template<typename _FuncTp>
-	_Tp
+	decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
 	operator()(_FuncTp, _Tp __a, _Tp __b) const;
 
     private:

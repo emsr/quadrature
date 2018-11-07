@@ -15,9 +15,9 @@ ifeq ("$(wildcard $(CXX_INST_DIR))","")
 endif
 
 #OPT = -O3
-OPT = -g -fsanitize=signed-integer-overflow -fsanitize=bounds -fsanitize=float-divide-by-zero -fsanitize=float-cast-overflow -fsanitize=alignment
+OPT = -g
+#OPT = -g -fsanitize=signed-integer-overflow -fsanitize=bounds -fsanitize=float-divide-by-zero -fsanitize=float-cast-overflow -fsanitize=alignment
 GCC = $(CXX_INST_DIR)/bin/gcc $(OPT) -Wall -Wextra
-CXX = $(CXX_INST_DIR)/bin/g++ -std=gnu++14 $(OPT) -D__STDCPP_WANT_MATH_SPEC_FUNCS__ -Wall -Wextra -Wno-psabi -I..
 CXX17 = $(CXX_INST_DIR)/bin/g++ -std=gnu++17 -fconcepts $(OPT) -Wall -Wextra -Wno-psabi -I..
 CXX_INC_DIR = $(CXX_INST_DIR)/include/c++/8.0.0/bits
 CXX_LIB_DIR = $(CXX_INST_DIR)/lib64
@@ -47,7 +47,9 @@ BINS = \
   $(BIN_DIR)/chebyshev_v_test \
   $(BIN_DIR)/chebyshev_w_test \
   $(BIN_DIR)/radpoly_test \
-  $(BIN_DIR)/zernike_test
+  $(BIN_DIR)/zernike_test \
+  $(BIN_DIR)/build_clenshaw_curtis \
+  $(BIN_DIR)/test_gauss_kronrod_rule
 
 
 all: $(OBJ_DIR) $(BINS)
@@ -89,8 +91,14 @@ docs:
 
 # Binaries...
 
+$(BIN_DIR)/build_clenshaw_curtis: $(OBJ_DIR)/build_clenshaw_curtis.o
+	$(CXX17) -o $(BIN_DIR)/build_clenshaw_curtis $(OBJ_DIR)/build_clenshaw_curtis.o -lquadmath -L../wrappers/debug -lwrap_burkhardt -lgfortran
+
+$(BIN_DIR)/test_gauss_kronrod_rule: $(OBJ_DIR)/test_gauss_kronrod_rule.o
+	$(CXX17) -o $(BIN_DIR)/test_gauss_kronrod_rule $(OBJ_DIR)/test_gauss_kronrod_rule.o -lquadmath
+
 $(BIN_DIR)/assoc_laguerre_test: $(OBJ_DIR)/assoc_laguerre_test.o
-	$(CXX17) -I../include -o $(BIN_DIR)/assoc_laguerre_test $(OBJ_DIR)/assoc_laguerre_test.o -lquadmath
+	$(CXX17) -o $(BIN_DIR)/assoc_laguerre_test $(OBJ_DIR)/assoc_laguerre_test.o -lquadmath
 
 $(BIN_DIR)/assoc_legendre_test: $(OBJ_DIR)/assoc_legendre_test.o
 	$(CXX17) -o $(BIN_DIR)/assoc_legendre_test $(OBJ_DIR)/assoc_legendre_test.o -lquadmath
@@ -159,6 +167,12 @@ $(BIN_DIR)/zernike_test: $(OBJ_DIR)/zernike_test.o
 	$(CXX17) -o $(BIN_DIR)/zernike_test $(OBJ_DIR)/zernike_test.o -lquadmath
 
 # Objects...
+
+$(OBJ_DIR)/build_clenshaw_curtis.o: *.h *.tcc build_clenshaw_curtis.cpp
+	$(CXX17) -c -I../include -I../wrappers -o $(OBJ_DIR)/build_clenshaw_curtis.o build_clenshaw_curtis.cpp
+
+$(OBJ_DIR)/test_gauss_kronrod_rule.o: *.h *.tcc test_gauss_kronrod_rule.cpp
+	$(CXX17) -c -I../include -o $(OBJ_DIR)/test_gauss_kronrod_rule.o test_gauss_kronrod_rule.cpp
 
 $(OBJ_DIR)/assoc_laguerre_test.o: *.h *.tcc assoc_laguerre_test.cpp
 	$(CXX17) -c -I../include -o $(OBJ_DIR)/assoc_laguerre_test.o assoc_laguerre_test.cpp

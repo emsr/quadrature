@@ -1,5 +1,5 @@
 // -*- C++ -*-
-// Integration utilities for the C++ library testsuite.
+// Integration utilities for C++.
 //
 // Copyright (C) 2018 Free Software Foundation, Inc.
 //
@@ -110,10 +110,13 @@ namespace __detail
    */
   template<typename _Tp>
     template<typename _FuncTp>
-      _Tp
+      decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
       gauss_legendre_rule<_Tp>::operator()(_FuncTp __func,
 					   _Tp __a, _Tp __b) const
       {
+	using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
+	using _AreaTp = decltype(_RetTp{} * _Tp{});
+
 	auto __sign = _Tp{1};
 	if (__b < __a)
 	  {
@@ -125,7 +128,7 @@ namespace __detail
 	const auto __slope = (__b - __a) / _Tp{2};
 	const auto __fact = __slope;
 
-	auto __sum = _Tp{0};
+	auto __sum = _AreaTp{0};
 	for (int __i = 0; __i < this->order; ++__i)
 	  __sum += this->weight[__i]
 		 * __func(__shift + __slope * this->point[__i]);
@@ -167,10 +170,13 @@ namespace __detail
    */
   template<typename _Tp>
     template<typename _FuncTp>
-      _Tp
+      decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
       gauss_chebyshev_t_rule<_Tp>::operator()(_FuncTp __func,
 					      _Tp __a, _Tp __b) const
       {
+	using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
+	using _AreaTp = decltype(_RetTp{} * _Tp{});
+
 	auto __sign = _Tp{1};
 	if (__b < __a)
 	  {
@@ -182,7 +188,7 @@ namespace __detail
 	const auto __slope = (__b - __a) / _Tp{2};
 	const auto __fact = _Tp{1};
 
-	auto __sum = _Tp{0};
+	auto __sum = _AreaTp{0};
 	for (int __i = 0; __i < this->order; ++__i)
 	  __sum += this->weight[__i]
 		 * __func(__shift + __slope * this->point[__i]);
@@ -222,10 +228,13 @@ namespace __detail
    */
   template<typename _Tp>
     template<typename _FuncTp>
-      _Tp
+      decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
       gauss_chebyshev_u_rule<_Tp>::operator()(_FuncTp __func,
 					      _Tp __a, _Tp __b) const
       {
+	using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
+	using _AreaTp = decltype(_RetTp{} * _Tp{});
+
 	auto __sign = _Tp{1};
 	if (__b < __a)
 	  {
@@ -237,7 +246,7 @@ namespace __detail
 	const auto __slope = (__b - __a) / _Tp{2};
 	const auto __fact = __slope * __slope;
 
-	auto __sum = _Tp{0};
+	auto __sum = _AreaTp{0};
 	for (int __i = 0; __i < this->order; ++__i)
 	  __sum += this->weight[__i]
 		 * __func(__shift + __slope * this->point[__i]);
@@ -281,10 +290,13 @@ namespace __detail
    */
   template<typename _Tp>
     template<typename _FuncTp>
-      _Tp
+      decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
       gauss_chebyshev_v_rule<_Tp>::operator()(_FuncTp __func,
 					      _Tp __a, _Tp __b) const
       {
+	using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
+	using _AreaTp = decltype(_RetTp{} * _Tp{});
+
 	auto __sign = _Tp{1};
 	if (__b < __a)
 	  {
@@ -296,7 +308,7 @@ namespace __detail
 	const auto __slope = (__b - __a) / _Tp{2};
 	const auto __fact = __slope;
 
-	auto __sum = _Tp{0};
+	auto __sum = _AreaTp{0};
 	for (int __i = 0; __i < this->order; ++__i)
 	  __sum += this->weight[__i]
 		 * __func(__shift + __slope * this->point[__i]);
@@ -339,10 +351,13 @@ namespace __detail
    */
   template<typename _Tp>
     template<typename _FuncTp>
-      _Tp
+      decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
       gauss_chebyshev_w_rule<_Tp>::operator()(_FuncTp __func,
 					      _Tp __a, _Tp __b) const
       {
+	using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
+	using _AreaTp = decltype(_RetTp{} * _Tp{});
+
 	auto __sign = _Tp{1};
 	if (__b < __a)
 	  {
@@ -354,7 +369,7 @@ namespace __detail
 	const auto __slope = (__b - __a) / _Tp{2};
 	const auto __fact = __slope;
 
-	auto __sum = _Tp{0};
+	auto __sum = _AreaTp{0};
 	for (int __i = 0; __i < this->order; ++__i)
 	  __sum += this->weight[__i]
 		 * __func(__shift + __slope * this->point[__i]);
@@ -403,10 +418,13 @@ namespace __detail
    */
   template<typename _Tp>
     template<typename _FuncTp>
-      _Tp
+      decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
       gauss_gegenbauer_rule<_Tp>::operator()(_FuncTp __func,
 					     _Tp __a, _Tp __b) const
       {
+	using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
+	using _AreaTp = decltype(_RetTp{} * _Tp{});
+
 	auto __sign = _Tp{1};
 	if (__b < __a)
 	  {
@@ -418,7 +436,7 @@ namespace __detail
 	const auto __slope = (__b - __a) / _Tp{2};
 	const auto __fact = std::pow(__slope, _Tp{2} * this->lambda + _Tp{1});
 
-	auto __sum = _Tp{0};
+	auto __sum = _AreaTp{0};
 	for (int __i = 0; __i < this->order; ++__i)
 	  __sum += this->weight[__i]
 		 * __func(__shift + __slope * this->point[__i]);
@@ -482,10 +500,13 @@ namespace __detail
    */
   template<typename _Tp>
     template<typename _FuncTp>
-      _Tp
+      decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
       gauss_jacobi_rule<_Tp>::operator()(_FuncTp __func,
 					 _Tp __a, _Tp __b) const
       {
+	using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
+	using _AreaTp = decltype(_RetTp{} * _Tp{});
+
 	auto __sign = _Tp{1};
 	if (__b < __a)
 	  {
@@ -497,7 +518,7 @@ namespace __detail
 	const auto __slope = (__b - __a) / _Tp{2};
 	const auto __fact = std::pow(__slope, this->alpha + this->beta + _Tp{1});
 
-	auto __sum = _Tp{0};
+	auto __sum = _AreaTp{0};
 	for (int __i = 0; __i < this->order; ++__i)
 	  __sum += this->weight[__i]
 		 * __func(__shift + __slope * this->point[__i]);
@@ -544,15 +565,18 @@ namespace __detail
    */
   template<typename _Tp>
     template<typename _FuncTp>
-      _Tp
+      decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
       gauss_laguerre_rule<_Tp>::operator()(_FuncTp __func,
 					   _Tp __a, _Tp __b) const
       {
+	using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
+	using _AreaTp = decltype(_RetTp{} * _Tp{});
+
 	const auto __shift = __a;
 	const auto __slope = _Tp{1} / __b;
 	const auto __fact = std::pow(__slope, this->alpha + _Tp{1});
 
-	auto __sum = _Tp{0};
+	auto __sum = _AreaTp{0};
 	for (int __i = 0; __i < this->order; ++__i)
 	  __sum += this->weight[__i]
 		 * __func(__shift + __slope * this->point[__i]);
@@ -597,15 +621,18 @@ namespace __detail
    */
   template<typename _Tp>
     template<typename _FuncTp>
-      _Tp
+      decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
       gauss_hermite_rule<_Tp>::operator()(_FuncTp __func,
 					  _Tp __a, _Tp __b) const
       {
+	using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
+	using _AreaTp = decltype(_RetTp{} * _Tp{});
+
 	const auto __shift = __a;
 	const auto __slope = _Tp{1} / std::sqrt(__b);
 	const auto __fact = std::pow(__slope, this->alpha + _Tp{1});
 
-	auto __sum = _Tp{0};
+	auto __sum = _AreaTp{0};
 	for (int __i = 0; __i < this->order; ++__i)
 	  __sum += this->weight[__i]
 		 * __func(__shift + __slope * this->point[__i]);
@@ -652,10 +679,13 @@ namespace __detail
    */
   template<typename _Tp>
     template<typename _FuncTp>
-      _Tp
+      decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
       gauss_exponential_rule<_Tp>::operator()(_FuncTp __func,
 					      _Tp __a, _Tp __b) const
       {
+	using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
+	using _AreaTp = decltype(_RetTp{} * _Tp{});
+
 	auto __sign = _Tp{1};
 	if (__b < __a)
 	  {
@@ -667,7 +697,7 @@ namespace __detail
 	const auto __slope = (__b - __a) / _Tp{2};
 	const auto __fact = std::pow(__slope, this->alpha + _Tp{1});
 
-	auto __sum = _Tp{0};
+	auto __sum = _AreaTp{0};
 	for (int __i = 0; __i < this->order; ++__i)
 	  __sum += this->weight[__i]
 		 * __func(__shift + __slope * this->point[__i]);
@@ -734,10 +764,13 @@ namespace __detail
    */
   template<typename _Tp>
     template<typename _FuncTp>
-      _Tp
+      decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
       gauss_rational_rule<_Tp>::operator()(_FuncTp __func,
 					   _Tp __a, _Tp __b) const
       {
+	using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
+	using _AreaTp = decltype(_RetTp{} * _Tp{});
+
 	auto __sign = _Tp{1};
 	if (__b < __a)
 	  {
@@ -749,7 +782,7 @@ namespace __detail
 	const auto __slope = __b + __a;
 	const auto __fact = std::pow(__slope, this->alpha + this->beta + _Tp{1});
 
-	auto __sum = _Tp{0};
+	auto __sum = _AreaTp{0};
 	for (int __i = 0; __i < this->order; ++__i)
 	  __sum += this->weight[__i]
 		 * __func(__shift + __slope * this->point[__i]);

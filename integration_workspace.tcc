@@ -1,5 +1,5 @@
 // -*- C++ -*-
-// Integration utilities for the C++ library testsuite.
+// Integration utilities for C++.
 //
 // Copyright (C) 2011-2018 Free Software Foundation, Inc.
 //
@@ -37,9 +37,9 @@ namespace __gnu_cxx
    * Rebuild the current heap.
    * N.B. this->begin() includes curr_index()!
    */
-  template<typename _Tp>
+  template<typename _Tp, typename _RetTp>
     void
-    integration_workspace<_Tp>::sort_error()
+    integration_workspace<_Tp, _RetTp>::sort_error()
     {
       std::make_heap(this->begin(), this->end(), interval_comp{});
       return;
@@ -48,11 +48,12 @@ namespace __gnu_cxx
   /**
    *
    */
-  template<typename _Tp>
+  template<typename _Tp, typename _RetTp>
     void
-    integration_workspace<_Tp>::append(_Tp __a, _Tp __b,
-				       _Tp __area, _Tp __error,
-				       std::size_t __depth)
+    integration_workspace<_Tp, _RetTp>::
+    append(_Tp __a, _Tp __b,
+	   _AreaTp __area, _ErrorTp __error,
+	   std::size_t __depth)
     {
       interval __iv;
       __iv.__lower_lim = __a;
@@ -66,11 +67,12 @@ namespace __gnu_cxx
   /**
    *
    */
-  template<typename _Tp>
+  template<typename _Tp, typename _RetTp>
     void
-    integration_workspace<_Tp>::split(_Tp __ab,
-				      _Tp __area1, _Tp __error1,
-				      _Tp __area2, _Tp __error2)
+    integration_workspace<_Tp, _RetTp>::
+    split(_Tp __ab,
+	  _AreaTp __area1, _ErrorTp __error1,
+	  _AreaTp __area2, _ErrorTp __error2)
     {
       auto __iv = this->top();
       const auto __a1 = __iv.__lower_lim;
@@ -104,16 +106,16 @@ namespace __gnu_cxx
    * Increase the heap start point until the current segment has a smaller
    * depth than the current maximum depth.  After each increment rebuild
    * the heap from the new start point so the new start point is the largest
-   * error
+   * error.
    *
    * Usage:
    * In the caller the smallest interval (at max depth) has the largest error.
    * Before bisecting decrease the sum of the errors over the larger intervals
    * (error_over_large_intervals) and perform extrapolation.
    */
-  template<typename _Tp>
+  template<typename _Tp, typename _RetTp>
     bool
-    integration_workspace<_Tp>::increment_curr_index()
+    integration_workspace<_Tp, _RetTp>::increment_curr_index()
     {
       size_t __limit = this->max_size();
       size_t __last = this->size() - 1 ;
@@ -138,9 +140,10 @@ namespace __gnu_cxx
   /**
    * Output the integration workspace to a stream.
    */
-  template<typename _Tp>
+  template<typename _Tp, typename _RetTp>
     std::ostream&
-    operator<<(std::ostream& __out, const integration_workspace<_Tp>& __ws)
+    operator<<(std::ostream& __out,
+	       const integration_workspace<_Tp, _RetTp>& __ws)
     {
       auto __w = __out.width();
       __out << std::setw(0);

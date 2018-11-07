@@ -27,11 +27,14 @@ namespace __gnu_cxx
 {
 
   template<typename _Tp, typename _FuncTp>
-    _Tp
+    decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
     glfixed_integrate(const gauss_legendre_table<_Tp>& __t,
 		      _FuncTp __func,
 		      _Tp __lower, _Tp __upper)
     {
+      using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
+      using _AreaTp = decltype(_RetTp{} * _Tp{});
+
       const int __n = __t.order;
 
       auto __m = (__n + 1) >> 1;
@@ -50,7 +53,7 @@ namespace __gnu_cxx
 	}
       else // n is even.
 	{
-	  auto __sum = _Tp{0};
+	  auto __sum = _AreaTp{0};
 	  for (int __i = 0; __i < __m; ++__i)
 	    {
 	      auto __Ax = __A * __t.pt(__i);

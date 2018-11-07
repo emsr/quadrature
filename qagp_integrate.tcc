@@ -1,5 +1,5 @@
 // -*- C++ -*-
-// Integration utilities for the C++ library testsuite.
+// Integration utilities for C++.
 //
 // Copyright (C) 1996, 1997, 1998, 1999, 2000, 2007 Brian Gough
 // Copyright (C) 2016-2018 Free Software Foundation, Inc.
@@ -28,7 +28,8 @@
 #ifndef QAGP_INTEGRATE_TCC
 #define QAGP_INTEGRATE_TCC 1
 
-#include "qk_integrate.tcc"
+#include <tuple>
+
 #include "integration_workspace.h"
 #include "extrapolation_table.h"
 
@@ -38,7 +39,8 @@ namespace __gnu_cxx
 #ifdef VERBOSE_DEBUG
 template<typename _Tp>
 void
-dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
+dump_ws(integration_workspace<_Tp, _RetTp>& workspace,
+	const char* cmp, const char* msg)
 {
   std::cerr.precision(8);
   std::cerr << '\n' << cmp << ": " << msg << '\n';
@@ -66,12 +68,14 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
    *                   and two integration limits
    */
   template<typename _Tp, typename _FuncTp, typename _Integrator>
-    std::tuple<_Tp, _Tp>
-    qagp_integrate(integration_workspace<_Tp>& __workspace,
+    auto
+    qagp_integrate(integration_workspace<_Tp,
+			std::invoke_result_t<_FuncTp, _Tp>>& __workspace,
 		   _FuncTp __func,
 		   std::vector<_Tp> __pts,
 		   _Tp __max_abs_err, _Tp __max_rel_err,
 		   _Integrator __quad)
+    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
     {
       const auto _S_max = std::numeric_limits<_Tp>::max();
       const auto _S_eps = std::numeric_limits<_Tp>::epsilon();
@@ -84,7 +88,7 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
       bool __extrapolate = false;
       bool __allow_extrapolation = true;
 
-      if (valid_tolerances(__max_abs_err, __max_rel_err))
+      if (!valid_tolerances(__max_abs_err, __max_rel_err))
 	{
 	  std::ostringstream __msg;
 	  __msg << "qagp_integrate: Tolerance cannot be achieved with given "
@@ -115,9 +119,11 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
 	  const auto __lower = __pts[__i];
 	  const auto __upper = __pts[__i + 1];
 
-	  _Tp __area1, __error1, __resabs1, __resasc1;
-	  std::tie(__area1, __error1, __resabs1, __resasc1)
-	    = __quad(__func, __lower, __upper);
+	  auto __out1 = __quad(__func, __lower, __upper);
+	  auto __area1 = __out1.__result;
+	  auto __error1 = __out1.__abserr;
+	  auto __resabs1 = __out1.__resabs;
+	  auto __resasc1 = __out1.__resasc;
 
 	  __result0 += __area1;
 	  __abserr0 += __error1;
@@ -153,7 +159,7 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
 				  "of roundoff error on first attempt",
 				  ROUNDOFF_ERROR, __result0, __abserr0);
       else if (__abserr0 <= __tolerance)
-	return std::make_tuple(__result0, __abserr0);
+	return {__result0, __abserr0};
       else if (__limit == 1)
 	__throw_integration_error("qagp_integrate: "
 				  "a maximum of one iteration was insufficient",
@@ -187,13 +193,17 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
 
 	  ++__iteration;
 
-	  _Tp __area1, __error1, __resabs1, __resasc1;
-	  std::tie(__area1, __error1, __resabs1, __resasc1)
-	    = __quad(__func, __a1, __mid);
+	  auto __out1 = __quad(__func, __a1, __mid);
+	  auto __area1 = __out1.__result;
+	  auto __error1 = __out1.__abserr;
+	  //auto __resabs1 = __out1.__resabs;
+	  auto __resasc1 = __out1.__resasc;
 
-	  _Tp __area2, __error2, __resabs2, __resasc2;
-	  std::tie(__area2, __error2, __resabs2, __resasc2)
-	    = __quad(__func, __a2, __b2);
+	  auto __out2 = __quad(__func, __a2, __b2);
+	  auto __area2 = __out2.__result;
+	  auto __error2 = __out2.__abserr;
+	  //auto __resabs2 = __out2.__resabs;
+	  auto __resasc2 = __out2.__resasc;
 
 	  const auto __area12 = __area1 + __area2;
 	  const auto __error12 = __error1 + __error2;
@@ -246,7 +256,7 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
 	    {
 	      const auto __result = __workspace.total_integral();
 	      __check_error(__func__, __error_type, __result, __errsum);
-	      return std::make_tuple(__result, __errsum);
+	      return {__result, __errsum};
 	    }
 
 	  if (__error_type != NO_ERROR)
@@ -339,7 +349,7 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
 	{
 	  const auto __result = __workspace.total_integral();
 	  __check_error(__func__, __error_type, __result, __errsum);
-	  return std::make_tuple(__result, __errsum);
+	  return {__result, __errsum};
 	}
 
       if (__error_type != NO_ERROR || __error_type2 != NO_ERROR)
@@ -356,14 +366,14 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
 		{
 		  const auto __result = __workspace.total_integral();
 		  __check_error(__func__, __error_type, __result, __errsum);
-		  return std::make_tuple(__result, __errsum);
+		  return {__result, __errsum};
 		}
 	    }
 	  else if (__err_ext > __errsum)
 	    {
 	      const auto __result = __workspace.total_integral();
 	      __check_error(__func__, __error_type, __result, __errsum);
-	      return std::make_tuple(__result, __errsum);
+	      return {__result, __errsum};
 	    }
 	  else if (__area == _Tp{0})
 	    {
@@ -386,7 +396,7 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
 	__error_type = UNKNOWN_ERROR;
 
       if (__error_type == NO_ERROR)
-	return std::make_tuple(__result, __abserr);
+	return {__result, __abserr};
 
       __check_error<_Tp>(__func__, __error_type, __result, __abserr);
       __throw_integration_error("qagp_integrate: Unknown error.",
@@ -406,17 +416,19 @@ dump_ws(integration_workspace<_Tp>& workspace, const char* cmp, const char* msg)
    * @param[in] __qkintrule The size of the Gauss-Kronrod integration scheme
    */
   template<typename _Tp, typename _FuncTp>
-    std::tuple<_Tp, _Tp>
-    qagp_integrate(integration_workspace<_Tp>& __workspace,
+    auto
+    qagp_integrate(integration_workspace<_Tp,
+			std::invoke_result_t<_FuncTp, _Tp>>& __workspace,
 		   _FuncTp __func,
 		   std::vector<_Tp> __pts,
 		   _Tp __max_abs_err, _Tp __max_rel_err,
-		   Kronrod_Rule __qk_rule = QK_21)
+		   Kronrod_Rule __qk_rule = Kronrod_21)
+    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
     {
       auto __quad
 	= [__qk_rule]
 	  (_FuncTp __func, _Tp __lower, _Tp __upper)
-	  -> std::tuple<_Tp, _Tp, _Tp, _Tp>
+	  -> gauss_kronrod_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
 	  { return qk_integrate(__func, __lower, __upper, __qk_rule); };
 
       return qagp_integrate(__workspace, __func, __pts,

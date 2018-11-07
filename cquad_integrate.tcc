@@ -50,6 +50,7 @@ namespace __gnu_cxx
 		__c[__i] += V1inv[__i * 5 + __j] * __fx[__j * 8];
 	    }
 	  break;
+
 	case 1:
 	  for (int __i = 0; __i <= 8; ++__i)
 	    {
@@ -58,6 +59,7 @@ namespace __gnu_cxx
 		__c[__i] += V2inv[__i * 9 + __j] * __fx[__j * 4];
 	    }
 	  break;
+
 	case 2:
 	  for (int __i = 0; __i <= 16; ++__i)
 	    {
@@ -66,6 +68,7 @@ namespace __gnu_cxx
 		__c[__i] += V3inv[__i * 17 + __j] * __fx[__j * 2];
 	    }
 	  break;
+
 	case 3:
 	  for (int __i = 0; __i <= 32; ++__i)
 	    {
@@ -137,24 +140,23 @@ namespace __gnu_cxx
    * polynomials differ significantly, the interval is bisected. 
    */
   template<typename _Tp, typename _FuncTp>
-    std::tuple<_Tp, _Tp>
+    auto
     cquad_integrate(cquad_workspace<_Tp>& __ws,
 		    _FuncTp __func,
 		    _Tp __a, _Tp __b,
 		    _Tp __epsabs, _Tp __epsrel)
+    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
     {
       // Some constants that we will need.
       constexpr std::ptrdiff_t __n[4] = { 4, 8, 16, 32 };
       constexpr std::ptrdiff_t __skip[4] = { 8, 4, 2, 1 };
       constexpr std::ptrdiff_t __idx[4] = { 0, 5, 14, 31 };
       constexpr std::ptrdiff_t __ndiv_max = 20;
-      const auto _S_eps = std::numeric_limits<_Tp>::epsilon();
-      const auto _S_NaN = std::numeric_limits<_Tp>::quiet_NaN();
-      const auto _S_inf = std::numeric_limits<_Tp>::infinity();
+      constexpr auto _S_eps = std::numeric_limits<_Tp>::epsilon();
+      constexpr auto _S_NaN = std::numeric_limits<_Tp>::quiet_NaN();
+      constexpr auto _S_inf = std::numeric_limits<_Tp>::infinity();
       constexpr _Tp _S_sqrt2 = M_SQRT2;
-      constexpr _Tp __w = _S_sqrt2 / _Tp{2};
-
-      _Tp __result, __abserr;
+      constexpr auto __w = _S_sqrt2 / _Tp{2};
 
       // Actual variables (as opposed to constants above).
       bool __split;
@@ -213,10 +215,6 @@ namespace __gnu_cxx
 	__iv._M_abs_error = _Tp{2} * __h * __nc;
       __ws.push(__iv);
 
-#ifdef INTEGRATION_DEBUG
-      fprintf(stderr,"\n");
-#endif
-
       // Main loop...
       auto __igral = __iv._M_result;
       auto __igral_final = _Tp{0};
@@ -233,11 +231,6 @@ namespace __gnu_cxx
 	  __m = (__iv._M_lower_lim + __iv._M_upper_lim) / _Tp{2};
 	  __h = (__iv._M_upper_lim - __iv._M_lower_lim) / _Tp{2};
 
-#ifdef INTEGRATION_DEBUG
-	  printf
-	    ("cquad: processing ival %i (of %i) with [%e,%e] int=%e, err=%e, depth=%i\n",
-	     0, __ws.size(), __iv._M_lower_lim, __iv._M_upper_lim, __iv._M_result, __iv._M_abs_error, __iv.depth);
-#endif
 	  // Should we try to increase the degree?
 	  if (__iv.depth < 3)
 	    {
@@ -296,18 +289,11 @@ namespace __gnu_cxx
 	  else // Maximum degree reached, just split.
 	    __split = true;
 
-
 	  // Should we drop this interval?
 	  if ((__m + __h * xi[0]) >= (__m + __h * xi[1])
 	      || (__m + __h * xi[31]) >= (__m + __h * xi[32])
 	      || __iv._M_abs_error < std::abs(__iv._M_result) * _S_eps * 10)
 	    {
-#ifdef INTEGRATION_DEBUG
-	      printf
-		("cquad: dumping ival %i (of %i) with [%e,%e] int=%e, err=%e, depth=%i\n",
-		 0, __ws.size(), __iv._M_lower_lim, __iv._M_upper_lim, __iv._M_result, __iv._M_abs_error,
-		 __iv.depth);
-#endif
 	      // Keep this interval's contribution.
 	      __err_final += __iv._M_abs_error;
 	      __igral_final += __iv._M_result;
@@ -373,8 +359,8 @@ namespace __gnu_cxx
 				      && __ivl.c[0] / __iv.c[0] > 2);
 	      if (__ivl.ndiv > __ndiv_max && 2 * __ivl.ndiv > __ivl.rdepth)
 		{
-		  __result = std::copysign(_S_inf, __igral);
-		  return std::make_tuple(__result, __abserr);
+		  const auto __result = std::copysign(_S_inf, __igral);
+		  return {__result, _S_inf};
 		}
 
 	      // Compute the local integral.
@@ -434,8 +420,8 @@ namespace __gnu_cxx
 				      && __ivr.c[0] / __iv.c[0] > 2);
 	      if (__ivr.ndiv > __ndiv_max && 2 * __ivr.ndiv > __ivr.rdepth)
 		{
-		  __result = std::copysign(_S_inf, __igral);
-		  return std::make_tuple(__result, __abserr);
+		  const auto __result = std::copysign(_S_inf, __igral);
+		  return {__result, _S_inf};
 		}
 
 	      // Compute the local integral.
@@ -453,18 +439,7 @@ namespace __gnu_cxx
 	  __err = __err_final + __ws.total_error();
 	}
 
-      // Dump the contents of the heap.
-#ifdef INTEGRATION_DEBUG
-      for (auto& __iv : __ws)
-	{
-	  printf
-	    ("cquad: ival %i (%i) with [%e,%e], int=%e, err=%e, depth=%i, rdepth=%i\n",
-	     0, 0, __iv._M_lower_lim, __iv._M_upper_lim, __iv._M_result, __iv._M_abs_error, __iv.depth,
-	     __iv.rdepth);
-	}
-#endif
-
-      return std::make_tuple(__igral, __err);
+      return {__igral, __err};
     }
 
 } // namespace __gnu_cxx
