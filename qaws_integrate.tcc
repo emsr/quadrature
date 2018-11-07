@@ -54,7 +54,7 @@ namespace __gnu_cxx
 
  template<typename _Tp, typename _FuncTp>
     std::tuple<_Tp, _Tp, bool>
-    qc25s(qaws_integration_table<_Tp, _FuncTp>& __t,
+    qc25s(qaws_integration_table<_Tp>& __t,
 	  _FuncTp __func, _Tp __lower, _Tp __upper, _Tp __a1, _Tp __b1);
 
   /**
@@ -84,7 +84,7 @@ namespace __gnu_cxx
     auto
     qaws_integrate(integration_workspace<_Tp,
 			std::invoke_result_t<_FuncTp, _Tp>>& __workspace,
-		   qaws_integration_table<_Tp, _FuncTp>& __table,
+		   qaws_integration_table<_Tp>& __table,
 		   _FuncTp __func,
 		   _Tp __lower, _Tp __upper,
 		   _Tp __max_abs_err, _Tp __max_rel_err)
@@ -217,7 +217,7 @@ namespace __gnu_cxx
    */
   template<typename _Tp, typename _FuncTp>
     std::tuple<_Tp, _Tp, bool>
-    qc25s(qaws_integration_table<_Tp, _FuncTp>& __t,
+    qc25s(qaws_integration_table<_Tp>& __t,
 	  _FuncTp __func, _Tp __lower, _Tp __upper, _Tp __a1, _Tp __b1)
     {
       fn_qaws<_Tp, _FuncTp> __fqaws(&__t, __func, __lower, __upper);
@@ -327,13 +327,13 @@ namespace __gnu_cxx
       using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
       using _AreaTp = decltype(_RetTp{} * _Tp{});
 
-      const qaws_integration_table<_Tp, _FuncTp>* table;
+      const qaws_integration_table<_Tp>* table;
 
       _FuncTp func;
       _Tp a;
       _Tp b;
 
-      fn_qaws(const qaws_integration_table<_Tp, _FuncTp>* __tab,
+      fn_qaws(const qaws_integration_table<_Tp>* __tab,
 	      _FuncTp __func, _Tp __a_in, _Tp __b_in)
       : table(__tab),
 	func(__func), a(__a_in), b(__b_in)

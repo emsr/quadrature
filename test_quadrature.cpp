@@ -2387,7 +2387,7 @@ test_quadrature()
       auto f = make_function<_Tp>(f458<_Tp>);
       auto fc = counted_function<_Tp, decltype(f)>(f);
 
-      __gnu_cxx::qaws_integration_table<_Tp, decltype(fc)> tb(_Tp{0}, _Tp{0}, 1, 0);
+      __gnu_cxx::qaws_integration_table<_Tp> tb(_Tp{0}, _Tp{0}, 1, 0);
       __gnu_cxx::integration_workspace<_Tp, decltype(fc(_Tp{}))> w(1000);
 
       const auto epsabs = _Tp{0};

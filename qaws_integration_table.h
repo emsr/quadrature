@@ -33,7 +33,7 @@ namespace __gnu_cxx
    *   log(x - \alpha) log(\beta - x)
    * @f]
    */
-  template<typename _Tp, typename _FuncTp>
+  template<typename _Tp>
     struct qaws_integration_table
     {
       _Tp alpha;
@@ -45,8 +45,8 @@ namespace __gnu_cxx
       std::array<_Tp, 25> rg;
       std::array<_Tp, 25> rh;
 
-      qaws_integration_table(_Tp alpha_in, _Tp beta_in, int mu_in, int nu_in);
-      void set(_Tp alpha_in, _Tp beta_in, int mu_in, int nu_in);
+      qaws_integration_table(_Tp __alpha, _Tp __beta, int __mu, int __nu);
+      void set(_Tp __alpha, _Tp __beta, int __mu, int __nu);
       void initialise();
     };
 

@@ -24,14 +24,14 @@
 namespace __gnu_cxx
 {
 
-  template<typename _Tp, typename _FuncTp>
-    qaws_integration_table<_Tp, _FuncTp>::
-    qaws_integration_table(_Tp __alpha_in, _Tp __beta_in,
-			   int __mu_in, int __nu_in)
-    : alpha(__alpha_in),
-      beta(__beta_in),
-      mu(__mu_in),
-      nu(__nu_in)
+  template<typename _Tp>
+    qaws_integration_table<_Tp>::
+    qaws_integration_table(_Tp __alpha, _Tp __beta,
+			   int __mu, int __nu)
+    : alpha(__alpha),
+      beta(__beta),
+      mu(__mu),
+      nu(__nu)
     {
       if (this->alpha < _Tp{-1})
 	std::__throw_domain_error("qaws_integration_table: "
@@ -49,36 +49,35 @@ namespace __gnu_cxx
       this->initialise();
     }
 
-  template<typename _Tp, typename _FuncTp>
+  template<typename _Tp>
     void
-    qaws_integration_table<_Tp, _FuncTp>::
-    set(_Tp __alpha_in, _Tp __beta_in,
-	int __mu_in, int __nu_in)
+    qaws_integration_table<_Tp>::set(_Tp __alpha, _Tp __beta,
+				     int __mu, int __nu)
     {
-      if (__alpha_in < _Tp{-1})
+      if (__alpha < _Tp{-1})
 	std::__throw_domain_error("qaws_integration_table: "
 				  "alpha must be greater than -1.0");
-      if (__beta_in < _Tp{-1})
+      if (__beta < _Tp{-1})
 	std::__throw_domain_error("qaws_integration_table: "
 				  "beta must be greater than -1.0");
-      if (__mu_in != 0 && __mu_in != 1)
+      if (__mu != 0 && __mu != 1)
 	std::__throw_domain_error("qaws_integration_table: "
 				  "mu must be 0 or 1");
-      if (__nu_in != 0 && __nu_in != 1)
+      if (__nu != 0 && __nu != 1)
 	std::__throw_domain_error("qaws_integration_table: "
 				  "nu must be 0 or 1");
 
-      this->alpha = __alpha_in;
-      this->beta = __beta_in;
-      this->mu = __mu_in;
-      this->nu = __nu_in;
+      this->alpha = __alpha;
+      this->beta = __beta;
+      this->mu = __mu;
+      this->nu = __nu;
 
       this->initialise();
     }
 
-  template<typename _Tp, typename _FuncTp>
+  template<typename _Tp>
     void
-    qaws_integration_table<_Tp, _FuncTp>::initialise()
+    qaws_integration_table<_Tp>::initialise()
     {
       const auto __alpha_p1 = this->alpha + _Tp{1};
       const auto __beta_p1 = this->beta + _Tp{1};
