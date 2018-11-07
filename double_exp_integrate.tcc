@@ -46,7 +46,7 @@ namespace __gnu_cxx
    */
   template<typename _Tp, typename _FuncTp>
     _Tp
-    tanh_sinh_integrate(_FuncTp __func, int __n, _Tp __a, _Tp __b, _Tp /*__tol*/)
+    tanh_sinh_integrate1(_FuncTp __func, int __n, _Tp __a, _Tp __b, _Tp /*__max_rel_tol*/)
     {
       __n /= 2;
       const auto __h = _Tp{5} / __n; // 5.0 is rough limit of K in exp(exp(K)).
@@ -77,7 +77,7 @@ namespace __gnu_cxx
    */
   template<typename _Tp, typename _FuncTp>
     _Tp
-    double_exp_integrate2(_FuncTp __func, int __n, _Tp __a, _Tp __b, _Tp /*__tol*/)
+    tanh_sinh_integrate2(_FuncTp __func, int __n, _Tp __a, _Tp __b, _Tp /*__max_rel_tol*/)
     {
       __n /= 2;
       const auto __h = _Tp{5} / __n; // 5.0 is rough limit of K in exp(exp(K)).
@@ -109,10 +109,11 @@ namespace __gnu_cxx
    */
   template<typename _Tp, typename _FuncTp>
     adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
-    double_exp_integrate3(_FuncTp __func, int __n, _Tp __a, _Tp __b, _Tp /*__tol*/)
+    tanh_sinh_integrate3(_FuncTp __func, int __n, _Tp __a, _Tp __b, _Tp /*__max_rel_tol*/)
     {
       __n /= 2;
       const auto __h = _Tp{5} / __n; // 5.0 is rough limit of K in exp(exp(K)).
+      // @todo Find K = ln(ln(max()))
 
       const auto _S_pi_4 = __gnu_cxx::__math_constants<_Tp>::__pi_quarter;
       auto __sum = _Tp{0};
@@ -131,9 +132,9 @@ namespace __gnu_cxx
 	      __sum += __func(__x) * __dxdu; 
 	    }
 	}
-      const auto __sum_prev = __sum;
 
       // Interlace values (don't go past the rightmost point).
+      const auto __sum_prev = __sum;
       for (int __k = -__n; __k < __n; ++__k)
 	{
 	  const auto __u = __h * (_Tp(__k) + 0.5);
@@ -155,19 +156,35 @@ namespace __gnu_cxx
   }
 
   /**
-   * Progressive version
+   * @f[
+   *    \int_{-1}^{+1}f(x)dx
+   * @f]
+   * Making the change of variables:
+   * @f[
+   *    x = tanh\left[\frac{\pi}{2}sinh(u)\right],
+   *   dx = \frac{\pi}{2}\frac{cosh(u)}{cosh^2\left[\frac{\pi}{2}sinh(u)\right]}du
+   * @f]
+   * gives the following integral:
+   * @f[
+   *    \int_{-\infty}^{+\infty}f(tanh\left[\frac{\pi}{2}sinh(u)\right])
+   *     = \sum_{k=-n}^{+n} 
+   * @f]
    */
   template<typename _Tp, typename _FuncTp>
     adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
-    double_exp_integrate4(_FuncTp __func, int __n, _Tp __a, _Tp __b, _Tp /*__tol*/)
+    tanh_sinh_integrate(_FuncTp __func, int __n, _Tp __a, _Tp __b,
+			_Tp __max_rel_tol, int __max_iter = 3)
     {
-      __n /= 2;
-      auto __h = _Tp{5} / __n; // 5.0 is rough limit of K in exp(exp(K)).
-
       const auto _S_pi_4 = __gnu_cxx::__math_constants<_Tp>::__pi_quarter;
+      __n /= 2;
+      // 5.0 is rough limit of K in exp(exp(K)).
+      // Find K = ln(ln(max()))
+      const auto __k_max = std::log(std::log(std::numeric_limits<_Tp>::max()))
+		- _Tp{1};
+      auto __h = __k_max / __n;
+
       auto __sum = __func((__a + __b) / _Tp{2}) / _Tp{2};
-      auto __sum1 = _Tp{0};
-      auto __sum2 = _Tp{0};
+      decltype(__sum) __sum1{}, __sum2{};
       for (int __k = -__n; __k < 0; ++__k)
 	{
 	  const auto __u = __h * _Tp(__k);
@@ -185,14 +202,16 @@ namespace __gnu_cxx
 	    __sum2 += __dxdu * __func(__x2);
 	}
 
+      // Interlace values; don't go past the rightmost point.
       decltype(__sum) __prev_sum{};
-      for (int __l = 0; __l < 3; ++__l)
+      for (int __iter = 0; __iter < __max_iter; ++__iter)
 	{
-	  auto __prev_sum = __sum + __sum1 + __sum2;
+	  __prev_sum = __sum + __sum1 + __sum2;
 	  for (int __k  = -__n; __k < 0; ++__k)
 	    {
-	      const auto __u = __h * (_Tp(__k) + 0.5);
+	      const auto __u = __h * _Tp(__k + 0.5);
 	      const auto __eu = std::exp(__u);
+	      // A standard sinhcosh would be a nice idea along with sincos.
 	      const auto __cosh = __eu + _Tp{1} / __eu;
 	      const auto __sinh = __eu - _Tp{1} / __eu;
               const auto __s = std::exp(_S_pi_4 * __sinh);
@@ -205,6 +224,12 @@ namespace __gnu_cxx
 	      if (__x2 != __a && __x2 != __b)
 		__sum2 += __dxdu * __func(__x2);
 	    }
+
+	  const auto __curr_sum = __sum + __sum1 + __sum2;
+	  if (std::abs(__curr_sum - __prev_sum)
+	    < std::abs(__max_rel_tol * __curr_sum))
+	    break;
+
 	  __n *= 2;
 	  __h /= _Tp{2};
 	}
