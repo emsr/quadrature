@@ -143,7 +143,7 @@ template<typename Tp>
 	      << '\n';
 
     auto a8n = __gnu_cxx::double_exp_integrate4<Tp, decltype(funk2num)>(funk2num, 20, a, b, err);
-    auto e8n = Tp{0};
+    auto e8n = Tp{2} * (b - a) - std::cos(b) + std::cos(a);
     std::cout << "funk2num: "
 	      << ' ' << std::setw(w) << a8n.__result
 	      << ' ' << std::setw(w) << e8n

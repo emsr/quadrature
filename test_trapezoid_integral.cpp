@@ -148,7 +148,7 @@ template<typename Tp>
 
     __gnu_cxx::trapezoid_integral<decltype(funk2num), Tp> t8n(funk2num, a, b, err);
     auto a8n = t8n();
-    auto e8n = Tp{0};
+    auto e8n = Tp{2} * (b - a) - std::cos(b) + std::cos(a);
     std::cout << "funk2num: "
 	      << ' ' << std::setw(w) << a8n
 	      << ' ' << std::setw(w) << e8n
