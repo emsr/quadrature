@@ -117,15 +117,11 @@ namespace __gnu_cxx
 	const auto __a2 = __mid;
 	const auto __b2 = __upper;
 
-	_Tp __area1, __error1;
-	bool __err_reliable1;
-	std::tie(__area1, __error1, __err_reliable1)
+        auto [__area1, __error1, __err_reliable1]
 	  = qc25s(__table, __func, __lower, __upper, __a1, __mid);
 	__workspace.append(__a1, __mid, __area1, __error1);
 
-	_Tp __area2, __error2;
-	bool __err_reliable2;
-	std::tie(__area2, __error2, __err_reliable2)
+	auto [__area2, __error2, __err_reliable2]
 	  = qc25s(__table, __func, __lower, __upper, __a2, __b2);
 	__workspace.append(__a2, __b2, __area2, __error2);
 
@@ -158,14 +154,10 @@ namespace __gnu_cxx
 	  const auto __a2 = __mid;
 	  const auto __b2 = __curr.__upper_lim;
 
-	  _Tp __area1, __error1;
-	  bool __err_reliable1;
-	  std::tie(__area1, __error1, __err_reliable1)
+	  auto [__area1, __error1, __err_reliable1]
 	    = qc25s(__table, __func, __lower, __upper, __a1, __mid);
 
-	  _Tp __area2, __error2;
-	  bool __err_reliable2;
-	  std::tie(__area2, __error2, __err_reliable2)
+	  auto [__area2, __error2, __err_reliable2]
 	    = qc25s(__table, __func, __lower, __upper, __a2, __b2);
 
 	  const auto __area12 = __area1 + __area2;
