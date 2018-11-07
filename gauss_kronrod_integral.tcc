@@ -33,9 +33,22 @@
 #include <stdexcept>
 
 #include "integration_error.h"
+#include "gauss_kronrod_rule.tcc"
 
 namespace __gnu_cxx
 {
+
+  template<typename _Tp>
+    gauss_kronrod_integral<_Tp>::gauss_kronrod_integral(unsigned __gk_rule)
+    : _M_rule{__gk_rule},
+      _M_x_kronrod{}, _M_w_gauss{}, _M_w_kronrod{}
+    {
+      const int __n = (this->_M_rule - 1) / 2;
+      const auto __eps = 4 * std::numeric_limits<_Tp>::epsilon();
+      __build_gauss_kronrod(__n, __eps,
+			    this->_M_x_kronrod, this->_M_w_gauss,
+			    this->_M_w_kronrod);
+    }
 
   template<typename _Tp>
     inline bool
@@ -484,22 +497,8 @@ namespace __gnu_cxx
 		 Kronrod_Rule __qkintrule)
     -> gauss_kronrod_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
     {
-      switch(__qkintrule)
-	{
-	case Kronrod_15:
-	case Kronrod_21:
-	case Kronrod_31:
-	case Kronrod_41:
-	case Kronrod_51:
-	case Kronrod_61:
-	  {
-	    gauss_kronrod_integral<_Tp> __gk_integ(__qkintrule);
-	    return __gk_integ.integrate(__func, __lower, __upper);
-	  }
-	default:
-	  std::__throw_logic_error("qk_integrate: "
-				 "Unsupported Gauss-Kronrod integration size");
-	}
+      gauss_kronrod_integral<_Tp> __gk_integ(__qkintrule);
+      return __gk_integ.integrate(__func, __lower, __upper);
     }
 
   template<typename _Tp>
@@ -517,16 +516,17 @@ namespace __gnu_cxx
 	using _AreaTp = decltype(_RetTp{} * _Tp{});
 
 	const auto _KronrodSz = std::size(__x_kronrod);
-	const auto _GaussSz = std::size(__w_gauss);
+	//const auto _GaussSz = std::size(__w_gauss);
+	//static_assert(_KronrodSz == 2 * _GaussSz + (_KronrodSz & 1));
+	//std::array<_AreaTp, _KronrodSz> __fv1;
+	//std::array<_AreaTp, _KronrodSz> __fv2;
+	std::vector<_AreaTp> __fv1(_KronrodSz);
+	std::vector<_AreaTp> __fv2(_KronrodSz);
 
 	const auto __center = (__lower + __upper) / _Tp{2};
 	const auto __half_length = (__upper - __lower) / _Tp{2};
 	const auto __abs_half_length = std::abs(__half_length);
 	const auto __f_center = __func(__center);
-	std::array<_AreaTp, _KronrodSz> __fv1;
-	std::array<_AreaTp, _KronrodSz> __fv2;
-
-	static_assert(_KronrodSz == 2 * _GaussSz + (_KronrodSz & 1));
 
 	auto __result_gauss = _AreaTp{0};
 	auto __result_kronrod = __f_center * __w_kronrod[_KronrodSz - 1];
@@ -632,8 +632,8 @@ namespace __gnu_cxx
 	    }
 	  default:
 	    {
-	      std::__throw_logic_error("qk_integrate: "
-				"Unsupported Gauss-Kronrod integration size");
+	      return _S_integrate(this->_M_x_kronrod, this->_M_w_gauss,
+				  this->_M_w_kronrod, __func, __lower, __upper);
 	    }
 	  }
       }

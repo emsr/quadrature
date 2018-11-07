@@ -27,6 +27,8 @@
 #ifndef GAUSS_KRONROD_INTERGAL_H
 #define GAUSS_KRONROD_INTERGAL_H 1
 
+#include <vector>
+
 namespace __gnu_cxx _GLIBCXX_VISIBILITY(default)
 {
 _GLIBCXX_BEGIN_NAMESPACE_VERSION
@@ -66,9 +68,7 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
     {
     public:
 
-      constexpr explicit gauss_kronrod_integral(unsigned __gk_rule)
-      : _M_rule{__gk_rule}
-      { }
+      explicit gauss_kronrod_integral(unsigned __gk_rule);
 
       template<typename _FuncTp>
 	auto
@@ -94,6 +94,9 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
 
       unsigned _M_rule = Kronrod_15;
 
+      std::vector<_Tp> _M_x_kronrod;
+      std::vector<_Tp> _M_w_gauss;
+      std::vector<_Tp> _M_w_kronrod;
     };
 
   template<typename _Tp, typename _FuncTp>
