@@ -140,10 +140,10 @@ test: $(BIN_DIR)/test_quadrature
 
 
 docs:
-	rm -rf html/*
-	rm -rf latex/*
+	#rm -rf html/*
+	#rm -rf latex/*
 	doxygen
-	cd latex && make
+	cd docs/latex && make
 
 
 # Binaries...
