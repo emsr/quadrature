@@ -51,12 +51,12 @@ namespace __detail
    */
   template<typename _Tp, typename _InIter, typename _OutIter>
     void
-    golub_welsch(_Tp __moment0, int __n, _InIter& __diag, _InIter& __subd,
-		 _OutIter& __pt, _OutIter& __wt)
+    __golub_welsch(_Tp __moment0, int __n, _InIter& __diag, _InIter& __subd,
+		   _OutIter& __pt, _OutIter& __wt)
     {
       // Bail if the zero-th moment is not positive.
       if (__moment0 <= _Tp{0})
-	std::__throw_domain_error("golub_welsch: moment0 <= 0");
+	std::__throw_domain_error("__golub_welsch: moment0 <= 0");
 
       // Set up vectors for matrix diagonalization.
       for (int i = 0; i < __n; ++i)
@@ -85,7 +85,8 @@ namespace __detail
    * Constraints: @f$ b > a @f$
    */
   template<typename _Tp>
-    gauss_legendre_rule<_Tp>::gauss_legendre_rule(int __n)
+    fixed_gauss_legendre_integral<_Tp>::
+    fixed_gauss_legendre_integral(int __n)
     : order(__n),
       point(__n),
       weight(__n)
@@ -98,8 +99,8 @@ namespace __detail
       for (int __i = 1; __i <= this->order; ++__i)
 	__subd[__i - 1] = _Tp(__i) / std::sqrt(_Tp(4 * __i * __i - 1));
 
-      __detail::golub_welsch(__mu_0, this->order, __diag, __subd,
-			     this->point, this->weight);
+      __detail::__golub_welsch(__mu_0, this->order, __diag, __subd,
+			       this->point, this->weight);
     }
 
   /**
@@ -111,8 +112,8 @@ namespace __detail
   template<typename _Tp>
     template<typename _FuncTp>
       decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
-      gauss_legendre_rule<_Tp>::operator()(_FuncTp __func,
-					   _Tp __a, _Tp __b) const
+      fixed_gauss_legendre_integral<_Tp>::
+      operator()(_FuncTp __func, _Tp __a, _Tp __b) const
       {
 	using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
 	using _AreaTp = decltype(_RetTp{} * _Tp{});
@@ -145,7 +146,8 @@ namespace __detail
    * Jacobi parameter: @f$ \beta = 1/2 @f$
    */
   template<typename _Tp>
-    gauss_chebyshev_t_rule<_Tp>::gauss_chebyshev_t_rule(int __n)
+    fixed_gauss_chebyshev_t_integral<_Tp>::
+    fixed_gauss_chebyshev_t_integral(int __n)
     : order(__n),
       point(__n),
       weight(__n)
@@ -157,8 +159,8 @@ namespace __detail
 
       __subd[0] = std::sqrt(_Tp{0.5L});
 
-      __detail::golub_welsch(__mu_0, this->order, __diag, __subd,
-			     this->point, this->weight);
+      __detail::__golub_welsch(__mu_0, this->order, __diag, __subd,
+			       this->point, this->weight);
     }
 
   /**
@@ -171,8 +173,8 @@ namespace __detail
   template<typename _Tp>
     template<typename _FuncTp>
       decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
-      gauss_chebyshev_t_rule<_Tp>::operator()(_FuncTp __func,
-					      _Tp __a, _Tp __b) const
+      fixed_gauss_chebyshev_t_integral<_Tp>::
+      operator()(_FuncTp __func, _Tp __a, _Tp __b) const
       {
 	using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
 	using _AreaTp = decltype(_RetTp{} * _Tp{});
@@ -205,7 +207,8 @@ namespace __detail
    * Jacobi parameter: @f$ \beta = -1/2 @f$
    */
   template<typename _Tp>
-    gauss_chebyshev_u_rule<_Tp>::gauss_chebyshev_u_rule(int __n)
+    fixed_gauss_chebyshev_u_integral<_Tp>::
+    fixed_gauss_chebyshev_u_integral(int __n)
     : order(__n),
       point(__n),
       weight(__n)
@@ -215,8 +218,8 @@ namespace __detail
       std::vector<_Tp> __diag(this->order, _Tp{0});
       std::vector<_Tp> __subd(this->order, _Tp{0.5L});
 
-      __detail::golub_welsch(__mu_0, this->order, __diag, __subd,
-			     this->point, this->weight);
+      __detail::__golub_welsch(__mu_0, this->order, __diag, __subd,
+			       this->point, this->weight);
     }
 
   /**
@@ -229,8 +232,8 @@ namespace __detail
   template<typename _Tp>
     template<typename _FuncTp>
       decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
-      gauss_chebyshev_u_rule<_Tp>::operator()(_FuncTp __func,
-					      _Tp __a, _Tp __b) const
+      fixed_gauss_chebyshev_u_integral<_Tp>::
+      operator()(_FuncTp __func, _Tp __a, _Tp __b) const
       {
 	using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
 	using _AreaTp = decltype(_RetTp{} * _Tp{});
@@ -263,7 +266,8 @@ namespace __detail
    * Jacobi parameter: @f$ \beta = -1/2 @f$
    */
   template<typename _Tp>
-    gauss_chebyshev_v_rule<_Tp>::gauss_chebyshev_v_rule(int __n)
+    fixed_gauss_chebyshev_v_integral<_Tp>::
+    fixed_gauss_chebyshev_v_integral(int __n)
     : order(__n),
       point(__n),
       weight(__n)
@@ -276,8 +280,8 @@ namespace __detail
       __diag[0] = _Tp{-0.5L};
       __subd[0] = std::sqrt(_Tp{2});
 
-      __detail::golub_welsch(__mu_0, this->order, __diag, __subd,
-			     this->point, this->weight);
+      __detail::__golub_welsch(__mu_0, this->order, __diag, __subd,
+			       this->point, this->weight);
     }
 
   /**
@@ -291,8 +295,8 @@ namespace __detail
   template<typename _Tp>
     template<typename _FuncTp>
       decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
-      gauss_chebyshev_v_rule<_Tp>::operator()(_FuncTp __func,
-					      _Tp __a, _Tp __b) const
+      fixed_gauss_chebyshev_v_integral<_Tp>::
+      operator()(_FuncTp __func, _Tp __a, _Tp __b) const
       {
 	using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
 	using _AreaTp = decltype(_RetTp{} * _Tp{});
@@ -325,7 +329,8 @@ namespace __detail
    * Jacobi parameter: @f$ \beta = +1/2 @f$
    */
   template<typename _Tp>
-    gauss_chebyshev_w_rule<_Tp>::gauss_chebyshev_w_rule(int __n)
+    fixed_gauss_chebyshev_w_integral<_Tp>::
+    fixed_gauss_chebyshev_w_integral(int __n)
     : order(__n),
       point(__n),
       weight(__n)
@@ -338,8 +343,8 @@ namespace __detail
       __diag[0] = _Tp{0.5L};
       __subd[0] = std::sqrt(_Tp{2});
 
-      __detail::golub_welsch(__mu_0, this->order, __diag, __subd,
-			     this->point, this->weight);
+      __detail::__golub_welsch(__mu_0, this->order, __diag, __subd,
+			       this->point, this->weight);
     }
 
   /**
@@ -352,8 +357,8 @@ namespace __detail
   template<typename _Tp>
     template<typename _FuncTp>
       decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
-      gauss_chebyshev_w_rule<_Tp>::operator()(_FuncTp __func,
-					      _Tp __a, _Tp __b) const
+      fixed_gauss_chebyshev_w_integral<_Tp>::
+      operator()(_FuncTp __func, _Tp __a, _Tp __b) const
       {
 	using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
 	using _AreaTp = decltype(_RetTp{} * _Tp{});
@@ -384,7 +389,8 @@ namespace __detail
    * Constraints: @f$ \lambda > -1 @f$
    */
   template<typename _Tp>
-    gauss_gegenbauer_rule<_Tp>::gauss_gegenbauer_rule(int __n, _Tp __lam)
+    fixed_gauss_gegenbauer_integral<_Tp>::
+    fixed_gauss_gegenbauer_integral(int __n, _Tp __lam)
     : order(__n),
       lambda(__lam),
       point(__n),
@@ -405,8 +411,8 @@ namespace __detail
 		        / (_Tp{4}
 			  * std::pow(this->lambda + _Tp(__i), _Tp{2}) - _Tp{1}));
 
-      __detail::golub_welsch(__mu_0, this->order, __diag, __subd,
-			     this->point, this->weight);
+      __detail::__golub_welsch(__mu_0, this->order, __diag, __subd,
+			       this->point, this->weight);
     }
 
   /**
@@ -419,8 +425,8 @@ namespace __detail
   template<typename _Tp>
     template<typename _FuncTp>
       decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
-      gauss_gegenbauer_rule<_Tp>::operator()(_FuncTp __func,
-					     _Tp __a, _Tp __b) const
+      fixed_gauss_gegenbauer_integral<_Tp>::
+      operator()(_FuncTp __func, _Tp __a, _Tp __b) const
       {
 	using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
 	using _AreaTp = decltype(_RetTp{} * _Tp{});
@@ -452,7 +458,8 @@ namespace __detail
    * Constraints: @f$ \alpha, \beta > -1 @f$
    */
   template<typename _Tp>
-    gauss_jacobi_rule<_Tp>::gauss_jacobi_rule(int __n, _Tp __alf, _Tp __bet)
+    fixed_gauss_jacobi_integral<_Tp>::
+    fixed_gauss_jacobi_integral(int __n, _Tp __alf, _Tp __bet)
     : order(__n),
       alpha(__alf),
       beta(__bet),
@@ -486,8 +493,8 @@ namespace __detail
 	  __abp2i += _Tp{2};
 	}
 
-      __detail::golub_welsch(__mu_0, this->order, __diag, __subd,
-			     this->point, this->weight);
+      __detail::__golub_welsch(__mu_0, this->order, __diag, __subd,
+			       this->point, this->weight);
     }
 
   /**
@@ -501,8 +508,8 @@ namespace __detail
   template<typename _Tp>
     template<typename _FuncTp>
       decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
-      gauss_jacobi_rule<_Tp>::operator()(_FuncTp __func,
-					 _Tp __a, _Tp __b) const
+      fixed_gauss_jacobi_integral<_Tp>::
+      operator()(_FuncTp __func, _Tp __a, _Tp __b) const
       {
 	using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
 	using _AreaTp = decltype(_RetTp{} * _Tp{});
@@ -534,7 +541,8 @@ namespace __detail
    * Constraints: @f$ \alpha > -1 @f$
    */
   template<typename _Tp>
-    gauss_laguerre_rule<_Tp>::gauss_laguerre_rule(int __n, _Tp __alf)
+    fixed_gauss_laguerre_integral<_Tp>::
+    fixed_gauss_laguerre_integral(int __n, _Tp __alf)
     : order(__n),
       alpha(__alf),
       point(__n),
@@ -551,8 +559,8 @@ namespace __detail
 	  __subd[__i] = std::sqrt(_Tp(__i + 1) * (this->alpha + _Tp(__i + 1)));
 	}
 
-      __detail::golub_welsch(__mu_0, this->order, __diag, __subd,
-			     this->point, this->weight);
+      __detail::__golub_welsch(__mu_0, this->order, __diag, __subd,
+			       this->point, this->weight);
     }
 
   /**
@@ -566,8 +574,8 @@ namespace __detail
   template<typename _Tp>
     template<typename _FuncTp>
       decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
-      gauss_laguerre_rule<_Tp>::operator()(_FuncTp __func,
-					   _Tp __a, _Tp __b) const
+      fixed_gauss_laguerre_integral<_Tp>::
+      operator()(_FuncTp __func, _Tp __a, _Tp __b) const
       {
 	using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
 	using _AreaTp = decltype(_RetTp{} * _Tp{});
@@ -592,7 +600,8 @@ namespace __detail
    * Constraints: @f$ \alpha > -1 @f$
    */
   template<typename _Tp>
-    gauss_hermite_rule<_Tp>::gauss_hermite_rule(int __n, _Tp __alf)
+    fixed_gauss_hermite_integral<_Tp>::
+    fixed_gauss_hermite_integral(int __n, _Tp __alf)
     : order(__n),
       alpha(__alf),
       point(__n),
@@ -607,8 +616,8 @@ namespace __detail
 	__subd[__i - 1] = std::sqrt((_Tp(__i) + _Tp(__i % 2) * this->alpha)
 				   / _Tp{2});
 
-      __detail::golub_welsch(__mu_0, this->order, __diag, __subd,
-			     this->point, this->weight);
+      __detail::__golub_welsch(__mu_0, this->order, __diag, __subd,
+			       this->point, this->weight);
     }
 
   /**
@@ -622,8 +631,8 @@ namespace __detail
   template<typename _Tp>
     template<typename _FuncTp>
       decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
-      gauss_hermite_rule<_Tp>::operator()(_FuncTp __func,
-					  _Tp __a, _Tp __b) const
+      fixed_gauss_hermite_integral<_Tp>::
+      operator()(_FuncTp __func, _Tp __a, _Tp __b) const
       {
 	using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
 	using _AreaTp = decltype(_RetTp{} * _Tp{});
@@ -648,7 +657,8 @@ namespace __detail
    * Constraints: @f$ \alpha > -1 @f$
    */
   template<typename _Tp>
-    gauss_exponential_rule<_Tp>::gauss_exponential_rule(int __n, _Tp __alf)
+    fixed_gauss_exponential_integral<_Tp>::
+    fixed_gauss_exponential_integral(int __n, _Tp __alf)
     : order(__n),
       alpha(__alf),
       point(__n),
@@ -667,8 +677,8 @@ namespace __detail
 			  / std::sqrt((__ap2i * __ap2i - _Tp{1}));
 	}
 
-      __detail::golub_welsch(__mu_0, this->order, __diag, __subd,
-			     this->point, this->weight);
+      __detail::__golub_welsch(__mu_0, this->order, __diag, __subd,
+			       this->point, this->weight);
     }
 
   /**
@@ -680,8 +690,8 @@ namespace __detail
   template<typename _Tp>
     template<typename _FuncTp>
       decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
-      gauss_exponential_rule<_Tp>::operator()(_FuncTp __func,
-					      _Tp __a, _Tp __b) const
+      fixed_gauss_exponential_integral<_Tp>::
+      operator()(_FuncTp __func, _Tp __a, _Tp __b) const
       {
 	using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
 	using _AreaTp = decltype(_RetTp{} * _Tp{});
@@ -712,7 +722,8 @@ namespace __detail
    * Constraints: @f$ \alpha > -1, \alpha + \beta + 2n < 0
    */
   template<typename _Tp>
-    gauss_rational_rule<_Tp>::gauss_rational_rule(int __n, _Tp __alf, _Tp __bet)
+    fixed_gauss_rational_integral<_Tp>::
+    fixed_gauss_rational_integral(int __n, _Tp __alf, _Tp __bet)
     : order(__n),
       alpha(__alf),
       beta(__bet),
@@ -751,8 +762,8 @@ namespace __detail
       for (int __i = 0; __i < this->order; ++__i)
 	__subd[__i] = std::sqrt(__subd[__i]);
 
-      __detail::golub_welsch(__mu_0, this->order, __diag, __subd,
-			     this->point, this->weight);
+      __detail::__golub_welsch(__mu_0, this->order, __diag, __subd,
+			       this->point, this->weight);
     }
 
   /**
@@ -765,8 +776,8 @@ namespace __detail
   template<typename _Tp>
     template<typename _FuncTp>
       decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
-      gauss_rational_rule<_Tp>::operator()(_FuncTp __func,
-					   _Tp __a, _Tp __b) const
+      fixed_gauss_rational_integral<_Tp>::
+      operator()(_FuncTp __func, _Tp __a, _Tp __b) const
       {
 	using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
 	using _AreaTp = decltype(_RetTp{} * _Tp{});

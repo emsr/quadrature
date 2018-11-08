@@ -84,7 +84,7 @@ namespace __gnu_cxx
 
   template<typename _Tp, typename _FuncTp>
     adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
-    midpoint_integrate(_FuncTp __func, _Tp __a, _Tp __b,
+    integrate_midpoint(_FuncTp __func, _Tp __a, _Tp __b,
 			_Tp __max_abs_err, _Tp __max_rel_err,
 			int __max_iter)
     {

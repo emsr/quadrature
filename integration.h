@@ -68,6 +68,7 @@ _GLIBCXX_END_NAMESPACE_VERSION
 
 #include "trapezoid_integral.h"
 #include "midpoint_integral.h"
+#include "gauss_quadrature.h"
 
 namespace __gnu_cxx _GLIBCXX_VISIBILITY(default)
 {
@@ -442,7 +443,7 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
    */
   template<typename _Tp, typename _FuncTp>
     adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
-    tanh_sinh_integrate(_FuncTp __func, _Tp __a, _Tp __b,
+    integrate_tanh_sinh(_FuncTp __func, _Tp __a, _Tp __b,
 			_Tp __max_abs_err, _Tp __max_rel_err,
 			int __max_iter = 4);
 
@@ -464,7 +465,7 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
    */
   template<typename _Tp, typename _FuncTp>
     adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
-    sinh_sinh_integrate(_FuncTp __func,
+    integrate_sinh_sinh(_FuncTp __func,
 			_Tp __max_abs_err, _Tp __max_rel_err,
 			int __max_iter = 8);
 
@@ -491,21 +492,76 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
    */
   template<typename _Tp, typename _FuncTp>
     adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
-    exp_sinh_integrate(_FuncTp __func, _Tp __a,
+    integrate_exp_sinh(_FuncTp __func, _Tp __a,
 			_Tp __max_abs_err, _Tp __max_rel_err,
 			int __max_iter = 4);
 
   template<typename _Tp, typename _FuncTp>
     adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
-    trapezoid_integrate(_FuncTp __func, _Tp __a, _Tp __b,
+    integrate_trapezoid(_FuncTp __func, _Tp __a, _Tp __b,
 			_Tp __max_abs_err, _Tp __max_rel_err,
 			int __max_iter);
 
   template<typename _Tp, typename _FuncTp>
     adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
-    midpoint_integrate(_FuncTp __func, _Tp __a, _Tp __b,
+    integrate_midpoint(_FuncTp __func, _Tp __a, _Tp __b,
 			_Tp __max_abs_err, _Tp __max_rel_err,
 			int __max_iter);
+
+  template<typename _Tp, typename _FuncTp>
+    fixed_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    integrate_fixed_gauss_legendre(int __n,
+				   _FuncTp __func, _Tp __a, _Tp __b);
+
+  template<typename _Tp, typename _FuncTp>
+    fixed_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    integrate_fixed_gauss_chebyshev_t(int __n,
+				      _FuncTp __func, _Tp __a, _Tp __b);
+
+  template<typename _Tp, typename _FuncTp>
+    fixed_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    integrate_fixed_gauss_chebyshev_u(int __n,
+				      _FuncTp __func, _Tp __a, _Tp __b);
+
+  template<typename _Tp, typename _FuncTp>
+    fixed_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    integrate_fixed_gauss_chebyshev_v(int __n,
+				      _FuncTp __func, _Tp __a, _Tp __b);
+
+  template<typename _Tp, typename _FuncTp>
+    fixed_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    integrate_fixed_gauss_chebyshev_w(int __n,
+				      _FuncTp __func, _Tp __a, _Tp __b);
+
+  template<typename _Tp, typename _FuncTp>
+    fixed_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    integrate_fixed_gauss_gegenbauer(int __n, _Tp __lambda,
+				     _FuncTp __func, _Tp __a, _Tp __b);
+
+  template<typename _Tp, typename _FuncTp>
+    fixed_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    integrate_fixed_gauss_jacobi(int __n, _Tp __alf, _Tp __bet,
+				 _FuncTp __func, _Tp __a, _Tp __b);
+
+  template<typename _Tp, typename _FuncTp>
+    fixed_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    integrate_fixed_gauss_laguerre(int __n, _Tp __alf,
+				   _FuncTp __func, _Tp __a, _Tp __b);
+
+  template<typename _Tp, typename _FuncTp>
+    fixed_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    integrate_fixed_gauss_hermite(int __n, _Tp __alf,
+				  _FuncTp __func, _Tp __a, _Tp __b);
+
+  template<typename _Tp, typename _FuncTp>
+    fixed_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    integrate_fixed_gauss_exponential(int __n, _Tp __alf,
+				      _FuncTp __func, _Tp __a, _Tp __b);
+
+  template<typename _Tp, typename _FuncTp>
+    fixed_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    integrate_fixed_gauss_rational(int __n, _Tp __alf, _Tp __bet,
+				   _FuncTp __func, _Tp __a, _Tp __b);
 
 _GLIBCXX_END_NAMESPACE_VERSION
 } // namespace __gnu_cxx
@@ -525,8 +581,7 @@ _GLIBCXX_END_NAMESPACE_VERSION
 #include "glfixed_integrate.tcc"
 #include "cquad_integrate.tcc"
 #include "double_exp_integrate.tcc"
-
-#include "gauss_quadrature.h"
+#include "gauss_quadrature.tcc"
 
 #include "integration.tcc"
 

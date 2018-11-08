@@ -3058,7 +3058,7 @@ test_quadrature()
 	    auto exact = integrate(mon, a, b);
 	    test_quadrature_rule(mon, a, b,
 				 prec_fixed<_Tp>, exact, "legendre monomial",
-				 __gnu_cxx::gauss_legendre_rule<_Tp>(n), n);
+				 __gnu_cxx::fixed_gauss_legendre_integral<_Tp>(n), n);
 
 	    // Test Chebyshev T (first kind) quadrature.
 	    exact = std::copysign(_Tp{1}, bma)
@@ -3067,7 +3067,7 @@ test_quadrature()
 				      _Tp{1}, bma * bma / (bpa * bpa));
 	    test_quadrature_rule(mon, a, b,
 				 prec_fixed<_Tp>, exact, "chebyshev_t monomial",
-				 __gnu_cxx::gauss_chebyshev_t_rule<_Tp>(n), n);
+				 __gnu_cxx::fixed_gauss_chebyshev_t_integral<_Tp>(n), n);
 
 	    // Test Chebyshev U (second kind) quadrature.
 	    exact = std::copysign(_Tp{1}, bma)
@@ -3077,7 +3077,7 @@ test_quadrature()
 		  * _Tp{0.25L} * bma * bma;
 	    test_quadrature_rule(mon, a, b,
 				 prec_fixed<_Tp>, exact, "chebyshev_u monomial",
-				 __gnu_cxx::gauss_chebyshev_u_rule<_Tp>(n), n);
+				 __gnu_cxx::fixed_gauss_chebyshev_u_integral<_Tp>(n), n);
 
 	    // Test Laguerre quadrature.
 	    exact = std::pow(b, _Tp(-1 - deg))
@@ -3085,7 +3085,7 @@ test_quadrature()
 		  * __gnu_cxx::tgamma(_Tp(1 + deg), a * b);
 	    test_quadrature_rule(mon, a, b,
 				 prec_fixed<_Tp>, exact, "laguerre monomial",
-				 __gnu_cxx::gauss_laguerre_rule<_Tp>(n, _Tp{0}),
+				 __gnu_cxx::fixed_gauss_laguerre_integral<_Tp>(n, _Tp{0}),
 				 n, _Tp{0});
 
 	    // Test Hermite quadrature.
@@ -3096,7 +3096,7 @@ test_quadrature()
 		      * __gnu_cxx::conf_hyperg(_Tp(-0.5L * deg), _Tp{0.5L}, -a * a * b) / std::sqrt(b));
 	    test_quadrature_rule(mon, a, b,
 				 prec_fixed<_Tp>, exact, "hermite monomial",
-				 __gnu_cxx::gauss_hermite_rule<_Tp>(n, _Tp{0}),
+				 __gnu_cxx::fixed_gauss_hermite_integral<_Tp>(n, _Tp{0}),
 				 n, _Tp{0});
 	  }
       }
@@ -3108,44 +3108,44 @@ test_quadrature()
 
     test_quadrature_rule(myfn1<_Tp>, _Tp{1.2L}, _Tp{1.6L},
 			 prec_fixed<_Tp>, _Tp{0.01505500344456001L}, "legendre myfn1",
-			 __gnu_cxx::gauss_legendre_rule<_Tp>(n), n);
+			 __gnu_cxx::fixed_gauss_legendre_integral<_Tp>(n), n);
     test_quadrature_rule(myfn1<_Tp>, _Tp{1.2L}, _Tp{2.6L}, 
 			 prec_fixed<_Tp>, _Tp{0.0582346516219999L}, "chebyshev_t myfn1",
-			 __gnu_cxx::gauss_chebyshev_t_rule<_Tp>(n), n);
+			 __gnu_cxx::fixed_gauss_chebyshev_t_integral<_Tp>(n), n);
     test_quadrature_rule(myfn1<_Tp>, _Tp{1.2L}, _Tp{1.6L},
 			 prec_fixed<_Tp>, _Tp{1.2279468957162412661311711271e-5L}, "gegenbauer myfn1",
-			 __gnu_cxx::gauss_gegenbauer_rule<_Tp>(n, _Tp{2}),
+			 __gnu_cxx::fixed_gauss_gegenbauer_integral<_Tp>(n, _Tp{2}),
 			 n, _Tp{2});
     test_quadrature_rule(myfn1<_Tp>, _Tp{1.2L}, _Tp{1.6L},
 			 prec_fixed<_Tp>, _Tp{1.228256086101808986e-1L}, "gegenbauer myfn1",
-			 __gnu_cxx::gauss_gegenbauer_rule<_Tp>(n, _Tp{-0.5L}),
+			 __gnu_cxx::fixed_gauss_gegenbauer_integral<_Tp>(n, _Tp{-0.5L}),
 			 n, _Tp{-0.5L});
     test_quadrature_rule(myfn1<_Tp>, _Tp{1.2L}, _Tp{1.6L},
 			 prec_fixed<_Tp>, _Tp{3.173064776410033e-5L}, "jacobi myfn1",
-			 __gnu_cxx::gauss_jacobi_rule<_Tp>(n, _Tp{2}, _Tp{1.5L}),
+			 __gnu_cxx::fixed_gauss_jacobi_integral<_Tp>(n, _Tp{2}, _Tp{1.5L}),
 			 n, _Tp{2}, _Tp{1.5L});
     test_quadrature_rule(myfn1<_Tp>, _Tp{1.2L}, _Tp{1.6L},
 			 prec_fixed<_Tp>, _Tp{1.228256086101808986e-1L}, "jacobi myfn1",
-			 __gnu_cxx::gauss_jacobi_rule<_Tp>(n, _Tp{-0.5L}, _Tp{-0.5L}),
+			 __gnu_cxx::fixed_gauss_jacobi_integral<_Tp>(n, _Tp{-0.5L}, _Tp{-0.5L}),
 			 n, _Tp{-0.5L}, _Tp{-0.5L});
     test_quadrature_rule(myfn1<_Tp>, _Tp{1.2L}, _Tp{0.6L},
 			 prec_fixed<_Tp>, _Tp{0.006604180366378123L}, "laguerre myfn1",
-			 __gnu_cxx::gauss_laguerre_rule<_Tp>(n, _Tp{0.5L}),
+			 __gnu_cxx::fixed_gauss_laguerre_integral<_Tp>(n, _Tp{0.5L}),
 			 n, _Tp{0.5L});
     test_quadrature_rule(myfn1<_Tp>, _Tp{1.2L}, _Tp{0.6L},
 			 prec_fixed<_Tp>, _Tp{0.6542819629825344L}, "hermite myfn1",
-			 __gnu_cxx::gauss_hermite_rule<_Tp>(n, _Tp{1}), n, _Tp{1});
+			 __gnu_cxx::fixed_gauss_hermite_integral<_Tp>(n, _Tp{1}), n, _Tp{1});
     test_quadrature_rule(myfn1<_Tp>, _Tp{1.2L}, _Tp{1.6L},
 			 prec_fixed<_Tp>, _Tp{2.1315535492168832898083633e-4L}, "exponential myfn1",
-			 __gnu_cxx::gauss_exponential_rule<_Tp>(n, _Tp{2}),
+			 __gnu_cxx::fixed_gauss_exponential_integral<_Tp>(n, _Tp{2}),
 			 n, _Tp{2});
     test_quadrature_rule(myfn1<_Tp>, _Tp{1.2L}, _Tp{1.6L},
 			 _Tp{1.0e-9L}, _Tp{4.8457468060064844e-20L}, "rational myfn1",
-			 __gnu_cxx::gauss_rational_rule<_Tp>(15, _Tp{2}, _Tp{-33.4}),
+			 __gnu_cxx::fixed_gauss_rational_integral<_Tp>(15, _Tp{2}, _Tp{-33.4}),
 			 15, _Tp{2}, _Tp{-33.4});
     test_quadrature_rule(myfn1<_Tp>, _Tp{1.2L}, _Tp{2.6L},
 			 prec_fixed<_Tp>, _Tp{0.0081704088896491L}, "chebyshev_u myfn1",
-			 __gnu_cxx::gauss_chebyshev_u_rule<_Tp>(n), n);
+			 __gnu_cxx::fixed_gauss_chebyshev_u_integral<_Tp>(n), n);
   }
 
   // Test Gegenbauer quadrature
@@ -3182,7 +3182,7 @@ test_quadrature()
 	//exact = gegenbauer_moment(test[k].a, test[k].b);
 	test_quadrature_rule(mon, test[k].a, test[k].b,
 			     prec_fixed<_Tp>, test[k].r, "gegenbauer monomial",
-			     __gnu_cxx::gauss_gegenbauer_rule<_Tp>(n, test[k].alpha),
+			     __gnu_cxx::fixed_gauss_gegenbauer_integral<_Tp>(n, test[k].alpha),
 			     n, test[k].alpha);
       }
   }
@@ -3226,7 +3226,7 @@ test_quadrature()
 	//exact = jacobi_moment(test[k].a, test[k].b);
 	test_quadrature_rule(mon, test[k].a, test[k].b,
 			     prec_fixed<_Tp>, test[k].r, "jacobi monomial",
-			     __gnu_cxx::gauss_jacobi_rule<_Tp>(n, test[k].alpha, test[k].beta),
+			     __gnu_cxx::fixed_gauss_jacobi_integral<_Tp>(n, test[k].alpha, test[k].beta),
 			     n, test[k].alpha, test[k].beta);
       }
   }
@@ -3252,7 +3252,7 @@ test_quadrature()
 	//exact = integrate(mon, test[k].a, test[k].b);
 	test_quadrature_rule(mon, test[k].a, test[k].b,
 			     prec_fixed<_Tp>, test[k].r, "exponential monomial",
-			     __gnu_cxx::gauss_exponential_rule<_Tp>(n, test[k].alpha),
+			     __gnu_cxx::fixed_gauss_exponential_integral<_Tp>(n, test[k].alpha),
 			     n, test[k].alpha);
       }
   }
@@ -3279,7 +3279,7 @@ test_quadrature()
 	//exact = integrate(mon, test[k].a, test[k].b);
 	test_quadrature_rule(mon, test[k].a, test[k].b,
 			     prec_fixed<_Tp>, test[k].r, "rational monomial",
-			     __gnu_cxx::gauss_rational_rule<_Tp>(n, test[k].alpha, test[k].beta),
+			     __gnu_cxx::fixed_gauss_rational_integral<_Tp>(n, test[k].alpha, test[k].beta),
 			     n, test[k].alpha, test[k].beta);
       }
   }

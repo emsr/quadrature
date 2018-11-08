@@ -43,7 +43,7 @@ namespace __gnu_cxx
    */
   template<typename _Tp, typename _FuncTp>
     adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
-    tanh_sinh_integrate(_FuncTp __func, _Tp __a, _Tp __b,
+    integrate_tanh_sinh(_FuncTp __func, _Tp __a, _Tp __b,
 			_Tp __max_abs_err, _Tp __max_rel_err,
 			int __max_iter)
     {
@@ -134,7 +134,7 @@ namespace __gnu_cxx
    */
   template<typename _Tp, typename _FuncTp>
     adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
-    sinh_sinh_integrate(_FuncTp __func,
+    integrate_sinh_sinh(_FuncTp __func,
 			_Tp __max_abs_err, _Tp __max_rel_err,
 			int __max_iter)
     {
@@ -220,7 +220,7 @@ namespace __gnu_cxx
    */
   template<typename _Tp, typename _FuncTp>
     adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
-    exp_sinh_integrate(_FuncTp __func, _Tp __a,
+    integrate_exp_sinh(_FuncTp __func, _Tp __a,
 			_Tp __max_abs_err, _Tp __max_rel_err,
 			int __max_iter)
     {

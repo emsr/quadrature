@@ -31,15 +31,15 @@ namespace __gnu_cxx
    * a symmetric tridiagonal Jacobi matrix.
    */
   template<typename _Tp>
-    struct gauss_legendre_rule
+    struct fixed_gauss_legendre_integral
     {
       int order;
 
-      explicit gauss_legendre_rule(int __n);
+      explicit fixed_gauss_legendre_integral(int __n);
 
       template<typename _FuncTp>
 	decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
-	operator()(_FuncTp, _Tp __a, _Tp __b) const;
+	operator()(_FuncTp __func, _Tp __a, _Tp __b) const;
 
     private:
       std::vector<_Tp> point;
@@ -50,15 +50,15 @@ namespace __gnu_cxx
    * 
    */
   template<typename _Tp>
-    struct gauss_chebyshev_t_rule
+    struct fixed_gauss_chebyshev_t_integral
     {
       int order;
 
-      explicit gauss_chebyshev_t_rule(int __n);
+      explicit fixed_gauss_chebyshev_t_integral(int __n);
 
       template<typename _FuncTp>
 	decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
-	operator()(_FuncTp, _Tp __a, _Tp __b) const;
+	operator()(_FuncTp __func, _Tp __a, _Tp __b) const;
 
     private:
       std::vector<_Tp> point;
@@ -69,15 +69,15 @@ namespace __gnu_cxx
    * 
    */
   template<typename _Tp>
-    struct gauss_chebyshev_u_rule
+    struct fixed_gauss_chebyshev_u_integral
     {
       int order;
 
-      explicit gauss_chebyshev_u_rule(int __n);
+      explicit fixed_gauss_chebyshev_u_integral(int __n);
 
       template<typename _FuncTp>
 	decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
-	operator()(_FuncTp, _Tp __a, _Tp __b) const;
+	operator()(_FuncTp __func, _Tp __a, _Tp __b) const;
 
     private:
       std::vector<_Tp> point;
@@ -91,15 +91,15 @@ namespace __gnu_cxx
    *
    */
   template<typename _Tp>
-    struct gauss_chebyshev_v_rule
+    struct fixed_gauss_chebyshev_v_integral
     {
       int order;
 
-      explicit gauss_chebyshev_v_rule(int __n);
+      explicit fixed_gauss_chebyshev_v_integral(int __n);
 
       template<typename _FuncTp>
 	decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
-	operator()(_FuncTp, _Tp __a, _Tp __b) const;
+	operator()(_FuncTp __func, _Tp __a, _Tp __b) const;
 
     private:
       std::vector<_Tp> point;
@@ -110,15 +110,15 @@ namespace __gnu_cxx
    * 
    */
   template<typename _Tp>
-    struct gauss_chebyshev_w_rule
+    struct fixed_gauss_chebyshev_w_integral
     {
       int order;
 
-      explicit gauss_chebyshev_w_rule(int __n);
+      explicit fixed_gauss_chebyshev_w_integral(int __n);
 
       template<typename _FuncTp>
 	decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
-	operator()(_FuncTp, _Tp __a, _Tp __b) const;
+	operator()(_FuncTp __func, _Tp __a, _Tp __b) const;
 
     private:
       std::vector<_Tp> point;
@@ -129,16 +129,16 @@ namespace __gnu_cxx
    * 
    */
   template<typename _Tp>
-    struct gauss_gegenbauer_rule
+    struct fixed_gauss_gegenbauer_integral
     {
       int order;
       _Tp lambda;
 
-      explicit gauss_gegenbauer_rule(int __n, _Tp __lam);
+      explicit fixed_gauss_gegenbauer_integral(int __n, _Tp __lam);
 
       template<typename _FuncTp>
 	decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
-	operator()(_FuncTp, _Tp __a, _Tp __b) const;
+	operator()(_FuncTp __func, _Tp __a, _Tp __b) const;
 
     private:
       std::vector<_Tp> point;
@@ -149,17 +149,17 @@ namespace __gnu_cxx
    * 
    */
   template<typename _Tp>
-    struct gauss_jacobi_rule
+    struct fixed_gauss_jacobi_integral
     {
       int order;
       _Tp alpha;
       _Tp beta;
 
-      explicit gauss_jacobi_rule(int __n, _Tp __alf, _Tp __bet);
+      explicit fixed_gauss_jacobi_integral(int __n, _Tp __alf, _Tp __bet);
 
       template<typename _FuncTp>
 	decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
-	operator()(_FuncTp, _Tp __a, _Tp __b) const;
+	operator()(_FuncTp __func, _Tp __a, _Tp __b) const;
 
     private:
       std::vector<_Tp> point;
@@ -170,16 +170,16 @@ namespace __gnu_cxx
    * 
    */
   template<typename _Tp>
-    struct gauss_laguerre_rule
+    struct fixed_gauss_laguerre_integral
     {
       int order;
       _Tp alpha;
 
-      explicit gauss_laguerre_rule(int n, _Tp __alf);
+      explicit fixed_gauss_laguerre_integral(int n, _Tp __alf);
 
       template<typename _FuncTp>
 	decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
-	operator()(_FuncTp, _Tp __a, _Tp __b) const;
+	operator()(_FuncTp __func, _Tp __a, _Tp __b) const;
 
     private:
       std::vector<_Tp> point;
@@ -190,16 +190,16 @@ namespace __gnu_cxx
    * 
    */
   template<typename _Tp>
-    struct gauss_hermite_rule
+    struct fixed_gauss_hermite_integral
     {
       int order;
       _Tp alpha;
 
-      explicit gauss_hermite_rule(int __n, _Tp __alf);
+      explicit fixed_gauss_hermite_integral(int __n, _Tp __alf);
 
       template<typename _FuncTp>
 	decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
-	operator()(_FuncTp, _Tp __a, _Tp __b) const;
+	operator()(_FuncTp __func, _Tp __a, _Tp __b) const;
 
     private:
       std::vector<_Tp> point;
@@ -210,16 +210,16 @@ namespace __gnu_cxx
    * 
    */
   template<typename _Tp>
-    struct gauss_exponential_rule
+    struct fixed_gauss_exponential_integral
     {
       int order;
       _Tp alpha;
 
-      explicit gauss_exponential_rule(int __n, _Tp __alf);
+      explicit fixed_gauss_exponential_integral(int __n, _Tp __alf);
 
       template<typename _FuncTp>
 	decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
-	operator()(_FuncTp, _Tp __a, _Tp __b) const;
+	operator()(_FuncTp __func, _Tp __a, _Tp __b) const;
 
     private:
       std::vector<_Tp> point;
@@ -230,25 +230,123 @@ namespace __gnu_cxx
    * 
    */
   template<typename _Tp>
-    struct gauss_rational_rule
+    struct fixed_gauss_rational_integral
     {
       int order;
       _Tp alpha;
       _Tp beta;
 
-      explicit gauss_rational_rule(int __n, _Tp __alf, _Tp __bet);
+      explicit fixed_gauss_rational_integral(int __n, _Tp __alf, _Tp __bet);
 
       template<typename _FuncTp>
 	decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
-	operator()(_FuncTp, _Tp __a, _Tp __b) const;
+	operator()(_FuncTp __func, _Tp __a, _Tp __b) const;
 
     private:
       std::vector<_Tp> point;
       std::vector<_Tp> weight;
     };
+
+  template<typename _Tp, typename _FuncTp>
+    fixed_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    integrate_fixed_gauss_legendre(int __n,
+				   _FuncTp __func, _Tp __a, _Tp __b)
+    {
+      fixed_gauss_legendre_integral<_Tp> __integ(__n);
+      return { __integ(__func, __a, __b) };
+    }
+
+  template<typename _Tp, typename _FuncTp>
+    fixed_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    integrate_fixed_gauss_chebyshev_t(int __n,
+				      _FuncTp __func, _Tp __a, _Tp __b)
+    {
+      fixed_gauss_chebyshev_t_integral<_Tp> __integ(__n);
+      return { __integ(__func, __a, __b) };
+    }
+
+
+  template<typename _Tp, typename _FuncTp>
+    fixed_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    integrate_fixed_gauss_chebyshev_u(int __n,
+				      _FuncTp __func, _Tp __a, _Tp __b)
+    {
+      fixed_gauss_chebyshev_u_integral<_Tp> __integ(__n);
+      return { __integ(__func, __a, __b) };
+    }
+
+  template<typename _Tp, typename _FuncTp>
+    fixed_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    integrate_fixed_gauss_chebyshev_v(int __n,
+				      _FuncTp __func, _Tp __a, _Tp __b)
+    {
+      fixed_gauss_chebyshev_v_integral<_Tp> __integ(__n);
+      return { __integ(__func, __a, __b) };
+    }
+
+  template<typename _Tp, typename _FuncTp>
+    fixed_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    integrate_fixed_gauss_chebyshev_w(int __n,
+				      _FuncTp __func, _Tp __a, _Tp __b)
+    {
+      fixed_gauss_chebyshev_w_integral<_Tp> __integ(__n);
+      return { __integ(__func, __a, __b) };
+    }
+
+  template<typename _Tp, typename _FuncTp>
+    fixed_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    integrate_fixed_gauss_gegenbauer(int __n, _Tp __lambda,
+				     _FuncTp __func, _Tp __a, _Tp __b)
+    {
+      fixed_gauss_gegenbauer_integral<_Tp> __integ(__n, __lambda);
+      return { __integ(__func, __a, __b) };
+    }
+
+  template<typename _Tp, typename _FuncTp>
+    fixed_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    integrate_fixed_gauss_jacobi(int __n, _Tp __alf, _Tp __bet,
+				 _FuncTp __func, _Tp __a, _Tp __b)
+    {
+      fixed_gauss_jacobi_integral<_Tp> __integ(__n, __alf, __bet);
+      return { __integ(__func, __a, __b) };
+    }
+
+  template<typename _Tp, typename _FuncTp>
+    fixed_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    integrate_fixed_gauss_laguerre(int __n, _Tp __alf,
+				   _FuncTp __func, _Tp __a, _Tp __b)
+    {
+      fixed_gauss_laguerre_integral<_Tp> __integ(__n, __alf);
+      return { __integ(__func, __a, __b) };
+    }
+
+  template<typename _Tp, typename _FuncTp>
+    fixed_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    integrate_fixed_gauss_hermite(int __n, _Tp __alf,
+				  _FuncTp __func, _Tp __a, _Tp __b)
+    {
+      fixed_gauss_hermite_integral<_Tp> __integ(__n, __alf);
+      return { __integ(__func, __a, __b) };
+    }
+
+  template<typename _Tp, typename _FuncTp>
+    fixed_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    integrate_fixed_gauss_exponential(int __n, _Tp __alf,
+				      _FuncTp __func, _Tp __a, _Tp __b)
+    {
+      fixed_gauss_exponential_integral<_Tp> __integ(__n, __alf);
+      return { __integ(__func, __a, __b) };
+    }
+
+  template<typename _Tp, typename _FuncTp>
+    fixed_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    integrate_fixed_gauss_rational(int __n, _Tp __alf, _Tp __bet,
+				   _FuncTp __func, _Tp __a, _Tp __b)
+    {
+      fixed_gauss_rational_integral<_Tp> __integ(__n, __alf, __bet);
+      return { __integ(__func, __a, __b) };
+    }
 
 } // namespace __gnu_cxx
-
-#include "gauss_quadrature.tcc"
 
 #endif // GAUSS_QUADRATURE_H
