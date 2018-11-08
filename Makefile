@@ -14,13 +14,16 @@ ifeq ("$(wildcard $(CXX_INST_DIR))","")
   endif
 endif
 
-#OPT = -O3
-OPT = -g
+OPT = -O3
+#OPT = -g
 #OPT = -g -fsanitize=signed-integer-overflow -fsanitize=bounds -fsanitize=float-divide-by-zero -fsanitize=float-cast-overflow -fsanitize=alignment
 GCC = $(CXX_INST_DIR)/bin/gcc $(OPT) -Wall -Wextra
 CXX17 = $(CXX_INST_DIR)/bin/g++ -std=gnu++17 -fconcepts $(OPT) -Wall -Wextra -Wno-psabi -I..
 CXX_INC_DIR = $(CXX_INST_DIR)/include/c++/8.0.0/bits
 CXX_LIB_DIR = $(CXX_INST_DIR)/lib64
+
+WRAPPER_LIBS = -L../wrappers/release -lwrap_burkhardt -lgfortran
+#WRAPPER_LIBS = -L../wrappers/debug -lwrap_burkhardt -lgfortran
 
 OBJ_DIR = obj
 BIN_DIR = .
@@ -55,7 +58,7 @@ BINS = \
 all: $(OBJ_DIR) $(BINS)
 
 
-check:
+ortho_test:
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/legendre_test > legendre_test.txt 2> legendre_test.err
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/chebyshev_t_test > chebyshev_t_test.txt 2> chebyshev_t_test.err
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/chebyshev_u_test > chebyshev_u_test.txt 2> chebyshev_u_test.err
@@ -92,7 +95,7 @@ docs:
 # Binaries...
 
 $(BIN_DIR)/build_clenshaw_curtis: $(OBJ_DIR)/build_clenshaw_curtis.o
-	$(CXX17) -o $(BIN_DIR)/build_clenshaw_curtis $(OBJ_DIR)/build_clenshaw_curtis.o -lquadmath -L../wrappers/debug -lwrap_burkhardt -lgfortran
+	$(CXX17) -o $(BIN_DIR)/build_clenshaw_curtis $(OBJ_DIR)/build_clenshaw_curtis.o -lquadmath $(WRAPPER_LIBS)
 
 $(BIN_DIR)/test_gauss_kronrod_rule: $(OBJ_DIR)/test_gauss_kronrod_rule.o
 	$(CXX17) -o $(BIN_DIR)/test_gauss_kronrod_rule $(OBJ_DIR)/test_gauss_kronrod_rule.o -lquadmath
