@@ -17,6 +17,13 @@ ${makedir} ${quad_dir}/multi_singular
 ${makedir} ${quad_dir}/singular
 ${makedir} ${quad_dir}/trapezoid
 
+#${tool} check_gauss_kronrod.cc    ${quad_dir}/gauss_kronrod/check.cc
+#${tool} check_midpoint.cc         ${quad_dir}/midpoint/check.cc
+#${tool} check_multi_singular.cc   ${quad_dir}/multi_singular/check.cc
+#${tool} check_singular.cc         ${quad_dir}/singular/check.cc
+#${tool} check_trapezoid.cc        ${quad_dir}/trapezoid/check.cc
+##${tool} check_.cc   ${quad_dir}//check.cc
+
 
 ${makedir} ${test_dir}/01_assoc_laguerre
 ${makedir} ${test_dir}/02_assoc_legendre
