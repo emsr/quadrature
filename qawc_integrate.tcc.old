@@ -96,9 +96,7 @@ namespace __gnu_cxx
       __workspace.clear();
 
       // Perform the first integration.
-      _Tp __result0, __abserr0;
-      bool __err_reliable;
-      std::tie(__result0, __abserr0, __err_reliable)
+      auto [__result0, __abserr0, __err_reliable]
 	= qc25c(__func, __lower, __upper, __center);
 
       __workspace.append(__lower, __upper, __result0, __abserr0);
@@ -133,14 +131,10 @@ namespace __gnu_cxx
 	    __mid = (__a1 + __center) / _Tp{2};
 	  const auto __a2 = __mid;
 
-	  _Tp __area1, __error1;
-	  bool __err_reliable1;
-	  std::tie(__area1, __error1, __err_reliable1)
+	  auto [__area1, __error1, __err_reliable1]
 	    = qc25c(__func, __a1, __mid, __center);
 
-	  _Tp __area2, __error2;
-	  bool __err_reliable2;
-	  std::tie(__area2, __error2, __err_reliable2)
+	  auto [__area2, __error2, __err_reliable2]
 	    = qc25c(__func, __a2, __b2, __center);
 
 	  const auto __area12 = __area1 + __area2;
@@ -224,21 +218,19 @@ namespace __gnu_cxx
 				-> _Tp
 				{ return __func(__x) / (__x - __center); };
 
-	  auto __out = qk_integrate(__func_cauchy, __lower, __upper, Kronrod_15);
+	  auto [__result, __abserr, __resabs, __resasc]
+	    = qk_integrate(__func_cauchy, __lower, __upper, Kronrod_15);
 
-	  if (__out.__abserr == __out.__resasc)
+	  if (__abserr == __resasc)
 	    __err_reliable = false;
 	  else
 	    __err_reliable = true;
 
-	  return std::make_tuple(__out.__result, __out.__abserr,
-				 __err_reliable);
+	  return std::make_tuple(__result, __abserr, __err_reliable);
 	}
       else
 	{
-	  auto __chout = qcheb_integrate(__func, __lower, __upper);
-	  const auto& __cheb12 = __chout.__cheb12;
-	  const auto& __cheb24 = __chout.__cheb24;
+	  auto [__cheb12, __cheb24] = qcheb_integrate(__func, __lower, __upper);
 	  const auto __moment = compute_moments(__cheb24.size(), __cc);
 
 	  auto __res12 = _Tp{0};

@@ -93,11 +93,8 @@ namespace __gnu_cxx
 
       // Perform the first integration.
 
-      auto __out0 = __quad(__func, __lower, __upper);
-      auto __result0 = __out0.__result;
-      auto __abserr0 = __out0.__abserr;
-      auto __resabs0 = __out0.__resabs;
-      auto __resasc0 = __out0.__resasc;
+      auto [__result0, __abserr0, __resabs0, __resasc0]
+	= __quad(__func, __lower, __upper);
 
       __workspace.append(__lower, __upper, __result0, __abserr0);
 
@@ -145,17 +142,11 @@ namespace __gnu_cxx
 
 	  ++__iteration;
 
-	  auto __out1 = __quad(__func, __a1, __mid);
-	  auto __area1 = __out1.__result;
-	  auto __error1 = __out1.__abserr;
-	  //auto __resabs1 = __out1.__resabs;
-	  auto __resasc1 = __out1.__resasc;
+	  auto [__area1, __error1, __resabs1, __resasc1]
+	    = __quad(__func, __a1, __mid);
 
-	  auto __out2 = __quad(__func, __a2, __b2);
-	  auto __area2 = __out2.__result;
-	  auto __error2 = __out2.__abserr;
-	  //auto __resabs2 = __out2.__resabs;
-	  auto __resasc2 = __out2.__resasc;
+	  auto [__area2, __error2, __resabs2, __resasc2]
+	    = __quad(__func, __a2, __b2);
 
 	  const auto __area12 = __area1 + __area2;
 	  const auto __error12 = __error1 + __error2;

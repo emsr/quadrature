@@ -477,7 +477,7 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
     {
       integration_workspace<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
 	__wksp(__max_iter);
-      qaws_integration_table<_Tp, _FuncTp> __tab(__alpha, __beta, __mu, __nu);
+      qaws_integration_table<_Tp> __tab(__alpha, __beta, __mu, __nu);
 
       return qaws_integrate(__wksp, __tab, __func, __lower, __upper,
 			    __max_abs_error, __max_rel_error);
