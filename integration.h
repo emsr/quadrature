@@ -386,6 +386,74 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
 				     std::size_t __max_iter = 1024)
     -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>;
 
+  /**
+   * @f[
+   *    \int_{-1}^{+1}f(x)dx
+   * @f]
+   * Making the change of variables:
+   * @f[
+   *    x = tanh\left[\frac{\pi}{2}sinh(u)\right],
+   *   dx = \frac{\pi}{2}
+   *        \frac{cosh(u)}{cosh^2\left[\frac{\pi}{2}sinh(u)\right]}du
+   * @f]
+   * gives the following integral:
+   * @f[
+   *    \int_{-\infty}^{+\infty}f(tanh\left[\frac{\pi}{2}sinh(u)\right])
+   *     = \sum_{k=-n}^{+n} 
+   * @f]
+   */
+  template<typename _Tp, typename _FuncTp>
+    adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    tanh_sinh_integrate(_FuncTp __func, _Tp __a, _Tp __b,
+			_Tp __max_rel_tol, int __max_iter = 4);
+
+  /**
+   * @f[
+   *    \int_{-\infty}^{+\infty}f(x)dx
+   * @f]
+   * Making the change of variables:
+   * @f[
+   *    x = sinh\left[\frac{\pi}{2}sinh(u)\right],
+   *   dx = \frac{\pi}{2} cosh(u)
+   *        cosh\left[\frac{\pi}{2}sinh(u)\right]du
+   * @f]
+   * gives the following integral:
+   * @f[
+   *    \int_{-\infty}^{+\infty}f(sinh\left[\frac{\pi}{2}sinh(u)\right])
+   *     = \sum_{k=-n}^{+n} 
+   * @f]
+   */
+  template<typename _Tp, typename _FuncTp>
+    adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    sinh_sinh_integrate(_FuncTp __func,
+			_Tp __max_rel_tol, int __max_iter = 8);
+
+  /**
+   * @f[
+   *    \int_{0}^{+\infty}f(x)dx
+   * @f]
+   * Making the change of variables:
+   * @f[
+   *    x = exp\left[\frac{\pi}{2}sinh(u)\right],
+   *   dx = \frac{\pi}{2} cosh(u)
+   *        exp\left[\frac{\pi}{2}sinh(u)\right]du
+   * @f]
+   * gives the following integral:
+   * @f[
+   *    \int_{0}^{+\infty}f(exp\left[\frac{\pi}{2}sinh(u)\right])
+   *     = \sum_{k=-n}^{+n} 
+   * @f]
+   *
+   * This function allows a non-zero lower limit @c a.
+   *
+   * @param  func  The function to be integrated.
+   * @param  a  The lower limit of the semi-infinite integral.
+   */
+  template<typename _Tp, typename _FuncTp>
+    adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    exp_sinh_integrate(_FuncTp __func, _Tp __a,
+			_Tp __max_rel_tol, int __max_iter = 4);
+
 _GLIBCXX_END_NAMESPACE_VERSION
 } // namespace __gnu_cxx
 

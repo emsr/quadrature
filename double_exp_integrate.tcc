@@ -61,9 +61,9 @@ namespace __gnu_cxx
 	  const auto __eu = std::exp(__u);
 	  const auto __cosh = __eu + _Tp{1} / __eu;
 	  const auto __sinh = __eu - _Tp{1} / __eu;
-          const auto __s = std::exp(_S_pi_4 * __sinh);
-	  const auto __w = __s + _Tp{1} / __s;
-	  const auto __x = (__b * __s + __a / __s) / __w;
+          const auto __esh = std::exp(_S_pi_4 * __sinh);
+	  const auto __w = __esh + _Tp{1} / __esh;
+	  const auto __x = (__b * __esh + __a / __esh) / __w;
 	  if (__x != __a && __x != __b)
 	    {
 	      const auto __dxdu = _Tp{2} * (__b - __a) * _S_pi_4 * __cosh
@@ -94,11 +94,11 @@ namespace __gnu_cxx
 	  const auto __eu = std::exp(__u);
 	  const auto __cosh = __eu + _Tp{1} / __eu;
 	  const auto __sinh = __eu - _Tp{1} / __eu;
-          const auto __s = std::exp(_S_pi_4 * __sinh);
-	  const auto __w = __s + _Tp{1} / __s;
+          const auto __esh = std::exp(_S_pi_4 * __sinh);
+	  const auto __w = __esh + _Tp{1} / __esh;
 	  const auto __dxdu = __cosh / (__w * __w);
-	  const auto __x1 = (__b * __s + __a / __s) / __w;
-	  const auto __x2 = (__a * __s + __b / __s) / __w;
+	  const auto __x1 = (__b * __esh + __a / __esh) / __w;
+	  const auto __x2 = (__a * __esh + __b / __esh) / __w;
 	  if (__x1 != __a && __x1 != __b) 
 	    __sum += __dxdu * __func(__x1);
 	  if (__x2 != __a && __x2 != __b)
@@ -129,9 +129,9 @@ namespace __gnu_cxx
 	  const auto __eu = std::exp(__u);
 	  const auto __cosh = __eu + _Tp{1} / __eu;
 	  const auto __sinh = __eu - _Tp{1} / __eu;
-          const auto __s = std::exp(_S_pi_4 * __sinh);
-	  const auto __w = __s + _Tp{1} / __s;
-	  const auto __x = (__b * __s + __a / __s) / __w;
+          const auto __esh = std::exp(_S_pi_4 * __sinh);
+	  const auto __w = __esh + _Tp{1} / __esh;
+	  const auto __x = (__b * __esh + __a / __esh) / __w;
 	  if (__x != __a && __x != __b)
 	    {
 	      const auto __dxdu = __cosh / (__w * __w);
@@ -147,9 +147,9 @@ namespace __gnu_cxx
 	  const auto __eu = std::exp(__u);
 	  const auto __cosh = __eu + _Tp{1} / __eu;
 	  const auto __sinh = __eu - _Tp{1} / __eu;
-          const auto __s = std::exp(_S_pi_4 * __sinh);
-	  const auto __w = __s + _Tp{1} / __s;
-	  const auto __x = (__b * __s + __a / __s) / __w;
+          const auto __esh = std::exp(_S_pi_4 * __sinh);
+	  const auto __w = __esh + _Tp{1} / __esh;
+	  const auto __x = (__b * __esh + __a / __esh) / __w;
 	  if (__x != __a && __x != __b)
 	    {
 	      const auto __dxdu = __cosh / (__w * __w);
@@ -180,15 +180,14 @@ namespace __gnu_cxx
   template<typename _Tp, typename _FuncTp>
     adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
     tanh_sinh_integrate(_FuncTp __func, _Tp __a, _Tp __b,
-			_Tp __max_rel_tol, int __max_iter = 3)
+			_Tp __max_rel_tol, int __max_iter)
     {
       const auto _S_pi_4 = __gnu_cxx::__math_constants<_Tp>::__pi_quarter;
 
       int __n = 16;
       __n /= 2;
 
-      // 5.0 is rough limit of K in exp(exp(K)).
-      // Find K = ln(ln(max()))
+      // Find K = ln(ln(max_number))
       const auto __k_max = std::log(std::log(std::numeric_limits<_Tp>::max()))
 		- _Tp{1};
       auto __h = __k_max / __n;
@@ -201,13 +200,13 @@ namespace __gnu_cxx
 	  const auto __eu = std::exp(__u);
 	  const auto __cosh = __eu + _Tp{1} / __eu;
 	  const auto __sinh = __eu - _Tp{1} / __eu;
-          const auto __s = std::exp(_S_pi_4 * __sinh);
-	  const auto __w = __s + _Tp{1} / __s;
+          const auto __esh = std::exp(_S_pi_4 * __sinh);
+	  const auto __w = __esh + _Tp{1} / __esh;
 	  const auto __dxdu = __cosh / (__w * __w);
-	  const auto __x1 = (__b * __s + __a / __s) / __w;
+	  const auto __x1 = (__b * __esh + __a / __esh) / __w;
 	  if (__x1 != __a && __x1 != __b) 
 	    __sum1 += __dxdu * __func(__x1);
-	  const auto __x2 = (__a * __s + __b / __s) / __w;
+	  const auto __x2 = (__a * __esh + __b / __esh) / __w;
 	  if (__x2 != __a && __x2 != __b)
 	    __sum2 += __dxdu * __func(__x2);
 	}
@@ -224,15 +223,15 @@ namespace __gnu_cxx
 	      // A standard sinhcosh would be a nice idea along with sincos.
 	      const auto __cosh = __eu + _Tp{1} / __eu;
 	      const auto __sinh = __eu - _Tp{1} / __eu;
-              const auto __s = std::exp(_S_pi_4 * __sinh);
-	      const auto __w = __s + _Tp{1} / __s;
+              const auto __esh = std::exp(_S_pi_4 * __sinh);
+	      const auto __w = __esh + _Tp{1} / __esh;
 	      const auto __dxdu = __cosh / (__w * __w);
 	      // natural: x1 = (s - 1/s) / (s + 1/s)
-	      const auto __x1 = (__b * __s + __a / __s) / __w;
+	      const auto __x1 = (__b * __esh + __a / __esh) / __w;
 	      if (__x1 != __a && __x1 != __b) 
 		__sum1 += __dxdu * __func(__x1);
 	      // natural: x2 = (-s + 1/s) / (s + 1/s)
-	      const auto __x2 = (__a * __s + __b / __s) / __w;
+	      const auto __x2 = (__a * __esh + __b / __esh) / __w;
 	      if (__x2 != __a && __x2 != __b)
 		__sum2 += __dxdu * __func(__x2);
 	    }
@@ -270,15 +269,14 @@ namespace __gnu_cxx
   template<typename _Tp, typename _FuncTp>
     adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
     sinh_sinh_integrate(_FuncTp __func,
-			_Tp __max_rel_tol, int __max_iter = 3)
+			_Tp __max_rel_tol, int __max_iter)
     {
       const auto _S_pi_4 = __gnu_cxx::__math_constants<_Tp>::__pi_quarter;
 
       int __n = 16;
       __n /= 2;
 
-      // 5.0 is rough limit of K in exp(exp(K)).
-      // Find K = ln(ln(max()))
+      // Find K = ln(ln(max_number))
       const auto __k_max = std::log(std::log(std::numeric_limits<_Tp>::max()))
 		- _Tp{1};
       auto __h = __k_max / __n;
@@ -291,9 +289,9 @@ namespace __gnu_cxx
 	  const auto __eu = std::exp(__u);
 	  const auto __cosh = __eu + _Tp{1} / __eu;
 	  const auto __sinh = __eu - _Tp{1} / __eu;
-          const auto __s = std::exp(_S_pi_4 * __sinh);
-	  const auto __x = (__s - _Tp{1} / __s) / _Tp{2};
-	  const auto __w = __s + _Tp{1} / __s;
+          const auto __esh = std::exp(_S_pi_4 * __sinh);
+	  const auto __x = (__esh - _Tp{1} / __esh) / _Tp{2};
+	  const auto __w = __esh + _Tp{1} / __esh;
 	  const auto __dxdu = __cosh * __w / _Tp{4};
 	  __sum1 += __dxdu * __func(+__x);
 	  __sum2 += __dxdu * __func(-__x);
@@ -309,9 +307,9 @@ namespace __gnu_cxx
 	      const auto __eu = std::exp(__u);
 	      const auto __cosh = __eu + _Tp{1} / __eu;
 	      const auto __sinh = __eu - _Tp{1} / __eu;
-              const auto __s = std::exp(_S_pi_4 * __sinh);
-	      const auto __x = (__s - _Tp{1} / __s) / _Tp{2};
-	      const auto __w = __s + _Tp{1} / __s;
+              const auto __esh = std::exp(_S_pi_4 * __sinh);
+	      const auto __x = (__esh - _Tp{1} / __esh) / _Tp{2};
+	      const auto __w = __esh + _Tp{1} / __esh;
 	      const auto __dxdu = __cosh * __w / _Tp{4};
 	      __sum1 += __dxdu * __func(+__x);
 	      __sum2 += __dxdu * __func(-__x);
@@ -343,14 +341,19 @@ namespace __gnu_cxx
    * @f]
    * gives the following integral:
    * @f[
-   *    \int_{-\infty}^{+\infty}f(tanh\left[\frac{\pi}{2}sinh(u)\right])
+   *    \int_{0}^{+\infty}f(exp\left[\frac{\pi}{2}sinh(u)\right])
    *     = \sum_{k=-n}^{+n} 
    * @f]
+   *
+   * This function allows a non-zero lower limit @c a.
+   *
+   * @param  func  The function to be integrated.
+   * @param  a  The lower limit of the semi-infinite integral.
    */
   template<typename _Tp, typename _FuncTp>
     adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
     exp_sinh_integrate(_FuncTp __func, _Tp __a,
-			_Tp __max_rel_tol, int __max_iter = 3)
+			_Tp __max_rel_tol, int __max_iter)
     {
       using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
       using _AreaTp = decltype(_RetTp{} * _Tp{});
@@ -359,8 +362,7 @@ namespace __gnu_cxx
 
       const auto _S_pi_4 = __gnu_cxx::__math_constants<_Tp>::__pi_quarter;
 
-      // 5.0 is rough limit of K in exp(exp(K)).
-      // Find K = ln(ln(max()))
+      // Find K = ln(ln(max_number))
       const auto __k_max = std::log(std::log(std::numeric_limits<_Tp>::max()))
 		- _Tp{1};
       auto __h = __k_max / __n;
@@ -372,9 +374,9 @@ namespace __gnu_cxx
 	  const auto __eu = std::exp(__u);
 	  const auto __cosh = __eu + _Tp{1} / __eu;
 	  const auto __sinh = __eu - _Tp{1} / __eu;
-          const auto __w = std::exp(_S_pi_4 * __sinh);
-	  const auto __dxdu = __cosh * __w / _Tp{2};
-	  __sum += __dxdu * __func(__a + __w);
+          const auto __esh = std::exp(_S_pi_4 * __sinh);
+	  const auto __dxdu = __cosh * __esh;
+	  __sum += __dxdu * __func(__a + __esh);
 	}
 
       // Interlace values (don't go past the rightmost point).
@@ -388,9 +390,9 @@ namespace __gnu_cxx
 	      const auto __eu = std::exp(__u);
 	      const auto __cosh = __eu + _Tp{1} / __eu;
 	      const auto __sinh = __eu - _Tp{1} / __eu;
-              const auto __w = std::exp(_S_pi_4 * __sinh);
-	      const auto __dxdu = __cosh * __w / _Tp{2};
-	      __sum += __dxdu * __func(__a + __w);
+              const auto __esh = std::exp(_S_pi_4 * __sinh);
+	      const auto __dxdu = __cosh * __esh;
+	      __sum += __dxdu * __func(__a + __esh);
 	    }
 
 	  const auto __curr_sum = __sum;
@@ -402,7 +404,7 @@ namespace __gnu_cxx
 	  __h /= _Tp{2};
 	}
 
-      const auto __fact = _Tp{2} * _S_pi_4 * __h;
+      const auto __fact = _S_pi_4 * __h;
       const auto __tot_sum = __sum;
       return {__fact * __tot_sum, __fact * std::abs(__tot_sum - __prev_sum)};
     }
