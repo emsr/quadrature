@@ -28,9 +28,9 @@ namespace __gnu_cxx
 /**
  * Integrate the function by naive subdivision.
  */
-template<typename _Func, typename _Tp>
-  typename trapezoid_integral<_Func, _Tp>::_AreaTp
-  trapezoid_integral<_Func, _Tp>::operator()()
+template<typename _Tp, typename _FuncTp>
+  typename trapezoid_integral< _Tp, _FuncTp>::_AreaTp
+  trapezoid_integral< _Tp, _FuncTp>::operator()()
   {
     auto __sum_prev = this->_M_step();
     for (std::size_t __j = 1; __j < _S_max_iter; ++__j)
@@ -51,9 +51,9 @@ template<typename _Func, typename _Tp>
 /**
  * Chances are, if the function returns Nan or inf, we stepped on a pole.
  */
-template<typename _Func, typename _Tp>
-  std::invoke_result_t<_Func, _Tp>
-  __wrap_func(_Func __func, _Tp __x)
+template<typename _Tp, typename _FuncTp>
+  std::invoke_result_t<_FuncTp, _Tp>
+  __wrap_func(_FuncTp __func, _Tp __x)
   {
     auto __y = __func(__x);
     if (std::isnan(__y) || std::isinf(__y))
@@ -65,9 +65,9 @@ template<typename _Func, typename _Tp>
 /**
  * 
  */
-template<typename _Func, typename _Tp>
-  typename trapezoid_integral<_Func, _Tp>::_AreaTp
-  trapezoid_integral<_Func, _Tp>::_M_step()
+template<typename _Tp, typename _FuncTp>
+  typename trapezoid_integral< _Tp, _FuncTp>::_AreaTp
+  trapezoid_integral< _Tp, _FuncTp>::_M_step()
   {
     if (this->_M_iter == 0)
       {

@@ -28,9 +28,9 @@ namespace __gnu_cxx
 /**
  * Integrate the function by naive subdivision.
  */
-template<typename _Func, typename _Tp>
-  typename midpoint_integral<_Func, _Tp>::_AreaTp
-  midpoint_integral<_Func, _Tp>::operator()()
+template<typename _Tp, typename _FuncTp>
+  typename midpoint_integral< _Tp, _FuncTp>::_AreaTp
+  midpoint_integral< _Tp, _FuncTp>::operator()()
   {
     auto __sum_prev = this->_M_step();
     for (std::size_t __j = 1; __j < _S_max_iter; ++__j)
@@ -51,9 +51,9 @@ template<typename _Func, typename _Tp>
 /**
  * 
  */
-template<typename _Func, typename _Tp>
-  typename midpoint_integral<_Func, _Tp>::_AreaTp
-  midpoint_integral<_Func, _Tp>::_M_step()
+template<typename _Tp, typename _FuncTp>
+  typename midpoint_integral< _Tp, _FuncTp>::_AreaTp
+  midpoint_integral< _Tp, _FuncTp>::_M_step()
   {
     if (this->_M_iter == 0)
       {

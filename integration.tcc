@@ -27,9 +27,13 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
 
   template<typename _Tp>
     constexpr
-    integral_tolerance_t<_Tp>::
-    integral_tolerance_t(_Tp __max_abs_err, _Tp __max_rel_err)
-    : _M_max_abs_err{__max_abs_err}, _M_max_rel_err{__max_rel_err}
+    error_tolerance_t<_Tp>::
+    error_tolerance_t(_Tp __max_abs_err, _Tp __max_rel_err,
+			 unsigned __min_num_passes)
+    : _M_max_abs_err{std::abs(__max_abs_err)},
+      _M_max_rel_err{std::abs(__max_rel_err)},
+      _M_min_num_passes(__min_num_passes == 0 ? 1 : __min_num_passes),
+      _M_num_passes(0)
     {
       if (!_S_valid_tolerances(this->_M_max_abs_err, this->_M_max_rel_err))
 	{

@@ -63,13 +63,25 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
       _AbsAreaTp __abserr = _AbsAreaTp{};
     };
 
+_GLIBCXX_END_NAMESPACE_VERSION
+} // namespace __gnu_cxx
+
+#include "trapezoid_integral.h"
+#include "midpoint_integral.h"
+
+namespace __gnu_cxx _GLIBCXX_VISIBILITY(default)
+{
+_GLIBCXX_BEGIN_NAMESPACE_VERSION
+
   /**
-   * The error model for integrals.
+   * An error tolerance model for integrals.
    */
   template<typename _Tp>
-    struct integral_tolerance_t
+    struct error_tolerance_t
     {
-      constexpr integral_tolerance_t(_Tp __max_abs_err, _Tp __max_rel_err);
+      constexpr
+      error_tolerance_t(_Tp __max_abs_err, _Tp __max_rel_err,
+			unsigned __min_num_passes);
 
       /// Maximum absolute error tolerance.
       _Tp _M_max_abs_err;
@@ -77,8 +89,12 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
       _Tp _M_max_rel_err;
       /// Current tolerance.
       _Tp _M_tolerance = this->tolerance(_Tp{1});
+      /// Minimum number of consecutive passes before result is OK.
+      unsigned _M_min_num_passes;
+      /// Current number of passes.
+      unsigned _M_num_passes;
 
-      /// Set and return the tolerance given an integration result.
+      /// Set and return the tolerance given an initial result.
       template<typename _ResTp>
 	constexpr _Tp
 	tolerance(_ResTp __result)
@@ -89,12 +105,27 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
 	  return this->_M_tolerance;
 	}
 
-      /// Set and return the tolerance given an integration result.
+      /// Return whether convergence is acceptable tolerance
+      /// given two subsequent results.
+      template<typename _ResTp>
+	bool
+	test(_ResTp __curr_result, _ResTp __prev_result)
+	{
+	  const auto __del = std::abs(__curr_result - __prev_result);
+	  if (__del < this->_M_max_abs_err
+	      || __del < this->_M_max_rel_err * std::abs(__curr_result))
+	    ++this->_M_num_passes;
+	  else
+	    this->_M_num_passes = 0;
+	  return this->_M_num_passes >= this->_M_min_num_passes;
+	}
+
+      /// Return the current tolerance.
       constexpr _Tp
       tolerance() const
       { return this->_M_tolerance; }
 
-      /// Test for valid tolerances.
+      /// Test for valid error tolerances.
       static constexpr bool
       _S_valid_tolerances(_Tp __max_abs_err, _Tp __max_rel_err)
       {
@@ -111,9 +142,16 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
     inline bool
     valid_tolerances(_Tp __max_abs_err, _Tp __max_rel_err)
     {
-      return integral_tolerance_t<_Tp>::
+      return error_tolerance_t<_Tp>::
 	     _S_valid_tolerances(__max_abs_err, __max_rel_err);
     }
+
+_GLIBCXX_END_NAMESPACE_VERSION
+} // namespace __gnu_cxx
+
+namespace __gnu_cxx _GLIBCXX_VISIBILITY(default)
+{
+_GLIBCXX_BEGIN_NAMESPACE_VERSION
 
   /**
    * Integrate a smooth function from a to b.
@@ -405,7 +443,8 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
   template<typename _Tp, typename _FuncTp>
     adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
     tanh_sinh_integrate(_FuncTp __func, _Tp __a, _Tp __b,
-			_Tp __max_rel_tol, int __max_iter = 4);
+			_Tp __max_abs_err, _Tp __max_rel_err,
+			int __max_iter = 4);
 
   /**
    * @f[
@@ -426,7 +465,8 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
   template<typename _Tp, typename _FuncTp>
     adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
     sinh_sinh_integrate(_FuncTp __func,
-			_Tp __max_rel_tol, int __max_iter = 8);
+			_Tp __max_abs_err, _Tp __max_rel_err,
+			int __max_iter = 8);
 
   /**
    * @f[
@@ -452,11 +492,26 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
   template<typename _Tp, typename _FuncTp>
     adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
     exp_sinh_integrate(_FuncTp __func, _Tp __a,
-			_Tp __max_rel_tol, int __max_iter = 4);
+			_Tp __max_abs_err, _Tp __max_rel_err,
+			int __max_iter = 4);
+
+  template<typename _Tp, typename _FuncTp>
+    adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    trapezoid_integrate(_FuncTp __func, _Tp __a, _Tp __b,
+			_Tp __max_abs_err, _Tp __max_rel_err,
+			int __max_iter);
+
+  template<typename _Tp, typename _FuncTp>
+    adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    midpoint_integrate(_FuncTp __func, _Tp __a, _Tp __b,
+			_Tp __max_abs_err, _Tp __max_rel_err,
+			int __max_iter);
 
 _GLIBCXX_END_NAMESPACE_VERSION
 } // namespace __gnu_cxx
 
+#include "trapezoid_integral.tcc"
+#include "midpoint_integral.tcc"
 #include "gauss_kronrod_integral.tcc"
 #include "qag_integrate.tcc"
 #include "qags_integrate.tcc"
