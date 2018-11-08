@@ -18,15 +18,69 @@ OPT = -O3
 #OPT = -g
 #OPT = -g -fsanitize=signed-integer-overflow -fsanitize=bounds -fsanitize=float-divide-by-zero -fsanitize=float-cast-overflow -fsanitize=alignment
 GCC = $(CXX_INST_DIR)/bin/gcc $(OPT) -Wall -Wextra
-CXX17 = $(CXX_INST_DIR)/bin/g++ -std=gnu++17 -fconcepts $(OPT) -Wall -Wextra -Wno-psabi -I..
+CXX17 = $(CXX_INST_DIR)/bin/g++ -std=gnu++17 -fconcepts $(OPT) -Wall -Wextra -Wno-psabi
 CXX_INC_DIR = $(CXX_INST_DIR)/include/c++/8.0.0/bits
 CXX_LIB_DIR = $(CXX_INST_DIR)/lib64
 
 WRAPPER_LIBS = -L../wrappers/release -lwrap_burkhardt -lgfortran
 #WRAPPER_LIBS = -L../wrappers/debug -lwrap_burkhardt -lgfortran
 
+INC_DIR = include/ext
+
 OBJ_DIR = obj
 BIN_DIR = .
+
+INCS = \
+  $(INC_DIR)/cquad_const.tcc \
+  $(INC_DIR)/cquad_integrate.tcc \
+  $(INC_DIR)/cquad_workspace.h \
+  $(INC_DIR)/double_exp_integrate.tcc \
+  $(INC_DIR)/extrapolation_table.h \
+  $(INC_DIR)/extrapolation_table.tcc \
+  $(INC_DIR)/fourier_transform.h \
+  $(INC_DIR)/fourier_transform.tcc \
+  $(INC_DIR)/gauss_hermite_integrate.h \
+  $(INC_DIR)/gauss_jacobi_integrate.tcc \
+  $(INC_DIR)/gauss_jacobi_interface.tcc \
+  $(INC_DIR)/gauss_kronrod_integral.h \
+  $(INC_DIR)/gauss_kronrod_integral.tcc \
+  $(INC_DIR)/gauss_kronrod_rule.tcc \
+  $(INC_DIR)/gauss_laguerre_integrate.h \
+  $(INC_DIR)/gauss_legendre_table.h \
+  $(INC_DIR)/gauss_legendre_table.tcc \
+  $(INC_DIR)/gauss_quadrature.h \
+  $(INC_DIR)/gauss_quadrature.tcc \
+  $(INC_DIR)/glfixed_integrate.tcc \
+  $(INC_DIR)/integration_error.h \
+  $(INC_DIR)/integration.h \
+  $(INC_DIR)/integration.tcc \
+  $(INC_DIR)/integration_transform.h \
+  $(INC_DIR)/integration_workspace.h \
+  $(INC_DIR)/integration_workspace.tcc \
+  $(INC_DIR)/jacobi.h \
+  $(INC_DIR)/matrix.h \
+  $(INC_DIR)/matrix.tcc \
+  $(INC_DIR)/midpoint_integral.h \
+  $(INC_DIR)/midpoint_integral.tcc \
+  $(INC_DIR)/oscillatory_integration_table.h \
+  $(INC_DIR)/oscillatory_integration_table.tcc \
+  $(INC_DIR)/qag_integrate.tcc \
+  $(INC_DIR)/qagp_integrate.tcc \
+  $(INC_DIR)/qags_integrate.tcc \
+  $(INC_DIR)/qawc_integrate.tcc \
+  $(INC_DIR)/qawf_integrate.tcc \
+  $(INC_DIR)/qawo_integrate.tcc \
+  $(INC_DIR)/qaws_integrate.tcc \
+  $(INC_DIR)/qaws_integration_table.h \
+  $(INC_DIR)/qaws_integration_table.tcc \
+  $(INC_DIR)/qcheb_integrate.tcc \
+  $(INC_DIR)/qng_integrate.tcc \
+  $(INC_DIR)/simpson_integral.h \
+  $(INC_DIR)/simpson_integral.tcc \
+  $(INC_DIR)/test_integral.tcc \
+  $(INC_DIR)/trapezoid_integral.h \
+  $(INC_DIR)/trapezoid_integral.tcc \
+  $(INC_DIR)/triangle_rules.h
 
 BINS = \
   $(BIN_DIR)/test_phase_iterator \
@@ -109,32 +163,32 @@ $(BIN_DIR)/assoc_legendre_test: $(OBJ_DIR)/assoc_legendre_test.o
 $(BIN_DIR)/sph_legendre_test: $(OBJ_DIR)/sph_legendre_test.o
 	$(CXX17) -o $(BIN_DIR)/sph_legendre_test $(OBJ_DIR)/sph_legendre_test.o -lquadmath
 
-$(BIN_DIR)/test_phase_iterator: test_phase_iterator.cpp *.h *.tcc
-	$(CXX17) -I../include -o $(BIN_DIR)/test_phase_iterator test_phase_iterator.cpp -lquadmath
+$(BIN_DIR)/test_phase_iterator: test_phase_iterator.cpp $(INCS)
+	$(CXX17) -I../include -Iinclude -o $(BIN_DIR)/test_phase_iterator test_phase_iterator.cpp -lquadmath
 
-$(BIN_DIR)/test_quadrature: test_quadrature.cpp *.h *.tcc
-	$(CXX17) -I../include -o $(BIN_DIR)/test_quadrature test_quadrature.cpp -lquadmath -lubsan
+$(BIN_DIR)/test_quadrature: test_quadrature.cpp $(INCS)
+	$(CXX17) -I../include -Iinclude -o $(BIN_DIR)/test_quadrature test_quadrature.cpp -lquadmath -lubsan
 
-$(BIN_DIR)/test_trapezoid_integral: test_trapezoid_integral.cpp trapezoid_integral.h trapezoid_integral.tcc
-	$(CXX17) -I../include -o $(BIN_DIR)/test_trapezoid_integral test_trapezoid_integral.cpp -lquadmath
+$(BIN_DIR)/test_trapezoid_integral: test_trapezoid_integral.cpp $(INCS)
+	$(CXX17) -I../include -Iinclude -I../polynomial -o $(BIN_DIR)/test_trapezoid_integral test_trapezoid_integral.cpp -lquadmath
 
-$(BIN_DIR)/test_simpson_integral: test_simpson_integral.cpp simpson_integral.h simpson_integral.tcc
-	$(CXX17) -I.. -I../polynomial -o $(BIN_DIR)/test_simpson_integral test_simpson_integral.cpp -lquadmath
+$(BIN_DIR)/test_simpson_integral: test_simpson_integral.cpp $(INCS)
+	$(CXX17) -I../include -Iinclude -I../polynomial -o $(BIN_DIR)/test_simpson_integral test_simpson_integral.cpp -lquadmath
 
-$(BIN_DIR)/test_midpoint_integral: test_midpoint_integral.cpp midpoint_integral.h midpoint_integral.tcc
-	$(CXX17) -I../include -o $(BIN_DIR)/test_midpoint_integral test_midpoint_integral.cpp -lquadmath
+$(BIN_DIR)/test_midpoint_integral: test_midpoint_integral.cpp $(INCS)
+	$(CXX17) -I../include -Iinclude -I../polynomial -o $(BIN_DIR)/test_midpoint_integral test_midpoint_integral.cpp -lquadmath
 
-$(BIN_DIR)/test_double_exp_integrate: test_double_exp_integrate.cpp double_exp_integrate.tcc
-	$(CXX17) -I../include -o $(BIN_DIR)/test_double_exp_integrate test_double_exp_integrate.cpp -lquadmath
+$(BIN_DIR)/test_double_exp_integrate: test_double_exp_integrate.cpp $(INCS)
+	$(CXX17) -I../include -Iinclude -o $(BIN_DIR)/test_double_exp_integrate test_double_exp_integrate.cpp -lquadmath
 
-$(BIN_DIR)/test_gauss_hermite: test_gauss_hermite.cpp gauss_hermite_integrate.h
-	$(CXX17) -I../include -o $(BIN_DIR)/test_gauss_hermite test_gauss_hermite.cpp -lquadmath
+$(BIN_DIR)/test_gauss_hermite: test_gauss_hermite.cpp $(INCS)
+	$(CXX17) -I../include -Iinclude -o $(BIN_DIR)/test_gauss_hermite test_gauss_hermite.cpp -lquadmath
 
-$(BIN_DIR)/test_gauss_laguerre: test_gauss_laguerre.cpp gauss_laguerre_integrate.h
-	$(CXX17) -I../include -o $(BIN_DIR)/test_gauss_laguerre test_gauss_laguerre.cpp -lquadmath
+$(BIN_DIR)/test_gauss_laguerre: test_gauss_laguerre.cpp $(INCS)
+	$(CXX17) -I../include -Iinclude -o $(BIN_DIR)/test_gauss_laguerre test_gauss_laguerre.cpp -lquadmath
 
-$(BIN_DIR)/test_mapper: test_mapper.cpp integration_transform.h
-	$(CXX17) -o $(BIN_DIR)/test_mapper test_mapper.cpp -lquadmath
+$(BIN_DIR)/test_mapper: test_mapper.cpp include/ext/integration_transform.h
+	$(CXX17) -Iinclude -o $(BIN_DIR)/test_mapper test_mapper.cpp -lquadmath
 
 $(BIN_DIR)/hermite_test: $(OBJ_DIR)/hermite_test.o
 	$(CXX17) -o $(BIN_DIR)/hermite_test $(OBJ_DIR)/hermite_test.o -lquadmath
@@ -171,53 +225,53 @@ $(BIN_DIR)/zernike_test: $(OBJ_DIR)/zernike_test.o
 
 # Objects...
 
-$(OBJ_DIR)/build_clenshaw_curtis.o: *.h *.tcc build_clenshaw_curtis.cpp
-	$(CXX17) -c -I../include -I../wrappers -o $(OBJ_DIR)/build_clenshaw_curtis.o build_clenshaw_curtis.cpp
+$(OBJ_DIR)/build_clenshaw_curtis.o: $(INCS) build_clenshaw_curtis.cpp
+	$(CXX17) -c -I../include -I../wrappers -Iinclude -o $(OBJ_DIR)/build_clenshaw_curtis.o build_clenshaw_curtis.cpp
 
-$(OBJ_DIR)/test_gauss_kronrod_rule.o: *.h *.tcc test_gauss_kronrod_rule.cpp
-	$(CXX17) -c -I../include -o $(OBJ_DIR)/test_gauss_kronrod_rule.o test_gauss_kronrod_rule.cpp
+$(OBJ_DIR)/test_gauss_kronrod_rule.o: $(INCS) test_gauss_kronrod_rule.cpp
+	$(CXX17) -c -I../include -Iinclude -o $(OBJ_DIR)/test_gauss_kronrod_rule.o test_gauss_kronrod_rule.cpp
 
-$(OBJ_DIR)/assoc_laguerre_test.o: *.h *.tcc assoc_laguerre_test.cpp
-	$(CXX17) -c -I../include -o $(OBJ_DIR)/assoc_laguerre_test.o assoc_laguerre_test.cpp
+$(OBJ_DIR)/assoc_laguerre_test.o: $(INCS) assoc_laguerre_test.cpp
+	$(CXX17) -c -I../include -Iinclude -o $(OBJ_DIR)/assoc_laguerre_test.o assoc_laguerre_test.cpp
 
-$(OBJ_DIR)/assoc_legendre_test.o: *.h *.tcc assoc_legendre_test.cpp
-	$(CXX17) -c -I../include -o $(OBJ_DIR)/assoc_legendre_test.o assoc_legendre_test.cpp
+$(OBJ_DIR)/assoc_legendre_test.o: $(INCS) assoc_legendre_test.cpp
+	$(CXX17) -c -I../include -Iinclude -o $(OBJ_DIR)/assoc_legendre_test.o assoc_legendre_test.cpp
 
-$(OBJ_DIR)/sph_legendre_test.o: *.h *.tcc sph_legendre_test.cpp
-	$(CXX17) -c -I../include -o $(OBJ_DIR)/sph_legendre_test.o sph_legendre_test.cpp
+$(OBJ_DIR)/sph_legendre_test.o: $(INCS) sph_legendre_test.cpp
+	$(CXX17) -c -I../include -Iinclude -o $(OBJ_DIR)/sph_legendre_test.o sph_legendre_test.cpp
 
-$(OBJ_DIR)/hermite_test.o: *.h *.tcc hermite_test.cpp
-	$(CXX17) -c -I../include -o $(OBJ_DIR)/hermite_test.o hermite_test.cpp
+$(OBJ_DIR)/hermite_test.o: $(INCS) hermite_test.cpp
+	$(CXX17) -c -I../include -Iinclude -o $(OBJ_DIR)/hermite_test.o hermite_test.cpp
 
-$(OBJ_DIR)/laguerre_test.o: *.h *.tcc laguerre_test.cpp
-	$(CXX17) -c -I../include -o $(OBJ_DIR)/laguerre_test.o laguerre_test.cpp
+$(OBJ_DIR)/laguerre_test.o: $(INCS) laguerre_test.cpp
+	$(CXX17) -c -I../include -Iinclude -o $(OBJ_DIR)/laguerre_test.o laguerre_test.cpp
 
-$(OBJ_DIR)/legendre_test.o: *.h *.tcc legendre_test.cpp
-	$(CXX17) -c -I../include -o $(OBJ_DIR)/legendre_test.o legendre_test.cpp
+$(OBJ_DIR)/legendre_test.o: $(INCS) legendre_test.cpp
+	$(CXX17) -c -I../include -Iinclude -o $(OBJ_DIR)/legendre_test.o legendre_test.cpp
 
-$(OBJ_DIR)/gegenbauer_test.o: *.h *.tcc gegenbauer_test.cpp
-	$(CXX17) -c -I../include -o $(OBJ_DIR)/gegenbauer_test.o gegenbauer_test.cpp
+$(OBJ_DIR)/gegenbauer_test.o: $(INCS) gegenbauer_test.cpp
+	$(CXX17) -c -I../include -Iinclude -o $(OBJ_DIR)/gegenbauer_test.o gegenbauer_test.cpp
 
-$(OBJ_DIR)/jacobi_test.o: *.h *.tcc jacobi_test.cpp
-	$(CXX17) -c -I../include -o $(OBJ_DIR)/jacobi_test.o jacobi_test.cpp
+$(OBJ_DIR)/jacobi_test.o: $(INCS) jacobi_test.cpp
+	$(CXX17) -c -I../include -Iinclude -o $(OBJ_DIR)/jacobi_test.o jacobi_test.cpp
 
-$(OBJ_DIR)/chebyshev_t_test.o: *.h *.tcc chebyshev_t_test.cpp
-	$(CXX17) -c -I../include -o $(OBJ_DIR)/chebyshev_t_test.o chebyshev_t_test.cpp
+$(OBJ_DIR)/chebyshev_t_test.o: $(INCS) chebyshev_t_test.cpp
+	$(CXX17) -c -I../include -Iinclude -o $(OBJ_DIR)/chebyshev_t_test.o chebyshev_t_test.cpp
 
-$(OBJ_DIR)/chebyshev_u_test.o: *.h *.tcc chebyshev_u_test.cpp
-	$(CXX17) -c -I../include -o $(OBJ_DIR)/chebyshev_u_test.o chebyshev_u_test.cpp
+$(OBJ_DIR)/chebyshev_u_test.o: $(INCS) chebyshev_u_test.cpp
+	$(CXX17) -c -I../include -Iinclude -o $(OBJ_DIR)/chebyshev_u_test.o chebyshev_u_test.cpp
 
-$(OBJ_DIR)/chebyshev_v_test.o: *.h *.tcc chebyshev_v_test.cpp
-	$(CXX17) -c -I../include -o $(OBJ_DIR)/chebyshev_v_test.o chebyshev_v_test.cpp
+$(OBJ_DIR)/chebyshev_v_test.o: $(INCS) chebyshev_v_test.cpp
+	$(CXX17) -c -I../include -Iinclude -o $(OBJ_DIR)/chebyshev_v_test.o chebyshev_v_test.cpp
 
-$(OBJ_DIR)/chebyshev_w_test.o: *.h *.tcc chebyshev_w_test.cpp
-	$(CXX17) -c -I../include -o $(OBJ_DIR)/chebyshev_w_test.o chebyshev_w_test.cpp
+$(OBJ_DIR)/chebyshev_w_test.o: $(INCS) chebyshev_w_test.cpp
+	$(CXX17) -c -I../include -Iinclude -o $(OBJ_DIR)/chebyshev_w_test.o chebyshev_w_test.cpp
 
-$(OBJ_DIR)/radpoly_test.o: *.h *.tcc radpoly_test.cpp
-	$(CXX17) -c -I../include -o $(OBJ_DIR)/radpoly_test.o radpoly_test.cpp
+$(OBJ_DIR)/radpoly_test.o: $(INCS) radpoly_test.cpp
+	$(CXX17) -c -I../include -Iinclude -o $(OBJ_DIR)/radpoly_test.o radpoly_test.cpp
 
-$(OBJ_DIR)/zernike_test.o: *.h *.tcc zernike_test.cpp
-	$(CXX17) -c -I../include -o $(OBJ_DIR)/zernike_test.o zernike_test.cpp
+$(OBJ_DIR)/zernike_test.o: $(INCS) zernike_test.cpp
+	$(CXX17) -c -I../include -Iinclude -o $(OBJ_DIR)/zernike_test.o zernike_test.cpp
 
 
 $(OBJ_DIR): $(OUT_DIR)

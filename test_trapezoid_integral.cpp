@@ -5,8 +5,8 @@
 #include <complex>
 #include "bits/complex_util.h"
 
-#include "integration.h"
-#include "polynomial/ext/polynomial.h"
+#include "ext/integration.h"
+#include "ext/polynomial.h"
 
 template<typename Tp>
   void

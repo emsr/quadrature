@@ -6,7 +6,7 @@ $HOME/bin/bin/g++ -std=gnu++17 -g -Wall -Wextra -I../include -o test_gauss_hermi
 #include <iostream>
 #include <iomanip>
 
-#include "gauss_hermite_integrate.h"
+#include "ext/gauss_hermite_integrate.h"
 
 template<typename _Tp>
   struct my_f

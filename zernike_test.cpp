@@ -25,7 +25,7 @@
 #include <sstream>
 #include <string>
 
-#include "integration.h"
+#include "ext/integration.h"
 
 using namespace __gnu_cxx;
 

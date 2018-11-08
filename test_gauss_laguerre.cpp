@@ -6,7 +6,7 @@ $HOME/bin/bin/g++ -std=gnu++17 -g -Wall -Wextra -I../include -o test_gauss_lague
 #include <iostream>
 #include <iomanip>
 
-#include "gauss_laguerre_integrate.h"
+#include "ext/gauss_laguerre_integrate.h"
 
 template<typename _Tp>
   struct my_f

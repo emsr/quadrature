@@ -12,7 +12,7 @@ PATH=../wrappers/debug:$HOME/bin/lib64:$PATH ./build_clenshaw_curtis > build_cle
 #include <iostream>
 #include <iomanip>
 #include "wrap_burkhardt.h"
-#include "fourier_transform.h"
+#include "ext/fourier_transform.h"
 
   /**
    * Return a vector of zeros of the Chebyshev function of the second kind

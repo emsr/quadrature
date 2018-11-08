@@ -4,7 +4,7 @@
 #include <iomanip>
 #include <ext/cmath>
 
-#include "integration.h"
+#include "ext/integration.h"
 
 template<typename Tp>
   void
