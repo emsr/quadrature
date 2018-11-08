@@ -23,7 +23,7 @@
 
 #include "trapezoid_integral.h"
 
-namespace __gnu_ext
+namespace __gnu_cxx
 {
 
 template<typename _Func, typename _Tp>
@@ -60,6 +60,6 @@ template<typename _Func, typename _Tp>
 
   };
 
-} // namespace __gnu_ext
+} // namespace __gnu_cxx
 
 #endif // SIMPSON_INTEGRAL_H
