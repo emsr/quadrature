@@ -346,7 +346,7 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
    *                     argument and returns a real scalar.
    * @tparam _Tp         A real type for the limits of integration and the step.
    */
-  template<typename _FuncTp, typename _FwdIter, typename _Tp>//, typename _Integrator>
+  template<typename _FuncTp, typename _FwdIter, typename _Tp>
     auto
     integrate_multisingular(_FuncTp __func,
 			    _FwdIter __ptbeg, _FwdIter __ptend,
