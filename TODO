@@ -14,12 +14,12 @@
      * A few pairs of thing look flipped in "Test integral f454 with integrable singular points..."
        The 19, 20 pair is flipped - this could be a workspace sorting thing.
 
-2. [] Go through and make everything clean style-wise.
+2. [DONE] Go through and make everything clean style-wise.
    Columns, __, _S_eps, _S_max.
 
 3. [] Make the various APIs consistent.
 
-4. [] Make narrow types instead of pair and tuple.
+4. [DONE] Make narrow types instead of pair and tuple.
    Lean towards AOS i think.
 
 5. [DONE] Fix up the IntegralError exception class with errc and everything and use it.
@@ -37,14 +37,14 @@
 8. [] The tables are useful for debugging.
    I might make these *_integrate public static members of the classes.
 
-9. [] The GSL seems to lack meat&potatoes integrals like midopint, trapezoid, romberg, ...
+9. [DONE] The GSL seems to lack meat&potatoes integrals like midopint, trapezoid, romberg, ...
    These are in NRiC++ in my trees. old/integration.tcc shold be truly genericized and packaged.
 
 10. [DONE] Change from __gnu_test to __gnu_cxx
 
-11. [] Make the library truly type generic.
+11. [DONE] Make the library truly type generic.
 
-12. [] Make the whole library deal with functions that return other than real - i.e. comlpex.
+12. [DONE] Make the whole library deal with functions that return other than real - i.e. comlpex.
     We want to be able to do contour integrals.
     var_t for the integration variable
     ret_t for function return
@@ -53,11 +53,12 @@
 
 13. [] Gather requirements of types and of __func.
 
-14. [] Gather more testcases.
+14. [DONE] Gather more testcases.
 
-15. Try some integral reps of special functions.  At least for testing.
+15. [PARTIAL] Try some integral reps of special functions.  At least for testing.
+    Mittag-Leffler!
 
-16. I have Gauss rules out the wazoo.  Hermite, Jacobi, Laguerre, ...
+16. [DONE] I have Gauss rules out the wazoo.  Hermite, Jacobi, Laguerre, ...
     Put these in and get tests for them.
 
 17. The last (5th) qng test throws.  But it gets the expected answer!

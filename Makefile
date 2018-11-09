@@ -26,6 +26,7 @@ WRAPPER_LIBS = -L../wrappers/release -lwrap_burkhardt -lgfortran
 #WRAPPER_LIBS = -L../wrappers/debug -lwrap_burkhardt -lgfortran
 
 INC_DIR = include/ext
+INCLUDES =  -I../include -Iinclude -I../polynomial/include
 
 OBJ_DIR = obj
 BIN_DIR = .
@@ -164,28 +165,28 @@ $(BIN_DIR)/sph_legendre_test: $(OBJ_DIR)/sph_legendre_test.o
 	$(CXX17) -o $(BIN_DIR)/sph_legendre_test $(OBJ_DIR)/sph_legendre_test.o -lquadmath
 
 $(BIN_DIR)/test_phase_iterator: test_phase_iterator.cpp $(INCS)
-	$(CXX17) -I../include -Iinclude -o $(BIN_DIR)/test_phase_iterator test_phase_iterator.cpp -lquadmath
+	$(CXX17) $(INCLUDES) -o $(BIN_DIR)/test_phase_iterator test_phase_iterator.cpp -lquadmath
 
 $(BIN_DIR)/test_quadrature: test_quadrature.cpp $(INCS)
-	$(CXX17) -I../include -Iinclude -o $(BIN_DIR)/test_quadrature test_quadrature.cpp -lquadmath -lubsan
+	$(CXX17) $(INCLUDES) -o $(BIN_DIR)/test_quadrature test_quadrature.cpp -lquadmath -lubsan
 
 $(BIN_DIR)/test_trapezoid_integral: test_trapezoid_integral.cpp $(INCS)
-	$(CXX17) -I../include -Iinclude -I../polynomial -o $(BIN_DIR)/test_trapezoid_integral test_trapezoid_integral.cpp -lquadmath
+	$(CXX17) $(INCLUDES) -I../polynomial -o $(BIN_DIR)/test_trapezoid_integral test_trapezoid_integral.cpp -lquadmath
 
 $(BIN_DIR)/test_simpson_integral: test_simpson_integral.cpp $(INCS)
-	$(CXX17) -I../include -Iinclude -I../polynomial -o $(BIN_DIR)/test_simpson_integral test_simpson_integral.cpp -lquadmath
+	$(CXX17) $(INCLUDES) -I../polynomial -o $(BIN_DIR)/test_simpson_integral test_simpson_integral.cpp -lquadmath
 
 $(BIN_DIR)/test_midpoint_integral: test_midpoint_integral.cpp $(INCS)
-	$(CXX17) -I../include -Iinclude -I../polynomial -o $(BIN_DIR)/test_midpoint_integral test_midpoint_integral.cpp -lquadmath
+	$(CXX17) $(INCLUDES) -I../polynomial -o $(BIN_DIR)/test_midpoint_integral test_midpoint_integral.cpp -lquadmath
 
 $(BIN_DIR)/test_double_exp_integrate: test_double_exp_integrate.cpp $(INCS)
-	$(CXX17) -I../include -Iinclude -o $(BIN_DIR)/test_double_exp_integrate test_double_exp_integrate.cpp -lquadmath
+	$(CXX17) $(INCLUDES) -o $(BIN_DIR)/test_double_exp_integrate test_double_exp_integrate.cpp -lquadmath
 
 $(BIN_DIR)/test_gauss_hermite: test_gauss_hermite.cpp $(INCS)
-	$(CXX17) -I../include -Iinclude -o $(BIN_DIR)/test_gauss_hermite test_gauss_hermite.cpp -lquadmath
+	$(CXX17) $(INCLUDES) -o $(BIN_DIR)/test_gauss_hermite test_gauss_hermite.cpp -lquadmath
 
 $(BIN_DIR)/test_gauss_laguerre: test_gauss_laguerre.cpp $(INCS)
-	$(CXX17) -I../include -Iinclude -o $(BIN_DIR)/test_gauss_laguerre test_gauss_laguerre.cpp -lquadmath
+	$(CXX17) $(INCLUDES) -o $(BIN_DIR)/test_gauss_laguerre test_gauss_laguerre.cpp -lquadmath
 
 $(BIN_DIR)/test_mapper: test_mapper.cpp include/ext/integration_transform.h
 	$(CXX17) -Iinclude -o $(BIN_DIR)/test_mapper test_mapper.cpp -lquadmath
@@ -226,52 +227,52 @@ $(BIN_DIR)/zernike_test: $(OBJ_DIR)/zernike_test.o
 # Objects...
 
 $(OBJ_DIR)/build_clenshaw_curtis.o: $(INCS) build_clenshaw_curtis.cpp
-	$(CXX17) -c -I../include -I../wrappers -Iinclude -o $(OBJ_DIR)/build_clenshaw_curtis.o build_clenshaw_curtis.cpp
+	$(CXX17) -c $(INCLUDES) -I../wrappers -o $(OBJ_DIR)/build_clenshaw_curtis.o build_clenshaw_curtis.cpp
 
 $(OBJ_DIR)/test_gauss_kronrod_rule.o: $(INCS) test_gauss_kronrod_rule.cpp
-	$(CXX17) -c -I../include -Iinclude -o $(OBJ_DIR)/test_gauss_kronrod_rule.o test_gauss_kronrod_rule.cpp
+	$(CXX17) -c $(INCLUDES) -o $(OBJ_DIR)/test_gauss_kronrod_rule.o test_gauss_kronrod_rule.cpp
 
 $(OBJ_DIR)/assoc_laguerre_test.o: $(INCS) assoc_laguerre_test.cpp
-	$(CXX17) -c -I../include -Iinclude -o $(OBJ_DIR)/assoc_laguerre_test.o assoc_laguerre_test.cpp
+	$(CXX17) -c $(INCLUDES) -o $(OBJ_DIR)/assoc_laguerre_test.o assoc_laguerre_test.cpp
 
 $(OBJ_DIR)/assoc_legendre_test.o: $(INCS) assoc_legendre_test.cpp
-	$(CXX17) -c -I../include -Iinclude -o $(OBJ_DIR)/assoc_legendre_test.o assoc_legendre_test.cpp
+	$(CXX17) -c $(INCLUDES) -o $(OBJ_DIR)/assoc_legendre_test.o assoc_legendre_test.cpp
 
 $(OBJ_DIR)/sph_legendre_test.o: $(INCS) sph_legendre_test.cpp
-	$(CXX17) -c -I../include -Iinclude -o $(OBJ_DIR)/sph_legendre_test.o sph_legendre_test.cpp
+	$(CXX17) -c $(INCLUDES) -o $(OBJ_DIR)/sph_legendre_test.o sph_legendre_test.cpp
 
 $(OBJ_DIR)/hermite_test.o: $(INCS) hermite_test.cpp
-	$(CXX17) -c -I../include -Iinclude -o $(OBJ_DIR)/hermite_test.o hermite_test.cpp
+	$(CXX17) -c $(INCLUDES) -o $(OBJ_DIR)/hermite_test.o hermite_test.cpp
 
 $(OBJ_DIR)/laguerre_test.o: $(INCS) laguerre_test.cpp
-	$(CXX17) -c -I../include -Iinclude -o $(OBJ_DIR)/laguerre_test.o laguerre_test.cpp
+	$(CXX17) -c $(INCLUDES) -o $(OBJ_DIR)/laguerre_test.o laguerre_test.cpp
 
 $(OBJ_DIR)/legendre_test.o: $(INCS) legendre_test.cpp
-	$(CXX17) -c -I../include -Iinclude -o $(OBJ_DIR)/legendre_test.o legendre_test.cpp
+	$(CXX17) -c $(INCLUDES) -o $(OBJ_DIR)/legendre_test.o legendre_test.cpp
 
 $(OBJ_DIR)/gegenbauer_test.o: $(INCS) gegenbauer_test.cpp
-	$(CXX17) -c -I../include -Iinclude -o $(OBJ_DIR)/gegenbauer_test.o gegenbauer_test.cpp
+	$(CXX17) -c $(INCLUDES) -o $(OBJ_DIR)/gegenbauer_test.o gegenbauer_test.cpp
 
 $(OBJ_DIR)/jacobi_test.o: $(INCS) jacobi_test.cpp
-	$(CXX17) -c -I../include -Iinclude -o $(OBJ_DIR)/jacobi_test.o jacobi_test.cpp
+	$(CXX17) -c $(INCLUDES) -o $(OBJ_DIR)/jacobi_test.o jacobi_test.cpp
 
 $(OBJ_DIR)/chebyshev_t_test.o: $(INCS) chebyshev_t_test.cpp
-	$(CXX17) -c -I../include -Iinclude -o $(OBJ_DIR)/chebyshev_t_test.o chebyshev_t_test.cpp
+	$(CXX17) -c $(INCLUDES) -o $(OBJ_DIR)/chebyshev_t_test.o chebyshev_t_test.cpp
 
 $(OBJ_DIR)/chebyshev_u_test.o: $(INCS) chebyshev_u_test.cpp
-	$(CXX17) -c -I../include -Iinclude -o $(OBJ_DIR)/chebyshev_u_test.o chebyshev_u_test.cpp
+	$(CXX17) -c $(INCLUDES) -o $(OBJ_DIR)/chebyshev_u_test.o chebyshev_u_test.cpp
 
 $(OBJ_DIR)/chebyshev_v_test.o: $(INCS) chebyshev_v_test.cpp
-	$(CXX17) -c -I../include -Iinclude -o $(OBJ_DIR)/chebyshev_v_test.o chebyshev_v_test.cpp
+	$(CXX17) -c $(INCLUDES) -o $(OBJ_DIR)/chebyshev_v_test.o chebyshev_v_test.cpp
 
 $(OBJ_DIR)/chebyshev_w_test.o: $(INCS) chebyshev_w_test.cpp
-	$(CXX17) -c -I../include -Iinclude -o $(OBJ_DIR)/chebyshev_w_test.o chebyshev_w_test.cpp
+	$(CXX17) -c $(INCLUDES) -o $(OBJ_DIR)/chebyshev_w_test.o chebyshev_w_test.cpp
 
 $(OBJ_DIR)/radpoly_test.o: $(INCS) radpoly_test.cpp
-	$(CXX17) -c -I../include -Iinclude -o $(OBJ_DIR)/radpoly_test.o radpoly_test.cpp
+	$(CXX17) -c $(INCLUDES) -o $(OBJ_DIR)/radpoly_test.o radpoly_test.cpp
 
 $(OBJ_DIR)/zernike_test.o: $(INCS) zernike_test.cpp
-	$(CXX17) -c -I../include -Iinclude -o $(OBJ_DIR)/zernike_test.o zernike_test.cpp
+	$(CXX17) -c $(INCLUDES) -o $(OBJ_DIR)/zernike_test.o zernike_test.cpp
 
 
 $(OBJ_DIR): $(OUT_DIR)
