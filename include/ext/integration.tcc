@@ -421,12 +421,9 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
 			      std::size_t __max_iter)
     -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
     {
-      //using __pt_t = decltype(*__ptbeg);
-      //using __ret_t = decltype(__func(__pt_t()));
-      //using __area_t = decltype(__pt_t() * __func(__pt_t()));
-      //using __err_t = decltype(std::abs(__area_t()));
+      using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
 
-      cquad_workspace<_Tp> __ws(__max_iter);
+      cquad_workspace<_Tp, _RetTp> __ws(__max_iter);
 
       return cquad_integrate(__ws, __func, __lower, __upper,
 			     __max_abs_error, __max_rel_error);

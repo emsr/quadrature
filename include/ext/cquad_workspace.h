@@ -34,15 +34,18 @@ namespace __gnu_cxx
   /**
    * Data of a single interval.
    */
-  template<typename _Tp>
+  template<typename _Tp, typename _RetTp>
     struct cquad_interval
     {
+      using _AreaTp = decltype(_RetTp{} * _Tp{});
+      using _AbsAreaTp = decltype(std::abs(_AreaTp{}));
+
       _Tp _M_lower_lim;
       _Tp _M_upper_lim;
-      _Tp _M_result;
-      _Tp _M_abs_error;
-      _Tp c[64];
-      std::array<_Tp, 33> fx;
+      _AreaTp _M_result;
+      _AbsAreaTp _M_abs_error;
+      _RetTp _M_coeff[64];
+      std::array<_RetTp, 33> fx;
       std::size_t depth;
       std::size_t rdepth;
       std::size_t ndiv;
@@ -51,18 +54,18 @@ namespace __gnu_cxx
   /**
    * Comparison of cquad intervals.
    */
-  template<typename _Tp>
+  template<typename _Tp, typename _RetTp>
     bool
-    operator<(const cquad_interval<_Tp>& __ivl,
-	      const cquad_interval<_Tp>& __ivr)
+    operator<(const cquad_interval<_Tp, _RetTp>& __ivl,
+	      const cquad_interval<_Tp, _RetTp>& __ivr)
     { return __ivl._M_abs_error < __ivr._M_abs_error; }
 
-  template<typename _Tp>
+  template<typename _Tp, typename _RetTp>
     struct cquad_interval_comp
     {
       bool
-      operator()(const cquad_interval<_Tp>& __ivl,
-		 const cquad_interval<_Tp>& __ivr)
+      operator()(const cquad_interval<_Tp, _RetTp>& __ivl,
+		 const cquad_interval<_Tp, _RetTp>& __ivr)
       { return __ivl._M_abs_error < __ivr._M_abs_error; }
     };
 
@@ -71,10 +74,13 @@ namespace __gnu_cxx
    * Actually, it is a priority queue where the priority
    * is the absolute error of the interval integral.
    */
-  template<typename _Tp>
+  template<typename _Tp, typename _RetTp>
     struct cquad_workspace
     {
-      std::vector<cquad_interval<_Tp>> _M_ival;
+      using _AreaTp = decltype(_RetTp{} * _Tp{});
+      using _AbsAreaTp = decltype(std::abs(_AreaTp{}));
+
+      std::vector<cquad_interval<_Tp, _RetTp>> _M_ival;
 
       cquad_workspace(std::size_t __len = 200)
       : _M_ival()
@@ -87,19 +93,19 @@ namespace __gnu_cxx
       capacity() const
       { return this->_M_ival.capacity(); }
 
-      typename std::vector<cquad_interval<_Tp>>::iterator
+      typename std::vector<cquad_interval<_Tp, _RetTp>>::iterator
       begin()
       { return this->_M_ival.begin(); }
 
-      typename std::vector<cquad_interval<_Tp>>::iterator
+      typename std::vector<cquad_interval<_Tp, _RetTp>>::iterator
       end()
       { return this->_M_ival.end(); }
 
-      const cquad_interval<_Tp>&
+      const cquad_interval<_Tp, _RetTp>&
       top() const
       { return this->_M_ival[0]; }
 
-      cquad_interval<_Tp>&
+      cquad_interval<_Tp, _RetTp>&
       top()
       { return this->_M_ival[0]; }
 
@@ -108,11 +114,11 @@ namespace __gnu_cxx
       { this->_M_ival.clear(); }
 
       void
-      push(const cquad_interval<_Tp>& __iv)
+      push(const cquad_interval<_Tp, _RetTp>& __iv)
       {
 	this->_M_ival.push_back(__iv);
 	std::push_heap(this->begin(), this->end(),
-		       cquad_interval_comp<_Tp>{});
+		       cquad_interval_comp<_Tp, _RetTp>{});
       }
 
       void
@@ -126,22 +132,22 @@ namespace __gnu_cxx
       update()
       {
 	std::make_heap(this->begin(), this->end(),
-		       cquad_interval_comp<_Tp>{});
+		       cquad_interval_comp<_Tp, _RetTp>{});
       }
 
-      _Tp
+      _AreaTp
       total_integral() const
       {
-	auto __tot_igral = _Tp{0};
+	auto __tot_igral = _AreaTp{0};
 	for (auto& __iv : _M_ival)
 	  __tot_igral += __iv._M_result;
 	return __tot_igral;
       }
 
-      _Tp
+      _AbsAreaTp
       total_error() const
       {
-	auto __tot_error = _Tp{0};
+	auto __tot_error = _AbsAreaTp{0};
 	for (auto& __iv : _M_ival)
 	  __tot_error += __iv._M_abs_error;
 	return __tot_error;
