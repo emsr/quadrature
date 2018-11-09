@@ -49,7 +49,8 @@ template<typename _Tp>
 			{ return norm_assoc_laguerre<_Tp>(n1, n2, alpha, x); };
 
 	    auto [result, error]
-		= __gnu_cxx::integrate_to_infinity(func, _Tp{0}, integ_prec, _Tp{0});
+		= __gnu_cxx::integrate_to_infinity(func, _Tp{0},
+						   integ_prec, _Tp{0});
 
 	    assert(std::abs(delta<_Tp>(n1, n2) - result) < cmp_prec);
 	  }

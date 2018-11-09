@@ -55,10 +55,11 @@ template<typename _Tp>
 
 		    auto func = [n1, m1, n2, m2](_Tp x)
 				-> _Tp
-				{ return normalized_radpoly(n1, m1, n2, m2, x); };
+			      { return normalized_radpoly(n1, m1, n2, m2, x); };
 
 		    auto [result, error]
-			= integrate_singular(func, _Tp{0}, _Tp{1}, integ_precision, _Tp{0});
+			= integrate_singular(func, _Tp{0}, _Tp{1},
+					     integ_precision, _Tp{0});
 
 		    assert(std::abs(delta<_Tp>(n1, n2) - result) < cmp_prec);
 		  }

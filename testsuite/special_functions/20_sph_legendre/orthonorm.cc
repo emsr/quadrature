@@ -37,12 +37,14 @@ template<typename _Tp>
 	      {
 		for (int m2 = 0; m2 <= n2; ++m2)
 		  {
-		    auto func = [l1, m1, l2, m2](_Tp theta)
-				-> _Tp
-				{ return norm_sph_legendre(l1, m1, l2, m2, theta); };
+		    auto func
+			 = [l1, m1, l2, m2](_Tp theta)
+			   -> _Tp
+			   { return norm_sph_legendre(l1, m1, l2, m2, theta); };
 
 		    auto [result, error]
-			= __gnu_cxx::integrate(func, _Tp{0}, _S_pi, integ_prec, _Tp{0});
+			= __gnu_cxx::integrate(func, _Tp{0}, _S_pi,
+						integ_prec, _Tp{0});
 
 		    assert(std::abs(delta<_Tp>(n1, n2) - result) < cmp_prec);
 		  }

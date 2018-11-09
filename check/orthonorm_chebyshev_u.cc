@@ -33,10 +33,13 @@ template<typename _Tp>
       {
 	for (int n2 : {0, 5, 10})
 	  {
-	    auto func = [n1, n2](_Tp x)->_Tp{return norm_chebyshev_u(n1, n2, x);};
+	    auto func = [n1, n2](_Tp x)
+			-> _Tp
+			{ return norm_chebyshev_u(n1, n2, x); };
 
 	    auto [result, error]
-		= __gnu_cxx::integrate(func, _Tp{-1}, _Tp{1}, integ_prec, _Tp{0});
+		= __gnu_cxx::integrate(func, _Tp{-1}, _Tp{1},
+				       integ_prec, _Tp{0});
 
 	    assert(std::abs(delta<_Tp>(n1, n2) - result) < cmp_prec);
 	  }

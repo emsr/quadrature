@@ -63,9 +63,11 @@ template<typename _Tp>
 				{ return norm_zernike(n1, m1, n2, m2, x); };
 
 		    auto [result, error]
-			= __gnu_cxx::integrate_singular(func, _Tp{0}, _Tp{1}, integ_prec, _Tp{0});
+			= __gnu_cxx::integrate_singular(func, _Tp{0}, _Tp{1},
+							 integ_prec, _Tp{0});
 
-		    assert(std::abs(delta<_Tp>(n1, m1, n2, m2) - result) < cmp_prec);
+		    assert(std::abs(delta<_Tp>(n1, m1, n2, m2) - result)
+				 < cmp_prec);
 	      }
 	  }
       }

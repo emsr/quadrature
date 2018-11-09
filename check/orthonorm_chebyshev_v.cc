@@ -37,7 +37,9 @@ template<typename _Tp>
       {
 	for (int n2 : {0, 5, 10})
 	  {
-	    auto func = [n1, n2](_Tp x)->_Tp{return norm_chebyshev_v(n1, n2, x);};
+	    auto func = [n1, n2](_Tp x)
+			->_Tp
+			{ return norm_chebyshev_v(n1, n2, x); };
 
 	    auto [result, error]
 		= __gnu_cxx::integrate_singular_endpoints(func,

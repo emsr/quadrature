@@ -38,7 +38,8 @@ template<typename _Tp>
 			    { return norm_assoc_legendre(l1, m1, l2, m2, x); };
 
 		auto [result, error]
-		    = __gnu_cxx::integrate(func, _Tp{-1}, _Tp{1}, integ_prec, _Tp{0});
+		    = __gnu_cxx::integrate(func, _Tp{-1}, _Tp{1},
+					   integ_prec, _Tp{0});
 
 		assert(std::abs(delta<_Tp>(n1, n2) - result) < cmp_prec);
 	      }
