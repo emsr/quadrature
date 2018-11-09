@@ -3004,8 +3004,8 @@ test_quadrature()
       // Loop over the functions...
       for (int fid = 0; fid < 25; ++fid)
 	{
-	  __gnu_cxx::cquad_workspace<_Tp> ws(200);
 	  auto f = make_function<_Tp>(funs[fid]);
+	  __gnu_cxx::cquad_workspace<_Tp, decltype(f(_Tp{}))> ws(200);
 	  auto exact = f_exact[fid];
 	  int status = 0;
 
