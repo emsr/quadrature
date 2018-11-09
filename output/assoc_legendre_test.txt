@@ -57,20 +57,6 @@ Integration successful for assoc_legendre polynomials up to l = 52
 Integration successful for assoc_legendre polynomials up to l = 53
 Integration successful for assoc_legendre polynomials up to l = 54
 Integration successful for assoc_legendre polynomials up to l = 55
-Integration successful for assoc_legendre polynomials up to l = 56
-Integration successful for assoc_legendre polynomials up to l = 57
-Integration successful for assoc_legendre polynomials up to l = 58
-Integration successful for assoc_legendre polynomials up to l = 59
-Integration successful for assoc_legendre polynomials up to l = 60
-Integration successful for assoc_legendre polynomials up to l = 61
-Integration successful for assoc_legendre polynomials up to l = 62
-Integration successful for assoc_legendre polynomials up to l = 63
-Integration successful for assoc_legendre polynomials up to l = 64
-Integration successful for assoc_legendre polynomials up to l = 65
-Integration successful for assoc_legendre polynomials up to l = 66
-Integration successful for assoc_legendre polynomials up to l = 67
-Integration successful for assoc_legendre polynomials up to l = 68
-Integration successful for assoc_legendre polynomials up to l = 69
 
 
 Orthonormality tests for double
@@ -205,6 +191,7 @@ Integration successful for assoc_legendre polynomials up to l = 127
 Integration successful for assoc_legendre polynomials up to l = 128
 Integration successful for assoc_legendre polynomials up to l = 256
 Integration successful for assoc_legendre polynomials up to l = 512
+Integration successful for assoc_legendre polynomials up to l = 1024
 
 
 Orthonormality tests for long double
@@ -339,4 +326,3 @@ Integration successful for assoc_legendre polynomials up to l = 127
 Integration successful for assoc_legendre polynomials up to l = 128
 Integration successful for assoc_legendre polynomials up to l = 256
 Integration successful for assoc_legendre polynomials up to l = 512
-Integration successful for assoc_legendre polynomials up to l = 1024

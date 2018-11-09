@@ -56,8 +56,9 @@ template<typename _Tp>
   void
   test_radpoly()
   {
+    const auto eps_factor = 1 << (std::numeric_limits<_Tp>::digits / 5);
     const auto eps = std::numeric_limits<_Tp>::epsilon();
-    const auto integ_prec = _Tp{1000} * eps;
+    const auto integ_prec = eps_factor * eps;
     const auto cmp_prec = _Tp{10} * integ_prec;
 
     int n1 = 0;
@@ -143,7 +144,7 @@ template<typename _Tp>
 	std::cout << "Integration successful for radpoly polynomials up to n = " << itop
 		  << '\n' << std::flush;
 	ibot = itop;
-	if (itop > 1000000)
+	if (itop > 1000)
 	  {
 	    std::cout << "\nGood enough!\n" << std::flush;
 	    break;
@@ -164,6 +165,11 @@ main()
     {
       test_radpoly<float>();
     }
+  catch (__gnu_cxx::__integration_error<float>& ierr)
+    {
+      std::cerr << ierr.what() << '\n';
+      std::cerr << " result = " << ierr.result() << " abserr = " << ierr.abserr() << '\n';
+    }
   catch (std::exception& err)
     {
       std::cerr << err.what() << '\n';
@@ -174,6 +180,11 @@ main()
     {
       test_radpoly<double>();
     }
+  catch (__gnu_cxx::__integration_error<double>& ierr)
+    {
+      std::cerr << ierr.what() << '\n';
+      std::cerr << " result = " << ierr.result() << " abserr = " << ierr.abserr() << '\n';
+    }
   catch (std::exception& err)
     {
       std::cerr << err.what() << '\n';
@@ -183,6 +194,11 @@ main()
   try
     {
       test_radpoly<long double>();
+    }
+  catch (__gnu_cxx::__integration_error<long double>& ierr)
+    {
+      std::cerr << ierr.what() << '\n';
+      std::cerr << " result = " << ierr.result() << " abserr = " << ierr.abserr() << '\n';
     }
   catch (std::exception& err)
     {

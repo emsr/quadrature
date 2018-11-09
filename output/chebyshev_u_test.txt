@@ -120,6 +120,16 @@ Integration successful for chebyshev_u polynomials up to n = 115
 Integration successful for chebyshev_u polynomials up to n = 116
 Integration successful for chebyshev_u polynomials up to n = 117
 Integration successful for chebyshev_u polynomials up to n = 118
+Integration successful for chebyshev_u polynomials up to n = 119
+Integration successful for chebyshev_u polynomials up to n = 120
+Integration successful for chebyshev_u polynomials up to n = 121
+Integration successful for chebyshev_u polynomials up to n = 122
+Integration successful for chebyshev_u polynomials up to n = 123
+Integration successful for chebyshev_u polynomials up to n = 124
+Integration successful for chebyshev_u polynomials up to n = 125
+Integration successful for chebyshev_u polynomials up to n = 126
+Integration successful for chebyshev_u polynomials up to n = 127
+Integration successful for chebyshev_u polynomials up to n = 128
 
 
 Orthonormality tests for double
@@ -255,8 +265,6 @@ Integration successful for chebyshev_u polynomials up to n = 128
 Integration successful for chebyshev_u polynomials up to n = 256
 Integration successful for chebyshev_u polynomials up to n = 512
 Integration successful for chebyshev_u polynomials up to n = 1024
-Integration successful for chebyshev_u polynomials up to n = 2048
-Integration successful for chebyshev_u polynomials up to n = 4096
 
 
 Orthonormality tests for long double
@@ -391,6 +399,3 @@ Integration successful for chebyshev_u polynomials up to n = 127
 Integration successful for chebyshev_u polynomials up to n = 128
 Integration successful for chebyshev_u polynomials up to n = 256
 Integration successful for chebyshev_u polynomials up to n = 512
-Integration successful for chebyshev_u polynomials up to n = 1024
-Integration successful for chebyshev_u polynomials up to n = 2048
-Integration successful for chebyshev_u polynomials up to n = 4096

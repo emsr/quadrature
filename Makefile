@@ -28,6 +28,8 @@ WRAPPER_LIBS = -L../wrappers/release -lwrap_burkhardt -lgfortran
 INC_DIR = include/ext
 INCLUDES =  -I../include -Iinclude -I../polynomial/include
 
+OUTPUT_DIR = output
+
 OBJ_DIR = obj
 BIN_DIR = .
 
@@ -114,30 +116,31 @@ all: $(OBJ_DIR) $(BINS)
 
 
 ortho_test:
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/legendre_test > legendre_test.txt 2> legendre_test.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/chebyshev_t_test > chebyshev_t_test.txt 2> chebyshev_t_test.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/chebyshev_u_test > chebyshev_u_test.txt 2> chebyshev_u_test.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/chebyshev_v_test > chebyshev_v_test.txt 2> chebyshev_v_test.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/chebyshev_w_test > chebyshev_w_test.txt 2> chebyshev_w_test.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/gegenbauer_test > gegenbauer_test.txt 2> gegenbauer_test.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/jacobi_test > jacobi_test.txt 2> jacobi_test.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/assoc_laguerre_test > assoc_laguerre_test.txt 2> assoc_laguerre_test.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/assoc_legendre_test > assoc_legendre_test.txt 2> assoc_legendre_test.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/hermite_test > hermite_test.txt 2> hermite_test.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/sph_legendre_test > sph_legendre_test.txt 2> sph_legendre_test.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/laguerre_test > laguerre_test.txt 2> laguerre_test.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/radpoly_test > radpoly_test.txt 2> radpoly_test.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/zernike_test > zernike_test.txt 2> zernike_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/legendre_test > $(OUTPUT_DIR)/legendre_test.txt 2> $(OUTPUT_DIR)/$(OUTPUT_DIR)/legendre_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/chebyshev_t_test > $(OUTPUT_DIR)/chebyshev_t_test.txt 2> $(OUTPUT_DIR)/chebyshev_t_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/chebyshev_u_test > $(OUTPUT_DIR)/chebyshev_u_test.txt 2> $(OUTPUT_DIR)/chebyshev_u_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/chebyshev_v_test > $(OUTPUT_DIR)/chebyshev_v_test.txt 2> $(OUTPUT_DIR)/chebyshev_v_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/chebyshev_w_test > $(OUTPUT_DIR)/chebyshev_w_test.txt 2> $(OUTPUT_DIR)/chebyshev_w_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/gegenbauer_test > $(OUTPUT_DIR)/gegenbauer_test.txt 2> $(OUTPUT_DIR)/gegenbauer_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/jacobi_test > $(OUTPUT_DIR)/jacobi_test.txt 2> $(OUTPUT_DIR)/jacobi_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/assoc_laguerre_test > $(OUTPUT_DIR)/assoc_laguerre_test.txt 2> $(OUTPUT_DIR)/assoc_laguerre_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/assoc_legendre_test > $(OUTPUT_DIR)/assoc_legendre_test.txt 2> $(OUTPUT_DIR)/assoc_legendre_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/hermite_test > $(OUTPUT_DIR)/hermite_test.txt 2> $(OUTPUT_DIR)/hermite_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/sph_legendre_test > $(OUTPUT_DIR)/sph_legendre_test.txt 2> $(OUTPUT_DIR)/sph_legendre_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/laguerre_test > $(OUTPUT_DIR)/laguerre_test.txt 2> $(OUTPUT_DIR)/laguerre_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/radpoly_test > $(OUTPUT_DIR)/radpoly_test.txt 2> $(OUTPUT_DIR)/radpoly_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/zernike_test > $(OUTPUT_DIR)/zernike_test.txt 2> $(OUTPUT_DIR)/zernike_test.err
 
 
 test: $(BIN_DIR)/test_quadrature
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_trapezoid_integral > test_trapezoid_integral.txt 2> test_trapezoid_integral.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_midpoint_integral > test_midpoint_integral.txt 2> test_midpoint_integral.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_phase_iterator > test_phase_iterator.txt 2> test_phase_iterator.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_mapper > test_mapper.txt 2> test_mapper.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_quadrature > test_quadrature.txt 2> test_quadrature.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_gauss_hermite > test_gauss_hermite.txt 2> test_gauss_hermite.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_gauss_laguerre > test_gauss_laguerre.txt 2> test_gauss_laguerre.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_double_exp_integrate > $(OUTPUT_DIR)/test_double_exp_integrate.txt 2> $(OUTPUT_DIR)/test_double_exp_integrate.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_trapezoid_integral > $(OUTPUT_DIR)/test_trapezoid_integral.txt 2> $(OUTPUT_DIR)/test_trapezoid_integral.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_midpoint_integral > $(OUTPUT_DIR)/test_midpoint_integral.txt 2> $(OUTPUT_DIR)/test_midpoint_integral.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_phase_iterator > $(OUTPUT_DIR)/test_phase_iterator.txt 2> $(OUTPUT_DIR)/test_phase_iterator.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_mapper > $(OUTPUT_DIR)/test_mapper.txt 2> $(OUTPUT_DIR)/test_mapper.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_quadrature > $(OUTPUT_DIR)/test_quadrature.txt 2> $(OUTPUT_DIR)/test_quadrature.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_gauss_hermite > $(OUTPUT_DIR)/test_gauss_hermite.txt 2> $(OUTPUT_DIR)/test_gauss_hermite.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_gauss_laguerre > $(OUTPUT_DIR)/test_gauss_laguerre.txt 2> $(OUTPUT_DIR)/test_gauss_laguerre.err
 
 
 docs:

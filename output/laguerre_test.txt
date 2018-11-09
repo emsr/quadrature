@@ -80,6 +80,19 @@ Integration successful for laguerre polynomials up to n = 62
 Integration successful for laguerre polynomials up to n = 63
 Integration successful for laguerre polynomials up to n = 64
 Integration successful for laguerre polynomials up to n = 65
+Integration successful for laguerre polynomials up to n = 66
+Integration successful for laguerre polynomials up to n = 67
+Integration successful for laguerre polynomials up to n = 68
+Integration successful for laguerre polynomials up to n = 69
+Integration successful for laguerre polynomials up to n = 70
+Integration successful for laguerre polynomials up to n = 71
+Integration successful for laguerre polynomials up to n = 72
+Integration successful for laguerre polynomials up to n = 73
+Integration successful for laguerre polynomials up to n = 74
+Integration successful for laguerre polynomials up to n = 75
+Integration successful for laguerre polynomials up to n = 76
+Integration successful for laguerre polynomials up to n = 77
+Integration successful for laguerre polynomials up to n = 78
 
 
 Orthonormality tests for long double

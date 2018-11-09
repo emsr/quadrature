@@ -2,19 +2,11 @@
 
 Test double
 =====================================
-testcase.tcc:460:19: runtime error: division by zero
-testcase.tcc:497:14: runtime error: division by zero
-testcase.tcc:505:43: runtime error: division by zero
-testcase.tcc:537:23: runtime error: division by zero
 
 
 Test long double
 =====================================
 ERROR: qng_integrate: Failed to reach tolerance with highest-order rule       status = 7       result = 0.0771605       abserr = 3.94813e-16
-testcase.tcc:460:19: runtime error: division by zero
-testcase.tcc:497:14: runtime error: division by zero
-testcase.tcc:505:43: runtime error: division by zero
-testcase.tcc:537:23: runtime error: division by zero
 
 
 Test float

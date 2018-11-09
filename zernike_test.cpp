@@ -45,7 +45,8 @@ template<typename _Tp>
   _Tp
   normalized_zernike(int n1, int m1, int n2, int m2, _Tp rho)
   {
-    const auto _S_eps = _Tp{10000} * std::numeric_limits<_Tp>::epsilon();
+    const auto _S_eps_factor = 1 << (std::numeric_limits<_Tp>::digits / 4);
+    const auto _S_eps = _S_eps_factor * std::numeric_limits<_Tp>::epsilon();
     const auto _S_2pi = _Tp{2} * __gnu_cxx::__math_constants<_Tp>::__pi;
     auto z1 = [n1, m1, rho](_Tp phi)
 	      ->_Tp { return __gnu_cxx::zernike(n1, m1, rho, phi); };
@@ -55,7 +56,7 @@ template<typename _Tp>
     auto fun = [n1, m1, rho, z1, z2, norm](_Tp phi)
 		->_Tp { return rho * z1(phi) * z2(phi) / norm; };
     auto val
-	= integrate(fun, _Tp{0}, _Tp{_S_2pi}, _S_eps, _Tp{0}, 1024, Kronrod_61);
+	= integrate(fun, _Tp{0}, _Tp{_S_2pi}, _S_eps, _Tp{0}, 1024, Kronrod_21);
     return _Tp{2} * val.__result / _S_2pi / epsilon<_Tp>(m1);
   }
 
@@ -68,8 +69,9 @@ template<typename _Tp>
   void
   test_zernike()
   {
+    const auto eps_factor = 1 << (std::numeric_limits<_Tp>::digits / 5);
     const auto eps = std::numeric_limits<_Tp>::epsilon();
-    const auto integ_prec = _Tp{1000} * eps;
+    const auto integ_prec = eps_factor * eps;
     const auto cmp_prec = _Tp{10} * integ_prec;
 
     int n1 = 0;
@@ -148,7 +150,7 @@ template<typename _Tp>
 	std::cout << "Integration successful for zernike polynomials up to n = " << itop
 		  << '\n' << std::flush;
 	ibot = itop;
-	if (itop > 1000000)
+	if (itop > 1000)
 	  {
 	    std::cout << "\nGood enough!\n" << std::flush;
 	    break;
@@ -169,6 +171,11 @@ main()
     {
       test_zernike<float>();
     }
+  catch (__gnu_cxx::__integration_error<float>& ierr)
+    {
+      std::cerr << ierr.what() << '\n';
+      std::cerr << " result = " << ierr.result() << " abserr = " << ierr.abserr() << '\n';
+    }
   catch (std::exception& err)
     {
       std::cerr << err.what() << '\n';
@@ -179,6 +186,11 @@ main()
     {
       test_zernike<double>();
     }
+  catch (__gnu_cxx::__integration_error<double>& ierr)
+    {
+      std::cerr << ierr.what() << '\n';
+      std::cerr << " result = " << ierr.result() << " abserr = " << ierr.abserr() << '\n';
+    }
   catch (std::exception& err)
     {
       std::cerr << err.what() << '\n';
@@ -188,6 +200,11 @@ main()
   try
     {
       test_zernike<long double>();
+    }
+  catch (__gnu_cxx::__integration_error<long double>& ierr)
+    {
+      std::cerr << ierr.what() << '\n';
+      std::cerr << " result = " << ierr.result() << " abserr = " << ierr.abserr() << '\n';
     }
   catch (std::exception& err)
     {

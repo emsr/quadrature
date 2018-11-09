@@ -1,0 +1,4 @@
+Integration failed at n1=52, n2=41, returning result -2.345486e-03, with error 8.955575e-05 instead of the expected 0.000000e+00
+
+qag_integrate: Number of iterations was insufficient
+qag_integrate: Number of iterations was insufficient

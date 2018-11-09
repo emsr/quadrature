@@ -86,51 +86,6 @@ Integration successful for sph_legendre polynomials up to l = 81
 Integration successful for sph_legendre polynomials up to l = 82
 Integration successful for sph_legendre polynomials up to l = 83
 Integration successful for sph_legendre polynomials up to l = 84
-Integration successful for sph_legendre polynomials up to l = 85
-Integration successful for sph_legendre polynomials up to l = 86
-Integration successful for sph_legendre polynomials up to l = 87
-Integration successful for sph_legendre polynomials up to l = 88
-Integration successful for sph_legendre polynomials up to l = 89
-Integration successful for sph_legendre polynomials up to l = 90
-Integration successful for sph_legendre polynomials up to l = 91
-Integration successful for sph_legendre polynomials up to l = 92
-Integration successful for sph_legendre polynomials up to l = 93
-Integration successful for sph_legendre polynomials up to l = 94
-Integration successful for sph_legendre polynomials up to l = 95
-Integration successful for sph_legendre polynomials up to l = 96
-Integration successful for sph_legendre polynomials up to l = 97
-Integration successful for sph_legendre polynomials up to l = 98
-Integration successful for sph_legendre polynomials up to l = 99
-Integration successful for sph_legendre polynomials up to l = 100
-Integration successful for sph_legendre polynomials up to l = 101
-Integration successful for sph_legendre polynomials up to l = 102
-Integration successful for sph_legendre polynomials up to l = 103
-Integration successful for sph_legendre polynomials up to l = 104
-Integration successful for sph_legendre polynomials up to l = 105
-Integration successful for sph_legendre polynomials up to l = 106
-Integration successful for sph_legendre polynomials up to l = 107
-Integration successful for sph_legendre polynomials up to l = 108
-Integration successful for sph_legendre polynomials up to l = 109
-Integration successful for sph_legendre polynomials up to l = 110
-Integration successful for sph_legendre polynomials up to l = 111
-Integration successful for sph_legendre polynomials up to l = 112
-Integration successful for sph_legendre polynomials up to l = 113
-Integration successful for sph_legendre polynomials up to l = 114
-Integration successful for sph_legendre polynomials up to l = 115
-Integration successful for sph_legendre polynomials up to l = 116
-Integration successful for sph_legendre polynomials up to l = 117
-Integration successful for sph_legendre polynomials up to l = 118
-Integration successful for sph_legendre polynomials up to l = 119
-Integration successful for sph_legendre polynomials up to l = 120
-Integration successful for sph_legendre polynomials up to l = 121
-Integration successful for sph_legendre polynomials up to l = 122
-Integration successful for sph_legendre polynomials up to l = 123
-Integration successful for sph_legendre polynomials up to l = 124
-Integration successful for sph_legendre polynomials up to l = 125
-Integration successful for sph_legendre polynomials up to l = 126
-Integration successful for sph_legendre polynomials up to l = 127
-Integration successful for sph_legendre polynomials up to l = 128
-Integration successful for sph_legendre polynomials up to l = 256
 
 
 Orthonormality tests for double
@@ -266,7 +221,6 @@ Integration successful for sph_legendre polynomials up to l = 128
 Integration successful for sph_legendre polynomials up to l = 256
 Integration successful for sph_legendre polynomials up to l = 512
 Integration successful for sph_legendre polynomials up to l = 1024
-Integration successful for sph_legendre polynomials up to l = 2048
 
 
 Orthonormality tests for long double
@@ -402,5 +356,3 @@ Integration successful for sph_legendre polynomials up to l = 128
 Integration successful for sph_legendre polynomials up to l = 256
 Integration successful for sph_legendre polynomials up to l = 512
 Integration successful for sph_legendre polynomials up to l = 1024
-Integration successful for sph_legendre polynomials up to l = 2048
-Integration successful for sph_legendre polynomials up to l = 4096

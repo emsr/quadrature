@@ -30,15 +30,14 @@ template<typename Tp>
     auto ex = [](Tp x) -> Tp { return x; };
     __gnu_cxx::_Polynomial<Tp> poly1({1.0l, -0.5l, -3.5l, 2.0l});
 
-    auto fun = [](Tp x) -> Tp { return std::sin(x); };
-    using fun_t = decltype(fun);
-    auto mq = __gnu_cxx::integrate_tanh_sinh<Tp, fun_t>(fun, Tp{0}, pi, Tp{0}, Tp{0.0000001});
-    std::cout << mq.__result << ' ' << mq.__abserr << '\n';
+    auto a = Tp{0};
+    auto b = pi;
+    auto abs_err = Tp{0};
+    auto rel_err = Tp{1.0e-10};
 
-    Tp a = Tp{0};
-    Tp b = pi;
-    Tp abs_err = Tp{0};
-    Tp rel_err = Tp{0.0000000001};
+    auto sine = [](Tp x) -> Tp { return std::sin(x); };
+    auto mq = __gnu_cxx::integrate_tanh_sinh<Tp, decltype(sine)>(sine, a, b, abs_err, rel_err);
+    std::cout << mq.__result << ' ' << mq.__abserr << '\n';
 
     auto a0 = __gnu_cxx::integrate_tanh_sinh<Tp>(one, a, b, abs_err, rel_err);
     auto e0 = b - a;

@@ -1,0 +1,8 @@
+Integration failed at n1=57, m1=39, n2=57, m2=39, returning result =   1.263912e+00, with error =   4.413938e-05 instead of the expected 1.000000e+00
+Integration failed at n1=80, m1=22, n2=24, m2=22, returning result =  -1.457120e-01, with error =   3.584144e-05 instead of the expected 0.000000e+00
+Integration failed at n1=81, m1=15, n2=79, m2=15, returning result =   1.019439e-01, with error =   8.581692e-05 instead of the expected 0.000000e+00
+Integration failed at n1=83, m1=23, n2=77, m2=23, returning result =  -1.077255e-01, with error =   6.432654e-05 instead of the expected 0.000000e+00
+Integration failed at n1=87, m1=21, n2=87, m2=21, returning result =   1.003717e+00, with error =   1.105070e-04 instead of the expected 1.000000e+00
+Integration failed at n1=89, m1=27, n2=87, m2=27, returning result =   1.517717e-02, with error =   1.104629e-04 instead of the expected 0.000000e+00
+Integration failed at n1=94, m1=14, n2=46, m2=14, returning result =  -1.142492e-01, with error =   1.124817e-04 instead of the expected 0.000000e+00
+qags_integrate: Unknown error.

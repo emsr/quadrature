@@ -48,9 +48,10 @@ template<typename _Tp>
   void
   test_sph_legendre(int m1, int m2)
   {
+    const auto eps_factor = 1 << (std::numeric_limits<_Tp>::digits / 5);
     const auto eps = std::numeric_limits<_Tp>::epsilon();
     const auto _S_pi = __gnu_cxx::__math_constants<_Tp>::__pi;
-    const auto integ_prec = _Tp{1000} * eps;
+    const auto integ_prec = eps_factor * eps;
     const auto cmp_prec = _Tp{10} * integ_prec;
 
     int l1 = 0;
@@ -111,7 +112,7 @@ template<typename _Tp>
 	std::cout << "Integration successful for sph_legendre polynomials up to l = " << itop
 		  << '\n' << std::flush;
 	ibot = itop;
-	if (itop > 1000000)
+	if (itop > 1000)
 	  {
 	    std::cout << "\nGood enough!\n" << std::flush;
 	    break;
@@ -132,6 +133,11 @@ main()
     {
       test_sph_legendre<float>(0, 0);
     }
+  catch (__gnu_cxx::__integration_error<float>& ierr)
+    {
+      std::cerr << ierr.what() << '\n';
+      std::cerr << " result = " << ierr.result() << " abserr = " << ierr.abserr() << '\n';
+    }
   catch (std::exception& err)
     {
       std::cerr << err.what() << '\n';
@@ -142,6 +148,11 @@ main()
     {
       test_sph_legendre<double>(0, 0);
     }
+  catch (__gnu_cxx::__integration_error<double>& ierr)
+    {
+      std::cerr << ierr.what() << '\n';
+      std::cerr << " result = " << ierr.result() << " abserr = " << ierr.abserr() << '\n';
+    }
   catch (std::exception& err)
     {
       std::cerr << err.what() << '\n';
@@ -151,6 +162,11 @@ main()
   try
     {
       test_sph_legendre<long double>(0, 0);
+    }
+  catch (__gnu_cxx::__integration_error<long double>& ierr)
+    {
+      std::cerr << ierr.what() << '\n';
+      std::cerr << " result = " << ierr.result() << " abserr = " << ierr.abserr() << '\n';
     }
   catch (std::exception& err)
     {
