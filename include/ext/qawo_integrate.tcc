@@ -90,17 +90,18 @@ namespace __gnu_cxx
       auto __tolerance = std::max(__max_abs_err,
 				  __max_rel_err * std::abs(__result0));
 
-      if (__abserr0 <= 100 * _S_eps * __resabs0 && __abserr0 > __tolerance)
+      if (__abserr0 <= _Tp{100} * _S_eps * __resabs0
+	  && __abserr0 > __tolerance)
 	__throw_integration_error("qawo_integrate: "
-				  "cannot reach tolerance because "
+				  "Cannot reach tolerance because "
 				  "of roundoff error on first attempt",
 				  ROUNDOFF_ERROR, __result0, __abserr0);
       else if ((__abserr0 <= __tolerance && __abserr0 != __resasc0)
-		|| __abserr0 == 0.0)
+		|| __abserr0 == _Tp{0})
 	return {__result0, __abserr0};
       else if (__limit == 1)
 	__throw_integration_error("qawo_integrate: "
-				  "a maximum of one iteration was insufficient",
+				  "A maximum of one iteration was insufficient",
 				  MAX_ITER_ERROR, __result0, __abserr0);
 
       if (0.5 * __abs_omega * std::abs(__upper - __lower) <= _Tp{2})
@@ -164,7 +165,7 @@ namespace __gnu_cxx
 	      const auto __delta = __curr.__result - __area12;
 
 	      if (std::abs(__delta) <= _S_rel_err * std::abs(__area12)
-			 && __error12 >= 0.99 * __curr.__abs_error)
+			 && __error12 >= _Tp{0.99} * __curr.__abs_error)
 		{
 		  if (!__extrapolate)
 		    ++__roundoff_type1;
@@ -355,14 +356,15 @@ namespace __gnu_cxx
       // Test on divergence.
       bool __positive_integrand = __test_positivity(__result0, __resabs0);
       auto __max_area = std::max(std::abs(__res_ext), std::abs(__area));
-      if (!__positive_integrand && __max_area < 0.01 * __resabs0)
+      if (!__positive_integrand && __max_area < _Tp{0.01} * __resabs0)
 	{
 	  __check_error<_Tp>(__func__, __error_type, __result, __abserr);
 	  return {__result, __abserr};
 	}
 
       auto __ratio = __res_ext / __area;
-      if (__ratio < 0.01 || __ratio > _Tp{100} || __errsum > std::abs(__area))
+      if (__ratio < _Tp{0.01} || __ratio > _Tp{100}
+	  || __errsum > std::abs(__area))
 	__error_type = UNKNOWN_ERROR;
 
       __check_error<_Tp>(__func__, __error_type, __result, __abserr);

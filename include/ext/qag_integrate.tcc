@@ -104,7 +104,7 @@ namespace __gnu_cxx
 
       if (__abserr0 <= __round_off && __abserr0 > __tolerance)
 	__throw_integration_error("qag_integrate: "
-				  "cannot reach tolerance because "
+				  "Cannot reach tolerance because "
 				  "of roundoff error on first attempt",
 				  ROUNDOFF_ERROR, __result0, __abserr0);
       else if ((__abserr0 <= __tolerance && __abserr0 != __resasc0)
@@ -112,7 +112,7 @@ namespace __gnu_cxx
 	return {__result0, __abserr0};
       else if (__max_iter == 1)
 	__throw_integration_error("qag_integrate: "
-				  "a maximum of one iteration was insufficient",
+				  "A maximum of one iteration was insufficient",
 				  MAX_ITER_ERROR, __result0, __abserr0);
 
       __workspace.clear();
@@ -151,7 +151,7 @@ namespace __gnu_cxx
 	      const auto __delta = __curr.__result - __area12;
 
 	      if (std::abs(__delta) <= _S_rel_err * std::abs(__area12)
-		 && __error12 >= 0.99 * __curr.__abs_error)
+		 && __error12 >= _Tp{0.99} * __curr.__abs_error)
 		++__roundoff_type1;
 	      if (__iteration >= 10 && __error12 > __curr.__abs_error)
 		++__roundoff_type2;
