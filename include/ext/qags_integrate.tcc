@@ -346,39 +346,6 @@ namespace __gnu_cxx
     }
 
   /**
-   * Specialize to Gauss-Kronrod integration step with default 21-point rule.
-   *
-   * @param[in] __workspace The workspace that manages adaptive quadrature
-   * @param[in] __func The single-variable function to be integrated
-   * @param[in] __lower The lower limit of integration
-   * @param[in] __upper The upper limit of integration
-   * @param[in] __max_iter The maximum number of integration steps allowed
-   * @param[in] __max_abs_err The limit on absolute error
-   * @param[in] __max_rel_err The limit on relative error
-   * @param[in] __max_iter The maximum number of iterations
-   * @param[in] __qkintrule The size of the Gauss-Kronrod integration scheme
-  template<typename _Tp, typename _FuncTp>
-    auto
-    qags_integrate(integration_workspace<_Tp,
-			std::invoke_result_t<_FuncTp, _Tp>>& __workspace,
-		   _FuncTp __func,
-		   _Tp __lower, _Tp __upper,
-		   _Tp __max_abs_err, _Tp __max_rel_err,
-                   Kronrod_Rule __qk_rule = Kronrod_15)
-    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
-    {
-      auto __quad
-	= [__qk_rule]
-	  (_FuncTp __func, _Tp __lower, _Tp __upper)
-	  -> gauss_kronrod_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
-	  { return qk_integrate(__func, __lower, __upper, __qk_rule); };
-
-      return qags_integrate(__workspace, __func, __lower, __upper,
-			    __max_abs_err, __max_rel_err, __quad);
-    }
-   */
-
-  /**
    * Integrate a potentially singular function defined over (-\infty, +\infty).
    */
   template<typename _Tp, typename _FuncTp>

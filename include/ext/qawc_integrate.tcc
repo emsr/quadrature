@@ -29,14 +29,14 @@
 
 #include <array>
 
-#include "integration_workspace.h"
-
 namespace __gnu_cxx
 {
 
-  template<typename _Tp, typename _FuncTp>
+  template<typename _Tp, typename _FuncTp,
+	   typename _Integrator = gauss_kronrod_integral<_Tp>>
     auto
-    qc25c(_FuncTp __func, _Tp __lower, _Tp __upper, _Tp __center)
+    qc25c(_FuncTp __func, _Tp __lower, _Tp __upper, _Tp __center,
+	  _Integrator __quad = gauss_kronrod_integral<_Tp>(Kronrod_15))
     -> std::tuple<decltype(_Tp{} * __func(_Tp{})), _Tp, bool>;
 
   template<typename _Tp>
@@ -53,24 +53,30 @@ namespace __gnu_cxx
    * When a subinterval contains the point x = c or is close to it then
    * a special 25-point modified Clenshaw-Curtis rule is used to control
    * the singularity. Further away from the singularity the algorithm uses
-   * a user-supplied integration rule. 
+   * a user-supplied integration rule (default 15-point Gauss-Kronrod). 
    */
-  template<typename _Tp, typename _FuncTp>
+  template<typename _Tp, typename _FuncTp,
+	   typename _Integrator = gauss_kronrod_integral<_Tp>>
     auto
     qawc_integrate(integration_workspace<_Tp,
 			std::invoke_result_t<_FuncTp, _Tp>>& __workspace,
 		   _FuncTp __func,
 		   _Tp __lower, _Tp __upper, _Tp __center,
-		   _Tp __max_abs_err, _Tp __max_rel_err)
+		   _Tp __max_abs_err, _Tp __max_rel_err,
+		   _Integrator __quad = gauss_kronrod_integral<_Tp>(Kronrod_15))
     -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
     {
-      auto __result = _Tp{};
-      auto __abserr = _Tp{};
+      using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
+      using _AreaTp = decltype(_RetTp{} * _Tp{});
+      using _AbsAreaTp = decltype(std::abs(_AreaTp{}));
+
+      auto __result = _AreaTp{};
+      auto __abserr = _AbsAreaTp{};
 
       const auto __limit = __workspace.capacity();
       // Try to adjust tests for varing precision.
-      const auto _M_rel_err = std::pow(_Tp{10},
-				 -std::numeric_limits<_Tp>::digits / _Tp{10});
+      const auto _M_rel_err = std::pow(_Tp{10.0},
+				 -std::numeric_limits<_Tp>::digits / _Tp{10.0});
 
       int __sign = 1;
       if (__upper < __lower)
@@ -97,7 +103,7 @@ namespace __gnu_cxx
 
       // Perform the first integration.
       auto [__result0, __abserr0, __err_reliable]
-	= qc25c(__func, __lower, __upper, __center);
+	= qc25c(__func, __lower, __upper, __center, __quad);
 
       __workspace.append(__lower, __upper, __result0, __abserr0);
 
@@ -105,11 +111,12 @@ namespace __gnu_cxx
       // margin on the first iteration (ignored for subsequent iterations).
       auto __tolerance = std::max(__max_abs_err,
 				  __max_rel_err * std::abs( __result0));
-      if (__abserr0 < __tolerance && __abserr0 < 0.01 * std::abs(__result0))
+      if (__abserr0 < __tolerance && __abserr0
+	  < _Tp{0.01} * std::abs(__result0))
 	return {__sign * __result0, __abserr0};
       else if (__limit == 1)
 	__throw_integration_error("qawc_integrate: "
-				  "a maximum of one iteration was insufficient",
+				  "A maximum of one iteration was insufficient",
 				 MAX_ITER_ERROR, __sign * __result0, __abserr0);
 
       auto __area = __result0;
@@ -132,10 +139,10 @@ namespace __gnu_cxx
 	  const auto __a2 = __mid;
 
 	  auto [__area1, __error1, __err_reliable1]
-	    = qc25c(__func, __a1, __mid, __center);
+	    = qc25c(__func, __a1, __mid, __center, __quad);
 
 	  auto [__area2, __error2, __err_reliable2]
-	    = qc25c(__func, __a2, __b2, __center);
+	    = qc25c(__func, __a2, __b2, __center, __quad);
 
 	  const auto __area12 = __area1 + __area2;
 	  const auto __error12 = __error1 + __error2;
@@ -199,27 +206,34 @@ namespace __gnu_cxx
    * When a subinterval contains the point x = c or is close to it then
    * a special 25-point modified Clenshaw-Curtis rule is used to control
    * the singularity. Further away from the singularity the algorithm uses
-   * the 15-point Gauss-Kronrod rule. 
+   * a user-supplied integration rule. 
    */
-  template<typename _Tp, typename _FuncTp>
+  template<typename _Tp, typename _FuncTp,
+	   typename _Integrator = gauss_kronrod_integral<_Tp>>
     auto
-    qc25c(_FuncTp __func, _Tp __lower, _Tp __upper, _Tp __center)
+    qc25c(_FuncTp __func, _Tp __lower, _Tp __upper, _Tp __center,
+	  _Integrator __quad)
     -> std::tuple<decltype(_Tp{} * __func(_Tp{})), _Tp, bool>
     {
+      using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
+      using _AreaTp = decltype(_RetTp{} * _Tp{});
+      using _AbsAreaTp = decltype(std::abs(_AreaTp{}));
+      bool __err_reliable;
+
+      auto __result = _AreaTp{};
+      auto __abserr = _AbsAreaTp{};
+
       const auto __cc = (_Tp{2} * __center - __upper - __lower)
 		      / (__upper - __lower);
 
-      _Tp __result, __abserr;
-      bool __err_reliable;
-
-      if (std::abs(__cc) > 1.1)
+      if (std::abs(__cc) > _Tp{1.1})
 	{
 	  auto __func_cauchy = [__func, __center](_Tp __x)
 				-> _Tp
 				{ return __func(__x) / (__x - __center); };
 
 	  auto [__result, __abserr, __resabs, __resasc]
-	    = qk_integrate(__func_cauchy, __lower, __upper, Kronrod_15);
+	    = __quad(__func_cauchy, __lower, __upper);
 
 	  if (__abserr == __resasc)
 	    __err_reliable = false;
@@ -233,11 +247,11 @@ namespace __gnu_cxx
 	  auto [__cheb12, __cheb24] = qcheb_integrate(__func, __lower, __upper);
 	  const auto __moment = compute_moments(__cheb24.size(), __cc);
 
-	  auto __res12 = _Tp{0};
+	  auto __res12 = _AreaTp{0};
 	  for (size_t __i = 0u; __i < __cheb12.size(); ++__i)
 	    __res12 += __cheb12[__i] * __moment[__i];
 
-	  auto __res24 = _Tp{0};
+	  auto __res24 = _AreaTp{0};
 	  for (size_t __i = 0u; __i < __cheb24.size(); ++__i)
 	    __res24 += __cheb24[__i] * __moment[__i];
 

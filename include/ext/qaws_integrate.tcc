@@ -52,10 +52,12 @@ namespace __gnu_cxx
 		   const std::array<_RetTp, 25>& __cheb24)
     -> compute_result_t<decltype(_Tp{} * _RetTp{})>;
 
- template<typename _Tp, typename _FuncTp>
+ template<typename _Tp, typename _FuncTp,
+	  typename _Integrator = gauss_kronrod_integral<_Tp>>
     std::tuple<_Tp, _Tp, bool>
     qc25s(qaws_integration_table<_Tp>& __t,
-	  _FuncTp __func, _Tp __lower, _Tp __upper, _Tp __a1, _Tp __b1);
+	  _FuncTp __func, _Tp __lower, _Tp __upper, _Tp __a1, _Tp __mid,
+	  _Integrator __quad = gauss_kronrod_integral<_Tp>(Kronrod_15));
 
   /**
    * The singular weight function is defined by:
@@ -80,14 +82,16 @@ namespace __gnu_cxx
    * In order to work efficiently the algorithm requires a precomputed table
    * of Chebyshev moments.
    */
-  template<typename _Tp, typename _FuncTp>
+  template<typename _Tp, typename _FuncTp,
+	   typename _Integrator = gauss_kronrod_integral<_Tp>>
     auto
     qaws_integrate(integration_workspace<_Tp,
 			std::invoke_result_t<_FuncTp, _Tp>>& __workspace,
 		   qaws_integration_table<_Tp>& __table,
 		   _FuncTp __func,
 		   _Tp __lower, _Tp __upper,
-		   _Tp __max_abs_err, _Tp __max_rel_err)
+		   _Tp __max_abs_err, _Tp __max_rel_err,
+		   _Integrator __quad = gauss_kronrod_integral<_Tp>(Kronrod_15))
     -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
     {
       // Try to adjust tests for varing precision.
@@ -114,16 +118,15 @@ namespace __gnu_cxx
       {
 	const auto __a1 = __lower;
 	const auto __mid = (__lower + __upper) / _Tp{2};
-	const auto __a2 = __mid;
 	const auto __b2 = __upper;
 
         auto [__area1, __error1, __err_reliable1]
-	  = qc25s(__table, __func, __lower, __upper, __a1, __mid);
+	  = qc25s(__table, __func, __lower, __upper, __a1, __mid, __quad);
 	__workspace.append(__a1, __mid, __area1, __error1);
 
 	auto [__area2, __error2, __err_reliable2]
-	  = qc25s(__table, __func, __lower, __upper, __a2, __b2);
-	__workspace.append(__a2, __b2, __area2, __error2);
+	  = qc25s(__table, __func, __lower, __upper, __mid, __b2, __quad);
+	__workspace.append(__mid, __b2, __area2, __error2);
 
 	__result0 = __area1 + __area2;
 	__abserr0 = __error1 + __error2;
@@ -132,11 +135,12 @@ namespace __gnu_cxx
       // Test on accuracy; Use 0.01 relative error as an extra safety
       // margin on the first iteration (ignored for subsequent iterations).
       auto __tolerance = std::max(__max_abs_err, __max_rel_err * std::abs(__result0));
-      if (__abserr0 < __tolerance && __abserr0 < 0.01 * std::abs(__result0))
+      if (__abserr0 < __tolerance && __abserr0
+	  < _Tp{0.01} * std::abs(__result0))
 	return {__result0, __abserr0};
       else if (__limit == 1)
 	__throw_integration_error("qaws_integrate: "
-				  "a maximum of one iteration was insufficient",
+				  "A maximum of one iteration was insufficient",
 				  MAX_ITER_ERROR, __result0, __abserr0);
 
       auto __area = __result0;
@@ -151,14 +155,13 @@ namespace __gnu_cxx
 
 	  const auto __a1 = __curr.__lower_lim;
 	  const auto __mid = (__curr.__lower_lim + __curr.__upper_lim) / _Tp{2};
-	  const auto __a2 = __mid;
 	  const auto __b2 = __curr.__upper_lim;
 
 	  auto [__area1, __error1, __err_reliable1]
-	    = qc25s(__table, __func, __lower, __upper, __a1, __mid);
+	    = qc25s(__table, __func, __lower, __upper, __a1, __mid, __quad);
 
 	  auto [__area2, __error2, __err_reliable2]
-	    = qc25s(__table, __func, __lower, __upper, __a2, __b2);
+	    = qc25s(__table, __func, __lower, __upper, __mid, __b2, __quad);
 
 	  const auto __area12 = __area1 + __area2;
 	  const auto __error12 = __error1 + __error2;
@@ -185,7 +188,7 @@ namespace __gnu_cxx
 
 	      // set error flag in the case of bad integrand behaviour at
 	      // a point of the integration range
-	      if (__workspace.subinterval_too_small(__a1, __a2, __b2))
+	      if (__workspace.subinterval_too_small(__a1, __mid, __b2))
 		__error_type = SINGULAR_ERROR;
 	    }
 
@@ -215,10 +218,12 @@ namespace __gnu_cxx
   /**
    *
    */
-  template<typename _Tp, typename _FuncTp>
+  template<typename _Tp, typename _FuncTp,
+	   typename _Integrator = gauss_kronrod_integral<_Tp>>
     std::tuple<_Tp, _Tp, bool>
     qc25s(qaws_integration_table<_Tp>& __t,
-	  _FuncTp __func, _Tp __lower, _Tp __upper, _Tp __a1, _Tp __b1)
+	  _FuncTp __func, _Tp __lower, _Tp __upper, _Tp __a1, _Tp __b1,
+	  _Integrator __quad)
     {
       fn_qaws<_Tp, _FuncTp> __fqaws(&__t, __func, __lower, __upper);
 
@@ -251,7 +256,6 @@ namespace __gnu_cxx
 
 	      auto [__res12a, __res24a]
 		= compute_result(__t.ri, __cheb12, __cheb24);
-
 	      auto [__res12b, __res24b]
 		= compute_result(__t.rg, __cheb12, __cheb24);
 
@@ -289,7 +293,6 @@ namespace __gnu_cxx
 
 	      auto [__res12a, __res24a]
 		= compute_result(__t.rj, __cheb12, __cheb24);
-
 	      auto [__res12b, __res24b]
 		= compute_result(__t.rh, __cheb12, __cheb24);
 
@@ -306,7 +309,7 @@ namespace __gnu_cxx
 		     { return __fqaws.eval_middle(__x); };
 
 	  auto [__result, __abserr, __resabs, __resasc]
-	    = qk_integrate(__f, __a1, __b1, Kronrod_15);
+	    = __quad(__f, __a1, __b1);
 
 	  bool __err_reliable;
 	  if (__abserr == __resasc)
@@ -328,7 +331,6 @@ namespace __gnu_cxx
       using _AreaTp = decltype(_RetTp{} * _Tp{});
 
       const qaws_integration_table<_Tp>* table;
-
       _FuncTp func;
       _Tp a;
       _Tp b;

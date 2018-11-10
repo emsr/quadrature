@@ -1399,8 +1399,9 @@ test_quadrature()
 
       __gnu_cxx::integration_workspace<_Tp, decltype(fc(_Tp{}))> w(1000);
 
-      auto out = __gnu_cxx::qag_integrate(w, fc, _Tp{0}, _Tp{1}, _Tp{0}, _Tp{1.0e-10L}, 1000,
-				   __gnu_cxx::Kronrod_15);
+      auto out = __gnu_cxx::qag_integrate(w, fc, _Tp{0}, _Tp{1},
+					  _Tp{0}, _Tp{1.0e-10L}, 1000,
+					  __gnu_cxx::gauss_kronrod_integral<_Tp>(__gnu_cxx::Kronrod_15));
 
       qtest.test_relative(out.__result, exp_result, fpeps, "qag(f1) smooth result");
       qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-6L}, "qag(f1) smooth abserr");
@@ -1423,8 +1424,9 @@ test_quadrature()
 	  qtest.test_relative(w.abs_error(i), test[i].e, _Tp{1.0e-6L}, "qag(f1) smooth abs error");
 
       fc.num_evals(0);
-      out = __gnu_cxx::qag_integrate(w, fc, _Tp{1}, _Tp{0}, _Tp{0}, _Tp{1.0e-10L}, 1000,
-				    __gnu_cxx::Kronrod_15);
+      out = __gnu_cxx::qag_integrate(w, fc, _Tp{1}, _Tp{0},
+				     _Tp{0}, _Tp{1.0e-10L}, 1000,
+				     __gnu_cxx::gauss_kronrod_integral<_Tp>(__gnu_cxx::Kronrod_15));
 
       qtest.test_relative(out.__result, -exp_result, fpeps, "qag(f1) reverse result");
       qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-6L}, "qag(f1) reverse abserr");
@@ -1473,7 +1475,9 @@ test_quadrature()
 
       __gnu_cxx::integration_workspace<_Tp, decltype(fc(_Tp{}))> w(1000);
 
-      auto out = __gnu_cxx::qag_integrate(w, fc, _Tp{0}, _Tp{1}, _Tp{1.0e-14L}, _Tp{0}, 1000, __gnu_cxx::Kronrod_21);
+      auto out = __gnu_cxx::qag_integrate(w, fc, _Tp{0}, _Tp{1},
+					  _Tp{1.0e-14L}, _Tp{0}, 1000,
+					  __gnu_cxx::gauss_kronrod_integral<_Tp>(__gnu_cxx::Kronrod_21));
 
       qtest.test_relative(out.__result, exp_result, fpeps, "qag(f1, 21pt) smooth result");
       qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-6L}, "qag(f1, 21pt) smooth abserr");
@@ -1496,7 +1500,9 @@ test_quadrature()
 	  qtest.test_relative(w.abs_error(i), test[i].e, _Tp{1.0e-6L}, "qag(f1, 21pt) smooth abs error");
 
       fc.num_evals(0);
-      out = __gnu_cxx::qag_integrate(w, fc, _Tp{1}, _Tp{0}, _Tp{1.0e-14L}, _Tp{0}, 1000, __gnu_cxx::Kronrod_21);
+      out = __gnu_cxx::qag_integrate(w, fc, _Tp{1}, _Tp{0},
+				     _Tp{1.0e-14L}, _Tp{0}, 1000,
+				     __gnu_cxx::gauss_kronrod_integral<_Tp>(__gnu_cxx::Kronrod_21));
 
       qtest.test_relative(out.__result, -exp_result, fpeps, "qag(f1, 21pt) reverse result");
       qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-6L}, "qag(f1, 21pt) reverse abserr");
@@ -1538,8 +1544,9 @@ test_quadrature()
       __gnu_cxx::adaptive_integral_t<_Tp, decltype(fc(_Tp{}))> out;
       try
 	{
-	  out = __gnu_cxx::qag_integrate(w, fc, _Tp{0.3L}, _Tp{2.71L}, _Tp{1.0e-14L}, _Tp{0}, 1000,
-				       __gnu_cxx::Kronrod_31);
+	  out = __gnu_cxx::qag_integrate(w, fc, _Tp{0.3L}, _Tp{2.71L},
+					 _Tp{1.0e-14L}, _Tp{0}, 1000,
+					 __gnu_cxx::gauss_kronrod_integral<_Tp>(__gnu_cxx::Kronrod_31));
 	}
       catch (__gnu_cxx::__integration_error<_Tp>& iex)
 	{
@@ -1557,8 +1564,9 @@ test_quadrature()
       fc.num_evals(0);
       try
 	{
-	  out = __gnu_cxx::qag_integrate(w, fc, _Tp{2.71L}, _Tp{0.3L}, _Tp{1.0e-14L}, _Tp{0}, 1000,
-				       __gnu_cxx::Kronrod_31);
+	  out = __gnu_cxx::qag_integrate(w, fc, _Tp{2.71L}, _Tp{0.3L},
+					 _Tp{1.0e-14L}, _Tp{0}, 1000,
+					 __gnu_cxx::gauss_kronrod_integral<_Tp>(__gnu_cxx::Kronrod_31));
 	}
       catch (__gnu_cxx::__integration_error<_Tp>& iex)
 	{
@@ -1603,8 +1611,9 @@ test_quadrature()
       __gnu_cxx::adaptive_integral_t<_Tp, decltype(fc(_Tp{}))> out;
       try
 	{
-	  out = __gnu_cxx::qag_integrate(w, fc, _Tp{-1}, _Tp{1}, _Tp{1.0e-14L}, _Tp{0}, 1000,
-					 __gnu_cxx::Kronrod_51);
+	  out = __gnu_cxx::qag_integrate(w, fc, _Tp{-1}, _Tp{1},
+					 _Tp{1.0e-14L}, _Tp{0}, 1000,
+					 __gnu_cxx::gauss_kronrod_integral<_Tp>(__gnu_cxx::Kronrod_51));
 	}
       catch (__gnu_cxx::__integration_error<_Tp>& iex)
 	{
@@ -1620,8 +1629,9 @@ test_quadrature()
       fc.num_evals(0);
       try
 	{
-	  out = __gnu_cxx::qag_integrate(w, fc, _Tp{1}, _Tp{-1}, _Tp{1.0e-14L}, _Tp{0}, 1000,
-					 __gnu_cxx::Kronrod_51);
+	  out = __gnu_cxx::qag_integrate(w, fc, _Tp{1}, _Tp{-1},
+					 _Tp{1.0e-14L}, _Tp{0}, 1000,
+					 __gnu_cxx::gauss_kronrod_integral<_Tp>(__gnu_cxx::Kronrod_51));
 	}
       catch (__gnu_cxx::__integration_error<_Tp>& iex)
 	{
@@ -1674,8 +1684,9 @@ test_quadrature()
       __gnu_cxx::adaptive_integral_t<_Tp, decltype(fc(_Tp{}))> out;
       try
 	{
-	  out = __gnu_cxx::qag_integrate(w, fc, _Tp{-1}, _Tp{1}, _Tp{1.0e-14L}, _Tp{0}, 3,
-					 __gnu_cxx::Kronrod_61);
+	  out = __gnu_cxx::qag_integrate(w, fc, _Tp{-1}, _Tp{1},
+					 _Tp{1.0e-14L}, _Tp{0}, 3,
+					 __gnu_cxx::gauss_kronrod_integral<_Tp>(__gnu_cxx::Kronrod_61));
 	}
       catch (__gnu_cxx::__integration_error<_Tp>& iex)
 	{
@@ -1707,8 +1718,9 @@ test_quadrature()
       fc.num_evals(0);
       try
 	{
-	  out = __gnu_cxx::qag_integrate(w, fc, _Tp{1}, _Tp{-1}, _Tp{1.0e-14L}, _Tp{0}, 3,
-					 __gnu_cxx::Kronrod_61);
+	  out = __gnu_cxx::qag_integrate(w, fc, _Tp{1}, _Tp{-1},
+					 _Tp{1.0e-14L}, _Tp{0}, 3,
+					 __gnu_cxx::gauss_kronrod_integral<_Tp>(__gnu_cxx::Kronrod_61));
 	}
       catch (__gnu_cxx::__integration_error<_Tp>& iex)
 	{
