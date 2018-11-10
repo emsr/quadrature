@@ -14,16 +14,16 @@ ifeq ("$(wildcard $(CXX_INST_DIR))","")
   endif
 endif
 
-OPT = -O3
-#OPT = -g
+#OPT = -O3
+OPT = -g
 #OPT = -g -fsanitize=signed-integer-overflow -fsanitize=bounds -fsanitize=float-divide-by-zero -fsanitize=float-cast-overflow -fsanitize=alignment
 GCC = $(CXX_INST_DIR)/bin/gcc $(OPT) -Wall -Wextra
 CXX17 = $(CXX_INST_DIR)/bin/g++ -std=gnu++17 -fconcepts $(OPT) -Wall -Wextra -Wno-psabi
 CXX_INC_DIR = $(CXX_INST_DIR)/include/c++/8.0.0/bits
 CXX_LIB_DIR = $(CXX_INST_DIR)/lib64
 
-WRAPPER_LIBS = -L../wrappers/release -lwrap_burkhardt -lgfortran
-#WRAPPER_LIBS = -L../wrappers/debug -lwrap_burkhardt -lgfortran
+#WRAPPER_LIBS = -L../wrappers/release -lwrap_burkhardt -lgfortran
+WRAPPER_LIBS = -L../wrappers/debug -lwrap_burkhardt -lgfortran
 
 INC_DIR = include/ext
 INCLUDES =  -I../include -Iinclude -I../polynomial/include
@@ -115,8 +115,8 @@ BINS = \
 all: $(OBJ_DIR) $(BINS)
 
 
-ortho_test:
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/legendre_test > $(OUTPUT_DIR)/legendre_test.txt 2> $(OUTPUT_DIR)/$(OUTPUT_DIR)/legendre_test.err
+ortho_test:$(OUTPUT_DIR)
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/legendre_test > $(OUTPUT_DIR)/legendre_test.txt 2> $(OUTPUT_DIR)/legendre_test.err
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/chebyshev_t_test > $(OUTPUT_DIR)/chebyshev_t_test.txt 2> $(OUTPUT_DIR)/chebyshev_t_test.err
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/chebyshev_u_test > $(OUTPUT_DIR)/chebyshev_u_test.txt 2> $(OUTPUT_DIR)/chebyshev_u_test.err
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/chebyshev_v_test > $(OUTPUT_DIR)/chebyshev_v_test.txt 2> $(OUTPUT_DIR)/chebyshev_v_test.err
@@ -276,6 +276,12 @@ $(OBJ_DIR)/radpoly_test.o: $(INCS) radpoly_test.cpp
 
 $(OBJ_DIR)/zernike_test.o: $(INCS) zernike_test.cpp
 	$(CXX17) -c $(INCLUDES) -o $(OBJ_DIR)/zernike_test.o zernike_test.cpp
+
+
+$(OUTPUT_DIR): $(OUTPUT_DIR)
+	if test ! -d $(OUTPUT_DIR); then \
+	  mkdir $(OUTPUT_DIR); \
+	fi
 
 
 $(OBJ_DIR): $(OUT_DIR)
