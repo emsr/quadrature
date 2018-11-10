@@ -67,7 +67,8 @@ namespace __gnu_cxx
    * @return A tuple with the first value being the integration result,
    *	     and the second value being the estimated error.
    */
-  template<typename _Tp, typename _FuncTp, typename _Integrator>
+  template<typename _Tp, typename _FuncTp,
+	   typename _Integrator = gauss_kronrod_integral<_Tp>>
     auto
     qag_integrate(integration_workspace<_Tp,
 			std::invoke_result_t<_FuncTp, _Tp>>& __workspace,
@@ -75,7 +76,7 @@ namespace __gnu_cxx
 		  _Tp __lower, _Tp __upper,
 		  _Tp __max_abs_err, _Tp __max_rel_err,
 		  std::size_t __max_iter,
-		  _Integrator __quad)
+		  _Integrator __quad = gauss_kronrod_integral<_Tp>(Kronrod_21))
     -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
     {
       const auto _S_eps = std::numeric_limits<_Tp>::epsilon();
@@ -191,40 +192,6 @@ namespace __gnu_cxx
       __check_error<_Tp>(__func__, __error_type, __result, __abserr);
       __throw_integration_error("qag_integrate: Unknown error.",
 				UNKNOWN_ERROR, __result, __abserr);
-    }
-
-  /**
-   * Specialize to Gauss-Kronrod integration step with default 21-point rule.
-   *
-   * @param[in] __workspace The workspace that manages adaptive quadrature
-   * @param[in] __func The single-variable function to be integrated
-   * @param[in] __lower The lower limit of integration
-   * @param[in] __upper The upper limit of integration
-   * @param[in] __max_iter The maximum number of integration steps allowed
-   * @param[in] __max_abs_err The limit on absolute error
-   * @param[in] __max_rel_err The limit on relative error
-   * @param[in] __max_iter The maximum number of iterations
-   * @param[in] __qkintrule The size of the Gauss-Kronrod integration scheme
-   */
-  template<typename _Tp, typename _FuncTp>
-    auto
-    qag_integrate(integration_workspace<_Tp,
-			std::invoke_result_t<_FuncTp, _Tp>>& __workspace,
-		  _FuncTp __func,
-		  _Tp __lower, _Tp __upper,
-		  _Tp __max_abs_err, _Tp __max_rel_err,
-		  std::size_t __max_iter,
-		  Kronrod_Rule __qk_rule = Kronrod_21)
-    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
-    {
-      auto __quad
-	= [__qk_rule]
-	  (_FuncTp __func, _Tp __lower, _Tp __upper)
-	  -> gauss_kronrod_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
-	  { return qk_integrate(__func, __lower, __upper, __qk_rule); };
-
-      return qag_integrate(__workspace, __func, __lower, __upper,
-			   __max_abs_err, __max_rel_err, __max_iter, __quad);
     }
 
 } // namespace __gnu_cxx

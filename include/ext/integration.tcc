@@ -77,7 +77,7 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
 			   __lower, __upper,
 			   __max_abs_error, __max_rel_error,
 			   __max_iter,
-			   __qkintrule);
+			   gauss_kronrod_integral<_Tp>(__qkintrule));
     }
 
   /**
@@ -106,7 +106,7 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
 			   _Tp{0}, _Tp{1},
 			   __max_abs_error, __max_rel_error,
 			   __max_iter,
-			   __qkintrule);
+			   gauss_kronrod_integral<_Tp>(__qkintrule));
     }
 
   /**
@@ -137,7 +137,7 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
 			   _Tp{0}, _Tp{1},
 			   __max_abs_error, __max_rel_error,
 			   __max_iter,
-			   __qkintrule);
+			   gauss_kronrod_integral<_Tp>(__qkintrule));
     }
 
   /**
@@ -168,7 +168,7 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
 			   _Tp{0}, _Tp{1},
 			   __max_abs_error, __max_rel_error,
 			   __max_iter,
-			   __qkintrule);
+			   gauss_kronrod_integral<_Tp>(__qkintrule));
     }
 
   /**
