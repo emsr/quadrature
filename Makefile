@@ -125,11 +125,11 @@ ortho_test:$(OUTPUT_DIR)
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/jacobi_test > $(OUTPUT_DIR)/jacobi_test.txt 2> $(OUTPUT_DIR)/jacobi_test.err
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/assoc_laguerre_test > $(OUTPUT_DIR)/assoc_laguerre_test.txt 2> $(OUTPUT_DIR)/assoc_laguerre_test.err
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/assoc_legendre_test > $(OUTPUT_DIR)/assoc_legendre_test.txt 2> $(OUTPUT_DIR)/assoc_legendre_test.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/hermite_test > $(OUTPUT_DIR)/hermite_test.txt 2> $(OUTPUT_DIR)/hermite_test.err
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/sph_legendre_test > $(OUTPUT_DIR)/sph_legendre_test.txt 2> $(OUTPUT_DIR)/sph_legendre_test.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/laguerre_test > $(OUTPUT_DIR)/laguerre_test.txt 2> $(OUTPUT_DIR)/laguerre_test.err
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/radpoly_test > $(OUTPUT_DIR)/radpoly_test.txt 2> $(OUTPUT_DIR)/radpoly_test.err
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/zernike_test > $(OUTPUT_DIR)/zernike_test.txt 2> $(OUTPUT_DIR)/zernike_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/laguerre_test > $(OUTPUT_DIR)/laguerre_test.txt 2> $(OUTPUT_DIR)/laguerre_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/hermite_test > $(OUTPUT_DIR)/hermite_test.txt 2> $(OUTPUT_DIR)/hermite_test.err
 
 
 test: $(BIN_DIR)/test_quadrature
