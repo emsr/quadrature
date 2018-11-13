@@ -228,7 +228,7 @@ namespace __gnu_cxx
     qng_integrate(_FuncTp __func,
 		  _Tp __lower, _Tp __upper,
 		  _Tp __max_abs_err, _Tp __max_rel_err)
-    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    -> gauss_kronrod_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
     {
       _Tp __fv1[5], __fv2[5], __fv3[5], __fv4[5];
       _Tp __savfun[21];
@@ -304,7 +304,7 @@ namespace __gnu_cxx
 				   __resabs, __resasc);
       if (__err < __max_abs_err
        || __err < __max_rel_err * std::abs(__result_kronrod))
-	return {__result_kronrod, __err};
+	return {__result_kronrod, __err, __resabs, __resasc};
 
       // Compute the integral using the 43-point formula.
       auto __res43 = _Tp(qng_w43b[11]) * __f_center;
@@ -325,7 +325,7 @@ namespace __gnu_cxx
 				 __resabs, __resasc);
       if (__err < __max_abs_err
        || __err < __max_rel_err * std::abs(__result_kronrod))
-	return {__result_kronrod, __err};
+	return {__result_kronrod, __err, __resabs, __resasc};
 
       // Compute the integral using the 87-point formula.
       auto __res87 = _Tp(qng_w87b[22]) * __f_center;
@@ -344,7 +344,7 @@ namespace __gnu_cxx
 				__resabs, __resasc);
       if (__err < __max_abs_err
        || __err < __max_rel_err * std::abs(__result_kronrod))
-	return {__result_kronrod, __err};
+	return {__result_kronrod, __err, __resabs, __resasc};
 
       // Failed to converge.
       __throw_integration_error("qng_integrate: "
