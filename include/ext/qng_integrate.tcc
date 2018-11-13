@@ -230,8 +230,11 @@ namespace __gnu_cxx
 		  _Tp __max_abs_err, _Tp __max_rel_err)
     -> gauss_kronrod_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
     {
-      _Tp __fv1[5], __fv2[5], __fv3[5], __fv4[5];
-      _Tp __savfun[21];
+      using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
+      using _AreaTp = decltype(_RetTp{} * _Tp{});
+
+      _RetTp __fv1[5], __fv2[5], __fv3[5], __fv4[5];
+      _RetTp __savfun[21];
 
       const auto __half_length = (__upper - __lower) / _Tp{2};
       const auto __abs_half_length = std::abs(__half_length);
@@ -249,7 +252,7 @@ namespace __gnu_cxx
 
       // Compute the integral using the 10- and 21-point formula.
 
-      auto __res10 = _Tp{0};
+      auto __res10 = _AreaTp{0};
       auto __res21 = _Tp(qng_w21b[5]) * __f_center;
       // Approximation to the integral of abs(f)
       auto __resabs = _Tp(qng_w21b[5]) * std::abs(__f_center);
@@ -285,7 +288,7 @@ namespace __gnu_cxx
 
       __resabs *= __abs_half_length;
 
-      // Approximation to the integral of abs(f-i/(b-a)).
+      // Approximation to the integral of abs(f-I/(b-a)).
       const auto __mean = _Tp{0.5L} * __res21;
       auto __resasc = _Tp(qng_w21b[5]) * std::abs(__f_center - __mean);
       for (int __k = 0; __k < 5; ++__k)
