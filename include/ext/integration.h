@@ -33,11 +33,9 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
 
   /**
    * The return type for a fixed integral rule.
-
    * Fixed integral types could return errors too!
    * Globally vs. locally adaptive integrals need to be distinguished.
    * abs(diff) vs. diff(abs) is also a thing.
-
    */
   template<typename _Tp, typename _RetTp>
     struct fixed_integral_t

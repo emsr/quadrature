@@ -1,5 +1,5 @@
 /*
-g++ -std=c++14 -Wall -Wextra -o build_gauss_kronrod build_gauss_kronrod.cpp
+g++ -std=c++14 -Wall -Wextra -Iinclude -o test_gauss_kronrod_rule test_gauss_kronrod_rule.cpp
 */
 
 #include <iostream>

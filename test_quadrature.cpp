@@ -1327,7 +1327,7 @@ test_quadrature()
       auto f = make_function<_Tp>(f1<_Tp>, alpha);
       auto fc = counted_function<_Tp, decltype(f)>(f);
 
-      __gnu_cxx::adaptive_integral_t<_Tp, decltype(fc(_Tp{}))> out;
+      __gnu_cxx::gauss_kronrod_integral_t<_Tp, decltype(fc(_Tp{}))> out;
       try
 	{
 	  out = __gnu_cxx::qng_integrate(fc, _Tp{0}, _Tp{1}, _Tp{0}, _Tp{1.0e-3L});

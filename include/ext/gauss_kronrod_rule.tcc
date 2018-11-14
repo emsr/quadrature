@@ -408,8 +408,7 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
 	  __xx = __coef * __x1;
 	}
 
-      // If n is __even, we have one more Kronrod abscissa to compute,
-      // namely the origin.
+      // If n is even we must compute the Kronrod abscissa for the origin.
       if (__even)
 	{
 	  __xx = _Tp{0};
