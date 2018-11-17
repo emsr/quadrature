@@ -51,11 +51,12 @@ template<typename _Tp>
   void
   test_hermite()
   {
-    const auto eps_factor = 1 << (std::numeric_limits<_Tp>::digits / 5);
+    const auto eps_factor = 1 << (std::numeric_limits<_Tp>::digits / 3);
     const auto eps = std::numeric_limits<_Tp>::epsilon();
-    const auto infty = std::numeric_limits<_Tp>::infinity();
+    //const auto infty = std::numeric_limits<_Tp>::infinity();
+    const auto abs_precision = eps_factor * eps;
     const auto rel_precision = eps_factor * eps;
-    const auto abs_precision = _Tp{10} * rel_precision;
+    const auto cmp_precision = _Tp{10} * rel_precision;
 
     int n1 = 0;
     for (; n1 <= 128; ++n1)
@@ -65,19 +66,20 @@ template<typename _Tp>
 	    auto func = [n1, n2](_Tp x)
 			-> _Tp
 			{ return normalized_hermite(n1, n2, x); };
-	    using func_t = decltype(func);
+	    //using func_t = decltype(func);
 
 	    auto [result, error]
-		//= integrate_singular(func, -infty, infty, rel_precision, _Tp{0});
-		//= integrate(func, -infty, infty, rel_precision, _Tp{0});
-		//= integrate_infinite(func, rel_precision, _Tp{0});
-		//= integrate_singular_infinite(func, rel_precision, _Tp{0});
+		//= integrate_singular(func, -infty, infty, abs_precision, rel_precision);
+		//= integrate(func, -infty, infty, abs_precision, rel_precision);
+		//= integrate_infinite(func, abs_precision, rel_precision);
+		//= integrate_singular_infinite(func, abs_precision, rel_precision);
 		//= integrate_oscillatory(map_minf_pinf<_Tp, func_t>(func),
-                //                        _Tp{0}, _Tp{1}, rel_precision, _Tp{0});
-		= integrate_clenshaw_curtis(map_minf_pinf<_Tp, func_t>(func),
-                                            _Tp{0}, _Tp{1}, rel_precision, _Tp{0});
+                //                        _Tp{0}, _Tp{1}, abs_precision, rel_precision);
+		//= integrate_clenshaw_curtis(map_minf_pinf<_Tp, func_t>(func),
+                //                            _Tp{0}, _Tp{1}, abs_precision, rel_precision);
+                = integrate_sinh_sinh(func, abs_precision, rel_precision);
 
-	    if (std::abs(delta<_Tp>(n1, n2) - result) > abs_precision)
+	    if (std::abs(delta<_Tp>(n1, n2) - result) > cmp_precision)
 	      {
 		std::stringstream ss;
 		ss.precision(std::numeric_limits<_Tp>::digits10);
@@ -86,7 +88,7 @@ template<typename _Tp>
 		   << ", returning result " << result
 		   << ", with error " << error
 		   << " instead of the expected " << delta<_Tp>(n1, n2)
-		   << " with absolute precision " << abs_precision << '\n';
+		   << " with absolute precision " << cmp_precision << '\n';
 		throw std::logic_error(ss.str());
 	      }
 	  }
@@ -107,9 +109,10 @@ template<typename _Tp>
 			{ return normalized_hermite(n1, n2, x); };
 
 	    auto [result, error]
-		= integrate_singular(func, -infty, infty, rel_precision, _Tp{0});
+		//= integrate_singular(func, -infty, infty, abs_precision, rel_precision);
+                = integrate_sinh_sinh(func, abs_precision, rel_precision);
 
-	    if (std::abs(delta<_Tp>(itop, n2) - result) > abs_precision)
+	    if (std::abs(delta<_Tp>(itop, n2) - result) > cmp_precision)
 	      {
 		itop = (ibot + itop) / 2;
 		goto RESTART;

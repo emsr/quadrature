@@ -47,10 +47,11 @@ template<typename _Tp>
   void
   test_legendre()
   {
-    const auto eps_factor = 1 << (std::numeric_limits<_Tp>::digits / 5);
+    const auto eps_factor = 1 << (std::numeric_limits<_Tp>::digits / 3);
     const auto eps = std::numeric_limits<_Tp>::epsilon();
-    const auto integ_prec = eps_factor * eps;
-    const auto cmp_prec = _Tp{10} * integ_prec;
+    const auto abs_precision = eps_factor * eps;
+    const auto rel_precision = eps_factor * eps;
+    const auto cmp_precision = _Tp{10} * rel_precision;
 
     int l1 = 0;
     for (; l1 <= 128; ++l1)
@@ -62,9 +63,10 @@ template<typename _Tp>
 			{ return normalized_legendre(l1, l2, x); };
 
 	    auto [result, error]
-		= integrate(func, _Tp{-1}, _Tp{1}, integ_prec, _Tp{0});
+		//= integrate(func, _Tp{-1}, _Tp{1}, abs_precision, rel_precision);
+		= integrate_tanh_sinh(func, _Tp{-1}, _Tp{1}, abs_precision, rel_precision, 6);
 
-	    if (std::abs(delta<_Tp>(l1, l2) - result) > cmp_prec)
+	    if (std::abs(delta<_Tp>(l1, l2) - result) > cmp_precision)
 	      {
 		std::stringstream ss;
 		ss.precision(std::numeric_limits<_Tp>::digits10);
@@ -93,9 +95,10 @@ template<typename _Tp>
 			{ return normalized_legendre(l1, l2, x); };
 
 	    auto [result, error]
-		= integrate(func, _Tp{-1}, _Tp{1}, integ_prec, _Tp{0});
+		//= integrate(func, _Tp{-1}, _Tp{1}, abs_precision, rel_precision);
+		= integrate_tanh_sinh(func, _Tp{-1}, _Tp{1}, abs_precision, rel_precision, 6);
 
-	    if (std::abs(delta<_Tp>(itop, l2) - result) > cmp_prec)
+	    if (std::abs(delta<_Tp>(itop, l2) - result) > cmp_precision)
 	      {
 		itop = (ibot + itop) / 2;
 		goto RESTART;

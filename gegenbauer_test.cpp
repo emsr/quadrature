@@ -31,16 +31,16 @@ using namespace __gnu_cxx;
 // Function which should integrate to 1 for n1 == n2, 0 otherwise.
 template<typename _Tp>
   _Tp
-  normalized_gegenbauer(int n1, int n2, _Tp alpha, _Tp x)
+  normalized_gegenbauer(int n1, int n2, _Tp lambda, _Tp x)
   {
     const auto _S_pi = __gnu_cxx::__const_pi(x);
-    auto gama = std::tgamma(alpha);
-    auto gamn2a = std::tgamma(n1 + _Tp{2} * alpha);
-    auto norm = _S_pi * std::pow(_Tp{2}, _Tp{1} - _Tp{2} * alpha) * gamn2a
-	      / __gnu_cxx::factorial<_Tp>(n1) / (_Tp(n1) + alpha) / gama / gama;
-    return std::pow(_Tp{1} - x * x, alpha - _Tp{0.5})
-	 * __gnu_cxx::gegenbauer(n1, alpha, x)
-	 * __gnu_cxx::gegenbauer(n2, alpha, x) / norm;
+    auto gama = std::tgamma(lambda);
+    auto gamn2a = std::tgamma(n1 + _Tp{2} * lambda);
+    auto norm = _S_pi * std::pow(_Tp{2}, _Tp{1} - _Tp{2} * lambda) * gamn2a
+	      / __gnu_cxx::factorial<_Tp>(n1) / (_Tp(n1) + lambda) / gama / gama;
+    return std::pow(_Tp{1} - x * x, lambda - _Tp{0.5})
+	 * __gnu_cxx::gegenbauer(n1, lambda, x)
+	 * __gnu_cxx::gegenbauer(n2, lambda, x) / norm;
   }
 
 template<typename _Tp>
@@ -50,35 +50,36 @@ template<typename _Tp>
 
 template<typename _Tp>
   void
-  test_gegenbauer(_Tp alpha)
+  test_gegenbauer(_Tp lambda)
   {
-    const auto eps_factor = 1 << (std::numeric_limits<_Tp>::digits / 5);
+    const auto eps_factor = 1 << (std::numeric_limits<_Tp>::digits / 3);
     const auto eps = std::numeric_limits<_Tp>::epsilon();
-    const auto integ_prec = eps_factor * eps;
-    const auto cmp_prec = _Tp{10} * integ_prec;
+    const auto abs_precision = eps_factor * eps;
+    const auto rel_precision = eps_factor * eps;
+    const auto cmp_precision = _Tp{10} * rel_precision;
 
-    const bool singular = (alpha < _Tp{0.5});
+    const bool singular = (lambda < _Tp{0.5});
 
     int n1 = 0;
     for (; n1 <= 128; ++n1)
       {
 	for (int n2 = 0; n2 <= n1; ++n2)
 	  {
-	    auto func = [n1, n2, alpha](_Tp x)
+	    auto func = [n1, n2, lambda](_Tp x)
 			-> _Tp
-			{ return normalized_gegenbauer<_Tp>(n1, n2, alpha, x); };
+			{ return normalized_gegenbauer<_Tp>(n1, n2, lambda, x); };
 
 	    // Using integrate_singular works pretty well.
 	    auto [result, error]
 		= singular
 		? integrate_singular_endpoints(func,
 					       _Tp{-1}, _Tp{1},
-					       alpha - _Tp{0.5}, alpha - _Tp{0.5}, 0, 0,
-					       integ_prec, _Tp{0})
-		: integrate(func, _Tp{-1}, _Tp{1}, integ_prec, _Tp{0});
-//		= integrate_singular(func, _Tp{-1}, _Tp{1}, integ_prec, _Tp{0});
+					       lambda - _Tp{0.5}, lambda - _Tp{0.5}, 0, 0,
+					       abs_precision, rel_precision)
+		: integrate(func, _Tp{-1}, _Tp{1}, abs_precision, rel_precision);
+		//= integrate_singular(func, _Tp{-1}, _Tp{1}, rel_precision, _Tp{0});
 
-	    if (std::abs(delta<_Tp>(n1, n2) - result) > cmp_prec)
+	    if (std::abs(delta<_Tp>(n1, n2) - result) > cmp_precision)
 	      {
 		std::stringstream ss;
 		ss.precision(std::numeric_limits<_Tp>::digits10);
@@ -102,21 +103,21 @@ template<typename _Tp>
 	RESTART:
 	for (int n2 = 0; n2 <= itop; n2 += del)
 	  {
-	    auto func = [n1 = itop, n2, alpha](_Tp x)
+	    auto func = [n1 = itop, n2, lambda](_Tp x)
 			-> _Tp
-			{ return normalized_gegenbauer<_Tp>(n1, n2, alpha, x); };
+			{ return normalized_gegenbauer<_Tp>(n1, n2, lambda, x); };
 
 	    // Using integrate_singular works pretty well.
 	    auto [result, error]
 		= singular
 		? integrate_singular_endpoints(func,
 					       _Tp{-1}, _Tp{1},
-					       alpha - _Tp{0.5}, alpha - _Tp{0.5}, 0, 0,
-					       integ_prec, _Tp{0})
-		: integrate(func, _Tp{-1}, _Tp{1}, integ_prec, _Tp{0});
-//		= integrate_singular(func, _Tp{-1}, _Tp{1}, integ_prec, _Tp{0});
+					       lambda - _Tp{0.5}, lambda - _Tp{0.5}, 0, 0,
+					       abs_precision, rel_precision)
+		: integrate(func, _Tp{-1}, _Tp{1}, abs_precision, rel_precision);
+		//= integrate_singular(func, _Tp{-1}, _Tp{1}, abs_precision, rel_precision);
 
-	    if (std::abs(delta<_Tp>(itop, n2) - result) > cmp_prec)
+	    if (std::abs(delta<_Tp>(itop, n2) - result) > cmp_precision)
 	      {
 		itop = (ibot + itop) / 2;
 		goto RESTART;
