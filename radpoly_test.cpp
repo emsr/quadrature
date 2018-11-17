@@ -110,14 +110,15 @@ template<typename _Tp>
     int ibot = n1 - 1;
     int itop = 2 * ibot;
     int del = 2;
+    bool breakout = false;
     while (itop != ibot)
       {
 	RESTART:
-	for (int m1 = itop & 1; m1 <= itop; ++m1)
+	for (int m1 = 0; m1 <= itop; ++m1)
 	  {
 	    if ((itop - m1) & 1)
 	      continue;
-	    for (int n2 = itop & 1; n2 <= itop; n2 += del)
+	    for (int n2 = 0; n2 <= itop; n2 += del)
 	      {
 		// The orthonormality only works for m2 == m1.
 		int m2 = m1;
@@ -136,14 +137,29 @@ template<typename _Tp>
 
 		    if (std::abs(delta<_Tp>(itop, m1, n2, m2) - result) > cmp_precision)
 		      {
-			itop = (ibot + itop) / 2;
-			goto RESTART;
+			if ((ibot + itop) / 2 < itop)
+			  {
+			    itop = (ibot + itop) / 2;
+			    goto RESTART;
+			  }
+			else
+			  {
+			    breakout = true;
+			    break;
+			  }
 		      }
 		  }
 	      }
+	    if (breakout)
+	      break;
 	  }
+
 	std::cout << "Integration successful for radpoly polynomials up to n = " << itop
 		  << '\n' << std::flush;
+
+	if (breakout)
+	  break;
+
 	ibot = itop;
 	if (itop > 1000)
 	  {

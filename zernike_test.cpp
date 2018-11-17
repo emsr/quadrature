@@ -120,6 +120,7 @@ template<typename _Tp>
     int ibot = n1 - 1;
     int itop = 2 * ibot;
     int del = 2;
+    bool breakout = false;
     while (itop != ibot)
       {
 	RESTART:
@@ -142,14 +143,29 @@ template<typename _Tp>
 
 		    if (std::abs(delta<_Tp>(itop, m1, n2, m2) - result) > cmp_precision)
 		      {
-			itop = (ibot + itop) / 2;
-			goto RESTART;
+			if ((ibot + itop) / 2 < itop)
+			  {
+			    itop = (ibot + itop) / 2;
+			    goto RESTART;
+			  }
+			else
+			  {
+			    breakout = true;
+			    break;
+			  }
 		      }
 		  }
 	      }
+	    if (breakout)
+	      break;
 	  }
+
 	std::cout << "Integration successful for zernike polynomials up to n = " << itop
 		  << '\n' << std::flush;
+
+	if (breakout)
+	  break;
+
 	ibot = itop;
 	if (itop > 1000)
 	  {

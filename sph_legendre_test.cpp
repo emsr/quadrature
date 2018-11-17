@@ -92,10 +92,11 @@ template<typename _Tp>
     int ibot = l1 - 1;
     int itop = 2 * ibot;
     int del = 2;
+    bool breakout = false;
     while (itop != ibot)
       {
 	RESTART:
-	for (int l2 = itop & 1; l2 <= itop; l2 += del)
+	for (int l2 = 0; l2 <= itop; l2 += del)
 	  {
 	    auto func = [l1 = itop, m1, l2, m2](_Tp theta)
 			-> _Tp
@@ -106,12 +107,25 @@ template<typename _Tp>
 
 	    if (std::abs(delta<_Tp>(itop, l2) * delta<_Tp>(m1, m2) - result) > cmp_precision)
 	      {
-		itop = (ibot + itop) / 2;
-		goto RESTART;
+		if ((ibot + itop) / 2 < itop)
+		  {
+		    itop = (ibot + itop) / 2;
+		    goto RESTART;
+		  }
+		else
+		  {
+		    breakout = true;
+		    break;
+		  }
 	      }
 	  }
+
 	std::cout << "Integration successful for sph_legendre polynomials up to l = " << itop
 		  << '\n' << std::flush;
+
+	if (breakout)
+	  break;
+
 	ibot = itop;
 	if (itop > 1000)
 	  {

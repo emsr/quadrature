@@ -63,7 +63,7 @@ template<typename _Tp>
 			{ return normalized_legendre(l1, l2, x); };
 
 	    auto [result, error]
-		//= integrate(func, _Tp{-1}, _Tp{1}, abs_precision, rel_precision);
+//		= integrate(func, _Tp{-1}, _Tp{1}, abs_precision, rel_precision);
 		= integrate_tanh_sinh(func, _Tp{-1}, _Tp{1}, abs_precision, rel_precision, 6);
 
 	    if (std::abs(delta<_Tp>(l1, l2) - result) > cmp_precision)
@@ -85,6 +85,7 @@ template<typename _Tp>
     int ibot = l1 - 1;
     int itop = 2 * ibot;
     int del = 2;
+    bool breakout = false;
     while (itop != ibot)
       {
 	RESTART:
@@ -95,17 +96,30 @@ template<typename _Tp>
 			{ return normalized_legendre(l1, l2, x); };
 
 	    auto [result, error]
-		//= integrate(func, _Tp{-1}, _Tp{1}, abs_precision, rel_precision);
+//		= integrate(func, _Tp{-1}, _Tp{1}, abs_precision, rel_precision);
 		= integrate_tanh_sinh(func, _Tp{-1}, _Tp{1}, abs_precision, rel_precision, 6);
 
 	    if (std::abs(delta<_Tp>(itop, l2) - result) > cmp_precision)
 	      {
-		itop = (ibot + itop) / 2;
-		goto RESTART;
+		if ((ibot + itop) / 2 < itop)
+		  {
+		    itop = (ibot + itop) / 2;
+		    goto RESTART;
+		  }
+		else
+		  {
+		    breakout = true;
+		    break;
+		  }
 	      }
 	  }
+
 	std::cout << "Integration successful for legendre polynomials up to l = " << itop
 		  << '\n' << std::flush;
+
+	if (breakout)
+	  break;
+
 	ibot = itop;
 	if (itop > 1000)
 	  {

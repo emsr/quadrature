@@ -63,7 +63,7 @@ template<typename _Tp>
 			{ return normalized_laguerre<_Tp>(n1, n2, x); };
 
 	    auto [result, error]
-		//= integrate_lower_pinf(func, _Tp{0}, abs_precision, rel_precision);
+//		= integrate_lower_pinf(func, _Tp{0}, abs_precision, rel_precision);
 		= integrate_exp_sinh(func, _Tp{0}, abs_precision, rel_precision);
 
 	    if (std::abs(delta<_Tp>(n1, n2) - result) > cmp_precision)
@@ -85,6 +85,7 @@ template<typename _Tp>
     int ibot = n1 - 1;
     int itop = 2 * ibot;
     int del = 2;
+    bool breakout = false;
     while (itop != ibot)
       {
 	RESTART:
@@ -95,17 +96,30 @@ template<typename _Tp>
 			{ return normalized_laguerre<_Tp>(n1, n2, x); };
 
 	    auto [result, error]
-		//= integrate_lower_pinf(func, _Tp{0}, abs_precision, rel_precision);
+//		= integrate_lower_pinf(func, _Tp{0}, abs_precision, rel_precision);
 		= integrate_exp_sinh(func, _Tp{0}, abs_precision, rel_precision);
 
 	    if (std::abs(delta<_Tp>(itop, n2) - result) > cmp_precision)
 	      {
-		itop = (ibot + itop) / 2;
-		goto RESTART;
+		if ((ibot + itop) / 2 < itop)
+		  {
+		    itop = (ibot + itop) / 2;
+		    goto RESTART;
+		  }
+		else
+		  {
+		    breakout = true;
+		    break;
+		  }
 	      }
 	  }
+
 	std::cout << "Integration successful for laguerre polynomials up to n = " << itop
 		  << '\n' << std::flush;
+
+	if (breakout)
+	  break;
+
 	ibot = itop;
 	if (itop > 1000)
 	  {

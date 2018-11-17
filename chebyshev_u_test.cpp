@@ -63,7 +63,7 @@ template<typename _Tp>
 	    auto func = [n1, n2](_Tp x)->_Tp{return normalized_chebyshev_u(n1, n2, x);};
 
 	    auto [result, error]
-		//= integrate(func, _Tp{-1}, _Tp{1}, abs_precision, rel_precision);
+//		= integrate(func, _Tp{-1}, _Tp{1}, abs_precision, rel_precision);
 		= integrate_tanh_sinh(func, _Tp{-1}, _Tp{1}, abs_precision, rel_precision, 6);
 
 	    if (std::abs(delta<_Tp>(n1, n2) - result) > cmp_precision)
@@ -85,6 +85,7 @@ template<typename _Tp>
     int ibot = n1 - 1;
     int itop = 2 * ibot;
     int del = 2;
+    bool breakout = false;
     while (itop != ibot)
       {
 	RESTART:
@@ -93,18 +94,31 @@ template<typename _Tp>
 	    auto func = [n1 = itop, n2](_Tp x)->_Tp{return normalized_chebyshev_u(n1, n2, x);};
 
 	    auto [result, error]
-		//= integrate(func, _Tp{-1}, _Tp{1}, abs_precision, rel_precision);
-		//= integrate_singular(func, _Tp{-1}, _Tp{1}, abs_precision, rel_precision);
+//		  = integrate(func, _Tp{-1}, _Tp{1}, abs_precision, rel_precision);
+//		  = integrate_singular(func, _Tp{-1}, _Tp{1}, abs_precision, rel_precision);
 		= integrate_tanh_sinh(func, _Tp{-1}, _Tp{1}, abs_precision, rel_precision, 6);
 
 	    if (std::abs(delta<_Tp>(itop, n2) - result) > cmp_precision)
 	      {
-		itop = (ibot + itop) / 2;
-		goto RESTART;
+		if ((ibot + itop) / 2 < itop)
+		  {
+		    itop = (ibot + itop) / 2;
+		    goto RESTART;
+		  }
+		else
+		  {
+		    breakout = true;
+		    break;
+		  }
 	      }
 	  }
+
 	std::cout << "Integration successful for chebyshev_u polynomials up to n = " << itop
 		  << '\n' << std::flush;
+
+	if (breakout)
+	  break;
+
 	ibot = itop;
 	if (itop > 1000)
 	  {

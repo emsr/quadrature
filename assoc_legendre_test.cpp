@@ -69,7 +69,7 @@ template<typename _Tp>
 			{ return normalized_assoc_legendre(l1, m1, l2, m2, x); };
 
 	    auto [result, error]
-		//= integrate(func, _Tp{-1}, _Tp{1}, abs_precision, rel_precision);
+//		= integrate(func, _Tp{-1}, _Tp{1}, abs_precision, rel_precision);
 		= integrate_tanh_sinh(func, _Tp{-1}, _Tp{1}, abs_precision, rel_precision, 6);
 
 	    if (std::abs(delta<_Tp>(l1, l2) * delta<_Tp>(m1, m2) - result) > cmp_precision)
@@ -91,27 +91,41 @@ template<typename _Tp>
     int ibot = l1 - 1;
     int itop = 2 * ibot;
     int del = 2;
+    bool breakout = false;
     while (itop != ibot)
       {
 	RESTART:
-	for (int l2 = itop & 1; l2 <= itop; l2 += del)
+	for (int l2 = 0; l2 <= itop; l2 += del)
 	  {
 	    auto func = [l1 = itop, m1, l2, m2](_Tp x)
 			-> _Tp
 			{ return normalized_assoc_legendre(l1, m1, l2, m2, x); };
 
 	    auto [result, error]
-		//= integrate(func, _Tp{-1}, _Tp{1}, abs_precision, rel_precision);
+//		= integrate(func, _Tp{-1}, _Tp{1}, abs_precision, rel_precision);
 		= integrate_tanh_sinh(func, _Tp{-1}, _Tp{1}, abs_precision, rel_precision, 6);
 
 	    if (std::abs(delta<_Tp>(itop, l2) * delta<_Tp>(m1, m2) - result) > cmp_precision)
 	      {
-		itop = (ibot + itop) / 2;
-		goto RESTART;
+		if ((ibot + itop) / 2 < itop)
+		  {
+		    itop = (ibot + itop) / 2;
+		    goto RESTART;
+		  }
+		else
+		  {
+		    breakout = true;
+		    break;
+		  }
 	      }
 	  }
+
 	std::cout << "Integration successful for assoc_legendre polynomials up to l = " << itop
 		  << '\n' << std::flush;
+
+	if (breakout)
+	  break;
+
 	ibot = itop;
 	if (itop > 1000)
 	  {

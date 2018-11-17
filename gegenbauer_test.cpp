@@ -98,6 +98,7 @@ template<typename _Tp>
     int ibot = n1 - 1;
     int itop = 2 * ibot;
     int del = 2;
+    bool breakout = false;
     while (itop != ibot)
       {
 	RESTART:
@@ -115,16 +116,29 @@ template<typename _Tp>
 					       lambda - _Tp{0.5}, lambda - _Tp{0.5}, 0, 0,
 					       abs_precision, rel_precision)
 		: integrate(func, _Tp{-1}, _Tp{1}, abs_precision, rel_precision);
-		//= integrate_singular(func, _Tp{-1}, _Tp{1}, abs_precision, rel_precision);
+//		= integrate_singular(func, _Tp{-1}, _Tp{1}, abs_precision, rel_precision);
 
 	    if (std::abs(delta<_Tp>(itop, n2) - result) > cmp_precision)
 	      {
-		itop = (ibot + itop) / 2;
-		goto RESTART;
+		if ((ibot + itop) / 2 < itop)
+		  {
+		    itop = (ibot + itop) / 2;
+		    goto RESTART;
+		  }
+		else
+		  {
+		    breakout = true;
+		    break;
+		  }
 	      }
 	  }
+
 	std::cout << "Integration successful for gegenbauer polynomials up to n = " << itop
 		  << '\n' << std::flush;
+
+	if (breakout)
+	  break;
+
 	ibot = itop;
 	if (itop > 1000)
 	  {
