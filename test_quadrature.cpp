@@ -1400,7 +1400,7 @@ test_quadrature()
       __gnu_cxx::integration_workspace<_Tp, decltype(fc(_Tp{}))> w(1000);
 
       auto out = __gnu_cxx::qag_integrate(w, fc, _Tp{0}, _Tp{1},
-					  _Tp{0}, _Tp{1.0e-10L}, 1000,
+					  _Tp{0}, _Tp{1.0e-10L},
 					  __gnu_cxx::gauss_kronrod_integral<_Tp>(__gnu_cxx::Kronrod_15));
 
       qtest.test_relative(out.__result, exp_result, fpeps, "qag(f1) smooth result");
@@ -1425,7 +1425,7 @@ test_quadrature()
 
       fc.num_evals(0);
       out = __gnu_cxx::qag_integrate(w, fc, _Tp{1}, _Tp{0},
-				     _Tp{0}, _Tp{1.0e-10L}, 1000,
+				     _Tp{0}, _Tp{1.0e-10L},
 				     __gnu_cxx::gauss_kronrod_integral<_Tp>(__gnu_cxx::Kronrod_15));
 
       qtest.test_relative(out.__result, -exp_result, fpeps, "qag(f1) reverse result");
@@ -1476,7 +1476,7 @@ test_quadrature()
       __gnu_cxx::integration_workspace<_Tp, decltype(fc(_Tp{}))> w(1000);
 
       auto out = __gnu_cxx::qag_integrate(w, fc, _Tp{0}, _Tp{1},
-					  _Tp{1.0e-14L}, _Tp{0}, 1000,
+					  _Tp{1.0e-14L}, _Tp{0},
 					  __gnu_cxx::gauss_kronrod_integral<_Tp>(__gnu_cxx::Kronrod_21));
 
       qtest.test_relative(out.__result, exp_result, fpeps, "qag(f1, 21pt) smooth result");
@@ -1501,7 +1501,7 @@ test_quadrature()
 
       fc.num_evals(0);
       out = __gnu_cxx::qag_integrate(w, fc, _Tp{1}, _Tp{0},
-				     _Tp{1.0e-14L}, _Tp{0}, 1000,
+				     _Tp{1.0e-14L}, _Tp{0},
 				     __gnu_cxx::gauss_kronrod_integral<_Tp>(__gnu_cxx::Kronrod_21));
 
       qtest.test_relative(out.__result, -exp_result, fpeps, "qag(f1, 21pt) reverse result");
@@ -1545,7 +1545,7 @@ test_quadrature()
       try
 	{
 	  out = __gnu_cxx::qag_integrate(w, fc, _Tp{0.3L}, _Tp{2.71L},
-					 _Tp{1.0e-14L}, _Tp{0}, 1000,
+					 _Tp{1.0e-14L}, _Tp{0},
 					 __gnu_cxx::gauss_kronrod_integral<_Tp>(__gnu_cxx::Kronrod_31));
 	}
       catch (__gnu_cxx::__integration_error<_Tp>& iex)
@@ -1565,7 +1565,7 @@ test_quadrature()
       try
 	{
 	  out = __gnu_cxx::qag_integrate(w, fc, _Tp{2.71L}, _Tp{0.3L},
-					 _Tp{1.0e-14L}, _Tp{0}, 1000,
+					 _Tp{1.0e-14L}, _Tp{0},
 					 __gnu_cxx::gauss_kronrod_integral<_Tp>(__gnu_cxx::Kronrod_31));
 	}
       catch (__gnu_cxx::__integration_error<_Tp>& iex)
@@ -1612,7 +1612,7 @@ test_quadrature()
       try
 	{
 	  out = __gnu_cxx::qag_integrate(w, fc, _Tp{-1}, _Tp{1},
-					 _Tp{1.0e-14L}, _Tp{0}, 1000,
+					 _Tp{1.0e-14L}, _Tp{0},
 					 __gnu_cxx::gauss_kronrod_integral<_Tp>(__gnu_cxx::Kronrod_51));
 	}
       catch (__gnu_cxx::__integration_error<_Tp>& iex)
@@ -1630,7 +1630,7 @@ test_quadrature()
       try
 	{
 	  out = __gnu_cxx::qag_integrate(w, fc, _Tp{1}, _Tp{-1},
-					 _Tp{1.0e-14L}, _Tp{0}, 1000,
+					 _Tp{1.0e-14L}, _Tp{0},
 					 __gnu_cxx::gauss_kronrod_integral<_Tp>(__gnu_cxx::Kronrod_51));
 	}
       catch (__gnu_cxx::__integration_error<_Tp>& iex)
@@ -1685,7 +1685,7 @@ test_quadrature()
       try
 	{
 	  out = __gnu_cxx::qag_integrate(w, fc, _Tp{-1}, _Tp{1},
-					 _Tp{1.0e-14L}, _Tp{0}, 3,
+					 _Tp{1.0e-14L}, _Tp{0},
 					 __gnu_cxx::gauss_kronrod_integral<_Tp>(__gnu_cxx::Kronrod_61));
 	}
       catch (__gnu_cxx::__integration_error<_Tp>& iex)
@@ -1719,7 +1719,7 @@ test_quadrature()
       try
 	{
 	  out = __gnu_cxx::qag_integrate(w, fc, _Tp{1}, _Tp{-1},
-					 _Tp{1.0e-14L}, _Tp{0}, 3,
+					 _Tp{1.0e-14L}, _Tp{0},
 					 __gnu_cxx::gauss_kronrod_integral<_Tp>(__gnu_cxx::Kronrod_61));
 	}
       catch (__gnu_cxx::__integration_error<_Tp>& iex)
@@ -3038,6 +3038,261 @@ test_quadrature()
 	  qtest.test_integer(status, 0, "cquad return code");
 	  std::cout << std::flush;
 	}
+    }
+  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+    {
+      belch<_Tp>(iex);
+    }
+  catch (std::exception& ex)
+    {
+      belch(ex);
+    }
+
+  // Test sinh-tanh.
+  try
+    {
+      //std::cout << ">>>> Test this newfangled cquad..." << std::endl;
+      typedef _Tp (*fptr) (_Tp);
+      quadrature_test<_Tp> qtest;
+
+      const static fptr
+      funs[25]
+      {
+	&cqf1,  &cqf2,  &cqf3,  &cqf4,  &cqf5,  &cqf6,  &cqf7,  &cqf8,
+	&cqf9,  &cqf10, &cqf11, &cqf12, &cqf13, &cqf14, &cqf15, &cqf16,
+	&cqf17, &cqf18, &cqf19, &cqf20, &cqf21, &cqf22, &cqf23, &cqf24, &cqf25
+      };
+
+      const static _Tp
+      ranges[50]
+      {
+	 0.0L, 1.0L,
+	 0.0L, 1.0L,
+	 0.0L, 1.0L,
+	-1.0L, 1.0L,
+	-1.0L, 1.0L,
+	 0.0L, 1.0L,
+	 0.0L, 1.0L,
+	 0.0L, 1.0L,
+	 0.0L, 1.0L,
+	 0.0L, 1.0L,
+	 0.0L, 1.0L,
+	 0.0L, 1.0L,
+	 0.0L, 1.0L,
+	 0.0L, 10.0L,
+	 0.0L, 10.0L,
+	 0.0L, 10.0L,
+	 0.0L, 1.0L,
+	 0.0L, _S_pi,
+	 0.0L, 1.0L,
+	-1.0L, 1.0L,
+	 0.0L, 1.0L,
+	 0.0L, 1.0L,
+	 0.0L, 1.0L,
+	 0.0L, 3.0L,
+	 0.0L, 5.0L
+      };
+      const static _Tp
+      f_exact[25]
+      {
+	_Tp{1.7182818284590452354L},
+	_Tp{0.7L},
+	_Tp{2.0L} / _Tp{3.0L},
+	_Tp{0.4794282266888016674L},
+	_Tp{1.5822329637296729331L},
+	_Tp{0.4L},
+	_Tp{2.0L},
+	_Tp{0.86697298733991103757L},
+	_Tp{1.1547005383792515290L},
+	_Tp{0.69314718055994530942L},
+	_Tp{0.3798854930417224753L},
+	_Tp{0.77750463411224827640L},
+	_Tp{0.49898680869304550249L},
+	_Tp{0.5L},
+	_Tp{1.0L},
+	_Tp{0.13263071079267703209e+08L},
+	_Tp{0.49898680869304550249L},
+	_Tp{0.83867634269442961454L},
+	_Tp{-1.0L},
+	_Tp{1.5643964440690497731L},
+	_Tp{0.16349494301863722618L},
+	_Tp{-0.63466518254339257343L},
+	_Tp{0.013492485649467772692L},
+	_Tp{17.664383539246514971L},
+	_Tp{7.5L}
+      };
+
+      // Loop over the functions...
+      for (int fid = 0; fid < 25; ++fid)
+	{
+	  auto f = make_function<_Tp>(funs[fid]);
+	  auto exact = f_exact[fid];
+	  int status = 0;
+
+	  // Call our quadrature routine.
+	  auto out = __gnu_cxx::integrate_tanh_sinh(f, ranges[2* fid], ranges[2 * fid + 1],
+						_Tp{0}, _Tp{1.0e-12L});
+
+	  std::ostringstream rstr;
+	  rstr << "tanh_sinh f" << fid;
+	  qtest.test_relative(out.__result, exact, _Tp{1.0e-12L}, rstr.str().c_str());
+
+	  std::ostringstream upstr;
+	  upstr << "tanh_sinh f" << fid << " error("
+			     << std::abs(out.__result - exact) << " actual vs "
+			     << out.__abserr << " estimated)";
+	  qtest.test_update(std::abs(out.__result - exact) > _Tp{5} * out.__abserr, upstr.str().c_str());
+
+	  qtest.test_integer(status, 0, "tanh_sinh return code");
+	  std::cout << std::flush;
+	}
+    }
+  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+    {
+      belch<_Tp>(iex);
+    }
+  catch (std::exception& ex)
+    {
+      belch(ex);
+    }
+
+  // Test exp_sinh integral f455 using a relative error bound.
+  try
+    {
+      //std::cout << ">>>> Test exp_sinh integral f455 using a relative error bound..." << std::endl;
+
+      const auto exp_result = _Tp{-3.616892186127022568e-01L};
+      const auto exp_abserr = _Tp{3.016716913328831851e-06L};
+
+      auto f = make_function<_Tp>(f455<_Tp>);
+      auto fc = counted_function<_Tp, decltype(f)>(f);
+
+      __gnu_cxx::integration_workspace<_Tp, decltype(fc(_Tp{}))> w(1000);
+
+      const auto epsabs = _Tp{0};
+      const auto epsrel = _Tp{1.0e-3};
+      auto out = __gnu_cxx::qagiu_integrate(w, fc, _Tp{0}, epsabs, epsrel);
+
+      quadrature_test<_Tp> qtest;
+      qtest.test_relative(out.__result, exp_result, /*1.0e-14*/epsrel, "exp_sinh(f455) smooth result");
+      qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-5L}, "exp_sinh(f455) smooth abserr");
+    }
+  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+    {
+      belch<_Tp>(iex);
+    }
+  catch (std::exception& ex)
+    {
+      belch(ex);
+    }
+
+  // Test exp_sinh integral f15 using a relative error bound.
+  try
+    {
+      //std::cout << ">>>> Test exp_sinh integral f15 using a relative error bound..." << std::endl;
+
+      const auto exp_result = _Tp{6.553600000000024738e+04L};
+      const auto exp_abserr = _Tp{7.121667111456009280e-04L};
+
+      auto alpha = _Tp{5};
+      auto f = make_function<_Tp>(f15<_Tp>, alpha);
+      auto fc = counted_function<_Tp, decltype(f)>(f);
+
+      const auto epsabs = _Tp{0};
+      const auto epsrel = _Tp{1.0e-7};
+      auto out = __gnu_cxx::integrate_exp_sinh(fc, _Tp{0}, epsabs, epsrel);
+
+      quadrature_test<_Tp> qtest;
+      qtest.test_relative(out.__result, exp_result, epsrel, "exp_sinh(f15) smooth result");
+      qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-5L}, "exp_sinh(f15) smooth abserr");
+    }
+  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+    {
+      belch<_Tp>(iex);
+    }
+  catch (std::exception& ex)
+    {
+      belch(ex);
+    }
+
+  // Test exp_sinh integral f16 using an absolute error bound.
+  try
+    {
+      //std::cout << ">>>> Test exp_sinh integral f16 using an absolute error bound..." << std::endl;
+
+      const auto exp_result = _Tp{1.000000000006713292e-04L};
+      const auto exp_abserr = _Tp{3.084062020905636316e-09L};
+
+      const auto alpha = _Tp{1};
+      auto f = make_function<_Tp>(f16<_Tp>, alpha);
+      auto fc = counted_function<_Tp, decltype(f)>(f);
+
+      const auto epsabs = _Tp{1.0e-7};
+      const auto epsrel = _Tp{0};
+      auto out = __gnu_cxx::integrate_exp_sinh(fc, _Tp{99.9L}, epsabs, epsrel);
+
+      quadrature_test<_Tp> qtest;
+      qtest.test_relative(out.__result, exp_result, _Tp{1.0e-14L}, "exp_sinh(f16) smooth result");
+      qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-5L}, "exp_sinh(f16) smooth abserr");
+    }
+  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+    {
+      belch<_Tp>(iex);
+    }
+  catch (std::exception& ex)
+    {
+      belch(ex);
+    }
+
+  // Test sinh_sinh integral myfn1 using an absolute error bound.
+  try
+    {
+      //std::cout << ">>>> Test exp_sinh integral myfn1 using an absolute error bound..." << std::endl;
+
+      const auto exp_result = _Tp{2.275875794468747770e+00L};
+      const auto exp_abserr = _Tp{7.436490118267390744e-09L};
+
+      auto f = make_function<_Tp>(myfn1<_Tp>);
+      auto fc = counted_function<_Tp, decltype(f)>(f);
+
+      const auto epsabs = _Tp{1.0e-7};
+      const auto epsrel = _Tp{0};
+      auto out = __gnu_cxx::integrate_sinh_sinh(fc, epsabs, epsrel);
+
+      quadrature_test<_Tp> qtest;
+      qtest.test_relative(out.__result, exp_result, _Tp{1.0e-14L}, "sinh_sinh(myfn1) smooth result");
+      qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-5L}, "sinh_sinh(myfn1) smooth abserr");
+    }
+  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+    {
+      belch<_Tp>(iex);
+    }
+  catch (std::exception& ex)
+    {
+      belch(ex);
+    }
+
+  // Test exp_sinh integral myfn2 using an absolute error bound.
+  try
+    {
+      //std::cout << ">>>> Test exp_sinh integral myfn2 using an absolute error bound..." << std::endl;
+
+      const auto exp_result = _Tp{2.718281828459044647e+00L};
+      const auto exp_abserr = _Tp{1.588185109253204805e-10L};
+
+      const auto alpha = _Tp{1};
+      auto f = make_function<_Tp>(myfn2<_Tp>, alpha);
+      auto fc = counted_function<_Tp, decltype(f)>(f);
+
+      __gnu_cxx::integration_workspace<_Tp, decltype(fc(_Tp{}))> w(1000);
+
+      const auto epsabs = _Tp{1.0e-7};
+      const auto epsrel = _Tp{0};
+      auto out = __gnu_cxx::integrate_exp_sinh(fc, _Tp{1}, epsabs, epsrel);
+
+      quadrature_test<_Tp> qtest;
+      qtest.test_relative(out.__result, exp_result, _Tp{1.0e-14L}, "exp_sinh(myfn2) smooth result");
+      qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-5L}, "exp_sinh(myfn2) smooth abserr");
     }
   catch (__gnu_cxx::__integration_error<_Tp>& iex)
     {
