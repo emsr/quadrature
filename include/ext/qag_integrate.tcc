@@ -57,10 +57,8 @@ namespace __gnu_cxx
    * @param[in] __func The single-variable function to be integrated
    * @param[in] __lower The lower limit of integration
    * @param[in] __upper The upper limit of integration
-   * @param[in] __max_iter The maximum number of integration steps allowed
    * @param[in] __max_abs_err The limit on absolute error
    * @param[in] __max_rel_err The limit on relative error
-   * @param[in] __max_iter The maximum number of iterations
    * @param[in] __quad The quadrature stepper taking a function object
    *                   and two integration limits
    *
@@ -75,11 +73,10 @@ namespace __gnu_cxx
 		  _FuncTp __func,
 		  _Tp __lower, _Tp __upper,
 		  _Tp __max_abs_err, _Tp __max_rel_err,
-		  std::size_t __max_iter,
 		  _Integrator __quad = gauss_kronrod_integral<_Tp>(Kronrod_21))
     -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
     {
-      const auto _S_eps = std::numeric_limits<_Tp>::epsilon();
+      const auto __max_iter = __workspace.capacity();
       // Try to adjust tests for varing precision.
       const auto _S_rel_err = std::pow(_Tp{10},
 				 -std::numeric_limits<_Tp>::digits / _Tp{10});
@@ -96,12 +93,11 @@ namespace __gnu_cxx
       auto [__result0, __abserr0, __resabs0, __resasc0]
 	= __quad(__func, __lower, __upper);
 
-      // Test on accuracy
       auto __tolerance = std::max(__max_abs_err,
 				  __max_rel_err * std::abs(__result0));
 
-      // Compute roundoff
-      const auto __round_off = _Tp{100} * _S_eps * __resabs0;
+      // Compute roundoff tolerance.
+      const auto __round_off = _Tp{10} * __tolerance * __resabs0;
 
       if (__abserr0 <= __round_off && __abserr0 > __tolerance)
 	__throw_integration_error("qag_integrate: "
@@ -143,23 +139,22 @@ namespace __gnu_cxx
 
 	  const auto __area12 = __area1 + __area2;
 	  const auto __error12 = __error1 + __error2;
+	  const auto __delta = __area12 - __curr.__result;
 
-	  __area += __area12 - __curr.__result;
+	  __area += __delta;
 	  __errsum += __error12 - __curr.__abs_error;
+
+	  __tolerance = std::max(__max_abs_err,
+				 __max_rel_err * std::abs(__area));
 
 	  if (__resasc1 != __error1 && __resasc2 != __error2)
 	    {
-	      const auto __delta = __curr.__result - __area12;
-
 	      if (std::abs(__delta) <= _S_rel_err * std::abs(__area12)
-		 && __error12 >= _Tp{0.99} * __curr.__abs_error)
+		  && __error12 >= _Tp{0.99} * __curr.__abs_error)
 		++__roundoff_type1;
 	      if (__iteration >= 10 && __error12 > __curr.__abs_error)
 		++__roundoff_type2;
 	    }
-
-	  __tolerance = std::max(__max_abs_err,
-				 __max_rel_err * std::abs(__area));
 
 	  if (__errsum > __tolerance)
 	    {

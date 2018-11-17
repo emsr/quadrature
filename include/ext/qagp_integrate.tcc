@@ -19,7 +19,7 @@
 // with this library; see the file COPYING3.  If not see
 // <http://www.gnu.org/licenses/>.
 //
-// Ported from GSL by Ed Smith-Rowland
+// Ported from GSL by Edward Smith-Rowland
 // Originally written by Brian Gaugh
 //
 // Implements integration using a recursive Gauss-Kronrod algorithm
@@ -36,18 +36,6 @@
 namespace __gnu_cxx
 {
 
-#ifdef VERBOSE_DEBUG
-template<typename _Tp>
-void
-dump_ws(integration_workspace<_Tp, _RetTp>& workspace,
-	const char* cmp, const char* msg)
-{
-  std::cerr.precision(8);
-  std::cerr << '\n' << cmp << ": " << msg << '\n';
-  std::cerr << std::setw(15) << workspace << '\n';
-}
-#endif
-
   /**
    * Adaptively integrate a function with known singular/discontinuous points.
    *
@@ -61,7 +49,6 @@ dump_ws(integration_workspace<_Tp, _RetTp>& workspace,
    * @param[in] __func The single-variable function to be integrated
    * @param[in] __pts The sorted array of points including the integration
    *                  limits and intermediate discontinuities/singularities
-   * @param[in] __max_iter The maximum number of integration steps allowed
    * @param[in] __max_abs_err The limit on absolute error
    * @param[in] __max_rel_err The limit on relative error
    * @param[in] __quad The quadrature stepper taking a function object
@@ -79,8 +66,7 @@ dump_ws(integration_workspace<_Tp, _RetTp>& workspace,
     -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
     {
       const auto _S_max = std::numeric_limits<_Tp>::max();
-      const auto _S_eps = std::numeric_limits<_Tp>::epsilon();
-      const auto __limit = __workspace.capacity();
+      const auto __max_iter = __workspace.capacity();
       const auto __n_ivals = __pts.size() - 1;
       // Try to adjust tests for varing precision.
       const auto _S_rel_err = std::pow(_Tp{10},
@@ -146,19 +132,20 @@ dump_ws(integration_workspace<_Tp, _RetTp>& workspace,
       // We must re-sort because the errors were reassigned.
       __workspace.sort_error();
 
-      // Test on accuracy.
       auto __tolerance = std::max(__max_abs_err,
 				  __max_rel_err * std::abs(__result0));
 
-      if (__abserr0 <= _Tp{100} * _S_eps * __resabs0
-	   && __abserr0 > __tolerance)
+      // Compute roundoff tolerance.
+      const auto __round_off = _Tp{10} * __tolerance * __resabs0;
+
+      if (__abserr0 <= __round_off && __abserr0 > __tolerance)
 	__throw_integration_error("qagp_integrate: "
 				  "Cannot reach tolerance because "
 				  "of roundoff error on first attempt",
 				  ROUNDOFF_ERROR, __result0, __abserr0);
       else if (__abserr0 <= __tolerance)
 	return {__result0, __abserr0};
-      else if (__limit == 1)
+      else if (__max_iter == 1)
 	__throw_integration_error("qagp_integrate: "
 				  "A maximum of one iteration was insufficient",
 				  MAX_ITER_ERROR, __result0, __abserr0);
@@ -200,22 +187,21 @@ dump_ws(integration_workspace<_Tp, _RetTp>& workspace,
 	  const auto __area12 = __area1 + __area2;
 	  const auto __error12 = __error1 + __error2;
 	  const auto __last_e_i = __curr.__abs_error;
+	  const auto __delta = __area12 - __curr.__result;
 
 	  // Improve previous approximations to the integral and test for
 	  // accuracy.
 
+	  __area += __delta;
 	  __errsum += __error12 - __curr.__abs_error;
-	  __area += __area12 - __curr.__result;
 
 	  __tolerance = std::max(__max_abs_err,
 				 __max_rel_err * std::abs(__area));
 
 	  if (__resasc1 != __error1 && __resasc2 != __error2)
 	    {
-	      const auto __delta = __curr.__result - __area12;
-
 	      if (std::abs(__delta) <= _S_rel_err * std::abs(__area12)
-		   && __error12 >= _Tp{0.99} * __curr.__abs_error)
+		  && __error12 >= _Tp{0.99} * __curr.__abs_error)
 		{
 		  if (!__extrapolate)
 		    ++__roundoff_type1;
@@ -236,7 +222,7 @@ dump_ws(integration_workspace<_Tp, _RetTp>& workspace,
 	    __error_type2 = MAX_ITER_ERROR;
 
 	  // Set error flag in the case of bad integrand behaviour at
-	  // a point of the integration range
+	  // a point of the integration range.
 
 	  if (__workspace.subinterval_too_small(__a1, __a2, __b2))
 	    __error_type = EXTRAP_ROUNDOFF_ERROR;
@@ -254,7 +240,7 @@ dump_ws(integration_workspace<_Tp, _RetTp>& workspace,
 	  if (__error_type != NO_ERROR)
 	    break;
 
-	  if (__iteration >= __limit - 1)
+	  if (__iteration >= __max_iter - 1)
 	    {
 	      __error_type = MAX_ITER_ERROR;
 	      break;
@@ -327,12 +313,12 @@ dump_ws(integration_workspace<_Tp, _RetTp>& workspace,
 	  if (__error_type == DIVERGENCE_ERROR)
 	    break;
 
-	  // Work on interval with largest absolute error.
+	  // Work on interval with largest error.
 	  __workspace.reset_curr_index();
 	  __extrapolate = false;
 	  __error_over_large_intervals = __errsum;
 	}
-      while (__iteration < __limit);
+      while (__iteration < __max_iter);
 
       auto __result = __res_ext;
       auto __abserr = __err_ext;
