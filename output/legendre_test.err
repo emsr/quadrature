@@ -1,4 +1,4 @@
-Integration failed at l1=56, l2=10, returning result 1.464395e-01, with error 1.150966e-04 instead of the expected 0.000000e+00
+Integration failed at l1=57, l2=35, returning result -1.743165e-01, with error 7.179429e-06 instead of the expected 0.000000e+00
 
-qag_integrate: Number of iterations was insufficient
-qag_integrate: Number of iterations was insufficient
+Integration failed at l1=101, l2=101, returning result 9.999999999921399359e-01, with error 4.647398831012745729e-01 instead of the expected 1.000000000000000000e+00
+

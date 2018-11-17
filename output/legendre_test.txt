@@ -57,6 +57,7 @@ Integration successful for legendre polynomials up to l = 52
 Integration successful for legendre polynomials up to l = 53
 Integration successful for legendre polynomials up to l = 54
 Integration successful for legendre polynomials up to l = 55
+Integration successful for legendre polynomials up to l = 56
 
 
 Orthonormality tests for double
@@ -189,9 +190,19 @@ Integration successful for legendre polynomials up to l = 125
 Integration successful for legendre polynomials up to l = 126
 Integration successful for legendre polynomials up to l = 127
 Integration successful for legendre polynomials up to l = 128
-Integration successful for legendre polynomials up to l = 256
-Integration successful for legendre polynomials up to l = 512
-Integration successful for legendre polynomials up to l = 1024
+Integration successful for legendre polynomials up to l = 160
+Integration successful for legendre polynomials up to l = 165
+Integration successful for legendre polynomials up to l = 247
+Integration successful for legendre polynomials up to l = 277
+Integration successful for legendre polynomials up to l = 415
+Integration successful for legendre polynomials up to l = 427
+Integration successful for legendre polynomials up to l = 533
+Integration successful for legendre polynomials up to l = 799
+Integration successful for legendre polynomials up to l = 823
+Integration successful for legendre polynomials up to l = 925
+Integration successful for legendre polynomials up to l = 1387
+
+Good enough!
 
 
 Orthonormality tests for long double
@@ -296,33 +307,3 @@ Integration successful for legendre polynomials up to l = 97
 Integration successful for legendre polynomials up to l = 98
 Integration successful for legendre polynomials up to l = 99
 Integration successful for legendre polynomials up to l = 100
-Integration successful for legendre polynomials up to l = 101
-Integration successful for legendre polynomials up to l = 102
-Integration successful for legendre polynomials up to l = 103
-Integration successful for legendre polynomials up to l = 104
-Integration successful for legendre polynomials up to l = 105
-Integration successful for legendre polynomials up to l = 106
-Integration successful for legendre polynomials up to l = 107
-Integration successful for legendre polynomials up to l = 108
-Integration successful for legendre polynomials up to l = 109
-Integration successful for legendre polynomials up to l = 110
-Integration successful for legendre polynomials up to l = 111
-Integration successful for legendre polynomials up to l = 112
-Integration successful for legendre polynomials up to l = 113
-Integration successful for legendre polynomials up to l = 114
-Integration successful for legendre polynomials up to l = 115
-Integration successful for legendre polynomials up to l = 116
-Integration successful for legendre polynomials up to l = 117
-Integration successful for legendre polynomials up to l = 118
-Integration successful for legendre polynomials up to l = 119
-Integration successful for legendre polynomials up to l = 120
-Integration successful for legendre polynomials up to l = 121
-Integration successful for legendre polynomials up to l = 122
-Integration successful for legendre polynomials up to l = 123
-Integration successful for legendre polynomials up to l = 124
-Integration successful for legendre polynomials up to l = 125
-Integration successful for legendre polynomials up to l = 126
-Integration successful for legendre polynomials up to l = 127
-Integration successful for legendre polynomials up to l = 128
-Integration successful for legendre polynomials up to l = 256
-Integration successful for legendre polynomials up to l = 512

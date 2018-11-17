@@ -1,4 +1,6 @@
-Integration failed at n1=34, n2=34, returning result 0.000000e+00, with error 0.000000e+00 instead of the expected 1.000000e+00
-
+qag_integrate: Cannot reach tolerance because of roundoff error on first attempt
+ result = -5.96046e-07 abserr = 3.17402e-05
 qag_integrate: Unknown error.
+ result = -nan abserr = nan
 qag_integrate: Unknown error.
+ result = -nan abserr = nan

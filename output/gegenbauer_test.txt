@@ -133,16 +133,6 @@ Integration successful for gegenbauer polynomials up to n = 128
 Integration successful for gegenbauer polynomials up to n = 256
 Integration successful for gegenbauer polynomials up to n = 512
 Integration successful for gegenbauer polynomials up to n = 1024
-Integration successful for gegenbauer polynomials up to n = 2048
-Integration successful for gegenbauer polynomials up to n = 4096
-Integration successful for gegenbauer polynomials up to n = 8192
-Integration successful for gegenbauer polynomials up to n = 16384
-Integration successful for gegenbauer polynomials up to n = 32768
-Integration successful for gegenbauer polynomials up to n = 65536
-Integration successful for gegenbauer polynomials up to n = 131072
-Integration successful for gegenbauer polynomials up to n = 262144
-Integration successful for gegenbauer polynomials up to n = 524288
-Integration successful for gegenbauer polynomials up to n = 1048576
 
 Good enough!
 
@@ -166,22 +156,6 @@ Integration successful for gegenbauer polynomials up to n = 14
 Integration successful for gegenbauer polynomials up to n = 15
 Integration successful for gegenbauer polynomials up to n = 16
 Integration successful for gegenbauer polynomials up to n = 17
-Integration successful for gegenbauer polynomials up to n = 18
-Integration successful for gegenbauer polynomials up to n = 19
-Integration successful for gegenbauer polynomials up to n = 20
-Integration successful for gegenbauer polynomials up to n = 21
-Integration successful for gegenbauer polynomials up to n = 22
-Integration successful for gegenbauer polynomials up to n = 23
-Integration successful for gegenbauer polynomials up to n = 24
-Integration successful for gegenbauer polynomials up to n = 25
-Integration successful for gegenbauer polynomials up to n = 26
-Integration successful for gegenbauer polynomials up to n = 27
-Integration successful for gegenbauer polynomials up to n = 28
-Integration successful for gegenbauer polynomials up to n = 29
-Integration successful for gegenbauer polynomials up to n = 30
-Integration successful for gegenbauer polynomials up to n = 31
-Integration successful for gegenbauer polynomials up to n = 32
-Integration successful for gegenbauer polynomials up to n = 33
 
 
 Orthonormality tests for double

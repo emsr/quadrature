@@ -1,3 +1,6 @@
-qag_integrate: cannot reach tolerance because of roundoff error on first attempt
-qag_integrate: cannot reach tolerance because of roundoff error on first attempt
-qag_integrate: cannot reach tolerance because of roundoff error on first attempt
+qag_integrate: Cannot reach tolerance because of roundoff error on first attempt
+ result = 6.55387e-07 abserr = 6.44916e-05
+qag_integrate: Cannot reach tolerance because of roundoff error on first attempt
+ result = 11.6313 abserr = 8.53717e-09
+qag_integrate: Cannot reach tolerance because of roundoff error
+ result = -2.18196e-18 abserr = 1.75852e-10
