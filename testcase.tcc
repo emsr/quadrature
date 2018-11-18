@@ -408,6 +408,9 @@ template<typename _Tp>
     return -std::cos(b) + std::cos(a);
   }
 
+/*
+ * Another set of set functions..
+ */
 
 template<typename _Tp>
   inline _Tp
@@ -605,5 +608,39 @@ template<typename _Tp>
        + (_Tp{1} <= x && x <= _Tp{3}) * (_Tp{3} - x)
        + (x > _Tp{3}) * _Tp{2};
   }
+
+template<typename _Tp>
+  const auto _S_pi = __gnu_cxx::__const_pi<_Tp>();
+
+template<typename _Tp>
+  const static func_test<_Tp>
+  func_tests[25]
+  {
+    &cqf1,  _Tp{0},  _Tp{1},	 _Tp{1.7182818284590452354L},
+    &cqf2,  _Tp{0},  _Tp{1},	 _Tp{0.7L},
+    &cqf3,  _Tp{0},  _Tp{1},	 _Tp{2.0L} / _Tp{3.0L},
+    &cqf4,  _Tp{-1}, _Tp{1},	 _Tp{0.4794282266888016674L},
+    &cqf5,  _Tp{-1}, _Tp{1},	 _Tp{1.5822329637296729331L},
+    &cqf6,  _Tp{0},  _Tp{1},	 _Tp{0.4L},
+    &cqf7,  _Tp{0},  _Tp{1},	 _Tp{2.0L},
+    &cqf8,  _Tp{0},  _Tp{1},	 _Tp{0.86697298733991103757L},
+    &cqf9,  _Tp{0},  _Tp{1},	 _Tp{1.1547005383792515290L},
+    &cqf10, _Tp{0},  _Tp{1},	 _Tp{0.69314718055994530942L},
+    &cqf11, _Tp{0},  _Tp{1},	 _Tp{0.3798854930417224753L},
+    &cqf12, _Tp{0},  _Tp{1},	 _Tp{0.77750463411224827640L},
+    &cqf13, _Tp{0},  _Tp{1},	 _Tp{0.49898680869304550249L},
+    &cqf14, _Tp{0},  _Tp{10},	 _Tp{0.5L},
+    &cqf15, _Tp{0},  _Tp{10},	 _Tp{1.0L},
+    &cqf16, _Tp{0},  _Tp{10},	 _Tp{0.13263071079267703209e+08L},
+    &cqf17, _Tp{0},  _Tp{1},	 _Tp{0.49898680869304550249L},
+    &cqf18, _Tp{0},  _S_pi<_Tp>, _Tp{0.83867634269442961454L},
+    &cqf19, _Tp{0},  _Tp{1},	 _Tp{-1.0L},
+    &cqf20, _Tp{-1}, _Tp{1},	 _Tp{1.5643964440690497731L},
+    &cqf21, _Tp{0},  _Tp{1},	 _Tp{0.16349494301863722618L},
+    &cqf22, _Tp{0},  _Tp{1},	 _Tp{-0.63466518254339257343L},
+    &cqf23, _Tp{0},  _Tp{1},	 _Tp{0.013492485649467772692L},
+    &cqf24, _Tp{0},  _Tp{3},	 _Tp{17.664383539246514971L},
+    &cqf25, _Tp{0},  _Tp{5},	 _Tp{7.5L}
+  };
 
 #endif // QUADRATURE_TESTCASE_TCC
