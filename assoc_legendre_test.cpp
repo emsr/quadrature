@@ -47,10 +47,11 @@ template<typename _Tp>
   void
   test_assoc_legendre(int m1, int m2)
   {
-    const auto eps_factor = 1 << (std::numeric_limits<_Tp>::digits / 5);
+    const auto eps_factor = 1 << (std::numeric_limits<_Tp>::digits / 3);
     const auto eps = std::numeric_limits<_Tp>::epsilon();
-    const auto integ_prec = eps_factor * eps;
-    const auto cmp_prec = _Tp{10} * integ_prec;
+    const auto abs_precision = eps_factor * eps;
+    const auto rel_precision = eps_factor * eps;
+    const auto cmp_precision = _Tp{10} * rel_precision;
 
     int l1 = 0;
     for (; l1 <= 128; ++l1)
@@ -68,9 +69,10 @@ template<typename _Tp>
 			{ return normalized_assoc_legendre(l1, m1, l2, m2, x); };
 
 	    auto [result, error]
-		= integrate(func, _Tp{-1}, _Tp{1}, integ_prec, _Tp{0});
+//		= integrate(func, _Tp{-1}, _Tp{1}, abs_precision, rel_precision);
+		= integrate_tanh_sinh(func, _Tp{-1}, _Tp{1}, abs_precision, rel_precision, 6);
 
-	    if (std::abs(delta<_Tp>(l1, l2) * delta<_Tp>(m1, m2) - result) > cmp_prec)
+	    if (std::abs(delta<_Tp>(l1, l2) * delta<_Tp>(m1, m2) - result) > cmp_precision)
 	      {
 		std::stringstream ss;
 		ss.precision(std::numeric_limits<_Tp>::digits10);
@@ -89,26 +91,41 @@ template<typename _Tp>
     int ibot = l1 - 1;
     int itop = 2 * ibot;
     int del = 2;
+    bool breakout = false;
     while (itop != ibot)
       {
 	RESTART:
-	for (int l2 = itop & 1; l2 <= itop; l2 += del)
+	for (int l2 = 0; l2 <= itop; l2 += del)
 	  {
 	    auto func = [l1 = itop, m1, l2, m2](_Tp x)
 			-> _Tp
 			{ return normalized_assoc_legendre(l1, m1, l2, m2, x); };
 
 	    auto [result, error]
-		= integrate(func, _Tp{-1}, _Tp{1}, integ_prec, _Tp{0});
+//		= integrate(func, _Tp{-1}, _Tp{1}, abs_precision, rel_precision);
+		= integrate_tanh_sinh(func, _Tp{-1}, _Tp{1}, abs_precision, rel_precision, 6);
 
-	    if (std::abs(delta<_Tp>(itop, l2) * delta<_Tp>(m1, m2) - result) > cmp_prec)
+	    if (std::abs(delta<_Tp>(itop, l2) * delta<_Tp>(m1, m2) - result) > cmp_precision)
 	      {
-		itop = (ibot + itop) / 2;
-		goto RESTART;
+		if ((ibot + itop) / 2 < itop)
+		  {
+		    itop = (ibot + itop) / 2;
+		    goto RESTART;
+		  }
+		else
+		  {
+		    breakout = true;
+		    break;
+		  }
 	      }
 	  }
+
 	std::cout << "Integration successful for assoc_legendre polynomials up to l = " << itop
 		  << '\n' << std::flush;
+
+	if (breakout)
+	  break;
+
 	ibot = itop;
 	if (itop > 1000)
 	  {

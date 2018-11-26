@@ -189,6 +189,8 @@ Integration successful for jacobi polynomials up to n = 256
 Integration successful for jacobi polynomials up to n = 512
 Integration successful for jacobi polynomials up to n = 1024
 
+Good enough!
+
 
 Orthonormality tests for long double
 Integration successful for jacobi polynomials up to n = 0
@@ -322,3 +324,6 @@ Integration successful for jacobi polynomials up to n = 127
 Integration successful for jacobi polynomials up to n = 128
 Integration successful for jacobi polynomials up to n = 256
 Integration successful for jacobi polynomials up to n = 512
+Integration successful for jacobi polynomials up to n = 1024
+
+Good enough!

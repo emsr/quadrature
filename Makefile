@@ -133,6 +133,7 @@ ortho_test:$(OUTPUT_DIR)
 
 
 test: $(BIN_DIR)/test_quadrature
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_gauss_kronrod_rule > $(OUTPUT_DIR)/test_gauss_kronrod_rule.txt 2> $(OUTPUT_DIR)/test_gauss_kronrod_rule.err
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_double_exp_integrate > $(OUTPUT_DIR)/test_double_exp_integrate.txt 2> $(OUTPUT_DIR)/test_double_exp_integrate.err
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_trapezoid_integral > $(OUTPUT_DIR)/test_trapezoid_integral.txt 2> $(OUTPUT_DIR)/test_trapezoid_integral.err
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_midpoint_integral > $(OUTPUT_DIR)/test_midpoint_integral.txt 2> $(OUTPUT_DIR)/test_midpoint_integral.err

@@ -47,10 +47,11 @@ template<typename _Tp>
   void
   test_assoc_laguerre()
   {
-    const auto eps_factor = 1 << (std::numeric_limits<_Tp>::digits / 5);
+    const auto eps_factor = 1 << (std::numeric_limits<_Tp>::digits / 3);
     const auto eps = std::numeric_limits<_Tp>::epsilon();
-    const auto integ_prec = eps_factor * eps;
-    const auto cmp_prec = _Tp{10} * integ_prec;
+    const auto abs_precision = eps_factor * eps;
+    const auto rel_precision = eps_factor * eps;
+    const auto cmp_precision = _Tp{10} * rel_precision;
 
     int n1 = 0;
     for (; n1 <= 128; ++n1)
@@ -62,9 +63,10 @@ template<typename _Tp>
 			{ return normalized_laguerre<_Tp>(n1, n2, x); };
 
 	    auto [result, error]
-		= integrate_lower_pinf(func, _Tp{0}, integ_prec, _Tp{0});
+//		= integrate_lower_pinf(func, _Tp{0}, abs_precision, rel_precision);
+		= integrate_exp_sinh(func, _Tp{0}, abs_precision, rel_precision);
 
-	    if (std::abs(delta<_Tp>(n1, n2) - result) > cmp_prec)
+	    if (std::abs(delta<_Tp>(n1, n2) - result) > cmp_precision)
 	      {
 		std::stringstream ss;
 		ss.precision(std::numeric_limits<_Tp>::digits10);
@@ -83,6 +85,7 @@ template<typename _Tp>
     int ibot = n1 - 1;
     int itop = 2 * ibot;
     int del = 2;
+    bool breakout = false;
     while (itop != ibot)
       {
 	RESTART:
@@ -93,16 +96,30 @@ template<typename _Tp>
 			{ return normalized_laguerre<_Tp>(n1, n2, x); };
 
 	    auto [result, error]
-		= integrate_lower_pinf(func, _Tp{0}, integ_prec, _Tp{0});
+//		= integrate_lower_pinf(func, _Tp{0}, abs_precision, rel_precision);
+		= integrate_exp_sinh(func, _Tp{0}, abs_precision, rel_precision);
 
-	    if (std::abs(delta<_Tp>(itop, n2) - result) > cmp_prec)
+	    if (std::abs(delta<_Tp>(itop, n2) - result) > cmp_precision)
 	      {
-		itop = (ibot + itop) / 2;
-		goto RESTART;
+		if ((ibot + itop) / 2 < itop)
+		  {
+		    itop = (ibot + itop) / 2;
+		    goto RESTART;
+		  }
+		else
+		  {
+		    breakout = true;
+		    break;
+		  }
 	      }
 	  }
+
 	std::cout << "Integration successful for laguerre polynomials up to n = " << itop
 		  << '\n' << std::flush;
+
+	if (breakout)
+	  break;
+
 	ibot = itop;
 	if (itop > 1000)
 	  {

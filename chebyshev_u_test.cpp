@@ -49,10 +49,11 @@ template<typename _Tp>
   void
   test_chebyshev_u()
   {
-    const auto eps_factor = 1 << (std::numeric_limits<_Tp>::digits / 5);
+    const auto eps_factor = 1 << (std::numeric_limits<_Tp>::digits / 3);
     const auto eps = std::numeric_limits<_Tp>::epsilon();
-    const auto integ_prec = eps_factor * eps;
-    const auto cmp_prec = _Tp{10} * integ_prec;
+    const auto abs_precision = eps_factor * eps;
+    const auto rel_precision = eps_factor * eps;
+    const auto cmp_precision = _Tp{10} * rel_precision;
 
     int n1 = 0;
     for (; n1 <= 128; ++n1)
@@ -62,9 +63,10 @@ template<typename _Tp>
 	    auto func = [n1, n2](_Tp x)->_Tp{return normalized_chebyshev_u(n1, n2, x);};
 
 	    auto [result, error]
-		= integrate(func, _Tp{-1}, _Tp{1}, integ_prec, _Tp{0});
+//		= integrate(func, _Tp{-1}, _Tp{1}, abs_precision, rel_precision);
+		= integrate_tanh_sinh(func, _Tp{-1}, _Tp{1}, abs_precision, rel_precision, 6);
 
-	    if (std::abs(delta<_Tp>(n1, n2) - result) > cmp_prec)
+	    if (std::abs(delta<_Tp>(n1, n2) - result) > cmp_precision)
 	      {
 		std::stringstream ss;
 		ss.precision(std::numeric_limits<_Tp>::digits10);
@@ -83,6 +85,7 @@ template<typename _Tp>
     int ibot = n1 - 1;
     int itop = 2 * ibot;
     int del = 2;
+    bool breakout = false;
     while (itop != ibot)
       {
 	RESTART:
@@ -91,17 +94,31 @@ template<typename _Tp>
 	    auto func = [n1 = itop, n2](_Tp x)->_Tp{return normalized_chebyshev_u(n1, n2, x);};
 
 	    auto [result, error]
-		= integrate(func, _Tp{-1}, _Tp{1}, integ_prec, _Tp{0});
-//		= integrate_singular(func, _Tp{-1}, _Tp{1}, integ_prec, _Tp{0});
+//		  = integrate(func, _Tp{-1}, _Tp{1}, abs_precision, rel_precision);
+//		  = integrate_singular(func, _Tp{-1}, _Tp{1}, abs_precision, rel_precision);
+		= integrate_tanh_sinh(func, _Tp{-1}, _Tp{1}, abs_precision, rel_precision, 6);
 
-	    if (std::abs(delta<_Tp>(itop, n2) - result) > cmp_prec)
+	    if (std::abs(delta<_Tp>(itop, n2) - result) > cmp_precision)
 	      {
-		itop = (ibot + itop) / 2;
-		goto RESTART;
+		if ((ibot + itop) / 2 < itop)
+		  {
+		    itop = (ibot + itop) / 2;
+		    goto RESTART;
+		  }
+		else
+		  {
+		    breakout = true;
+		    break;
+		  }
 	      }
 	  }
+
 	std::cout << "Integration successful for chebyshev_u polynomials up to n = " << itop
 		  << '\n' << std::flush;
+
+	if (breakout)
+	  break;
+
 	ibot = itop;
 	if (itop > 1000)
 	  {

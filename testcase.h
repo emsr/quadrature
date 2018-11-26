@@ -55,6 +55,20 @@ template<typename _Tp>
     return integ(b) - integ(a);
   }
 
+template<typename _Tp>
+  struct func_test
+  {
+    typedef _Tp (*fptr) (_Tp);
+
+    fptr fun;
+    _Tp a;
+    _Tp b;
+    _Tp exact;
+  };
+
+template<typename _Tp>
+  const static func_test<_Tp>
+  func_tests[25];
 
 #include "testcase.tcc"
 

@@ -1,3 +1,4 @@
-qag_integrate: Cannot reach tolerance because of roundoff error
-qag_integrate: Number of iterations was insufficient
-qag_integrate: Number of iterations was insufficient
+Integration failed at n1=55, n2=9, returning result 4.722968e-01, with error 1.590896e-06 instead of the expected 0.000000e+00
+
+Integration failed at n1=100, n2=100, returning result 1.000000000003323145e+00, with error 4.848234908495050953e-01 instead of the expected 1.000000000000000000e+00
+

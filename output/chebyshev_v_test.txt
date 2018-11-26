@@ -133,16 +133,6 @@ Integration successful for chebyshev_v polynomials up to n = 128
 Integration successful for chebyshev_v polynomials up to n = 256
 Integration successful for chebyshev_v polynomials up to n = 512
 Integration successful for chebyshev_v polynomials up to n = 1024
-Integration successful for chebyshev_v polynomials up to n = 2048
-Integration successful for chebyshev_v polynomials up to n = 4096
-Integration successful for chebyshev_v polynomials up to n = 8192
-Integration successful for chebyshev_v polynomials up to n = 16384
-Integration successful for chebyshev_v polynomials up to n = 32768
-Integration successful for chebyshev_v polynomials up to n = 65536
-Integration successful for chebyshev_v polynomials up to n = 131072
-Integration successful for chebyshev_v polynomials up to n = 262144
-Integration successful for chebyshev_v polynomials up to n = 524288
-Integration successful for chebyshev_v polynomials up to n = 1048576
 
 Good enough!
 
@@ -280,16 +270,6 @@ Integration successful for chebyshev_v polynomials up to n = 128
 Integration successful for chebyshev_v polynomials up to n = 256
 Integration successful for chebyshev_v polynomials up to n = 512
 Integration successful for chebyshev_v polynomials up to n = 1024
-Integration successful for chebyshev_v polynomials up to n = 2048
-Integration successful for chebyshev_v polynomials up to n = 4096
-Integration successful for chebyshev_v polynomials up to n = 8192
-Integration successful for chebyshev_v polynomials up to n = 16384
-Integration successful for chebyshev_v polynomials up to n = 32768
-Integration successful for chebyshev_v polynomials up to n = 65536
-Integration successful for chebyshev_v polynomials up to n = 131072
-Integration successful for chebyshev_v polynomials up to n = 262144
-Integration successful for chebyshev_v polynomials up to n = 524288
-Integration successful for chebyshev_v polynomials up to n = 1048576
 
 Good enough!
 
@@ -427,15 +407,5 @@ Integration successful for chebyshev_v polynomials up to n = 128
 Integration successful for chebyshev_v polynomials up to n = 256
 Integration successful for chebyshev_v polynomials up to n = 512
 Integration successful for chebyshev_v polynomials up to n = 1024
-Integration successful for chebyshev_v polynomials up to n = 2048
-Integration successful for chebyshev_v polynomials up to n = 4096
-Integration successful for chebyshev_v polynomials up to n = 8192
-Integration successful for chebyshev_v polynomials up to n = 16384
-Integration successful for chebyshev_v polynomials up to n = 32768
-Integration successful for chebyshev_v polynomials up to n = 65536
-Integration successful for chebyshev_v polynomials up to n = 131072
-Integration successful for chebyshev_v polynomials up to n = 262144
-Integration successful for chebyshev_v polynomials up to n = 524288
-Integration successful for chebyshev_v polynomials up to n = 1048576
 
 Good enough!

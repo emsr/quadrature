@@ -76,7 +76,6 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
       return qag_integrate(__workspace, __func,
 			   __lower, __upper,
 			   __max_abs_error, __max_rel_error,
-			   __max_iter,
 			   gauss_kronrod_integral<_Tp>(__qkintrule));
     }
 
@@ -105,7 +104,6 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
 			   map_minf_pinf<_Tp, _FuncTp>(__func),
 			   _Tp{0}, _Tp{1},
 			   __max_abs_error, __max_rel_error,
-			   __max_iter,
 			   gauss_kronrod_integral<_Tp>(__qkintrule));
     }
 
@@ -136,7 +134,6 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
 			   map_minf_b(__func, __upper),
 			   _Tp{0}, _Tp{1},
 			   __max_abs_error, __max_rel_error,
-			   __max_iter,
 			   gauss_kronrod_integral<_Tp>(__qkintrule));
     }
 
@@ -167,7 +164,6 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
 			   map_a_pinf(__func, __lower),
 			   _Tp{0}, _Tp{1},
 			   __max_abs_error, __max_rel_error,
-			   __max_iter,
 			   gauss_kronrod_integral<_Tp>(__qkintrule));
     }
 

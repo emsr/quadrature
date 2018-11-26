@@ -21,7 +21,8 @@
 // Ported from GSL by Edward Smith-Rowland
 // Originally written by Brian Gaugh
 //
-// This file implements Gauss-Kronrod integration with singularities
+// Implements integration using a recursive Gauss-Kronrod integration
+// with singularities
 // Based on gsl/integration/qags.c
 
 #ifndef QAGS_INTEGRATE_TCC
@@ -41,8 +42,8 @@ namespace __gnu_cxx
 {
 
   /**
-   * Integrate potentially singular function from a to b using recursive
-   * Gauss-Kronrod algorithm.
+   * Adaptively integrate a potentially singular function from a to b
+   * using a recursive Gauss-Kronrod algorithm.
    *
    * @tparam _FuncTp     A function type that takes a single real scalar
    *                     argument and returns a real scalar.
@@ -54,7 +55,6 @@ namespace __gnu_cxx
    * @param[in] __func The single-variable function to be integrated
    * @param[in] __pts The sorted array of points including the integration
    *                  limits and intermediate discontinuities/singularities
-   * @param[in] __max_iter The maximum number of integration steps allowed
    * @param[in] __max_abs_err The limit on absolute error
    * @param[in] __max_rel_err The limit on relative error
    * @param[in] __quad The quadrature stepper taking a function object
@@ -72,7 +72,6 @@ namespace __gnu_cxx
     -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
     {
       const auto _S_max = std::numeric_limits<_Tp>::max();
-      const auto _S_eps = std::numeric_limits<_Tp>::epsilon();
       const auto __max_iter = __workspace.capacity();
       // Try to adjust tests for varing precision.
       const auto _S_rel_err = std::pow(_Tp{10},
@@ -101,8 +100,10 @@ namespace __gnu_cxx
       auto __tolerance = std::max(__max_abs_err,
 				  __max_rel_err * std::abs(__result0));
 
-      if (__abserr0 <= _Tp{100} * _S_eps * __resabs0
-	  && __abserr0 > __tolerance)
+      // Compute roundoff tolerance.
+      const auto __round_off = _Tp{10} * __tolerance * __resabs0;
+
+      if (__abserr0 <= __round_off && __abserr0 > __tolerance)
 	__throw_integration_error("qags_integrate: "
 				  "Cannot reach tolerance because "
 				  "of roundoff error on first attempt",
@@ -151,19 +152,19 @@ namespace __gnu_cxx
 	  const auto __area12 = __area1 + __area2;
 	  const auto __error12 = __error1 + __error2;
 	  const auto __last_e_i = __curr.__abs_error;
+	  const auto __delta = __area12 - __curr.__result;
 
 	  // Improve previous approximations to the integral and test for
 	  // accuracy.
 
+	  __area += __delta;
 	  __errsum += __error12 - __curr.__abs_error;
-	  __area += __area12 - __curr.__result;
 
 	  __tolerance = std::max(__max_abs_err,
 				 __max_rel_err * std::abs(__area));
 
 	  if (__resasc1 != __error1 && __resasc2 != __error2)
 	    {
-	      const auto __delta = __curr.__result - __area12;
 
 	      if (std::abs(__delta) <= _S_rel_err * std::abs(__area12)
 		  && __error12 >= _Tp{0.99} * __curr.__abs_error)
@@ -328,7 +329,7 @@ namespace __gnu_cxx
       auto __max_area = std::max(std::abs(__res_ext), std::abs(__area));
       if (!__positive_integrand && __max_area < _Tp{0.01} * __resabs0)
 	{
-	  __check_error<_Tp>(__func__, __error_type);
+	  __check_error<_Tp>(__func__, __error_type, __area, __errsum);
 	  std::__throw_runtime_error("qags_integrate: Unknown error.");
 	}
 
