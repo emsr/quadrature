@@ -29,6 +29,26 @@ namespace __gnu_cxx
  * Integrate the function by naive subdivision.
  */
 template<typename _Tp, typename _FuncTp>
+  typename composite_trapezoid_integral< _Tp, _FuncTp>::_AreaTp
+  composite_trapezoid_integral< _Tp, _FuncTp>::operator()()
+  {
+    const auto __delta = (this->_M_upper_lim - this->_M_lower_lim)
+			 / this->_M_num_segs;
+
+    auto __sum = this->_M_fun(this->_M_lower_lim) / _Tp{2};
+    for (std::size_t __j = 1; __j < this->_M_num_segs; ++__j)
+      __sum += this->_M_fun(this->_M_lower_lim + __j * __delta);
+    __sum += this->_M_fun(this->_M_upper_lim) / _Tp{2};
+
+    this->_M_result = __sum * __delta;
+
+    return this->_M_result;
+  }
+
+/**
+ * Integrate the function by binary subdivision.
+ */
+template<typename _Tp, typename _FuncTp>
   typename trapezoid_integral< _Tp, _FuncTp>::_AreaTp
   trapezoid_integral< _Tp, _FuncTp>::operator()()
   {

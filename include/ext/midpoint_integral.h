@@ -27,6 +27,48 @@
 namespace __gnu_cxx
 {
 
+  /**
+   * 
+   */
+  template<typename _Tp, typename _FuncTp>
+    class composite_midpoint_integral
+    {
+    public:
+
+      using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
+      using _AreaTp = decltype(_RetTp{} * _Tp{});
+      using _AbsAreaTp = decltype(std::abs(_AreaTp{}));
+
+      composite_midpoint_integral(_FuncTp __fun, _Tp __a, _Tp __b,
+				   std::size_t __num_segs)
+      : _M_fun(__fun), _M_lower_lim(__a), _M_upper_lim(__b),
+	_M_num_segs(__num_segs), _M_result()
+      { }
+
+      _AreaTp operator()();
+
+      template<typename _FuncTp2>
+	fixed_integral_t<_Tp, std::invoke_result_t<_FuncTp2, _Tp>>
+	integrate(_FuncTp2 __fun, _Tp __a, _Tp __b)
+	{
+	  composite_midpoint_integral<_FuncTp2, _Tp>
+	    __trapi(__fun, __a, __b, this->_M_num_segments);
+	  return {__trapi()};
+	}
+
+    private:
+
+      _FuncTp _M_fun;
+      _Tp _M_lower_lim;
+      _Tp _M_upper_lim;
+      std::size_t _M_num_segs;
+      _AreaTp _M_result;
+      _AreaTp _M_asymp_error;
+    };
+
+  /**
+   * 
+   */
   template<typename _Tp, typename _FuncTp>
     class midpoint_integral
     {

@@ -6,6 +6,7 @@ cmake_install.cmake
 error.txt
 
 build_clenshaw_curtis
+build_double_exp_rules
 
 assoc_laguerre_test
 assoc_legendre_test
