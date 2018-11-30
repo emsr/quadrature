@@ -26,7 +26,7 @@ LD_LIBRARY_PATH=../wrappers/debug:$HOME/bin/lib64:$LD_LIBRARY_PATH ./build_doubl
       std::cout << " k_max = " << __k_max << '\n';
       std::cout << " h     = " << __h << '\n';
 
-      for (int __k = 1; __k <= __n; ++__k)
+      for (int __k = -__n; __k <= __n; ++__k)
 	{
 	  const auto __u = __h * _Tp(__k);
 	  const auto __eu = std::exp(__u);
@@ -59,7 +59,7 @@ LD_LIBRARY_PATH=../wrappers/debug:$HOME/bin/lib64:$LD_LIBRARY_PATH ./build_doubl
       std::cout << " k_max = " << __k_max << '\n';
       std::cout << " h     = " << __h << '\n';
 
-      for (int __k = 1; __k <= __n; ++__k)
+      for (int __k = -__n; __k <= __n; ++__k)
 	{
 	  const auto __u = __h * _Tp(__k);
 	  const auto __eu = std::exp(__u);
@@ -92,7 +92,7 @@ LD_LIBRARY_PATH=../wrappers/debug:$HOME/bin/lib64:$LD_LIBRARY_PATH ./build_doubl
       std::cout << " k_max = " << __k_max << '\n';
       std::cout << " h     = " << __h << '\n';
 
-      for (int __k = 1; __k <= __n; ++__k)
+      for (int __k = -__n; __k <= __n; ++__k)
 	{
 	  const auto __u = __h * _Tp(__k);
 	  const auto __eu = std::exp(__u);
