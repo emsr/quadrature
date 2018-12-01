@@ -1,5 +1,5 @@
 /*
-$HOME/bin/bin/g++-std=c++17 -Wall -Wextra -I../include -o test_recur_subdiv test_recur_subdiv.cpp -lquadmath
+$HOME/bin/bin/g++-std=c++2a -Wall -Wextra -I../include -o test_recur_subdiv test_recur_subdiv.cpp -lquadmath
 ./test_recur_subdiv
 */
 

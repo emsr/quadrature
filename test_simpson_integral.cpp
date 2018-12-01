@@ -1,5 +1,5 @@
 /*
-g++ -std=c++17 -I../polynomial -I../include/ext -o test_simpson_integral test_simpson_integral.cpp
+g++ -std=c++2a -I../polynomial -I../include/ext -o test_simpson_integral test_simpson_integral.cpp
 */
 
 #include <iostream>

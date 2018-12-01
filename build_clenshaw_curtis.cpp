@@ -1,8 +1,8 @@
 /*
-LD_LIBRARY_PATH=..:$LD_LIBRARY_PATH $HOME/bin/bin/g++ -std=gnu++17 -g -Wall -Wextra -Wno-psabi -I../include -o build_clenshaw_curtis build_clenshaw_curtis.cpp -lquadmath -L../wrappers/debug -lwrap_burkhardt -lgfortran
+LD_LIBRARY_PATH=..:$LD_LIBRARY_PATH $HOME/bin/bin/g++ -std=gnu++2a -g -Wall -Wextra -Wno-psabi -I../include -o build_clenshaw_curtis build_clenshaw_curtis.cpp -lquadmath -L../wrappers/debug -lwrap_burkhardt -lgfortran
 LD_LIBRARY_PATH=../wrappers/debug:$HOME/bin/lib64:$LD_LIBRARY_PATH ./build_clenshaw_curtis > build_clenshaw_curtis.txt
 
-PATH=..:$PATH $HOME/bin/bin/g++ -std=gnu++17 -g -Wall -Wextra -Wno-psabi -Wl,-rpath,$HOME/tr29124 -I../include -o build_clenshaw_curtis build_clenshaw_curtis.cpp -lquadmath -L../wrappers/debug -lwrap_burkhardt -lgfortran
+PATH=..:$PATH $HOME/bin/bin/g++ -std=gnu++2a -g -Wall -Wextra -Wno-psabi -Wl,-rpath,$HOME/tr29124 -I../include -o build_clenshaw_curtis build_clenshaw_curtis.cpp -lquadmath -L../wrappers/debug -lwrap_burkhardt -lgfortran
 PATH=../wrappers/debug:$HOME/bin/lib64:$PATH ./build_clenshaw_curtis > build_clenshaw_curtis.txt
 */
 
