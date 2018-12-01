@@ -1,2 +1,6 @@
 qags_integrate: Cannot reach tolerance because of roundoff error on first attempt
  result = -4.97326e-07 abserr = 3.95236e-05
+qags_integrate: Number of iterations was insufficient
+ result = -7.76069e-14 abserr = 0.00158206
+qags_integrate: Cannot reach tolerance with maximum order rule
+ result = nan abserr = nan
