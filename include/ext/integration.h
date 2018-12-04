@@ -218,6 +218,21 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
 			 Kronrod_Rule __qkintrule = Kronrod_21)
     -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>;
 
+  template<typename _Tp, typename _FuncTp>
+    inline auto
+    integrate_lower_minf(_FuncTp __func,
+			 _Tp __lower,
+			 _Tp __max_abs_error,
+			 _Tp __max_rel_error,
+			 std::size_t __max_iter = 1024,
+			 Kronrod_Rule __qkintrule = Kronrod_21)
+    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    {
+      return -integrate_minf_upper(__func, __lower,
+				   __max_abs_error, __max_rel_error,
+				   __max_iter, __qkintrule);
+    }
+
   /**
    * Integrate a smooth function from finite lower limit to +infinity.
    *
@@ -238,6 +253,21 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
 			 std::size_t __max_iter = 1024,
 			 Kronrod_Rule __qkintrule = Kronrod_21)
     -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>;
+
+  template<typename _Tp, typename _FuncTp>
+    inline auto
+    integrate_pinf_upper(_FuncTp __func,
+			 _Tp __upper,
+			 _Tp __max_abs_error,
+			 _Tp __max_rel_error,
+			 std::size_t __max_iter = 1024,
+			 Kronrod_Rule __qkintrule = Kronrod_21)
+    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    {
+      return -integrate_lower_pinf(__func, __upper,
+				   __max_abs_error, __max_rel_error,
+				   __max_iter, __qkintrule);
+    }
 
   /**
    *  Adaptive Gauss-Kronrod integration optimized for
@@ -288,6 +318,19 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
 				  std::size_t __max_iter = 1024)
     -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>;
 
+  template<typename _Tp, typename _FuncTp>
+    inline auto
+    integrate_singular_lower_minf(_FuncTp __func, _Tp __lower,
+				  _Tp __max_abs_error,
+				  _Tp __max_rel_error,
+				  std::size_t __max_iter = 1024)
+    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    {
+      return -integrate_singular_minf_upper(__func, __lower,
+					    __max_abs_error, __max_rel_error,
+					    __max_iter);
+    }
+
   /**
    * Integrates a potentially singular function from a to +infinity
    *
@@ -305,6 +348,19 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
 				  _Tp __max_rel_error,
 				  std::size_t __max_iter = 1024)
     -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>;
+
+  template<typename _Tp, typename _FuncTp>
+    inline auto
+    integrate_singular_pinf_upper(_FuncTp __func, _Tp __upper,
+				  _Tp __max_abs_error,
+				  _Tp __max_rel_error,
+				  std::size_t __max_iter = 1024)
+    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    {
+      return -integrate_singular_lower_pinf(__func, __upper,
+					    __max_abs_error, __max_rel_error,
+					    __max_iter);
+    }
 
   /**
    * Integrate a potentially singular function.
