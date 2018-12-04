@@ -98,6 +98,7 @@ BINS = \
   $(BIN_DIR)/test_gauss_hermite \
   $(BIN_DIR)/test_gauss_laguerre \
   $(BIN_DIR)/test_mapper \
+  $(BIN_DIR)/test_composite_trapezoid_integral \
   $(BIN_DIR)/assoc_laguerre_test \
   $(BIN_DIR)/assoc_legendre_test \
   $(BIN_DIR)/sph_legendre_test \
@@ -150,6 +151,7 @@ test: $(OUTPUT_DIR) $(BIN_DIR)/test_quadrature
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_quadrature > $(OUTPUT_DIR)/test_quadrature.txt 2> $(OUTPUT_DIR)/test_quadrature.err
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_gauss_hermite > $(OUTPUT_DIR)/test_gauss_hermite.txt 2> $(OUTPUT_DIR)/test_gauss_hermite.err
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_gauss_laguerre > $(OUTPUT_DIR)/test_gauss_laguerre.txt 2> $(OUTPUT_DIR)/test_gauss_laguerre.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_composite_trapezoid_integral > $(OUTPUT_DIR)/test_composite_trapezoid_integral.txt 2> $(OUTPUT_DIR)/test_composite_trapezoid_integral.err
 
 
 docs:
@@ -188,9 +190,6 @@ $(BIN_DIR)/test_quadrature: $(BIN_DIR) test_quadrature.cpp $(INCS)
 $(BIN_DIR)/test_trapezoid_integral: $(BIN_DIR) test_trapezoid_integral.cpp $(INCS)
 	$(CXXMAX) $(INCLUDES) -I../polynomial -o $(BIN_DIR)/test_trapezoid_integral test_trapezoid_integral.cpp -lquadmath
 
-$(BIN_DIR)/test_simpson_integral: $(BIN_DIR) test_simpson_integral.cpp $(INCS)
-	$(CXXMAX) $(INCLUDES) -I../polynomial -o $(BIN_DIR)/test_simpson_integral test_simpson_integral.cpp -lquadmath
-
 $(BIN_DIR)/test_midpoint_integral: $(BIN_DIR) test_midpoint_integral.cpp $(INCS)
 	$(CXXMAX) $(INCLUDES) -I../polynomial -o $(BIN_DIR)/test_midpoint_integral test_midpoint_integral.cpp -lquadmath
 
@@ -208,6 +207,9 @@ $(BIN_DIR)/test_gauss_laguerre: $(BIN_DIR) test_gauss_laguerre.cpp $(INCS)
 
 $(BIN_DIR)/test_mapper: $(BIN_DIR) test_mapper.cpp include/ext/integration_transform.h
 	$(CXXMAX) -Iinclude -o $(BIN_DIR)/test_mapper test_mapper.cpp -lquadmath
+
+$(BIN_DIR)/test_composite_trapezoid_integral: $(BIN_DIR) test_composite_trapezoid_integral.cpp $(INCS)
+	$(CXXMAX) $(INCLUDES) -I../polynomial -o $(BIN_DIR)/test_composite_trapezoid_integral test_composite_trapezoid_integral.cpp -lquadmath
 
 $(BIN_DIR)/hermite_test: $(BIN_DIR) $(OBJ_DIR)/hermite_test.o
 	$(CXXMAX) -o $(BIN_DIR)/hermite_test $(OBJ_DIR)/hermite_test.o -lquadmath
