@@ -488,7 +488,8 @@ test_quadrature()
       {
 	auto out = __gnu_cxx::qk_integrate(f, _Tp{0}, _Tp{1}, __gnu_cxx::Kronrod_15);
 	qtest.test_relative(out.__result, exp_result, fpeps, "qk15(f1) smooth result");
-	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk15(f1) smooth abserr");
+	if (is_double)
+	  qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk15(f1) smooth abserr");
 	qtest.test_relative(out.__resabs, exp_resabs, fpeps, "qk15(f1) smooth resabs");
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk15(f1) smooth resasc");
       }
@@ -496,7 +497,8 @@ test_quadrature()
 	auto out = __gnu_cxx::qk_integrate(f, _Tp{1}, _Tp{0}, __gnu_cxx::Kronrod_15);
 
 	qtest.test_relative(out.__result, -exp_result, fpeps, "qk15(f1) reverse result");
-	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk15(f1) reverse abserr");
+	if (is_double)
+	  qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk15(f1) reverse abserr");
 	qtest.test_relative(out.__resabs, exp_resabs, fpeps, "qk15(f1) reverse resabs");
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk15(f1) reverse resasc");
       }
@@ -526,14 +528,16 @@ test_quadrature()
       {
 	auto out = __gnu_cxx::qk_integrate(f, _Tp{0}, _Tp{1}, __gnu_cxx::Kronrod_21);
 	qtest.test_relative(out.__result, exp_result, fpeps, "qk21(f1) smooth result");
-	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk21(f1) smooth abserr");
+	if (is_double)
+	  qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk21(f1) smooth abserr");
 	qtest.test_relative(out.__resabs, exp_resabs, fpeps, "qk21(f1) smooth resabs");
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk21(f1) smooth resasc");
       }
       {
 	auto out = __gnu_cxx::qk_integrate(f, _Tp{1}, _Tp{0}, __gnu_cxx::Kronrod_21);
 	qtest.test_relative(out.__result, -exp_result, fpeps, "qk21(f1) reverse result");
-	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk21(f1) reverse abserr");
+	if (is_double)
+	  qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk21(f1) reverse abserr");
 	qtest.test_relative(out.__resabs, exp_resabs, fpeps, "qk21(f1) reverse resabs");
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk21(f1) reverse resasc");
       }
@@ -563,14 +567,16 @@ test_quadrature()
       {
 	auto out = __gnu_cxx::qk_integrate(f, _Tp{0}, _Tp{1}, __gnu_cxx::Kronrod_31);
 	qtest.test_relative(out.__result, exp_result, fpeps, "qk31(f1) smooth result");
-	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk31(f1) smooth abserr");
+	if (is_double)
+	  qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk31(f1) smooth abserr");
 	qtest.test_relative(out.__resabs, exp_resabs, fpeps, "qk31(f1) smooth resabs");
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk31(f1) smooth resasc");
       }
       {
 	auto out = __gnu_cxx::qk_integrate(f, _Tp{1}, _Tp{0}, __gnu_cxx::Kronrod_31);
 	qtest.test_relative(out.__result, -exp_result, fpeps, "qk31(f1) reverse result");
-	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk31(f1) reverse abserr");
+	if (is_double)
+	  qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk31(f1) reverse abserr");
 	qtest.test_relative(out.__resabs, exp_resabs, fpeps, "qk31(f1) reverse resabs");
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk31(f1) reverse resasc");
       }
@@ -600,14 +606,16 @@ test_quadrature()
       {
 	auto out = __gnu_cxx::qk_integrate(f, _Tp{0}, _Tp{1}, __gnu_cxx::Kronrod_41);
 	qtest.test_relative(out.__result, exp_result, fpeps, "qk41(f1) smooth result");
-	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk41(f1) smooth abserr");
+	if (is_double)
+	  qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk41(f1) smooth abserr");
 	qtest.test_relative(out.__resabs, exp_resabs, fpeps, "qk41(f1) smooth resabs");
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk41(f1) smooth resasc");
       }
       {
 	auto out = __gnu_cxx::qk_integrate(f, _Tp{1}, _Tp{0}, __gnu_cxx::Kronrod_41);
 	qtest.test_relative(out.__result, -exp_result, fpeps, "qk41(f1) reverse result");
-	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk41(f1) reverse abserr");
+	if (is_double)
+	  qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk41(f1) reverse abserr");
 	qtest.test_relative(out.__resabs, exp_resabs, fpeps, "qk41(f1) reverse resabs");
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk41(f1) reverse resasc");
       }
@@ -637,14 +645,16 @@ test_quadrature()
       {
 	auto out = __gnu_cxx::qk_integrate(f, _Tp{0}, _Tp{1}, __gnu_cxx::Kronrod_51);
 	qtest.test_relative(out.__result, exp_result, fpeps, "qk51(f1) smooth result");
-	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-5L}, "qk51(f1) smooth abserr");
+	if (is_double)
+	  qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-5L}, "qk51(f1) smooth abserr");
 	qtest.test_relative(out.__resabs, exp_resabs, fpeps, "qk51(f1) smooth resabs");
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk51(f1) smooth resasc");
       }
       {
 	auto out = __gnu_cxx::qk_integrate(f, _Tp{1}, _Tp{0}, __gnu_cxx::Kronrod_51);
 	qtest.test_relative(out.__result, -exp_result, fpeps, "qk51(f1) reverse result");
-	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-5L}, "qk51(f1) reverse abserr");
+	if (is_double)
+	  qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-5L}, "qk51(f1) reverse abserr");
 	qtest.test_relative(out.__resabs, exp_resabs, fpeps, "qk51(f1) reverse resabs");
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk51(f1) reverse resasc");
       }
@@ -674,14 +684,16 @@ test_quadrature()
       {
 	auto out = __gnu_cxx::qk_integrate(f, _Tp{0}, _Tp{1}, __gnu_cxx::Kronrod_61);
 	qtest.test_relative(out.__result, exp_result, fpeps, "qk61(f1) smooth result");
-	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-5L}, "qk61(f1) smooth abserr");
+	if (is_double)
+	  qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-5L}, "qk61(f1) smooth abserr");
 	qtest.test_relative(out.__resabs, exp_resabs, fpeps, "qk61(f1) smooth resabs");
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk61(f1) smooth resasc");
       }
       {
 	auto out = __gnu_cxx::qk_integrate(f, _Tp{1}, _Tp{0}, __gnu_cxx::Kronrod_61);
 	qtest.test_relative(out.__result, -exp_result, fpeps, "qk61(f1) reverse result");
-	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-5L}, "qk61(f1) reverse abserr");
+	if (is_double)
+	  qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-5L}, "qk61(f1) reverse abserr");
 	qtest.test_relative(out.__resabs, exp_resabs, fpeps, "qk61(f1) reverse resabs");
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk61(f1) reverse resasc");
       }
@@ -715,14 +727,16 @@ test_quadrature()
       {
 	auto out = __gnu_cxx::qk_integrate(f, _Tp{0}, _Tp{1}, __gnu_cxx::Kronrod_15);
 	qtest.test_relative(out.__result, exp_result, fpeps, "qk15(f1) singular result");
-	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk15(f1) singular abserr");
+	if (is_double)
+	  qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk15(f1) singular abserr");
 	qtest.test_relative(out.__resabs, exp_resabs, fpeps, "qk15(f1) singular resabs");
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk15(f1) singular resasc");
       }
       {
 	auto out = __gnu_cxx::qk_integrate(f, _Tp{1}, _Tp{0}, __gnu_cxx::Kronrod_15);
 	qtest.test_relative(out.__result, -exp_result, fpeps, "qk15(f1) reverse result");
-	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk15(f1) reverse abserr");
+	if (is_double)
+	  qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk15(f1) reverse abserr");
 	qtest.test_relative(out.__resabs, exp_resabs, fpeps, "qk15(f1) reverse resabs");
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk15(f1) reverse resasc");
       }
@@ -752,14 +766,16 @@ test_quadrature()
       {
 	auto out = __gnu_cxx::qk_integrate(f, _Tp{0}, _Tp{1}, __gnu_cxx::Kronrod_21);
 	qtest.test_relative(out.__result, exp_result, fpeps, "qk21(f1) singular result");
-	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk21(f1) singular abserr");
+	if (is_double)
+	  qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk21(f1) singular abserr");
 	qtest.test_relative(out.__resabs, exp_resabs, fpeps, "qk21(f1) singular resabs");
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk21(f1) singular resasc");
       }
       {
 	auto out = __gnu_cxx::qk_integrate(f, _Tp{1}, _Tp{0}, __gnu_cxx::Kronrod_21);
 	qtest.test_relative(out.__result, -exp_result, fpeps, "qk21(f1) reverse result");
-	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk21(f1) reverse abserr");
+	if (is_double)
+	  qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk21(f1) reverse abserr");
 	qtest.test_relative(out.__resabs, exp_resabs, fpeps, "qk21(f1) reverse resabs");
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk21(f1) reverse resasc");
       }
@@ -789,14 +805,16 @@ test_quadrature()
       {
 	auto out = __gnu_cxx::qk_integrate(f, _Tp{0}, _Tp{1}, __gnu_cxx::Kronrod_31);
 	qtest.test_relative(out.__result, exp_result, fpeps, "qk31(f1) singular result");
-	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk31(f1) singular abserr");
+	if (is_double)
+	  qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk31(f1) singular abserr");
 	qtest.test_relative(out.__resabs, exp_resabs, fpeps, "qk31(f1) singular resabs");
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk31(f1) singular resasc");
       }
       {
 	auto out = __gnu_cxx::qk_integrate(f, _Tp{1}, _Tp{0}, __gnu_cxx::Kronrod_31);
 	qtest.test_relative(out.__result, -exp_result, fpeps, "qk31(f1) reverse result");
-	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk31(f1) reverse abserr");
+	if (is_double)
+	  qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk31(f1) reverse abserr");
 	qtest.test_relative(out.__resabs, exp_resabs, fpeps, "qk31(f1) reverse resabs");
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk31(f1) reverse resasc");
       }
@@ -826,14 +844,16 @@ test_quadrature()
       {
 	auto out = __gnu_cxx::qk_integrate(f, _Tp{0}, _Tp{1}, __gnu_cxx::Kronrod_41);
 	qtest.test_relative(out.__result, exp_result, fpeps, "qk41(f1) singular result");
-	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk41(f1) singular abserr");
+	if (is_double)
+	  qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk41(f1) singular abserr");
 	qtest.test_relative(out.__resabs, exp_resabs, fpeps, "qk41(f1) singular resabs");
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk41(f1) singular resasc");
       }
       {
 	auto out = __gnu_cxx::qk_integrate(f, _Tp{1}, _Tp{0}, __gnu_cxx::Kronrod_41);
 	qtest.test_relative(out.__result, -exp_result, fpeps, "qk41(f1) reverse result");
-	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk41(f1) reverse abserr");
+	if (is_double)
+	  qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk41(f1) reverse abserr");
 	qtest.test_relative(out.__resabs, exp_resabs, fpeps, "qk41(f1) reverse resabs");
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk41(f1) reverse resasc");
       }
@@ -863,14 +883,16 @@ test_quadrature()
       {
 	auto out = __gnu_cxx::qk_integrate(f, _Tp{0}, _Tp{1}, __gnu_cxx::Kronrod_51);
 	qtest.test_relative(out.__result, exp_result, fpeps, "qk51(f1) singular result");
-	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk51(f1) singular abserr");
+	if (is_double)
+	  qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk51(f1) singular abserr");
 	qtest.test_relative(out.__resabs, exp_resabs, fpeps, "qk51(f1) singular resabs");
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk51(f1) singular resasc");
       }
       {
 	auto out = __gnu_cxx::qk_integrate(f, _Tp{1}, _Tp{0}, __gnu_cxx::Kronrod_51);
 	qtest.test_relative(out.__result, -exp_result, fpeps, "qk51(f1) reverse result");
-	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk51(f1) reverse abserr");
+	if (is_double)
+	  qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk51(f1) reverse abserr");
 	qtest.test_relative(out.__resabs, exp_resabs, fpeps, "qk51(f1) reverse resabs");
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk51(f1) reverse resasc");
       }
@@ -900,14 +922,16 @@ test_quadrature()
       {
 	auto out = __gnu_cxx::qk_integrate(f, _Tp{0}, _Tp{1}, __gnu_cxx::Kronrod_61);
 	qtest.test_relative(out.__result, exp_result, fpeps, "qk61(f1) singular result");
-	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk61(f1) singular abserr");
+	if (is_double)
+	  qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk61(f1) singular abserr");
 	qtest.test_relative(out.__resabs, exp_resabs, fpeps, "qk61(f1) singular resabs");
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk61(f1) singular resasc");
       }
       {
 	auto out = __gnu_cxx::qk_integrate(f, _Tp{1}, _Tp{0}, __gnu_cxx::Kronrod_61);
 	qtest.test_relative(out.__result, -exp_result, fpeps, "qk61(f1) reverse result");
-	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk61(f1) reverse abserr");
+	if (is_double)
+	  qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk61(f1) reverse abserr");
 	qtest.test_relative(out.__resabs, exp_resabs, fpeps, "qk61(f1) reverse resabs");
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk61(f1) reverse resasc");
       }
@@ -941,14 +965,16 @@ test_quadrature()
       {
 	auto out = __gnu_cxx::qk_integrate(f, _Tp{0.3L}, _Tp{2.71L}, __gnu_cxx::Kronrod_15);
 	qtest.test_relative(out.__result, exp_result, fpeps, "qk15(f3) oscill result");
-	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk15(f3) oscill abserr");
+	if (is_double)
+	  qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk15(f3) oscill abserr");
 	qtest.test_relative(out.__resabs, exp_resabs, fpeps, "qk15(f3) oscill resabs");
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk15(f3) oscill resasc");
       }
       {
 	auto out = __gnu_cxx::qk_integrate(f, _Tp{2.71L}, _Tp{0.3L}, __gnu_cxx::Kronrod_15);
 	qtest.test_relative(out.__result, -exp_result, fpeps, "qk15(f3) reverse result");
-	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk15(f3) reverse abserr");
+	if (is_double)
+	  qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk15(f3) reverse abserr");
 	qtest.test_relative(out.__resabs, exp_resabs, fpeps, "qk15(f3) reverse resabs");
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk15(f3) reverse resasc");
       }
@@ -978,14 +1004,16 @@ test_quadrature()
       {
 	auto out = __gnu_cxx::qk_integrate(f, _Tp{0.3L}, _Tp{2.71L}, __gnu_cxx::Kronrod_21);
 	qtest.test_relative(out.__result, exp_result, fpeps, "qk21(f3) oscill result");
-	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-5L}, "qk21(f3) oscill abserr");
+	if (is_double)
+	  qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-5L}, "qk21(f3) oscill abserr");
 	qtest.test_relative(out.__resabs, exp_resabs, fpeps, "qk21(f3) oscill resabs");
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk21(f3) oscill resasc");
       }
       {
 	auto out = __gnu_cxx::qk_integrate(f, _Tp{2.71L}, _Tp{0.3L}, __gnu_cxx::Kronrod_21);
 	qtest.test_relative(out.__result, -exp_result, fpeps, "qk21(f3) reverse result");
-	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-5L}, "qk21(f3) reverse abserr");
+	if (is_double)
+	  qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-5L}, "qk21(f3) reverse abserr");
 	qtest.test_relative(out.__resabs, exp_resabs, fpeps, "qk21(f3) reverse resabs");
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk21(f3) reverse resasc");
       }
@@ -1015,14 +1043,16 @@ test_quadrature()
       {
 	auto out = __gnu_cxx::qk_integrate(f, _Tp{0.3L}, _Tp{2.71L}, __gnu_cxx::Kronrod_31);
 	qtest.test_relative(out.__result, exp_result, fpeps, "qk31(f3) oscill result");
-	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk31(f3) oscill abserr");
+	if (is_double)
+	  qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk31(f3) oscill abserr");
 	qtest.test_relative(out.__resabs, exp_resabs, fpeps, "qk31(f3) oscill resabs");
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk31(f3) oscill resasc");
       }
       {
 	auto out = __gnu_cxx::qk_integrate(f, _Tp{2.71L}, _Tp{0.3L}, __gnu_cxx::Kronrod_31);
 	qtest.test_relative(out.__result, -exp_result, fpeps, "qk31(f3) reverse result");
-	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk31(f3) reverse abserr");
+	if (is_double)
+	  qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk31(f3) reverse abserr");
 	qtest.test_relative(out.__resabs, exp_resabs, fpeps, "qk31(f3) reverse resabs");
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk31(f3) reverse resasc");
       }
@@ -1052,14 +1082,16 @@ test_quadrature()
       {
 	auto out = __gnu_cxx::qk_integrate(f, _Tp{0.3L}, _Tp{2.71L}, __gnu_cxx::Kronrod_41);
 	qtest.test_relative(out.__result, exp_result, fpeps, "qk41(f3) oscill result");
-	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk41(f3) oscill abserr");
+	if (is_double)
+	  qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk41(f3) oscill abserr");
 	qtest.test_relative(out.__resabs, exp_resabs, fpeps, "qk41(f3) oscill resabs");
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk41(f3) oscill resasc");
       }
       {
 	auto out = __gnu_cxx::qk_integrate(f, _Tp{2.71L}, _Tp{0.3L}, __gnu_cxx::Kronrod_41);
 	qtest.test_relative(out.__result, -exp_result, fpeps, "qk41(f3) reverse result");
-	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk41(f3) reverse abserr");
+	if (is_double)
+	  qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk41(f3) reverse abserr");
 	qtest.test_relative(out.__resabs, exp_resabs, fpeps, "qk41(f3) reverse resabs");
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk41(f3) reverse resasc");
       }
@@ -1089,14 +1121,16 @@ test_quadrature()
       {
 	auto out = __gnu_cxx::qk_integrate(f, _Tp{0.3L}, _Tp{2.71L}, __gnu_cxx::Kronrod_51);
 	qtest.test_relative(out.__result, exp_result, fpeps, "qk51(f3) oscill result");
-	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk51(f3) oscill abserr");
+	if (is_double)
+	  qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk51(f3) oscill abserr");
 	qtest.test_relative(out.__resabs, exp_resabs, fpeps, "qk51(f3) oscill resabs");
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk51(f3) oscill resasc");
       }
       {
 	auto out = __gnu_cxx::qk_integrate(f, _Tp{2.71L}, _Tp{0.3L}, __gnu_cxx::Kronrod_51);
 	qtest.test_relative(out.__result, -exp_result, fpeps, "qk51(f3) reverse result");
-	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk51(f3) reverse abserr");
+	if (is_double)
+	  qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk51(f3) reverse abserr");
 	qtest.test_relative(out.__resabs, exp_resabs, fpeps, "qk51(f3) reverse resabs");
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk51(f3) reverse resasc");
       }
@@ -1126,14 +1160,16 @@ test_quadrature()
       {
 	auto out = __gnu_cxx::qk_integrate(f, _Tp{0.3L}, _Tp{2.71L}, __gnu_cxx::Kronrod_61);
 	qtest.test_relative(out.__result, exp_result, fpeps, "qk61(f3) oscill result");
-	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk61(f3) oscill abserr");
+	if (is_double)
+	  qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk61(f3) oscill abserr");
 	qtest.test_relative(out.__resabs, exp_resabs, fpeps, "qk61(f3) oscill resabs");
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk61(f3) oscill resasc");
       }
       {
 	auto out = __gnu_cxx::qk_integrate(f, _Tp{2.71L}, _Tp{0.3L}, __gnu_cxx::Kronrod_61);
 	qtest.test_relative(out.__result, -exp_result, fpeps, "qk61(f3) reverse result");
-	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk61(f3) reverse abserr");
+	if (is_double)
+	  qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qk61(f3) reverse abserr");
 	qtest.test_relative(out.__resabs, exp_resabs, fpeps, "qk61(f3) reverse resabs");
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk61(f3) reverse resasc");
       }
@@ -1165,7 +1201,8 @@ test_quadrature()
       {
 	auto out = __gnu_cxx::qng_integrate(fc, _Tp{0}, _Tp{1}, _Tp{1.0e-1}, _Tp{0});
 	qtest.test_relative(out.__result, exp_result, fpeps, "qng(f1) smooth result");
-	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qng(f1) smooth abserr");
+	if (is_double)
+	  qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qng(f1) smooth abserr");
 	qtest.test_integer(fc.num_evals(), exp_neval, "qng(f1) smooth neval");
 	qtest.test_integer(status, exp_ier, "qng(f1) smooth status");
       }
@@ -1173,7 +1210,8 @@ test_quadrature()
 	fc.num_evals(0);
 	auto out = __gnu_cxx::qng_integrate(fc, _Tp{1}, _Tp{0}, _Tp{1.0e-1}, _Tp{0});
 	qtest.test_relative(out.__result, -exp_result, fpeps, "qng(f1) reverse result");
-	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qng(f1) reverse abserr");
+	if (is_double)
+	  qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qng(f1) reverse abserr");
 	qtest.test_integer(fc.num_evals(), exp_neval, "qng(f1) reverse neval");
 	qtest.test_integer(status, exp_ier, "qng(f1) reverse status");
       }
@@ -1206,7 +1244,8 @@ test_quadrature()
       {
 	auto out = __gnu_cxx::qng_integrate(fc, _Tp{0}, _Tp{1}, _Tp{0}, _Tp{1.0e-9L * eps_ratio<_Tp>});
 	qtest.test_relative(out.__result, exp_result, fpeps, "qng(f1) smooth 43pt result");
-	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-5L}, "qng(f1) smooth 43pt abserr");
+	if (is_double)
+	  qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-5L}, "qng(f1) smooth 43pt abserr");
 	qtest.test_integer(fc.num_evals(), exp_neval, "qng(f1) smooth 43pt neval");
 	qtest.test_integer(status, exp_ier, "qng(f1) smooth 43pt status");
       }
@@ -1214,7 +1253,8 @@ test_quadrature()
 	fc.num_evals(0);
 	auto out = __gnu_cxx::qng_integrate(fc, _Tp{1}, _Tp{0}, _Tp{0}, _Tp{1.0e-9L * eps_ratio<_Tp>});
 	qtest.test_relative(out.__result, -exp_result, fpeps, "qng(f1) reverse 43pt result");
-	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-5L}, "qng(f1) reverse 43pt abserr");
+	if (is_double)
+	  qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-5L}, "qng(f1) reverse 43pt abserr");
 	qtest.test_integer(fc.num_evals(), exp_neval, "qng(f1) reverse 43pt neval");
 	qtest.test_integer(status, exp_ier, "qng(f1) reverse 43pt status");
       }
@@ -1246,7 +1286,8 @@ test_quadrature()
       {
 	auto out = __gnu_cxx::qng_integrate(fc, _Tp{0.3L}, _Tp{2.71L}, _Tp{0}, prec_fixed<_Tp>);
 	qtest.test_relative(out.__result, exp_result, fpeps, "qnq(f3) oscill result");
-	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qng(f3) oscill abserr");
+	if (is_double)
+	  qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qng(f3) oscill abserr");
 	qtest.test_integer(fc.num_evals(), exp_neval, "qng(f3) oscill neval");
 	qtest.test_integer(status, exp_ier, "qng(f3) oscill status");
       }
@@ -1254,7 +1295,8 @@ test_quadrature()
 	fc.num_evals(0);
 	auto out = __gnu_cxx::qng_integrate(fc, _Tp{2.71L}, _Tp{0.3L}, _Tp{0}, prec_fixed<_Tp>);
 	qtest.test_relative(out.__result, -exp_result, fpeps, "qnq(f3) reverse result");
-	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qng(f3) reverse abserr");
+	if (is_double)
+	  qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qng(f3) reverse abserr");
 	qtest.test_integer(fc.num_evals(), exp_neval, "qng(f3) reverse neval");
 	qtest.test_integer(status, exp_ier, "qng(f3) reverse status");
       }
@@ -1287,7 +1329,8 @@ test_quadrature()
       {
 	auto out = __gnu_cxx::qng_integrate(fc, _Tp{0}, _Tp{1}, _Tp{0}, _Tp{1.0e-13L * eps_ratio<_Tp>});
 	qtest.test_relative(out.__result, exp_result, fpeps, "qng(f1) 87pt smooth result");
-	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qng(f1) 87pt smooth abserr");
+	if (is_double)
+	  qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qng(f1) 87pt smooth abserr");
 	qtest.test_integer(fc.num_evals(), exp_neval, "qng(f1) 87pt smooth neval");
 	qtest.test_integer(status, exp_ier, "qng(f1) 87pt smooth status");
       }
@@ -1295,7 +1338,8 @@ test_quadrature()
 	fc.num_evals(0);
 	auto out = __gnu_cxx::qng_integrate(fc, _Tp{1}, _Tp{0}, _Tp{0}, _Tp{1.0e-13L * eps_ratio<_Tp>});
 	qtest.test_relative(out.__result, -exp_result, fpeps, "qng(f1) 87pt reverse result");
-	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qng(f1) 87pt reverse abserr");
+	if (is_double)
+	  qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qng(f1) 87pt reverse abserr");
 	qtest.test_integer(fc.num_evals(), exp_neval, "qng(f1) 87pt reverse neval");
 	qtest.test_integer(status, exp_ier, "qng(f1) 87pt reverse status");
       }
@@ -1338,7 +1382,8 @@ test_quadrature()
 	  out.__abserr = iex.abserr();
 	}
       qtest.test_relative(out.__result, exp_result, fpeps, "qng(f1) sing beyond 87pt result");
-      qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qng(f1) sing beyond 87pt abserr");
+      if (is_double)
+	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qng(f1) sing beyond 87pt abserr");
       qtest.test_integer(fc.num_evals(), exp_neval, "qng(f1) sing beyond 87pt neval");
       qtest.test_integer(status, exp_ier, "qng(f1) sing beyond 87pt status");
 
@@ -1354,7 +1399,8 @@ test_quadrature()
 	  out.__abserr = iex.abserr();
 	}
       qtest.test_relative(out.__result, -exp_result, fpeps, "qng(f1) reverse beyond 87pt result");
-      qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qng(f1) rev beyond 87pt abserr");
+      if (is_double)
+	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-7L}, "qng(f1) rev beyond 87pt abserr");
       qtest.test_integer(fc.num_evals(), exp_neval, "qng(f1) rev beyond 87pt neval");
       qtest.test_integer(status, exp_ier, "qng(f1) rev beyond 87pt status");
     }
@@ -1403,7 +1449,8 @@ test_quadrature()
 					  __gnu_cxx::gauss_kronrod_integral<_Tp>(__gnu_cxx::Kronrod_15));
 
       qtest.test_relative(out.__result, exp_result, fpeps, "qag(f1) smooth result");
-      qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-6L}, "qag(f1) smooth abserr");
+      if (is_double)
+	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-6L}, "qag(f1) smooth abserr");
       qtest.test_integer(fc.num_evals(), exp_neval, "qag(f1) smooth neval");
       qtest.test_integer(w.size(), exp_last, "qag(f1) smooth last");
       qtest.test_integer(status, exp_ier, "qag(f1) smooth status");
@@ -1428,7 +1475,8 @@ test_quadrature()
 				     __gnu_cxx::gauss_kronrod_integral<_Tp>(__gnu_cxx::Kronrod_15));
 
       qtest.test_relative(out.__result, -exp_result, fpeps, "qag(f1) reverse result");
-      qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-6L}, "qag(f1) reverse abserr");
+      if (is_double)
+	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-6L}, "qag(f1) reverse abserr");
       qtest.test_integer(fc.num_evals(), exp_neval, "qag(f1) reverse neval");
       qtest.test_integer(w.size(), exp_last, "qag(f1) reverse last");
       qtest.test_integer(status, exp_ier, "qag(f1) reverse status");
@@ -1479,7 +1527,8 @@ test_quadrature()
 					  __gnu_cxx::gauss_kronrod_integral<_Tp>(__gnu_cxx::Kronrod_21));
 
       qtest.test_relative(out.__result, exp_result, fpeps, "qag(f1, 21pt) smooth result");
-      qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-6L}, "qag(f1, 21pt) smooth abserr");
+      if (is_double)
+	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-6L}, "qag(f1, 21pt) smooth abserr");
       qtest.test_integer(fc.num_evals(), exp_neval, "qag(f1, 21pt) smooth neval");
       qtest.test_integer(w.size(), exp_last, "qag(f1, 21pt) smooth last");
       qtest.test_integer(status, exp_ier, "qag(f1, 21pt) smooth status");
@@ -1504,7 +1553,8 @@ test_quadrature()
 				     __gnu_cxx::gauss_kronrod_integral<_Tp>(__gnu_cxx::Kronrod_21));
 
       qtest.test_relative(out.__result, -exp_result, fpeps, "qag(f1, 21pt) reverse result");
-      qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-6L}, "qag(f1, 21pt) reverse abserr");
+      if (is_double)
+	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-6L}, "qag(f1, 21pt) reverse abserr");
       qtest.test_integer(fc.num_evals(), exp_neval, "qag(f1, 21pt) reverse neval");
       qtest.test_integer(w.size(), exp_last, "qag(f1, 21pt) reverse last");
       qtest.test_integer(status, exp_ier, "qag(f1, 21pt) reverse status");
@@ -1555,7 +1605,8 @@ test_quadrature()
 	}
 
       qtest.test_relative(out.__result, exp_result, fpeps, "qag(f3, 31pt) oscill result");
-      qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-6L}, "qag(f3, 31pt) oscill abserr");
+      if (is_double)
+	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-6L}, "qag(f3, 31pt) oscill abserr");
       qtest.test_integer(fc.num_evals(), exp_neval, "qag(f3, 31pt) oscill neval");
       qtest.test_integer(w.size(), exp_last, "qag(f3, 31pt) oscill last");
       qtest.test_integer(status, exp_ier, "qag(f3, 31pt) oscill status");
@@ -1575,7 +1626,8 @@ test_quadrature()
 	}
 
       qtest.test_relative(out.__result, -exp_result, fpeps, "qag(f3, 31pt) reverse result");
-      qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-6L}, "qag(f3, 31pt) reverse abserr");
+      if (is_double)
+	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-6L}, "qag(f3, 31pt) reverse abserr");
       qtest.test_integer(fc.num_evals(), exp_neval, "qag(f3, 31pt) reverse neval");
       qtest.test_integer(w.size(), exp_last, "qag(f3, 31pt) reverse last");
       qtest.test_integer(status, exp_ier, "qag(f3, 31pt) reverse status");
@@ -1695,7 +1747,8 @@ test_quadrature()
 	}
 
       qtest.test_relative(out.__result, exp_result, fpeps, "qag(f16, 61pt) limit result");
-      qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-6L}, "qag(f16, 61pt) limit abserr");
+      if (is_double)
+	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-6L}, "qag(f16, 61pt) limit abserr");
       qtest.test_integer(fc.num_evals(), exp_neval, "qag(f16, 61pt) limit neval");
       qtest.test_integer(w.size(), exp_last, "qag(f16, 61pt) limit last");
       qtest.test_integer(status, exp_ier, "qag(f16, 61pt) limit status");
@@ -1729,7 +1782,8 @@ test_quadrature()
 	}
 
       qtest.test_relative(out.__result, -exp_result, fpeps, "qag(f16, 61pt) reverse result");
-      qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-6L}, "qag(f16, 61pt) reverse abserr");
+      if (is_double)
+	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-6L}, "qag(f16, 61pt) reverse abserr");
       qtest.test_integer(fc.num_evals(), exp_neval, "qag(f16, 61pt) reverse neval");
       qtest.test_integer(w.size(), exp_last, "qag(f16, 61pt) reverse last");
       qtest.test_integer(status, exp_ier, "qag(f16, 61pt) reverse status");
@@ -1778,7 +1832,8 @@ test_quadrature()
       auto out = __gnu_cxx::qags_integrate(w, fc, _Tp{0}, _Tp{1}, epsabs, epsrel);
 
       qtest.test_relative(out.__result, exp_result, fpeps, "qags(f1) smooth result");
-      qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-6L}, "qags(f1) smooth abserr");
+      if (is_double)
+	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-6L}, "qags(f1) smooth abserr");
       qtest.test_integer(fc.num_evals(), exp_neval, "qags(f1) smooth neval");
       qtest.test_integer(w.size(), exp_last, "qags(f1) smooth last");
       qtest.test_integer(status, exp_ier, "qags(f1) smooth status");
@@ -1801,7 +1856,8 @@ test_quadrature()
       out = __gnu_cxx::qags_integrate(w, fc, _Tp{1}, _Tp{0}, epsabs, epsrel);
 
       qtest.test_relative(out.__result, -exp_result, fpeps, "qags(f1) reverse result");
-      qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-6L}, "qags(f1) reverse abserr");
+      if (is_double)
+	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-6L}, "qags(f1) reverse abserr");
       qtest.test_integer(fc.num_evals(), exp_neval, "qags(f1) reverse neval");
       qtest.test_integer(w.size(), exp_last, "qags(f1) reverse last");
       qtest.test_integer(status, exp_ier, "qags(f1) reverse status");
@@ -1854,7 +1910,8 @@ test_quadrature()
       auto out = __gnu_cxx::qags_integrate(w, fc, _Tp{1}, _Tp{1000}, epsabs, epsrel);
 
       qtest.test_relative(out.__result, exp_result, fpeps, "qags(f11) smooth result");
-      qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-3L}, "qags(f11) smooth abserr");
+      if (is_double)
+	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-3L}, "qags(f11) smooth abserr");
       qtest.test_integer(fc.num_evals(), exp_neval, "qags(f11) smooth neval");
       qtest.test_integer(w.size(), exp_last, "qags(f11) smooth last");
       qtest.test_integer(status, exp_ier, "qags(f11) smooth status");
@@ -1877,7 +1934,8 @@ test_quadrature()
       out = __gnu_cxx::qags_integrate(w, fc, _Tp{1000}, _Tp{1}, epsabs, epsrel);
 
       qtest.test_relative(out.__result, -exp_result, fpeps, "qags(f11) reverse result");
-      qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-3L}, "qags(f11) reverse abserr");
+      if (is_double)
+	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-3L}, "qags(f11) reverse abserr");
       qtest.test_integer(fc.num_evals(), exp_neval, "qags(f11) reverse neval");
       qtest.test_integer(w.size(), exp_last, "qags(f11) reverse last");
       qtest.test_integer(status, exp_ier, "qags(f11) reverse status");
@@ -1930,7 +1988,8 @@ test_quadrature()
       auto out = __gnu_cxx::qagiu_integrate(w, fc, _Tp{0}, epsabs, epsrel);
 
       qtest.test_relative(out.__result, exp_result, /*1.0e-14*/epsrel, "qagiu(f455) smooth result");
-      qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-5L}, "qagiu(f455) smooth abserr");
+      if (is_double)
+	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-5L}, "qagiu(f455) smooth abserr");
       qtest.test_integer(fc.num_evals(), exp_neval, "qagiu(f455) smooth neval");
       qtest.test_integer(w.size(), exp_last, "qagiu(f455) smooth last");
       qtest.test_integer(status, exp_ier, "qagiu(f455) smooth status");
@@ -1998,7 +2057,8 @@ test_quadrature()
       auto out = __gnu_cxx::qagiu_integrate(w, fc, _Tp{0}, epsabs, epsrel);
 
       qtest.test_relative(out.__result, exp_result, epsrel, "qagiu(f15) smooth result");
-      qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-5L}, "qagiu(f15) smooth abserr");
+      if (is_double)
+	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-5L}, "qagiu(f15) smooth abserr");
       qtest.test_integer(fc.num_evals(), exp_neval, "qagiu(f15) smooth neval");
       qtest.test_integer(w.size(), exp_last, "qagiu(f15) smooth last");
       qtest.test_integer(status, exp_ier, "qagiu(f15) smooth status");
@@ -2062,7 +2122,8 @@ test_quadrature()
       auto out = __gnu_cxx::qagiu_integrate(w, fc, _Tp{99.9L}, epsabs, epsrel);
 
       qtest.test_relative(out.__result, exp_result, _Tp{1.0e-14L}, "qagiu(f16) smooth result");
-      qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-5L}, "qagiu(f16) smooth abserr");
+      if (is_double)
+	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-5L}, "qagiu(f16) smooth abserr");
       qtest.test_integer(fc.num_evals(), exp_neval, "qagiu(f16) smooth neval");
       qtest.test_integer(w.size(), exp_last, "qagiu(f16) smooth last");
       qtest.test_integer(status, exp_ier, "qagiu(f16) smooth status");
@@ -2125,7 +2186,8 @@ test_quadrature()
       auto out = __gnu_cxx::qagis_integrate(w, fc, epsabs, epsrel);
 
       qtest.test_relative(out.__result, exp_result, _Tp{1.0e-14L}, "qagi(myfn1) smooth result");
-      qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-5L}, "qagi(myfn1) smooth abserr");
+      if (is_double)
+	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-5L}, "qagi(myfn1) smooth abserr");
       qtest.test_integer(fc.num_evals(), exp_neval, "qagi(myfn1) smooth neval");
       qtest.test_integer(w.size(), exp_last, "qagi(myfn1) smooth last");
       qtest.test_integer(status, exp_ier, "qagi(myfn1) smooth status");
@@ -2188,7 +2250,8 @@ test_quadrature()
       auto out = __gnu_cxx::qagil_integrate(w, fc, _Tp{1}, epsabs, epsrel);
 
       qtest.test_relative(out.__result, exp_result, _Tp{1.0e-14L}, "qagil(myfn2) smooth result");
-      qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-5L}, "qagil(myfn2) smooth abserr");
+      if (is_double)
+	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-5L}, "qagil(myfn2) smooth abserr");
       qtest.test_integer(fc.num_evals(), exp_neval, "qagil(myfn2) smooth neval");
       qtest.test_integer(w.size(), exp_last, "qagil(myfn2) smooth last");
       qtest.test_integer(status, exp_ier, "qagil(myfn2) smooth status");
@@ -2267,7 +2330,8 @@ test_quadrature()
       auto out = __gnu_cxx::qagp_integrate(w, fc, pts, epsabs, epsrel);
 
       qtest.test_relative(out.__result, exp_result, _Tp{1.0e-14L}, "qagp(f454) singular result");
-      qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-5L}, "qagp(f454) singular abserr");
+      if (is_double)
+	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-5L}, "qagp(f454) singular abserr");
       qtest.test_integer(fc.num_evals(), exp_neval, "qagp(f454) singular neval");
       qtest.test_integer(w.size(), exp_last, "qagp(f454) singular last");
       qtest.test_integer(status, exp_ier, "qagp(f454) singular status");
@@ -2331,7 +2395,8 @@ test_quadrature()
       auto out = __gnu_cxx::qawc_integrate(w, fc, _Tp{-1}, _Tp{5}, _Tp{0}, epsabs, epsrel);
 
       qtest.test_relative(out.__result, exp_result, _Tp{1.0e-14L}, "qawc(f459) result");
-      qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-6L}, "qawc(f459) abserr");
+      if (is_double)
+	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-6L}, "qawc(f459) abserr");
       qtest.test_integer(fc.num_evals(), exp_neval, "qawc(f459) neval");
       qtest.test_integer(w.size(), exp_last, "qawc(f459) last");
       qtest.test_integer(status, exp_ier, "qawc(f459) status");
@@ -2517,7 +2582,8 @@ test_quadrature()
       auto out = __gnu_cxx::qawo_integrate(w, wo, fc, _Tp{0}, epsabs, epsrel);
 
       qtest.test_relative(out.__result, exp_result, _Tp{1.0e-14L}, "qawo(f456) result");
-      qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-3L}, "qawo(f456) abserr");
+      if (is_double)
+	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-3L}, "qawo(f456) abserr");
       qtest.test_integer(fc.num_evals(), exp_neval, "qawo(f456) neval");
       qtest.test_integer(w.size(), exp_last, "qawo(f456) last");
       qtest.test_integer(status, exp_ier, "qawo(f456) status");
@@ -2543,7 +2609,8 @@ test_quadrature()
       out = qawo_integrate(w, wo, fc, _Tp{1}, epsabs, epsrel);
 
       qtest.test_relative(out.__result, -exp_result, _Tp{1.0e-14L}, "qawo(f456) rev result");
-      qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-3L}, "qawo(f456) rev abserr");
+      if (is_double)
+	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-3L}, "qawo(f456) rev abserr");
       qtest.test_integer(fc.num_evals(), exp_neval, "qawo(f456) rev neval");
       qtest.test_integer(w.size(), exp_last, "qawo(f456) rev last");
       qtest.test_integer(status, exp_ier, "qawo(f456) rev status");
@@ -2602,7 +2669,8 @@ test_quadrature()
       auto out = __gnu_cxx::qawf_integrate(w, wc, wo, fc, epsabs, epsrel);
 
       qtest.test_relative(out.__result, exp_result, _Tp{1.0e-14L}, "qawf(f457) result");
-      qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-3L}, "qawf(f457) abserr");
+      if (is_double)
+	qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-3L}, "qawf(f457) abserr");
       qtest.test_integer(fc.num_evals(), exp_neval, "qawf(f457) neval");
       qtest.test_integer(w.size(), exp_last, "qawf(f457) last");
       qtest.test_integer(status, exp_ier, "qawf(f457) status");
@@ -2784,7 +2852,6 @@ test_quadrature()
       {
 	{_Tp{0}, _Tp{2}}
       };
-
 
       const _Tp
       e2[2][2]
