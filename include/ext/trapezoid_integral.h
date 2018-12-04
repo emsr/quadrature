@@ -67,7 +67,7 @@ namespace __gnu_cxx
     };
 
   /**
-   * 
+   * A globally adaptive recursive trapezoid integrator.
    */
   template<typename _Tp, typename _FuncTp>
     class trapezoid_integral
@@ -125,10 +125,9 @@ namespace __gnu_cxx
     };
 
   template<typename _Tp, typename _FuncTp>
-    adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    inline adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
     integrate_trapezoid(_FuncTp __func, _Tp __a, _Tp __b,
-			_Tp __max_abs_err, _Tp __max_rel_err,
-			int __max_iter)
+			_Tp __max_abs_err, _Tp __max_rel_err, int __max_iter)
     {
       trapezoid_integral<_Tp, _FuncTp>
 	__trapi(__func, __a, __b, __max_abs_err, __max_rel_err, __max_iter);
