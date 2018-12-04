@@ -66,6 +66,7 @@ _GLIBCXX_END_NAMESPACE_VERSION
 
 #include "trapezoid_integral.h"
 #include "midpoint_integral.h"
+#include "simpson_integral.h"
 #include "gauss_quadrature.h"
 
 namespace __gnu_cxx _GLIBCXX_VISIBILITY(default)
@@ -566,6 +567,7 @@ _GLIBCXX_END_NAMESPACE_VERSION
 
 #include "trapezoid_integral.tcc"
 #include "midpoint_integral.tcc"
+#include "simpson_integral.tcc"
 #include "gauss_kronrod_integral.tcc"
 #include "qag_integrate.tcc"
 #include "qags_integrate.tcc"

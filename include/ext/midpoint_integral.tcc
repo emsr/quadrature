@@ -74,33 +74,32 @@ namespace __gnu_cxx
     typename midpoint_integral< _Tp, _FuncTp>::_AreaTp
     midpoint_integral< _Tp, _FuncTp>::_M_step()
     {
+      const auto __a = this->_M_lower_lim;
+      const auto __b = this->_M_upper_lim;
       if (this->_M_iter == 0)
 	{
 	  this->_M_iter = 1;
 	  this->_M_pow3 = 1;
-	  auto __x = (this->_M_lower_lim + this->_M_upper_lim) / _Tp{2};
-	  this->_M_result = (this->_M_upper_lim - this->_M_lower_lim)
-			  * this->_M_fun(__x);
+	  const auto __m = (__a + __b) / _Tp{2};
+	  this->_M_result = (__b - __a) * this->_M_fun(__m);
 	}
       else
 	{
 	  ++this->_M_iter;
-	  const auto __del = (this->_M_upper_lim - this->_M_lower_lim)
-			   / _Tp(3 * this->_M_pow3);
+	  const auto __del = (__b - __a) / _Tp(3 * this->_M_pow3);
 	  if (std::abs(__del) < _S_min_delta)
 	    return this->_M_result;
 	  const auto __ddel = _Tp{2} * __del;
-	  auto __x = this->_M_lower_lim + __del / _Tp{2};
+	  auto __m = __a + __del / _Tp{2};
 	  auto __sum = _AreaTp{};
 	  for (auto __j = 1u; __j <= this->_M_pow3; ++__j)
 	    {
-	      __sum += this->_M_fun(__x);
-	      __x += __ddel;
-	      __sum += this->_M_fun(__x);
-	      __x += __del;
+	      __sum += this->_M_fun(__m);
+	      __m += __ddel;
+	      __sum += this->_M_fun(__m);
+	      __m += __del;
 	    }
-	  this->_M_result += (this->_M_upper_lim - this->_M_lower_lim) * __sum
-			   / _Tp(this->_M_pow3);
+	  this->_M_result += (__b - __a) * __sum / _Tp(this->_M_pow3);
 	  this->_M_result /= _Tp{3};
 	  this->_M_pow3 *= 3;
 	}

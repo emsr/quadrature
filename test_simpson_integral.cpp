@@ -1,12 +1,11 @@
-/*
-g++ -std=c++2a -I../polynomial -I../include/ext -o test_simpson_integral test_simpson_integral.cpp
-*/
 
 #include <iostream>
 #include <iomanip>
-#include <ext/cmath>
+#include <cmath>
+#include <complex>
+#include "bits/complex_util.h"
 
-#include "simpson_integral.h"
+#include "ext/integration.h"
 #include "ext/polynomial.h"
 
 template<typename Tp>
@@ -31,55 +30,56 @@ template<typename Tp>
     auto one = [](Tp) ->Tp { return Tp{1}; };
     auto ex = [](Tp x) ->Tp { return x; };
     __gnu_cxx::_Polynomial<Tp> poly1({1.0l, -0.5l, -3.5l, 2.0l});
+    auto chank2 = [](Tp x) ->std::complex<Tp> { return __gnu_cxx::cyl_hankel_2(Tp{1}, x); };
 
-    auto fun = [](Tp x) -> Tp { return std::sin(x); };
-    using fun_t = decltype(fun);
-    __gnu_ext::simpson_integral<fun_t, Tp> mq(fun, Tp{0}, PI, Tp{0.0000001});
+    auto a = Tp{0};
+    auto b = Tp(PI);
+    auto abs_err = Tp{0};
+    auto rel_err = Tp{0.0000000001};
+
+    auto sine = [](Tp x) -> Tp { return std::sin(x); };
+    __gnu_cxx::simpson_integral<Tp, decltype(sine)> mq(sine, a, b, abs_err, rel_err);
     std::cout << mq() << '\n';
 
-    Tp a = Tp{0};
-    Tp b = PI;
-    Tp err = Tp{0.0000000001};
-
-    __gnu_ext::simpson_integral<decltype(one), Tp> t0(one, a, b, err);
-    Tp a0 = t0();
-    Tp e0 = b - a;
+    __gnu_cxx::simpson_integral<Tp, decltype(one)> t0(one, a, b, abs_err, rel_err);
+    auto a0 = t0();
+    auto e0 = b - a;
     std::cout << "one     : "
 	      << ' ' << std::setw(w) << a0
 	      << ' ' << std::setw(w) << e0
 	      << ' ' << std::setw(w) << a0 - e0
 	      << ' ' << std::setw(w) << t0.abs_error() << '\n';
 
-    __gnu_ext::simpson_integral<decltype(ex), Tp> t1(ex, a, b, err);
-    Tp a1 = t1();
-    Tp e1 = (b * b - a * a) / Tp{2};
+    __gnu_cxx::simpson_integral<Tp, decltype(ex)> t1(ex, a, b, abs_err, rel_err);
+    auto a1 = t1();
+    auto e1 = (b * b - a * a) / Tp{2};
     std::cout << "ex      : "
 	      << ' ' << std::setw(w) << a1
 	      << ' ' << std::setw(w) << e1
 	      << ' ' << std::setw(w) << a1 - e1
 	      << ' ' << std::setw(w) << t1.abs_error() << '\n';
 
-    __gnu_ext::simpson_integral<decltype(cos2), Tp> t2(cos2, a, b, err);
-    Tp a2 = t2();
-    Tp e2 = PI / Tp{2};
+    __gnu_cxx::simpson_integral<Tp, decltype(cos2)> t2(cos2, a, b, abs_err, rel_err);
+    auto a2 = t2();
+    auto e2 = PI / Tp{2};
     std::cout << "cos2    : "
 	      << ' ' << std::setw(w) << a2
 	      << ' ' << std::setw(w) << e2
 	      << ' ' << std::setw(w) << a2 - e2
 	      << ' ' << std::setw(w) << t2.abs_error() << '\n';
 
-    __gnu_ext::simpson_integral<decltype(sin2), Tp> t3(sin2, a, b, err);
-    Tp a3 = t3();
-    Tp e3 = PI / Tp{2};
+    __gnu_cxx::simpson_integral<Tp, decltype(sin2)> t3(sin2, a, b, abs_err, rel_err);
+    auto a3 = t3();
+    auto e3 = PI / Tp{2};
     std::cout << "sin2    : "
 	      << ' ' << std::setw(w) << a3
 	      << ' ' << std::setw(w) << e3
 	      << ' ' << std::setw(w) << a3 - e3
 	      << ' ' << std::setw(w) << t3.abs_error() << '\n';
 
-    __gnu_ext::simpson_integral<decltype(j1), Tp> t4(j1, a, b, err);
-    Tp a4 = t4();
-    Tp e4 = std::cyl_bessel_j(Tp{0}, Tp{0}) - std::cyl_bessel_j(Tp{0}, PI);
+    __gnu_cxx::simpson_integral<Tp, decltype(j1)> t4(j1, a, b, abs_err, rel_err);
+    auto a4 = t4();
+    auto e4 = std::cyl_bessel_j(Tp{0}, a) - std::cyl_bessel_j(Tp{0}, b);
     std::cout << "j1      : "
 	      << ' ' << std::setw(w) << a4
 	      << ' ' << std::setw(w) << e4
@@ -88,9 +88,9 @@ template<typename Tp>
 
     a = Tp{0};
     b = Tp{10} * PI;
-    __gnu_ext::simpson_integral<decltype(foo), Tp> t5(foo, a, b, err);
-    Tp a5 = t5();
-    Tp e5 = Tp{2} * (Tp{1} + b) * std::exp(-b / Tp{2})
+    __gnu_cxx::simpson_integral<Tp, decltype(foo)> t5(foo, a, b, abs_err, rel_err);
+    auto a5 = t5();
+    auto e5 = Tp{2} * (Tp{1} + b) * std::exp(-b / Tp{2})
 	  - Tp{2} * (Tp{1} + a) * std::exp(-a / Tp{2});
     std::cout << "foo     : "
 	      << ' ' << std::setw(w) << a5
@@ -98,9 +98,9 @@ template<typename Tp>
 	      << ' ' << std::setw(w) << a5 - e5
 	      << ' ' << std::setw(w) << t5.abs_error() << '\n';
 
-    __gnu_ext::simpson_integral<decltype(foonum), Tp> t5n(foonum, a, b, err);
-    Tp a5n = t5n();
-    Tp e5n = b * (Tp{1} - b / Tp{2})
+    __gnu_cxx::simpson_integral<Tp, decltype(foonum)> t5n(foonum, a, b, abs_err, rel_err);
+    auto a5n = t5n();
+    auto e5n = b * (Tp{1} - b / Tp{2})
 	   - a * (Tp{1} - a / Tp{2});
     std::cout << "foonum  : "
 	      << ' ' << std::setw(w) << a5n
@@ -108,9 +108,9 @@ template<typename Tp>
 	      << ' ' << std::setw(w) << a5n - e5n
 	      << ' ' << std::setw(w) << t5n.abs_error() << '\n';
 
-    __gnu_ext::simpson_integral<__gnu_cxx::_Polynomial<Tp>, Tp> t6(poly1, a, b, err);
-    Tp a6 = t6();
-    Tp e6 = poly1.integral()(b) - poly1.integral()(a);
+    __gnu_cxx::simpson_integral<Tp, __gnu_cxx::_Polynomial<Tp>> t6(poly1, a, b, abs_err, rel_err);
+    auto a6 = t6();
+    auto e6 = poly1.integral()(b) - poly1.integral()(a);
     std::cout << "poly1   : "
 	      << ' ' << std::setw(w) << a6
 	      << ' ' << std::setw(w) << e6
@@ -119,41 +119,52 @@ template<typename Tp>
 
     a = Tp{0};
     b = PI;
-    __gnu_ext::simpson_integral<decltype(funk1), Tp> t7(funk1, a, b, err);
-    Tp a7 = t7();
-    Tp e7 = Tp{0};
+    __gnu_cxx::simpson_integral<Tp, decltype(funk1)> t7(funk1, a, b, abs_err, rel_err);
+    auto a7 = t7();
+    auto e7 = Tp{0};
     std::cout << "funk1   : "
 	      << ' ' << std::setw(w) << a7
 	      << ' ' << std::setw(w) << e7
 	      << ' ' << std::setw(w) << a7 - e7
 	      << ' ' << std::setw(w) << t7.abs_error() << '\n';
 
-    __gnu_ext::simpson_integral<decltype(funk1num), Tp> t7n(funk1num, a, b, err);
-    Tp a7n = t7n();
-    Tp e7n = Tp{0};
+    __gnu_cxx::simpson_integral<Tp, decltype(funk1num)> t7n(funk1num, a, b, abs_err, rel_err);
+    auto a7n = t7n();
+    auto e7n = Tp{0};
     std::cout << "funk1num: "
 	      << ' ' << std::setw(w) << a7n
 	      << ' ' << std::setw(w) << e7n
 	      << ' ' << std::setw(w) << a7n - e7n
 	      << ' ' << std::setw(w) << t7n.abs_error() << '\n';
 
-    __gnu_ext::simpson_integral<decltype(funk2), Tp> t8(funk2, a, b, err);
-    Tp a8 = t8();
-    Tp e8 = Tp{0};
+    __gnu_cxx::simpson_integral<Tp, decltype(funk2)> t8(funk2, a, b, abs_err, rel_err);
+    auto a8 = t8();
+    auto e8 = Tp{0};
     std::cout << "funk2   : "
 	      << ' ' << std::setw(w) << a8
 	      << ' ' << std::setw(w) << e8
 	      << ' ' << std::setw(w) << a8 - e8
 	      << ' ' << std::setw(w) << t8.abs_error() << '\n';
 
-    __gnu_ext::simpson_integral<decltype(funk2num), Tp> t8n(funk2num, a, b, err);
-    Tp a8n = t8n();
+    __gnu_cxx::simpson_integral<Tp, decltype(funk2num)> t8n(funk2num, a, b, abs_err, rel_err);
+    auto a8n = t8n();
     auto e8n = Tp{2} * (b - a) - std::cos(b) + std::cos(a);
     std::cout << "funk2num: "
 	      << ' ' << std::setw(w) << a8n
 	      << ' ' << std::setw(w) << e8n
 	      << ' ' << std::setw(w) << a8n - e8n
 	      << ' ' << std::setw(w) << t8n.abs_error() << '\n';
+
+    __gnu_cxx::simpson_integral<Tp, decltype(chank2)> thank2(chank2, b / Tp{2}, b, abs_err, rel_err);
+    auto ahank2 = thank2();
+    auto reehank2 = std::cyl_bessel_j(Tp{0}, b / Tp{2}) - std::cyl_bessel_j(Tp{0}, b);
+    auto imehank2 = std::cyl_neumann(Tp{0}, b / Tp{2}) - std::cyl_neumann(Tp{0}, b);
+    auto ehank2 = std::complex(reehank2, -imehank2);
+    std::cout << "cyl_hankel_2: "
+	      << ' ' << std::setw(w) << ahank2
+	      << ' ' << std::setw(w) << ehank2
+	      << ' ' << std::setw(w) << ahank2 - ehank2
+	      << ' ' << std::setw(w) << thank2.abs_error() << '\n';
   }
 
 int

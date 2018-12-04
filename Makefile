@@ -93,6 +93,7 @@ BINS = \
   $(BIN_DIR)/test_quadrature \
   $(BIN_DIR)/test_trapezoid_integral \
   $(BIN_DIR)/test_midpoint_integral \
+  $(BIN_DIR)/test_simpson_integral \
   $(BIN_DIR)/test_double_exp_integrate \
   $(BIN_DIR)/test_gauss_hermite \
   $(BIN_DIR)/test_gauss_laguerre \
@@ -143,6 +144,7 @@ test: $(OUTPUT_DIR) $(BIN_DIR)/test_quadrature
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_double_exp_integrate > $(OUTPUT_DIR)/test_double_exp_integrate.txt 2> $(OUTPUT_DIR)/test_double_exp_integrate.err
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_trapezoid_integral > $(OUTPUT_DIR)/test_trapezoid_integral.txt 2> $(OUTPUT_DIR)/test_trapezoid_integral.err
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_midpoint_integral > $(OUTPUT_DIR)/test_midpoint_integral.txt 2> $(OUTPUT_DIR)/test_midpoint_integral.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_simpson_integral > $(OUTPUT_DIR)/test_simpson_integral.txt 2> $(OUTPUT_DIR)/test_simpson_integral.err
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_phase_iterator > $(OUTPUT_DIR)/test_phase_iterator.txt 2> $(OUTPUT_DIR)/test_phase_iterator.err
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_mapper > $(OUTPUT_DIR)/test_mapper.txt 2> $(OUTPUT_DIR)/test_mapper.err
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_quadrature > $(OUTPUT_DIR)/test_quadrature.txt 2> $(OUTPUT_DIR)/test_quadrature.err
@@ -191,6 +193,9 @@ $(BIN_DIR)/test_simpson_integral: $(BIN_DIR) test_simpson_integral.cpp $(INCS)
 
 $(BIN_DIR)/test_midpoint_integral: $(BIN_DIR) test_midpoint_integral.cpp $(INCS)
 	$(CXXMAX) $(INCLUDES) -I../polynomial -o $(BIN_DIR)/test_midpoint_integral test_midpoint_integral.cpp -lquadmath
+
+$(BIN_DIR)/test_simpson_integral: $(BIN_DIR) test_simpson_integral.cpp $(INCS)
+	$(CXXMAX) $(INCLUDES) -I../polynomial -o $(BIN_DIR)/test_simpson_integral test_simpson_integral.cpp -lquadmath
 
 $(BIN_DIR)/test_double_exp_integrate: $(BIN_DIR) test_double_exp_integrate.cpp $(INCS)
 	$(CXXMAX) $(INCLUDES) -o $(BIN_DIR)/test_double_exp_integrate test_double_exp_integrate.cpp -lquadmath
