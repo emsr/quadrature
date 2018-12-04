@@ -1,4 +1,3 @@
-
 /* quadrature/simpson_integral.h
  *
  * Copyright (C) 2017-2018 Free Software Foundation, Inc.
@@ -21,44 +20,120 @@
 #ifndef SIMPSON_INTEGRAL_H
 #define SIMPSON_INTEGRAL_H 1
 
-#include "trapezoid_integral.h"
+#include <type_traits>
+#include <cstddef>
+#include <limits>
 
 namespace __gnu_cxx
 {
 
-template<typename _Func, typename _Tp>
-  class simpson_integral : trapezoid_integral<_Func, _Tp>
-  {
-  public:
-
-    simpson_integral(_Func __fun, _Tp __a, _Tp __b, _Tp __tol)
-    : trapezoid_integral(__fun, __a, __b, __tol)
-    { }
-
-    _Tp
-    operator()()
+  /**
+   * 
+   */
+  template<typename _Tp, typename _FuncTp>
+    class composite_simpson_integral
     {
-      auto __trap_prev = this->_M_step();
-      auto __sum_prev = __trap_prev;
-      for (std::size_t __j = 1; __j <= _S_max_iter; ++__j)
+    public:
+
+      using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
+      using _AreaTp = decltype(_RetTp{} * _Tp{});
+      using _AbsAreaTp = decltype(std::abs(_AreaTp{}));
+
+      composite_simpson_integral(_FuncTp __fun, _Tp __a, _Tp __b,
+				   std::size_t __num_segs)
+      : _M_fun(__fun), _M_lower_lim(__a), _M_upper_lim(__b),
+	_M_num_segs(__num_segs), _M_result()
+      { }
+
+      _AreaTp operator()();
+
+      template<typename _FuncTp2>
+	fixed_integral_t<_Tp, std::invoke_result_t<_FuncTp2, _Tp>>
+	integrate(_FuncTp2 __fun, _Tp __a, _Tp __b)
 	{
-          const auto __trap = this->_M_step();
-	  const auto __sum = (_Tp{4} * __trap - __trap_prev) / _Tp{3};
-	  this->_M_abs_error = std::abs(__sum - __sum_prev);
-	  if (this->_M_abs_error < this->_M_rel_tol * std::abs(__sum))
-	    return __sum;
-	  if (__j > 6
-		&&  std::abs(__sum) < this->_M_rel_tol
-		&& std::abs(__sum_prev) < this->_M_rel_tol  )
-	    return __sum;
-	  __sum_prev = __sum;
-	  __trap_prev = __trap;
+	  composite_simpson_integral<_FuncTp2, _Tp>
+	    __trapi(__fun, __a, __b, this->_M_num_segments);
+	  return {__trapi()};
 	}
 
-      return __sum_prev;
-    }
+    private:
 
-  };
+      _FuncTp _M_fun;
+      _Tp _M_lower_lim;
+      _Tp _M_upper_lim;
+      std::size_t _M_num_segs;
+      _AreaTp _M_result;
+      _AreaTp _M_asymp_error;
+    };
+
+  /**
+   * A globally adaptive recursive Simpson integrator.
+   */
+  template<typename _Tp, typename _FuncTp>
+    class simpson_integral
+    {
+    public:
+
+      using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
+      using _AreaTp = decltype(_RetTp{} * _Tp{});
+      using _AbsAreaTp = decltype(std::abs(_AreaTp{}));
+
+      simpson_integral(_FuncTp __fun, _Tp __a, _Tp __b,
+		       _Tp __abs_tol, _Tp __rel_tol)
+      : _M_fun(__fun), _M_lower_lim(__a), _M_upper_lim(__b),
+	_M_abs_tol(std::abs(__abs_tol)), _M_rel_tol(std::abs(__rel_tol)),
+	_M_result(), _M_abs_error()
+      { }
+
+      _AreaTp operator()();
+
+      _AbsAreaTp abs_error() const
+      { return this->_M_abs_error; }
+
+      template<typename _FuncTp2>
+	adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp2, _Tp>>
+	integrate(_FuncTp2 __fun, _Tp __a, _Tp __b)
+	{
+	  simpson_integral<_FuncTp2, _Tp>
+	    __simpi(__fun, __a, __b,
+		    this->_M_abs_tol, this->_M_rel_tol);
+	  return {__simpi(), __simpi.abs_error() };
+	}
+
+      template<typename _FuncTp2>
+	adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp2, _Tp>>
+	operator()(_FuncTp2 __fun, _Tp __a, _Tp __b)
+	{ return this->integrate(__fun, __a, __b); }
+
+    private:
+
+      static constexpr auto _S_max_iter = std::numeric_limits<_Tp>::digits / 2;
+      static constexpr auto _S_min_delta
+			   = std::sqrt(std::numeric_limits<_Tp>::epsilon());
+
+      _AreaTp _M_step();
+
+      _FuncTp _M_fun;
+      _Tp _M_lower_lim;
+      _Tp _M_upper_lim;
+      _AbsAreaTp _M_abs_tol;
+      _AbsAreaTp _M_rel_tol;
+      _AreaTp _M_result;
+      _AbsAreaTp _M_abs_error;
+      std::size_t _M_iter = 0;
+      std::size_t _M_pow3 = 0;
+
+    };
+
+  template<typename _Tp, typename _FuncTp>
+    inline adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    integrate_simpson(_FuncTp __func, _Tp __a, _Tp __b,
+		      _Tp __max_abs_err, _Tp __max_rel_err, int __max_iter)
+    {
+      simpson_integral<_Tp, _FuncTp>
+	__simpi(__func, __a, __b, __max_abs_err, __max_rel_err, __max_iter);
+      return {__simpi(), __simpi.abs_error()};
+    }
 
 } // namespace __gnu_cxx
 

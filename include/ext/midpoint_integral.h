@@ -27,6 +27,48 @@
 namespace __gnu_cxx
 {
 
+  /**
+   * 
+   */
+  template<typename _Tp, typename _FuncTp>
+    class composite_midpoint_integral
+    {
+    public:
+
+      using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
+      using _AreaTp = decltype(_RetTp{} * _Tp{});
+      using _AbsAreaTp = decltype(std::abs(_AreaTp{}));
+
+      composite_midpoint_integral(_FuncTp __fun, _Tp __a, _Tp __b,
+				   std::size_t __num_segs)
+      : _M_fun(__fun), _M_lower_lim(__a), _M_upper_lim(__b),
+	_M_num_segs(__num_segs), _M_result()
+      { }
+
+      _AreaTp operator()();
+
+      template<typename _FuncTp2>
+	fixed_integral_t<_Tp, std::invoke_result_t<_FuncTp2, _Tp>>
+	integrate(_FuncTp2 __fun, _Tp __a, _Tp __b)
+	{
+	  composite_midpoint_integral<_FuncTp2, _Tp>
+	    __trapi(__fun, __a, __b, this->_M_num_segments);
+	  return {__trapi()};
+	}
+
+    private:
+
+      _FuncTp _M_fun;
+      _Tp _M_lower_lim;
+      _Tp _M_upper_lim;
+      std::size_t _M_num_segs;
+      _AreaTp _M_result;
+      _AreaTp _M_asymp_error;
+    };
+
+  /**
+   * A globally adaptive recursive midpoint integrator.
+   */
   template<typename _Tp, typename _FuncTp>
     class midpoint_integral
     {
@@ -83,10 +125,9 @@ namespace __gnu_cxx
     };
 
   template<typename _Tp, typename _FuncTp>
-    adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    inline adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
     integrate_midpoint(_FuncTp __func, _Tp __a, _Tp __b,
-			_Tp __max_abs_err, _Tp __max_rel_err,
-			int __max_iter)
+			_Tp __max_abs_err, _Tp __max_rel_err, int __max_iter)
     {
       midpoint_integral<_Tp, _FuncTp>
 	__mpi(__func, __a, __b, __max_abs_err, __max_rel_err, __max_iter);

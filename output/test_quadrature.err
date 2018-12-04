@@ -12,7 +12,7 @@ ERROR: qng_integrate: Failed to reach tolerance with highest-order rule       st
 Test float
 =====================================
 ERROR: qag_integrate: Tolerance cannot be achieved with given absolute (0) and relative (1e-10) error limits.
-ERROR: qag_integrate: cannot reach tolerance because of roundoff error on first attempt       status = 2       result = 0.0771605       abserr = 4.59912e-07
+ERROR: qag_integrate: Cannot reach tolerance because of roundoff error       status = 2       result = 0.0771605       abserr = 4.59912e-07
 ERROR: qags_integrate: Tolerance cannot be achieved with given absolute (0) and relative (1e-10) error limits.
 ERROR: qags_integrate: Cannot reach tolerance because of roundoff error       status = 2       result = -5908.76       abserr = 0.0354686
 ERROR: qags_integrate: Tolerance cannot be achieved with given absolute (0) and relative (1e-07) error limits.
