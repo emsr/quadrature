@@ -86,6 +86,6 @@ namespace __gnu_cxx
 
 } // namespace __gnu_cxx
 
-#include "extrapolation_table.tcc"
+#include <ext/extrapolation_table.tcc>
 
 #endif // EXTRAPOLATION_TABLE_H

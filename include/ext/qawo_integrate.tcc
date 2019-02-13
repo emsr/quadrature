@@ -29,7 +29,7 @@
 
 #include <cmath>
 
-#include "oscillatory_integration_table.h"
+#include <ext/oscillatory_integration_table.h>
 
 namespace __gnu_cxx
 {

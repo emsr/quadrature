@@ -2803,6 +2803,6 @@ namespace __gnu_cxx
 
 } // namespace __gnu_cxx
 
-#include "gauss_legendre_table.tcc"
+#include <ext/gauss_legendre_table.tcc>
 
 #endif // GAUSS_LEGENDRE_TABLE_H

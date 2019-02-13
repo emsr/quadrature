@@ -32,7 +32,7 @@
 #include <string>
 #include <stdexcept>
 
-#include "integration_workspace.h"
+#include <ext/integration_workspace.h>
 
 namespace __gnu_cxx
 {

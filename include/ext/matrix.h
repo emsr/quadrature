@@ -38,6 +38,6 @@ namespace __gnu_cxx
 
 } // namespace __gnu_cxx
 
-#include "matrix.tcc"
+#include <ext/matrix.tcc>
 
 #endif // MATRIX_H

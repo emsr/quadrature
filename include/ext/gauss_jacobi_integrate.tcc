@@ -30,8 +30,8 @@
 #include <cstdio>
 #include <limits>
 
-#include "jacobi.h"
-#include "integration_error.h"
+#include <ext/jacobi.h>
+#include <ext/integration_error.h>
 
 /// Admissible convergence error
 template<typename _Tp>

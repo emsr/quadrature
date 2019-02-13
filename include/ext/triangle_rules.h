@@ -157,6 +157,6 @@ namespace __gnu_cxx
 
 } // namespace __gnu_cxx
 
-//#include "triangle_rules.tcc"
+//#include <ext/triangle_rules.tcc>
 
 #endif // TRIANGLE_RULES_H

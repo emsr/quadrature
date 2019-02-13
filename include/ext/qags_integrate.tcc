@@ -33,10 +33,10 @@
 #include <tuple>
 #include <stdexcept>
 
-#include "integration_error.h"
-#include "integration_transform.h"
-#include "integration_workspace.h"
-#include "extrapolation_table.h"
+#include <ext/integration_error.h>
+#include <ext/integration_transform.h>
+#include <ext/integration_workspace.h>
+#include <ext/extrapolation_table.h>
 
 namespace __gnu_cxx
 {

@@ -21,7 +21,7 @@
 #ifndef GLFIXED_INTEGRATE_TCC
 #define GLFIXED_INTEGRATE_TCC 1
 
-#include "gauss_legendre_table.h"
+#include <ext/gauss_legendre_table.h>
 
 namespace __gnu_cxx
 {

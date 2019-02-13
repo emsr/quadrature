@@ -319,6 +319,6 @@ namespace __gnu_cxx
 
 } // namespace __gnu_cxx
 
-#include "integration_workspace.tcc"
+#include <ext/integration_workspace.tcc>
 
 #endif // INTEGRATION_WORKSPACE_H

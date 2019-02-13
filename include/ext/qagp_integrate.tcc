@@ -30,8 +30,8 @@
 
 #include <tuple>
 
-#include "integration_workspace.h"
-#include "extrapolation_table.h"
+#include <ext/integration_workspace.h>
+#include <ext/extrapolation_table.h>
 
 namespace __gnu_cxx
 {

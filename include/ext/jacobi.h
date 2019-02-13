@@ -201,8 +201,7 @@ template<typename _Tp>
     int interpmat_grjp();
   };
 
-#include "gauss_jacobi_interface.tcc"
-
-#include "gauss_jacobi_integrate.tcc"
+#include <ext/gauss_jacobi_interface.tcc>
+#include <ext/gauss_jacobi_integrate.tcc>
 
 #endif /* __JACOBI_H__ */

@@ -24,8 +24,8 @@
 
 #include <cstdlib>
 #include <numeric>
-#include "jacobi.h"
-#include "integration_error.h"
+#include <ext/jacobi.h>
+#include <ext/integration_error.h>
 
 /*
 //  Y = alpha A X + beta Y

@@ -29,8 +29,8 @@
 
 #include <array>
 
-#include "integration_workspace.h"
-#include "qaws_integration_table.h"
+#include <ext/integration_workspace.h>
+#include <ext/qaws_integration_table.h>
 
 namespace __gnu_cxx
 {

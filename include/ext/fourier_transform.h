@@ -272,6 +272,6 @@ namespace __gnu_cxx
 
 } // namespace __gnu_cxx
 
-#include "fourier_transform.tcc"
+#include <ext/fourier_transform.tcc>
 
 #endif // FOURIER_TRANSFORM_H

@@ -28,7 +28,7 @@
 #include <iostream>
 #include <iomanip>
 
-#include "integration_error.h"
+#include <ext/integration_error.h>
 
 namespace __gnu_cxx
 {

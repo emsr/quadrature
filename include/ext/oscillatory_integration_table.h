@@ -113,6 +113,6 @@ namespace __gnu_cxx
 
 } // namespace __gnu_cxx
 
-#include "oscillatory_integration_table.tcc"
+#include <ext/oscillatory_integration_table.tcc>
 
 #endif // OSCILLATORY_INTEGRATION_TABLE_H

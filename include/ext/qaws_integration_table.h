@@ -52,6 +52,6 @@ namespace __gnu_cxx
 
 } // namespace __gnu_cxx
 
-#include "qaws_integration_table.tcc"
+#include <ext/qaws_integration_table.tcc>
 
 #endif // QAWS_INTEGRATION_TABLE_H

@@ -26,8 +26,8 @@
 #ifndef CQUAD_INTEGRATE_TCC
 #define CQUAD_INTEGRATE_TCC 1
 
-#include "cquad_const.tcc"
-#include "cquad_workspace.h"
+#include <ext/cquad_const.tcc>
+#include <ext/cquad_workspace.h>
 
 namespace __gnu_cxx
 {

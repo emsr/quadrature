@@ -501,19 +501,19 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
 _GLIBCXX_END_NAMESPACE_VERSION
 } // namespace __gnu_cxx
 
-#include "gauss_kronrod_integral.tcc"
-#include "qag_integrate.tcc"
-#include "qags_integrate.tcc"
-#include "qng_integrate.tcc"
-#include "qagp_integrate.tcc"
-#include "qcheb_integrate.tcc"
-#include "qawc_integrate.tcc"
-#include "qaws_integrate.tcc"
-#include "qawo_integrate.tcc"
-#include "qawf_integrate.tcc"
-#include "glfixed_integrate.tcc"
-#include "cquad_integrate.tcc"
+#include <ext/gauss_kronrod_integral.tcc>
+#include <ext/qag_integrate.tcc>
+#include <ext/qags_integrate.tcc>
+#include <ext/qng_integrate.tcc>
+#include <ext/qagp_integrate.tcc>
+#include <ext/qcheb_integrate.tcc>
+#include <ext/qawc_integrate.tcc>
+#include <ext/qaws_integrate.tcc>
+#include <ext/qawo_integrate.tcc>
+#include <ext/qawf_integrate.tcc>
+#include <ext/glfixed_integrate.tcc>
+#include <ext/cquad_integrate.tcc>
 
-#include "gauss_quadrature.h"
+#include <ext/gauss_quadrature.h>
 
 #endif // INTEGRATION_TCC

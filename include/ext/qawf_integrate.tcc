@@ -29,8 +29,8 @@
 
 #include <cmath>
 
-#include "integration_workspace.h"
-#include "oscillatory_integration_table.h"
+#include <ext/integration_workspace.h>
+#include <ext/oscillatory_integration_table.h>
 
 namespace __gnu_cxx
 {

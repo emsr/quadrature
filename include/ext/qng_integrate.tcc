@@ -21,7 +21,7 @@
 #ifndef QNG_INTEGRATE_TCC
 #define QNG_INTEGRATE_TCC 1
 
-#include "integration_error.h"
+#include <ext/integration_error.h>
 
 /**
  * Gauss-Kronrod-Patterson quadrature coefficients for use in

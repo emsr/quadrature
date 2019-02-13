@@ -32,8 +32,8 @@
 #include <array>
 #include <stdexcept>
 
-#include "integration_error.h"
-#include "gauss_kronrod_rule.tcc"
+#include <ext/integration_error.h>
+#include <ext/gauss_kronrod_rule.tcc>
 
 namespace __gnu_cxx
 {

@@ -28,7 +28,7 @@
 #ifndef OSCILLATORY_INTEGRATION_TABLE_TCC
 #define OSCILLATORY_INTEGRATION_TABLE_TCC 1
 
-#include "matrix.h"
+#include <ext/matrix.h>
 
 namespace __gnu_cxx
 {
