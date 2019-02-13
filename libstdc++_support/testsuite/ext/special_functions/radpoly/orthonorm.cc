@@ -43,6 +43,11 @@ template<typename _Tp>
   }
 
 template<typename _Tp>
+  _Tp
+  delta(int n1, int m1, int n2, int m2)
+  { return (n1 == n2 && m1 == m2) ? _Tp{1} : _Tp{0}; }
+
+template<typename _Tp>
   void
   test_radpoly()
   {
