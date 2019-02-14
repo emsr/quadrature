@@ -1,4 +1,4 @@
-#include "triangle_rules.h"
+#include <triangle_rules.h>
 
 int
 main()

@@ -3,8 +3,8 @@
 #include <iomanip>
 #include <ext/cmath>
 
-#include "ext/integration.h"
-#include "ext/polynomial.h"
+#include <ext/integration.h>
+#include <ext/polynomial.h>
 
 template<typename Tp>
   void

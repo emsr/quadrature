@@ -11,7 +11,7 @@ $HOME/bin/bin/g++ -std=gnu++2a -g -Wall -Wextra -Wno-psabi -I../include -DREPERI
 #include <random>
 #include <vector>
 #include <ext/cmath>
-#include "fourier_transform.h"
+#include <fourier_transform.h>
 
 template<typename _Tp>
   void

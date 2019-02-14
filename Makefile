@@ -31,9 +31,8 @@ WRAPPER_LIBS = -L$(WRAPPER_LIB_DIR) -lwrap_burkhardt -lgfortran
 INC_DIR = include/ext
 INCLUDES =  -I../include -Iinclude -I../polynomial/include
 
-OUTPUT_DIR = output
+TEST_OUT_DIR = test_output
 
-OBJ_DIR = obj
 BIN_DIR = bin
 
 INCS = \
@@ -118,40 +117,40 @@ BINS = \
   $(BIN_DIR)/test_gauss_kronrod_rule
 
 
-all: $(OBJ_DIR) $(BINS)
+all: $(BIN_DIR) $(BINS)
 
 
-ortho_test: $(OUTPUT_DIR)
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/legendre_test > $(OUTPUT_DIR)/legendre_test.txt 2> $(OUTPUT_DIR)/legendre_test.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/chebyshev_t_test > $(OUTPUT_DIR)/chebyshev_t_test.txt 2> $(OUTPUT_DIR)/chebyshev_t_test.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/chebyshev_u_test > $(OUTPUT_DIR)/chebyshev_u_test.txt 2> $(OUTPUT_DIR)/chebyshev_u_test.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/chebyshev_v_test > $(OUTPUT_DIR)/chebyshev_v_test.txt 2> $(OUTPUT_DIR)/chebyshev_v_test.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/chebyshev_w_test > $(OUTPUT_DIR)/chebyshev_w_test.txt 2> $(OUTPUT_DIR)/chebyshev_w_test.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/gegenbauer_test > $(OUTPUT_DIR)/gegenbauer_test.txt 2> $(OUTPUT_DIR)/gegenbauer_test.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/jacobi_test > $(OUTPUT_DIR)/jacobi_test.txt 2> $(OUTPUT_DIR)/jacobi_test.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/assoc_laguerre_test > $(OUTPUT_DIR)/assoc_laguerre_test.txt 2> $(OUTPUT_DIR)/assoc_laguerre_test.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/assoc_legendre_test > $(OUTPUT_DIR)/assoc_legendre_test.txt 2> $(OUTPUT_DIR)/assoc_legendre_test.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/hermite_test > $(OUTPUT_DIR)/hermite_test.txt 2> $(OUTPUT_DIR)/hermite_test.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/sph_legendre_test > $(OUTPUT_DIR)/sph_legendre_test.txt 2> $(OUTPUT_DIR)/sph_legendre_test.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/laguerre_test > $(OUTPUT_DIR)/laguerre_test.txt 2> $(OUTPUT_DIR)/laguerre_test.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/radpoly_test > $(OUTPUT_DIR)/radpoly_test.txt 2> $(OUTPUT_DIR)/radpoly_test.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/zernike_test > $(OUTPUT_DIR)/zernike_test.txt 2> $(OUTPUT_DIR)/zernike_test.err
+ortho_test: $(TEST_OUT_DIR)
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/legendre_test > $(TEST_OUT_DIR)/legendre_test.txt 2> $(TEST_OUT_DIR)/legendre_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/chebyshev_t_test > $(TEST_OUT_DIR)/chebyshev_t_test.txt 2> $(TEST_OUT_DIR)/chebyshev_t_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/chebyshev_u_test > $(TEST_OUT_DIR)/chebyshev_u_test.txt 2> $(TEST_OUT_DIR)/chebyshev_u_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/chebyshev_v_test > $(TEST_OUT_DIR)/chebyshev_v_test.txt 2> $(TEST_OUT_DIR)/chebyshev_v_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/chebyshev_w_test > $(TEST_OUT_DIR)/chebyshev_w_test.txt 2> $(TEST_OUT_DIR)/chebyshev_w_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/gegenbauer_test > $(TEST_OUT_DIR)/gegenbauer_test.txt 2> $(TEST_OUT_DIR)/gegenbauer_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/jacobi_test > $(TEST_OUT_DIR)/jacobi_test.txt 2> $(TEST_OUT_DIR)/jacobi_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/assoc_laguerre_test > $(TEST_OUT_DIR)/assoc_laguerre_test.txt 2> $(TEST_OUT_DIR)/assoc_laguerre_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/assoc_legendre_test > $(TEST_OUT_DIR)/assoc_legendre_test.txt 2> $(TEST_OUT_DIR)/assoc_legendre_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/hermite_test > $(TEST_OUT_DIR)/hermite_test.txt 2> $(TEST_OUT_DIR)/hermite_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/sph_legendre_test > $(TEST_OUT_DIR)/sph_legendre_test.txt 2> $(TEST_OUT_DIR)/sph_legendre_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/laguerre_test > $(TEST_OUT_DIR)/laguerre_test.txt 2> $(TEST_OUT_DIR)/laguerre_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/radpoly_test > $(TEST_OUT_DIR)/radpoly_test.txt 2> $(TEST_OUT_DIR)/radpoly_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/zernike_test > $(TEST_OUT_DIR)/zernike_test.txt 2> $(TEST_OUT_DIR)/zernike_test.err
 
 
-test: $(OUTPUT_DIR) $(BIN_DIR)/test_quadrature
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/build_double_exp_rules > $(OUTPUT_DIR)/build_double_exp_rules.txt 2> $(OUTPUT_DIR)/build_double_exp_rules.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/build_clenshaw_curtis > $(OUTPUT_DIR)/build_clenshaw_curtis.txt 2> $(OUTPUT_DIR)/build_clenshaw_curtis.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_gauss_kronrod_rule > $(OUTPUT_DIR)/test_gauss_kronrod_rule.txt 2> $(OUTPUT_DIR)/test_gauss_kronrod_rule.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_double_exp_integrate > $(OUTPUT_DIR)/test_double_exp_integrate.txt 2> $(OUTPUT_DIR)/test_double_exp_integrate.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_trapezoid_integral > $(OUTPUT_DIR)/test_trapezoid_integral.txt 2> $(OUTPUT_DIR)/test_trapezoid_integral.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_midpoint_integral > $(OUTPUT_DIR)/test_midpoint_integral.txt 2> $(OUTPUT_DIR)/test_midpoint_integral.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_simpson_integral > $(OUTPUT_DIR)/test_simpson_integral.txt 2> $(OUTPUT_DIR)/test_simpson_integral.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_phase_iterator > $(OUTPUT_DIR)/test_phase_iterator.txt 2> $(OUTPUT_DIR)/test_phase_iterator.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_mapper > $(OUTPUT_DIR)/test_mapper.txt 2> $(OUTPUT_DIR)/test_mapper.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_quadrature > $(OUTPUT_DIR)/test_quadrature.txt 2> $(OUTPUT_DIR)/test_quadrature.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_gauss_hermite > $(OUTPUT_DIR)/test_gauss_hermite.txt 2> $(OUTPUT_DIR)/test_gauss_hermite.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_gauss_laguerre > $(OUTPUT_DIR)/test_gauss_laguerre.txt 2> $(OUTPUT_DIR)/test_gauss_laguerre.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_composite_trapezoid_integral > $(OUTPUT_DIR)/test_composite_trapezoid_integral.txt 2> $(OUTPUT_DIR)/test_composite_trapezoid_integral.err
+test: $(TEST_OUT_DIR) $(BIN_DIR)/test_quadrature
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/build_double_exp_rules > $(TEST_OUT_DIR)/build_double_exp_rules.txt 2> $(TEST_OUT_DIR)/build_double_exp_rules.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/build_clenshaw_curtis > $(TEST_OUT_DIR)/build_clenshaw_curtis.txt 2> $(TEST_OUT_DIR)/build_clenshaw_curtis.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_gauss_kronrod_rule > $(TEST_OUT_DIR)/test_gauss_kronrod_rule.txt 2> $(TEST_OUT_DIR)/test_gauss_kronrod_rule.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_double_exp_integrate > $(TEST_OUT_DIR)/test_double_exp_integrate.txt 2> $(TEST_OUT_DIR)/test_double_exp_integrate.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_trapezoid_integral > $(TEST_OUT_DIR)/test_trapezoid_integral.txt 2> $(TEST_OUT_DIR)/test_trapezoid_integral.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_midpoint_integral > $(TEST_OUT_DIR)/test_midpoint_integral.txt 2> $(TEST_OUT_DIR)/test_midpoint_integral.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_simpson_integral > $(TEST_OUT_DIR)/test_simpson_integral.txt 2> $(TEST_OUT_DIR)/test_simpson_integral.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_phase_iterator > $(TEST_OUT_DIR)/test_phase_iterator.txt 2> $(TEST_OUT_DIR)/test_phase_iterator.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_mapper > $(TEST_OUT_DIR)/test_mapper.txt 2> $(TEST_OUT_DIR)/test_mapper.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_quadrature > $(TEST_OUT_DIR)/test_quadrature.txt 2> $(TEST_OUT_DIR)/test_quadrature.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_gauss_hermite > $(TEST_OUT_DIR)/test_gauss_hermite.txt 2> $(TEST_OUT_DIR)/test_gauss_hermite.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_gauss_laguerre > $(TEST_OUT_DIR)/test_gauss_laguerre.txt 2> $(TEST_OUT_DIR)/test_gauss_laguerre.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_composite_trapezoid_integral > $(TEST_OUT_DIR)/test_composite_trapezoid_integral.txt 2> $(TEST_OUT_DIR)/test_composite_trapezoid_integral.err
 
 
 docs:
@@ -163,23 +162,23 @@ docs:
 
 # Binaries...
 
-$(BIN_DIR)/build_clenshaw_curtis: $(BIN_DIR) $(OBJ_DIR)/build_clenshaw_curtis.o
-	$(CXXMAX) -o $(BIN_DIR)/build_clenshaw_curtis $(OBJ_DIR)/build_clenshaw_curtis.o -lquadmath $(WRAPPER_LIBS)
+$(BIN_DIR)/build_clenshaw_curtis: $(INCS) build_clenshaw_curtis.cpp
+	$(CXXMAX) $(INCLUDES) -I../wrappers -o $(BIN_DIR)/build_clenshaw_curtis build_clenshaw_curtis.cpp -lquadmath $(WRAPPER_LIBS)
 
-$(BIN_DIR)/build_double_exp_rules: $(BIN_DIR) $(OBJ_DIR)/build_double_exp_rules.o
-	$(CXXMAX) -o $(BIN_DIR)/build_double_exp_rules $(OBJ_DIR)/build_double_exp_rules.o -lquadmath $(WRAPPER_LIBS)
+$(BIN_DIR)/build_double_exp_rules: $(INCS) build_double_exp_rules.cpp
+	$(CXXMAX) $(INCLUDES) -o $(BIN_DIR)/build_double_exp_rules build_double_exp_rules.cpp -lquadmath $(WRAPPER_LIBS)
 
-$(BIN_DIR)/test_gauss_kronrod_rule: $(BIN_DIR) $(OBJ_DIR)/test_gauss_kronrod_rule.o
-	$(CXXMAX) -o $(BIN_DIR)/test_gauss_kronrod_rule $(OBJ_DIR)/test_gauss_kronrod_rule.o -lquadmath
+$(BIN_DIR)/test_gauss_kronrod_rule: $(INCS) test_gauss_kronrod_rule.cpp
+	$(CXXMAX) $(INCLUDES) -o $(BIN_DIR)/test_gauss_kronrod_rule test_gauss_kronrod_rule.cpp -lquadmath
 
-$(BIN_DIR)/assoc_laguerre_test: $(BIN_DIR) $(OBJ_DIR)/assoc_laguerre_test.o
-	$(CXXMAX) -o $(BIN_DIR)/assoc_laguerre_test $(OBJ_DIR)/assoc_laguerre_test.o -lquadmath
+$(BIN_DIR)/assoc_laguerre_test: $(INCS) assoc_laguerre_test.cpp
+	$(CXXMAX) $(INCLUDES) -o $(BIN_DIR)/assoc_laguerre_test assoc_laguerre_test.cpp -lquadmath
 
-$(BIN_DIR)/assoc_legendre_test: $(BIN_DIR) $(OBJ_DIR)/assoc_legendre_test.o
-	$(CXXMAX) -o $(BIN_DIR)/assoc_legendre_test $(OBJ_DIR)/assoc_legendre_test.o -lquadmath
+$(BIN_DIR)/assoc_legendre_test: $(INCS) assoc_legendre_test.cpp
+	$(CXXMAX) $(INCLUDES) -o $(BIN_DIR)/assoc_legendre_test assoc_legendre_test.cpp -lquadmath
 
-$(BIN_DIR)/sph_legendre_test: $(BIN_DIR) $(OBJ_DIR)/sph_legendre_test.o
-	$(CXXMAX) -o $(BIN_DIR)/sph_legendre_test $(OBJ_DIR)/sph_legendre_test.o -lquadmath
+$(BIN_DIR)/sph_legendre_test: $(INCS) sph_legendre_test.cpp
+	$(CXXMAX) $(INCLUDES) -o $(BIN_DIR)/sph_legendre_test sph_legendre_test.cpp -lquadmath
 
 $(BIN_DIR)/test_phase_iterator: $(BIN_DIR) test_phase_iterator.cpp $(INCS)
 	$(CXXMAX) $(INCLUDES) -o $(BIN_DIR)/test_phase_iterator test_phase_iterator.cpp -lquadmath
@@ -211,102 +210,44 @@ $(BIN_DIR)/test_mapper: $(BIN_DIR) test_mapper.cpp include/ext/integration_trans
 $(BIN_DIR)/test_composite_trapezoid_integral: $(BIN_DIR) test_composite_trapezoid_integral.cpp $(INCS)
 	$(CXXMAX) $(INCLUDES) -I../polynomial -o $(BIN_DIR)/test_composite_trapezoid_integral test_composite_trapezoid_integral.cpp -lquadmath
 
-$(BIN_DIR)/hermite_test: $(BIN_DIR) $(OBJ_DIR)/hermite_test.o
-	$(CXXMAX) -o $(BIN_DIR)/hermite_test $(OBJ_DIR)/hermite_test.o -lquadmath
+$(BIN_DIR)/hermite_test: $(INCS) hermite_test.cpp
+	$(CXXMAX) $(INCLUDES) -o $(BIN_DIR)/hermite_test hermite_test.cpp -lquadmath
 
-$(BIN_DIR)/laguerre_test: $(BIN_DIR) $(OBJ_DIR)/laguerre_test.o
-	$(CXXMAX) -o $(BIN_DIR)/laguerre_test $(OBJ_DIR)/laguerre_test.o -lquadmath
+$(BIN_DIR)/laguerre_test: $(INCS) laguerre_test.cpp
+	$(CXXMAX) $(INCLUDES) -o $(BIN_DIR)/laguerre_test laguerre_test.cpp -lquadmath
 
-$(BIN_DIR)/legendre_test: $(BIN_DIR) $(OBJ_DIR)/legendre_test.o
-	$(CXXMAX) -o $(BIN_DIR)/legendre_test $(OBJ_DIR)/legendre_test.o -lquadmath
+$(BIN_DIR)/legendre_test: $(INCS) legendre_test.cpp
+	$(CXXMAX) $(INCLUDES) -o $(BIN_DIR)/legendre_test legendre_test.cpp -lquadmath
 
-$(BIN_DIR)/gegenbauer_test: $(BIN_DIR) $(OBJ_DIR)/gegenbauer_test.o
-	$(CXXMAX) -o $(BIN_DIR)/gegenbauer_test $(OBJ_DIR)/gegenbauer_test.o -lquadmath
+$(BIN_DIR)/gegenbauer_test: $(INCS) gegenbauer_test.cpp
+	$(CXXMAX) $(INCLUDES) -o $(BIN_DIR)/gegenbauer_test gegenbauer_test.cpp -lquadmath
 
-$(BIN_DIR)/jacobi_test: $(BIN_DIR) $(OBJ_DIR)/jacobi_test.o
-	$(CXXMAX) -o $(BIN_DIR)/jacobi_test $(OBJ_DIR)/jacobi_test.o -lquadmath
+$(BIN_DIR)/jacobi_test: $(INCS) jacobi_test.cpp
+	$(CXXMAX) $(INCLUDES) -o $(BIN_DIR)/jacobi_test jacobi_test.cpp -lquadmath
 
-$(BIN_DIR)/chebyshev_t_test: $(BIN_DIR) $(OBJ_DIR)/chebyshev_t_test.o
-	$(CXXMAX) -o $(BIN_DIR)/chebyshev_t_test $(OBJ_DIR)/chebyshev_t_test.o -lquadmath
+$(BIN_DIR)/chebyshev_t_test: $(INCS) chebyshev_t_test.cpp
+	$(CXXMAX) $(INCLUDES) -o $(BIN_DIR)/chebyshev_t_test chebyshev_t_test.cpp -lquadmath
 
-$(BIN_DIR)/chebyshev_u_test: $(BIN_DIR) $(OBJ_DIR)/chebyshev_u_test.o
-	$(CXXMAX) -o $(BIN_DIR)/chebyshev_u_test $(OBJ_DIR)/chebyshev_u_test.o -lquadmath
+$(BIN_DIR)/chebyshev_u_test: $(INCS) chebyshev_u_test.cpp
+	$(CXXMAX) $(INCLUDES) -o $(BIN_DIR)/chebyshev_u_test chebyshev_u_test.cpp -lquadmath
 
-$(BIN_DIR)/chebyshev_v_test: $(BIN_DIR) $(OBJ_DIR)/chebyshev_v_test.o
-	$(CXXMAX) -o $(BIN_DIR)/chebyshev_v_test $(OBJ_DIR)/chebyshev_v_test.o -lquadmath
+$(BIN_DIR)/chebyshev_v_test: $(INCS) chebyshev_v_test.cpp
+	$(CXXMAX) $(INCLUDES) -o $(BIN_DIR)/chebyshev_v_test chebyshev_v_test.cpp -lquadmath
 
-$(BIN_DIR)/chebyshev_w_test: $(BIN_DIR) $(OBJ_DIR)/chebyshev_w_test.o
-	$(CXXMAX) -o $(BIN_DIR)/chebyshev_w_test $(OBJ_DIR)/chebyshev_w_test.o -lquadmath
+$(BIN_DIR)/chebyshev_w_test: $(INCS) chebyshev_w_test.cpp
+	$(CXXMAX) $(INCLUDES) -o $(BIN_DIR)/chebyshev_w_test chebyshev_w_test.cpp -lquadmath
 
-$(BIN_DIR)/radpoly_test: $(BIN_DIR) $(OBJ_DIR)/radpoly_test.o
-	$(CXXMAX) -o $(BIN_DIR)/radpoly_test $(OBJ_DIR)/radpoly_test.o -lquadmath
+$(BIN_DIR)/radpoly_test: $(INCS) radpoly_test.cpp
+	$(CXXMAX) $(INCLUDES) -o $(BIN_DIR)/radpoly_test radpoly_test.cpp -lquadmath
 
-$(BIN_DIR)/zernike_test: $(BIN_DIR) $(OBJ_DIR)/zernike_test.o
-	$(CXXMAX) -o $(BIN_DIR)/zernike_test $(OBJ_DIR)/zernike_test.o -lquadmath
-
-# Objects...
-
-$(OBJ_DIR)/build_clenshaw_curtis.o: $(OBJ_DIR) $(INCS) build_clenshaw_curtis.cpp
-	$(CXXMAX) -c $(INCLUDES) -I../wrappers -o $(OBJ_DIR)/build_clenshaw_curtis.o build_clenshaw_curtis.cpp
-
-$(OBJ_DIR)/build_double_exp_rules.o: $(OBJ_DIR) $(INCS) build_double_exp_rules.cpp
-	$(CXXMAX) -c $(INCLUDES) -I../wrappers -o $(OBJ_DIR)/build_double_exp_rules.o build_double_exp_rules.cpp
-
-$(OBJ_DIR)/test_gauss_kronrod_rule.o: $(OBJ_DIR) $(INCS) test_gauss_kronrod_rule.cpp
-	$(CXXMAX) -c $(INCLUDES) -o $(OBJ_DIR)/test_gauss_kronrod_rule.o test_gauss_kronrod_rule.cpp
-
-$(OBJ_DIR)/assoc_laguerre_test.o: $(OBJ_DIR) $(INCS) assoc_laguerre_test.cpp
-	$(CXXMAX) -c $(INCLUDES) -o $(OBJ_DIR)/assoc_laguerre_test.o assoc_laguerre_test.cpp
-
-$(OBJ_DIR)/assoc_legendre_test.o: $(OBJ_DIR) $(INCS) assoc_legendre_test.cpp
-	$(CXXMAX) -c $(INCLUDES) -o $(OBJ_DIR)/assoc_legendre_test.o assoc_legendre_test.cpp
-
-$(OBJ_DIR)/sph_legendre_test.o: $(OBJ_DIR) $(INCS) sph_legendre_test.cpp
-	$(CXXMAX) -c $(INCLUDES) -o $(OBJ_DIR)/sph_legendre_test.o sph_legendre_test.cpp
-
-$(OBJ_DIR)/hermite_test.o: $(OBJ_DIR) $(INCS) hermite_test.cpp
-	$(CXXMAX) -c $(INCLUDES) -o $(OBJ_DIR)/hermite_test.o hermite_test.cpp
-
-$(OBJ_DIR)/laguerre_test.o: $(OBJ_DIR) $(INCS) laguerre_test.cpp
-	$(CXXMAX) -c $(INCLUDES) -o $(OBJ_DIR)/laguerre_test.o laguerre_test.cpp
-
-$(OBJ_DIR)/legendre_test.o: $(OBJ_DIR) $(INCS) legendre_test.cpp
-	$(CXXMAX) -c $(INCLUDES) -o $(OBJ_DIR)/legendre_test.o legendre_test.cpp
-
-$(OBJ_DIR)/gegenbauer_test.o: $(OBJ_DIR) $(INCS) gegenbauer_test.cpp
-	$(CXXMAX) -c $(INCLUDES) -o $(OBJ_DIR)/gegenbauer_test.o gegenbauer_test.cpp
-
-$(OBJ_DIR)/jacobi_test.o: $(OBJ_DIR) $(INCS) jacobi_test.cpp
-	$(CXXMAX) -c $(INCLUDES) -o $(OBJ_DIR)/jacobi_test.o jacobi_test.cpp
-
-$(OBJ_DIR)/chebyshev_t_test.o: $(OBJ_DIR) $(INCS) chebyshev_t_test.cpp
-	$(CXXMAX) -c $(INCLUDES) -o $(OBJ_DIR)/chebyshev_t_test.o chebyshev_t_test.cpp
-
-$(OBJ_DIR)/chebyshev_u_test.o: $(OBJ_DIR) $(INCS) chebyshev_u_test.cpp
-	$(CXXMAX) -c $(INCLUDES) -o $(OBJ_DIR)/chebyshev_u_test.o chebyshev_u_test.cpp
-
-$(OBJ_DIR)/chebyshev_v_test.o: $(OBJ_DIR) $(INCS) chebyshev_v_test.cpp
-	$(CXXMAX) -c $(INCLUDES) -o $(OBJ_DIR)/chebyshev_v_test.o chebyshev_v_test.cpp
-
-$(OBJ_DIR)/chebyshev_w_test.o: $(OBJ_DIR) $(INCS) chebyshev_w_test.cpp
-	$(CXXMAX) -c $(INCLUDES) -o $(OBJ_DIR)/chebyshev_w_test.o chebyshev_w_test.cpp
-
-$(OBJ_DIR)/radpoly_test.o: $(OBJ_DIR) $(INCS) radpoly_test.cpp
-	$(CXXMAX) -c $(INCLUDES) -o $(OBJ_DIR)/radpoly_test.o radpoly_test.cpp
-
-$(OBJ_DIR)/zernike_test.o: $(OBJ_DIR) $(INCS) zernike_test.cpp
-	$(CXXMAX) -c $(INCLUDES) -o $(OBJ_DIR)/zernike_test.o zernike_test.cpp
+$(BIN_DIR)/zernike_test: $(INCS) zernike_test.cpp
+	$(CXXMAX) $(INCLUDES) -o $(BIN_DIR)/zernike_test zernike_test.cpp -lquadmath
 
 
-$(OUTPUT_DIR): $(OUTPUT_DIR)
-	if test ! -d $(OUTPUT_DIR); then \
-	  mkdir $(OUTPUT_DIR); \
-	fi
 
-
-$(OBJ_DIR):
-	if test ! -d $(OBJ_DIR); then \
-	  mkdir $(OBJ_DIR); \
+$(TEST_OUT_DIR): $(TEST_OUT_DIR)
+	if test ! -d $(TEST_OUT_DIR); then \
+	  mkdir $(TEST_OUT_DIR); \
 	fi
 
 
@@ -318,6 +259,5 @@ $(BIN_DIR):
 clean:
 	rm -f a.out
 	rm -f *.stackdump
-	rm -rf $(OBJ_DIR)/*
 	rm -f $(BINS)
 

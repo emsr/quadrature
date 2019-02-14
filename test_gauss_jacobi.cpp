@@ -12,7 +12,7 @@ $HOME/bin_specfun/bin/g++ -std=gnu++2a -g -Wall -Wextra -o test_gauss_jacobi tes
 #include <cmath>
 #include <vector>
 
-#include "jacobi.h"
+#include <jacobi.h>
 
 double
 fun(double x)

@@ -32,7 +32,7 @@ $HOME/bin/bin/g++ -std=gnu++2a -fconcepts -g -Wall -Wextra -Wno-psabi -I../inclu
 #include <memory>
 #include <cfenv>
 
-#include "ext/integration.h"
+#include <ext/integration.h>
 #include "testcase.h"
 #include "func_utils.h"
 

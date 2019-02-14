@@ -11,8 +11,8 @@ PATH=../wrappers/debug:$HOME/bin/lib64:$PATH ./build_clenshaw_curtis > build_cle
 #include <bits/specfun_state.h>
 #include <iostream>
 #include <iomanip>
-#include "wrap_burkhardt.h"
-#include "ext/fourier_transform.h"
+#include <wrap_burkhardt.h>
+#include <ext/fourier_transform.h>
 
   /**
    * Return a vector of zeros of the Chebyshev function of the second kind

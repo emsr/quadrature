@@ -10,7 +10,7 @@ g++ -std=c++14 -Wall -Wextra -Iinclude -o test_gauss_kronrod_rule test_gauss_kro
 #include <sstream>
 #include <stdexcept>
 
-#include "ext/gauss_kronrod_rule.tcc"
+#include <ext/gauss_kronrod_rule.tcc>
 
 template<typename Tp>
   void
