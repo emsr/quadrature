@@ -1,12 +1,12 @@
 
-#SUFFIX = _tr29124
-#SUFFIX = _specfun
+CXX_VER = -std=gnu++17
 CXX_INST_DIR = $(HOME)/bin$(SUFFIX)
-ifeq ("$(wildcard $(CXX_INST_DIR))","")
-  SUFFIX = 
+ifeq ("$(wildcard $(CXX_INST_DIR)/bin/g++)","")
+  CXX_VER = -std=gnu++2a
   CXX_INST_DIR = $(HOME)/bin
-  ifeq ("$(wildcard $(CXX_INST_DIR))","")
-    ifneq ($(wildcard "/mingw64"),"")
+  ifeq ("$(wildcard $(CXX_INST_DIR)/bin/g++)","")
+    CXX_VER = -std=gnu++17
+    ifeq ($(wildcard "/mingw64"),"")
       CXX_INST_DIR = /mingw64
     else
       CXX_INST_DIR = /usr
@@ -20,7 +20,8 @@ OPT = -g
 GCC = $(CXX_INST_DIR)/bin/gcc $(OPT) -Wall -Wextra
 CXX17 = $(CXX_INST_DIR)/bin/g++ -std=gnu++17 -fconcepts $(OPT) -Wall -Wextra -Wno-psabi
 CXX20 = $(CXX_INST_DIR)/bin/g++ -std=gnu++2a $(OPT) -Wall -Wextra -Wno-psabi
-CXXMAX = $(CXX20)
+#CXXMAX = $(CXX20)
+CXXMAX = $(CXX_INST_DIR)/bin/g++ $(CXX_VER) $(OPT) -Wall -Wextra -Wno-psabi
 CXX_INC_DIR = $(CXX_INST_DIR)/include/c++/8.0.0/bits
 CXX_LIB_DIR = $(CXX_INST_DIR)/lib64
 
@@ -112,12 +113,17 @@ BINS = \
   $(BIN_DIR)/chebyshev_w_test \
   $(BIN_DIR)/radpoly_test \
   $(BIN_DIR)/zernike_test \
-  $(BIN_DIR)/build_clenshaw_curtis \
-  $(BIN_DIR)/build_double_exp_rules \
   $(BIN_DIR)/test_gauss_kronrod_rule
 
-
 all: $(BIN_DIR) $(BINS)
+
+
+# These require tr29124_test wrapper project libs.
+BUILDERS = \
+  $(BIN_DIR)/build_clenshaw_curtis \
+  $(BIN_DIR)/build_double_exp_rules
+
+builders: $(BIN_DIR) $(BUILDERS)
 
 
 ortho_test: $(TEST_OUT_DIR)
@@ -137,9 +143,7 @@ ortho_test: $(TEST_OUT_DIR)
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/zernike_test > $(TEST_OUT_DIR)/zernike_test.txt 2> $(TEST_OUT_DIR)/zernike_test.err
 
 
-test: $(TEST_OUT_DIR) $(BIN_DIR)/test_quadrature
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/build_double_exp_rules > $(TEST_OUT_DIR)/build_double_exp_rules.txt 2> $(TEST_OUT_DIR)/build_double_exp_rules.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/build_clenshaw_curtis > $(TEST_OUT_DIR)/build_clenshaw_curtis.txt 2> $(TEST_OUT_DIR)/build_clenshaw_curtis.err
+test: $(TEST_OUT_DIR) $(BINS)
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_gauss_kronrod_rule > $(TEST_OUT_DIR)/test_gauss_kronrod_rule.txt 2> $(TEST_OUT_DIR)/test_gauss_kronrod_rule.err
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_double_exp_integrate > $(TEST_OUT_DIR)/test_double_exp_integrate.txt 2> $(TEST_OUT_DIR)/test_double_exp_integrate.err
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_trapezoid_integral > $(TEST_OUT_DIR)/test_trapezoid_integral.txt 2> $(TEST_OUT_DIR)/test_trapezoid_integral.err
@@ -151,6 +155,10 @@ test: $(TEST_OUT_DIR) $(BIN_DIR)/test_quadrature
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_gauss_hermite > $(TEST_OUT_DIR)/test_gauss_hermite.txt 2> $(TEST_OUT_DIR)/test_gauss_hermite.err
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_gauss_laguerre > $(TEST_OUT_DIR)/test_gauss_laguerre.txt 2> $(TEST_OUT_DIR)/test_gauss_laguerre.err
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_composite_trapezoid_integral > $(TEST_OUT_DIR)/test_composite_trapezoid_integral.txt 2> $(TEST_OUT_DIR)/test_composite_trapezoid_integral.err
+
+builds: $(TEST_OUT_DIR) $(BUILDERS)
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/build_double_exp_rules > $(TEST_OUT_DIR)/build_double_exp_rules.txt 2> $(TEST_OUT_DIR)/build_double_exp_rules.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/build_clenshaw_curtis > $(TEST_OUT_DIR)/build_clenshaw_curtis.txt 2> $(TEST_OUT_DIR)/build_clenshaw_curtis.err
 
 
 docs:
@@ -180,34 +188,34 @@ $(BIN_DIR)/assoc_legendre_test: $(INCS) assoc_legendre_test.cpp
 $(BIN_DIR)/sph_legendre_test: $(INCS) sph_legendre_test.cpp
 	$(CXXMAX) $(INCLUDES) -o $(BIN_DIR)/sph_legendre_test sph_legendre_test.cpp -lquadmath
 
-$(BIN_DIR)/test_phase_iterator: $(BIN_DIR) test_phase_iterator.cpp $(INCS)
+$(BIN_DIR)/test_phase_iterator: test_phase_iterator.cpp $(INCS)
 	$(CXXMAX) $(INCLUDES) -o $(BIN_DIR)/test_phase_iterator test_phase_iterator.cpp -lquadmath
 
-$(BIN_DIR)/test_quadrature: $(BIN_DIR) test_quadrature.cpp $(INCS)
+$(BIN_DIR)/test_quadrature: test_quadrature.cpp $(INCS)
 	$(CXXMAX) $(INCLUDES) -o $(BIN_DIR)/test_quadrature test_quadrature.cpp -lquadmath -lubsan
 
-$(BIN_DIR)/test_trapezoid_integral: $(BIN_DIR) test_trapezoid_integral.cpp $(INCS)
+$(BIN_DIR)/test_trapezoid_integral: test_trapezoid_integral.cpp $(INCS)
 	$(CXXMAX) $(INCLUDES) -I../polynomial -o $(BIN_DIR)/test_trapezoid_integral test_trapezoid_integral.cpp -lquadmath
 
-$(BIN_DIR)/test_midpoint_integral: $(BIN_DIR) test_midpoint_integral.cpp $(INCS)
+$(BIN_DIR)/test_midpoint_integral: test_midpoint_integral.cpp $(INCS)
 	$(CXXMAX) $(INCLUDES) -I../polynomial -o $(BIN_DIR)/test_midpoint_integral test_midpoint_integral.cpp -lquadmath
 
-$(BIN_DIR)/test_simpson_integral: $(BIN_DIR) test_simpson_integral.cpp $(INCS)
+$(BIN_DIR)/test_simpson_integral: test_simpson_integral.cpp $(INCS)
 	$(CXXMAX) $(INCLUDES) -I../polynomial -o $(BIN_DIR)/test_simpson_integral test_simpson_integral.cpp -lquadmath
 
-$(BIN_DIR)/test_double_exp_integrate: $(BIN_DIR) test_double_exp_integrate.cpp $(INCS)
+$(BIN_DIR)/test_double_exp_integrate: test_double_exp_integrate.cpp $(INCS)
 	$(CXXMAX) $(INCLUDES) -o $(BIN_DIR)/test_double_exp_integrate test_double_exp_integrate.cpp -lquadmath
 
-$(BIN_DIR)/test_gauss_hermite: $(BIN_DIR) test_gauss_hermite.cpp $(INCS)
+$(BIN_DIR)/test_gauss_hermite: test_gauss_hermite.cpp $(INCS)
 	$(CXXMAX) $(INCLUDES) -o $(BIN_DIR)/test_gauss_hermite test_gauss_hermite.cpp -lquadmath
 
-$(BIN_DIR)/test_gauss_laguerre: $(BIN_DIR) test_gauss_laguerre.cpp $(INCS)
+$(BIN_DIR)/test_gauss_laguerre: test_gauss_laguerre.cpp $(INCS)
 	$(CXXMAX) $(INCLUDES) -o $(BIN_DIR)/test_gauss_laguerre test_gauss_laguerre.cpp -lquadmath
 
-$(BIN_DIR)/test_mapper: $(BIN_DIR) test_mapper.cpp include/ext/integration_transform.h
+$(BIN_DIR)/test_mapper: test_mapper.cpp include/ext/integration_transform.h
 	$(CXXMAX) -Iinclude -o $(BIN_DIR)/test_mapper test_mapper.cpp -lquadmath
 
-$(BIN_DIR)/test_composite_trapezoid_integral: $(BIN_DIR) test_composite_trapezoid_integral.cpp $(INCS)
+$(BIN_DIR)/test_composite_trapezoid_integral: test_composite_trapezoid_integral.cpp $(INCS)
 	$(CXXMAX) $(INCLUDES) -I../polynomial -o $(BIN_DIR)/test_composite_trapezoid_integral test_composite_trapezoid_integral.cpp -lquadmath
 
 $(BIN_DIR)/hermite_test: $(INCS) hermite_test.cpp
@@ -259,5 +267,5 @@ $(BIN_DIR):
 clean:
 	rm -f a.out
 	rm -f *.stackdump
-	rm -f $(BINS)
+	rm -f $(BINS) $(BUILDERS)
 
