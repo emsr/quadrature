@@ -1,5 +1,7 @@
 # quadrature
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/5e3495d8c4004bc5a7ec7e25c65a98f8)](https://app.codacy.com/app/emsr/quadrature?utm_source=github.com&utm_medium=referral&utm_content=emsr/quadrature&utm_campaign=Badge_Grade_Dashboard)
+
 This is a C++ quadrature library reengineered from GSL and with new things added.  This was hived off from tr29124_test.
 
 This library began as a way to test the orthogonal polynomials that were added to the Gnu implementation of the C++ standard library as part of the implementation of TR1 Special Math Functions.  This library was dropped by the original author some years back.  Then and now, the foundation of this library is the Gnu Scientific Library (GSL) quadrature package which itself is based on the venerable QUADPACK library.
