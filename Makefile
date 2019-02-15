@@ -119,28 +119,12 @@ all: $(BIN_DIR) $(BINS)
 
 
 # These require tr29124_test wrapper project libs.
-BUILDERS = \
+RULE_BUILDERS = \
   $(BIN_DIR)/build_clenshaw_curtis \
   $(BIN_DIR)/build_double_exp_rules
 
-builders: $(BIN_DIR) $(BUILDERS)
+rule_builders: $(BIN_DIR) $(RULE_BUILDERS)
 
-
-ortho_test: $(TEST_OUT_DIR)
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/legendre_test > $(TEST_OUT_DIR)/legendre_test.txt 2> $(TEST_OUT_DIR)/legendre_test.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/chebyshev_t_test > $(TEST_OUT_DIR)/chebyshev_t_test.txt 2> $(TEST_OUT_DIR)/chebyshev_t_test.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/chebyshev_u_test > $(TEST_OUT_DIR)/chebyshev_u_test.txt 2> $(TEST_OUT_DIR)/chebyshev_u_test.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/chebyshev_v_test > $(TEST_OUT_DIR)/chebyshev_v_test.txt 2> $(TEST_OUT_DIR)/chebyshev_v_test.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/chebyshev_w_test > $(TEST_OUT_DIR)/chebyshev_w_test.txt 2> $(TEST_OUT_DIR)/chebyshev_w_test.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/gegenbauer_test > $(TEST_OUT_DIR)/gegenbauer_test.txt 2> $(TEST_OUT_DIR)/gegenbauer_test.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/jacobi_test > $(TEST_OUT_DIR)/jacobi_test.txt 2> $(TEST_OUT_DIR)/jacobi_test.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/assoc_laguerre_test > $(TEST_OUT_DIR)/assoc_laguerre_test.txt 2> $(TEST_OUT_DIR)/assoc_laguerre_test.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/assoc_legendre_test > $(TEST_OUT_DIR)/assoc_legendre_test.txt 2> $(TEST_OUT_DIR)/assoc_legendre_test.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/hermite_test > $(TEST_OUT_DIR)/hermite_test.txt 2> $(TEST_OUT_DIR)/hermite_test.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/sph_legendre_test > $(TEST_OUT_DIR)/sph_legendre_test.txt 2> $(TEST_OUT_DIR)/sph_legendre_test.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/laguerre_test > $(TEST_OUT_DIR)/laguerre_test.txt 2> $(TEST_OUT_DIR)/laguerre_test.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/radpoly_test > $(TEST_OUT_DIR)/radpoly_test.txt 2> $(TEST_OUT_DIR)/radpoly_test.err
-	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/zernike_test > $(TEST_OUT_DIR)/zernike_test.txt 2> $(TEST_OUT_DIR)/zernike_test.err
 
 
 test: $(TEST_OUT_DIR) $(BINS)
@@ -156,7 +140,23 @@ test: $(TEST_OUT_DIR) $(BINS)
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_gauss_laguerre > $(TEST_OUT_DIR)/test_gauss_laguerre.txt 2> $(TEST_OUT_DIR)/test_gauss_laguerre.err
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/test_composite_trapezoid_integral > $(TEST_OUT_DIR)/test_composite_trapezoid_integral.txt 2> $(TEST_OUT_DIR)/test_composite_trapezoid_integral.err
 
-builds: $(TEST_OUT_DIR) $(BUILDERS)
+test_orthonorm: $(TEST_OUT_DIR)
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/legendre_test > $(TEST_OUT_DIR)/legendre_test.txt 2> $(TEST_OUT_DIR)/legendre_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/chebyshev_t_test > $(TEST_OUT_DIR)/chebyshev_t_test.txt 2> $(TEST_OUT_DIR)/chebyshev_t_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/chebyshev_u_test > $(TEST_OUT_DIR)/chebyshev_u_test.txt 2> $(TEST_OUT_DIR)/chebyshev_u_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/chebyshev_v_test > $(TEST_OUT_DIR)/chebyshev_v_test.txt 2> $(TEST_OUT_DIR)/chebyshev_v_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/chebyshev_w_test > $(TEST_OUT_DIR)/chebyshev_w_test.txt 2> $(TEST_OUT_DIR)/chebyshev_w_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/gegenbauer_test > $(TEST_OUT_DIR)/gegenbauer_test.txt 2> $(TEST_OUT_DIR)/gegenbauer_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/jacobi_test > $(TEST_OUT_DIR)/jacobi_test.txt 2> $(TEST_OUT_DIR)/jacobi_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/assoc_laguerre_test > $(TEST_OUT_DIR)/assoc_laguerre_test.txt 2> $(TEST_OUT_DIR)/assoc_laguerre_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/assoc_legendre_test > $(TEST_OUT_DIR)/assoc_legendre_test.txt 2> $(TEST_OUT_DIR)/assoc_legendre_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/hermite_test > $(TEST_OUT_DIR)/hermite_test.txt 2> $(TEST_OUT_DIR)/hermite_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/sph_legendre_test > $(TEST_OUT_DIR)/sph_legendre_test.txt 2> $(TEST_OUT_DIR)/sph_legendre_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/laguerre_test > $(TEST_OUT_DIR)/laguerre_test.txt 2> $(TEST_OUT_DIR)/laguerre_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/radpoly_test > $(TEST_OUT_DIR)/radpoly_test.txt 2> $(TEST_OUT_DIR)/radpoly_test.err
+	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/zernike_test > $(TEST_OUT_DIR)/zernike_test.txt 2> $(TEST_OUT_DIR)/zernike_test.err
+
+run_rule_builders: $(TEST_OUT_DIR) $(RULE_BUILDERS)
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/build_double_exp_rules > $(TEST_OUT_DIR)/build_double_exp_rules.txt 2> $(TEST_OUT_DIR)/build_double_exp_rules.err
 	LD_LIBRARY_PATH=$(CXX_LIB_DIR):$(WRAPPER_LIB_DIR):$$LD_LIBRARY_PATH $(BIN_DIR)/build_clenshaw_curtis > $(TEST_OUT_DIR)/build_clenshaw_curtis.txt 2> $(TEST_OUT_DIR)/build_clenshaw_curtis.err
 
@@ -267,5 +267,5 @@ $(BIN_DIR):
 clean:
 	rm -f a.out
 	rm -f *.stackdump
-	rm -f $(BINS) $(BUILDERS)
+	rm -f $(BINS) $(RULE_BUILDERS)
 
