@@ -30,7 +30,7 @@ WRAPPER_LIB_DIR = ../wrappers/debug
 WRAPPER_LIBS = -L$(WRAPPER_LIB_DIR) -lwrap_burkhardt -lgfortran
 
 INC_DIR = include/ext
-INCLUDES =  -I../include -Iinclude -I../polynomial/include
+INCLUDES =  -I../include -Iinclude -I../polynomial/include -I../cxx_fp_utils/include
 
 TEST_OUT_DIR = test_output
 
