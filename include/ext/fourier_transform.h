@@ -22,6 +22,10 @@
 #ifndef FOURIER_TRANSFORM_H
 #define FOURIER_TRANSFORM_H 1
 
+#include <complex>
+#include <vector>
+#include <ext/math_constants.h>
+
 namespace __gnu_cxx
 {
 
@@ -49,7 +53,7 @@ namespace __gnu_cxx
 	return _Tp(2 * __i) / _Tp(__m);
 #else
 	const auto _S_2pi = _Tp{2}
-			  * __gnu_cxx::__math_constants<_Tp>::__pi;
+			  * __gnu_cxx::math::__pi_v<_Tp>;
 	return _S_2pi * _Tp(__i) / _Tp(__m);
 #endif
       }

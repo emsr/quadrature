@@ -10,14 +10,16 @@ $HOME/bin/bin/g++ -std=gnu++2a -g -Wall -Wextra -Wno-psabi -I../include -DREPERI
 #include <iomanip>
 #include <random>
 #include <vector>
-#include <ext/cmath>
+#include <cmath>
+
 #include <fourier_transform.h>
+#include <ext/math_const.h>
 
 template<typename _Tp>
   void
   test_fft_seq()
   {
-    std::cout.precision(__gnu_cxx::__digits10<_Tp>());
+    std::cout.precision(std::numeric_limits<_Tp>::digits10);
     auto w = 8 + std::cout.precision();
     auto cw = 4 + 2 * w;
     const auto len = 1000u;
@@ -58,8 +60,8 @@ template<typename _Tp>
   void
   test_fft()
   {
-    const auto _S_2pi = __gnu_cxx::__const_2_pi<_Tp>();
-    std::cout.precision(__gnu_cxx::__digits10<_Tp>());
+    const auto _S_2pi = __gnu_cxx::math::__2_pi_v<_Tp>;
+    std::cout.precision(std::numeric_limits<_Tp>::digits10);
     auto w = 8 + std::cout.precision();
     auto cw = 4 + 2 * w;
     const auto len = 1000u;
@@ -100,7 +102,7 @@ template<typename _Tp>
   void
   test_real_fft()
   {
-    std::cout.precision(__gnu_cxx::__digits10<_Tp>());
+    std::cout.precision(std::numeric_limits<_Tp>::digits10);
     auto w = 8 + std::cout.precision();
     auto cw = 4 + 2 * w;
     const auto len = 1000u;
@@ -146,7 +148,7 @@ template<typename _Tp>
   void
   test_fst()
   {
-    std::cout.precision(__gnu_cxx::__digits10<_Tp>());
+    std::cout.precision(std::numeric_limits<_Tp>::digits10);
     auto w = 8 + std::cout.precision();
     const auto len = 1000u;
 

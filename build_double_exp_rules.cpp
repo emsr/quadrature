@@ -11,7 +11,7 @@ LD_LIBRARY_PATH=../wrappers/debug:$HOME/bin/lib64:$LD_LIBRARY_PATH ./build_doubl
     void
     build_tanh_sinh_rule(int __n = 128)
     {
-      std::cout.precision(__gnu_cxx::__digits10<_Tp>());
+      std::cout.precision(std::numeric_limits<_Tp>::digits10);
       auto w = 8 + std::cout.precision();
 
       const auto _S_pi_4 = __gnu_cxx::__math_constants<_Tp>::__pi_quarter;
@@ -44,7 +44,7 @@ LD_LIBRARY_PATH=../wrappers/debug:$HOME/bin/lib64:$LD_LIBRARY_PATH ./build_doubl
     void
     build_sinh_sinh_rule(int __n = 128)
     {
-      std::cout.precision(__gnu_cxx::__digits10<_Tp>());
+      std::cout.precision(std::numeric_limits<_Tp>::digits10);
       auto w = 8 + std::cout.precision();
 
       const auto _S_pi_4 = __gnu_cxx::__math_constants<_Tp>::__pi_quarter;
@@ -77,7 +77,7 @@ LD_LIBRARY_PATH=../wrappers/debug:$HOME/bin/lib64:$LD_LIBRARY_PATH ./build_doubl
     void
     build_exp_sinh_rule(int __n = 128)
     {
-      std::cout.precision(__gnu_cxx::__digits10<_Tp>());
+      std::cout.precision(std::numeric_limits<_Tp>::digits10);
       auto w = 8 + std::cout.precision();
 
       const auto _S_pi_4 = __gnu_cxx::__math_constants<_Tp>::__pi_quarter;

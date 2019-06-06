@@ -21,8 +21,7 @@
 #ifndef GAUSS_QUADRATURE_TCC
 #define GAUSS_QUADRATURE_TCC 1
 
-#include <ext/cmath>
-
+#include <cmath>
 
 namespace __gnu_cxx
 {
@@ -152,7 +151,7 @@ namespace __detail
       point(__n),
       weight(__n)
     {
-      const auto __mu_0 = __gnu_cxx::__const_pi<_Tp>();
+      const auto __mu_0 = __gnu_cxx::math::__pi_v<_Tp>;
 
       std::vector<_Tp> __diag(this->order, _Tp{0});
       std::vector<_Tp> __subd(this->order, _Tp{0.5L});
@@ -213,7 +212,7 @@ namespace __detail
       point(__n),
       weight(__n)
     {
-      const auto __mu_0 = __gnu_cxx::__const_pi<_Tp>() / _Tp{2};
+      const auto __mu_0 = __gnu_cxx::math::__pi_v<_Tp> / _Tp{2};
 
       std::vector<_Tp> __diag(this->order, _Tp{0});
       std::vector<_Tp> __subd(this->order, _Tp{0.5L});
@@ -272,7 +271,7 @@ namespace __detail
       point(__n),
       weight(__n)
     {
-      const auto __mu_0 = __gnu_cxx::__const_pi<_Tp>();
+      const auto __mu_0 = __gnu_cxx::math::__pi_v<_Tp>;
 
       std::vector<_Tp> __diag(this->order, _Tp{0});
       std::vector<_Tp> __subd(this->order, _Tp{0.5L});
@@ -335,7 +334,7 @@ namespace __detail
       point(__n),
       weight(__n)
     {
-      const auto __mu_0 = __gnu_cxx::__const_pi<_Tp>();
+      const auto __mu_0 = __gnu_cxx::math::__pi_v<_Tp>;
 
       std::vector<_Tp> __diag(this->order, _Tp{0});
       std::vector<_Tp> __subd(this->order, _Tp{0.5L});

@@ -24,7 +24,6 @@
 #include <numeric>
 #include <vector>
 #include <complex>
-#include <ext/math_const.h>
 
 namespace __gnu_cxx
 {

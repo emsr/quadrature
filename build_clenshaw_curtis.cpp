@@ -12,7 +12,9 @@ PATH=../wrappers/debug:$HOME/bin/lib64:$PATH ./build_clenshaw_curtis > build_cle
 #include <iostream>
 #include <iomanip>
 #include <wrap_burkhardt.h>
+
 #include <ext/fourier_transform.h>
+#include <ext/math_const.h>
 
   /**
    * Return a vector of zeros of the Chebyshev function of the second kind
@@ -26,7 +28,7 @@ PATH=../wrappers/debug:$HOME/bin/lib64:$PATH ./build_clenshaw_curtis > build_cle
     std::vector<__gnu_cxx::__quadrature_point_t<_Tp>>
     __chebyshev_u_zeros(unsigned int __n)
     {
-      const auto _S_pi = __gnu_cxx::__const_pi<_Tp>();
+      const auto _S_pi = __gnu_cxx::math::__pi_v<_Tp>;
       std::vector<__gnu_cxx::__quadrature_point_t<_Tp>> __pt(__n);
       for (unsigned int __k = 1; __k <= __n; ++__k)
 	{
@@ -64,7 +66,7 @@ template<typename _Tp>
       }
     else
       {
-	const auto _S_pi = __gnu_cxx::__const_pi<_Tp>();
+	const auto _S_pi = __gnu_cxx::math::__pi_v<_Tp>;
 	auto uz = __chebyshev_u_zeros<_Tp>(__n - 1);
 	__out[0].__point = _Tp{+1};
 	__out[0].__weight = _Tp{1} / (__n * __n - 1 + __n % 2);
@@ -129,7 +131,7 @@ template<typename _Tp>
       }
     else
       {
-	const auto _S_pi = __gnu_cxx::__const_pi<_Tp>();
+	const auto _S_pi = __gnu_cxx::math::__pi_v<_Tp>;
 	auto uz = __chebyshev_u_zeros<_Tp>(__n - 1);
 	__out[0].__point = _Tp{+1};
 	__out[0].__weight = _Tp{1} / (__n * __n - 1 + __n % 2);
@@ -163,7 +165,7 @@ template<typename _Tp>
   std::vector<__gnu_cxx::__quadrature_point_t<_Tp>>
   build_fejer_1_fft(std::size_t __n)
   {
-    const auto _S_pi = __gnu_cxx::__const_pi<_Tp>();
+    const auto _S_pi = __gnu_cxx::math::__pi_v<_Tp>;
     std::vector<__gnu_cxx::__quadrature_point_t<_Tp>> __out(__n);
     std::vector<std::complex<_Tp>> __v(__n + 1);
     for (auto __k = 0u; __k < __n / 2; ++__k)
@@ -207,7 +209,7 @@ template<typename _Tp>
       }
     else
       {
-	const auto _S_pi = __gnu_cxx::__const_pi<_Tp>();
+	const auto _S_pi = __gnu_cxx::math::__pi_v<_Tp>;
 	auto uz = __chebyshev_u_zeros<_Tp>(__n - 1);
 	__out[0].__point = _Tp{+1};
 	__out[0].__weight = _Tp{0};
@@ -257,7 +259,7 @@ std::cout << x << '\n';
 int
 main()
 {
-  std::cout.precision(__gnu_cxx::__digits10<long double>());
+  std::cout.precision(std::numeric_limits<long double>::digits10);
   auto w = 8 + std::cout.precision();
 
   auto cc24b = burkhardt::clenshaw_curtis_rule(25);

@@ -3,20 +3,21 @@
 #include <iomanip>
 #include <cmath>
 #include <complex>
-#include <bits/complex_util.h>
 
+#include <bits/complex_util.h>
 #include <ext/integration.h>
 #include <ext/polynomial.h>
+#include <ext/math_const.h>
 
 template<typename Tp>
   void
   test_integral(Tp proto = Tp{})
   {
-    std::cout.precision(__gnu_cxx::__digits10(proto));
+    std::cout.precision(std::numeric_limits<Tp>::digits10);
     std::cout.flags(std::ios::showpoint);
     const auto w = 8 + std::cout.precision();
 
-    const auto PI = __gnu_cxx::__const_pi(proto);
+    const auto PI = __gnu_cxx::math::__pi_v<Tp>;
 
     auto sin2 = [](Tp x) ->Tp { Tp s = std::sin(x); return s * s; };
     auto cos2 = [](Tp x) ->Tp { Tp c = std::cos(x); return c * c; };

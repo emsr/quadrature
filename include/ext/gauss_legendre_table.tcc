@@ -27,6 +27,8 @@
 #ifndef GAUSS_LEGENDRE_TABLE_TCC
 #define GAUSS_LEGENDRE_TABLE_TCC 1
 
+#include <cmath> // __legendre_zeros
+
 namespace __gnu_cxx
 {
 

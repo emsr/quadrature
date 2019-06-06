@@ -46,7 +46,7 @@ template<typename _Tp>
   void
   test_laguerre_quad(_Tp proto = _Tp{})
   {
-    std::cout.precision(__gnu_cxx::__digits10(proto));
+    std::cout.precision(std::numeric_limits<_Tp>::digits10);
     std::cout.flags(std::ios::showpoint);
     auto width = 8 + std::cout.precision();
 

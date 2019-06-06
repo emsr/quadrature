@@ -39,17 +39,19 @@
 #ifndef __JACOBI_H__
 #define __JACOBI_H__
 
-/** 
- * \brief Enumeration with differing types of quadrature defined in the library
- * The gauss_quad_type is used to determine the type of quadrature that is being used.
- */
-enum gauss_quad_type
-{
-  Gauss,             ///< Gauss quadrature
-  Gauss_Lobatto,     ///< Gauss-Lobatto quadrature
-  Gauss_Radau_lower, ///< Gauss-Radau quadrature including the node -1
-  Gauss_Radau_upper  ///< Gauss-Radau quadrature including the node +1
-};
+  /** 
+   * \brief Enumeration gor differing types of Gauss quadrature.
+   * The gauss_quad_type is used to determine the boundary condition
+   * modifications applied to orthogonal polynomials for quadrature
+   * rules.
+   */
+  enum gauss_quad_type
+  {
+    Gauss,             ///< Gauss quadrature
+    Gauss_Lobatto,     ///< Gauss-Lobatto quadrature
+    Gauss_Radau_lower, ///< Gauss-Radau quadrature including the node -1
+    Gauss_Radau_upper  ///< Gauss-Radau quadrature including the node +1
+  };
 
 
 /**
