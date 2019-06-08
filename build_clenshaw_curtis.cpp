@@ -7,7 +7,7 @@ PATH=../wrappers/debug:$HOME/bin/lib64:$PATH ./build_clenshaw_curtis > build_cle
 */
 
 #include <vector>
-#include <ext/cmath>
+#include <cmath>
 #include <bits/specfun_state.h>
 #include <iostream>
 #include <iomanip>

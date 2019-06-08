@@ -20,7 +20,7 @@
 
 #include <limits>
 #include <cassert>
-#include <ext/cmath>
+#include <cmath>
 #include "integration.h"
 
 // Function which should integrate to 1 for n1 == n2, 0 otherwise.

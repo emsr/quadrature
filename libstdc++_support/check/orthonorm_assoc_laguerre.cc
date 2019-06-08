@@ -20,7 +20,7 @@
 
 #include <limits>
 #include <cassert>
-#include <ext/cmath>
+#include <cmath>
 #include "integration.h"
 
 // Try to manage the gamma ratio.
