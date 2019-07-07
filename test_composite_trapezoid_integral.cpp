@@ -5,7 +5,7 @@
 #include <complex>
 
 #include <ext/complex_util.h>
-#include <ext/math_const.h>
+#include <ext/math_constants.h>
 #include <ext/integration.h>
 #include <ext/polynomial.h>
 

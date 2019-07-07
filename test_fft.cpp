@@ -13,7 +13,7 @@ $HOME/bin/bin/g++ -std=gnu++2a -g -Wall -Wextra -Wno-psabi -I../include -DREPERI
 #include <cmath>
 
 #include <fourier_transform.h>
-#include <ext/math_const.h>
+#include <ext/math_constants.h>
 
 template<typename _Tp>
   void

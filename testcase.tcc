@@ -22,7 +22,7 @@
 #define QUADRATURE_TESTCASE_TCC 1
 
 #include <cmath>
-#include <ext/math_const.h>
+#include <ext/math_constants.h>
 
 /* These are the test functions from table 4.1 of the QUADPACK book */
 

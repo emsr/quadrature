@@ -5,7 +5,7 @@
 
 #include <cmath>
 #include <ext/integration.h>
-#include <ext/math_const.h>
+#include <ext/math_constants.h>
 
 template<typename Tp>
   void

@@ -24,7 +24,7 @@
 #include <sstream>
 #include <string>
 
-#include <ext/math_const.h>
+#include <ext/math_constants.h>
 #include <ext/integration.h>
 
 using namespace __gnu_cxx;
