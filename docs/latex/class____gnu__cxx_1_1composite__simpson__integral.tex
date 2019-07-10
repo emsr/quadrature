@@ -1,0 +1,174 @@
+\hypertarget{class____gnu__cxx_1_1composite__simpson__integral}{}\section{\+\_\+\+\_\+gnu\+\_\+cxx\+:\+:composite\+\_\+simpson\+\_\+integral$<$ \+\_\+\+Tp, \+\_\+\+Func\+Tp $>$ Class Template Reference}
+\label{class____gnu__cxx_1_1composite__simpson__integral}\index{\+\_\+\+\_\+gnu\+\_\+cxx\+::composite\+\_\+simpson\+\_\+integral$<$ \+\_\+\+Tp, \+\_\+\+Func\+Tp $>$@{\+\_\+\+\_\+gnu\+\_\+cxx\+::composite\+\_\+simpson\+\_\+integral$<$ \+\_\+\+Tp, \+\_\+\+Func\+Tp $>$}}
+
+
+{\ttfamily \#include $<$simpson\+\_\+integral.\+h$>$}
+
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \hyperlink{class____gnu__cxx_1_1composite__simpson__integral_a7057fa13b914730f021356f761b6c448}{\+\_\+\+Abs\+Area\+Tp} = decltype(std\+::abs(\hyperlink{class____gnu__cxx_1_1composite__simpson__integral_a1a3ef5313bafc1d8523f2d517b066a7a}{\+\_\+\+Area\+Tp}\{\}))
+\item 
+using \hyperlink{class____gnu__cxx_1_1composite__simpson__integral_a1a3ef5313bafc1d8523f2d517b066a7a}{\+\_\+\+Area\+Tp} = decltype(\hyperlink{class____gnu__cxx_1_1composite__simpson__integral_a530008576c8a3a786e84ccbd96c93cc5}{\+\_\+\+Ret\+Tp}\{\} $\ast$\hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp}\{\})
+\item 
+using \hyperlink{class____gnu__cxx_1_1composite__simpson__integral_a530008576c8a3a786e84ccbd96c93cc5}{\+\_\+\+Ret\+Tp} = std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp, \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp} $>$
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class____gnu__cxx_1_1composite__simpson__integral_a1348464cb4681d828755d647c513aba7}{composite\+\_\+simpson\+\_\+integral} (\+\_\+\+Func\+Tp \+\_\+\+\_\+fun, \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp} \+\_\+\+\_\+a, \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp} \+\_\+\+\_\+b, std\+::size\+\_\+t \+\_\+\+\_\+num\+\_\+segs)
+\item 
+{\footnotesize template$<$typename \+\_\+\+Func\+Tp2 $>$ }\\\hyperlink{struct____gnu__cxx_1_1fixed__integral__t}{fixed\+\_\+integral\+\_\+t}$<$ \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp}, std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp2, \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp} $>$ $>$ \hyperlink{class____gnu__cxx_1_1composite__simpson__integral_a932c3e6ea25f340113955340dbec54c0}{integrate} (\+\_\+\+Func\+Tp2 \+\_\+\+\_\+fun, \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp} \+\_\+\+\_\+a, \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp} \+\_\+\+\_\+b)
+\item 
+\hyperlink{class____gnu__cxx_1_1composite__simpson__integral_a1a3ef5313bafc1d8523f2d517b066a7a}{\+\_\+\+Area\+Tp} \hyperlink{class____gnu__cxx_1_1composite__simpson__integral_a7c60338016d2c10eddc8bd9b8dfd3264}{operator()} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename \+\_\+\+Tp, typename \+\_\+\+Func\+Tp$>$\newline
+class \+\_\+\+\_\+gnu\+\_\+cxx\+::composite\+\_\+simpson\+\_\+integral$<$ \+\_\+\+Tp, \+\_\+\+Func\+Tp $>$}
+
+
+
+Definition at line 34 of file simpson\+\_\+integral.\+h.
+
+
+
+\subsection{Member Typedef Documentation}
+\mbox{\Hypertarget{class____gnu__cxx_1_1composite__simpson__integral_a7057fa13b914730f021356f761b6c448}\label{class____gnu__cxx_1_1composite__simpson__integral_a7057fa13b914730f021356f761b6c448}} 
+\index{\+\_\+\+\_\+gnu\+\_\+cxx\+::composite\+\_\+simpson\+\_\+integral@{\+\_\+\+\_\+gnu\+\_\+cxx\+::composite\+\_\+simpson\+\_\+integral}!\+\_\+\+Abs\+Area\+Tp@{\+\_\+\+Abs\+Area\+Tp}}
+\index{\+\_\+\+Abs\+Area\+Tp@{\+\_\+\+Abs\+Area\+Tp}!\+\_\+\+\_\+gnu\+\_\+cxx\+::composite\+\_\+simpson\+\_\+integral@{\+\_\+\+\_\+gnu\+\_\+cxx\+::composite\+\_\+simpson\+\_\+integral}}
+\subsubsection{\texorpdfstring{\+\_\+\+Abs\+Area\+Tp}{\_AbsAreaTp}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Tp, typename \+\_\+\+Func\+Tp$>$ \\
+using \hyperlink{class____gnu__cxx_1_1composite__simpson__integral}{\+\_\+\+\_\+gnu\+\_\+cxx\+::composite\+\_\+simpson\+\_\+integral}$<$ \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp}, \+\_\+\+Func\+Tp $>$\+::\hyperlink{class____gnu__cxx_1_1composite__simpson__integral_a7057fa13b914730f021356f761b6c448}{\+\_\+\+Abs\+Area\+Tp} =  decltype(std\+::abs(\hyperlink{class____gnu__cxx_1_1composite__simpson__integral_a1a3ef5313bafc1d8523f2d517b066a7a}{\+\_\+\+Area\+Tp}\{\}))}
+
+
+
+Definition at line 40 of file simpson\+\_\+integral.\+h.
+
+\mbox{\Hypertarget{class____gnu__cxx_1_1composite__simpson__integral_a1a3ef5313bafc1d8523f2d517b066a7a}\label{class____gnu__cxx_1_1composite__simpson__integral_a1a3ef5313bafc1d8523f2d517b066a7a}} 
+\index{\+\_\+\+\_\+gnu\+\_\+cxx\+::composite\+\_\+simpson\+\_\+integral@{\+\_\+\+\_\+gnu\+\_\+cxx\+::composite\+\_\+simpson\+\_\+integral}!\+\_\+\+Area\+Tp@{\+\_\+\+Area\+Tp}}
+\index{\+\_\+\+Area\+Tp@{\+\_\+\+Area\+Tp}!\+\_\+\+\_\+gnu\+\_\+cxx\+::composite\+\_\+simpson\+\_\+integral@{\+\_\+\+\_\+gnu\+\_\+cxx\+::composite\+\_\+simpson\+\_\+integral}}
+\subsubsection{\texorpdfstring{\+\_\+\+Area\+Tp}{\_AreaTp}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Tp, typename \+\_\+\+Func\+Tp$>$ \\
+using \hyperlink{class____gnu__cxx_1_1composite__simpson__integral}{\+\_\+\+\_\+gnu\+\_\+cxx\+::composite\+\_\+simpson\+\_\+integral}$<$ \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp}, \+\_\+\+Func\+Tp $>$\+::\hyperlink{class____gnu__cxx_1_1composite__simpson__integral_a1a3ef5313bafc1d8523f2d517b066a7a}{\+\_\+\+Area\+Tp} =  decltype(\hyperlink{class____gnu__cxx_1_1composite__simpson__integral_a530008576c8a3a786e84ccbd96c93cc5}{\+\_\+\+Ret\+Tp}\{\} $\ast$ \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp}\{\})}
+
+
+
+Definition at line 39 of file simpson\+\_\+integral.\+h.
+
+\mbox{\Hypertarget{class____gnu__cxx_1_1composite__simpson__integral_a530008576c8a3a786e84ccbd96c93cc5}\label{class____gnu__cxx_1_1composite__simpson__integral_a530008576c8a3a786e84ccbd96c93cc5}} 
+\index{\+\_\+\+\_\+gnu\+\_\+cxx\+::composite\+\_\+simpson\+\_\+integral@{\+\_\+\+\_\+gnu\+\_\+cxx\+::composite\+\_\+simpson\+\_\+integral}!\+\_\+\+Ret\+Tp@{\+\_\+\+Ret\+Tp}}
+\index{\+\_\+\+Ret\+Tp@{\+\_\+\+Ret\+Tp}!\+\_\+\+\_\+gnu\+\_\+cxx\+::composite\+\_\+simpson\+\_\+integral@{\+\_\+\+\_\+gnu\+\_\+cxx\+::composite\+\_\+simpson\+\_\+integral}}
+\subsubsection{\texorpdfstring{\+\_\+\+Ret\+Tp}{\_RetTp}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Tp, typename \+\_\+\+Func\+Tp$>$ \\
+using \hyperlink{class____gnu__cxx_1_1composite__simpson__integral}{\+\_\+\+\_\+gnu\+\_\+cxx\+::composite\+\_\+simpson\+\_\+integral}$<$ \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp}, \+\_\+\+Func\+Tp $>$\+::\hyperlink{class____gnu__cxx_1_1composite__simpson__integral_a530008576c8a3a786e84ccbd96c93cc5}{\+\_\+\+Ret\+Tp} =  std\+::invoke\+\_\+result\+\_\+t$<$\+\_\+\+Func\+Tp, \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp}$>$}
+
+
+
+Definition at line 38 of file simpson\+\_\+integral.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class____gnu__cxx_1_1composite__simpson__integral_a1348464cb4681d828755d647c513aba7}\label{class____gnu__cxx_1_1composite__simpson__integral_a1348464cb4681d828755d647c513aba7}} 
+\index{\+\_\+\+\_\+gnu\+\_\+cxx\+::composite\+\_\+simpson\+\_\+integral@{\+\_\+\+\_\+gnu\+\_\+cxx\+::composite\+\_\+simpson\+\_\+integral}!composite\+\_\+simpson\+\_\+integral@{composite\+\_\+simpson\+\_\+integral}}
+\index{composite\+\_\+simpson\+\_\+integral@{composite\+\_\+simpson\+\_\+integral}!\+\_\+\+\_\+gnu\+\_\+cxx\+::composite\+\_\+simpson\+\_\+integral@{\+\_\+\+\_\+gnu\+\_\+cxx\+::composite\+\_\+simpson\+\_\+integral}}
+\subsubsection{\texorpdfstring{composite\+\_\+simpson\+\_\+integral()}{composite\_simpson\_integral()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Tp, typename \+\_\+\+Func\+Tp$>$ \\
+\hyperlink{class____gnu__cxx_1_1composite__simpson__integral}{\+\_\+\+\_\+gnu\+\_\+cxx\+::composite\+\_\+simpson\+\_\+integral}$<$ \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp}, \+\_\+\+Func\+Tp $>$\+::\hyperlink{class____gnu__cxx_1_1composite__simpson__integral}{composite\+\_\+simpson\+\_\+integral} (\begin{DoxyParamCaption}\item[{\+\_\+\+Func\+Tp}]{\+\_\+\+\_\+fun,  }\item[{\hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp}}]{\+\_\+\+\_\+a,  }\item[{\hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp}}]{\+\_\+\+\_\+b,  }\item[{std\+::size\+\_\+t}]{\+\_\+\+\_\+num\+\_\+segs }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 42 of file simpson\+\_\+integral.\+h.
+
+
+
+References \+\_\+\+\_\+gnu\+\_\+cxx\+::composite\+\_\+simpson\+\_\+integral$<$ \+\_\+\+Tp, \+\_\+\+Func\+Tp $>$\+::operator()().
+
+
+\begin{DoxyCode}
+44       : \_M\_fun(\_\_fun), \_M\_lower\_lim(\_\_a), \_M\_upper\_lim(\_\_b),
+45         \_M\_num\_segs(\_\_num\_segs), \_M\_result()
+46       \{ \}
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class____gnu__cxx_1_1composite__simpson__integral_a932c3e6ea25f340113955340dbec54c0}\label{class____gnu__cxx_1_1composite__simpson__integral_a932c3e6ea25f340113955340dbec54c0}} 
+\index{\+\_\+\+\_\+gnu\+\_\+cxx\+::composite\+\_\+simpson\+\_\+integral@{\+\_\+\+\_\+gnu\+\_\+cxx\+::composite\+\_\+simpson\+\_\+integral}!integrate@{integrate}}
+\index{integrate@{integrate}!\+\_\+\+\_\+gnu\+\_\+cxx\+::composite\+\_\+simpson\+\_\+integral@{\+\_\+\+\_\+gnu\+\_\+cxx\+::composite\+\_\+simpson\+\_\+integral}}
+\subsubsection{\texorpdfstring{integrate()}{integrate()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Tp, typename \+\_\+\+Func\+Tp$>$ \\
+template$<$typename \+\_\+\+Func\+Tp2 $>$ \\
+\hyperlink{struct____gnu__cxx_1_1fixed__integral__t}{fixed\+\_\+integral\+\_\+t}$<$\hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp}, std\+::invoke\+\_\+result\+\_\+t$<$\+\_\+\+Func\+Tp2, \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp}$>$ $>$ \hyperlink{class____gnu__cxx_1_1composite__simpson__integral}{\+\_\+\+\_\+gnu\+\_\+cxx\+::composite\+\_\+simpson\+\_\+integral}$<$ \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp}, \+\_\+\+Func\+Tp $>$\+::integrate (\begin{DoxyParamCaption}\item[{\+\_\+\+Func\+Tp2}]{\+\_\+\+\_\+fun,  }\item[{\hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp}}]{\+\_\+\+\_\+a,  }\item[{\hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp}}]{\+\_\+\+\_\+b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 52 of file simpson\+\_\+integral.\+h.
+
+
+
+References \+\_\+\+\_\+gnu\+\_\+cxx\+::\+\_\+\+Tp.
+
+
+
+Referenced by \+\_\+\+\_\+gnu\+\_\+cxx\+::simpson\+\_\+integral$<$ \+\_\+\+Tp, \+\_\+\+Func\+Tp $>$\+::operator()().
+
+
+\begin{DoxyCode}
+53         \{
+54           composite\_simpson\_integral<\_FuncTp2, \_Tp>
+55             \_\_trapi(\_\_fun, \_\_a, \_\_b, this->\_M\_num\_segments);
+56           \textcolor{keywordflow}{return} \{\_\_trapi()\};
+57         \}
+\end{DoxyCode}
+\mbox{\Hypertarget{class____gnu__cxx_1_1composite__simpson__integral_a7c60338016d2c10eddc8bd9b8dfd3264}\label{class____gnu__cxx_1_1composite__simpson__integral_a7c60338016d2c10eddc8bd9b8dfd3264}} 
+\index{\+\_\+\+\_\+gnu\+\_\+cxx\+::composite\+\_\+simpson\+\_\+integral@{\+\_\+\+\_\+gnu\+\_\+cxx\+::composite\+\_\+simpson\+\_\+integral}!operator()@{operator()}}
+\index{operator()@{operator()}!\+\_\+\+\_\+gnu\+\_\+cxx\+::composite\+\_\+simpson\+\_\+integral@{\+\_\+\+\_\+gnu\+\_\+cxx\+::composite\+\_\+simpson\+\_\+integral}}
+\subsubsection{\texorpdfstring{operator()()}{operator()()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Tp , typename \+\_\+\+Func\+Tp $>$ \\
+\hyperlink{class____gnu__cxx_1_1composite__simpson__integral}{composite\+\_\+simpson\+\_\+integral}$<$ \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp}, \+\_\+\+Func\+Tp $>$\+::\hyperlink{class____gnu__cxx_1_1composite__simpson__integral_a1a3ef5313bafc1d8523f2d517b066a7a}{\+\_\+\+Area\+Tp} \hyperlink{class____gnu__cxx_1_1composite__simpson__integral}{\+\_\+\+\_\+gnu\+\_\+cxx\+::composite\+\_\+simpson\+\_\+integral}$<$ \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp}, \+\_\+\+Func\+Tp $>$\+::operator() (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Integrate the function by naive subdivision. 
+
+Definition at line 33 of file simpson\+\_\+integral.\+tcc.
+
+
+
+References \+\_\+\+\_\+gnu\+\_\+cxx\+::\+\_\+\+Tp.
+
+
+
+Referenced by \+\_\+\+\_\+gnu\+\_\+cxx\+::composite\+\_\+simpson\+\_\+integral$<$ \+\_\+\+Tp, \+\_\+\+Func\+Tp $>$\+::composite\+\_\+simpson\+\_\+integral(), and \+\_\+\+\_\+gnu\+\_\+cxx\+::simpson\+\_\+integral$<$ \+\_\+\+Tp, \+\_\+\+Func\+Tp $>$\+::simpson\+\_\+integral().
+
+
+\begin{DoxyCode}
+34     \{
+35       \textcolor{keyword}{const} \textcolor{keyword}{auto} \_\_delta = (this->\_M\_upper\_lim - this->\_M\_lower\_lim)
+36                            / this->\_M\_num\_segs / 2;
+37 
+38       \textcolor{keyword}{auto} \_\_x = this->\_M\_lower\_lim;
+39       \textcolor{keyword}{auto} \_\_sum = this->\_M\_fun(\_\_x);
+40       \_\_x += \_\_delta;
+41       \_\_sum += \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\_Tp}\{2\} * this->\_M\_fun(\_\_x);
+42       \textcolor{keywordflow}{for} (std::size\_t \_\_j = 1; \_\_j < this->\_M\_num\_segs; ++\_\_j)
+43         \{
+44           \_\_x += \_\_delta;
+45           \_\_sum += \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\_Tp}\{4\} * this->\_M\_fun(\_\_x);
+46           \_\_x += \_\_delta;
+47           \_\_sum += \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\_Tp}\{2\} * this->\_M\_fun(\_\_x);
+48         \}
+49       \_\_sum += this->\_M\_fun(this->\_M\_upper\_lim);
+50 
+51       this->\_M\_result = \_\_sum * \_\_delta / \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\_Tp}\{6\};
+52 
+53       \textcolor{keywordflow}{return} this->\_M\_result;
+54     \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/ext/\hyperlink{simpson__integral_8h}{simpson\+\_\+integral.\+h}\item 
+include/ext/\hyperlink{simpson__integral_8tcc}{simpson\+\_\+integral.\+tcc}\end{DoxyCompactItemize}

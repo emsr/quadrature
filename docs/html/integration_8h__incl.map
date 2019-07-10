@@ -1,0 +1,32 @@
+<map id="include/ext/integration.h" name="include/ext/integration.h">
+<area shape="rect" id="node7" href="$trapezoid__integral_8h.html" title="ext/trapezoid_integral.h" alt="" coords="5,80,163,107"/>
+<area shape="rect" id="node10" href="$midpoint__integral_8h.html" title="ext/midpoint_integral.h" alt="" coords="926,80,1079,107"/>
+<area shape="rect" id="node11" href="$simpson__integral_8h.html" title="ext/simpson_integral.h" alt="" coords="187,80,341,107"/>
+<area shape="rect" id="node12" href="$gauss__quadrature_8h.html" title="ext/gauss_quadrature.h" alt="" coords="1505,162,1663,189"/>
+<area shape="rect" id="node14" href="$trapezoid__integral_8tcc.html" title="ext/trapezoid_integral.tcc" alt="" coords="3055,162,3223,189"/>
+<area shape="rect" id="node16" href="$midpoint__integral_8tcc.html" title="ext/midpoint_integral.tcc" alt="" coords="2678,162,2842,189"/>
+<area shape="rect" id="node17" href="$simpson__integral_8tcc.html" title="ext/simpson_integral.tcc" alt="" coords="2866,162,3030,189"/>
+<area shape="rect" id="node18" href="$gauss__kronrod__integral_8tcc.html" title="ext/gauss_kronrod_integral.tcc" alt="" coords="1727,80,1927,107"/>
+<area shape="rect" id="node25" href="$qag__integrate_8tcc.html" title="ext/qag_integrate.tcc" alt="" coords="1155,80,1299,107"/>
+<area shape="rect" id="node31" href="$qags__integrate_8tcc.html" title="ext/qags_integrate.tcc" alt="" coords="1323,80,1474,107"/>
+<area shape="rect" id="node34" href="$qng__integrate_8tcc.html" title="ext/qng_integrate.tcc" alt="" coords="1500,80,1644,107"/>
+<area shape="rect" id="node35" href="$qagp__integrate_8tcc.html" title="ext/qagp_integrate.tcc" alt="" coords="1951,80,2102,107"/>
+<area shape="rect" id="node36" href="$qcheb__integrate_8tcc.html" title="ext/qcheb_integrate.tcc" alt="" coords="4022,162,4181,189"/>
+<area shape="rect" id="node37" href="$qawc__integrate_8tcc.html" title="ext/qawc_integrate.tcc" alt="" coords="3961,80,4116,107"/>
+<area shape="rect" id="node38" href="$qaws__integrate_8tcc.html" title="ext/qaws_integrate.tcc" alt="" coords="3732,80,3887,107"/>
+<area shape="rect" id="node40" href="$qawo__integrate_8tcc.html" title="ext/qawo_integrate.tcc" alt="" coords="3153,80,3308,107"/>
+<area shape="rect" id="node42" href="$qawf__integrate_8tcc.html" title="ext/qawf_integrate.tcc" alt="" coords="2970,80,3121,107"/>
+<area shape="rect" id="node43" href="$glfixed__integrate_8tcc.html" title="ext/glfixed_integrate.tcc" alt="" coords="3333,80,3494,107"/>
+<area shape="rect" id="node45" href="$cquad__integrate_8tcc.html" title="ext/cquad_integrate.tcc" alt="" coords="2227,80,2386,107"/>
+<area shape="rect" id="node48" href="$double__exp__integrate_8tcc.html" title="ext/double_exp_integrate.tcc" alt="" coords="3519,80,3708,107"/>
+<area shape="rect" id="node49" href="$gauss__quadrature_8tcc.html" title="ext/gauss_quadrature.tcc" alt="" coords="2481,80,2650,107"/>
+<area shape="rect" id="node21" href="$integration__error_8h.html" title="ext/integration_error.h" alt="" coords="1145,162,1293,189"/>
+<area shape="rect" id="node28" href="$integration__workspace_8h.html" title="ext/integration_workspace.h" alt="" coords="2017,162,2202,189"/>
+<area shape="rect" id="node32" href="$integration__transform_8h.html" title="ext/integration_transform.h" alt="" coords="943,162,1121,189"/>
+<area shape="rect" id="node33" href="$extrapolation__table_8h.html" title="ext/extrapolation_table.h" alt="" coords="1317,162,1481,189"/>
+<area shape="rect" id="node39" href="$qaws__integration__table_8h.html" title="ext/qaws_integration\l_table.h" alt="" coords="3855,155,3998,196"/>
+<area shape="rect" id="node41" href="$oscillatory__integration__table_8h.html" title="ext/oscillatory_integration\l_table.h" alt="" coords="3297,155,3468,196"/>
+<area shape="rect" id="node44" href="$gauss__legendre__table_8h.html" title="ext/gauss_legendre\l_table.h" alt="" coords="3543,155,3678,196"/>
+<area shape="rect" id="node46" href="$cquad__const_8tcc.html" title="ext/cquad_const.tcc" alt="" coords="2462,162,2602,189"/>
+<area shape="rect" id="node47" href="$cquad__workspace_8h.html" title="ext/cquad_workspace.h" alt="" coords="2227,162,2387,189"/>
+</map>

@@ -1,0 +1,60 @@
+\hypertarget{gauss__jacobi__interface_8tcc}{}\section{include/ext/gauss\+\_\+jacobi\+\_\+interface.tcc File Reference}
+\label{gauss__jacobi__interface_8tcc}\index{include/ext/gauss\+\_\+jacobi\+\_\+interface.\+tcc@{include/ext/gauss\+\_\+jacobi\+\_\+interface.\+tcc}}
+{\ttfamily \#include $<$cstdlib$>$}\newline
+{\ttfamily \#include $<$numeric$>$}\newline
+{\ttfamily \#include $<$ext/jacobi.\+h$>$}\newline
+{\ttfamily \#include $<$ext/integration\+\_\+error.\+h$>$}\newline
+Include dependency graph for gauss\+\_\+jacobi\+\_\+interface.\+tcc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gauss__jacobi__interface_8tcc__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=204pt]{gauss__jacobi__interface_8tcc__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename \+\_\+\+Tp $>$ }\\void \hyperlink{gauss__jacobi__interface_8tcc_a3a2988b4408ce3696d34df82f1dcba57}{matvec} (std\+::size\+\_\+t \+\_\+\+\_\+n, const \+\_\+\+Tp $\ast$\+\_\+\+\_\+A, const \+\_\+\+Tp $\ast$\+\_\+\+\_\+x, \+\_\+\+Tp $\ast$\+\_\+\+\_\+y)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{gauss__jacobi__interface_8tcc_a3a2988b4408ce3696d34df82f1dcba57}\label{gauss__jacobi__interface_8tcc_a3a2988b4408ce3696d34df82f1dcba57}} 
+\index{gauss\+\_\+jacobi\+\_\+interface.\+tcc@{gauss\+\_\+jacobi\+\_\+interface.\+tcc}!matvec@{matvec}}
+\index{matvec@{matvec}!gauss\+\_\+jacobi\+\_\+interface.\+tcc@{gauss\+\_\+jacobi\+\_\+interface.\+tcc}}
+\subsubsection{\texorpdfstring{matvec()}{matvec()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Tp $>$ \\
+void matvec (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{\+\_\+\+\_\+n,  }\item[{const \+\_\+\+Tp $\ast$}]{\+\_\+\+\_\+A,  }\item[{const \+\_\+\+Tp $\ast$}]{\+\_\+\+\_\+x,  }\item[{\+\_\+\+Tp $\ast$}]{\+\_\+\+\_\+y }\end{DoxyParamCaption})}
+
+
+
+Definition at line 79 of file gauss\+\_\+jacobi\+\_\+interface.\+tcc.
+
+
+
+References \+\_\+\+\_\+gnu\+\_\+cxx\+::\+\_\+\+Tp, Gauss, Gauss\+\_\+\+Lobatto, Gauss\+\_\+\+Radau\+\_\+lower, and Gauss\+\_\+\+Radau\+\_\+upper.
+
+
+
+Referenced by jac\+\_\+quadrature$<$ \+\_\+\+Tp $>$\+::integrate().
+
+
+\begin{DoxyCode}
+80   \{
+81     \textcolor{keywordflow}{for} (std::size\_t \_\_ir = 0; \_\_ir < \_\_n; ++\_\_ir)
+82       \{
+83         \_\_y[\_\_ir] = \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\_Tp}\{0\};
+84         \textcolor{keywordflow}{for} (std::size\_t \_\_ic = 0; \_\_ic < \_\_n; ++\_\_ic)
+85           \_\_y[\_\_ir] += \_\_A[\_\_ir][\_\_ic] * \_\_x[\_\_ic];
+86       \}
+87   \}
+\end{DoxyCode}

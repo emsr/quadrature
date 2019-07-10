@@ -24,6 +24,16 @@ set(TR29124_INCLUDE_DIRS
   ../cxx_summation/include
   ../cxx_continued_fractions/include)
 
+find_package(Doxygen)
+if (DOXYGEN_FOUND)
+  add_custom_target(docs_integration
+    COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_CURRENT_BINARY_DIR}/docs
+    COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_OUTPUT}
+    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    COMMENT "Generating API documentation for cxx_integration" VERBATIM
+  )
+endif (DOXYGEN_FOUND)
+
 add_executable(test_phase_iterator test_phase_iterator.cpp)
 target_include_directories(test_phase_iterator PRIVATE
   include

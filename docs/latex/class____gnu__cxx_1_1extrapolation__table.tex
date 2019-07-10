@@ -1,0 +1,307 @@
+\hypertarget{class____gnu__cxx_1_1extrapolation__table}{}\section{\+\_\+\+\_\+gnu\+\_\+cxx\+:\+:extrapolation\+\_\+table$<$ \+\_\+\+Tp $>$ Class Template Reference}
+\label{class____gnu__cxx_1_1extrapolation__table}\index{\+\_\+\+\_\+gnu\+\_\+cxx\+::extrapolation\+\_\+table$<$ \+\_\+\+Tp $>$@{\+\_\+\+\_\+gnu\+\_\+cxx\+::extrapolation\+\_\+table$<$ \+\_\+\+Tp $>$}}
+
+
+{\ttfamily \#include $<$extrapolation\+\_\+table.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class____gnu__cxx_1_1extrapolation__table_a7769d0bb61a2b5b0153140d707b2d3a0}{extrapolation\+\_\+table} ()
+\item 
+\hyperlink{class____gnu__cxx_1_1extrapolation__table_a9866afc5e42c63b300e21620ad8adac2}{extrapolation\+\_\+table} (\hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp} \+\_\+\+\_\+y)
+\item 
+void \hyperlink{class____gnu__cxx_1_1extrapolation__table_a0a20b6d8a3c194a962ce6f1bba96f5e9}{append} (\hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp} \+\_\+\+\_\+y)
+\item 
+std\+::size\+\_\+t \hyperlink{class____gnu__cxx_1_1extrapolation__table_a4948ba62ca85ddecc2b530096b368908}{get\+\_\+nn} () const
+\item 
+std\+::tuple$<$ \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp}, \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp} $>$ \hyperlink{class____gnu__cxx_1_1extrapolation__table_a8bacdbca35a9df35185102710380a8ec}{qelg} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename \+\_\+\+Tp$>$\newline
+class \+\_\+\+\_\+gnu\+\_\+cxx\+::extrapolation\+\_\+table$<$ \+\_\+\+Tp $>$}
+
+
+
+Definition at line 40 of file extrapolation\+\_\+table.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class____gnu__cxx_1_1extrapolation__table_a7769d0bb61a2b5b0153140d707b2d3a0}\label{class____gnu__cxx_1_1extrapolation__table_a7769d0bb61a2b5b0153140d707b2d3a0}} 
+\index{\+\_\+\+\_\+gnu\+\_\+cxx\+::extrapolation\+\_\+table@{\+\_\+\+\_\+gnu\+\_\+cxx\+::extrapolation\+\_\+table}!extrapolation\+\_\+table@{extrapolation\+\_\+table}}
+\index{extrapolation\+\_\+table@{extrapolation\+\_\+table}!\+\_\+\+\_\+gnu\+\_\+cxx\+::extrapolation\+\_\+table@{\+\_\+\+\_\+gnu\+\_\+cxx\+::extrapolation\+\_\+table}}
+\subsubsection{\texorpdfstring{extrapolation\+\_\+table()}{extrapolation\_table()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Tp$>$ \\
+\hyperlink{class____gnu__cxx_1_1extrapolation__table}{\+\_\+\+\_\+gnu\+\_\+cxx\+::extrapolation\+\_\+table}$<$ \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp} $>$\+::\hyperlink{class____gnu__cxx_1_1extrapolation__table}{extrapolation\+\_\+table} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 54 of file extrapolation\+\_\+table.\+h.
+
+
+\begin{DoxyCode}
+55       : \_M\_nn(0),
+56         \_M\_nres(0)
+57       \{
+58         \textcolor{comment}{// Try to adjust tests for varing precision?}
+59         \textcolor{comment}{// I don't think this is a precision-sensitive limit.}
+60         \textcolor{comment}{//this->\_M\_irreg\_test = std::pow(10.0,}
+61         \textcolor{comment}{//                       -std::numeric\_limits<\_Tp>::digits10 / 4.0);}
+62       \}
+\end{DoxyCode}
+\mbox{\Hypertarget{class____gnu__cxx_1_1extrapolation__table_a9866afc5e42c63b300e21620ad8adac2}\label{class____gnu__cxx_1_1extrapolation__table_a9866afc5e42c63b300e21620ad8adac2}} 
+\index{\+\_\+\+\_\+gnu\+\_\+cxx\+::extrapolation\+\_\+table@{\+\_\+\+\_\+gnu\+\_\+cxx\+::extrapolation\+\_\+table}!extrapolation\+\_\+table@{extrapolation\+\_\+table}}
+\index{extrapolation\+\_\+table@{extrapolation\+\_\+table}!\+\_\+\+\_\+gnu\+\_\+cxx\+::extrapolation\+\_\+table@{\+\_\+\+\_\+gnu\+\_\+cxx\+::extrapolation\+\_\+table}}
+\subsubsection{\texorpdfstring{extrapolation\+\_\+table()}{extrapolation\_table()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Tp$>$ \\
+\hyperlink{class____gnu__cxx_1_1extrapolation__table}{\+\_\+\+\_\+gnu\+\_\+cxx\+::extrapolation\+\_\+table}$<$ \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp} $>$\+::\hyperlink{class____gnu__cxx_1_1extrapolation__table}{extrapolation\+\_\+table} (\begin{DoxyParamCaption}\item[{\hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp}}]{\+\_\+\+\_\+y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+
+Definition at line 64 of file extrapolation\+\_\+table.\+h.
+
+
+
+References \+\_\+\+\_\+gnu\+\_\+cxx\+::extrapolation\+\_\+table$<$ \+\_\+\+Tp $>$\+::append().
+
+
+\begin{DoxyCode}
+65       : \_M\_nn(0),
+66         \_M\_nres(0)
+67       \{ this->\hyperlink{class____gnu__cxx_1_1extrapolation__table_a0a20b6d8a3c194a962ce6f1bba96f5e9}{append}(\_\_y); \}
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class____gnu__cxx_1_1extrapolation__table_a0a20b6d8a3c194a962ce6f1bba96f5e9}\label{class____gnu__cxx_1_1extrapolation__table_a0a20b6d8a3c194a962ce6f1bba96f5e9}} 
+\index{\+\_\+\+\_\+gnu\+\_\+cxx\+::extrapolation\+\_\+table@{\+\_\+\+\_\+gnu\+\_\+cxx\+::extrapolation\+\_\+table}!append@{append}}
+\index{append@{append}!\+\_\+\+\_\+gnu\+\_\+cxx\+::extrapolation\+\_\+table@{\+\_\+\+\_\+gnu\+\_\+cxx\+::extrapolation\+\_\+table}}
+\subsubsection{\texorpdfstring{append()}{append()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Tp$>$ \\
+void \hyperlink{class____gnu__cxx_1_1extrapolation__table}{\+\_\+\+\_\+gnu\+\_\+cxx\+::extrapolation\+\_\+table}$<$ \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp} $>$\+::append (\begin{DoxyParamCaption}\item[{\hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp}}]{\+\_\+\+\_\+y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 70 of file extrapolation\+\_\+table.\+h.
+
+
+
+References \+\_\+\+\_\+gnu\+\_\+cxx\+::extrapolation\+\_\+table$<$ \+\_\+\+Tp $>$\+::qelg().
+
+
+
+Referenced by \+\_\+\+\_\+gnu\+\_\+cxx\+::extrapolation\+\_\+table$<$ \+\_\+\+Tp $>$\+::extrapolation\+\_\+table(), \+\_\+\+\_\+gnu\+\_\+cxx\+::qagp\+\_\+integrate(), \+\_\+\+\_\+gnu\+\_\+cxx\+::qags\+\_\+integrate(), \+\_\+\+\_\+gnu\+\_\+cxx\+::qawf\+\_\+integrate(), and \+\_\+\+\_\+gnu\+\_\+cxx\+::qawo\+\_\+integrate().
+
+
+\begin{DoxyCode}
+71       \{
+72         \textcolor{keywordflow}{if} (this->\_M\_nn < this->\_M\_rlist2.size())
+73           \{
+74             this->\_M\_rlist2[this->\_M\_nn] = \_\_y;
+75             ++this->\_M\_nn;
+76           \}
+77       \}
+\end{DoxyCode}
+\mbox{\Hypertarget{class____gnu__cxx_1_1extrapolation__table_a4948ba62ca85ddecc2b530096b368908}\label{class____gnu__cxx_1_1extrapolation__table_a4948ba62ca85ddecc2b530096b368908}} 
+\index{\+\_\+\+\_\+gnu\+\_\+cxx\+::extrapolation\+\_\+table@{\+\_\+\+\_\+gnu\+\_\+cxx\+::extrapolation\+\_\+table}!get\+\_\+nn@{get\+\_\+nn}}
+\index{get\+\_\+nn@{get\+\_\+nn}!\+\_\+\+\_\+gnu\+\_\+cxx\+::extrapolation\+\_\+table@{\+\_\+\+\_\+gnu\+\_\+cxx\+::extrapolation\+\_\+table}}
+\subsubsection{\texorpdfstring{get\+\_\+nn()}{get\_nn()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Tp$>$ \\
+std\+::size\+\_\+t \hyperlink{class____gnu__cxx_1_1extrapolation__table}{\+\_\+\+\_\+gnu\+\_\+cxx\+::extrapolation\+\_\+table}$<$ \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp} $>$\+::get\+\_\+nn (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 83 of file extrapolation\+\_\+table.\+h.
+
+
+
+Referenced by \+\_\+\+\_\+gnu\+\_\+cxx\+::qagp\+\_\+integrate(), \+\_\+\+\_\+gnu\+\_\+cxx\+::qags\+\_\+integrate(), \+\_\+\+\_\+gnu\+\_\+cxx\+::qawf\+\_\+integrate(), and \+\_\+\+\_\+gnu\+\_\+cxx\+::qawo\+\_\+integrate().
+
+
+\begin{DoxyCode}
+84       \{ \textcolor{keywordflow}{return} this->\_M\_nn; \}
+\end{DoxyCode}
+\mbox{\Hypertarget{class____gnu__cxx_1_1extrapolation__table_a8bacdbca35a9df35185102710380a8ec}\label{class____gnu__cxx_1_1extrapolation__table_a8bacdbca35a9df35185102710380a8ec}} 
+\index{\+\_\+\+\_\+gnu\+\_\+cxx\+::extrapolation\+\_\+table@{\+\_\+\+\_\+gnu\+\_\+cxx\+::extrapolation\+\_\+table}!qelg@{qelg}}
+\index{qelg@{qelg}!\+\_\+\+\_\+gnu\+\_\+cxx\+::extrapolation\+\_\+table@{\+\_\+\+\_\+gnu\+\_\+cxx\+::extrapolation\+\_\+table}}
+\subsubsection{\texorpdfstring{qelg()}{qelg()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Tp $>$ \\
+std\+::tuple$<$ \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp}, \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp} $>$ \hyperlink{class____gnu__cxx_1_1extrapolation__table}{\+\_\+\+\_\+gnu\+\_\+cxx\+::extrapolation\+\_\+table}$<$ \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp} $>$\+::qelg (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 35 of file extrapolation\+\_\+table.\+tcc.
+
+
+
+References \+\_\+\+\_\+gnu\+\_\+cxx\+::\+\_\+\+\_\+abserr, \+\_\+\+\_\+gnu\+\_\+cxx\+::\+\_\+\+\_\+result, and \+\_\+\+\_\+gnu\+\_\+cxx\+::\+\_\+\+Tp.
+
+
+
+Referenced by \+\_\+\+\_\+gnu\+\_\+cxx\+::extrapolation\+\_\+table$<$ \+\_\+\+Tp $>$\+::append(), \+\_\+\+\_\+gnu\+\_\+cxx\+::qagp\+\_\+integrate(), \+\_\+\+\_\+gnu\+\_\+cxx\+::qags\+\_\+integrate(), \+\_\+\+\_\+gnu\+\_\+cxx\+::qawf\+\_\+integrate(), and \+\_\+\+\_\+gnu\+\_\+cxx\+::qawo\+\_\+integrate().
+
+
+\begin{DoxyCode}
+36     \{
+37       \textcolor{keyword}{const} \textcolor{keyword}{auto} \_\_cur\_n = this->\_M\_nn - 1;
+38       \textcolor{keyword}{const} \textcolor{keyword}{auto} \_\_current = this->\_M\_rlist2[\_\_cur\_n];
+39 
+40       \textcolor{keyword}{const} \textcolor{keyword}{auto} \_S\_eps = std::numeric\_limits<\_Tp>::epsilon();
+41       \textcolor{comment}{// Less than max to prevent overflow.}
+42       \textcolor{keyword}{const} \textcolor{keyword}{auto} \_S\_max = std::numeric\_limits<\_Tp>::max() / \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\_Tp}\{100\};
+43 
+44       \textcolor{keyword}{auto} \_\_absolute = \_S\_max;
+45       \textcolor{keyword}{auto} \_\_relative = 5 * \_S\_eps * std::abs(\_\_current);
+46 
+47       \textcolor{keyword}{const} \textcolor{keyword}{auto} \_\_newelm = \_\_cur\_n / 2;
+48       \textcolor{keyword}{const} \textcolor{keyword}{auto} \_\_n\_orig = \_\_cur\_n;
+49       \textcolor{keyword}{auto} \_\_n\_final = \_\_cur\_n;
+50 
+51       \textcolor{keyword}{const} \textcolor{keyword}{auto} \_\_nres\_orig = this->\_M\_nres;
+52 
+53       \textcolor{keyword}{auto} \hyperlink{namespace____gnu__cxx_a500ea9f53aeaecd8c2ae657503450578}{\_\_result} = \_\_current;
+54       \textcolor{keyword}{auto} \hyperlink{namespace____gnu__cxx_a72f736cff127f1574e91a301de9e074b}{\_\_abserr} = \_S\_max;
+55 
+56       \textcolor{keywordflow}{if} (\_\_cur\_n < 2)
+57         \{
+58           \hyperlink{namespace____gnu__cxx_a500ea9f53aeaecd8c2ae657503450578}{\_\_result} = \_\_current;
+59           \hyperlink{namespace____gnu__cxx_a72f736cff127f1574e91a301de9e074b}{\_\_abserr} = std::max(\_\_absolute, \_\_relative);
+60           \textcolor{keywordflow}{return} std::make\_tuple(\hyperlink{namespace____gnu__cxx_a500ea9f53aeaecd8c2ae657503450578}{\_\_result}, \hyperlink{namespace____gnu__cxx_a72f736cff127f1574e91a301de9e074b}{\_\_abserr});
+61         \}
+62 
+63       this->\_M\_rlist2[\_\_cur\_n + 2] = this->\_M\_rlist2[\_\_cur\_n];
+64       this->\_M\_rlist2[\_\_cur\_n] = \_S\_max;
+65 
+66       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} \_\_ii = 0; \_\_ii < \_\_newelm; ++\_\_ii)
+67         \{
+68           \textcolor{keyword}{auto} \_\_res = this->\_M\_rlist2[\_\_cur\_n - 2 * \_\_ii + 2];
+69           \textcolor{keyword}{const} \textcolor{keyword}{auto} \_\_e0 = this->\_M\_rlist2[\_\_cur\_n - 2 * \_\_ii - 2];
+70           \textcolor{keyword}{const} \textcolor{keyword}{auto} \_\_e1 = this->\_M\_rlist2[\_\_cur\_n - 2 * \_\_ii - 1];
+71           \textcolor{keyword}{const} \textcolor{keyword}{auto} \_\_e2 = \_\_res;
+72 
+73           \textcolor{keyword}{const} \textcolor{keyword}{auto} \_\_e1abs = std::abs(\_\_e1);
+74           \textcolor{keyword}{const} \textcolor{keyword}{auto} \_\_delta2 = \_\_e2 - \_\_e1;
+75           \textcolor{keyword}{const} \textcolor{keyword}{auto} \_\_err2 = std::abs(\_\_delta2);
+76           \textcolor{keyword}{const} \textcolor{keyword}{auto} \_\_tol2 = std::max(std::abs(\_\_e2), \_\_e1abs) * \_S\_eps;
+77           \textcolor{keyword}{const} \textcolor{keyword}{auto} \_\_delta3 = \_\_e1 - \_\_e0;
+78           \textcolor{keyword}{const} \textcolor{keyword}{auto} \_\_err3 = std::abs(\_\_delta3);
+79           \textcolor{keyword}{const} \textcolor{keyword}{auto} \_\_tol3 = std::max(\_\_e1abs, std::abs(\_\_e0)) * \_S\_eps;
+80 
+81           \textcolor{keywordflow}{if} (\_\_err2 <= \_\_tol2 && \_\_err3 <= \_\_tol3)
+82             \{
+83               \textcolor{comment}{// If e0, e1 and e2 are equal to within machine accuracy,}
+84               \textcolor{comment}{// convergence is assumed.}
+85               \hyperlink{namespace____gnu__cxx_a500ea9f53aeaecd8c2ae657503450578}{\_\_result} = \_\_res;
+86               \_\_absolute = \_\_err2 + \_\_err3;
+87               \_\_relative = 5 * \_S\_eps * std::abs(\_\_res);
+88               \hyperlink{namespace____gnu__cxx_a72f736cff127f1574e91a301de9e074b}{\_\_abserr} = std::max(\_\_absolute, \_\_relative);
+89               \textcolor{keywordflow}{return} std::make\_tuple(\hyperlink{namespace____gnu__cxx_a500ea9f53aeaecd8c2ae657503450578}{\_\_result}, \hyperlink{namespace____gnu__cxx_a72f736cff127f1574e91a301de9e074b}{\_\_abserr});
+90             \}
+91 
+92           \textcolor{keyword}{const} \textcolor{keyword}{auto} \_\_e3 = this->\_M\_rlist2[\_\_cur\_n - 2 * \_\_ii];
+93           this->\_M\_rlist2[\_\_cur\_n - 2 * \_\_ii] = \_\_e1;
+94           \textcolor{keyword}{const} \textcolor{keyword}{auto} \_\_delta1 = \_\_e1 - \_\_e3;
+95           \textcolor{keyword}{const} \textcolor{keyword}{auto} \_\_err1 = std::abs(\_\_delta1);
+96           \textcolor{keyword}{const} \textcolor{keyword}{auto} \_\_tol1 = std::max(\_\_e1abs, std::abs(\_\_e3)) * \_S\_eps;
+97 
+98           \textcolor{comment}{// If two elements are very close to each other, omit a part of}
+99           \textcolor{comment}{// the table by adjusting the value of n.}
+100           \textcolor{keywordflow}{if} (\_\_err1 <= \_\_tol1 || \_\_err2 <= \_\_tol2 || \_\_err3 <= \_\_tol3)
+101             \{
+102               \_\_n\_final = 2 * \_\_ii;
+103               \textcolor{keywordflow}{break};
+104             \}
+105 
+106           \textcolor{keyword}{const} \textcolor{keyword}{auto} \_\_ss = \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\_Tp}\{1\} / \_\_delta1 + \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\_Tp}\{1\} / \_\_delta2
+107                           - \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\_Tp}\{1\} / \_\_delta3;
+108 
+109           \textcolor{comment}{// Test to detect irregular behaviour in the table,}
+110           \textcolor{comment}{// and eventually omit a part of the table by adjusting}
+111           \textcolor{comment}{// the value of n.}
+112           \textcolor{keywordflow}{if} (std::abs(\_\_ss * \_\_e1) <= this->\_M\_irreg\_test)
+113             \{
+114               \_\_n\_final = 2 * \_\_ii;
+115               \textcolor{keywordflow}{break};
+116             \}
+117 
+118           \textcolor{comment}{// Compute a new element and eventually adjust the value of result.}
+119           \_\_res = \_\_e1 + \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\_Tp}\{1\} / \_\_ss;
+120           this->\_M\_rlist2[\_\_cur\_n - 2 * \_\_ii] = \_\_res;
+121           \{
+122             \textcolor{keyword}{const} \textcolor{keyword}{auto} \_\_error = \_\_err2 + std::abs(\_\_res - \_\_e2) + \_\_err3;
+123 
+124             \textcolor{keywordflow}{if} (\_\_error <= \hyperlink{namespace____gnu__cxx_a72f736cff127f1574e91a301de9e074b}{\_\_abserr})
+125               \{
+126                 \hyperlink{namespace____gnu__cxx_a72f736cff127f1574e91a301de9e074b}{\_\_abserr} = \_\_error;
+127                 \hyperlink{namespace____gnu__cxx_a500ea9f53aeaecd8c2ae657503450578}{\_\_result} = \_\_res;
+128               \}
+129           \}
+130         \}
+131 
+132       \textcolor{comment}{// Shift the table.}
+133 
+134       \{
+135         \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} \_\_limexp = 50 - 1;
+136 
+137         \textcolor{keywordflow}{if} (\_\_n\_final == \_\_limexp)
+138           \_\_n\_final = 2 * (\_\_limexp / 2);
+139       \}
+140 
+141       \textcolor{keywordflow}{if} (\_\_n\_orig % 2 == 1)
+142         \{
+143           \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} \_\_ii = 0; \_\_ii <= \_\_newelm; ++\_\_ii)
+144             this->\_M\_rlist2[\_\_ii * 2 + 1] = this->\_M\_rlist2[\_\_ii * 2 + 3];
+145         \}
+146       \textcolor{keywordflow}{else}
+147         \{
+148           \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} \_\_ii = 0; \_\_ii <= \_\_newelm; ++\_\_ii)
+149             this->\_M\_rlist2[\_\_ii * 2] = this->\_M\_rlist2[\_\_ii * 2 + 2];
+150         \}
+151 
+152       \textcolor{keywordflow}{if} (\_\_n\_orig != \_\_n\_final)
+153         \{
+154           \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} \_\_ii = 0; \_\_ii <= \_\_n\_final; ++\_\_ii)
+155             this->\_M\_rlist2[\_\_ii] = this->\_M\_rlist2[\_\_ii + \_\_n\_orig - \_\_n\_final];
+156         \}
+157 
+158       this->\_M\_nn = \_\_n\_final + 1;
+159 
+160       \textcolor{keywordflow}{if} (\_\_nres\_orig < 3)
+161         \{
+162           this->\_M\_res3la[\_\_nres\_orig] = \hyperlink{namespace____gnu__cxx_a500ea9f53aeaecd8c2ae657503450578}{\_\_result};
+163           \hyperlink{namespace____gnu__cxx_a72f736cff127f1574e91a301de9e074b}{\_\_abserr} = \_S\_max;
+164         \}
+165       \textcolor{keywordflow}{else}
+166         \{ \textcolor{comment}{// Compute error estimate.}
+167           \hyperlink{namespace____gnu__cxx_a72f736cff127f1574e91a301de9e074b}{\_\_abserr} = (std::abs(\hyperlink{namespace____gnu__cxx_a500ea9f53aeaecd8c2ae657503450578}{\_\_result} - this->\_M\_res3la[2])
+168                     + std::abs(\hyperlink{namespace____gnu__cxx_a500ea9f53aeaecd8c2ae657503450578}{\_\_result} - this->\_M\_res3la[1])
+169                     + std::abs(\hyperlink{namespace____gnu__cxx_a500ea9f53aeaecd8c2ae657503450578}{\_\_result} - this->\_M\_res3la[0]));
+170 
+171           this->\_M\_res3la[0] = this->\_M\_res3la[1];
+172           this->\_M\_res3la[1] = this->\_M\_res3la[2];
+173           this->\_M\_res3la[2] = \hyperlink{namespace____gnu__cxx_a500ea9f53aeaecd8c2ae657503450578}{\_\_result};
+174         \}
+175 
+176       \textcolor{comment}{/* In QUADPACK the variable table->nres is incremented at the top of}
+177 \textcolor{comment}{        qelg, so it increases on every call. This leads to the array}
+178 \textcolor{comment}{        res3la being accessed when its elements are still undefined, so I}
+179 \textcolor{comment}{        have moved the update to this point so that its value more}
+180 \textcolor{comment}{        useful. */}
+181 
+182       this->\_M\_nres = \_\_nres\_orig + 1;
+183 
+184       \hyperlink{namespace____gnu__cxx_a72f736cff127f1574e91a301de9e074b}{\_\_abserr} = std::max(\hyperlink{namespace____gnu__cxx_a72f736cff127f1574e91a301de9e074b}{\_\_abserr}, 5 * \_S\_eps * std::abs(
+      \hyperlink{namespace____gnu__cxx_a500ea9f53aeaecd8c2ae657503450578}{\_\_result}));
+185 
+186       \textcolor{keywordflow}{return} std::make\_tuple(\hyperlink{namespace____gnu__cxx_a500ea9f53aeaecd8c2ae657503450578}{\_\_result}, \hyperlink{namespace____gnu__cxx_a72f736cff127f1574e91a301de9e074b}{\_\_abserr});
+187     \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/ext/\hyperlink{extrapolation__table_8h}{extrapolation\+\_\+table.\+h}\item 
+include/ext/\hyperlink{extrapolation__table_8tcc}{extrapolation\+\_\+table.\+tcc}\end{DoxyCompactItemize}

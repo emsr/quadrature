@@ -8,6 +8,9 @@ cmake_install.cmake
 error.txt
 Makefile
 CTestTestfile.cmake
+CMakeDoxyfile.in
+CMakeDoxygenDefaults.cmake
+Testing/
 
 build_clenshaw_curtis
 build_double_exp_rules

@@ -1,0 +1,106 @@
+\hypertarget{struct____gnu__cxx_1_1fixed__gauss__legendre__integral}{}\section{\+\_\+\+\_\+gnu\+\_\+cxx\+:\+:fixed\+\_\+gauss\+\_\+legendre\+\_\+integral$<$ \+\_\+\+Tp $>$ Struct Template Reference}
+\label{struct____gnu__cxx_1_1fixed__gauss__legendre__integral}\index{\+\_\+\+\_\+gnu\+\_\+cxx\+::fixed\+\_\+gauss\+\_\+legendre\+\_\+integral$<$ \+\_\+\+Tp $>$@{\+\_\+\+\_\+gnu\+\_\+cxx\+::fixed\+\_\+gauss\+\_\+legendre\+\_\+integral$<$ \+\_\+\+Tp $>$}}
+
+
+{\ttfamily \#include $<$gauss\+\_\+quadrature.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{struct____gnu__cxx_1_1fixed__gauss__legendre__integral_ad5210c037dcd806afb26e1888ce9676f}{fixed\+\_\+gauss\+\_\+legendre\+\_\+integral} (int \+\_\+\+\_\+n)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename \+\_\+\+Func\+Tp $>$ }\\decltype(std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp, \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp} $>$\{\} $\ast$\hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp}\{\} \hyperlink{struct____gnu__cxx_1_1fixed__gauss__legendre__integral_aa6a0f40e1c8dba2864c88401fea3067d}{operator()} )(\+\_\+\+Func\+Tp \hyperlink{namespace____gnu__cxx_af2b2f0c7a2ae72b922b1afefae5a65b2}{\+\_\+\+\_\+func}, \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp} \+\_\+\+\_\+a, \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp} \+\_\+\+\_\+b) const
+\item 
+int \hyperlink{struct____gnu__cxx_1_1fixed__gauss__legendre__integral_a51724253e7545ed73de4be77aabf951a}{order}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename \+\_\+\+Tp$>$\newline
+struct \+\_\+\+\_\+gnu\+\_\+cxx\+::fixed\+\_\+gauss\+\_\+legendre\+\_\+integral$<$ \+\_\+\+Tp $>$}
+
+Build the absiscae and weights of a Gauss quadrature rule from a symmetric tridiagonal Jacobi matrix. 
+
+Definition at line 34 of file gauss\+\_\+quadrature.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{struct____gnu__cxx_1_1fixed__gauss__legendre__integral_ad5210c037dcd806afb26e1888ce9676f}\label{struct____gnu__cxx_1_1fixed__gauss__legendre__integral_ad5210c037dcd806afb26e1888ce9676f}} 
+\index{\+\_\+\+\_\+gnu\+\_\+cxx\+::fixed\+\_\+gauss\+\_\+legendre\+\_\+integral@{\+\_\+\+\_\+gnu\+\_\+cxx\+::fixed\+\_\+gauss\+\_\+legendre\+\_\+integral}!fixed\+\_\+gauss\+\_\+legendre\+\_\+integral@{fixed\+\_\+gauss\+\_\+legendre\+\_\+integral}}
+\index{fixed\+\_\+gauss\+\_\+legendre\+\_\+integral@{fixed\+\_\+gauss\+\_\+legendre\+\_\+integral}!\+\_\+\+\_\+gnu\+\_\+cxx\+::fixed\+\_\+gauss\+\_\+legendre\+\_\+integral@{\+\_\+\+\_\+gnu\+\_\+cxx\+::fixed\+\_\+gauss\+\_\+legendre\+\_\+integral}}
+\subsubsection{\texorpdfstring{fixed\+\_\+gauss\+\_\+legendre\+\_\+integral()}{fixed\_gauss\_legendre\_integral()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Tp $>$ \\
+\hyperlink{struct____gnu__cxx_1_1fixed__gauss__legendre__integral}{\+\_\+\+\_\+gnu\+\_\+cxx\+::fixed\+\_\+gauss\+\_\+legendre\+\_\+integral}$<$ \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp} $>$\+::\hyperlink{struct____gnu__cxx_1_1fixed__gauss__legendre__integral}{fixed\+\_\+gauss\+\_\+legendre\+\_\+integral} (\begin{DoxyParamCaption}\item[{int}]{\+\_\+\+\_\+n }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+Construct a Gauss-\/\+Legendre rule of order {\ttfamily n}.
+
+Weight function\+: $ 1 $ Constraints\+: $ b > a $ 
+
+Definition at line 88 of file gauss\+\_\+quadrature.\+tcc.
+
+
+
+References \+\_\+\+\_\+gnu\+\_\+cxx\+::\+\_\+\+\_\+func(), \+\_\+\+\_\+gnu\+\_\+cxx\+::\+\_\+\+\_\+detail\+::\+\_\+\+\_\+golub\+\_\+welsch(), \+\_\+\+\_\+gnu\+\_\+cxx\+::\+\_\+\+Ret\+Tp, \+\_\+\+\_\+gnu\+\_\+cxx\+::\+\_\+\+Tp, \+\_\+\+\_\+gnu\+\_\+cxx\+::fixed\+\_\+gauss\+\_\+chebyshev\+\_\+t\+\_\+integral$<$ \+\_\+\+Tp $>$\+::fixed\+\_\+gauss\+\_\+chebyshev\+\_\+t\+\_\+integral(), and \+\_\+\+\_\+gnu\+\_\+cxx\+::fixed\+\_\+gauss\+\_\+legendre\+\_\+integral$<$ \+\_\+\+Tp $>$\+::order.
+
+
+
+Referenced by \+\_\+\+\_\+gnu\+\_\+cxx\+::\+\_\+\+\_\+detail\+::\+\_\+\+\_\+golub\+\_\+welsch().
+
+
+\begin{DoxyCode}
+89     : \hyperlink{struct____gnu__cxx_1_1fixed__gauss__legendre__integral_a51724253e7545ed73de4be77aabf951a}{order}(\_\_n),
+90       point(\_\_n),
+91       weight(\_\_n)
+92     \{
+93       \textcolor{keyword}{const} \textcolor{keyword}{auto} \_\_mu\_0 = \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\_Tp}\{2\};
+94 
+95       std::vector<\_Tp> \_\_diag(this->\hyperlink{struct____gnu__cxx_1_1fixed__gauss__legendre__integral_a51724253e7545ed73de4be77aabf951a}{order}, \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\_Tp}\{0\});
+96       std::vector<\_Tp> \_\_subd(this->\hyperlink{struct____gnu__cxx_1_1fixed__gauss__legendre__integral_a51724253e7545ed73de4be77aabf951a}{order});
+97 
+98       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} \_\_i = 1; \_\_i <= this->\hyperlink{struct____gnu__cxx_1_1fixed__gauss__legendre__integral_a51724253e7545ed73de4be77aabf951a}{order}; ++\_\_i)
+99         \_\_subd[\_\_i - 1] = \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\_Tp}(\_\_i) / std::sqrt(\hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\_Tp}(4 * \_\_i * \_\_i - 1));
+100 
+101       \hyperlink{namespace____gnu__cxx_1_1____detail_aa9f299bb7c04606a9a9aab3ab9e4f4c8}{\_\_detail::\_\_golub\_welsch}(\_\_mu\_0, this->\hyperlink{struct____gnu__cxx_1_1fixed__gauss__legendre__integral_a51724253e7545ed73de4be77aabf951a}{order}, \_\_diag, \_\_subd,
+102                                this->point, this->weight);
+103     \}
+\end{DoxyCode}
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{struct____gnu__cxx_1_1fixed__gauss__legendre__integral_aa6a0f40e1c8dba2864c88401fea3067d}\label{struct____gnu__cxx_1_1fixed__gauss__legendre__integral_aa6a0f40e1c8dba2864c88401fea3067d}} 
+\index{\+\_\+\+\_\+gnu\+\_\+cxx\+::fixed\+\_\+gauss\+\_\+legendre\+\_\+integral@{\+\_\+\+\_\+gnu\+\_\+cxx\+::fixed\+\_\+gauss\+\_\+legendre\+\_\+integral}!operator()@{operator()}}
+\index{operator()@{operator()}!\+\_\+\+\_\+gnu\+\_\+cxx\+::fixed\+\_\+gauss\+\_\+legendre\+\_\+integral@{\+\_\+\+\_\+gnu\+\_\+cxx\+::fixed\+\_\+gauss\+\_\+legendre\+\_\+integral}}
+\subsubsection{\texorpdfstring{operator()}{operator()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Tp$>$ \\
+template$<$typename \+\_\+\+Func\+Tp $>$ \\
+decltype(std\+::invoke\+\_\+result\+\_\+t$<$\+\_\+\+Func\+Tp, \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp}$>$\{\} $\ast$ \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp}\{\} \hyperlink{struct____gnu__cxx_1_1fixed__gauss__legendre__integral}{\+\_\+\+\_\+gnu\+\_\+cxx\+::fixed\+\_\+gauss\+\_\+legendre\+\_\+integral}$<$ \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp} $>$\+::operator()) (\+\_\+\+Func\+Tp \hyperlink{namespace____gnu__cxx_af2b2f0c7a2ae72b922b1afefae5a65b2}{\+\_\+\+\_\+func}, \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp} \+\_\+\+\_\+a, \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp} \+\_\+\+\_\+b) const}
+
+
+
+Definition at line 42 of file gauss\+\_\+quadrature.\+h.
+
+\mbox{\Hypertarget{struct____gnu__cxx_1_1fixed__gauss__legendre__integral_a51724253e7545ed73de4be77aabf951a}\label{struct____gnu__cxx_1_1fixed__gauss__legendre__integral_a51724253e7545ed73de4be77aabf951a}} 
+\index{\+\_\+\+\_\+gnu\+\_\+cxx\+::fixed\+\_\+gauss\+\_\+legendre\+\_\+integral@{\+\_\+\+\_\+gnu\+\_\+cxx\+::fixed\+\_\+gauss\+\_\+legendre\+\_\+integral}!order@{order}}
+\index{order@{order}!\+\_\+\+\_\+gnu\+\_\+cxx\+::fixed\+\_\+gauss\+\_\+legendre\+\_\+integral@{\+\_\+\+\_\+gnu\+\_\+cxx\+::fixed\+\_\+gauss\+\_\+legendre\+\_\+integral}}
+\subsubsection{\texorpdfstring{order}{order}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Tp$>$ \\
+int \hyperlink{struct____gnu__cxx_1_1fixed__gauss__legendre__integral}{\+\_\+\+\_\+gnu\+\_\+cxx\+::fixed\+\_\+gauss\+\_\+legendre\+\_\+integral}$<$ \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp} $>$\+::order}
+
+
+
+Definition at line 36 of file gauss\+\_\+quadrature.\+h.
+
+
+
+Referenced by \+\_\+\+\_\+gnu\+\_\+cxx\+::fixed\+\_\+gauss\+\_\+legendre\+\_\+integral$<$ \+\_\+\+Tp $>$\+::fixed\+\_\+gauss\+\_\+legendre\+\_\+integral().
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/ext/\hyperlink{gauss__quadrature_8h}{gauss\+\_\+quadrature.\+h}\item 
+include/ext/\hyperlink{gauss__quadrature_8tcc}{gauss\+\_\+quadrature.\+tcc}\end{DoxyCompactItemize}

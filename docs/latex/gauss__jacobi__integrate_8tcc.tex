@@ -1,0 +1,168 @@
+\hypertarget{gauss__jacobi__integrate_8tcc}{}\section{include/ext/gauss\+\_\+jacobi\+\_\+integrate.tcc File Reference}
+\label{gauss__jacobi__integrate_8tcc}\index{include/ext/gauss\+\_\+jacobi\+\_\+integrate.\+tcc@{include/ext/gauss\+\_\+jacobi\+\_\+integrate.\+tcc}}
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include $<$cstdlib$>$}\newline
+{\ttfamily \#include $<$cstdio$>$}\newline
+{\ttfamily \#include $<$limits$>$}\newline
+{\ttfamily \#include $<$ext/jacobi.\+h$>$}\newline
+{\ttfamily \#include $<$ext/integration\+\_\+error.\+h$>$}\newline
+Include dependency graph for gauss\+\_\+jacobi\+\_\+integrate.\+tcc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gauss__jacobi__integrate_8tcc__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=204pt]{gauss__jacobi__integrate_8tcc__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename \+\_\+\+Tp $>$ }\\int \hyperlink{gauss__jacobi__integrate_8tcc_aa3c283237c0f0fa73fbd1bc2f867ead2}{jacobi\+\_\+deriv\+\_\+array} (int np, const \+\_\+\+Tp $\ast$x, \+\_\+\+Tp $\ast$result\+\_\+array, int n, double a, double b)
+\item 
+{\footnotesize template$<$typename \+\_\+\+Tp $>$ }\\int \hyperlink{gauss__jacobi__integrate_8tcc_a17622e4f72acae1977c8ab8deb58e77f}{jacobi\+\_\+value\+\_\+array} (int np, const \+\_\+\+Tp $\ast$x, \+\_\+\+Tp $\ast$result\+\_\+array, int n, \+\_\+\+Tp a, \+\_\+\+Tp b)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename \+\_\+\+Tp $>$ }\\const \+\_\+\+Tp \hyperlink{gauss__jacobi__integrate_8tcc_a4588eefde4c686e65f5f208a3ae06f1f}{E\+PS} = \+\_\+\+Tp(300) $\ast$ std\+::numeric\+\_\+limits$<$\+\_\+\+Tp$>$\+::epsilon()
+\begin{DoxyCompactList}\small\item\em Admissible convergence error. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{gauss__jacobi__integrate_8tcc_aa3c283237c0f0fa73fbd1bc2f867ead2}\label{gauss__jacobi__integrate_8tcc_aa3c283237c0f0fa73fbd1bc2f867ead2}} 
+\index{gauss\+\_\+jacobi\+\_\+integrate.\+tcc@{gauss\+\_\+jacobi\+\_\+integrate.\+tcc}!jacobi\+\_\+deriv\+\_\+array@{jacobi\+\_\+deriv\+\_\+array}}
+\index{jacobi\+\_\+deriv\+\_\+array@{jacobi\+\_\+deriv\+\_\+array}!gauss\+\_\+jacobi\+\_\+integrate.\+tcc@{gauss\+\_\+jacobi\+\_\+integrate.\+tcc}}
+\subsubsection{\texorpdfstring{jacobi\+\_\+deriv\+\_\+array()}{jacobi\_deriv\_array()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Tp $>$ \\
+int jacobi\+\_\+deriv\+\_\+array (\begin{DoxyParamCaption}\item[{int}]{np,  }\item[{const \+\_\+\+Tp $\ast$}]{x,  }\item[{\+\_\+\+Tp $\ast$}]{result\+\_\+array,  }\item[{int}]{n,  }\item[{double}]{a,  }\item[{double}]{b }\end{DoxyParamCaption})}
+
+Calculates the derivative of the nth order Jacobi polynomial at an array of np points given by the vector x. This function needs two workspaces of size np to do its calculation. If the first one (ws1) is N\+U\+LL, the function will allocate the necessary memory (using malloc) to do the calculation
+
+
+\begin{DoxyParams}{Parameters}
+{\em np} & Number of points where the polynomial will be calculated \\
+\hline
+{\em x} & A vector of length np containing the points where the polynomials should be calculated. $-1\le x_i \le 1$. \\
+\hline
+{\em n} & Order of the Jacobi polynomial whose derivative should be calculated \\
+\hline
+{\em result\+\_\+array} & An array of length np where the result will be stored \\
+\hline
+{\em a} & $\alpha$ parameter of Jacobi polynomial \\
+\hline
+{\em b} & $\beta$ parameter of Jacobi polynomial \\
+\hline
+{\em ws} & A pointer to a block of memory 2$\ast$np doubles long to be used as workspace. If it is N\+U\+LL, memory will be allocated using malloc and released at the end \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Error code defined in gsl\+\_\+errno.\+h or G\+S\+L\+\_\+\+S\+U\+C\+C\+E\+SS if everything was fine 
+\end{DoxyReturn}
+
+
+Definition at line 113 of file gauss\+\_\+jacobi\+\_\+integrate.\+tcc.
+
+
+
+References \+\_\+\+\_\+gnu\+\_\+cxx\+::\+\_\+\+Tp, and jacobi\+\_\+value\+\_\+array().
+
+
+\begin{DoxyCode}
+115   \{
+116     \textcolor{keywordtype}{int} code = \hyperlink{gauss__jacobi__integrate_8tcc_a17622e4f72acae1977c8ab8deb58e77f}{jacobi\_value\_array}(np, x, result\_array,
+117                                   n - 1, a + \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\_Tp}\{1\}, b + \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\_Tp}\{1\});
+118     \textcolor{keywordflow}{if} (code)
+119       \textcolor{keywordflow}{return} code;
+120     
+121     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < np; ++i)
+122       result\_array[i] *= 0.5 * (a + b + n + \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\_Tp}\{1\});
+123 
+124     \textcolor{keywordflow}{return} code;
+125   \}
+\end{DoxyCode}
+\mbox{\Hypertarget{gauss__jacobi__integrate_8tcc_a17622e4f72acae1977c8ab8deb58e77f}\label{gauss__jacobi__integrate_8tcc_a17622e4f72acae1977c8ab8deb58e77f}} 
+\index{gauss\+\_\+jacobi\+\_\+integrate.\+tcc@{gauss\+\_\+jacobi\+\_\+integrate.\+tcc}!jacobi\+\_\+value\+\_\+array@{jacobi\+\_\+value\+\_\+array}}
+\index{jacobi\+\_\+value\+\_\+array@{jacobi\+\_\+value\+\_\+array}!gauss\+\_\+jacobi\+\_\+integrate.\+tcc@{gauss\+\_\+jacobi\+\_\+integrate.\+tcc}}
+\subsubsection{\texorpdfstring{jacobi\+\_\+value\+\_\+array()}{jacobi\_value\_array()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Tp $>$ \\
+int jacobi\+\_\+value\+\_\+array (\begin{DoxyParamCaption}\item[{int}]{np,  }\item[{const \+\_\+\+Tp $\ast$}]{x,  }\item[{\+\_\+\+Tp $\ast$}]{result\+\_\+array,  }\item[{int}]{n,  }\item[{\+\_\+\+Tp}]{a,  }\item[{\+\_\+\+Tp}]{b }\end{DoxyParamCaption})}
+
+
+
+Definition at line 57 of file gauss\+\_\+jacobi\+\_\+integrate.\+tcc.
+
+
+
+References \+\_\+\+\_\+gnu\+\_\+cxx\+::\+\_\+\+Tp.
+
+
+
+Referenced by jacobi\+\_\+deriv\+\_\+array().
+
+
+\begin{DoxyCode}
+59   \{
+60     \textcolor{keywordflow}{if} (n == 0)
+61       \{
+62         \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i = 0; i < np; ++i)
+63           result\_array[i] = \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\_Tp}\{1\};
+64         \textcolor{keywordflow}{return} 0;
+65       \}
+66 
+67     \textcolor{keywordflow}{if} (n == 1)
+68       \{
+69         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < np; ++i)
+70           result\_array[i] = 0.5 * (a - b + (a + b + \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\_Tp}\{2\}) * x[i]);
+71         \textcolor{keywordflow}{return} 0;
+72       \}
+73 
+74     \textcolor{comment}{// General case,}
+75     std::vector<\_Tp> pnm1(np), pnm2(np, \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\_Tp}\{1\});
+76     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < np; ++i)
+77       pnm1[i] = 0.5 * (a - b + (a + b + \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\_Tp}\{2\}) * x[i]);
+78 
+79     \textcolor{comment}{// Start iterating:}
+80     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} k = 1; k < n; ++k)
+81       \{
+82         \textcolor{keyword}{auto} a1 = \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\_Tp}\{2\} * (k + \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\_Tp}\{1\}) * (k + a + b + \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\_Tp}\{1\}) * (\hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\_Tp}\{2\} * k + a + b);
+83         \textcolor{keyword}{auto} a2 = (\hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\_Tp}\{2\} * k + a + b + \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\_Tp}\{1\}) * (a * a - b * b) / a1;
+84         \textcolor{keyword}{auto} a3 = (\hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\_Tp}\{2\} * k + a + b) * (\hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\_Tp}\{2\} * k + a + b + \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\_Tp}\{1\}) * (
+      \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\_Tp}\{2\} * k + a + b + \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\_Tp}\{2\}) / a1;
+85         \textcolor{keyword}{auto} a4 = \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\_Tp}\{2\} * (k + a) * (k + b) * (\hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\_Tp}\{2\} * k + a + b + \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\_Tp}\{2\}) / a1;
+86         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < np; ++i)
+87           \{
+88             result\_array[i] = (a2 + a3 * x[i]) * pnm1[i] - a4 * pnm2[i];
+89             pnm2[i] = pnm1[i];
+90             pnm1[i] = result\_array[i];
+91           \}
+92       \}
+93 
+94     \textcolor{keywordflow}{return} 0;
+95   \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{gauss__jacobi__integrate_8tcc_a4588eefde4c686e65f5f208a3ae06f1f}\label{gauss__jacobi__integrate_8tcc_a4588eefde4c686e65f5f208a3ae06f1f}} 
+\index{gauss\+\_\+jacobi\+\_\+integrate.\+tcc@{gauss\+\_\+jacobi\+\_\+integrate.\+tcc}!E\+PS@{E\+PS}}
+\index{E\+PS@{E\+PS}!gauss\+\_\+jacobi\+\_\+integrate.\+tcc@{gauss\+\_\+jacobi\+\_\+integrate.\+tcc}}
+\subsubsection{\texorpdfstring{E\+PS}{EPS}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Tp $>$ \\
+const \+\_\+\+Tp E\+PS = \+\_\+\+Tp(300) $\ast$ std\+::numeric\+\_\+limits$<$\+\_\+\+Tp$>$\+::epsilon()}
+
+
+
+Admissible convergence error. 
+
+
+
+Definition at line 38 of file gauss\+\_\+jacobi\+\_\+integrate.\+tcc.
+

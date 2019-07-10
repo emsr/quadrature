@@ -1,0 +1,70 @@
+\hypertarget{qags__integrate_8tcc}{}\section{include/ext/qags\+\_\+integrate.tcc File Reference}
+\label{qags__integrate_8tcc}\index{include/ext/qags\+\_\+integrate.\+tcc@{include/ext/qags\+\_\+integrate.\+tcc}}
+{\ttfamily \#include $<$utility$>$}\newline
+{\ttfamily \#include $<$limits$>$}\newline
+{\ttfamily \#include $<$tuple$>$}\newline
+{\ttfamily \#include $<$stdexcept$>$}\newline
+{\ttfamily \#include $<$ext/integration\+\_\+error.\+h$>$}\newline
+{\ttfamily \#include $<$ext/integration\+\_\+transform.\+h$>$}\newline
+{\ttfamily \#include $<$ext/integration\+\_\+workspace.\+h$>$}\newline
+{\ttfamily \#include $<$ext/extrapolation\+\_\+table.\+h$>$}\newline
+Include dependency graph for qags\+\_\+integrate.\+tcc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{qags__integrate_8tcc__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=227pt]{qags__integrate_8tcc__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespace____gnu__cxx}{\+\_\+\+\_\+gnu\+\_\+cxx}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{qags__integrate_8tcc_afafa6b4ebd08aaff5160db53357e5529}{Q\+A\+G\+S\+\_\+\+I\+N\+T\+E\+G\+R\+A\+T\+E\+\_\+\+T\+CC}~1
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename \+\_\+\+Tp , typename \+\_\+\+Func\+Tp $>$ }\\auto \hyperlink{namespace____gnu__cxx_a0425e6f64911ad03088ec405d47f6817}{\+\_\+\+\_\+gnu\+\_\+cxx\+::qagi\+\_\+integrate} (integration\+\_\+workspace$<$ \+\_\+\+Tp, std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp, \+\_\+\+Tp $>$$>$ \&\+\_\+\+\_\+workspace, \+\_\+\+Func\+Tp \+\_\+\+\_\+func, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+abs\+\_\+err, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+rel\+\_\+err) -\/$>$ adaptive\+\_\+integral\+\_\+t$<$ \+\_\+\+Tp, decltype(map\+\_\+minf\+\_\+pinf$<$ \+\_\+\+Tp, \+\_\+\+Func\+Tp $>$(\+\_\+\+\_\+func)(\+\_\+\+Tp
+\item 
+{\footnotesize template$<$typename \+\_\+\+Tp , typename \+\_\+\+Func\+Tp $>$ }\\auto \hyperlink{namespace____gnu__cxx_a1bc1539a9c0330930a7e37da72bc3d45}{\+\_\+\+\_\+gnu\+\_\+cxx\+::qagil\+\_\+integrate} (integration\+\_\+workspace$<$ \+\_\+\+Tp, std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp, \+\_\+\+Tp $>$$>$ \&\+\_\+\+\_\+workspace, \+\_\+\+Func\+Tp \+\_\+\+\_\+func, \+\_\+\+Tp \+\_\+\+\_\+upper, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+abs\+\_\+err, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+rel\+\_\+err) -\/$>$ adaptive\+\_\+integral\+\_\+t$<$ \+\_\+\+Tp, decltype(map\+\_\+minf\+\_\+b$<$ \+\_\+\+Tp, \+\_\+\+Func\+Tp $>$(\+\_\+\+\_\+func, \+\_\+\+\_\+upper)(\+\_\+\+Tp
+\item 
+{\footnotesize template$<$typename \+\_\+\+Tp , typename \+\_\+\+Func\+Tp $>$ }\\auto \hyperlink{namespace____gnu__cxx_a7c2c57e5fc096155130cb44c4dacdd23}{\+\_\+\+\_\+gnu\+\_\+cxx\+::qagis\+\_\+integrate} (integration\+\_\+workspace$<$ \+\_\+\+Tp, std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp, \+\_\+\+Tp $>$$>$ \&\+\_\+\+\_\+workspace, \+\_\+\+Func\+Tp \+\_\+\+\_\+func, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+abs\+\_\+err, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+rel\+\_\+err) -\/$>$ adaptive\+\_\+integral\+\_\+t$<$ \+\_\+\+Tp, decltype(map\+\_\+minf\+\_\+pinf\+\_\+symm$<$ \+\_\+\+Tp, \+\_\+\+Func\+Tp $>$(\+\_\+\+\_\+func)(\+\_\+\+Tp
+\item 
+{\footnotesize template$<$typename \+\_\+\+Tp , typename \+\_\+\+Func\+Tp $>$ }\\auto \hyperlink{namespace____gnu__cxx_acd07d4a9a1757bea02df44089a2a96bf}{\+\_\+\+\_\+gnu\+\_\+cxx\+::qagiu\+\_\+integrate} (integration\+\_\+workspace$<$ \+\_\+\+Tp, std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp, \+\_\+\+Tp $>$$>$ \&\+\_\+\+\_\+workspace, \+\_\+\+Func\+Tp \+\_\+\+\_\+func, \+\_\+\+Tp \+\_\+\+\_\+lower, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+abs\+\_\+err, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+rel\+\_\+err) -\/$>$ adaptive\+\_\+integral\+\_\+t$<$ \+\_\+\+Tp, decltype(map\+\_\+a\+\_\+pinf$<$ \+\_\+\+Tp, \+\_\+\+Func\+Tp $>$(\+\_\+\+\_\+func, \+\_\+\+\_\+lower)(\+\_\+\+Tp
+\item 
+{\footnotesize template$<$typename \+\_\+\+Tp , typename \+\_\+\+Func\+Tp , typename \+\_\+\+Integrator  = gauss\+\_\+kronrod\+\_\+integral$<$\+\_\+\+Tp$>$$>$ }\\auto \hyperlink{namespace____gnu__cxx_afde6c192a4e11d49f4c9c117277980ff}{\+\_\+\+\_\+gnu\+\_\+cxx\+::qags\+\_\+integrate} (integration\+\_\+workspace$<$ \+\_\+\+Tp, std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp, \+\_\+\+Tp $>$$>$ \&\+\_\+\+\_\+workspace, \+\_\+\+Func\+Tp \+\_\+\+\_\+func, \+\_\+\+Tp \+\_\+\+\_\+lower, \+\_\+\+Tp \+\_\+\+\_\+upper, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+abs\+\_\+err, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+rel\+\_\+err, \+\_\+\+Integrator \+\_\+\+\_\+quad=gauss\+\_\+kronrod\+\_\+integral$<$ \+\_\+\+Tp $>$(Kronrod\+\_\+15)) -\/$>$ adaptive\+\_\+integral\+\_\+t$<$ \+\_\+\+Tp, std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp, \+\_\+\+Tp $>$$>$
+\item 
+return \hyperlink{namespace____gnu__cxx_a8b6964018d33496542948228e467acb1}{\+\_\+\+\_\+gnu\+\_\+cxx\+::qags\+\_\+integrate$<$ \+\_\+\+Tp, \+\_\+\+Func\+Tp2 $>$} (\+\_\+\+\_\+workspace, map\+\_\+minf\+\_\+pinf$<$ \+\_\+\+Tp, \+\_\+\+Func\+Tp $>$(\+\_\+\+\_\+func), \+\_\+\+Tp\{0\}, \+\_\+\+Tp\{1\}, \+\_\+\+\_\+max\+\_\+abs\+\_\+err, \+\_\+\+\_\+max\+\_\+rel\+\_\+err)
+\item 
+return \hyperlink{namespace____gnu__cxx_a454f1c38cacdbcfa8076d60f86a5f57d}{\+\_\+\+\_\+gnu\+\_\+cxx\+::qags\+\_\+integrate$<$ \+\_\+\+Tp, \+\_\+\+Func\+Tp2 $>$} (\+\_\+\+\_\+workspace, map\+\_\+minf\+\_\+pinf\+\_\+symm$<$ \+\_\+\+Tp, \+\_\+\+Func\+Tp $>$(\+\_\+\+\_\+func), \+\_\+\+Tp\{0\}, \+\_\+\+Tp\{1\}, \+\_\+\+\_\+max\+\_\+abs\+\_\+err, \+\_\+\+\_\+max\+\_\+rel\+\_\+err)
+\item 
+return \hyperlink{namespace____gnu__cxx_a82afc5fe73ee3fd1e16fd7b7f126379f}{\+\_\+\+\_\+gnu\+\_\+cxx\+::qags\+\_\+integrate$<$ \+\_\+\+Tp, \+\_\+\+Func\+Tp2 $>$} (\+\_\+\+\_\+workspace, map\+\_\+minf\+\_\+b$<$ \+\_\+\+Tp, \+\_\+\+Func\+Tp $>$(\+\_\+\+\_\+func, \+\_\+\+\_\+upper), \+\_\+\+Tp\{0\}, \+\_\+\+Tp\{1\}, \+\_\+\+\_\+max\+\_\+abs\+\_\+err, \+\_\+\+\_\+max\+\_\+rel\+\_\+err)
+\item 
+return \hyperlink{namespace____gnu__cxx_ae5530a44e048f341ccc448df258d49d3}{\+\_\+\+\_\+gnu\+\_\+cxx\+::qags\+\_\+integrate$<$ \+\_\+\+Tp, \+\_\+\+Func\+Tp2 $>$} (\+\_\+\+\_\+workspace, map\+\_\+a\+\_\+pinf$<$ \+\_\+\+Tp, \+\_\+\+Func\+Tp $>$(\+\_\+\+\_\+func, \+\_\+\+\_\+lower), \+\_\+\+Tp\{0\}, \+\_\+\+Tp\{1\}, \+\_\+\+\_\+max\+\_\+abs\+\_\+err, \+\_\+\+\_\+max\+\_\+rel\+\_\+err)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{qags__integrate_8tcc_afafa6b4ebd08aaff5160db53357e5529}\label{qags__integrate_8tcc_afafa6b4ebd08aaff5160db53357e5529}} 
+\index{qags\+\_\+integrate.\+tcc@{qags\+\_\+integrate.\+tcc}!Q\+A\+G\+S\+\_\+\+I\+N\+T\+E\+G\+R\+A\+T\+E\+\_\+\+T\+CC@{Q\+A\+G\+S\+\_\+\+I\+N\+T\+E\+G\+R\+A\+T\+E\+\_\+\+T\+CC}}
+\index{Q\+A\+G\+S\+\_\+\+I\+N\+T\+E\+G\+R\+A\+T\+E\+\_\+\+T\+CC@{Q\+A\+G\+S\+\_\+\+I\+N\+T\+E\+G\+R\+A\+T\+E\+\_\+\+T\+CC}!qags\+\_\+integrate.\+tcc@{qags\+\_\+integrate.\+tcc}}
+\subsubsection{\texorpdfstring{Q\+A\+G\+S\+\_\+\+I\+N\+T\+E\+G\+R\+A\+T\+E\+\_\+\+T\+CC}{QAGS\_INTEGRATE\_TCC}}
+{\footnotesize\ttfamily \#define Q\+A\+G\+S\+\_\+\+I\+N\+T\+E\+G\+R\+A\+T\+E\+\_\+\+T\+CC~1}
+
+
+
+Definition at line 29 of file qags\+\_\+integrate.\+tcc.
+

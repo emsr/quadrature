@@ -1,0 +1,109 @@
+\hypertarget{class____gnu__cxx_1_1fourier__transform__t}{}\section{\+\_\+\+\_\+gnu\+\_\+cxx\+:\+:fourier\+\_\+transform\+\_\+t$<$ \+\_\+\+Tp $>$ Class Template Reference}
+\label{class____gnu__cxx_1_1fourier__transform__t}\index{\+\_\+\+\_\+gnu\+\_\+cxx\+::fourier\+\_\+transform\+\_\+t$<$ \+\_\+\+Tp $>$@{\+\_\+\+\_\+gnu\+\_\+cxx\+::fourier\+\_\+transform\+\_\+t$<$ \+\_\+\+Tp $>$}}
+
+
+{\ttfamily \#include $<$fourier\+\_\+transform.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class____gnu__cxx_1_1fourier__transform__t_ae9d6b51de92d52ba301457c4a9680a64}{fourier\+\_\+transform\+\_\+t} (std\+::size\+\_\+t \+\_\+\+\_\+n)
+\item 
+\hyperlink{class____gnu__cxx_1_1fourier__transform__t_abb69842c2d297492cc5cd22e4b0ee34e}{fourier\+\_\+transform\+\_\+t} (std\+::vector$<$ \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp} $>$ \+\_\+\+\_\+data)
+\item 
+std\+::complex$<$ \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp} $>$ \hyperlink{class____gnu__cxx_1_1fourier__transform__t_a1b39e5c1042bdb5b60d4f833d5661ed8}{operator\mbox{[}$\,$\mbox{]}} (std\+::size\+\_\+t \+\_\+\+\_\+k) const
+\item 
+std\+::size\+\_\+t \hyperlink{class____gnu__cxx_1_1fourier__transform__t_a667f8cb207f9d8e4c8643fe0bf165ff4}{size} () const
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename \+\_\+\+Tp$>$\newline
+class \+\_\+\+\_\+gnu\+\_\+cxx\+::fourier\+\_\+transform\+\_\+t$<$ \+\_\+\+Tp $>$}
+
+Fast Fourier Transform
+
+Discrete Fourier Transform can be regarded as evaluating a polynomial of degree N-\/1 on the powers $ \omega^0, \omega, \omega^2, ..., \omega^(N-1) $ where $ \omega $ is the Nth root of unity.
+
+Given a polynomial of even degree \[ p(t) = a_0 + a_1 t + a_2 t^2 + ... \] we find\+: \[ p(t) = a_0 + a_2 t^2 + a_4 t^4 + ... + t(a_1 + a_3 t^2 + ...) = q_{even}(t^2) + t q_{odd} (t^2) \] where q\+\_\+e and q\+\_\+o are polynomials formed with the even and odd coefficients of p(t). Thus, we get
+
+p(1) = q\+\_\+\{even\}(1) + $^\wedge$0 q\+\_\+\{odd\}(1) p() = q\+\_\+\{even\}($^\wedge$2) + $^\wedge$1 q\+\_\+\{odd\}($^\wedge$2) p($^\wedge$2) = q\+\_\+\{even\}($^\wedge$4) + $^\wedge$2 q\+\_\+\{odd\}($^\wedge$4) ...
+
+Note how on the R\+HS the Fourier transforms of q\+\_\+e and q\+\_\+o appear. Thus\+: Discrete Fourier transform type. 
+
+Definition at line 153 of file fourier\+\_\+transform.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class____gnu__cxx_1_1fourier__transform__t_ae9d6b51de92d52ba301457c4a9680a64}\label{class____gnu__cxx_1_1fourier__transform__t_ae9d6b51de92d52ba301457c4a9680a64}} 
+\index{\+\_\+\+\_\+gnu\+\_\+cxx\+::fourier\+\_\+transform\+\_\+t@{\+\_\+\+\_\+gnu\+\_\+cxx\+::fourier\+\_\+transform\+\_\+t}!fourier\+\_\+transform\+\_\+t@{fourier\+\_\+transform\+\_\+t}}
+\index{fourier\+\_\+transform\+\_\+t@{fourier\+\_\+transform\+\_\+t}!\+\_\+\+\_\+gnu\+\_\+cxx\+::fourier\+\_\+transform\+\_\+t@{\+\_\+\+\_\+gnu\+\_\+cxx\+::fourier\+\_\+transform\+\_\+t}}
+\subsubsection{\texorpdfstring{fourier\+\_\+transform\+\_\+t()}{fourier\_transform\_t()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Tp $>$ \\
+\hyperlink{class____gnu__cxx_1_1fourier__transform__t}{\+\_\+\+\_\+gnu\+\_\+cxx\+::fourier\+\_\+transform\+\_\+t}$<$ \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp} $>$\+::\hyperlink{class____gnu__cxx_1_1fourier__transform__t}{fourier\+\_\+transform\+\_\+t} (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{\+\_\+\+\_\+n }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 161 of file fourier\+\_\+transform.\+h.
+
+
+\begin{DoxyCode}
+162       : \_M\_xform\{\}
+163       \{ this->\_M\_xform.reserve(\_\_n / 2 + 1); \}
+\end{DoxyCode}
+\mbox{\Hypertarget{class____gnu__cxx_1_1fourier__transform__t_abb69842c2d297492cc5cd22e4b0ee34e}\label{class____gnu__cxx_1_1fourier__transform__t_abb69842c2d297492cc5cd22e4b0ee34e}} 
+\index{\+\_\+\+\_\+gnu\+\_\+cxx\+::fourier\+\_\+transform\+\_\+t@{\+\_\+\+\_\+gnu\+\_\+cxx\+::fourier\+\_\+transform\+\_\+t}!fourier\+\_\+transform\+\_\+t@{fourier\+\_\+transform\+\_\+t}}
+\index{fourier\+\_\+transform\+\_\+t@{fourier\+\_\+transform\+\_\+t}!\+\_\+\+\_\+gnu\+\_\+cxx\+::fourier\+\_\+transform\+\_\+t@{\+\_\+\+\_\+gnu\+\_\+cxx\+::fourier\+\_\+transform\+\_\+t}}
+\subsubsection{\texorpdfstring{fourier\+\_\+transform\+\_\+t()}{fourier\_transform\_t()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Tp $>$ \\
+\hyperlink{class____gnu__cxx_1_1fourier__transform__t}{\+\_\+\+\_\+gnu\+\_\+cxx\+::fourier\+\_\+transform\+\_\+t}$<$ \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp} $>$\+::\hyperlink{class____gnu__cxx_1_1fourier__transform__t}{fourier\+\_\+transform\+\_\+t} (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp} $>$}]{\+\_\+\+\_\+data }\end{DoxyParamCaption})}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class____gnu__cxx_1_1fourier__transform__t_a1b39e5c1042bdb5b60d4f833d5661ed8}\label{class____gnu__cxx_1_1fourier__transform__t_a1b39e5c1042bdb5b60d4f833d5661ed8}} 
+\index{\+\_\+\+\_\+gnu\+\_\+cxx\+::fourier\+\_\+transform\+\_\+t@{\+\_\+\+\_\+gnu\+\_\+cxx\+::fourier\+\_\+transform\+\_\+t}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!\+\_\+\+\_\+gnu\+\_\+cxx\+::fourier\+\_\+transform\+\_\+t@{\+\_\+\+\_\+gnu\+\_\+cxx\+::fourier\+\_\+transform\+\_\+t}}
+\subsubsection{\texorpdfstring{operator[]()}{operator[]()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Tp $>$ \\
+std\+::complex$<$\hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp}$>$ \hyperlink{class____gnu__cxx_1_1fourier__transform__t}{\+\_\+\+\_\+gnu\+\_\+cxx\+::fourier\+\_\+transform\+\_\+t}$<$ \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp} $>$\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{\+\_\+\+\_\+k }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 172 of file fourier\+\_\+transform.\+h.
+
+
+\begin{DoxyCode}
+173       \{
+174         \textcolor{keywordflow}{if} (\_\_k < this->\_M\_xform.size())
+175           \textcolor{keywordflow}{return} this->\_M\_xform[\_\_k];
+176         \textcolor{keywordflow}{else}
+177           \textcolor{keywordflow}{return} std::conj(this->\_M\_xform[this->\_M\_xform.size() - \_\_k]);
+178         \textcolor{comment}{// This is real array indexing.}
+179         \textcolor{comment}{//if (\_\_k < len / 2)}
+180         \textcolor{comment}{//      ? std::complex(xform[2 * \_\_k], xform[2 * \_\_k + 1])}
+181         \textcolor{comment}{//      : std::complex(xform[2 * len - 2 * i - 2],}
+182         \textcolor{comment}{//                    -xform[2 * len - 2 * \_\_k - 1]);}
+183       \}
+\end{DoxyCode}
+\mbox{\Hypertarget{class____gnu__cxx_1_1fourier__transform__t_a667f8cb207f9d8e4c8643fe0bf165ff4}\label{class____gnu__cxx_1_1fourier__transform__t_a667f8cb207f9d8e4c8643fe0bf165ff4}} 
+\index{\+\_\+\+\_\+gnu\+\_\+cxx\+::fourier\+\_\+transform\+\_\+t@{\+\_\+\+\_\+gnu\+\_\+cxx\+::fourier\+\_\+transform\+\_\+t}!size@{size}}
+\index{size@{size}!\+\_\+\+\_\+gnu\+\_\+cxx\+::fourier\+\_\+transform\+\_\+t@{\+\_\+\+\_\+gnu\+\_\+cxx\+::fourier\+\_\+transform\+\_\+t}}
+\subsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Tp $>$ \\
+std\+::size\+\_\+t \hyperlink{class____gnu__cxx_1_1fourier__transform__t}{\+\_\+\+\_\+gnu\+\_\+cxx\+::fourier\+\_\+transform\+\_\+t}$<$ \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp} $>$\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 168 of file fourier\+\_\+transform.\+h.
+
+
+\begin{DoxyCode}
+169       \{ \textcolor{keywordflow}{return} 2 * this->\_M\_xform.size() - 2; \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/ext/\hyperlink{fourier__transform_8h}{fourier\+\_\+transform.\+h}\end{DoxyCompactItemize}

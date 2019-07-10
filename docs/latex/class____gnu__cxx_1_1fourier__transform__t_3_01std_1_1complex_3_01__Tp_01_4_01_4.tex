@@ -1,0 +1,95 @@
+\hypertarget{class____gnu__cxx_1_1fourier__transform__t_3_01std_1_1complex_3_01__Tp_01_4_01_4}{}\section{\+\_\+\+\_\+gnu\+\_\+cxx\+:\+:fourier\+\_\+transform\+\_\+t$<$ std\+:\+:complex$<$ \+\_\+\+Tp $>$ $>$ Class Template Reference}
+\label{class____gnu__cxx_1_1fourier__transform__t_3_01std_1_1complex_3_01__Tp_01_4_01_4}\index{\+\_\+\+\_\+gnu\+\_\+cxx\+::fourier\+\_\+transform\+\_\+t$<$ std\+::complex$<$ \+\_\+\+Tp $>$ $>$@{\+\_\+\+\_\+gnu\+\_\+cxx\+::fourier\+\_\+transform\+\_\+t$<$ std\+::complex$<$ \+\_\+\+Tp $>$ $>$}}
+
+
+{\ttfamily \#include $<$fourier\+\_\+transform.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class____gnu__cxx_1_1fourier__transform__t_3_01std_1_1complex_3_01__Tp_01_4_01_4_a215f06e5944b3666d4bd737154625317}{fourier\+\_\+transform\+\_\+t} (std\+::size\+\_\+t \+\_\+\+\_\+n)
+\item 
+\hyperlink{class____gnu__cxx_1_1fourier__transform__t_3_01std_1_1complex_3_01__Tp_01_4_01_4_a16c7b15061a8a9038df61d009def6ee1}{fourier\+\_\+transform\+\_\+t} (const std\+::vector$<$ std\+::complex$<$ \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp} $>$$>$ \&\+\_\+\+\_\+data)
+\item 
+std\+::complex$<$ \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp} $>$ \hyperlink{class____gnu__cxx_1_1fourier__transform__t_3_01std_1_1complex_3_01__Tp_01_4_01_4_aab8999adeedcd40323a2e3ee29531b24}{operator\mbox{[}$\,$\mbox{]}} (std\+::size\+\_\+t \+\_\+\+\_\+k) const
+\item 
+std\+::size\+\_\+t \hyperlink{class____gnu__cxx_1_1fourier__transform__t_3_01std_1_1complex_3_01__Tp_01_4_01_4_a1c6e363c86ed959497fd6ad5866802d6}{size} () const
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename \+\_\+\+Tp$>$\newline
+class \+\_\+\+\_\+gnu\+\_\+cxx\+::fourier\+\_\+transform\+\_\+t$<$ std\+::complex$<$ \+\_\+\+Tp $>$ $>$}
+
+Discrete Fourier transform specialization for transform of complex data. 
+
+Definition at line 190 of file fourier\+\_\+transform.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class____gnu__cxx_1_1fourier__transform__t_3_01std_1_1complex_3_01__Tp_01_4_01_4_a215f06e5944b3666d4bd737154625317}\label{class____gnu__cxx_1_1fourier__transform__t_3_01std_1_1complex_3_01__Tp_01_4_01_4_a215f06e5944b3666d4bd737154625317}} 
+\index{\+\_\+\+\_\+gnu\+\_\+cxx\+::fourier\+\_\+transform\+\_\+t$<$ std\+::complex$<$ \+\_\+\+Tp $>$ $>$@{\+\_\+\+\_\+gnu\+\_\+cxx\+::fourier\+\_\+transform\+\_\+t$<$ std\+::complex$<$ \+\_\+\+Tp $>$ $>$}!fourier\+\_\+transform\+\_\+t@{fourier\+\_\+transform\+\_\+t}}
+\index{fourier\+\_\+transform\+\_\+t@{fourier\+\_\+transform\+\_\+t}!\+\_\+\+\_\+gnu\+\_\+cxx\+::fourier\+\_\+transform\+\_\+t$<$ std\+::complex$<$ \+\_\+\+Tp $>$ $>$@{\+\_\+\+\_\+gnu\+\_\+cxx\+::fourier\+\_\+transform\+\_\+t$<$ std\+::complex$<$ \+\_\+\+Tp $>$ $>$}}
+\subsubsection{\texorpdfstring{fourier\+\_\+transform\+\_\+t()}{fourier\_transform\_t()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Tp $>$ \\
+\hyperlink{class____gnu__cxx_1_1fourier__transform__t}{\+\_\+\+\_\+gnu\+\_\+cxx\+::fourier\+\_\+transform\+\_\+t}$<$ std\+::complex$<$ \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp} $>$ $>$\+::\hyperlink{class____gnu__cxx_1_1fourier__transform__t}{fourier\+\_\+transform\+\_\+t} (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{\+\_\+\+\_\+n }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 198 of file fourier\+\_\+transform.\+h.
+
+
+\begin{DoxyCode}
+199       : \_M\_xform\{\}
+200       \{ this->\_M\_xform.reserve(\_\_n / 2 + 1); \}
+\end{DoxyCode}
+\mbox{\Hypertarget{class____gnu__cxx_1_1fourier__transform__t_3_01std_1_1complex_3_01__Tp_01_4_01_4_a16c7b15061a8a9038df61d009def6ee1}\label{class____gnu__cxx_1_1fourier__transform__t_3_01std_1_1complex_3_01__Tp_01_4_01_4_a16c7b15061a8a9038df61d009def6ee1}} 
+\index{\+\_\+\+\_\+gnu\+\_\+cxx\+::fourier\+\_\+transform\+\_\+t$<$ std\+::complex$<$ \+\_\+\+Tp $>$ $>$@{\+\_\+\+\_\+gnu\+\_\+cxx\+::fourier\+\_\+transform\+\_\+t$<$ std\+::complex$<$ \+\_\+\+Tp $>$ $>$}!fourier\+\_\+transform\+\_\+t@{fourier\+\_\+transform\+\_\+t}}
+\index{fourier\+\_\+transform\+\_\+t@{fourier\+\_\+transform\+\_\+t}!\+\_\+\+\_\+gnu\+\_\+cxx\+::fourier\+\_\+transform\+\_\+t$<$ std\+::complex$<$ \+\_\+\+Tp $>$ $>$@{\+\_\+\+\_\+gnu\+\_\+cxx\+::fourier\+\_\+transform\+\_\+t$<$ std\+::complex$<$ \+\_\+\+Tp $>$ $>$}}
+\subsubsection{\texorpdfstring{fourier\+\_\+transform\+\_\+t()}{fourier\_transform\_t()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Tp $>$ \\
+\hyperlink{class____gnu__cxx_1_1fourier__transform__t}{\+\_\+\+\_\+gnu\+\_\+cxx\+::fourier\+\_\+transform\+\_\+t}$<$ std\+::complex$<$ \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp} $>$ $>$\+::\hyperlink{class____gnu__cxx_1_1fourier__transform__t}{fourier\+\_\+transform\+\_\+t} (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ std\+::complex$<$ \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp} $>$$>$ \&}]{\+\_\+\+\_\+data }\end{DoxyParamCaption})}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class____gnu__cxx_1_1fourier__transform__t_3_01std_1_1complex_3_01__Tp_01_4_01_4_aab8999adeedcd40323a2e3ee29531b24}\label{class____gnu__cxx_1_1fourier__transform__t_3_01std_1_1complex_3_01__Tp_01_4_01_4_aab8999adeedcd40323a2e3ee29531b24}} 
+\index{\+\_\+\+\_\+gnu\+\_\+cxx\+::fourier\+\_\+transform\+\_\+t$<$ std\+::complex$<$ \+\_\+\+Tp $>$ $>$@{\+\_\+\+\_\+gnu\+\_\+cxx\+::fourier\+\_\+transform\+\_\+t$<$ std\+::complex$<$ \+\_\+\+Tp $>$ $>$}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!\+\_\+\+\_\+gnu\+\_\+cxx\+::fourier\+\_\+transform\+\_\+t$<$ std\+::complex$<$ \+\_\+\+Tp $>$ $>$@{\+\_\+\+\_\+gnu\+\_\+cxx\+::fourier\+\_\+transform\+\_\+t$<$ std\+::complex$<$ \+\_\+\+Tp $>$ $>$}}
+\subsubsection{\texorpdfstring{operator[]()}{operator[]()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Tp $>$ \\
+std\+::complex$<$\hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp}$>$ \hyperlink{class____gnu__cxx_1_1fourier__transform__t}{\+\_\+\+\_\+gnu\+\_\+cxx\+::fourier\+\_\+transform\+\_\+t}$<$ std\+::complex$<$ \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp} $>$ $>$\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{\+\_\+\+\_\+k }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 209 of file fourier\+\_\+transform.\+h.
+
+
+
+References \+\_\+\+\_\+gnu\+\_\+cxx\+::\+\_\+\+\_\+discrete\+\_\+fourier\+\_\+transform(), \+\_\+\+\_\+gnu\+\_\+cxx\+::fast\+\_\+fourier\+\_\+transform(), \+\_\+\+\_\+gnu\+\_\+cxx\+::fast\+\_\+sine\+\_\+transform(), \+\_\+\+\_\+gnu\+\_\+cxx\+::inv\+\_\+fast\+\_\+fourier\+\_\+transform(), and \+\_\+\+\_\+gnu\+\_\+cxx\+::inv\+\_\+fast\+\_\+sine\+\_\+transform().
+
+
+\begin{DoxyCode}
+210       \{ \textcolor{keywordflow}{return} this->\_M\_xform[\_\_k]; \}
+\end{DoxyCode}
+\mbox{\Hypertarget{class____gnu__cxx_1_1fourier__transform__t_3_01std_1_1complex_3_01__Tp_01_4_01_4_a1c6e363c86ed959497fd6ad5866802d6}\label{class____gnu__cxx_1_1fourier__transform__t_3_01std_1_1complex_3_01__Tp_01_4_01_4_a1c6e363c86ed959497fd6ad5866802d6}} 
+\index{\+\_\+\+\_\+gnu\+\_\+cxx\+::fourier\+\_\+transform\+\_\+t$<$ std\+::complex$<$ \+\_\+\+Tp $>$ $>$@{\+\_\+\+\_\+gnu\+\_\+cxx\+::fourier\+\_\+transform\+\_\+t$<$ std\+::complex$<$ \+\_\+\+Tp $>$ $>$}!size@{size}}
+\index{size@{size}!\+\_\+\+\_\+gnu\+\_\+cxx\+::fourier\+\_\+transform\+\_\+t$<$ std\+::complex$<$ \+\_\+\+Tp $>$ $>$@{\+\_\+\+\_\+gnu\+\_\+cxx\+::fourier\+\_\+transform\+\_\+t$<$ std\+::complex$<$ \+\_\+\+Tp $>$ $>$}}
+\subsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Tp $>$ \\
+std\+::size\+\_\+t \hyperlink{class____gnu__cxx_1_1fourier__transform__t}{\+\_\+\+\_\+gnu\+\_\+cxx\+::fourier\+\_\+transform\+\_\+t}$<$ std\+::complex$<$ \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\+\_\+\+Tp} $>$ $>$\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 205 of file fourier\+\_\+transform.\+h.
+
+
+\begin{DoxyCode}
+206       \{ \textcolor{keywordflow}{return} 2 * this->\_M\_xform.size() - 2; \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/ext/\hyperlink{fourier__transform_8h}{fourier\+\_\+transform.\+h}\end{DoxyCompactItemize}

@@ -1,0 +1,214 @@
+\hypertarget{structjac__quadrature}{}\section{jac\+\_\+quadrature$<$ \+\_\+\+Tp $>$ Struct Template Reference}
+\label{structjac__quadrature}\index{jac\+\_\+quadrature$<$ \+\_\+\+Tp $>$@{jac\+\_\+quadrature$<$ \+\_\+\+Tp $>$}}
+
+
+Struct used to store information and memory on the quadrature.  
+
+
+
+
+{\ttfamily \#include $<$jacobi.\+h$>$}
+
+
+
+Collaboration diagram for jac\+\_\+quadrature$<$ \+\_\+\+Tp $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=195pt]{structjac__quadrature__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structjac__quadrature_a0d4d6c5fbb285c4b6d63e59579bb86a0}{jac\+\_\+quadrature} (\hyperlink{jacobi_8h_a58cc26f41a96f9220797038d2d3b4c8a}{gauss\+\_\+quad\+\_\+type} qtype, int nq, \+\_\+\+Tp a, \+\_\+\+Tp b)
+\item 
+\hyperlink{structjac__quadrature_adca300f6457471f03b0392b4d6bc5aea}{$\sim$jac\+\_\+quadrature} ()=default
+\item 
+{\footnotesize template$<$typename \+\_\+\+Func $>$ }\\\+\_\+\+Tp \hyperlink{structjac__quadrature_a428a88c5ee5e6b5caae2dd312639297d}{integrate} (\+\_\+\+Func fun)
+\begin{DoxyCompactList}\small\item\em Calculates the integral of a function with values at quadrature points given by f with quadrature weights w. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\+\_\+\+Tp \hyperlink{structjac__quadrature_a24503b91f0dbdc3d3ab3bd802c990e68}{alpha}
+\begin{DoxyCompactList}\small\item\em Alpha weight of the quadrature. \end{DoxyCompactList}\item 
+\+\_\+\+Tp \hyperlink{structjac__quadrature_ad4fd571dd4977ed96b8155c79367ac41}{beta}
+\begin{DoxyCompactList}\small\item\em Beta weight of the quadrature. \end{DoxyCompactList}\item 
+int \hyperlink{structjac__quadrature_a91ae5ef05b9ea80951e40cc8a794c834}{Q}
+\begin{DoxyCompactList}\small\item\em Number of quadrature points. \end{DoxyCompactList}\item 
+enum \hyperlink{jacobi_8h_a58cc26f41a96f9220797038d2d3b4c8a}{gauss\+\_\+quad\+\_\+type} \hyperlink{structjac__quadrature_a9af6c3334c23994de4547b9d2631ce28}{type}
+\begin{DoxyCompactList}\small\item\em Quadrature type. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename \+\_\+\+Tp$>$\newline
+struct jac\+\_\+quadrature$<$ \+\_\+\+Tp $>$}
+
+Struct used to store information and memory on the quadrature. 
+
+This strucuture is used to store data about the quadrature. It can be later used to integrate, derive or interpolate functions. It should be created using the jac\+\_\+quadrature\+\_\+alloc function. 
+
+Definition at line 64 of file jacobi.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structjac__quadrature_a0d4d6c5fbb285c4b6d63e59579bb86a0}\label{structjac__quadrature_a0d4d6c5fbb285c4b6d63e59579bb86a0}} 
+\index{jac\+\_\+quadrature@{jac\+\_\+quadrature}!jac\+\_\+quadrature@{jac\+\_\+quadrature}}
+\index{jac\+\_\+quadrature@{jac\+\_\+quadrature}!jac\+\_\+quadrature@{jac\+\_\+quadrature}}
+\subsubsection{\texorpdfstring{jac\+\_\+quadrature()}{jac\_quadrature()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Tp $>$ \\
+\hyperlink{structjac__quadrature}{jac\+\_\+quadrature}$<$ \+\_\+\+Tp $>$\+::\hyperlink{structjac__quadrature}{jac\+\_\+quadrature} (\begin{DoxyParamCaption}\item[{\hyperlink{jacobi_8h_a58cc26f41a96f9220797038d2d3b4c8a}{gauss\+\_\+quad\+\_\+type}}]{qtype,  }\item[{int}]{nq,  }\item[{\+\_\+\+Tp}]{a,  }\item[{\+\_\+\+Tp}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 78 of file jacobi.\+h.
+
+
+
+References \+\_\+\+\_\+gnu\+\_\+cxx\+::\+\_\+\+Tp, jac\+\_\+quadrature$<$ \+\_\+\+Tp $>$\+::integrate(), and jac\+\_\+quadrature$<$ \+\_\+\+Tp $>$\+::$\sim$jac\+\_\+quadrature().
+
+
+\begin{DoxyCode}
+79     : \hyperlink{structjac__quadrature_a9af6c3334c23994de4547b9d2631ce28}{type}(qtype), \hyperlink{structjac__quadrature_a91ae5ef05b9ea80951e40cc8a794c834}{Q}(nq), \hyperlink{structjac__quadrature_a24503b91f0dbdc3d3ab3bd802c990e68}{alpha}(a), \hyperlink{structjac__quadrature_ad4fd571dd4977ed96b8155c79367ac41}{beta}(b),
+80       x(nq), w(nq), D(nq),
+81       xp\{\}, imat\{\}
+82     \{
+83       this->quadrature\_zwd();
+84     \}
+\end{DoxyCode}
+\mbox{\Hypertarget{structjac__quadrature_adca300f6457471f03b0392b4d6bc5aea}\label{structjac__quadrature_adca300f6457471f03b0392b4d6bc5aea}} 
+\index{jac\+\_\+quadrature@{jac\+\_\+quadrature}!````~jac\+\_\+quadrature@{$\sim$jac\+\_\+quadrature}}
+\index{````~jac\+\_\+quadrature@{$\sim$jac\+\_\+quadrature}!jac\+\_\+quadrature@{jac\+\_\+quadrature}}
+\subsubsection{\texorpdfstring{$\sim$jac\+\_\+quadrature()}{~jac\_quadrature()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Tp $>$ \\
+\hyperlink{structjac__quadrature}{jac\+\_\+quadrature}$<$ \+\_\+\+Tp $>$\+::$\sim$\hyperlink{structjac__quadrature}{jac\+\_\+quadrature} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+Referenced by jac\+\_\+quadrature$<$ \+\_\+\+Tp $>$\+::jac\+\_\+quadrature().
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{structjac__quadrature_a428a88c5ee5e6b5caae2dd312639297d}\label{structjac__quadrature_a428a88c5ee5e6b5caae2dd312639297d}} 
+\index{jac\+\_\+quadrature@{jac\+\_\+quadrature}!integrate@{integrate}}
+\index{integrate@{integrate}!jac\+\_\+quadrature@{jac\+\_\+quadrature}}
+\subsubsection{\texorpdfstring{integrate()}{integrate()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Tp $>$ \\
+template$<$typename \+\_\+\+Func $>$ \\
+\+\_\+\+Tp \hyperlink{structjac__quadrature}{jac\+\_\+quadrature}$<$ \+\_\+\+Tp $>$\+::integrate (\begin{DoxyParamCaption}\item[{\+\_\+\+Func}]{fun }\end{DoxyParamCaption})}
+
+
+
+Calculates the integral of a function with values at quadrature points given by f with quadrature weights w. 
+
+Aproximates the integral of a function using a a quadrature.
+
+\[ \int_{-1}^1 f(x) dx \approx \sum_{i=0}^{Q-1} w_i f(x_i) \]
+
+Where $x_i$ and $w_i$ are given by the quadrature method emplyed.
+
+
+\begin{DoxyParams}{Parameters}
+{\em quad} & A structure containing quadrature information \\
+\hline
+{\em f} & Value of function at quadrature points \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+$\int_{-1}^{1} f(x) dx \approx \sum_{i=0}^{Q-1} w_i f(x_i)$ 
+\end{DoxyReturn}
+
+
+Definition at line 220 of file gauss\+\_\+jacobi\+\_\+interface.\+tcc.
+
+
+
+References \+\_\+\+\_\+gnu\+\_\+cxx\+::\+\_\+\+Tp, and matvec().
+
+
+
+Referenced by jac\+\_\+quadrature$<$ \+\_\+\+Tp $>$\+::jac\+\_\+quadrature().
+
+
+\begin{DoxyCode}
+221     \{
+222       std::vector<\_Tp> f(this->\hyperlink{structjac__quadrature_a91ae5ef05b9ea80951e40cc8a794c834}{Q});
+223       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < this->\hyperlink{structjac__quadrature_a91ae5ef05b9ea80951e40cc8a794c834}{Q}; ++i)
+224         f[i] = fun(this->x[i]);
+225       \textcolor{keywordflow}{return} std::inner\_product(std::begin(this->w), std::end(this->w),
+226                                 std::begin(f), \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\_Tp}\{0\});
+227     \}
+\end{DoxyCode}
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{structjac__quadrature_a24503b91f0dbdc3d3ab3bd802c990e68}\label{structjac__quadrature_a24503b91f0dbdc3d3ab3bd802c990e68}} 
+\index{jac\+\_\+quadrature@{jac\+\_\+quadrature}!alpha@{alpha}}
+\index{alpha@{alpha}!jac\+\_\+quadrature@{jac\+\_\+quadrature}}
+\subsubsection{\texorpdfstring{alpha}{alpha}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Tp $>$ \\
+\+\_\+\+Tp \hyperlink{structjac__quadrature}{jac\+\_\+quadrature}$<$ \+\_\+\+Tp $>$\+::alpha}
+
+
+
+Alpha weight of the quadrature. 
+
+
+
+Definition at line 73 of file jacobi.\+h.
+
+\mbox{\Hypertarget{structjac__quadrature_ad4fd571dd4977ed96b8155c79367ac41}\label{structjac__quadrature_ad4fd571dd4977ed96b8155c79367ac41}} 
+\index{jac\+\_\+quadrature@{jac\+\_\+quadrature}!beta@{beta}}
+\index{beta@{beta}!jac\+\_\+quadrature@{jac\+\_\+quadrature}}
+\subsubsection{\texorpdfstring{beta}{beta}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Tp $>$ \\
+\+\_\+\+Tp \hyperlink{structjac__quadrature}{jac\+\_\+quadrature}$<$ \+\_\+\+Tp $>$\+::beta}
+
+
+
+Beta weight of the quadrature. 
+
+
+
+Definition at line 76 of file jacobi.\+h.
+
+\mbox{\Hypertarget{structjac__quadrature_a91ae5ef05b9ea80951e40cc8a794c834}\label{structjac__quadrature_a91ae5ef05b9ea80951e40cc8a794c834}} 
+\index{jac\+\_\+quadrature@{jac\+\_\+quadrature}!Q@{Q}}
+\index{Q@{Q}!jac\+\_\+quadrature@{jac\+\_\+quadrature}}
+\subsubsection{\texorpdfstring{Q}{Q}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Tp $>$ \\
+int \hyperlink{structjac__quadrature}{jac\+\_\+quadrature}$<$ \+\_\+\+Tp $>$\+::Q}
+
+
+
+Number of quadrature points. 
+
+
+
+Definition at line 70 of file jacobi.\+h.
+
+\mbox{\Hypertarget{structjac__quadrature_a9af6c3334c23994de4547b9d2631ce28}\label{structjac__quadrature_a9af6c3334c23994de4547b9d2631ce28}} 
+\index{jac\+\_\+quadrature@{jac\+\_\+quadrature}!type@{type}}
+\index{type@{type}!jac\+\_\+quadrature@{jac\+\_\+quadrature}}
+\subsubsection{\texorpdfstring{type}{type}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Tp $>$ \\
+enum \hyperlink{jacobi_8h_a58cc26f41a96f9220797038d2d3b4c8a}{gauss\+\_\+quad\+\_\+type} \hyperlink{structjac__quadrature}{jac\+\_\+quadrature}$<$ \+\_\+\+Tp $>$\+::type}
+
+
+
+Quadrature type. 
+
+
+
+Definition at line 67 of file jacobi.\+h.
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/ext/\hyperlink{jacobi_8h}{jacobi.\+h}\item 
+include/ext/\hyperlink{gauss__jacobi__integrate_8tcc}{gauss\+\_\+jacobi\+\_\+integrate.\+tcc}\item 
+include/ext/\hyperlink{gauss__jacobi__interface_8tcc}{gauss\+\_\+jacobi\+\_\+interface.\+tcc}\end{DoxyCompactItemize}

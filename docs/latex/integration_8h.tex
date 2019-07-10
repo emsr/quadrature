@@ -1,0 +1,126 @@
+\hypertarget{integration_8h}{}\section{include/ext/integration.h File Reference}
+\label{integration_8h}\index{include/ext/integration.\+h@{include/ext/integration.\+h}}
+{\ttfamily \#include $<$limits$>$}\newline
+{\ttfamily \#include $<$tuple$>$}\newline
+{\ttfamily \#include $<$ext/math\+\_\+constants.\+h$>$}\newline
+{\ttfamily \#include $<$ext/quadrature\+\_\+point.\+h$>$}\newline
+{\ttfamily \#include $<$ext/gauss\+\_\+kronrod\+\_\+integral.\+h$>$}\newline
+{\ttfamily \#include $<$ext/trapezoid\+\_\+integral.\+h$>$}\newline
+{\ttfamily \#include $<$ext/midpoint\+\_\+integral.\+h$>$}\newline
+{\ttfamily \#include $<$ext/simpson\+\_\+integral.\+h$>$}\newline
+{\ttfamily \#include $<$ext/gauss\+\_\+quadrature.\+h$>$}\newline
+{\ttfamily \#include $<$ext/trapezoid\+\_\+integral.\+tcc$>$}\newline
+{\ttfamily \#include $<$ext/midpoint\+\_\+integral.\+tcc$>$}\newline
+{\ttfamily \#include $<$ext/simpson\+\_\+integral.\+tcc$>$}\newline
+{\ttfamily \#include $<$ext/gauss\+\_\+kronrod\+\_\+integral.\+tcc$>$}\newline
+{\ttfamily \#include $<$ext/qag\+\_\+integrate.\+tcc$>$}\newline
+{\ttfamily \#include $<$ext/qags\+\_\+integrate.\+tcc$>$}\newline
+{\ttfamily \#include $<$ext/qng\+\_\+integrate.\+tcc$>$}\newline
+{\ttfamily \#include $<$ext/qagp\+\_\+integrate.\+tcc$>$}\newline
+{\ttfamily \#include $<$ext/qcheb\+\_\+integrate.\+tcc$>$}\newline
+{\ttfamily \#include $<$ext/qawc\+\_\+integrate.\+tcc$>$}\newline
+{\ttfamily \#include $<$ext/qaws\+\_\+integrate.\+tcc$>$}\newline
+{\ttfamily \#include $<$ext/qawo\+\_\+integrate.\+tcc$>$}\newline
+{\ttfamily \#include $<$ext/qawf\+\_\+integrate.\+tcc$>$}\newline
+{\ttfamily \#include $<$ext/glfixed\+\_\+integrate.\+tcc$>$}\newline
+{\ttfamily \#include $<$ext/cquad\+\_\+integrate.\+tcc$>$}\newline
+{\ttfamily \#include $<$ext/double\+\_\+exp\+\_\+integrate.\+tcc$>$}\newline
+{\ttfamily \#include $<$ext/gauss\+\_\+quadrature.\+tcc$>$}\newline
+{\ttfamily \#include $<$ext/integration.\+tcc$>$}\newline
+Include dependency graph for integration.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{integration_8h__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct____gnu__cxx_1_1adaptive__integral__t}{\+\_\+\+\_\+gnu\+\_\+cxx\+::adaptive\+\_\+integral\+\_\+t$<$ \+\_\+\+Tp, \+\_\+\+Ret\+Tp $>$}
+\item 
+struct \hyperlink{struct____gnu__cxx_1_1error__tolerance__t}{\+\_\+\+\_\+gnu\+\_\+cxx\+::error\+\_\+tolerance\+\_\+t$<$ \+\_\+\+Tp $>$}
+\item 
+struct \hyperlink{struct____gnu__cxx_1_1fixed__integral__t}{\+\_\+\+\_\+gnu\+\_\+cxx\+::fixed\+\_\+integral\+\_\+t$<$ \+\_\+\+Tp, \+\_\+\+Ret\+Tp $>$}
+\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespace____gnu__cxx}{\+\_\+\+\_\+gnu\+\_\+cxx}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename \+\_\+\+Tp , typename \+\_\+\+Func\+Tp $>$ }\\auto \hyperlink{namespace____gnu__cxx_aa449f51cfcccb7983ff2703333ffb41e}{\+\_\+\+\_\+gnu\+\_\+cxx\+::integrate} (\+\_\+\+Func\+Tp \+\_\+\+\_\+func, \+\_\+\+Tp \+\_\+\+\_\+lower, \+\_\+\+Tp \+\_\+\+\_\+upper, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+abs\+\_\+error, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+rel\+\_\+error, std\+::size\+\_\+t \+\_\+\+\_\+max\+\_\+iter=1024, Kronrod\+\_\+\+Rule \+\_\+\+\_\+qkintrule=Kronrod\+\_\+21) -\/$>$ adaptive\+\_\+integral\+\_\+t$<$ \+\_\+\+Tp, std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp, \+\_\+\+Tp $>$$>$
+\item 
+{\footnotesize template$<$typename \+\_\+\+Tp , typename \+\_\+\+Func\+Tp $>$ }\\auto \hyperlink{namespace____gnu__cxx_a609c33bc2044563a11ebb05ddcd7b4bb}{\+\_\+\+\_\+gnu\+\_\+cxx\+::integrate\+\_\+cauchy\+\_\+principal\+\_\+value} (\+\_\+\+Func\+Tp \+\_\+\+\_\+func, \+\_\+\+Tp \+\_\+\+\_\+lower, \+\_\+\+Tp \+\_\+\+\_\+upper, \+\_\+\+Tp \+\_\+\+\_\+center, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+abs\+\_\+err, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+rel\+\_\+err, std\+::size\+\_\+t \+\_\+\+\_\+max\+\_\+iter=1024) -\/$>$ adaptive\+\_\+integral\+\_\+t$<$ \+\_\+\+Tp, std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp, \+\_\+\+Tp $>$$>$
+\item 
+{\footnotesize template$<$typename \+\_\+\+Tp , typename \+\_\+\+Func\+Tp $>$ }\\auto \hyperlink{namespace____gnu__cxx_ad578040e44241fb45ed76360108667e9}{\+\_\+\+\_\+gnu\+\_\+cxx\+::integrate\+\_\+clenshaw\+\_\+curtis} (\+\_\+\+Func\+Tp \+\_\+\+\_\+func, \+\_\+\+Tp \+\_\+\+\_\+lower, \+\_\+\+Tp \+\_\+\+\_\+upper, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+abs\+\_\+error, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+rel\+\_\+error, std\+::size\+\_\+t \+\_\+\+\_\+max\+\_\+iter=1024) -\/$>$ adaptive\+\_\+integral\+\_\+t$<$ \+\_\+\+Tp, std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp, \+\_\+\+Tp $>$$>$
+\item 
+{\footnotesize template$<$typename \+\_\+\+Tp , typename \+\_\+\+Func\+Tp $>$ }\\adaptive\+\_\+integral\+\_\+t$<$ \+\_\+\+Tp, std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp, \+\_\+\+Tp $>$ $>$ \hyperlink{namespace____gnu__cxx_a8d2d406894714b19396add57a77260c4}{\+\_\+\+\_\+gnu\+\_\+cxx\+::integrate\+\_\+exp\+\_\+sinh} (\+\_\+\+Func\+Tp \+\_\+\+\_\+func, \+\_\+\+Tp \+\_\+\+\_\+a, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+abs\+\_\+err, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+rel\+\_\+err, int \+\_\+\+\_\+max\+\_\+iter)
+\item 
+{\footnotesize template$<$typename \+\_\+\+Tp , typename \+\_\+\+Func\+Tp $>$ }\\fixed\+\_\+integral\+\_\+t$<$ \+\_\+\+Tp, std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp, \+\_\+\+Tp $>$ $>$ \hyperlink{namespace____gnu__cxx_a3ab6a5df23f812f6760750d8fb4b3098}{\+\_\+\+\_\+gnu\+\_\+cxx\+::integrate\+\_\+fixed\+\_\+gauss\+\_\+chebyshev\+\_\+t} (int \+\_\+\+\_\+n, \+\_\+\+Func\+Tp \+\_\+\+\_\+func, \+\_\+\+Tp \+\_\+\+\_\+a, \+\_\+\+Tp \+\_\+\+\_\+b)
+\item 
+{\footnotesize template$<$typename \+\_\+\+Tp , typename \+\_\+\+Func\+Tp $>$ }\\fixed\+\_\+integral\+\_\+t$<$ \+\_\+\+Tp, std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp, \+\_\+\+Tp $>$ $>$ \hyperlink{namespace____gnu__cxx_a38001a3f61a4fc4757b038d3db0180ca}{\+\_\+\+\_\+gnu\+\_\+cxx\+::integrate\+\_\+fixed\+\_\+gauss\+\_\+chebyshev\+\_\+u} (int \+\_\+\+\_\+n, \+\_\+\+Func\+Tp \+\_\+\+\_\+func, \+\_\+\+Tp \+\_\+\+\_\+a, \+\_\+\+Tp \+\_\+\+\_\+b)
+\item 
+{\footnotesize template$<$typename \+\_\+\+Tp , typename \+\_\+\+Func\+Tp $>$ }\\fixed\+\_\+integral\+\_\+t$<$ \+\_\+\+Tp, std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp, \+\_\+\+Tp $>$ $>$ \hyperlink{namespace____gnu__cxx_a1d79fed8d593be6c4c1f1cc2ecf92785}{\+\_\+\+\_\+gnu\+\_\+cxx\+::integrate\+\_\+fixed\+\_\+gauss\+\_\+chebyshev\+\_\+v} (int \+\_\+\+\_\+n, \+\_\+\+Func\+Tp \+\_\+\+\_\+func, \+\_\+\+Tp \+\_\+\+\_\+a, \+\_\+\+Tp \+\_\+\+\_\+b)
+\item 
+{\footnotesize template$<$typename \+\_\+\+Tp , typename \+\_\+\+Func\+Tp $>$ }\\fixed\+\_\+integral\+\_\+t$<$ \+\_\+\+Tp, std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp, \+\_\+\+Tp $>$ $>$ \hyperlink{namespace____gnu__cxx_a45de562834adf3f097e4ad9a3eb75444}{\+\_\+\+\_\+gnu\+\_\+cxx\+::integrate\+\_\+fixed\+\_\+gauss\+\_\+chebyshev\+\_\+w} (int \+\_\+\+\_\+n, \+\_\+\+Func\+Tp \+\_\+\+\_\+func, \+\_\+\+Tp \+\_\+\+\_\+a, \+\_\+\+Tp \+\_\+\+\_\+b)
+\item 
+{\footnotesize template$<$typename \+\_\+\+Tp , typename \+\_\+\+Func\+Tp $>$ }\\fixed\+\_\+integral\+\_\+t$<$ \+\_\+\+Tp, std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp, \+\_\+\+Tp $>$ $>$ \hyperlink{namespace____gnu__cxx_ac7e616f825ae281bc831d8743bb7b501}{\+\_\+\+\_\+gnu\+\_\+cxx\+::integrate\+\_\+fixed\+\_\+gauss\+\_\+exponential} (int \+\_\+\+\_\+n, \+\_\+\+Tp \+\_\+\+\_\+alf, \+\_\+\+Func\+Tp \+\_\+\+\_\+func, \+\_\+\+Tp \+\_\+\+\_\+a, \+\_\+\+Tp \+\_\+\+\_\+b)
+\item 
+{\footnotesize template$<$typename \+\_\+\+Tp , typename \+\_\+\+Func\+Tp $>$ }\\fixed\+\_\+integral\+\_\+t$<$ \+\_\+\+Tp, std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp, \+\_\+\+Tp $>$ $>$ \hyperlink{namespace____gnu__cxx_aaf74d571f8c3ccc7a6c7f7c64e9edb29}{\+\_\+\+\_\+gnu\+\_\+cxx\+::integrate\+\_\+fixed\+\_\+gauss\+\_\+gegenbauer} (int \+\_\+\+\_\+n, \+\_\+\+Tp \+\_\+\+\_\+lambda, \+\_\+\+Func\+Tp \+\_\+\+\_\+func, \+\_\+\+Tp \+\_\+\+\_\+a, \+\_\+\+Tp \+\_\+\+\_\+b)
+\item 
+{\footnotesize template$<$typename \+\_\+\+Tp , typename \+\_\+\+Func\+Tp $>$ }\\fixed\+\_\+integral\+\_\+t$<$ \+\_\+\+Tp, std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp, \+\_\+\+Tp $>$ $>$ \hyperlink{namespace____gnu__cxx_a248024d8be18e0354ce80967dcba919a}{\+\_\+\+\_\+gnu\+\_\+cxx\+::integrate\+\_\+fixed\+\_\+gauss\+\_\+hermite} (int \+\_\+\+\_\+n, \+\_\+\+Tp \+\_\+\+\_\+alf, \+\_\+\+Func\+Tp \+\_\+\+\_\+func, \+\_\+\+Tp \+\_\+\+\_\+a, \+\_\+\+Tp \+\_\+\+\_\+b)
+\item 
+{\footnotesize template$<$typename \+\_\+\+Tp , typename \+\_\+\+Func\+Tp $>$ }\\fixed\+\_\+integral\+\_\+t$<$ \+\_\+\+Tp, std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp, \+\_\+\+Tp $>$ $>$ \hyperlink{namespace____gnu__cxx_a798b6524ce81200fec2e9e1712fcdd35}{\+\_\+\+\_\+gnu\+\_\+cxx\+::integrate\+\_\+fixed\+\_\+gauss\+\_\+jacobi} (int \+\_\+\+\_\+n, \+\_\+\+Tp \+\_\+\+\_\+alf, \+\_\+\+Tp \+\_\+\+\_\+bet, \+\_\+\+Func\+Tp \+\_\+\+\_\+func, \+\_\+\+Tp \+\_\+\+\_\+a, \+\_\+\+Tp \+\_\+\+\_\+b)
+\item 
+{\footnotesize template$<$typename \+\_\+\+Tp , typename \+\_\+\+Func\+Tp $>$ }\\fixed\+\_\+integral\+\_\+t$<$ \+\_\+\+Tp, std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp, \+\_\+\+Tp $>$ $>$ \hyperlink{namespace____gnu__cxx_a9f7832337c163702c3ede5dbceb3c8e0}{\+\_\+\+\_\+gnu\+\_\+cxx\+::integrate\+\_\+fixed\+\_\+gauss\+\_\+laguerre} (int \+\_\+\+\_\+n, \+\_\+\+Tp \+\_\+\+\_\+alf, \+\_\+\+Func\+Tp \+\_\+\+\_\+func, \+\_\+\+Tp \+\_\+\+\_\+a, \+\_\+\+Tp \+\_\+\+\_\+b)
+\item 
+{\footnotesize template$<$typename \+\_\+\+Tp , typename \+\_\+\+Func\+Tp $>$ }\\fixed\+\_\+integral\+\_\+t$<$ \+\_\+\+Tp, std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp, \+\_\+\+Tp $>$ $>$ \hyperlink{namespace____gnu__cxx_a9115896dfa9f35b53dbb720347a69a1c}{\+\_\+\+\_\+gnu\+\_\+cxx\+::integrate\+\_\+fixed\+\_\+gauss\+\_\+legendre} (int \+\_\+\+\_\+n, \+\_\+\+Func\+Tp \+\_\+\+\_\+func, \+\_\+\+Tp \+\_\+\+\_\+a, \+\_\+\+Tp \+\_\+\+\_\+b)
+\item 
+{\footnotesize template$<$typename \+\_\+\+Tp , typename \+\_\+\+Func\+Tp $>$ }\\fixed\+\_\+integral\+\_\+t$<$ \+\_\+\+Tp, std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp, \+\_\+\+Tp $>$ $>$ \hyperlink{namespace____gnu__cxx_ae7ec81551d6057e093b7b2991ad6f3fa}{\+\_\+\+\_\+gnu\+\_\+cxx\+::integrate\+\_\+fixed\+\_\+gauss\+\_\+rational} (int \+\_\+\+\_\+n, \+\_\+\+Tp \+\_\+\+\_\+alf, \+\_\+\+Tp \+\_\+\+\_\+bet, \+\_\+\+Func\+Tp \+\_\+\+\_\+func, \+\_\+\+Tp \+\_\+\+\_\+a, \+\_\+\+Tp \+\_\+\+\_\+b)
+\item 
+{\footnotesize template$<$typename \+\_\+\+Tp , typename \+\_\+\+Func\+Tp $>$ }\\auto \hyperlink{namespace____gnu__cxx_aaf3bee7e1617cc1ef517b155e8b14e87}{\+\_\+\+\_\+gnu\+\_\+cxx\+::integrate\+\_\+kronrod\+\_\+singular} (\+\_\+\+Func\+Tp \+\_\+\+\_\+func, \+\_\+\+Tp \+\_\+\+\_\+lower, \+\_\+\+Tp \+\_\+\+\_\+upper, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+abs\+\_\+error, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+rel\+\_\+error, std\+::size\+\_\+t \+\_\+\+\_\+max\+\_\+iter=1024) -\/$>$ adaptive\+\_\+integral\+\_\+t$<$ \+\_\+\+Tp, std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp, \+\_\+\+Tp $>$$>$
+\item 
+{\footnotesize template$<$typename \+\_\+\+Tp , typename \+\_\+\+Func\+Tp $>$ }\\auto \hyperlink{namespace____gnu__cxx_a2a1c7fcbb716c0f1f8f93ce3893b564a}{\+\_\+\+\_\+gnu\+\_\+cxx\+::integrate\+\_\+lower\+\_\+minf} (\+\_\+\+Func\+Tp \+\_\+\+\_\+func, \+\_\+\+Tp \+\_\+\+\_\+lower, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+abs\+\_\+error, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+rel\+\_\+error, std\+::size\+\_\+t \+\_\+\+\_\+max\+\_\+iter=1024, Kronrod\+\_\+\+Rule \+\_\+\+\_\+qkintrule=Kronrod\+\_\+21) -\/$>$ adaptive\+\_\+integral\+\_\+t$<$ \+\_\+\+Tp, std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp, \+\_\+\+Tp $>$$>$
+\item 
+{\footnotesize template$<$typename \+\_\+\+Tp , typename \+\_\+\+Func\+Tp $>$ }\\auto \hyperlink{namespace____gnu__cxx_ad1f0fd43b7a498328749e924085b4fc1}{\+\_\+\+\_\+gnu\+\_\+cxx\+::integrate\+\_\+lower\+\_\+pinf} (\+\_\+\+Func\+Tp \+\_\+\+\_\+func, \+\_\+\+Tp \+\_\+\+\_\+lower, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+abs\+\_\+error, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+rel\+\_\+error, std\+::size\+\_\+t \+\_\+\+\_\+max\+\_\+iter=1024, Kronrod\+\_\+\+Rule \+\_\+\+\_\+qkintrule=Kronrod\+\_\+21) -\/$>$ adaptive\+\_\+integral\+\_\+t$<$ \+\_\+\+Tp, std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp, \+\_\+\+Tp $>$$>$
+\item 
+{\footnotesize template$<$typename \+\_\+\+Tp , typename \+\_\+\+Func\+Tp $>$ }\\adaptive\+\_\+integral\+\_\+t$<$ \+\_\+\+Tp, std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp, \+\_\+\+Tp $>$ $>$ \hyperlink{namespace____gnu__cxx_af2f2b282767e1e4e9529c398dcf092dc}{\+\_\+\+\_\+gnu\+\_\+cxx\+::integrate\+\_\+midpoint} (\+\_\+\+Func\+Tp \+\_\+\+\_\+func, \+\_\+\+Tp \+\_\+\+\_\+a, \+\_\+\+Tp \+\_\+\+\_\+b, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+abs\+\_\+err, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+rel\+\_\+err, int \+\_\+\+\_\+max\+\_\+iter)
+\item 
+{\footnotesize template$<$typename \+\_\+\+Tp , typename \+\_\+\+Func\+Tp $>$ }\\auto \hyperlink{namespace____gnu__cxx_a4c63281e592f7319501e228c7f2e6eca}{\+\_\+\+\_\+gnu\+\_\+cxx\+::integrate\+\_\+minf\+\_\+pinf} (\+\_\+\+Func\+Tp \+\_\+\+\_\+func, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+abs\+\_\+error, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+rel\+\_\+error, std\+::size\+\_\+t \+\_\+\+\_\+max\+\_\+iter=1024, Kronrod\+\_\+\+Rule \+\_\+\+\_\+qkintrule=Kronrod\+\_\+21) -\/$>$ adaptive\+\_\+integral\+\_\+t$<$ \+\_\+\+Tp, std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp, \+\_\+\+Tp $>$$>$
+\item 
+{\footnotesize template$<$typename \+\_\+\+Tp , typename \+\_\+\+Func\+Tp $>$ }\\auto \hyperlink{namespace____gnu__cxx_ac452c1c660d47daf605eda7b395ba497}{\+\_\+\+\_\+gnu\+\_\+cxx\+::integrate\+\_\+minf\+\_\+upper} (\+\_\+\+Func\+Tp \+\_\+\+\_\+func, \+\_\+\+Tp \+\_\+\+\_\+upper, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+abs\+\_\+error, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+rel\+\_\+error, std\+::size\+\_\+t \+\_\+\+\_\+max\+\_\+iter=1024, Kronrod\+\_\+\+Rule \+\_\+\+\_\+qkintrule=Kronrod\+\_\+21) -\/$>$ adaptive\+\_\+integral\+\_\+t$<$ \+\_\+\+Tp, std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp, \+\_\+\+Tp $>$$>$
+\item 
+{\footnotesize template$<$typename \+\_\+\+Func\+Tp , typename \+\_\+\+Fwd\+Iter , typename \+\_\+\+Tp $>$ }\\auto \hyperlink{namespace____gnu__cxx_ae77d3835b02400d9fb8f00c6db994cc5}{\+\_\+\+\_\+gnu\+\_\+cxx\+::integrate\+\_\+multisingular} (\+\_\+\+Func\+Tp \+\_\+\+\_\+func, \+\_\+\+Fwd\+Iter \+\_\+\+\_\+ptbeg, \+\_\+\+Fwd\+Iter \+\_\+\+\_\+ptend, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+abs\+\_\+error, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+rel\+\_\+error, std\+::size\+\_\+t \+\_\+\+\_\+max\+\_\+iter=1024) -\/$>$ adaptive\+\_\+integral\+\_\+t$<$ \+\_\+\+Tp, std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp, \+\_\+\+Tp $>$$>$
+\item 
+{\footnotesize template$<$typename \+\_\+\+Tp , typename \+\_\+\+Func\+Tp $>$ }\\auto \hyperlink{namespace____gnu__cxx_aa3b36aa34ddfb56a7c5b50438ca812c1}{\+\_\+\+\_\+gnu\+\_\+cxx\+::integrate\+\_\+oscillatory} (\+\_\+\+Func\+Tp \+\_\+\+\_\+func, \+\_\+\+Tp \+\_\+\+\_\+lower, \+\_\+\+Tp \+\_\+\+\_\+upper, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+abs\+\_\+error, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+rel\+\_\+error, std\+::size\+\_\+t \+\_\+\+\_\+max\+\_\+iter=1024) -\/$>$ adaptive\+\_\+integral\+\_\+t$<$ \+\_\+\+Tp, std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp, \+\_\+\+Tp $>$$>$
+\item 
+{\footnotesize template$<$typename \+\_\+\+Tp , typename \+\_\+\+Func\+Tp $>$ }\\auto \hyperlink{namespace____gnu__cxx_ae3b63cd8d35caff65b0dda0194373b85}{\+\_\+\+\_\+gnu\+\_\+cxx\+::integrate\+\_\+patterson} (\+\_\+\+Func\+Tp \+\_\+\+\_\+func, \+\_\+\+Tp \+\_\+\+\_\+lower, \+\_\+\+Tp \+\_\+\+\_\+upper, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+abs\+\_\+error, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+rel\+\_\+error) -\/$>$ adaptive\+\_\+integral\+\_\+t$<$ \+\_\+\+Tp, std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp, \+\_\+\+Tp $>$$>$
+\item 
+{\footnotesize template$<$typename \+\_\+\+Tp , typename \+\_\+\+Func\+Tp $>$ }\\auto \hyperlink{namespace____gnu__cxx_a091752f3c6d7a289ec0e0228385468c5}{\+\_\+\+\_\+gnu\+\_\+cxx\+::integrate\+\_\+pinf\+\_\+upper} (\+\_\+\+Func\+Tp \+\_\+\+\_\+func, \+\_\+\+Tp \+\_\+\+\_\+upper, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+abs\+\_\+error, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+rel\+\_\+error, std\+::size\+\_\+t \+\_\+\+\_\+max\+\_\+iter=1024, Kronrod\+\_\+\+Rule \+\_\+\+\_\+qkintrule=Kronrod\+\_\+21) -\/$>$ adaptive\+\_\+integral\+\_\+t$<$ \+\_\+\+Tp, std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp, \+\_\+\+Tp $>$$>$
+\item 
+{\footnotesize template$<$typename \+\_\+\+Tp , typename \+\_\+\+Func\+Tp $>$ }\\auto \hyperlink{namespace____gnu__cxx_ab7b0961f8fb1553f8a70902b110a22ef}{\+\_\+\+\_\+gnu\+\_\+cxx\+::integrate\+\_\+singular} (\+\_\+\+Func\+Tp \+\_\+\+\_\+func, \+\_\+\+Tp \+\_\+\+\_\+lower, \+\_\+\+Tp \+\_\+\+\_\+upper, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+abs\+\_\+error, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+rel\+\_\+error, std\+::size\+\_\+t \+\_\+\+\_\+max\+\_\+iter=1024) -\/$>$ adaptive\+\_\+integral\+\_\+t$<$ \+\_\+\+Tp, std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp, \+\_\+\+Tp $>$$>$
+\item 
+{\footnotesize template$<$typename \+\_\+\+Tp , typename \+\_\+\+Func\+Tp $>$ }\\auto \hyperlink{namespace____gnu__cxx_acac4890eaca9950b39a06e980f846868}{\+\_\+\+\_\+gnu\+\_\+cxx\+::integrate\+\_\+singular\+\_\+endpoints} (\+\_\+\+Func\+Tp \+\_\+\+\_\+func, \+\_\+\+Tp \+\_\+\+\_\+lower, \+\_\+\+Tp \+\_\+\+\_\+upper, \+\_\+\+Tp \+\_\+\+\_\+alpha, \+\_\+\+Tp \+\_\+\+\_\+beta, int \+\_\+\+\_\+mu, int \+\_\+\+\_\+nu, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+abs\+\_\+error, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+rel\+\_\+error, std\+::size\+\_\+t \+\_\+\+\_\+max\+\_\+iter=1024) -\/$>$ adaptive\+\_\+integral\+\_\+t$<$ \+\_\+\+Tp, std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp, \+\_\+\+Tp $>$$>$
+\item 
+{\footnotesize template$<$typename \+\_\+\+Tp , typename \+\_\+\+Func\+Tp $>$ }\\auto \hyperlink{namespace____gnu__cxx_a31bafd8ae702762989558b29593ffe6c}{\+\_\+\+\_\+gnu\+\_\+cxx\+::integrate\+\_\+singular\+\_\+lower\+\_\+minf} (\+\_\+\+Func\+Tp \+\_\+\+\_\+func, \+\_\+\+Tp \+\_\+\+\_\+lower, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+abs\+\_\+error, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+rel\+\_\+error, std\+::size\+\_\+t \+\_\+\+\_\+max\+\_\+iter=1024) -\/$>$ adaptive\+\_\+integral\+\_\+t$<$ \+\_\+\+Tp, std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp, \+\_\+\+Tp $>$$>$
+\item 
+{\footnotesize template$<$typename \+\_\+\+Tp , typename \+\_\+\+Func\+Tp $>$ }\\auto \hyperlink{namespace____gnu__cxx_aead3b14ccced37c14f64ecd358a2b0c8}{\+\_\+\+\_\+gnu\+\_\+cxx\+::integrate\+\_\+singular\+\_\+lower\+\_\+pinf} (\+\_\+\+Func\+Tp \+\_\+\+\_\+func, \+\_\+\+Tp \+\_\+\+\_\+lower, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+abs\+\_\+error, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+rel\+\_\+error, std\+::size\+\_\+t \+\_\+\+\_\+max\+\_\+iter=1024) -\/$>$ adaptive\+\_\+integral\+\_\+t$<$ \+\_\+\+Tp, std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp, \+\_\+\+Tp $>$$>$
+\item 
+{\footnotesize template$<$typename \+\_\+\+Tp , typename \+\_\+\+Func\+Tp $>$ }\\auto \hyperlink{namespace____gnu__cxx_a10e839f46ed2fda3a57ed7710a51cfbc}{\+\_\+\+\_\+gnu\+\_\+cxx\+::integrate\+\_\+singular\+\_\+minf\+\_\+pinf} (\+\_\+\+Func\+Tp \+\_\+\+\_\+func, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+abs\+\_\+error, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+rel\+\_\+error, std\+::size\+\_\+t \+\_\+\+\_\+max\+\_\+iter=1024) -\/$>$ adaptive\+\_\+integral\+\_\+t$<$ \+\_\+\+Tp, std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp, \+\_\+\+Tp $>$$>$
+\item 
+{\footnotesize template$<$typename \+\_\+\+Tp , typename \+\_\+\+Func\+Tp $>$ }\\auto \hyperlink{namespace____gnu__cxx_add15531ace95d18f7fe52a63dd8a7113}{\+\_\+\+\_\+gnu\+\_\+cxx\+::integrate\+\_\+singular\+\_\+minf\+\_\+upper} (\+\_\+\+Func\+Tp \+\_\+\+\_\+func, \+\_\+\+Tp \+\_\+\+\_\+upper, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+abs\+\_\+error, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+rel\+\_\+error, std\+::size\+\_\+t \+\_\+\+\_\+max\+\_\+iter=1024) -\/$>$ adaptive\+\_\+integral\+\_\+t$<$ \+\_\+\+Tp, std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp, \+\_\+\+Tp $>$$>$
+\item 
+{\footnotesize template$<$typename \+\_\+\+Tp , typename \+\_\+\+Func\+Tp $>$ }\\auto \hyperlink{namespace____gnu__cxx_aa9f2cb4d805bca6241e46ab08437c25d}{\+\_\+\+\_\+gnu\+\_\+cxx\+::integrate\+\_\+singular\+\_\+pinf\+\_\+upper} (\+\_\+\+Func\+Tp \+\_\+\+\_\+func, \+\_\+\+Tp \+\_\+\+\_\+upper, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+abs\+\_\+error, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+rel\+\_\+error, std\+::size\+\_\+t \+\_\+\+\_\+max\+\_\+iter=1024) -\/$>$ adaptive\+\_\+integral\+\_\+t$<$ \+\_\+\+Tp, std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp, \+\_\+\+Tp $>$$>$
+\item 
+{\footnotesize template$<$typename \+\_\+\+Tp , typename \+\_\+\+Func\+Tp $>$ }\\adaptive\+\_\+integral\+\_\+t$<$ \+\_\+\+Tp, std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp, \+\_\+\+Tp $>$ $>$ \hyperlink{namespace____gnu__cxx_ab28f15831507df5ef94f271648fb2263}{\+\_\+\+\_\+gnu\+\_\+cxx\+::integrate\+\_\+sinh\+\_\+sinh} (\+\_\+\+Func\+Tp \+\_\+\+\_\+func, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+abs\+\_\+err, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+rel\+\_\+err, int \+\_\+\+\_\+max\+\_\+iter)
+\item 
+{\footnotesize template$<$typename \+\_\+\+Tp , typename \+\_\+\+Func\+Tp $>$ }\\adaptive\+\_\+integral\+\_\+t$<$ \+\_\+\+Tp, std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp, \+\_\+\+Tp $>$ $>$ \hyperlink{namespace____gnu__cxx_a814fe9e5540142d7cfd6513247b73ab5}{\+\_\+\+\_\+gnu\+\_\+cxx\+::integrate\+\_\+tanh\+\_\+sinh} (\+\_\+\+Func\+Tp \+\_\+\+\_\+func, \+\_\+\+Tp \+\_\+\+\_\+a, \+\_\+\+Tp \+\_\+\+\_\+b, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+abs\+\_\+err, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+rel\+\_\+err, int \+\_\+\+\_\+max\+\_\+iter)
+\item 
+{\footnotesize template$<$typename \+\_\+\+Tp , typename \+\_\+\+Func\+Tp $>$ }\\adaptive\+\_\+integral\+\_\+t$<$ \+\_\+\+Tp, std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp, \+\_\+\+Tp $>$ $>$ \hyperlink{namespace____gnu__cxx_adf9d0d087d69a8a279053edd15487d71}{\+\_\+\+\_\+gnu\+\_\+cxx\+::integrate\+\_\+trapezoid} (\+\_\+\+Func\+Tp \+\_\+\+\_\+func, \+\_\+\+Tp \+\_\+\+\_\+a, \+\_\+\+Tp \+\_\+\+\_\+b, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+abs\+\_\+err, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+rel\+\_\+err, int \+\_\+\+\_\+max\+\_\+iter)
+\item 
+{\footnotesize template$<$typename \+\_\+\+Tp $>$ }\\bool \hyperlink{namespace____gnu__cxx_a86b1d89b2e2cb97614fdf3425d3dccd5}{\+\_\+\+\_\+gnu\+\_\+cxx\+::valid\+\_\+tolerances} (\+\_\+\+Tp \+\_\+\+\_\+max\+\_\+abs\+\_\+err, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+rel\+\_\+err)
+\end{DoxyCompactItemize}

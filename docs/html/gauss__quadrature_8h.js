@@ -1,0 +1,25 @@
+var gauss__quadrature_8h =
+[
+    [ "fixed_gauss_chebyshev_t_integral", "struct____gnu__cxx_1_1fixed__gauss__chebyshev__t__integral.html", "struct____gnu__cxx_1_1fixed__gauss__chebyshev__t__integral" ],
+    [ "fixed_gauss_chebyshev_u_integral", "struct____gnu__cxx_1_1fixed__gauss__chebyshev__u__integral.html", "struct____gnu__cxx_1_1fixed__gauss__chebyshev__u__integral" ],
+    [ "fixed_gauss_chebyshev_v_integral", "struct____gnu__cxx_1_1fixed__gauss__chebyshev__v__integral.html", "struct____gnu__cxx_1_1fixed__gauss__chebyshev__v__integral" ],
+    [ "fixed_gauss_chebyshev_w_integral", "struct____gnu__cxx_1_1fixed__gauss__chebyshev__w__integral.html", "struct____gnu__cxx_1_1fixed__gauss__chebyshev__w__integral" ],
+    [ "fixed_gauss_exponential_integral", "struct____gnu__cxx_1_1fixed__gauss__exponential__integral.html", "struct____gnu__cxx_1_1fixed__gauss__exponential__integral" ],
+    [ "fixed_gauss_gegenbauer_integral", "struct____gnu__cxx_1_1fixed__gauss__gegenbauer__integral.html", "struct____gnu__cxx_1_1fixed__gauss__gegenbauer__integral" ],
+    [ "fixed_gauss_hermite_integral", "struct____gnu__cxx_1_1fixed__gauss__hermite__integral.html", "struct____gnu__cxx_1_1fixed__gauss__hermite__integral" ],
+    [ "fixed_gauss_jacobi_integral", "struct____gnu__cxx_1_1fixed__gauss__jacobi__integral.html", "struct____gnu__cxx_1_1fixed__gauss__jacobi__integral" ],
+    [ "fixed_gauss_laguerre_integral", "struct____gnu__cxx_1_1fixed__gauss__laguerre__integral.html", "struct____gnu__cxx_1_1fixed__gauss__laguerre__integral" ],
+    [ "fixed_gauss_legendre_integral", "struct____gnu__cxx_1_1fixed__gauss__legendre__integral.html", "struct____gnu__cxx_1_1fixed__gauss__legendre__integral" ],
+    [ "fixed_gauss_rational_integral", "struct____gnu__cxx_1_1fixed__gauss__rational__integral.html", "struct____gnu__cxx_1_1fixed__gauss__rational__integral" ],
+    [ "integrate_fixed_gauss_chebyshev_t", "gauss__quadrature_8h.html#a3ab6a5df23f812f6760750d8fb4b3098", null ],
+    [ "integrate_fixed_gauss_chebyshev_u", "gauss__quadrature_8h.html#a38001a3f61a4fc4757b038d3db0180ca", null ],
+    [ "integrate_fixed_gauss_chebyshev_v", "gauss__quadrature_8h.html#a1d79fed8d593be6c4c1f1cc2ecf92785", null ],
+    [ "integrate_fixed_gauss_chebyshev_w", "gauss__quadrature_8h.html#a45de562834adf3f097e4ad9a3eb75444", null ],
+    [ "integrate_fixed_gauss_exponential", "gauss__quadrature_8h.html#ac7e616f825ae281bc831d8743bb7b501", null ],
+    [ "integrate_fixed_gauss_gegenbauer", "gauss__quadrature_8h.html#aaf74d571f8c3ccc7a6c7f7c64e9edb29", null ],
+    [ "integrate_fixed_gauss_hermite", "gauss__quadrature_8h.html#a248024d8be18e0354ce80967dcba919a", null ],
+    [ "integrate_fixed_gauss_jacobi", "gauss__quadrature_8h.html#a798b6524ce81200fec2e9e1712fcdd35", null ],
+    [ "integrate_fixed_gauss_laguerre", "gauss__quadrature_8h.html#a9f7832337c163702c3ede5dbceb3c8e0", null ],
+    [ "integrate_fixed_gauss_legendre", "gauss__quadrature_8h.html#a9115896dfa9f35b53dbb720347a69a1c", null ],
+    [ "integrate_fixed_gauss_rational", "gauss__quadrature_8h.html#ae7ec81551d6057e093b7b2991ad6f3fa", null ]
+];
