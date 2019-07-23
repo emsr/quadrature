@@ -9,7 +9,7 @@
 
 template<typename Tp>
   void
-  test_tanh_sinh(Tp proto = Tp{})
+  test_tanh_sinh()
   {
     std::cout.precision(std::numeric_limits<Tp>::digits10);
     std::cout.flags(std::ios::showpoint);

@@ -44,7 +44,7 @@ template<typename _Tp>
 
 template<typename _Tp>
   void
-  test_hermite_quad(_Tp proto = _Tp{})
+  test_hermite_quad()
   {
     std::cout.precision(std::numeric_limits<_Tp>::digits10);
     std::cout.flags(std::ios::showpoint);

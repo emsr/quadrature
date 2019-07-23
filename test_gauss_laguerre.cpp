@@ -44,7 +44,7 @@ template<typename _Tp>
 
 template<typename _Tp>
   void
-  test_laguerre_quad(_Tp proto = _Tp{})
+  test_laguerre_quad()
   {
     std::cout.precision(std::numeric_limits<_Tp>::digits10);
     std::cout.flags(std::ios::showpoint);

@@ -9,7 +9,7 @@
 
 template<typename Tp>
   void
-  test_integral(Tp proto = Tp{})
+  test_integral()
   {
     std::cout.precision(std::numeric_limits<Tp>::digits10);
     std::cout.flags(std::ios::showpoint);

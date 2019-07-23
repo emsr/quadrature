@@ -11,7 +11,7 @@
 
 template<typename Tp>
   void
-  test_composite_integral(int num_segs, Tp proto = Tp{})
+  test_composite_integral(int num_segs)
   {
     std::cout.precision(std::numeric_limits<Tp>::digits10);
     std::cout.flags(std::ios::showpoint);
