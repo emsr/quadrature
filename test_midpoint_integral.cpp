@@ -15,7 +15,7 @@ template<typename Tp>
     std::cout.flags(std::ios::showpoint);
     const auto w = 8 + std::cout.precision();
 
-    const auto PI = __gnu_cxx::math::__pi_v<Tp>;
+    const auto PI = __gnu_cxx::numbers::__pi_v<Tp>;
 
     auto sin2 = [](Tp x) ->Tp { Tp s = std::sin(x); return s * s; };
     auto cos2 = [](Tp x) ->Tp { Tp c = std::cos(x); return c * c; };

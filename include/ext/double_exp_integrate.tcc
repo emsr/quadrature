@@ -47,7 +47,7 @@ namespace __gnu_cxx
 			_Tp __max_abs_err, _Tp __max_rel_err,
 			int __max_iter)
     {
-      const auto _S_pi_4 = __gnu_cxx::math::__pi_quarter_v<_Tp>;
+      const auto _S_pi_4 = __gnu_cxx::numbers::__pi_quarter_v<_Tp>;
 
       int __n = 16;
       __n /= 2;
@@ -138,7 +138,7 @@ namespace __gnu_cxx
 			_Tp __max_abs_err, _Tp __max_rel_err,
 			int __max_iter)
     {
-      const auto _S_pi_4 = __gnu_cxx::math::__pi_quarter_v<_Tp>;
+      const auto _S_pi_4 = __gnu_cxx::numbers::__pi_quarter_v<_Tp>;
 
       int __n = 16;
       __n /= 2;
@@ -229,7 +229,7 @@ namespace __gnu_cxx
 
       int __n = 16;
 
-      const auto _S_pi_4 = __gnu_cxx::math::__pi_quarter_v<_Tp>;
+      const auto _S_pi_4 = __gnu_cxx::numbers::__pi_quarter_v<_Tp>;
 
       // Find K = ln(ln(max_number))
       const auto __k_max = std::log(std::log(std::numeric_limits<_Tp>::max()))

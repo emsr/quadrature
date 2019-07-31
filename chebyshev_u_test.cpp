@@ -34,7 +34,7 @@ template<typename _Tp>
   _Tp
   normalized_chebyshev_u(int n1, int n2, _Tp x)
   {
-    const auto _S_pi_2 = __gnu_cxx::math::__pi_v<_Tp> / _Tp{2};
+    const auto _S_pi_2 = __gnu_cxx::numbers::__pi_v<_Tp> / _Tp{2};
     return __gnu_cxx::chebyshev_u(n2, x)
 	 * __gnu_cxx::chebyshev_u(n1, x)
 	 * std::sqrt(_Tp{1} - x * x)

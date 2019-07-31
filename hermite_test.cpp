@@ -34,7 +34,7 @@ template<typename _Tp>
   _Tp
   normalized_hermite(int n1, int n2, _Tp x)
   {
-    const auto _S_pi = __gnu_cxx::math::__pi_v<_Tp>;
+    const auto _S_pi = __gnu_cxx::numbers::__pi_v<_Tp>;
     auto lnorm = _Tp{0.5} * (log(_S_pi) + _Tp(n1 + n2) * log(_Tp{2})
 			  + __gnu_cxx::lfactorial<_Tp>(n1)
 			  + __gnu_cxx::lfactorial<_Tp>(n2));

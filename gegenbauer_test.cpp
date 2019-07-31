@@ -34,7 +34,7 @@ template<typename _Tp>
   _Tp
   normalized_gegenbauer(int n1, int n2, _Tp lambda, _Tp x)
   {
-    const auto _S_pi = __gnu_cxx::math::__pi_v<_Tp>;
+    const auto _S_pi = __gnu_cxx::numbers::__pi_v<_Tp>;
     auto gama = std::tgamma(lambda);
     auto gamn2a = std::tgamma(n1 + _Tp{2} * lambda);
     auto norm = _S_pi * std::pow(_Tp{2}, _Tp{1} - _Tp{2} * lambda) * gamn2a

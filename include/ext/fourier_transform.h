@@ -53,7 +53,7 @@ namespace __gnu_cxx
 	return _Tp(2 * __i) / _Tp(__m);
 #else
 	const auto _S_2pi = _Tp{2}
-			  * __gnu_cxx::math::__pi_v<_Tp>;
+			  * __gnu_cxx::numbers::__pi_v<_Tp>;
 	return _S_2pi * _Tp(__i) / _Tp(__m);
 #endif
       }

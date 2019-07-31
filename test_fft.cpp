@@ -60,7 +60,7 @@ template<typename _Tp>
   void
   test_fft()
   {
-    const auto _S_2pi = __gnu_cxx::math::__2_pi_v<_Tp>;
+    const auto _S_2pi = __gnu_cxx::numbers::__2_pi_v<_Tp>;
     std::cout.precision(std::numeric_limits<_Tp>::digits10);
     auto w = 8 + std::cout.precision();
     auto cw = 4 + 2 * w;
