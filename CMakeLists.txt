@@ -14,16 +14,6 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 enable_testing()
 
-set(TR29124_INCLUDE_DIRS
-  ../cxx_math_constants/include
-  ../include
-  ../cxx_fp_utils/include
-  ../cxx_complex_utils/include
-  ../cxx_complex_math/include
-  ../cxx_polynomial/include
-  ../cxx_summation/include
-  ../cxx_continued_fractions/include)
-
 set(TR29124_LIBRARIES
   cxx_math_constants
   cxx_fp_utils
@@ -67,8 +57,6 @@ target_link_libraries(test_quadrature
   quadmath)
 
 add_executable(test_trapezoid_integral test_trapezoid_integral.cpp)
-#target_include_directories(test_trapezoid_integral PRIVATE
-#  ${TR29124_INCLUDE_DIRS})
 target_link_libraries(test_trapezoid_integral
   ${TR29124_LIBRARIES}
   quadmath)
