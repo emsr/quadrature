@@ -13,7 +13,6 @@ $HOME/bin/bin/g++ -std=gnu++2a -g -Wall -Wextra -Wno-psabi -I../include -DREPERI
 #include <cmath>
 
 #include <fourier_transform.h>
-#include <ext/math_constants.h>
 
 template<typename _Tp>
   void
@@ -60,7 +59,7 @@ template<typename _Tp>
   void
   test_fft()
   {
-    const auto _S_2pi = __gnu_cxx::numbers::__2_pi_v<_Tp>;
+    const auto _S_2pi = 2 * _Tp{3.1415'92653'58979'32384'62643'38327'95028'84195e+0L};
     std::cout.precision(std::numeric_limits<_Tp>::digits10);
     auto w = 8 + std::cout.precision();
     auto cw = 4 + 2 * w;

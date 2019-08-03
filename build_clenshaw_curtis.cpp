@@ -8,13 +8,11 @@ PATH=../wrappers/debug:$HOME/bin/lib64:$PATH ./build_clenshaw_curtis > build_cle
 
 #include <vector>
 #include <cmath>
-#include <bits/specfun_state.h>
 #include <iostream>
 #include <iomanip>
 #include <wrap_burkhardt.h>
 
-#include <ext/fourier_transform.h>
-#include <ext/math_constants.h>
+#include <ext/quadrature_point.h>
 
   /**
    * Return a vector of zeros of the Chebyshev function of the second kind
@@ -28,7 +26,7 @@ PATH=../wrappers/debug:$HOME/bin/lib64:$PATH ./build_clenshaw_curtis > build_cle
     std::vector<__gnu_cxx::__quadrature_point_t<_Tp>>
     __chebyshev_u_zeros(unsigned int __n)
     {
-      const auto _S_pi = __gnu_cxx::numbers::__pi_v<_Tp>;
+      const auto _S_pi = _Tp{3.1415'92653'58979'32384'62643'38327'95028'84195e+0L};
       std::vector<__gnu_cxx::__quadrature_point_t<_Tp>> __pt(__n);
       for (unsigned int __k = 1; __k <= __n; ++__k)
 	{
@@ -66,7 +64,7 @@ template<typename _Tp>
       }
     else
       {
-	const auto _S_pi = __gnu_cxx::numbers::__pi_v<_Tp>;
+	const auto _S_pi = _Tp{3.1415'92653'58979'32384'62643'38327'95028'84195e+0L};
 	auto uz = __chebyshev_u_zeros<_Tp>(__n - 1);
 	__out[0].__point = _Tp{+1};
 	__out[0].__weight = _Tp{1} / (__n * __n - 1 + __n % 2);
@@ -131,7 +129,7 @@ template<typename _Tp>
       }
     else
       {
-	const auto _S_pi = __gnu_cxx::numbers::__pi_v<_Tp>;
+	const auto _S_pi = _Tp{3.1415'92653'58979'32384'62643'38327'95028'84195e+0L};
 	auto uz = __chebyshev_u_zeros<_Tp>(__n - 1);
 	__out[0].__point = _Tp{+1};
 	__out[0].__weight = _Tp{1} / (__n * __n - 1 + __n % 2);
@@ -165,7 +163,7 @@ template<typename _Tp>
   std::vector<__gnu_cxx::__quadrature_point_t<_Tp>>
   build_fejer_1_fft(std::size_t __n)
   {
-    const auto _S_pi = __gnu_cxx::numbers::__pi_v<_Tp>;
+    const auto _S_pi = _Tp{3.1415'92653'58979'32384'62643'38327'95028'84195e+0L};
     std::vector<__gnu_cxx::__quadrature_point_t<_Tp>> __out(__n);
     std::vector<std::complex<_Tp>> __v(__n + 1);
     for (auto __k = 0u; __k < __n / 2; ++__k)
@@ -209,7 +207,7 @@ template<typename _Tp>
       }
     else
       {
-	const auto _S_pi = __gnu_cxx::numbers::__pi_v<_Tp>;
+	const auto _S_pi = _Tp{3.1415'92653'58979'32384'62643'38327'95028'84195e+0L};
 	auto uz = __chebyshev_u_zeros<_Tp>(__n - 1);
 	__out[0].__point = _Tp{+1};
 	__out[0].__weight = _Tp{0};

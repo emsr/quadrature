@@ -4,7 +4,7 @@ include(CheckCXXCompilerFlag)
 
 project(
   cxx_integration
-  VERSION 0.1
+  VERSION 0.5
   LANGUAGES CXX
 )
 
@@ -20,10 +20,10 @@ set(TR29124_LIBRARIES
   cxx_complex_utils
   cxx_complex_math
   cxx_polynomial
-  cxx_summation
+  cxx_special_functions
   cxx_continued_fractions
-  cxx_integration
-  cxx_special_functions)
+  cxx_summation
+  cxx_integration)
 
 find_package(Doxygen)
 if (DOXYGEN_FOUND)
@@ -41,13 +41,6 @@ target_include_directories(cxx_integration INTERFACE include)
 
 add_executable(test_phase_iterator test_phase_iterator.cpp)
 target_link_libraries(test_phase_iterator
-  cxx_math_constants
-  cxx_fp_utils
-  cxx_complex_utils
-  cxx_complex_math
-  cxx_polynomial
-  cxx_summation
-  cxx_continued_fractions
   cxx_integration
   quadmath)
 
@@ -83,7 +76,7 @@ target_link_libraries(test_gauss_hermite
 
 add_executable(test_gauss_laguerre test_gauss_laguerre.cpp)
 target_link_libraries(test_gauss_laguerre
-  ${TR29124_LIBRARIES}
+  cxx_integration
   quadmath)
 
 add_executable(test_mapper test_mapper.cpp)

@@ -27,6 +27,8 @@
 #ifndef QUADRATURE_POINT_H
 #define QUADRATURE_POINT_H 1
 
+#include <vector>
+
 namespace __gnu_cxx _GLIBCXX_VISIBILITY(default)
 {
 _GLIBCXX_BEGIN_NAMESPACE_VERSION
@@ -48,7 +50,33 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
       { }
     };
 
+  template<typename _Tp>
+    std::vector<__quadrature_point_t<_Tp>>
+    __legendre_zeros(unsigned int __l);
+
+  template<typename _Tp>
+    std::vector<__quadrature_point_t<_Tp>>
+    __laguerre_zeros(unsigned int __n, _Tp __alpha1);
+
+  template<typename _Tp>
+    std::vector<__quadrature_point_t<_Tp>>
+    __hermite_zeros(unsigned int __n);
+
+  template<typename _Tp>
+    std::vector<__quadrature_point_t<_Tp>>
+    __gegenbauer_zeros(unsigned int __n, _Tp __lambda);
+
+  template<typename _Tp>
+    std::vector<__quadrature_point_t<_Tp>>
+    __jacobi_zeros(unsigned int __n, _Tp __alpha1, _Tp __beta1);
+
 _GLIBCXX_END_NAMESPACE_VERSION
 } // namespace __gnu_cxx
+
+#include <ext/legendre_zeros.tcc>
+#include <ext/laguerre_zeros.tcc>
+#include <ext/hermite_zeros.tcc>
+#include <ext/gegenbauer_zeros.tcc>
+#include <ext/jacobi_zeros.tcc>
 
 #endif // QUADRATURE_POINT_H

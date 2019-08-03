@@ -22,6 +22,7 @@
 #define GAUSS_HERMITE_INTEGRATE_H 1
 
 #include <vector>
+#include <ext/quadrature_point.h>
 
 namespace __gnu_cxx
 {
@@ -39,7 +40,7 @@ template<typename _Tp, typename _Func>
     				"Hermite order must be greater than 0");
     else
      {
-	const auto __rule = std::__detail::__hermite_zeros<_Tp>(__n);
+	const auto __rule = __hermite_zeros<_Tp>(__n);
 	auto __sum = _AreaTp{};
 	for (const auto& __pt : __rule)
 	  {

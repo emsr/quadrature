@@ -24,7 +24,6 @@
 #include <sstream>
 #include <string>
 
-#include <ext/math_constants.h>
 #include <ext/integration.h>
 
 using namespace __gnu_cxx;
@@ -34,7 +33,7 @@ template<typename _Tp>
   _Tp
   normalized_chebyshev_u(int n1, int n2, _Tp x)
   {
-    const auto _S_pi_2 = __gnu_cxx::numbers::__pi_v<_Tp> / _Tp{2};
+    const auto _S_pi_2 = _Tp{3.1415'92653'58979'32384'62643'38327'95028'84195e+0L} / _Tp{2};
     return __gnu_cxx::chebyshev_u(n2, x)
 	 * __gnu_cxx::chebyshev_u(n1, x)
 	 * std::sqrt(_Tp{1} - x * x)

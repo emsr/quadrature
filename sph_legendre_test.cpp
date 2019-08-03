@@ -33,7 +33,7 @@ template<typename _Tp>
   _Tp
   norm_sph_legendre(int l1, int m1, int l2, int m2, _Tp theta)
   {
-    const auto _S_pi = __gnu_cxx::numbers::__pi_v<_Tp>;
+    const auto _S_pi = _Tp{3.1415'92653'58979'32384'62643'38327'95028'84195e+0L};
     return _Tp{2} * _S_pi * std::sin(theta)
 	 * std::sph_legendre(l1, m1, theta)
 	 * std::sph_legendre(l2, m2, theta);
@@ -50,7 +50,7 @@ template<typename _Tp>
   {
     const auto eps_factor = 1 << (std::numeric_limits<_Tp>::digits / 3);
     const auto eps = std::numeric_limits<_Tp>::epsilon();
-    const auto _S_pi = __gnu_cxx::numbers::__pi_v<_Tp>;
+    const auto _S_pi = _Tp{3.1415'92653'58979'32384'62643'38327'95028'84195e+0L};
     const auto abs_precision = eps_factor * eps;
     const auto rel_precision = eps_factor * eps;
     const auto cmp_precision = _Tp{10} * rel_precision;

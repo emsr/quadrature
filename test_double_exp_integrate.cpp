@@ -5,7 +5,6 @@
 
 #include <cmath>
 #include <ext/integration.h>
-#include <ext/math_constants.h>
 
 template<typename Tp>
   void
@@ -15,8 +14,8 @@ template<typename Tp>
     std::cout.flags(std::ios::showpoint);
     const auto w = 8 + std::cout.precision();
 
-    const auto pi = __gnu_cxx::numbers::__pi_v<Tp>;
-    const auto sqrt_pi = __gnu_cxx::numbers::__root_pi_v<Tp>;
+    const auto pi = Tp{3.1415'92653'58979'32384'62643'38327'95028'84195e+0L};
+    const auto sqrt_pi = Tp{1} / Tp{5.6418'95835'47756'28694'80794'51560'77258'58438e-1L};
 
     auto sin2 = [](Tp x) -> Tp { Tp s = std::sin(x); return s * s; };
     auto cos2 = [](Tp x) -> Tp { Tp c = std::cos(x); return c * c; };

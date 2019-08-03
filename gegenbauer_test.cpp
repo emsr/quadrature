@@ -25,7 +25,6 @@
 #include <string>
 
 #include <ext/integration.h>
-#include <ext/math_constants.h>
 
 using namespace __gnu_cxx;
 
@@ -34,7 +33,7 @@ template<typename _Tp>
   _Tp
   normalized_gegenbauer(int n1, int n2, _Tp lambda, _Tp x)
   {
-    const auto _S_pi = __gnu_cxx::numbers::__pi_v<_Tp>;
+    const auto _S_pi = _Tp{3.1415'92653'58979'32384'62643'38327'95028'84195e+0L};
     auto gama = std::tgamma(lambda);
     auto gamn2a = std::tgamma(n1 + _Tp{2} * lambda);
     auto norm = _S_pi * std::pow(_Tp{2}, _Tp{1} - _Tp{2} * lambda) * gamn2a

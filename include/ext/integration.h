@@ -25,7 +25,6 @@
 #include <limits>
 #include <tuple>
 
-#include <ext/math_constants.h>
 #include <ext/quadrature_point.h>
 #include <ext/gauss_kronrod_integral.h>
 

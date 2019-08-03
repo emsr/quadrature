@@ -151,7 +151,7 @@ namespace __detail
       point(__n),
       weight(__n)
     {
-      const auto __mu_0 = __gnu_cxx::numbers::__pi_v<_Tp>;
+      const auto __mu_0 = _Tp{3.1415'92653'58979'32384'62643'38327'95028'84195e+0L};
 
       std::vector<_Tp> __diag(this->order, _Tp{0});
       std::vector<_Tp> __subd(this->order, _Tp{0.5L});
@@ -212,7 +212,7 @@ namespace __detail
       point(__n),
       weight(__n)
     {
-      const auto __mu_0 = __gnu_cxx::numbers::__pi_v<_Tp> / _Tp{2};
+      const auto __mu_0 = _Tp{3.1415'92653'58979'32384'62643'38327'95028'84195e+0L} / _Tp{2};
 
       std::vector<_Tp> __diag(this->order, _Tp{0});
       std::vector<_Tp> __subd(this->order, _Tp{0.5L});
@@ -271,7 +271,7 @@ namespace __detail
       point(__n),
       weight(__n)
     {
-      const auto __mu_0 = __gnu_cxx::numbers::__pi_v<_Tp>;
+      const auto __mu_0 = _Tp{3.1415'92653'58979'32384'62643'38327'95028'84195e+0L};
 
       std::vector<_Tp> __diag(this->order, _Tp{0});
       std::vector<_Tp> __subd(this->order, _Tp{0.5L});
@@ -334,7 +334,7 @@ namespace __detail
       point(__n),
       weight(__n)
     {
-      const auto __mu_0 = __gnu_cxx::numbers::__pi_v<_Tp>;
+      const auto __mu_0 = _Tp{3.1415'92653'58979'32384'62643'38327'95028'84195e+0L};
 
       std::vector<_Tp> __diag(this->order, _Tp{0});
       std::vector<_Tp> __subd(this->order, _Tp{0.5L});
