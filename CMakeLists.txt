@@ -54,27 +54,39 @@ target_link_libraries(test_quadrature
 
 add_executable(test_trapezoid_integral test_trapezoid_integral.cpp)
 target_link_libraries(test_trapezoid_integral
-  ${TR29124_LIBRARIES}
+  cxx_fp_utils
+  cxx_complex_utils
+  cxx_integration
+  cxx_polynomial
   quadmath)
 
 add_executable(test_midpoint_integral test_midpoint_integral.cpp)
 target_link_libraries(test_midpoint_integral
-  ${TR29124_LIBRARIES}
+  cxx_fp_utils
+  cxx_complex_utils
+  cxx_integration
+  cxx_polynomial
   quadmath)
 
 add_executable(test_simpson_integral test_simpson_integral.cpp)
 target_link_libraries(test_simpson_integral
-  ${TR29124_LIBRARIES}
+  cxx_fp_utils
+  cxx_complex_utils
+  cxx_integration
+  cxx_polynomial
   quadmath)
 
 add_executable(test_double_exp_integrate test_double_exp_integrate.cpp)
 target_link_libraries(test_double_exp_integrate
-  ${TR29124_LIBRARIES}
+  cxx_fp_utils
+  cxx_complex_utils
+  cxx_integration
+  cxx_polynomial
   quadmath)
 
 add_executable(test_gauss_hermite test_gauss_hermite.cpp)
 target_link_libraries(test_gauss_hermite
-  ${TR29124_LIBRARIES}
+  cxx_integration
   quadmath)
 
 add_executable(test_gauss_laguerre test_gauss_laguerre.cpp)
@@ -84,15 +96,18 @@ target_link_libraries(test_gauss_laguerre
 
 add_executable(test_mapper test_mapper.cpp)
 target_link_libraries(test_mapper
-  ${TR29124_LIBRARIES}
+  cxx_integration
   quadmath)
 
 add_executable(test_composite_trapezoid_integral test_composite_trapezoid_integral.cpp)
 target_link_libraries(test_composite_trapezoid_integral
-  ${TR29124_LIBRARIES}
+  cxx_fp_utils
+  cxx_complex_utils
+  cxx_integration
+  cxx_polynomial
   quadmath)
 
 add_executable(test_gauss_kronrod_rule test_gauss_kronrod_rule.cpp)
 target_link_libraries(test_gauss_kronrod_rule
-  ${TR29124_LIBRARIES}
+  cxx_integration
   quadmath)
