@@ -4,10 +4,13 @@
 #include <cmath>
 #include <complex>
 
-#include <ext/complex_util.h>
-#include <ext/math_constants.h>
 #include <ext/integration.h>
 #include <ext/polynomial.h>
+
+template<typename Tp>
+  std::complex<Tp>
+  test_cyl_hankel_2(Tp nu, Tp x)
+  { return {std::cyl_bessel_j(nu, x), std::cyl_neumann(nu, x)}; }
 
 template<typename Tp>
   void
@@ -17,24 +20,24 @@ template<typename Tp>
     std::cout.flags(std::ios::showpoint);
     const auto w = 8 + std::cout.precision();
 
-    const auto PI = __gnu_cxx::numbers::__pi_v<Tp>;
+    const auto _S_pi = Tp{3.1415'92653'58979'32384'62643'38327'95028'84195e+0L};
 
     auto sin2 = [](Tp x) ->Tp { Tp s = std::sin(x); return s * s; };
     auto cos2 = [](Tp x) ->Tp { Tp c = std::cos(x); return c * c; };
     auto j1 = [](Tp x) ->Tp { return std::cyl_bessel_j(Tp{1}, x); };
     auto foo = [](Tp x) ->Tp { return (Tp{1} - x) * std::exp(-x / Tp{2}); };
     auto foonum = [](Tp x) ->Tp { return (Tp{1} - x); };
-    auto funk1 = [PI](Tp x) ->Tp { return std::cos(x) / std::sqrt(x * (PI - x)); };
+    auto funk1 = [_S_pi](Tp x) ->Tp { return std::cos(x) / std::sqrt(x * (_S_pi - x)); };
     auto funk1num = [](Tp x) ->Tp { return std::cos(x); };
-    auto funk2 = [PI](Tp x) ->Tp { return (Tp{2} + std::sin(x)) / std::sqrt(x * (PI - x)); };
+    auto funk2 = [_S_pi](Tp x) ->Tp { return (Tp{2} + std::sin(x)) / std::sqrt(x * (_S_pi - x)); };
     auto funk2num = [](Tp x) ->Tp { return Tp{2} + std::sin(x); };
     auto one = [](Tp) ->Tp { return Tp{1}; };
     auto ex = [](Tp x) ->Tp { return x; };
     __gnu_cxx::_Polynomial<Tp> poly1({1.0l, -0.5l, -3.5l, 2.0l});
-    auto chank2 = [](Tp x) ->std::complex<Tp> { return __gnu_cxx::cyl_hankel_2(Tp{1}, x); };
+    auto chank2 = [](Tp x) ->std::complex<Tp> { return test_cyl_hankel_2(Tp{1}, x); };
 
     auto a = Tp{0};
-    auto b = Tp(PI);
+    auto b = Tp(_S_pi);
 
     auto sine = [](Tp x) -> Tp { return std::sin(x); };
     __gnu_cxx::composite_trapezoid_integral<Tp, decltype(sine)> mq(sine, a, b, num_segs);
@@ -62,7 +65,7 @@ template<typename Tp>
 
     __gnu_cxx::composite_trapezoid_integral<Tp, decltype(cos2)> t2(cos2, a, b, num_segs);
     auto a2 = t2();
-    auto e2 = PI / Tp{2};
+    auto e2 = _S_pi / Tp{2};
     std::cout << "cos2    : "
 	      << ' ' << std::setw(w) << a2
 	      << ' ' << std::setw(w) << e2
@@ -72,7 +75,7 @@ template<typename Tp>
 
     __gnu_cxx::composite_trapezoid_integral<Tp, decltype(sin2)> t3(sin2, a, b, num_segs);
     auto a3 = t3();
-    auto e3 = PI / Tp{2};
+    auto e3 = _S_pi / Tp{2};
     std::cout << "sin2    : "
 	      << ' ' << std::setw(w) << a3
 	      << ' ' << std::setw(w) << e3
@@ -91,7 +94,7 @@ template<typename Tp>
 	      << '\n';
 
     a = Tp{0};
-    b = Tp{10} * PI;
+    b = Tp{10} * _S_pi;
     __gnu_cxx::composite_trapezoid_integral<Tp, decltype(foo)> t5(foo, a, b, num_segs);
     auto a5 = t5();
     auto e5 = Tp{2} * (Tp{1} + b) * std::exp(-b / Tp{2})
@@ -125,7 +128,7 @@ template<typename Tp>
 	      << '\n';
 
     a = Tp{0};
-    b = PI;
+    b = _S_pi;
     __gnu_cxx::composite_trapezoid_integral<Tp, decltype(funk1)> t7(funk1, a, b, num_segs);
     auto a7 = t7();
     auto e7 = Tp{0};

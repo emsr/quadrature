@@ -28,8 +28,7 @@
 #define GAUSS_LEGENDRE_TABLE_TCC 1
 
 
-#include <cmath> // __legendre_zeros
-#include <bits/specfun_state.h>
+#include <ext/quadrature_point.h>
 
 namespace __gnu_cxx
 {
@@ -50,7 +49,7 @@ namespace __gnu_cxx
 				   [this, __n](__prec_t __tab)
 				   { return __tab.order == this->order; });
 	if (__prec == __prec_end)
-	  this->rule = std::__detail::__legendre_zeros<_Tp>(this->order);
+	  this->rule = __legendre_zeros<_Tp>(this->order);
 	else
 	  {
 	    this->precomputed = true;

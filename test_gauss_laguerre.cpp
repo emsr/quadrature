@@ -7,6 +7,7 @@ $HOME/bin/bin/g++ -std=gnu++2a -g -Wall -Wextra -I../include -o test_gauss_lague
 #include <iomanip>
 
 #include <ext/gauss_laguerre_integrate.h>
+#include <ext/quadrature_point.h>
 
 template<typename _Tp>
   struct my_f

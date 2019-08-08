@@ -7,7 +7,11 @@
 #include <ext/complex_util.h>
 #include <ext/integration.h>
 #include <ext/polynomial.h>
-#include <ext/math_constants.h>
+
+template<typename Tp>
+  std::complex<Tp>
+  test_cyl_hankel_2(Tp nu, Tp x)
+  { return {std::cyl_bessel_j(nu, x), std::cyl_neumann(nu, x)}; }
 
 template<typename Tp>
   void
@@ -17,7 +21,7 @@ template<typename Tp>
     std::cout.flags(std::ios::showpoint);
     const auto w = 8 + std::cout.precision();
 
-    const auto PI = __gnu_cxx::numbers::__pi_v<Tp>;
+    const auto PI = Tp{3.1415'92653'58979'32384'62643'38327'95028'84195e+0L};
 
     auto sin2 = [](Tp x) ->Tp { Tp s = std::sin(x); return s * s; };
     auto cos2 = [](Tp x) ->Tp { Tp c = std::cos(x); return c * c; };
@@ -31,7 +35,7 @@ template<typename Tp>
     auto one = [](Tp) ->Tp { return Tp{1}; };
     auto ex = [](Tp x) ->Tp { return x; };
     __gnu_cxx::_Polynomial<Tp> poly1({1.0l, -0.5l, -3.5l, 2.0l});
-    auto chank2 = [](Tp x) ->std::complex<Tp> { return __gnu_cxx::cyl_hankel_2(Tp{1}, x); };
+    auto chank2 = [](Tp x) ->std::complex<Tp> { return test_cyl_hankel_2(Tp{1}, x); };
 
     auto a = Tp{0};
     auto b = Tp(PI);

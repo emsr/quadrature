@@ -22,6 +22,7 @@
 #define GAUSS_LAGUERRE_INTEGRATE_H 1
 
 #include <vector>
+#include <ext/quadrature_point.h>
 
 namespace __gnu_cxx
 {
@@ -40,7 +41,7 @@ template<typename _Tp, typename _Func>
     				"laguerre order must be greater than 0");
     else
      {
-	auto __rule = std::__detail::__laguerre_zeros(__n, __alpha);
+	auto __rule = __laguerre_zeros(__n, __alpha);
 	auto __sum = _AreaTp{};
 	for (const auto& __pt : __rule)
 	  {
