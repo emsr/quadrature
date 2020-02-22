@@ -18,10 +18,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-/*
-$HOME/bin/bin/g++ -std=gnu++2a -fconcepts -g -Wall -Wextra -Wno-psabi -I../include -c -o obj/test_quadrature..o test_quadrature.cpp
-*/
-
 #include <cstdlib>
 #include <cstdio>
 #include <cmath>

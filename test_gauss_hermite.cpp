@@ -1,6 +1,3 @@
-/*
-$HOME/bin/bin/g++ -std=gnu++2a -g -Wall -Wextra -I../include -o test_gauss_hermite test_gauss_hermite.cpp -lquadmath
-*/
 
 #include <cmath>
 #include <iostream>

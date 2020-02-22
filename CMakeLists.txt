@@ -18,6 +18,7 @@ add_custom_target(make_cxx_integration_output_dir ALL
   COMMAND ${CMAKE_COMMAND} -E make_directory output)
 
 set(TR29124_LIBRARIES
+  cxx_numeric_limits
   cxx_math_constants
   cxx_fp_utils
   cxx_complex_utils
@@ -45,6 +46,7 @@ target_include_directories(cxx_integration INTERFACE include)
 add_executable(test_phase_iterator test_phase_iterator.cpp)
 target_link_libraries(test_phase_iterator
   cxx_integration
+  ${TR29124_LIBRARIES}
   quadmath)
 
 add_executable(test_quadrature test_quadrature.cpp)

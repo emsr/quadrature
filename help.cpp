@@ -1,10 +1,3 @@
-/*
-$HOME/bin/bin/g++ -std=c++2a help.cpp
-
-clang-5.0 -std=c++2a -stdlib=libc++ help.cpp
-
-clang-5.0 -std=c++2a -stdlib=libstdc++ -I$HOME/bin/include/c++/9.0.0 -I/home/ed/bin/include/c++/9.0.0/x86_64-pc-linux-gnu help.cpp
-*/
 
 #include <tuple>
 #include <functional>

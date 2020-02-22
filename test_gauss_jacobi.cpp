@@ -1,11 +1,5 @@
 // This is a demo program for the jacobi library
 
-/*
-$HOME/bin/bin/g++ -o test_gauss_jacobi test_gauss_jacobi.cpp
-
-$HOME/bin_specfun/bin/g++ -std=gnu++2a -g -Wall -Wextra -o test_gauss_jacobi test_gauss_jacobi.cpp
-*/
-
 #include <iostream>
 #include <iomanip>
 #include <cstdlib>

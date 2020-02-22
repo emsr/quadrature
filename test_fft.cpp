@@ -1,10 +1,3 @@
-/*
-$HOME/bin/bin/g++ -std=gnu++2a -g -Wall -Wextra -Wno-psabi -I../include -DREPERIOD=0 -o test_fft test_fft.cpp -lquadmath
-./test_fft > test_fft.txt
-
-$HOME/bin/bin/g++ -std=gnu++2a -g -Wall -Wextra -Wno-psabi -I../include -DREPERIOD=1 -o test_fft test_fft.cpp -lquadmath
-./test_fft > test_fft_pi.txt
-*/
 
 #include <iostream>
 #include <iomanip>
