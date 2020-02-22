@@ -1,6 +1,3 @@
-/*
-$HOME/bin/bin/g++ -std=c++20 -o test_mapper test_mapper.cpp
-*/
 
 #include <iostream>
 #include <iomanip>

@@ -1,7 +1,3 @@
-/*
-$HOME/bin/bin/g++-std=c++20 -Wall -Wextra -I../include -o test_recur_subdiv test_recur_subdiv.cpp -lquadmath
-./test_recur_subdiv
-*/
 
 #include <iostream>
 #include <iomanip>
