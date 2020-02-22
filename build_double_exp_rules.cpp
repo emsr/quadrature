@@ -1,5 +1,5 @@
 /*
-LD_LIBRARY_PATH=..:$LD_LIBRARY_PATH $HOME/bin/bin/g++ -std=gnu++2a -g -Wall -Wextra -Wno-psabi -I../include -I../polynomial/include -o build_double_exp_rules build_double_exp_rules.cpp -lquadmath -L../wrappers/debug -lwrap_burkhardt -lgfortran
+LD_LIBRARY_PATH=..:$LD_LIBRARY_PATH $HOME/bin/bin/g++ -std=gnu++20 -g -Wall -Wextra -Wno-psabi -I../include -I../polynomial/include -o build_double_exp_rules build_double_exp_rules.cpp -lquadmath -L../wrappers/debug -lwrap_burkhardt -lgfortran
 LD_LIBRARY_PATH=../wrappers/debug:$HOME/bin/lib64:$LD_LIBRARY_PATH ./build_double_exp_rules > build_double_exp_rules.txt
 */
 

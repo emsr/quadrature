@@ -1,5 +1,5 @@
 /*
-$HOME/bin/bin/g++ -std=c++2a -o test_mapper test_mapper.cpp
+$HOME/bin/bin/g++ -std=c++20 -o test_mapper test_mapper.cpp
 */
 
 #include <iostream>

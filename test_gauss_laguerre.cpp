@@ -1,5 +1,5 @@
 /*
-$HOME/bin/bin/g++ -std=gnu++2a -g -Wall -Wextra -I../include -o test_gauss_laguerre test_gauss_laguerre.cpp
+$HOME/bin/bin/g++ -std=gnu++20 -g -Wall -Wextra -I../include -o test_gauss_laguerre test_gauss_laguerre.cpp
 */
 
 #include <cmath>
