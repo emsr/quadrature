@@ -33,7 +33,6 @@ template<typename _Tp, typename _Func>
   {
     using _RetTp = std::invoke_result_t<_Func, _Tp>;
     using _AreaTp = decltype(_RetTp{} * _Tp{});
-    //using _AbsAreaTp = decltype(std::abs(_AreaTp{}));
 
     if(__n == 0)
       std::__throw_domain_error("gauss_hermite_integrate: "

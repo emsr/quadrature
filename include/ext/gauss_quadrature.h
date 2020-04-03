@@ -39,7 +39,7 @@ namespace __gnu_cxx
 
       template<typename _FuncTp>
 	decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
-	operator()(_FuncTp __func, _Tp __a, _Tp __b) const;
+	operator()(_FuncTp __func, _Tp __lower, _Tp __upper) const;
 
     private:
       std::vector<_Tp> point;
@@ -58,7 +58,7 @@ namespace __gnu_cxx
 
       template<typename _FuncTp>
 	decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
-	operator()(_FuncTp __func, _Tp __a, _Tp __b) const;
+	operator()(_FuncTp __func, _Tp __lower, _Tp __upper) const;
 
     private:
       std::vector<_Tp> point;
@@ -77,7 +77,7 @@ namespace __gnu_cxx
 
       template<typename _FuncTp>
 	decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
-	operator()(_FuncTp __func, _Tp __a, _Tp __b) const;
+	operator()(_FuncTp __func, _Tp __lower, _Tp __upper) const;
 
     private:
       std::vector<_Tp> point;
@@ -99,7 +99,7 @@ namespace __gnu_cxx
 
       template<typename _FuncTp>
 	decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
-	operator()(_FuncTp __func, _Tp __a, _Tp __b) const;
+	operator()(_FuncTp __func, _Tp __lower, _Tp __upper) const;
 
     private:
       std::vector<_Tp> point;
@@ -118,7 +118,7 @@ namespace __gnu_cxx
 
       template<typename _FuncTp>
 	decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
-	operator()(_FuncTp __func, _Tp __a, _Tp __b) const;
+	operator()(_FuncTp __func, _Tp __lower, _Tp __upper) const;
 
     private:
       std::vector<_Tp> point;
@@ -138,7 +138,7 @@ namespace __gnu_cxx
 
       template<typename _FuncTp>
 	decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
-	operator()(_FuncTp __func, _Tp __a, _Tp __b) const;
+	operator()(_FuncTp __func, _Tp __lower, _Tp __upper) const;
 
     private:
       std::vector<_Tp> point;
@@ -159,7 +159,7 @@ namespace __gnu_cxx
 
       template<typename _FuncTp>
 	decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
-	operator()(_FuncTp __func, _Tp __a, _Tp __b) const;
+	operator()(_FuncTp __func, _Tp __lower, _Tp __upper) const;
 
     private:
       std::vector<_Tp> point;
@@ -179,7 +179,7 @@ namespace __gnu_cxx
 
       template<typename _FuncTp>
 	decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
-	operator()(_FuncTp __func, _Tp __a, _Tp __b) const;
+	operator()(_FuncTp __func, _Tp __lower, _Tp __upper) const;
 
     private:
       std::vector<_Tp> point;
@@ -199,7 +199,7 @@ namespace __gnu_cxx
 
       template<typename _FuncTp>
 	decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
-	operator()(_FuncTp __func, _Tp __a, _Tp __b) const;
+	operator()(_FuncTp __func, _Tp __lower, _Tp __upper) const;
 
     private:
       std::vector<_Tp> point;
@@ -219,7 +219,7 @@ namespace __gnu_cxx
 
       template<typename _FuncTp>
 	decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
-	operator()(_FuncTp __func, _Tp __a, _Tp __b) const;
+	operator()(_FuncTp __func, _Tp __lower, _Tp __upper) const;
 
     private:
       std::vector<_Tp> point;
@@ -240,7 +240,7 @@ namespace __gnu_cxx
 
       template<typename _FuncTp>
 	decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
-	operator()(_FuncTp __func, _Tp __a, _Tp __b) const;
+	operator()(_FuncTp __func, _Tp __lower, _Tp __upper) const;
 
     private:
       std::vector<_Tp> point;
@@ -250,101 +250,257 @@ namespace __gnu_cxx
   template<typename _Tp, typename _FuncTp>
     fixed_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
     integrate_fixed_gauss_legendre(int __n,
-				   _FuncTp __func, _Tp __a, _Tp __b)
+				   _FuncTp __func, _Tp __lower, _Tp __upper)
     {
-      fixed_gauss_legendre_integral<_Tp> __integ(__n);
-      return { __integ(__func, __a, __b) };
+      using __integ_t = fixed_integral_t<_Tp,
+				     std::invoke_result_t<_FuncTp, _Tp>>;
+      using __area_t = typename __integ_t::_AreaTp;
+
+      if (std::isnan(__lower) || std::isnan(__upper))
+	{
+	  const auto _S_NaN = std::numeric_limits<_Tp>::quiet_NaN();
+	  return {__area_t{} * _S_NaN};
+	}
+      else if (__lower == __upper)
+	return {__area_t{}};
+      else
+	{
+          fixed_gauss_legendre_integral<_Tp> __integ(__n);
+          return { __integ(__func, __lower, __upper) };
+	}
     }
 
   template<typename _Tp, typename _FuncTp>
     fixed_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
     integrate_fixed_gauss_chebyshev_t(int __n,
-				      _FuncTp __func, _Tp __a, _Tp __b)
+				      _FuncTp __func, _Tp __lower, _Tp __upper)
     {
-      fixed_gauss_chebyshev_t_integral<_Tp> __integ(__n);
-      return { __integ(__func, __a, __b) };
+      using __integ_t = fixed_integral_t<_Tp,
+				     std::invoke_result_t<_FuncTp, _Tp>>;
+      using __area_t = typename __integ_t::_AreaTp;
+
+      if (std::isnan(__lower) || std::isnan(__upper))
+	{
+	  const auto _S_NaN = std::numeric_limits<_Tp>::quiet_NaN();
+	  return {__area_t{} * _S_NaN};
+	}
+      else if (__lower == __upper)
+	return {__area_t{}};
+      else
+	{
+          fixed_gauss_chebyshev_t_integral<_Tp> __integ(__n);
+          return { __integ(__func, __lower, __upper) };
+	}
     }
 
 
   template<typename _Tp, typename _FuncTp>
     fixed_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
     integrate_fixed_gauss_chebyshev_u(int __n,
-				      _FuncTp __func, _Tp __a, _Tp __b)
+				      _FuncTp __func, _Tp __lower, _Tp __upper)
     {
-      fixed_gauss_chebyshev_u_integral<_Tp> __integ(__n);
-      return { __integ(__func, __a, __b) };
+      using __integ_t = fixed_integral_t<_Tp,
+				     std::invoke_result_t<_FuncTp, _Tp>>;
+      using __area_t = typename __integ_t::_AreaTp;
+
+      if (std::isnan(__lower) || std::isnan(__upper))
+	{
+	  const auto _S_NaN = std::numeric_limits<_Tp>::quiet_NaN();
+	  return {__area_t{} * _S_NaN};
+	}
+      else if (__lower == __upper)
+	return {__area_t{}};
+      else
+	{
+          fixed_gauss_chebyshev_u_integral<_Tp> __integ(__n);
+          return { __integ(__func, __lower, __upper) };
+	}
     }
 
   template<typename _Tp, typename _FuncTp>
     fixed_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
     integrate_fixed_gauss_chebyshev_v(int __n,
-				      _FuncTp __func, _Tp __a, _Tp __b)
+				      _FuncTp __func, _Tp __lower, _Tp __upper)
     {
-      fixed_gauss_chebyshev_v_integral<_Tp> __integ(__n);
-      return { __integ(__func, __a, __b) };
+      using __integ_t = fixed_integral_t<_Tp,
+				     std::invoke_result_t<_FuncTp, _Tp>>;
+      using __area_t = typename __integ_t::_AreaTp;
+
+      if (std::isnan(__lower) || std::isnan(__upper))
+	{
+	  const auto _S_NaN = std::numeric_limits<_Tp>::quiet_NaN();
+	  return {__area_t{} * _S_NaN};
+	}
+      else if (__lower == __upper)
+	return {__area_t{}};
+      else
+	{
+          fixed_gauss_chebyshev_v_integral<_Tp> __integ(__n);
+          return { __integ(__func, __lower, __upper) };
+	}
     }
 
   template<typename _Tp, typename _FuncTp>
     fixed_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
     integrate_fixed_gauss_chebyshev_w(int __n,
-				      _FuncTp __func, _Tp __a, _Tp __b)
+				      _FuncTp __func, _Tp __lower, _Tp __upper)
     {
-      fixed_gauss_chebyshev_w_integral<_Tp> __integ(__n);
-      return { __integ(__func, __a, __b) };
+      using __integ_t = fixed_integral_t<_Tp,
+				     std::invoke_result_t<_FuncTp, _Tp>>;
+      using __area_t = typename __integ_t::_AreaTp;
+
+      if (std::isnan(__lower) || std::isnan(__upper))
+	{
+	  const auto _S_NaN = std::numeric_limits<_Tp>::quiet_NaN();
+	  return {__area_t{} * _S_NaN};
+	}
+      else if (__lower == __upper)
+	return {__area_t{}};
+      else
+	{
+          fixed_gauss_chebyshev_w_integral<_Tp> __integ(__n);
+          return { __integ(__func, __lower, __upper) };
+	}
     }
 
   template<typename _Tp, typename _FuncTp>
     fixed_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
     integrate_fixed_gauss_gegenbauer(int __n, _Tp __lambda,
-				     _FuncTp __func, _Tp __a, _Tp __b)
+				     _FuncTp __func, _Tp __lower, _Tp __upper)
     {
-      fixed_gauss_gegenbauer_integral<_Tp> __integ(__n, __lambda);
-      return { __integ(__func, __a, __b) };
+      using __integ_t = fixed_integral_t<_Tp,
+				     std::invoke_result_t<_FuncTp, _Tp>>;
+      using __area_t = typename __integ_t::_AreaTp;
+
+      if (std::isnan(__lower) || std::isnan(__upper) || std::isnan(__lambda))
+	{
+	  const auto _S_NaN = std::numeric_limits<_Tp>::quiet_NaN();
+	  return {__area_t{} * _S_NaN};
+	}
+      else if (__lower == __upper)
+	return {__area_t{}};
+      else
+	{
+          fixed_gauss_gegenbauer_integral<_Tp> __integ(__n, __lambda);
+          return { __integ(__func, __lower, __upper) };
+	}
     }
 
   template<typename _Tp, typename _FuncTp>
     fixed_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
     integrate_fixed_gauss_jacobi(int __n, _Tp __alf, _Tp __bet,
-				 _FuncTp __func, _Tp __a, _Tp __b)
+				 _FuncTp __func, _Tp __lower, _Tp __upper)
     {
-      fixed_gauss_jacobi_integral<_Tp> __integ(__n, __alf, __bet);
-      return { __integ(__func, __a, __b) };
+      using __integ_t = fixed_integral_t<_Tp,
+				     std::invoke_result_t<_FuncTp, _Tp>>;
+      using __area_t = typename __integ_t::_AreaTp;
+
+      if (std::isnan(__lower) || std::isnan(__upper)
+          || std::isnan(__alf) || std::isnan(__bet))
+	{
+	  const auto _S_NaN = std::numeric_limits<_Tp>::quiet_NaN();
+	  return {__area_t{} * _S_NaN};
+	}
+      else if (__lower == __upper)
+	return {__area_t{}};
+      else
+	{
+          fixed_gauss_jacobi_integral<_Tp> __integ(__n, __alf, __bet);
+          return { __integ(__func, __lower, __upper) };
+	}
     }
 
   template<typename _Tp, typename _FuncTp>
     fixed_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
     integrate_fixed_gauss_laguerre(int __n, _Tp __alf,
-				   _FuncTp __func, _Tp __a, _Tp __b)
+				   _FuncTp __func, _Tp __lower, _Tp __upper)
     {
-      fixed_gauss_laguerre_integral<_Tp> __integ(__n, __alf);
-      return { __integ(__func, __a, __b) };
+      using __integ_t = fixed_integral_t<_Tp,
+				     std::invoke_result_t<_FuncTp, _Tp>>;
+      using __area_t = typename __integ_t::_AreaTp;
+
+      if (std::isnan(__lower) || std::isnan(__upper) || std::isnan(__alf))
+	{
+	  const auto _S_NaN = std::numeric_limits<_Tp>::quiet_NaN();
+	  return {__area_t{} * _S_NaN};
+	}
+      else if (__lower == __upper)
+	return {__area_t{}};
+      else
+	{
+          fixed_gauss_laguerre_integral<_Tp> __integ(__n, __alf);
+          return { __integ(__func, __lower, __upper) };
+	}
     }
 
   template<typename _Tp, typename _FuncTp>
     fixed_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
     integrate_fixed_gauss_hermite(int __n, _Tp __alf,
-				  _FuncTp __func, _Tp __a, _Tp __b)
+				  _FuncTp __func, _Tp __lower, _Tp __upper)
     {
-      fixed_gauss_hermite_integral<_Tp> __integ(__n, __alf);
-      return { __integ(__func, __a, __b) };
+      using __integ_t = fixed_integral_t<_Tp,
+				     std::invoke_result_t<_FuncTp, _Tp>>;
+      using __area_t = typename __integ_t::_AreaTp;
+
+      if (std::isnan(__lower) || std::isnan(__upper) || std::isnan(__alf))
+	{
+	  const auto _S_NaN = std::numeric_limits<_Tp>::quiet_NaN();
+	  return {__area_t{} * _S_NaN};
+	}
+      else if (__lower == __upper)
+	return {__area_t{}};
+      else
+	{
+          fixed_gauss_hermite_integral<_Tp> __integ(__n, __alf);
+          return { __integ(__func, __lower, __upper) };
+	}
     }
 
   template<typename _Tp, typename _FuncTp>
     fixed_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
     integrate_fixed_gauss_exponential(int __n, _Tp __alf,
-				      _FuncTp __func, _Tp __a, _Tp __b)
+				      _FuncTp __func, _Tp __lower, _Tp __upper)
     {
-      fixed_gauss_exponential_integral<_Tp> __integ(__n, __alf);
-      return { __integ(__func, __a, __b) };
+      using __integ_t = fixed_integral_t<_Tp,
+				     std::invoke_result_t<_FuncTp, _Tp>>;
+      using __area_t = typename __integ_t::_AreaTp;
+
+      if (std::isnan(__lower) || std::isnan(__upper) || std::isnan(__alf))
+	{
+	  const auto _S_NaN = std::numeric_limits<_Tp>::quiet_NaN();
+	  return {__area_t{} * _S_NaN};
+	}
+      else if (__lower == __upper)
+	return {__area_t{}};
+      else
+	{
+          fixed_gauss_exponential_integral<_Tp> __integ(__n, __alf);
+          return { __integ(__func, __lower, __upper) };
+	}
     }
 
   template<typename _Tp, typename _FuncTp>
     fixed_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
     integrate_fixed_gauss_rational(int __n, _Tp __alf, _Tp __bet,
-				   _FuncTp __func, _Tp __a, _Tp __b)
+				   _FuncTp __func, _Tp __lower, _Tp __upper)
     {
-      fixed_gauss_rational_integral<_Tp> __integ(__n, __alf, __bet);
-      return { __integ(__func, __a, __b) };
+      using __integ_t = fixed_integral_t<_Tp,
+				     std::invoke_result_t<_FuncTp, _Tp>>;
+      using __area_t = typename __integ_t::_AreaTp;
+
+      if (std::isnan(__lower) || std::isnan(__upper)
+          || std::isnan(__alf) || std::isnan(__bet))
+	{
+	  const auto _S_NaN = std::numeric_limits<_Tp>::quiet_NaN();
+	  return {__area_t{} * _S_NaN};
+	}
+      else if (__lower == __upper)
+	return {__area_t{}};
+      else
+	{
+          fixed_gauss_rational_integral<_Tp> __integ(__n, __alf, __bet);
+          return { __integ(__func, __lower, __upper) };
+	}
     }
 
 } // namespace __gnu_cxx

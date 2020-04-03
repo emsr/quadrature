@@ -43,77 +43,95 @@ namespace __gnu_cxx
    */
   template<typename _Tp, typename _FuncTp>
     adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
-    integrate_tanh_sinh(_FuncTp __func, _Tp __a, _Tp __b,
+    integrate_tanh_sinh(_FuncTp __func, _Tp __lower, _Tp __upper,
 			_Tp __max_abs_err, _Tp __max_rel_err,
 			int __max_iter)
     {
-      const auto _S_pi_4 = _Tp{3.1415'92653'58979'32384'62643'38327'95028'84195e+0L} / 4;
+      using __integ_t = adaptive_integral_t<_Tp,
+				     std::invoke_result_t<_FuncTp, _Tp>>;
+      using __area_t = typename __integ_t::_AreaTp;
+      using __absarea_t = typename __integ_t::_AbsAreaTp;
 
-      int __n = 16;
-      __n /= 2;
+      const auto _S_pi_4 = _Tp{3.141592653589793238462643383279502884195L} / 4;
 
-      // Find K = ln(ln(max_number))
-      const auto __k_max = std::log(std::log(std::numeric_limits<_Tp>::max()))
-		- _Tp{1};
-      auto __h = __k_max / __n;
-
-      auto __sum = __func((__a + __b) / _Tp{2}) / _Tp{2};
-      decltype(__sum) __sum1{}, __sum2{};
-      for (int __k = -__n; __k < 0; ++__k)
+      if (std::isnan(__lower) || std::isnan(__upper)
+          || std::isnan(__max_abs_err) || std::isnan(__max_rel_err))
 	{
-	  const auto __u = __h * _Tp(__k);
-	  const auto __eu = std::exp(__u);
-	  const auto __cosh = __eu + _Tp{1} / __eu;
-	  const auto __sinh = __eu - _Tp{1} / __eu;
-          const auto __esh = std::exp(_S_pi_4 * __sinh);
-	  const auto __w = __esh + _Tp{1} / __esh;
-	  const auto __dxdu = __cosh / (__w * __w);
-	  const auto __x1 = (__b * __esh + __a / __esh) / __w;
-	  if (__x1 != __a && __x1 != __b) 
-	    __sum1 += __dxdu * __func(__x1);
-	  const auto __x2 = (__a * __esh + __b / __esh) / __w;
-	  if (__x2 != __a && __x2 != __b)
-	    __sum2 += __dxdu * __func(__x2);
+	  const auto _S_NaN = std::numeric_limits<_Tp>::quiet_NaN();
+	  return {__area_t{} * _S_NaN, __absarea_t{} * _S_NaN};
 	}
-
-      // Interlace values; don't go past the rightmost point.
-      auto __prev_sum = __sum + __sum1 + __sum2;
-      for (int __iter = 0; __iter < __max_iter; ++__iter)
+      else if (__lower == __upper)
+	return {__area_t{}, __absarea_t{}};
+      else
 	{
-	  for (int __k  = -__n; __k < 0; ++__k)
+          int __n = 16;
+          __n /= 2;
+
+          // Find K = ln(ln(max_number))
+          const auto __k_max
+		      = std::log(std::log(std::numeric_limits<_Tp>::max()))
+		      - _Tp{1};
+          auto __h = __k_max / __n;
+
+          auto __sum = __func((__lower + __upper) / _Tp{2}) / _Tp{2};
+          decltype(__sum) __sum1{}, __sum2{};
+          for (int __k = -__n; __k < 0; ++__k)
 	    {
-	      const auto __u = __h * _Tp(__k + 0.5);
+	      const auto __u = __h * _Tp(__k);
 	      const auto __eu = std::exp(__u);
-	      // A standard sinhcosh would be a nice idea along with sincos.
 	      const auto __cosh = __eu + _Tp{1} / __eu;
 	      const auto __sinh = __eu - _Tp{1} / __eu;
               const auto __esh = std::exp(_S_pi_4 * __sinh);
 	      const auto __w = __esh + _Tp{1} / __esh;
 	      const auto __dxdu = __cosh / (__w * __w);
-	      // natural: x1 = (s - 1/s) / (s + 1/s)
-	      const auto __x1 = (__b * __esh + __a / __esh) / __w;
-	      if (__x1 != __a && __x1 != __b) 
-		__sum1 += __dxdu * __func(__x1);
-	      // natural: x2 = (-s + 1/s) / (s + 1/s)
-	      const auto __x2 = (__a * __esh + __b / __esh) / __w;
-	      if (__x2 != __a && __x2 != __b)
-		__sum2 += __dxdu * __func(__x2);
+	      const auto __x1 = (__upper * __esh + __lower / __esh) / __w;
+	      if (__x1 != __lower && __x1 != __upper) 
+	        __sum1 += __dxdu * __func(__x1);
+	      const auto __x2 = (__lower * __esh + __upper / __esh) / __w;
+	      if (__x2 != __lower && __x2 != __upper)
+	        __sum2 += __dxdu * __func(__x2);
 	    }
 
-	  const auto __curr_sum = __sum + __sum1 + __sum2;
-	  if (auto __abs_del = std::abs(__curr_sum - __prev_sum);
-              __abs_del < __max_abs_err
-	      || __abs_del < std::abs(__max_rel_err * __curr_sum))
-	    break;
+          // Interlace values; don't go past the rightmost point.
+          auto __prev_sum = __sum + __sum1 + __sum2;
+          for (int __iter = 0; __iter < __max_iter; ++__iter)
+	    {
+	      for (int __k  = -__n; __k < 0; ++__k)
+	        {
+	          const auto __u = __h * _Tp(__k + 0.5);
+	          const auto __eu = std::exp(__u);
+	          // A standard sinhcosh would be a nice idea along with sincos.
+	          const auto __cosh = __eu + _Tp{1} / __eu;
+	          const auto __sinh = __eu - _Tp{1} / __eu;
+                  const auto __esh = std::exp(_S_pi_4 * __sinh);
+	          const auto __w = __esh + _Tp{1} / __esh;
+	          const auto __dxdu = __cosh / (__w * __w);
+	          // natural: x1 = (s - 1/s) / (s + 1/s)
+	          const auto __x1 = (__upper * __esh + __lower / __esh) / __w;
+	          if (__x1 != __lower && __x1 != __upper) 
+		    __sum1 += __dxdu * __func(__x1);
+	          // natural: x2 = (-s + 1/s) / (s + 1/s)
+	          const auto __x2 = (__lower * __esh + __upper / __esh) / __w;
+	          if (__x2 != __lower && __x2 != __upper)
+		    __sum2 += __dxdu * __func(__x2);
+	        }
 
-	  __prev_sum = __curr_sum;
-	  __n *= 2;
-	  __h /= _Tp{2};
+	      const auto __curr_sum = __sum + __sum1 + __sum2;
+	      if (auto __abs_del = std::abs(__curr_sum - __prev_sum);
+                  __abs_del < __max_abs_err
+	          || __abs_del < std::abs(__max_rel_err * __curr_sum))
+	        break;
+
+	      __prev_sum = __curr_sum;
+	      __n *= 2;
+	      __h /= _Tp{2};
+	    }
+
+          const auto __fact = _Tp{2} * (__upper - __lower) * _S_pi_4 * __h;
+          const auto __tot_sum = __sum + __sum1 + __sum2;
+          return {__fact * __tot_sum,
+		  __fact * std::abs(__tot_sum - __prev_sum)};
 	}
-
-      const auto __fact = _Tp{2} * (__b - __a) * _S_pi_4 * __h;
-      const auto __tot_sum = __sum + __sum1 + __sum2;
-      return {__fact * __tot_sum, __fact * std::abs(__tot_sum - __prev_sum)};
     }
 
   /**
@@ -138,38 +156,34 @@ namespace __gnu_cxx
 			_Tp __max_abs_err, _Tp __max_rel_err,
 			int __max_iter)
     {
-      const auto _S_pi_4 = _Tp{3.1415'92653'58979'32384'62643'38327'95028'84195e+0L} / 4;
+      using __integ_t = adaptive_integral_t<_Tp,
+				     std::invoke_result_t<_FuncTp, _Tp>>;
+      using __area_t = typename __integ_t::_AreaTp;
+      using __absarea_t = typename __integ_t::_AbsAreaTp;
 
-      int __n = 16;
-      __n /= 2;
+      const auto _S_pi_4 = _Tp{3.141592653589793238462643383279502884195L} / 4;
 
-      // Find K = ln(ln(max_number))
-      const auto __k_max = std::log(std::log(std::numeric_limits<_Tp>::max()))
-		- _Tp{1};
-      auto __h = __k_max / __n;
-
-      auto __sum = __func(_Tp{0});
-      decltype(__sum) __sum1{}, __sum2{};
-      for (int __k = -__n; __k < 0; ++__k)
+      if (std::isnan(__max_abs_err) || std::isnan(__max_rel_err))
 	{
-	  const auto __u = __h * _Tp(__k);
-	  const auto __eu = std::exp(__u);
-	  const auto __cosh = __eu + _Tp{1} / __eu;
-	  const auto __sinh = __eu - _Tp{1} / __eu;
-          const auto __esh = std::exp(_S_pi_4 * __sinh);
-	  const auto __x = (__esh - _Tp{1} / __esh) / _Tp{2};
-	  const auto __w = __esh + _Tp{1} / __esh;
-	  const auto __dxdu = __cosh * __w / _Tp{4};
-	  __sum1 += __dxdu * __func(+__x);
-	  __sum2 += __dxdu * __func(-__x);
+	  const auto _S_NaN = std::numeric_limits<_Tp>::quiet_NaN();
+	  return {__area_t{} * _S_NaN, __absarea_t{} * _S_NaN};
 	}
-
-      auto __prev_sum = __sum + __sum1 + __sum2;
-      for (int __iter = 0; __iter < __max_iter; ++__iter)
+      else
 	{
-	  for (int __k  = -__n; __k < 0; ++__k)
+          int __n = 16;
+          __n /= 2;
+
+          // Find K = ln(ln(max_number))
+          const auto __k_max
+		      = std::log(std::log(std::numeric_limits<_Tp>::max()))
+		      - _Tp{1};
+          auto __h = __k_max / __n;
+
+          auto __sum = __func(_Tp{0});
+          decltype(__sum) __sum1{}, __sum2{};
+          for (int __k = -__n; __k < 0; ++__k)
 	    {
-	      const auto __u = __h * _Tp(__k + 0.5);
+	      const auto __u = __h * _Tp(__k);
 	      const auto __eu = std::exp(__u);
 	      const auto __cosh = __eu + _Tp{1} / __eu;
 	      const auto __sinh = __eu - _Tp{1} / __eu;
@@ -181,20 +195,39 @@ namespace __gnu_cxx
 	      __sum2 += __dxdu * __func(-__x);
 	    }
 
-	  const auto __curr_sum = __sum + __sum1 + __sum2;
-	  if (auto __abs_del = std::abs(__curr_sum - __prev_sum);
-              __abs_del < __max_abs_err
-	      || __abs_del < std::abs(__max_rel_err * __curr_sum))
-	    break;
+          auto __prev_sum = __sum + __sum1 + __sum2;
+          for (int __iter = 0; __iter < __max_iter; ++__iter)
+	    {
+	      for (int __k  = -__n; __k < 0; ++__k)
+	        {
+	          const auto __u = __h * _Tp(__k + 0.5);
+	          const auto __eu = std::exp(__u);
+	          const auto __cosh = __eu + _Tp{1} / __eu;
+	          const auto __sinh = __eu - _Tp{1} / __eu;
+                  const auto __esh = std::exp(_S_pi_4 * __sinh);
+	          const auto __x = (__esh - _Tp{1} / __esh) / _Tp{2};
+	          const auto __w = __esh + _Tp{1} / __esh;
+	          const auto __dxdu = __cosh * __w / _Tp{4};
+	          __sum1 += __dxdu * __func(+__x);
+	          __sum2 += __dxdu * __func(-__x);
+	        }
 
-	  __prev_sum = __curr_sum;
-	  __n *= 2;
-	  __h /= _Tp{2};
+	      const auto __curr_sum = __sum + __sum1 + __sum2;
+	      if (auto __abs_del = std::abs(__curr_sum - __prev_sum);
+                  __abs_del < __max_abs_err
+	          || __abs_del < std::abs(__max_rel_err * __curr_sum))
+	        break;
+
+	      __prev_sum = __curr_sum;
+	      __n *= 2;
+	      __h /= _Tp{2};
+	    }
+
+          const auto __fact = _Tp{2} * _S_pi_4 * __h;
+          const auto __tot_sum = __sum + __sum1 + __sum2;
+          return {__fact * __tot_sum,
+		  __fact * std::abs(__tot_sum - __prev_sum)};
 	}
-
-      const auto __fact = _Tp{2} * _S_pi_4 * __h;
-      const auto __tot_sum = __sum + __sum1 + __sum2;
-      return {__fact * __tot_sum, __fact * std::abs(__tot_sum - __prev_sum)};
     }
 
   /**
@@ -220,61 +253,76 @@ namespace __gnu_cxx
    */
   template<typename _Tp, typename _FuncTp>
     adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
-    integrate_exp_sinh(_FuncTp __func, _Tp __a,
+    integrate_exp_sinh(_FuncTp __func, _Tp __lower,
 			_Tp __max_abs_err, _Tp __max_rel_err,
 			int __max_iter)
     {
+      using __integ_t = adaptive_integral_t<_Tp,
+				     std::invoke_result_t<_FuncTp, _Tp>>;
+      using __area_t = typename __integ_t::_AreaTp;
+      using __absarea_t = typename __integ_t::_AbsAreaTp;
+
       using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
       using _AreaTp = decltype(_RetTp{} * _Tp{});
 
-      int __n = 16;
+      const auto _S_pi_4 = _Tp{3.141592653589793238462643383279502884195L} / 4;
 
-      const auto _S_pi_4 = _Tp{3.1415'92653'58979'32384'62643'38327'95028'84195e+0L} / 4;
-
-      // Find K = ln(ln(max_number))
-      const auto __k_max = std::log(std::log(std::numeric_limits<_Tp>::max()))
-		- _Tp{1};
-      auto __h = __k_max / __n;
-
-      auto __sum = _AreaTp{0};
-      for (int __k = -__n; __k <= __n; ++__k)
+      if (std::isnan(__lower)
+          || std::isnan(__max_abs_err) || std::isnan(__max_rel_err))
 	{
-	  const auto __u = __h * _Tp(__k);
-	  const auto __eu = std::exp(__u);
-	  const auto __cosh = __eu + _Tp{1} / __eu;
-	  const auto __sinh = __eu - _Tp{1} / __eu;
-          const auto __esh = std::exp(_S_pi_4 * __sinh);
-	  const auto __dxdu = __cosh * __esh;
-	  __sum += __dxdu * __func(__a + __esh);
+	  const auto _S_NaN = std::numeric_limits<_Tp>::quiet_NaN();
+	  return {__area_t{} * _S_NaN, __absarea_t{} * _S_NaN};
 	}
-
-      // Interlace values (don't go past the rightmost point).
-      auto __prev_sum = __sum;
-      for (int __iter = 0; __iter < __max_iter; ++__iter)
+      else
 	{
-	  for (int __k  = -__n; __k < __n; ++__k)
+          int __n = 16;
+
+          // Find K = ln(ln(max_number))
+          const auto __k_max
+		      = std::log(std::log(std::numeric_limits<_Tp>::max()))
+		      - _Tp{1};
+          auto __h = __k_max / __n;
+
+          auto __sum = _AreaTp{0};
+          for (int __k = -__n; __k <= __n; ++__k)
 	    {
-	      const auto __u = __h * _Tp(__k + 0.5);
+	      const auto __u = __h * _Tp(__k);
 	      const auto __eu = std::exp(__u);
 	      const auto __cosh = __eu + _Tp{1} / __eu;
 	      const auto __sinh = __eu - _Tp{1} / __eu;
               const auto __esh = std::exp(_S_pi_4 * __sinh);
 	      const auto __dxdu = __cosh * __esh;
-	      __sum += __dxdu * __func(__a + __esh);
+	      __sum += __dxdu * __func(__lower + __esh);
 	    }
 
-	  if (auto __abs_del = std::abs(__sum - __prev_sum);
-              __abs_del < __max_abs_err
-	      || __abs_del < std::abs(__max_rel_err * __sum))
-	    break;
+          // Interlace values (don't go past the rightmost point).
+          auto __prev_sum = __sum;
+          for (int __iter = 0; __iter < __max_iter; ++__iter)
+	    {
+	      for (int __k  = -__n; __k < __n; ++__k)
+	        {
+	          const auto __u = __h * _Tp(__k + 0.5);
+	          const auto __eu = std::exp(__u);
+	          const auto __cosh = __eu + _Tp{1} / __eu;
+	          const auto __sinh = __eu - _Tp{1} / __eu;
+                  const auto __esh = std::exp(_S_pi_4 * __sinh);
+	          const auto __dxdu = __cosh * __esh;
+	          __sum += __dxdu * __func(__lower + __esh);
+	        }
 
-	  __prev_sum = __sum;
-	  __n *= 2;
-	  __h /= _Tp{2};
+	      if (auto __abs_del = std::abs(__sum - __prev_sum);
+                  __abs_del < __max_abs_err
+	          || __abs_del < std::abs(__max_rel_err * __sum))
+	        break;
+
+	      __prev_sum = __sum;
+	      __n *= 2;
+	      __h /= _Tp{2};
+	    }
+
+          const auto __fact = _S_pi_4 * __h;
+          return {__fact * __sum, __fact * std::abs(__sum - __prev_sum)};
 	}
-
-      const auto __fact = _S_pi_4 * __h;
-      return {__fact * __sum, __fact * std::abs(__sum - __prev_sum)};
     }
 
 } // namespace __gnu_cxx

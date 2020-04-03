@@ -39,6 +39,8 @@ template<typename _Tp, typename _Func>
     if(__n == 0)
       std::__throw_domain_error("gauss_laguerre_integrate: "
     				"laguerre order must be greater than 0");
+    else if (std::isnan(__alpha))
+      return _AreaTp{} * std::numeric_limits<_Tp>::quiet_NaN();
     else
      {
 	auto __rule = __laguerre_zeros(__n, __alpha);
