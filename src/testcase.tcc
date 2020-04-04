@@ -410,6 +410,9 @@ template<typename _Tp>
 
 /*
  * Another set of set functions..
+ * A new quadrature routine for improper and oscillatory integrals
+ * Applied Mathematics and Computation 189 (2007) 452\u2013461
+ * E. Sermutlu, H.T. Eyyubo~glu
  */
 
 template<typename _Tp>
