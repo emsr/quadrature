@@ -3015,19 +3015,20 @@ test_quadrature()
 	  auto b = func_tests<_Tp>[fid].b;
 	  auto exact = func_tests<_Tp>[fid].exact;
 	  int status = 0;
+	  //const auto rat = std::numeric_limits<_Tp>::epsilon() / std::numeric_limits<double>::epsilon();
+	  auto rel_error = _Tp{1.0e-12L};
 
 	  __gnu_cxx::cquad_workspace<_Tp, decltype(f(_Tp{}))> ws(200);
 
 	  // Call our quadrature routine.
-	  auto out = __gnu_cxx::cquad_integrate(ws, f, a, b,
-						_Tp{0}, _Tp{1.0e-12L});
+	  auto out = __gnu_cxx::cquad_integrate(ws, f, a, b, _Tp{0}, rel_error);
 
 	  std::ostringstream rstr;
-	  rstr << "cquad f" << fid;
-	  qtest.test_relative(out.__result, exact, _Tp{1.0e-12L}, rstr.str().c_str());
+	  rstr << "cquad f" << (fid + 1);
+	  qtest.test_relative(out.__result, exact, rel_error, rstr.str().c_str());
 
 	  std::ostringstream upstr;
-	  upstr << "cquad f" << fid << " error("
+	  upstr << "cquad f" << (fid + 1) << " error("
 			     << std::abs(out.__result - exact) << " actual vs "
 			     << out.__abserr << " estimated)";
 	  qtest.test_update(std::abs(out.__result - exact) > _Tp{5} * out.__abserr, upstr.str().c_str());
@@ -3048,7 +3049,7 @@ test_quadrature()
   // Test sinh-tanh.
   try
     {
-      //std::cout << ">>>> Test this newfangled cquad..." << std::endl;
+      //std::cout << ">>>> Test this newfangled tanh-sinh..." << std::endl;
       quadrature_test<_Tp> qtest;
 
       // Loop over the functions...
@@ -3059,17 +3060,18 @@ test_quadrature()
 	  auto b = func_tests<_Tp>[fid].b;
 	  auto exact = func_tests<_Tp>[fid].exact;
 	  int status = 0;
+	  //const auto rat = std::numeric_limits<_Tp>::epsilon() / std::numeric_limits<double>::epsilon();
+	  auto rel_error = _Tp{1.0e-12L};
 
 	  // Call our quadrature routine.
-	  auto out = __gnu_cxx::integrate_tanh_sinh(f, a, b,
-						_Tp{0}, _Tp{1.0e-12L}, 6);
+	  auto out = __gnu_cxx::integrate_tanh_sinh(f, a, b, _Tp{0}, rel_error, 6);
 
 	  std::ostringstream rstr;
-	  rstr << "tanh_sinh f" << fid;
-	  qtest.test_relative(out.__result, exact, _Tp{1.0e-12L}, rstr.str().c_str());
+	  rstr << "tanh_sinh f" << (fid + 1);
+	  qtest.test_relative(out.__result, exact, rel_error, rstr.str().c_str());
 
 	  std::ostringstream upstr;
-	  upstr << "tanh_sinh f" << fid << " error("
+	  upstr << "tanh_sinh f" << (fid + 1) << " error("
 			     << std::abs(out.__result - exact) << " actual vs "
 			     << out.__abserr << " estimated)";
 	  qtest.test_update(std::abs(out.__result - exact) > _Tp{5} * out.__abserr, upstr.str().c_str());
