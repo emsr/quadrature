@@ -116,21 +116,23 @@ namespace __gnu_cxx
 		    __sum2 += __dxdu * __func(__x2);
 	        }
 
+	      __n *= 2;
+	      __h /= _Tp{2};
+
 	      const auto __curr_sum = __sum + __sum1 + __sum2;
 	      if (auto __abs_del = std::abs(__curr_sum - __prev_sum);
                   __abs_del < __max_abs_err
-	          || __abs_del < std::abs(__max_rel_err * __curr_sum))
+		  || __abs_del < std::abs(__max_rel_err * __curr_sum)
+		  || __iter + 1 == __max_iter) // Keep prev_sum even if at max_iters.
 	        break;
 
 	      __prev_sum = __curr_sum;
-	      __n *= 2;
-	      __h /= _Tp{2};
 	    }
 
           const auto __fact = _Tp{2} * (__upper - __lower) * _S_pi_4 * __h;
           const auto __tot_sum = __sum + __sum1 + __sum2;
           return {__fact * __tot_sum,
-		  __fact * std::abs(__tot_sum - __prev_sum)};
+		  __fact * std::abs(__tot_sum - _Tp{2} * __prev_sum)};
 	}
     }
 
@@ -212,21 +214,23 @@ namespace __gnu_cxx
 	          __sum2 += __dxdu * __func(-__x);
 	        }
 
+	      __n *= 2;
+	      __h /= _Tp{2};
+
 	      const auto __curr_sum = __sum + __sum1 + __sum2;
 	      if (auto __abs_del = std::abs(__curr_sum - __prev_sum);
                   __abs_del < __max_abs_err
-	          || __abs_del < std::abs(__max_rel_err * __curr_sum))
+		  || __abs_del < std::abs(__max_rel_err * __curr_sum)
+		  || __iter + 1 == __max_iter) // Keep prev_sum even if at max_iters.
 	        break;
 
 	      __prev_sum = __curr_sum;
-	      __n *= 2;
-	      __h /= _Tp{2};
 	    }
 
           const auto __fact = _Tp{2} * _S_pi_4 * __h;
           const auto __tot_sum = __sum + __sum1 + __sum2;
           return {__fact * __tot_sum,
-		  __fact * std::abs(__tot_sum - __prev_sum)};
+		  __fact * std::abs(__tot_sum - _Tp{2} * __prev_sum)};
 	}
     }
 
@@ -310,18 +314,20 @@ namespace __gnu_cxx
 	          __sum += __dxdu * __func(__lower + __esh);
 	        }
 
+	      __n *= 2;
+	      __h /= _Tp{2};
+
 	      if (auto __abs_del = std::abs(__sum - __prev_sum);
                   __abs_del < __max_abs_err
-	          || __abs_del < std::abs(__max_rel_err * __sum))
+		  || __abs_del < std::abs(__max_rel_err * __sum)
+		  || __iter + 1 == __max_iter) // Keep prev_sum even if at max_iters.
 	        break;
 
 	      __prev_sum = __sum;
-	      __n *= 2;
-	      __h /= _Tp{2};
 	    }
 
           const auto __fact = _S_pi_4 * __h;
-          return {__fact * __sum, __fact * std::abs(__sum - __prev_sum)};
+          return {__fact * __sum, __fact * std::abs(__sum - _Tp{2} * __prev_sum)};
 	}
     }
 
