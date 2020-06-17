@@ -1,4 +1,4 @@
-/* quadrature/testcase.h
+/* cxx_integration/testcase.h
  *
  * Copyright (C) 2016-2018 Free Software Foundation, Inc.
  *

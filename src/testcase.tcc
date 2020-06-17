@@ -1,4 +1,4 @@
-/* integration/tests.c
+/* cxx_integration/testcase.tcc
  *
  * Copyright (C) 1996, 1997, 1998, 1999, 2000, 2007 Brian Gough
  * Copyright (C) 2016-2018 Free Software Foundation, Inc.
