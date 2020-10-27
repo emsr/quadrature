@@ -17,6 +17,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
+#ifndef GAUSS_JACOBI_INTERFACE_TCC
+#define GAUSS_JACOBI_INTERFACE_TCC 1
+
 /* Author:  Paulo J. Saiz Jabardo */
 
 /** @file  Wrappers to basic functions defined in gauss_quad.c
@@ -288,3 +291,5 @@ template<typename _Tp>
     matvec(this->Q, this->D, f, fout);
     return 0;
   }
+
+#endif // GAUSS_JACOBI_INTERFACE_TCC

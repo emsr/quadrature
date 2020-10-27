@@ -17,6 +17,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
+#ifndef GAUSS_JACOBI_INTEGRATE_TCC
+#define GAUSS_JACOBI_INTEGRATE_TCC 1
+
 /* Author:  Paulo J. Saiz Jabardo */
 
 /**
@@ -787,4 +790,4 @@ template<typename _Tp>
     return 0;
   }
 
-
+#endif // GAUSS_JACOBI_INTEGRATE_TCC
