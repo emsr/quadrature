@@ -22,6 +22,8 @@
 #ifndef INTEGRATION_TRANSFORM_H
 #define INTEGRATION_TRANSFORM_H 1
 
+#include <limits>
+
 namespace __gnu_cxx
 {
   //  Is this useful?

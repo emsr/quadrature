@@ -31,16 +31,13 @@
 #include <ext/integration.h>
 #include "testcase.h"
 #include "func_utils.h"
+#include <ext/special_functions.h>
 
 template<typename _Tp>
   inline constexpr _Tp
 //  eps_ratio = _Tp{1};
   eps_ratio = std::numeric_limits<_Tp>::epsilon()
 	    / std::numeric_limits<double>::epsilon();
-
-template<typename _Tp>
-  inline constexpr _Tp
-  prec_fixed = _Tp{1.0e-12}; // 10^{digits/10}*epsilon()?
 
 template<typename _Tp>
   inline constexpr _Tp

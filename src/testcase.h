@@ -66,10 +66,6 @@ template<typename _Tp>
     _Tp exact;
   };
 
-template<typename _Tp>
-  const static func_test<_Tp>
-  func_tests[25];
-
 #include "testcase.tcc"
 
 #endif // QUADRATURE_TESTCASE_H
