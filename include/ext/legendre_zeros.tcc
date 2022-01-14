@@ -1,6 +1,8 @@
 #ifndef LEGENDRE_ZEROS_TCC
 #define LEGENDRE_ZEROS_TCC 1
 
+#include <cmath>
+
 namespace __gnu_cxx
 {
 
