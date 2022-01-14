@@ -20,6 +20,7 @@
 #ifndef DOUBLE_EXP_INTEGRATE_TCC
 #define DOUBLE_EXP_INTEGRATE_TCC 1
 
+#include <type_traits>
 #include <cmath>
 
 namespace __gnu_cxx

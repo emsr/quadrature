@@ -20,6 +20,7 @@
 #ifndef TRAPEZOID_INTEGRAL_TCC
 #define TRAPEZOID_INTEGRAL_TCC 1
 
+#include <type_traits>
 #include <cmath>
 
 namespace __gnu_cxx

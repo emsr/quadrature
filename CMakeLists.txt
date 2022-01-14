@@ -30,11 +30,12 @@ endif (DOXYGEN_FOUND)
 add_library(cxx_integration_polynomial INTERFACE)
 target_include_directories(cxx_integration_polynomial INTERFACE 3rdparty/cxx_polynomial/include)
 
-add_library(cxx_integration_complex_utils INTERFACE)
-target_include_directories(cxx_integration_complex_utils INTERFACE 3rdparty/cxx_complex_utils/include)
-
 add_library(cxx_integration_fp_utils INTERFACE)
 target_include_directories(cxx_integration_fp_utils INTERFACE 3rdparty/cxx_fp_utils/include)
+
+add_library(cxx_integration_complex_utils INTERFACE)
+target_include_directories(cxx_integration_complex_utils INTERFACE 3rdparty/cxx_complex_utils/include)
+target_link_libraries(cxx_integration_complex_utils INTERFACE cxx_integration_fp_utils)
 
 add_library(cxx_integration_numeric_limits INTERFACE)
 target_include_directories(cxx_integration_numeric_limits INTERFACE 3rdparty/cxx_numeric_limits/include)
@@ -42,10 +43,11 @@ target_include_directories(cxx_integration_numeric_limits INTERFACE 3rdparty/cxx
 add_library(cxx_integration_special_functions INTERFACE)
 target_include_directories(cxx_integration_special_functions INTERFACE 3rdparty/cxx_special_functions/include)
 target_link_libraries(cxx_integration_special_functions
-  INTERFACE cxx_integration_numeric_limits)
+  INTERFACE cxx_integration_numeric_limits cxx_integration_fp_utils)
 
 add_library(cxx_integration INTERFACE)
 target_include_directories(cxx_integration INTERFACE include)
+target_link_libraries(cxx_integration INTERFACE cxx_integration_complex_utils)
 
 add_executable(test_phase_iterator src/test_phase_iterator.cpp)
 target_link_libraries(test_phase_iterator
@@ -54,15 +56,12 @@ target_link_libraries(test_phase_iterator
 add_executable(test_quadrature src/test_quadrature.cpp)
 target_link_libraries(test_quadrature
   cxx_integration
-  cxx_integration_fp_utils
   cxx_integration_special_functions)
 
 add_executable(test_trapezoid_integral src/test_trapezoid_integral.cpp)
 target_link_libraries(test_trapezoid_integral
   cxx_integration
-  cxx_integration_polynomial
-  cxx_integration_complex_utils
-  cxx_integration_fp_utils)
+  cxx_integration_polynomial)
 
 add_executable(test_midpoint_integral src/test_midpoint_integral.cpp)
 target_link_libraries(test_midpoint_integral
@@ -72,9 +71,7 @@ target_link_libraries(test_midpoint_integral
 add_executable(test_simpson_integral src/test_simpson_integral.cpp)
 target_link_libraries(test_simpson_integral
   cxx_integration
-  cxx_integration_polynomial
-  cxx_integration_complex_utils
-  cxx_integration_fp_utils)
+  cxx_integration_polynomial)
 
 add_executable(test_double_exp_integrate src/test_double_exp_integrate.cpp)
 target_link_libraries(test_double_exp_integrate
@@ -104,5 +101,4 @@ target_link_libraries(test_gauss_kronrod_rule
 
 add_executable(test_factorial_integration src/test_factorial.cpp)
 target_link_libraries(test_factorial_integration
-  cxx_integration_special_functions
-  cxx_integration_fp_utils)
+  cxx_integration_special_functions)

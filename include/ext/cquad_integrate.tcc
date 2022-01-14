@@ -26,8 +26,11 @@
 #ifndef CQUAD_INTEGRATE_TCC
 #define CQUAD_INTEGRATE_TCC 1
 
+#include <type_traits>
+
 #include <ext/cquad_const.tcc>
 #include <ext/cquad_workspace.h>
+#include <ext/complex_util.h> // isinf/isnan for complex
 
 namespace __gnu_cxx
 {

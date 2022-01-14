@@ -21,6 +21,8 @@
 #ifndef QNG_INTEGRATE_TCC
 #define QNG_INTEGRATE_TCC 1
 
+#include <type_traits>
+
 #include <ext/integration_error.h>
 
 /**
@@ -303,8 +305,8 @@ namespace __gnu_cxx
 
       // Test for convergence.
       auto __result_kronrod = __res21 * __half_length;
-      auto __err = __rescale_error((__res21 - __res10) * __half_length,
-				   __resabs, __resasc);
+      auto __err = rescale_error((__res21 - __res10) * __half_length,
+				 __resabs, __resasc);
       if (__err < __max_abs_err
        || __err < __max_rel_err * std::abs(__result_kronrod))
 	return {__result_kronrod, __err, __resabs, __resasc};
@@ -324,8 +326,8 @@ namespace __gnu_cxx
 
       // Test for convergence.
       __result_kronrod = __res43 * __half_length;
-      __err = __rescale_error((__res43 - __res21) * __half_length,
-				 __resabs, __resasc);
+      __err = rescale_error((__res43 - __res21) * __half_length,
+			    __resabs, __resasc);
       if (__err < __max_abs_err
        || __err < __max_rel_err * std::abs(__result_kronrod))
 	return {__result_kronrod, __err, __resabs, __resasc};
@@ -343,17 +345,16 @@ namespace __gnu_cxx
 
       // Test for convergence.
       __result_kronrod = __res87 * __half_length;
-      __err = __rescale_error((__res87 - __res43) * __half_length,
-				__resabs, __resasc);
+      __err = rescale_error((__res87 - __res43) * __half_length,
+			    __resabs, __resasc);
       if (__err < __max_abs_err
        || __err < __max_rel_err * std::abs(__result_kronrod))
 	return {__result_kronrod, __err, __resabs, __resasc};
 
       // Failed to converge.
-      __throw_integration_error("qng_integrate: "
-				"Failed to reach tolerance "
-				"with highest-order rule",
-				TOLERANCE_ERROR, __result_kronrod, __err);
+      throw integration_error("qng_integrate: "
+			      "Failed to reach tolerance with highest-order rule",
+			      TOLERANCE_ERROR, __result_kronrod, __err);
     }
 
 } // namespace __gnu_cxx

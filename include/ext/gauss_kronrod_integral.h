@@ -27,6 +27,7 @@
 #ifndef GAUSS_KRONROD_INTERGAL_H
 #define GAUSS_KRONROD_INTERGAL_H 1
 
+#include <type_traits>
 #include <vector>
 
 namespace __gnu_cxx _GLIBCXX_VISIBILITY(default)

@@ -410,9 +410,9 @@ template<typename _Tp, typename _RuleTp, typename _FuncTp, typename... _Params>
 /**
  *
  */
-template<typename _Tp>
+template<typename AreaTp, typename ApsAreaTp>
   void
-  belch(const __gnu_cxx::__integration_error<_Tp>& iex)
+  belch(const __gnu_cxx::integration_error<AreaTp, ApsAreaTp>& iex)
   {
     std::cout << "ERROR: " << iex.what()
 	      << "       status = " << iex.error_code()
@@ -496,7 +496,7 @@ test_quadrature()
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk15(f1) reverse resasc");
       }
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -535,7 +535,7 @@ test_quadrature()
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk21(f1) reverse resasc");
       }
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -574,7 +574,7 @@ test_quadrature()
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk31(f1) reverse resasc");
       }
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -613,7 +613,7 @@ test_quadrature()
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk41(f1) reverse resasc");
       }
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -652,7 +652,7 @@ test_quadrature()
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk51(f1) reverse resasc");
       }
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -691,7 +691,7 @@ test_quadrature()
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk61(f1) reverse resasc");
       }
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -734,7 +734,7 @@ test_quadrature()
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk15(f1) reverse resasc");
       }
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -773,7 +773,7 @@ test_quadrature()
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk21(f1) reverse resasc");
       }
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -812,7 +812,7 @@ test_quadrature()
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk31(f1) reverse resasc");
       }
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -851,7 +851,7 @@ test_quadrature()
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk41(f1) reverse resasc");
       }
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -890,7 +890,7 @@ test_quadrature()
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk51(f1) reverse resasc");
       }
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -929,7 +929,7 @@ test_quadrature()
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk61(f1) reverse resasc");
       }
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -972,7 +972,7 @@ test_quadrature()
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk15(f3) reverse resasc");
       }
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -1011,7 +1011,7 @@ test_quadrature()
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk21(f3) reverse resasc");
       }
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -1050,7 +1050,7 @@ test_quadrature()
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk31(f3) reverse resasc");
       }
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -1089,7 +1089,7 @@ test_quadrature()
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk41(f3) reverse resasc");
       }
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -1128,7 +1128,7 @@ test_quadrature()
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk51(f3) reverse resasc");
       }
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -1167,7 +1167,7 @@ test_quadrature()
 	qtest.test_relative(out.__resasc, exp_resasc, fpeps, "qk61(f3) reverse resasc");
       }
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -1209,7 +1209,7 @@ test_quadrature()
 	qtest.test_integer(status, exp_ier, "qng(f1) reverse status");
       }
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -1252,7 +1252,7 @@ test_quadrature()
 	qtest.test_integer(status, exp_ier, "qng(f1) reverse 43pt status");
       }
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -1294,7 +1294,7 @@ test_quadrature()
 	qtest.test_integer(status, exp_ier, "qng(f3) reverse status");
       }
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -1337,7 +1337,7 @@ test_quadrature()
 	qtest.test_integer(status, exp_ier, "qng(f1) 87pt reverse status");
       }
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -1368,7 +1368,7 @@ test_quadrature()
 	{
 	  out = __gnu_cxx::qng_integrate(fc, _Tp{0}, _Tp{1}, _Tp{0}, _Tp{1.0e-3L});
 	}
-      catch (__gnu_cxx::__integration_error<_Tp>& iex)
+      catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
 	{
 	  status = iex.error_code();
 	  out.__result = iex.result();
@@ -1385,7 +1385,7 @@ test_quadrature()
 	{
 	  out = __gnu_cxx::qng_integrate(fc, _Tp{1}, _Tp{0}, _Tp{0}, _Tp{1.0e-3L});
 	}
-      catch (__gnu_cxx::__integration_error<_Tp>& iex)
+      catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
 	{
 	  status = iex.error_code();
 	  out.__result = iex.result();
@@ -1397,7 +1397,7 @@ test_quadrature()
       qtest.test_integer(fc.num_evals(), exp_neval, "qng(f1) rev beyond 87pt neval");
       qtest.test_integer(status, exp_ier, "qng(f1) rev beyond 87pt status");
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -1474,7 +1474,7 @@ test_quadrature()
       qtest.test_integer(w.size(), exp_last, "qag(f1) reverse last");
       qtest.test_integer(status, exp_ier, "qag(f1) reverse status");
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -1552,7 +1552,7 @@ test_quadrature()
       qtest.test_integer(w.size(), exp_last, "qag(f1, 21pt) reverse last");
       qtest.test_integer(status, exp_ier, "qag(f1, 21pt) reverse status");
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -1590,7 +1590,7 @@ test_quadrature()
 					 _Tp{1.0e-14L}, _Tp{0},
 					 __gnu_cxx::gauss_kronrod_integral<_Tp>(__gnu_cxx::Kronrod_31));
 	}
-      catch (__gnu_cxx::__integration_error<_Tp>& iex)
+      catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
 	{
 	  out.__result = iex.result();
 	  out.__abserr = iex.abserr();
@@ -1611,7 +1611,7 @@ test_quadrature()
 					 _Tp{1.0e-14L}, _Tp{0},
 					 __gnu_cxx::gauss_kronrod_integral<_Tp>(__gnu_cxx::Kronrod_31));
 	}
-      catch (__gnu_cxx::__integration_error<_Tp>& iex)
+      catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
 	{
 	  out.__result = iex.result();
 	  out.__abserr = iex.abserr();
@@ -1625,7 +1625,7 @@ test_quadrature()
       qtest.test_integer(w.size(), exp_last, "qag(f3, 31pt) reverse last");
       qtest.test_integer(status, exp_ier, "qag(f3, 31pt) reverse status");
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -1659,7 +1659,7 @@ test_quadrature()
 					 _Tp{1.0e-14L}, _Tp{0},
 					 __gnu_cxx::gauss_kronrod_integral<_Tp>(__gnu_cxx::Kronrod_51));
 	}
-      catch (__gnu_cxx::__integration_error<_Tp>& iex)
+      catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
 	{
 	  out.__result = iex.result();
 	  out.__abserr = iex.abserr();
@@ -1677,7 +1677,7 @@ test_quadrature()
 					 _Tp{1.0e-14L}, _Tp{0},
 					 __gnu_cxx::gauss_kronrod_integral<_Tp>(__gnu_cxx::Kronrod_51));
 	}
-      catch (__gnu_cxx::__integration_error<_Tp>& iex)
+      catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
 	{
 	  out.__result = iex.result();
 	  out.__abserr = iex.abserr();
@@ -1688,7 +1688,7 @@ test_quadrature()
       qtest.test_integer(w.size(), exp_last, "qag(f16, 51pt) rev last");
       qtest.test_integer(status, exp_ier, "qag(f16, 51pt) rev status");
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -1732,7 +1732,7 @@ test_quadrature()
 					 _Tp{1.0e-14L}, _Tp{0},
 					 __gnu_cxx::gauss_kronrod_integral<_Tp>(__gnu_cxx::Kronrod_61));
 	}
-      catch (__gnu_cxx::__integration_error<_Tp>& iex)
+      catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
 	{
 	  out.__result = iex.result();
 	  out.__abserr = iex.abserr();
@@ -1767,7 +1767,7 @@ test_quadrature()
 					 _Tp{1.0e-14L}, _Tp{0},
 					 __gnu_cxx::gauss_kronrod_integral<_Tp>(__gnu_cxx::Kronrod_61));
 	}
-      catch (__gnu_cxx::__integration_error<_Tp>& iex)
+      catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
 	{
 	  out.__result = iex.result();
 	  out.__abserr = iex.abserr();
@@ -1781,7 +1781,7 @@ test_quadrature()
       qtest.test_integer(w.size(), exp_last, "qag(f16, 61pt) reverse last");
       qtest.test_integer(status, exp_ier, "qag(f16, 61pt) reverse status");
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -1855,7 +1855,7 @@ test_quadrature()
       qtest.test_integer(w.size(), exp_last, "qags(f1) reverse last");
       qtest.test_integer(status, exp_ier, "qags(f1) reverse status");
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -1933,7 +1933,7 @@ test_quadrature()
       qtest.test_integer(w.size(), exp_last, "qags(f11) reverse last");
       qtest.test_integer(status, exp_ier, "qags(f11) reverse status");
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -2001,7 +2001,7 @@ test_quadrature()
 	for (std::size_t i = 0; i < m; ++i)
 	  qtest.test_relative(w.abs_error(i), test[i].e, _Tp{1.0e-4L}, "qagiu(f455) smooth abs error");
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -2070,7 +2070,7 @@ test_quadrature()
 	for (std::size_t i = 0; i < m; ++i)
 	  qtest.test_relative(w.abs_error(i), test[i].e, _Tp{1.0e-4L}, "qagiu(f15) smooth abs error");
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -2135,7 +2135,7 @@ test_quadrature()
 	for (std::size_t i = 0; i < m; ++i)
 	  qtest.test_relative(w.abs_error(i), test[i].e, _Tp{1.0e-4L}, "qagiu(f16) smooth abs error");
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -2199,7 +2199,7 @@ test_quadrature()
 	for (std::size_t i = 0; i < m; ++i)
 	  qtest.test_relative(w.abs_error(i), test[i].e, _Tp{1.0e-4L}, "qagi(myfn1) smooth abs error");
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -2263,7 +2263,7 @@ test_quadrature()
 	for (std::size_t i = 0; i < m; ++i)
 	  qtest.test_relative(w.abs_error(i), test[i].e, _Tp{1.0e-4L}, "qagil(myfn2) smooth abs error");
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -2343,7 +2343,7 @@ test_quadrature()
 	for (std::size_t i = 0; i < m; ++i)
 	  qtest.test_relative(w.abs_error(i), test[i].e, _Tp{1.0e-4L}, "qagp(f454) singular abs error");
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -2417,7 +2417,7 @@ test_quadrature()
       qtest.test_integer(w.size(), exp_last, "qawc(f459) rev last");
       qtest.test_integer(status, exp_ier, "qawc(f459) rev status");
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -2526,7 +2526,7 @@ test_quadrature()
       qtest.test_relative(out.__result, exp_wlogs_result, _Tp{1.0e-14L}, "qaws(f458) AB ln(x-a)ln(b-x) result");
       qtest.test_relative(out.__abserr, exp_wlogs_abserr, _Tp{1.0e-6L}, "qaws(f458) AB ln(x-a)ln(b-x) abserr");
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -2608,7 +2608,7 @@ test_quadrature()
       qtest.test_integer(w.size(), exp_last, "qawo(f456) rev last");
       qtest.test_integer(status, exp_ier, "qawo(f456) rev status");
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -2678,7 +2678,7 @@ test_quadrature()
 	for (std::size_t i = 0; i < m; ++i)
 	  qtest.test_relative(w.abs_error(i), test[i].e, _Tp{50}, "qawf(f457) abs error");
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -2703,7 +2703,7 @@ test_quadrature()
 	  (_Tp{2}/_Tp{3})*(_Tp{2}*_Tp{2}*_Tp{2} - _Tp{1}*_Tp{1}*_Tp{1}), 8*_S_eps,
 	  "integrate(monomial) sanity check");
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -2742,7 +2742,7 @@ test_quadrature()
 	  qtest.test_relative(result, expected, rel_tol, str.str().c_str());
 	}
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -2763,7 +2763,7 @@ test_quadrature()
       qtest.test_absolute(integ_f_sin(_Tp{0}, _S_pi<_Tp>), _Tp{2}, _S_eps,
 	  "integ_f_sin sanity check");
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -2818,7 +2818,7 @@ test_quadrature()
 	  prev_abserr = abserr;
 	}
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -2944,7 +2944,7 @@ test_quadrature()
 	  qtest.test_absolute(wi, e5[i][1], _S_eps, msg2.str().c_str());
 	}
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -2989,7 +2989,7 @@ test_quadrature()
       msg2 << "glfixed " << n << "-point xi,wi eval";
       qtest.test_relative(result, _Tp{73925} / _Tp{56}, _Tp{1.0e-8L}, msg2.str().c_str());
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -3034,7 +3034,7 @@ test_quadrature()
 	  std::cout << std::flush;
 	}
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -3077,7 +3077,7 @@ test_quadrature()
 	  std::cout << std::flush;
 	}
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -3107,7 +3107,7 @@ test_quadrature()
       qtest.test_relative(out.__result, exp_result, /*1.0e-14*/epsrel, "exp_sinh(f455) smooth result");
       qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-5L}, "exp_sinh(f455) smooth abserr");
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -3136,7 +3136,7 @@ test_quadrature()
       qtest.test_relative(out.__result, exp_result, epsrel, "exp_sinh(f15) smooth result");
       qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-5L}, "exp_sinh(f15) smooth abserr");
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -3165,7 +3165,7 @@ test_quadrature()
       qtest.test_relative(out.__result, exp_result, _Tp{1.0e-14L}, "exp_sinh(f16) smooth result");
       qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-5L}, "exp_sinh(f16) smooth abserr");
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -3193,7 +3193,7 @@ test_quadrature()
       qtest.test_relative(out.__result, exp_result, _Tp{1.0e-14L}, "sinh_sinh(myfn1) smooth result");
       qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-5L}, "sinh_sinh(myfn1) smooth abserr");
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }
@@ -3224,7 +3224,7 @@ test_quadrature()
       qtest.test_relative(out.__result, exp_result, _Tp{1.0e-14L}, "exp_sinh(myfn2) smooth result");
       qtest.test_relative(out.__abserr, exp_abserr, _Tp{1.0e-5L}, "exp_sinh(myfn2) smooth abserr");
     }
-  catch (__gnu_cxx::__integration_error<_Tp>& iex)
+  catch (__gnu_cxx::integration_error<_Tp, _Tp>& iex)
     {
       belch<_Tp>(iex);
     }

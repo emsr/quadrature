@@ -45,18 +45,17 @@ namespace __gnu_cxx
     UNKNOWN_ERROR
   };
 
-  template<typename _Tp>
-    class __integration_error : public std::runtime_error
+  template<typename AreaTp, typename AbsAreaTp>
+    class integration_error : public std::runtime_error
     {
-      _Tp _M_result;
-      _Tp _M_abserr;
+      AreaTp _M_result;
+      AbsAreaTp _M_abserr;
       int _M_errcode;
 
     public:
 
-      __integration_error(const char* __what, int __errcode,
-			_Tp __result = std::numeric_limits<_Tp>::quiet_NaN(),
-			_Tp __abserr = std::numeric_limits<_Tp>::quiet_NaN())
+      integration_error(const char* __what, int __errcode,
+			AreaTp __result, AbsAreaTp __abserr)
       : std::runtime_error(__what),
 	_M_result(__result),
 	_M_abserr(__abserr),
@@ -67,11 +66,11 @@ namespace __gnu_cxx
       error_code() const
       { return _M_errcode; }
 
-      _Tp
+      AreaTp
       result() const
       { return this->_M_result; }
 
-      _Tp
+      AbsAreaTp
       abserr() const
       { return this->_M_abserr; }
     };
@@ -79,33 +78,10 @@ namespace __gnu_cxx
   /**
    * Throws appropriate error if errcode nonzero
    */
-  template<typename _Tp>
+  template<typename AreaTp, typename AbsAreaTp>
     void
-    __throw_integration_error(const char* __what, int __errcode,
-			  _Tp __result = std::numeric_limits<_Tp>::quiet_NaN(),
-			  _Tp __abserr = std::numeric_limits<_Tp>::quiet_NaN())
-			  __attribute__((__noreturn__));
-
-  /**
-   * Throws appropriate error if errcode nonzero
-   */
-  template<typename _Tp>
-    void
-    __throw_integration_error(const char* __what, int __errcode,
-			      _Tp __result, _Tp __abserr)
-    {
-      _GLIBCXX_THROW_OR_ABORT(
-	__integration_error(__what, __errcode, __result, __abserr));
-    }
-
-  /**
-   * Throws appropriate error if errcode nonzero
-   */
-  template<typename _Tp>
-    void
-    __check_error(std::string_view __func, int __errcode,
-		  _Tp __result = std::numeric_limits<_Tp>::quiet_NaN(),
-		  _Tp __abserr = std::numeric_limits<_Tp>::quiet_NaN())
+    check_error(std::string_view __func, int __errcode,
+		AreaTp __result, AbsAreaTp __abserr)
     {
       std::ostringstream msg;
       msg << __func << ": ";
@@ -141,40 +117,39 @@ namespace __gnu_cxx
 	  msg << "Could not integrate function";
 	}
 
-      __throw_integration_error(msg.str().c_str(), __errcode,
-				__result, __abserr);
+      throw integration_error(msg.str().c_str(), __errcode, __result, __abserr);
     }
 
   /**
    * 
    */
-  template<typename _Tp>
-    _Tp
-    __rescale_error(_Tp __err,
-		    const _Tp __result_abs, const _Tp __result_asc)
+  template<typename AreaTp, typename AbsAreaTp>
+    AbsAreaTp
+    rescale_error(AreaTp __err,
+		  const AbsAreaTp __result_abs, const AbsAreaTp __result_asc)
     {
-      const auto _S_eps = std::numeric_limits<_Tp>::epsilon();
-      const auto _S_min = std::numeric_limits<_Tp>::min();
+      const auto _S_eps = std::numeric_limits<AbsAreaTp>::epsilon();
+      const auto _S_min = std::numeric_limits<AbsAreaTp>::min();
 
-      __err = std::abs(__err);
-      if (__result_asc != 0 && __err != _Tp{0})
+      AbsAreaTp __abserr = std::abs(__err);
+      if (__result_asc != AbsAreaTp{} && __abserr != AbsAreaTp{})
 	{
-	  auto __scale = std::pow((_Tp{200} * __err / __result_asc), _Tp{1.5});
+	  auto __scale = std::pow((AbsAreaTp{200} * __abserr / __result_asc), AbsAreaTp{1.5});
 
-	  if (__scale < _Tp{1})
-	    __err = __result_asc * __scale;
+	  if (__scale < AbsAreaTp{1})
+	    __abserr = __result_asc * __scale;
 	  else
-	    __err = __result_asc;
+	    __abserr = __result_asc;
 	}
-      if (__result_abs > _S_min / (_Tp{50} * _S_eps))
+      if (__result_abs > _S_min / (AbsAreaTp{50} * _S_eps))
 	{
-	  auto __min_err = _Tp{50} * _S_eps * __result_abs;
+	  auto __min_err = AbsAreaTp{50} * _S_eps * __result_abs;
 
-	  if (__min_err > __err)
-	    __err = __min_err;
+	  if (__min_err > __abserr)
+	    __abserr = __min_err;
 	}
 
-      return __err;
+      return __abserr;
     }
 
 } // namespace __gnu_cxx

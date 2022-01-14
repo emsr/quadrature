@@ -21,6 +21,7 @@
 #ifndef GAUSS_QUADRATURE_TCC
 #define GAUSS_QUADRATURE_TCC 1
 
+#include <type_traits>
 #include <cmath>
 
 namespace __gnu_cxx

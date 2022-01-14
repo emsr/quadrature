@@ -27,6 +27,7 @@
 #ifndef GAUSS_KRONROD_INTERGAL_TCC
 #define GAUSS_KRONROD_INTERGAL_TCC 1
 
+#include <type_traits>
 #include <vector>
 #include <cmath>
 #include <array>
@@ -581,7 +582,7 @@ namespace __gnu_cxx
 	__result_asc *= __abs_half_length;
 
 	return {__result_kronrod,
-		  __rescale_error(__err, __result_abs, __result_asc),
+		  rescale_error(__err, __result_abs, __result_asc),
 		  __result_abs, __result_asc};
       }
 

@@ -27,6 +27,7 @@
 #ifndef QAG_INTEGRATE_TCC
 #define QAG_INTEGRATE_TCC 1
 
+#include <type_traits>
 #include <utility>
 #include <limits>
 #include <string>
@@ -100,17 +101,17 @@ namespace __gnu_cxx
       const auto __round_off = _Tp{10} * __tolerance * __resabs0;
 
       if (__abserr0 <= __round_off && __abserr0 > __tolerance)
-	__throw_integration_error("qag_integrate: "
-				  "Cannot reach tolerance because "
-				  "of roundoff error on first attempt",
-				  ROUNDOFF_ERROR, __result0, __abserr0);
+	throw integration_error("qag_integrate: "
+				"Cannot reach tolerance because "
+				"of roundoff error on first attempt",
+				ROUNDOFF_ERROR, __result0, __abserr0);
       else if ((__abserr0 <= __tolerance && __abserr0 != __resasc0)
 		|| __abserr0 == _Tp{0})
 	return {__result0, __abserr0};
       else if (__max_iter == 1)
-	__throw_integration_error("qag_integrate: "
-				  "A maximum of one iteration was insufficient",
-				  MAX_ITER_ERROR, __result0, __abserr0);
+	throw integration_error("qag_integrate: "
+				"A maximum of one iteration was insufficient",
+				MAX_ITER_ERROR, __result0, __abserr0);
 
       __workspace.clear();
       __workspace.append(__lower, __upper, __result0, __abserr0);
@@ -184,9 +185,9 @@ namespace __gnu_cxx
       if (__error_type == NO_ERROR && __iteration >= __max_iter)
 	__error_type = MAX_ITER_ERROR;
 
-      __check_error<_Tp>(__func__, __error_type, __result, __abserr);
-      __throw_integration_error("qag_integrate: Unknown error.",
-				UNKNOWN_ERROR, __result, __abserr);
+      check_error(__func__, __error_type, __result, __abserr);
+      throw integration_error("qag_integrate: Unknown error.",
+			      UNKNOWN_ERROR, __result, __abserr);
     }
 
 } // namespace __gnu_cxx

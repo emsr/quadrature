@@ -27,6 +27,7 @@
 #ifndef QAWF_INTEGRATE_TCC
 #define QAWF_INTEGRATE_TCC 1
 
+#include <type_traits>
 #include <cmath>
 
 #include <ext/integration_workspace.h>
@@ -207,8 +208,8 @@ namespace __gnu_cxx
 
     return_error:
 
-      __check_error(__func__, __error_type, __result, __abserr);
-      __throw_integration_error("qawf_integrate: Unknown error.", UNKNOWN_ERROR,
+      check_error(__func__, __error_type, __result, __abserr);
+      throw integration_error("qawf_integrate: Unknown error.", UNKNOWN_ERROR,
 				__result, __abserr);
     }
 

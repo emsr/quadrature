@@ -21,6 +21,7 @@
 #ifndef GAUSS_QUADRATURE_H
 #define GAUSS_QUADRATURE_H 1
 
+#include <type_traits>
 #include <vector>
 
 namespace __gnu_cxx

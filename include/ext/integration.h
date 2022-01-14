@@ -24,6 +24,8 @@
 
 #include <limits>
 #include <tuple>
+#include <complex> // For complex abs
+#include <type_traits>
 
 #include <ext/quadrature_point.h>
 #include <ext/gauss_kronrod_integral.h>

@@ -27,6 +27,7 @@
 #ifndef QAWS_INTEGRATE_TCC
 #define QAWS_INTEGRATE_TCC 1
 
+#include <type_traits>
 #include <array>
 
 #include <ext/integration_workspace.h>
@@ -139,9 +140,9 @@ namespace __gnu_cxx
 	  < _Tp{0.01} * std::abs(__result0))
 	return {__result0, __abserr0};
       else if (__limit == 1)
-	__throw_integration_error("qaws_integrate: "
-				  "A maximum of one iteration was insufficient",
-				  MAX_ITER_ERROR, __result0, __abserr0);
+	throw integration_error("qaws_integrate: "
+				"A maximum of one iteration was insufficient",
+				MAX_ITER_ERROR, __result0, __abserr0);
 
       auto __area = __result0;
       auto __errsum = __abserr0;
@@ -210,9 +211,9 @@ namespace __gnu_cxx
       if (__error_type == NO_ERROR)
 	return {__result, __abserr};
 
-      __check_error<_Tp>(__func__, __error_type, __result, __abserr);
-      __throw_integration_error("qaws_integrate: Unknown error.",
-				UNKNOWN_ERROR, __result, __abserr);
+      check_error(__func__, __error_type, __result, __abserr);
+      throw integration_error("qaws_integrate: Unknown error.",
+			      UNKNOWN_ERROR, __result, __abserr);
     }
 
   /**

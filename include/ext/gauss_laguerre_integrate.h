@@ -21,7 +21,9 @@
 #ifndef GAUSS_LAGUERRE_INTEGRATE_H
 #define GAUSS_LAGUERRE_INTEGRATE_H 1
 
+#include <type_traits>
 #include <vector>
+
 #include <ext/quadrature_point.h>
 
 namespace __gnu_cxx

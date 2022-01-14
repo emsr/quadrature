@@ -21,6 +21,7 @@
 #ifndef QCHEB_INTEGRATE_TCC
 #define QCHEB_INTEGRATE_TCC 1
 
+#include <type_traits>
 #include <array>
 
 namespace __gnu_cxx

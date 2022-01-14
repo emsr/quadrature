@@ -28,6 +28,7 @@
 #ifndef QAGS_INTEGRATE_TCC
 #define QAGS_INTEGRATE_TCC 1
 
+#include <type_traits>
 #include <utility>
 #include <limits>
 #include <tuple>
@@ -104,17 +105,17 @@ namespace __gnu_cxx
       const auto __round_off = _Tp{10} * __tolerance * __resabs0;
 
       if (__abserr0 <= __round_off && __abserr0 > __tolerance)
-	__throw_integration_error("qags_integrate: "
-				  "Cannot reach tolerance because "
-				  "of roundoff error on first attempt",
-				  ROUNDOFF_ERROR, __result0, __abserr0);
+	throw integration_error("qags_integrate: "
+				"Cannot reach tolerance because "
+				"of roundoff error on first attempt",
+				ROUNDOFF_ERROR, __result0, __abserr0);
       else if ((__abserr0 <= __tolerance && __abserr0 != __resasc0)
 		|| __abserr0 == _Tp{0})
 	return {__result0, __abserr0};
       else if (__max_iter == 1)
-	__throw_integration_error("qags_integrate: "
-				  "A maximum of one iteration was insufficient",
-				  MAX_ITER_ERROR, __result0, __abserr0);
+	throw integration_error("qags_integrate: "
+				"A maximum of one iteration was insufficient",
+				MAX_ITER_ERROR, __result0, __abserr0);
 
       extrapolation_table<_Tp> __table;
       __table.append(__result0);
@@ -198,7 +199,7 @@ namespace __gnu_cxx
 	  if (__errsum <= __tolerance)
 	    {
 	      const auto __result = __workspace.total_integral();
-	      __check_error(__func__, __error_type, __result, __errsum);
+	      check_error(__func__, __error_type, __result, __errsum);
 	      return {__result, __errsum};
 	    }
 
@@ -290,7 +291,7 @@ namespace __gnu_cxx
       if (__err_ext == _S_max)
 	{
 	  const auto __result = __workspace.total_integral();
-	  __check_error(__func__, __error_type, __result, __errsum);
+	  check_error(__func__, __error_type, __result, __errsum);
 	  return {__result, __errsum};
 	}
 
@@ -307,19 +308,19 @@ namespace __gnu_cxx
 	      if (__err_ext / std::abs(__res_ext) > __errsum / std::abs(__area))
 		{
 		  const auto __result = __workspace.total_integral();
-		  __check_error(__func__, __error_type, __result, __errsum);
+		  check_error(__func__, __error_type, __result, __errsum);
 		  return {__result, __errsum};
 		}
 	    }
 	  else if (__err_ext > __errsum)
 	    {
 	      const auto __result = __workspace.total_integral();
-	      __check_error(__func__, __error_type, __result, __errsum);
+	      check_error(__func__, __error_type, __result, __errsum);
 	      return {__result, __errsum};
 	    }
 	  else if (__area == _Tp{0})
 	    {
-	      __check_error<_Tp>(__func__, __error_type, __result, __errsum);
+	      check_error(__func__, __error_type, __result, __errsum);
 	      std::__throw_runtime_error("qags_integrate: Unknown error.");
 	    }
 	}
@@ -329,7 +330,7 @@ namespace __gnu_cxx
       auto __max_area = std::max(std::abs(__res_ext), std::abs(__area));
       if (!__positive_integrand && __max_area < _Tp{0.01} * __resabs0)
 	{
-	  __check_error<_Tp>(__func__, __error_type, __area, __errsum);
+	  check_error(__func__, __error_type, __area, __errsum);
 	  std::__throw_runtime_error("qags_integrate: Unknown error.");
 	}
 
@@ -341,9 +342,9 @@ namespace __gnu_cxx
       if (__error_type == NO_ERROR)
 	return {__result, __abserr};
 
-      __check_error<_Tp>(__func__, __error_type);
-      __throw_integration_error("qags_integrate: Unknown error.",
-				UNKNOWN_ERROR, __result, __abserr);
+      check_error(__func__, __error_type, decltype(__result)(), decltype(__abserr)());
+      throw integration_error("qags_integrate: Unknown error.",
+			      UNKNOWN_ERROR, __result, __abserr);
     }
 
   /**

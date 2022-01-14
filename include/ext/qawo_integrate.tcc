@@ -27,6 +27,7 @@
 #ifndef QAWO_INTEGRATE_TCC
 #define QAWO_INTEGRATE_TCC 1
 
+#include <type_traits>
 #include <cmath>
 
 #include <ext/oscillatory_integration_table.h>
@@ -92,17 +93,17 @@ namespace __gnu_cxx
 
       if (__abserr0 <= _Tp{100} * _S_eps * __resabs0
 	  && __abserr0 > __tolerance)
-	__throw_integration_error("qawo_integrate: "
-				  "Cannot reach tolerance because "
-				  "of roundoff error on first attempt",
-				  ROUNDOFF_ERROR, __result0, __abserr0);
+	throw integration_error("qawo_integrate: "
+				"Cannot reach tolerance because "
+				"of roundoff error on first attempt",
+				ROUNDOFF_ERROR, __result0, __abserr0);
       else if ((__abserr0 <= __tolerance && __abserr0 != __resasc0)
 		|| __abserr0 == _Tp{0})
 	return {__result0, __abserr0};
       else if (__limit == 1)
-	__throw_integration_error("qawo_integrate: "
-				  "A maximum of one iteration was insufficient",
-				  MAX_ITER_ERROR, __result0, __abserr0);
+	throw integration_error("qawo_integrate: "
+				"A maximum of one iteration was insufficient",
+				MAX_ITER_ERROR, __result0, __abserr0);
 
       if (0.5 * __abs_omega * std::abs(__upper - __lower) <= _Tp{2})
 	{
@@ -197,7 +198,7 @@ namespace __gnu_cxx
 	    {
 	      __result = __workspace.total_integral();
 	      __abserr = __errsum;
-	      __check_error<_Tp>(__func__, __error_type, __result, __abserr);
+	      check_error(__func__, __error_type, __result, __abserr);
 	      return {__result, __abserr};
 	    }
 
@@ -316,7 +317,7 @@ namespace __gnu_cxx
 	{
 	  __result = __workspace.total_integral();
 	  __abserr = __errsum;
-	  __check_error<_Tp>(__func__, __error_type, __result, __abserr);
+	  check_error(__func__, __error_type, __result, __abserr);
 	  return {__result, __abserr};
 	}
 
@@ -334,7 +335,7 @@ namespace __gnu_cxx
 		{
 		  __result = __workspace.total_integral();
 		  __abserr = __errsum;
-		  __check_error<_Tp>(__func__, __error_type,
+		  check_error(__func__, __error_type,
 				     __result, __abserr);
 		  return {__result, __abserr};
 		}
@@ -343,12 +344,12 @@ namespace __gnu_cxx
 	    {
 	      __result = __workspace.total_integral();
 	      __abserr = __errsum;
-	      __check_error<_Tp>(__func__, __error_type, __result, __abserr);
+	      check_error(__func__, __error_type, __result, __abserr);
 	      return {__result, __abserr};
 	    }
 	  else if (__area == _Tp{0})
 	    {
-	      __check_error<_Tp>(__func__, __error_type, __result, __abserr);
+	      check_error(__func__, __error_type, __result, __abserr);
 	      return {__result, __abserr};
 	    }
 	}
@@ -358,7 +359,7 @@ namespace __gnu_cxx
       auto __max_area = std::max(std::abs(__res_ext), std::abs(__area));
       if (!__positive_integrand && __max_area < _Tp{0.01} * __resabs0)
 	{
-	  __check_error<_Tp>(__func__, __error_type, __result, __abserr);
+	  check_error(__func__, __error_type, __result, __abserr);
 	  return {__result, __abserr};
 	}
 
@@ -367,7 +368,7 @@ namespace __gnu_cxx
 	  || __errsum > std::abs(__area))
 	__error_type = UNKNOWN_ERROR;
 
-      __check_error<_Tp>(__func__, __error_type, __result, __abserr);
+      check_error(__func__, __error_type, __result, __abserr);
       return {__result, __abserr};
     }
 

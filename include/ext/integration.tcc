@@ -21,6 +21,8 @@
 #ifndef INTEGRATION_TCC
 #define INTEGRATION_TCC 1
 
+#include <type_traits>
+
 namespace __gnu_cxx _GLIBCXX_VISIBILITY(default)
 {
 _GLIBCXX_BEGIN_NAMESPACE_VERSION
