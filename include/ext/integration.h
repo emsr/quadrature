@@ -30,9 +30,8 @@
 #include <ext/quadrature_point.h>
 #include <ext/gauss_kronrod_integral.h>
 
-namespace __gnu_cxx _GLIBCXX_VISIBILITY(default)
+namespace emsr
 {
-_GLIBCXX_BEGIN_NAMESPACE_VERSION
 
   /**
    * The return type for a fixed integral rule.
@@ -64,17 +63,15 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
       AbsAreaTp abserr = AbsAreaTp{};
     };
 
-_GLIBCXX_END_NAMESPACE_VERSION
-} // namespace __gnu_cxx
+} // namespace emsr
 
 #include <ext/trapezoid_integral.h>
 #include <ext/midpoint_integral.h>
 #include <ext/simpson_integral.h>
 #include <ext/gauss_quadrature.h>
 
-namespace __gnu_cxx _GLIBCXX_VISIBILITY(default)
+namespace emsr
 {
-_GLIBCXX_BEGIN_NAMESPACE_VERSION
 
   /**
    * An error tolerance model for integrals.
@@ -149,12 +146,10 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
 	     s_valid_tolerances(max_abs_err, max_rel_err);
     }
 
-_GLIBCXX_END_NAMESPACE_VERSION
-} // namespace __gnu_cxx
+} // namespace emsr
 
-namespace __gnu_cxx _GLIBCXX_VISIBILITY(default)
+namespace emsr
 {
-_GLIBCXX_BEGIN_NAMESPACE_VERSION
 
   /**
    * Integrate a smooth function from a to b.
@@ -621,8 +616,7 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
     integrate_fixed_gauss_rational(int n, Tp alf, Tp bet,
 				   FuncTp func, Tp a, Tp b);
 
-_GLIBCXX_END_NAMESPACE_VERSION
-} // namespace __gnu_cxx
+} // namespace emsr
 
 #include <ext/trapezoid_integral.tcc>
 #include <ext/midpoint_integral.tcc>

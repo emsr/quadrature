@@ -31,7 +31,7 @@
 #include <cmath>
 #include <iosfwd>
 
-namespace __gnu_cxx
+namespace emsr
 {
 
   template<typename Tp, typename RetTp>
@@ -317,7 +317,7 @@ namespace __gnu_cxx
     operator<<(std::ostream& out,
 	       const integration_workspace<Tp, RetTp>& ws);
 
-} // namespace __gnu_cxx
+} // namespace emsr
 
 #include <ext/integration_workspace.tcc>
 

@@ -23,7 +23,7 @@
 #include <type_traits>
 #include <cmath>
 
-namespace __gnu_cxx
+namespace emsr
 {
 
   /**
@@ -332,6 +332,6 @@ namespace __gnu_cxx
 	}
     }
 
-} // namespace __gnu_cxx
+} // namespace emsr
 
 #endif // DOUBLE_EXP_INTEGRATE_TCC

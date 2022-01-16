@@ -11,7 +11,7 @@ main()
   std::cout.precision(std::numeric_limits<double>::digits10);
   auto w = 4 + std::cout.precision();
 
-  __gnu_cxx::phase_iterator<double> iter(+0.001);
+  emsr::phase_iterator<double> iter(+0.001);
   for (int k = 0; k < 1000; ++k, ++iter)
     {
       auto phi = k * 0.001;

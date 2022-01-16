@@ -25,7 +25,7 @@
 #include <complex>
 #include <vector>
 
-namespace __gnu_cxx
+namespace emsr
 {
 
   /**
@@ -273,7 +273,7 @@ namespace __gnu_cxx
     void
     inv_fast_fourier_transform(const CmplxIter& from, const CmplxIter& to);
 
-} // namespace __gnu_cxx
+} // namespace emsr
 
 #include <ext/fourier_transform.tcc>
 

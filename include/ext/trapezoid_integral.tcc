@@ -23,7 +23,7 @@
 #include <type_traits>
 #include <cmath>
 
-namespace __gnu_cxx
+namespace emsr
 {
 
   /**
@@ -116,6 +116,6 @@ namespace __gnu_cxx
       return this->m_result;
     }
 
-} // namespace __gnu_cxx
+} // namespace emsr
 
 #endif // TRAPEZOID_INTEGRAL_TCC

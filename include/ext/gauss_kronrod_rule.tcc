@@ -263,9 +263,8 @@ namespace detail
 } // namespace detail
 } // namespace std
 
-namespace __gnu_cxx _GLIBCXX_VISIBILITY(default)
+namespace emsr
 {
-_GLIBCXX_BEGIN_NAMESPACE_VERSION
 
   /**
    * @brief Add n+1 points to an n-point Gaussian rule.
@@ -420,7 +419,6 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
       return;
     }
 
-_GLIBCXX_END_NAMESPACE_VERSION
-} // namespace __gnu_cxx
+} // namespace emsr
 
 #endif // GAUSS_KRONROD_RULE_TCC

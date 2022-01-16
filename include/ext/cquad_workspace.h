@@ -28,7 +28,7 @@
 
 #include <vector>
 
-namespace __gnu_cxx
+namespace emsr
 {
 
   /**
@@ -154,6 +154,6 @@ namespace __gnu_cxx
       }
     };
 
-} // namespace __gnu_cxx
+} // namespace emsr
 
 #endif // CQUAD_WORKSPACE_H

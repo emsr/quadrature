@@ -21,7 +21,7 @@
 #ifndef MATRIX_H
 #define MATRIX_H 1
 
-namespace __gnu_cxx
+namespace emsr
 {
 
   template<typename RandAccIter, typename RandAccIterRHS>
@@ -36,7 +36,7 @@ namespace __gnu_cxx
 		   RandAccIter& diag, RandAccIter& subd,
 		   RandAccIterRHS& rhs);
 
-} // namespace __gnu_cxx
+} // namespace emsr
 
 #include <ext/matrix.tcc>
 

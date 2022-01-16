@@ -32,7 +32,7 @@
 
 #include <ext/oscillatory_integration_table.h>
 
-namespace __gnu_cxx
+namespace emsr
 {
 
   template<typename Tp, typename FuncTp>
@@ -465,7 +465,7 @@ namespace __gnu_cxx
 	}
     }
 
-} // namespace __gnu_cxx
+} // namespace emsr
 
 #endif // QAWO_INTEGRATE_TCC
 

@@ -33,7 +33,7 @@
 #include <cmath>
 #include <algorithm>
 
-namespace __gnu_cxx
+namespace emsr
 {
 
   template<typename AreaTp, typename AbsAreaTp>
@@ -83,7 +83,7 @@ namespace __gnu_cxx
       { return this->m_nn; }
     };
 
-} // namespace __gnu_cxx
+} // namespace emsr
 
 #include <ext/extrapolation_table.tcc>
 

@@ -30,7 +30,7 @@
 
 #include <ext/quadrature_point.h>
 
-namespace __gnu_cxx
+namespace emsr
 {
 
   template<typename Tp>
@@ -126,6 +126,6 @@ namespace __gnu_cxx
 	return this->rule[i + this->order / 2].weight;
     }
 
-} // namespace __gnu_cxx
+} // namespace emsr
 
 #endif // GAUSS_LEGENDRE_TABLE_TCC

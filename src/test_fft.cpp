@@ -22,14 +22,14 @@ template<typename Tp>
     for (auto k = 0u; k < len; ++k)
       vec[k] = k;
     auto xform = vec;
-    __gnu_cxx::fast_fourier_transform(xform);
+    emsr::fast_fourier_transform(xform);
 
     auto mean_abs_diff = Tp{0};
     std::cout << '\n';
     auto diff = xform[0] - Cmplx(len * (len - 1) / Tp{2});
     auto abs_diff = std::abs(diff);
     mean_abs_diff += abs_diff;
-    __gnu_cxx::__phase_iterator omega_k(Tp{-1}, 1, len);
+    emsr::__phase_iterator omega_k(Tp{-1}, 1, len);
     ++omega_k;
     for (auto k = 1u; k < len; ++k, ++omega_k)
       {
@@ -67,10 +67,10 @@ template<typename Tp>
       vec.push_back(std::polar(Tp{1}, gen()));
 
     auto xform = vec;
-    __gnu_cxx::fast_fourier_transform(xform);
+    emsr::fast_fourier_transform(xform);
 
     auto iform = xform;
-    __gnu_cxx::inv_fast_fourier_transform(iform);
+    emsr::inv_fast_fourier_transform(iform);
 
     auto mean_abs_diff = Tp{0};
     std::cout << '\n';
@@ -108,10 +108,10 @@ template<typename Tp>
       vec.push_back(gen());
 
     auto xform = vec;
-    __gnu_cxx::fast_fourier_transform(xform);
+    emsr::fast_fourier_transform(xform);
 
     auto iform = xform;
-    __gnu_cxx::inv_fast_fourier_transform(iform);
+    emsr::inv_fast_fourier_transform(iform);
 
     // This has the correct indexing you would want for fourier_transform_t<real_t>.
     auto mean_abs_diff = Tp{0};
@@ -153,10 +153,10 @@ template<typename Tp>
       vec.push_back(gen());
 
     auto xform = vec;
-    __gnu_cxx::fast_sine_transform(xform);
+    emsr::fast_sine_transform(xform);
 
     auto iform = xform;
-    __gnu_cxx::inv_fast_sine_transform(iform);
+    emsr::inv_fast_sine_transform(iform);
 
     // This has the correct indexing you would want for fourier_transform_t<real_t>.
     auto mean_abs_diff = Tp{0};

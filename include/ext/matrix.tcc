@@ -23,7 +23,7 @@
 
 #include <type_traits> // For decay.
 
-namespace __gnu_cxx
+namespace emsr
 {
 
   /**
@@ -248,6 +248,6 @@ namespace __gnu_cxx
       return 0;
     }
 
-} // namespace __gnu_cxx
+} // namespace emsr
 
 #endif // MATRIX_TCC

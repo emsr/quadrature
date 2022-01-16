@@ -26,7 +26,7 @@ template<typename Tp>
       {
 	std::cout << '\n' << (2 * n + 1) << "-point Gauss-Patterson-Kronrod rule\n";
 	std::vector<Tp> x, wk, wg;
-	__gnu_cxx::__build_gauss_kronrod(n, eps, x, wg, wk);
+	emsr::__build_gauss_kronrod(n, eps, x, wg, wk);
 	std::cout << "x\n";
 	for (int i = 0; i < n + 1; ++i)
 	  std::cout << ' ' << std::setw(w) << x[i] << '\n';

@@ -26,7 +26,7 @@
 #ifndef CQUAD_CONST_TCC
 #define CQUAD_CONST_TCC 1
 
-namespace __gnu_cxx
+namespace emsr
 {
 
 constexpr long double
@@ -1718,6 +1718,6 @@ Tright[33 * 33]
    0.0L, 0.0L,  0.23283064365386962891e-9L,
 };
 
-} // namespace __gnu_cxx
+} // namespace emsr
 
 #endif // CQUAD_CONST_TCC

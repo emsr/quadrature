@@ -33,7 +33,7 @@
 #include <ext/integration_workspace.h>
 #include <ext/oscillatory_integration_table.h>
 
-namespace __gnu_cxx
+namespace emsr
 {
 
   /**
@@ -216,6 +216,6 @@ namespace __gnu_cxx
 			      result, abserr);
     }
 
-} // namespace __gn_test
+} // namespace emsr
 
 #endif // QAWF_INTEGRATE_TCC

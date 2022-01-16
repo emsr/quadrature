@@ -29,7 +29,7 @@
 
 #include <cmath>
 
-namespace __gnu_cxx
+namespace emsr
 {
   enum Gauss_Legendre_Rule
   {
@@ -2827,7 +2827,7 @@ namespace __gnu_cxx
 		      = sizeof(gauss_legendre_precomp)
 		      / sizeof(gauss_legendre_precomp[0]);
 
-} // namespace __gnu_cxx
+} // namespace emsr
 
 #include <ext/gauss_legendre_table.tcc>
 

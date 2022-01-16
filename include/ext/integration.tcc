@@ -23,7 +23,7 @@
 
 #include <type_traits>
 
-namespace __gnu_cxx _GLIBCXX_VISIBILITY(default)
+namespace emsr _GLIBCXX_VISIBILITY(default)
 {
 _GLIBCXX_BEGIN_NAMESPACE_VERSION
 
@@ -719,7 +719,7 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
     }
 
 _GLIBCXX_END_NAMESPACE_VERSION
-} // namespace __gnu_cxx
+} // namespace emsr
 
 #include <ext/gauss_kronrod_integral.tcc>
 #include <ext/qag_integrate.tcc>

@@ -39,7 +39,7 @@
 #include <ext/integration_workspace.h>
 #include <ext/extrapolation_table.h>
 
-namespace __gnu_cxx
+namespace emsr
 {
 
   /**
@@ -419,6 +419,6 @@ namespace __gnu_cxx
 				Tp{0}, Tp{1}, max_abs_err, max_rel_err);
     }
 
-} // namespace __gnu_cxx
+} // namespace emsr
 
 #endif // QAGS_INTEGRATE_TCC

@@ -24,7 +24,7 @@
 #include <type_traits>
 #include <vector>
 
-namespace __gnu_cxx
+namespace emsr
 {
 
   /**
@@ -504,6 +504,6 @@ namespace __gnu_cxx
 	}
     }
 
-} // namespace __gnu_cxx
+} // namespace emsr
 
 #endif // GAUSS_QUADRATURE_H

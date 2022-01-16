@@ -30,7 +30,7 @@
 
 #include <ext/integration_error.h>
 
-namespace __gnu_cxx
+namespace emsr
 {
 
   /**
@@ -159,6 +159,6 @@ namespace __gnu_cxx
       return out;
     }
 
-} // namespace __gnu_cxx
+} // namespace emsr
 
 #endif // INTEGRATION_WORKSPACE_TCC

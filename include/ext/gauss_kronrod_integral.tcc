@@ -36,7 +36,7 @@
 #include <ext/integration_error.h>
 #include <ext/gauss_kronrod_rule.tcc>
 
-namespace __gnu_cxx
+namespace emsr
 {
 
   template<typename Tp>
@@ -639,6 +639,6 @@ namespace __gnu_cxx
 	  }
       }
 
-} // namespace __gnu_cxx
+} // namespace emsr
 
 #endif // GAUSS_KRONROD_INTERGAL_TCC

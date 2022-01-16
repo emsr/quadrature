@@ -34,7 +34,7 @@
 #include <ext/integration_workspace.h>
 #include <ext/extrapolation_table.h>
 
-namespace __gnu_cxx
+namespace emsr
 {
 
   /**
@@ -386,6 +386,6 @@ namespace __gnu_cxx
 			      UNKNOWN_ERROR, result, abserr);
     }
 
-} // namespace __gnu_cxx
+} // namespace emsr
 
 #endif // QAGP_INTEGRATE_H

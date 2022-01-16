@@ -23,7 +23,7 @@
 
 #include <array>
 
-namespace __gnu_cxx
+namespace emsr
 {
 
   /**
@@ -50,7 +50,7 @@ namespace __gnu_cxx
       void initialise();
     };
 
-} // namespace __gnu_cxx
+} // namespace emsr
 
 #include <ext/qaws_integration_table.tcc>
 

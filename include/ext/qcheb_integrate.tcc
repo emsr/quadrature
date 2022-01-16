@@ -24,7 +24,7 @@
 #include <type_traits>
 #include <array>
 
-namespace __gnu_cxx
+namespace emsr
 {
 
   template<typename RetTp>
@@ -247,6 +247,6 @@ namespace __gnu_cxx
       return out;
     }
 
-} // namespace __gnu_cxx
+} // namespace emsr
 
 #endif // QCHEB_INTEGRATE_TCC

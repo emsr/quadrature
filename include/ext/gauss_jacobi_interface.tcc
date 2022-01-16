@@ -111,49 +111,49 @@ template<typename Tp>
       case Gauss:
 	err = this->zeros_gj();
 	if (err)
-	  __gnu_cxx::__throw___integration_error("Problem calculating the zeros", err, Tp{}, Tp{});
+	  throw integration_error("Problem calculating the zeros", err, Tp{}, Tp{});
 	err = this->weights_gj();
 	if (err)
-	  __gnu_cxx::__throw___integration_error("Problem calculating the weightd", err, Tp{}, Tp{});
+	  throw integration_error("Problem calculating the weightd", err, Tp{}, Tp{});
 	err = this->diffmat_gj();
 	if (err)
-	  __gnu_cxx::__throw___integration_error("Problem calculating the differentiation matrix", err, Tp{}, Tp{});
+	  throw integration_error("Problem calculating the differentiation matrix", err, Tp{}, Tp{});
 	break;
       case Gauss_Lobatto:
 	err = this->zeros_glj();
 	if (err)
-	  __gnu_cxx::__throw___integration_error("Problem calculating the zeros", err, Tp{}, Tp{});
+	  throw integration_error("Problem calculating the zeros", err, Tp{}, Tp{});
 	err = this->weights_glj();
 	if (err)
-	  __gnu_cxx::__throw___integration_error("Problem calculating the weightd", err, Tp{}, Tp{});
+	  throw integration_error("Problem calculating the weightd", err, Tp{}, Tp{});
 	err = this->diffmat_glj();
 	if (err)
-	  __gnu_cxx::__throw___integration_error("Problem calculating the differentiation matrix", err, Tp{}, Tp{});
+	  throw integration_error("Problem calculating the differentiation matrix", err, Tp{}, Tp{});
 	break;
       case Gauss_Radau_lower:
 	err = this->zeros_grjm();
 	if (err)
-	  __gnu_cxx::__throw___integration_error("Problem calculating the zeros", err, Tp{}, Tp{});
+	  throw integration_error("Problem calculating the zeros", err, Tp{}, Tp{});
 	err = this->weights_grjm();
 	if (err)
-	  __gnu_cxx::__throw___integration_error("Problem calculating the weightd", err, Tp{}, Tp{});
+	  throw integration_error("Problem calculating the weightd", err, Tp{}, Tp{});
 	err = this->diffmat_grjm();
 	if (err)
-	  __gnu_cxx::__throw___integration_error("Problem calculating the differentiation matrix", err, Tp{}, Tp{});
+	  throw integration_error("Problem calculating the differentiation matrix", err, Tp{}, Tp{});
 	break;
       case Gauss_Radau_upper:
 	err = this->zeros_grjp();
 	if (err)
-	  __gnu_cxx::__throw___integration_error("Problem calculating the zeros", err, Tp{}, Tp{});
+	  throw integration_error("Problem calculating the zeros", err, Tp{}, Tp{});
 	err = this->weights_grjp();
 	if (err)
-	  __gnu_cxx::__throw___integration_error("Problem calculating the weightd", err, Tp{}, Tp{});
+	  throw integration_error("Problem calculating the weightd", err, Tp{}, Tp{});
 	err = this->diffmat_grjp();
 	if (err)
-	  __gnu_cxx::__throw___integration_error("Problem calculating the differentiation matrix", err, Tp{}, Tp{});
+	  throw integration_error("Problem calculating the differentiation matrix", err, Tp{}, Tp{});
 	break;
       default:
-	__gnu_cxx::__throw___integration_error("Illegal quadrature type", err, Tp{}, Tp{});
+	throw integration_error("Illegal quadrature type", err, Tp{}, Tp{});
       }
 
     return 0;
@@ -198,7 +198,7 @@ template<typename Tp>
       err = this->interpmat_grjp();
       break;
     default:
-      __gnu_cxx::__throw___integration_error("Illegal quadrature type", err, Tp{}, Tp{});
+      throw integration_error("Illegal quadrature type", err, Tp{}, Tp{});
     }
 
     return err;

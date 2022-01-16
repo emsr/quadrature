@@ -32,7 +32,7 @@
 #include <ext/cquad_workspace.h>
 #include <ext/complex_util.h> // isinf/isnan for complex
 
-namespace __gnu_cxx
+namespace emsr
 {
 
   /**
@@ -466,6 +466,6 @@ namespace __gnu_cxx
       return {igral, err};
     }
 
-} // namespace __gnu_cxx
+} // namespace emsr
 
 #endif // CQUAD_INTEGRATE_TCC

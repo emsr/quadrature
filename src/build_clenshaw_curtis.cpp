@@ -16,11 +16,11 @@
    * @f]
    */
   template<typename Tp>
-    std::vector<__gnu_cxx::quadrature_point_t<Tp>>
+    std::vector<emsr::quadrature_point_t<Tp>>
     chebyshev_u_zeros(unsigned int n)
     {
       const auto s_pi = Tp{3.1415'92653'58979'32384'62643'38327'95028'84195e+0L};
-      std::vector<__gnu_cxx::quadrature_point_t<Tp>> pt(n);
+      std::vector<emsr::quadrature_point_t<Tp>> pt(n);
       for (unsigned int k = 1; k <= n; ++k)
 	{
 	  auto arg = Tp(k) / Tp(n + 1);
@@ -45,10 +45,10 @@
  * @see Fast Construction of the Fejer and Clenshaw-Curtis Quadrature Rules
  */
 template<typename Tp>
-  std::vector<__gnu_cxx::quadrature_point_t<Tp>>
+  std::vector<emsr::quadrature_point_t<Tp>>
   build_clenshaw_curtis_sum(std::size_t __n)
   {
-    std::vector<__gnu_cxx::quadrature_point_t<Tp>> out(n + 1);
+    std::vector<emsr::quadrature_point_t<Tp>> out(n + 1);
     if (n == 1)
       {
 	out[0].point = Tp{0};
@@ -93,10 +93,10 @@ template<typename Tp>
  * @see Fast Construction of the Fejer and Clenshaw-Curtis Quadrature Rules
  */
 template<typename Tp>
-  std::vector<__gnu_cxx::quadrature_point_t<Tp>>
+  std::vector<emsr::quadrature_point_t<Tp>>
   build_clenshaw_curtis_fft(std::size_t __n)
   {
-    std::vector<__gnu_cxx::quadrature_point_t<Tp>> __out(__n + 1);
+    std::vector<emsr::quadrature_point_t<Tp>> __out(__n + 1);
     return __out;
   }
 
@@ -110,10 +110,10 @@ template<typename Tp>
  * @f]
  */
 template<typename Tp>
-  std::vector<__gnu_cxx::quadrature_point_t<Tp>>
+  std::vector<emsr::quadrature_point_t<Tp>>
   build_fejer_1_sum(std::size_t n)
   {
-    std::vector<__gnu_cxx::quadrature_point_t<Tp>> out(n + 1);
+    std::vector<emsr::quadrature_point_t<Tp>> out(n + 1);
     if (n == 1)
       {
 	out[0].point = Tp{0};
@@ -153,17 +153,17 @@ template<typename Tp>
  * @f]
  */
 template<typename Tp>
-  std::vector<__gnu_cxx::quadrature_point_t<Tp>>
+  std::vector<emsr::quadrature_point_t<Tp>>
   build_fejer_1_fft(std::size_t n)
   {
     const auto s_pi = Tp{3.1415'92653'58979'32384'62643'38327'95028'84195e+0L};
-    std::vector<__gnu_cxx::quadrature_point_t<Tp>> out(n);
+    std::vector<emsr::quadrature_point_t<Tp>> out(n);
     std::vector<std::complex<Tp>> v(n + 1);
     for (auto k = 0u; k < n / 2; ++k)
       v[n - k] = v[k] = std::polar(Tp{2}, k * s_pi / Tp{2})
       		     / Tp(1 - 4 * k * k);
     v[n / 2] = Tp(n - 3) / Tp(2 * (n / 2) - 1) - Tp(1);
-    __gnu_cxx::inv_fast_fourier_transform(v);
+    emsr::inv_fast_fourier_transform(v);
 std::cout << '\n';
 for (auto x : v)
 std::cout << x << '\n';
@@ -180,10 +180,10 @@ std::cout << x << '\n';
  * @f]
  */
 template<typename Tp>
-  std::vector<__gnu_cxx::__quadrature_point_t<Tp>>
+  std::vector<emsr::__quadrature_point_t<Tp>>
   build_fejer_2_sum(std::size_t n)
   {
-    std::vector<__gnu_cxx::quadrature_point_t<Tp>> out(n + 1);
+    std::vector<emsr::quadrature_point_t<Tp>> out(n + 1);
     if (n == 0)
       {
 	out[0].point = Tp{0};
@@ -232,15 +232,15 @@ template<typename Tp>
  * @f]
  */
 template<typename Tp>
-  std::vector<__gnu_cxx::__quadrature_point_t<Tp>>
+  std::vector<emsr::__quadrature_point_t<Tp>>
   build_fejer_2_fft(std::size_t n)
   {
-    std::vector<__gnu_cxx::quadrature_point_t<Tp>> out(n + 1);
+    std::vector<emsr::quadrature_point_t<Tp>> out(n + 1);
     std::vector<std::complex<Tp>> v(n + 1);
     for (auto k = 0u; k < n / 2; ++k)
       v[n - k] = v[k] = Tp{2} / Tp(1 - 4 * k * k);
     v[n / 2] = Tp(n - 3) / Tp(2 * (n / 2) - 1) - Tp(1);
-    gnu_cxx::inv_fast_fourier_transform(v);
+    emsr::inv_fast_fourier_transform(v);
 std::cout << '\n';
 for (auto x : v)
 std::cout << x << '\n';

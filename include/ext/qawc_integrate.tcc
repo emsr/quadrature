@@ -30,7 +30,7 @@
 #include <type_traits>
 #include <array>
 
-namespace __gnu_cxx
+namespace emsr
 {
 
   template<typename Tp, typename FuncTp,
@@ -303,6 +303,6 @@ namespace __gnu_cxx
       return moment;
     }
 
-} // namespace
+} // namespace emsr
 
 #endif // QAWC_INTEGRATE_TCC

@@ -30,7 +30,7 @@
 
 #include <ext/matrix.h>
 
-namespace __gnu_cxx
+namespace emsr
 {
 
   /**
@@ -188,6 +188,6 @@ namespace __gnu_cxx
 	this->chebmo[25 * level + 2 * i + 1] = v[i];
     }
 
-} // namespace __gnu_cxx
+} // namespace emsr
 
 #endif // OSCILLATORY_INTEGRATION_TABLE_TCC

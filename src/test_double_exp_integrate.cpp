@@ -37,10 +37,10 @@ template<typename Tp>
     auto rel_err = Tp{1.0e-10};
 
     auto sine = [](Tp x) -> Tp { return std::sin(x); };
-    auto mq = __gnu_cxx::integrate_tanh_sinh<Tp, decltype(sine)>(sine, a, b, abs_err, rel_err);
+    auto mq = emsr::integrate_tanh_sinh<Tp, decltype(sine)>(sine, a, b, abs_err, rel_err);
     std::cout << mq.result << ' ' << mq.abserr << '\n';
 
-    auto a0 = __gnu_cxx::integrate_tanh_sinh<Tp>(one, a, b, abs_err, rel_err);
+    auto a0 = emsr::integrate_tanh_sinh<Tp>(one, a, b, abs_err, rel_err);
     auto e0 = b - a;
     std::cout << "one     : "
 	      << ' ' << std::setw(w) << a0.result
@@ -49,7 +49,7 @@ template<typename Tp>
 	      << ' ' << std::setw(w) << std::abs(a0.result - e0) / std::abs(e0)
 	      << '\n';
 
-    auto a1 = __gnu_cxx::integrate_tanh_sinh<Tp>(ex, a, b, abs_err, rel_err);
+    auto a1 = emsr::integrate_tanh_sinh<Tp>(ex, a, b, abs_err, rel_err);
     auto e1 = (b * b - a * a) / Tp{2};
     std::cout << "ex      : "
 	      << ' ' << std::setw(w) << a1.result
@@ -58,7 +58,7 @@ template<typename Tp>
 	      << ' ' << std::setw(w) << std::abs(a1.result - e1) / std::abs(e1)
 	      << '\n';
 
-    auto a2 = __gnu_cxx::integrate_tanh_sinh<Tp>(cos2, a, b, abs_err, rel_err);
+    auto a2 = emsr::integrate_tanh_sinh<Tp>(cos2, a, b, abs_err, rel_err);
     auto e2 = pi / Tp{2};
     std::cout << "cos2    : "
 	      << ' ' << std::setw(w) << a2.result
@@ -67,7 +67,7 @@ template<typename Tp>
 	      << ' ' << std::setw(w) << std::abs(a2.result - e2) / std::abs(e2)
 	      << '\n';
 
-    auto a3 = __gnu_cxx::integrate_tanh_sinh<Tp>(sin2, a, b, abs_err, rel_err);
+    auto a3 = emsr::integrate_tanh_sinh<Tp>(sin2, a, b, abs_err, rel_err);
     auto e3 = pi / Tp{2};
     std::cout << "sin2    : "
 	      << ' ' << std::setw(w) << a3.result
@@ -76,7 +76,7 @@ template<typename Tp>
 	      << ' ' << std::setw(w) << std::abs(a3.result - e3) / std::abs(e3)
 	      << '\n';
 
-    auto a4 = __gnu_cxx::integrate_tanh_sinh<Tp>(j1, a, b, abs_err, rel_err);
+    auto a4 = emsr::integrate_tanh_sinh<Tp>(j1, a, b, abs_err, rel_err);
     auto e4 = std::cyl_bessel_j(Tp{0}, Tp{0}) - std::cyl_bessel_j(Tp{0}, pi);
     std::cout << "j1      : "
 	      << ' ' << std::setw(w) << a4.result
@@ -87,7 +87,7 @@ template<typename Tp>
 
     a = Tp{0};
     b = Tp{10} * pi;
-    auto a5 = __gnu_cxx::integrate_tanh_sinh<Tp>(foo, a, b, abs_err, rel_err);
+    auto a5 = emsr::integrate_tanh_sinh<Tp>(foo, a, b, abs_err, rel_err);
     auto e5 = Tp{2} * (Tp{1} + b) * std::exp(-b / Tp{2})
 	    - Tp{2} * (Tp{1} + a) * std::exp(-a / Tp{2});
     std::cout << "foo     : "
@@ -97,7 +97,7 @@ template<typename Tp>
 	      << ' ' << std::setw(w) << std::abs(a5.result - e5) / std::abs(e5)
 	      << '\n';
 
-    auto a5n = __gnu_cxx::integrate_tanh_sinh<Tp>(foonum, a, b, abs_err, rel_err);
+    auto a5n = emsr::integrate_tanh_sinh<Tp>(foonum, a, b, abs_err, rel_err);
     auto e5n = b * (Tp{1} - b / Tp{2})
 	     - a * (Tp{1} - a / Tp{2});
     std::cout << "foonum  : "
@@ -107,7 +107,7 @@ template<typename Tp>
 	      << ' ' << std::setw(w) << std::abs(a5n.result - e5n) / std::abs(e5n)
 	      << '\n';
 
-    auto a6 = __gnu_cxx::integrate_tanh_sinh<Tp>(poly1, a, b, abs_err, rel_err);
+    auto a6 = emsr::integrate_tanh_sinh<Tp>(poly1, a, b, abs_err, rel_err);
     auto e6 = poly1.integral()(b) - poly1.integral()(a);
     std::cout << "poly1   : "
 	      << ' ' << std::setw(w) << a6.result
@@ -118,7 +118,7 @@ template<typename Tp>
 
     a = Tp{0};
     b = pi;
-    auto a7 = __gnu_cxx::integrate_tanh_sinh<Tp>(funk1, a, b, abs_err, rel_err);
+    auto a7 = emsr::integrate_tanh_sinh<Tp>(funk1, a, b, abs_err, rel_err);
     auto e7 = Tp{0};
     std::cout << "funk1   : "
 	      << ' ' << std::setw(w) << a7.result
@@ -127,7 +127,7 @@ template<typename Tp>
 	      << ' ' << std::setw(w) << std::abs(a7.result - e7) / std::abs(e7)
 	      << '\n';
 
-    auto a7n = __gnu_cxx::integrate_tanh_sinh<Tp>(funk1num, a, b, abs_err, rel_err);
+    auto a7n = emsr::integrate_tanh_sinh<Tp>(funk1num, a, b, abs_err, rel_err);
     auto e7n = Tp{0};
     std::cout << "funk1num: "
 	      << ' ' << std::setw(w) << a7n.result
@@ -136,7 +136,7 @@ template<typename Tp>
 	      << ' ' << std::setw(w) << std::abs(a7n.result - e7n) / std::abs(e7n)
 	      << '\n';
 
-    auto a8 = __gnu_cxx::integrate_tanh_sinh<Tp>(funk2, a, b, abs_err, rel_err);
+    auto a8 = emsr::integrate_tanh_sinh<Tp>(funk2, a, b, abs_err, rel_err);
     auto e8 = Tp{0};
     std::cout << "funk2   : "
 	      << ' ' << std::setw(w) << a8.result
@@ -145,7 +145,7 @@ template<typename Tp>
 	      << ' ' << std::setw(w) << std::abs(a8.result - e8) / std::abs(e8)
 	      << '\n';
 
-    auto a8n = __gnu_cxx::integrate_tanh_sinh<Tp>(funk2num, a, b, abs_err, rel_err);
+    auto a8n = emsr::integrate_tanh_sinh<Tp>(funk2num, a, b, abs_err, rel_err);
     auto e8n = Tp{2} * (b - a) - std::cos(b) + std::cos(a);
     std::cout << "funk2num: "
 	      << ' ' << std::setw(w) << a8n.result
@@ -160,7 +160,7 @@ template<typename Tp>
     auto gauss = [sqrt_pi, mu](Tp x)
                  -> Tp
                  { auto t = x - mu; return Tp{2} * std::exp(-t * t) / sqrt_pi; };
-    auto ag = __gnu_cxx::integrate_sinh_sinh<Tp>(gauss, abs_err, rel_err);
+    auto ag = emsr::integrate_sinh_sinh<Tp>(gauss, abs_err, rel_err);
     auto eg = Tp{2};
     std::cout << "gauss   : "
 	      << ' ' << std::setw(w) << ag.result
@@ -171,7 +171,7 @@ template<typename Tp>
 
     // exp-sinh
 
-    auto ag2 = __gnu_cxx::integrate_exp_sinh<Tp>(gauss, mu, abs_err, rel_err);
+    auto ag2 = emsr::integrate_exp_sinh<Tp>(gauss, mu, abs_err, rel_err);
     auto eg2 = Tp{1};
     std::cout << "gauss   : "
 	      << ' ' << std::setw(w) << ag2.result

@@ -24,7 +24,7 @@
 
 #include <limits>
 
-namespace __gnu_cxx
+namespace emsr
 {
   //  Is this useful?
   template<typename Tp, typename FuncTp>
@@ -183,6 +183,6 @@ namespace __gnu_cxx
       }
     };
 
-} // namespace __gnu_cxx
+} // namespace emsr
 
 #endif // INTEGRATION_TRANSFORM_H

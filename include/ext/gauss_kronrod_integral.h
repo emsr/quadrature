@@ -30,9 +30,8 @@
 #include <type_traits>
 #include <vector>
 
-namespace __gnu_cxx _GLIBCXX_VISIBILITY(default)
+namespace emsr
 {
-_GLIBCXX_BEGIN_NAMESPACE_VERSION
 
   enum Kronrod_Rule
   {
@@ -106,7 +105,6 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
 		 Kronrod_Rule qkintrule)
     -> gauss_kronrod_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>;
 
-_GLIBCXX_END_NAMESPACE_VERSION
-} // namespace __gnu_cxx
+} // namespace emsr
 
 #endif // GAUSS_KRONROD_INTERGAL_H

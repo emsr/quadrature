@@ -23,7 +23,7 @@
 #include <vector>
 #include <array>
 
-namespace __gnu_cxx
+namespace emsr
 {
   /**
    * A generic class for a triangle integration rule.
@@ -155,7 +155,7 @@ namespace __gnu_cxx
       }
     };
 
-} // namespace __gnu_cxx
+} // namespace emsr
 
 //#include <ext/triangle_rules.tcc>
 

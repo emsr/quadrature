@@ -24,7 +24,7 @@
 #include <type_traits>
 #include <cmath>
 
-namespace __gnu_cxx
+namespace emsr
 {
 
 namespace detail
@@ -801,6 +801,6 @@ namespace detail
 	return sign * fact * sum;
       }
 
-} // namespace __gnu_cxx
+} // namespace emsr
 
 #endif // GAUSS_QUADRATURE_TCC

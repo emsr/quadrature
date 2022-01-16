@@ -1,7 +1,7 @@
 #ifndef LAGUERRE_ZEROS_TCC
 #define LAGUERRE_ZEROS_TCC 1
 
-namespace __gnu_cxx
+namespace emsr
 {
 
   /**
@@ -66,6 +66,6 @@ namespace __gnu_cxx
     return pt;
   }
 
-} // namespace __gnu_cxx
+} // namespace emsr
 
 #endif // LAGUERRE_ZEROS_TCC

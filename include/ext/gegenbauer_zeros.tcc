@@ -1,7 +1,7 @@
 #ifndef GEGENBAUER_ZEROS_TCC
 #define GEGENBAUER_ZEROS_TCC 1
 
-namespace __gnu_cxx
+namespace emsr
 {
 
   /**
@@ -115,6 +115,6 @@ namespace __gnu_cxx
       return pt;
     }
 
-} // namespace __gnu_cxx
+} // namespace emsr
 
 #endif // GEGENBAUER_ZEROS_TCC

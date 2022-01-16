@@ -31,7 +31,7 @@
  * 101 decimal digit arithmetic by L. W. Fullerton, Bell Labs, Nov 1981.
  */
 
-namespace __gnu_cxx
+namespace emsr
 {
 
   // x1, abscissae common to the 10-, 21-, 43- and 87-point rule.
@@ -357,6 +357,6 @@ namespace __gnu_cxx
 			      TOLERANCE_ERROR, result_kronrod, err);
     }
 
-} // namespace __gnu_cxx
+} // namespace emsr
 
 #endif // QNG_INTEGRATE_TCC

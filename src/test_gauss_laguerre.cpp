@@ -53,14 +53,14 @@ template<typename Tp>
     my_f<Tp> poly{ 0.5, 0.0, 0.0, -1.0, 1.3 };
     my_fc<Tp> cosine{ 1.0, 1.0, 0.0 };
 
-    //pfoo2 = __gnu_cxx::gauss_laguerre_prob_integrate<Tp>(poly, 3);
-    //pfooc = __gnu_cxx::gauss_laguerre_prob_integrate<Tp>(cosine, 29);
+    //pfoo2 = emsr::gauss_laguerre_prob_integrate<Tp>(poly, 3);
+    //pfooc = emsr::gauss_laguerre_prob_integrate<Tp>(cosine, 29);
 
-    auto xfoo2 = __gnu_cxx::gauss_laguerre_integrate<Tp>(poly, 3, 0.0);
+    auto xfoo2 = emsr::gauss_laguerre_integrate<Tp>(poly, 3, 0.0);
     std::cout << "integral = " << std::setw(width) << xfoo2 << '\n';
     std::cout << "delta    = " << std::setw(width) << xfoo2 - 0.0L << '\n';
 
-    auto xfooc = __gnu_cxx::gauss_laguerre_integrate<Tp>(cosine, 29, 0.0);
+    auto xfooc = emsr::gauss_laguerre_integrate<Tp>(cosine, 29, 0.0);
     std::cout << "integral = " << std::setw(width) << xfooc << '\n';
     std::cout << "delta    = " << std::setw(width) << xfooc - 0.0L << '\n';
   }

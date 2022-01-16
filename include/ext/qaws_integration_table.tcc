@@ -21,7 +21,7 @@
 #ifndef QAWS_INTEGRATION_TABLE_TCC
 #define QAWS_INTEGRATION_TABLE_TCC 1
 
-namespace __gnu_cxx
+namespace emsr
 {
 
   template<typename Tp>
@@ -137,6 +137,6 @@ namespace __gnu_cxx
 	this->rh[i] *= Tp{-1};
     }
 
-} // namespace __gnu_cxx
+} // namespace emsr
 
 #endif // QAWS_INTEGRATION_TABLE_TCC

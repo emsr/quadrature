@@ -24,7 +24,7 @@
 #include <cstddef>
 #include <limits>
 
-namespace __gnu_cxx
+namespace emsr
 {
 
   /**
@@ -134,6 +134,6 @@ namespace __gnu_cxx
       return {__simpi(), __simpi.abs_error()};
     }
 
-} // namespace __gnu_cxx
+} // namespace emsr
 
 #endif // SIMPSON_INTEGRAL_H

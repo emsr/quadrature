@@ -52,19 +52,19 @@ template<typename Tp>
     my_f<Tp> params{ 0.5, 0.0, 0.0, -1.0, 1.3 };
     my_fc<Tp> cparams{ 1.0, 1.0, 0.0 };
 
-    //pfoo2 = __gnu_cxx::gauss_hermite_prob_integrate<Tp>(params, 3);
+    //pfoo2 = emsr::gauss_hermite_prob_integrate<Tp>(params, 3);
     //std::cout << "integral = "  << std::setw(width)<< pfoo2 << '\n';
     //std::cout << "delta = " << std::setw(width) << pfoo2 - Tp{7.01855916896680140676414279747L} << '\n';
-    //pfooc = __gnu_cxx::gauss_hermite_prob_integrate<Tp>(cparams, 29);
+    //pfooc = emsr::gauss_hermite_prob_integrate<Tp>(cparams, 29);
     //std::cout << "integral = " << std::setw(width) << pfooc << '\n';
     //std::cout << "delta = "  << std::setw(width)<< pfooc - Tp{1.52034690106628080561194014675L} << '\n';
 
-    auto xfoo2 = __gnu_cxx::gauss_hermite_integrate<Tp>(params, 3);
+    auto xfoo2 = emsr::gauss_hermite_integrate<Tp>(params, 3);
     std::cout << "integral = " << std::setw(width) << xfoo2 << '\n';
     std::cout << "delta    = " << std::setw(width) << xfoo2 - Tp{2.96886020026673934572443053460L} << '\n';
     //std::cout << -params.integ(1) + params.integ(0) << '\n';
 
-    auto xfooc = __gnu_cxx::gauss_hermite_integrate<Tp>(cparams, 29);
+    auto xfooc = emsr::gauss_hermite_integrate<Tp>(cparams, 29);
     std::cout << "integral = " << std::setw(width) << xfooc << '\n';
     std::cout << "delta    = " << std::setw(width) << xfooc - Tp{1.38038844704314297477341524673L} << '\n';
     //std::cout << -cparams.integ(1) + cparams.integ(0) << '\n';

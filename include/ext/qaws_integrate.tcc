@@ -33,7 +33,7 @@
 #include <ext/integration_workspace.h>
 #include <ext/qaws_integration_table.h>
 
-namespace __gnu_cxx
+namespace emsr
 {
 
   template<typename Tp, typename FuncTp>
@@ -418,6 +418,6 @@ namespace __gnu_cxx
       return compute_result_t<AreaTp>{res12, res24};
     }
 
-} // namespace __gnu_cxx
+} // namespace emsr
 
 #endif // QAWS_INTEGRATE_TCC

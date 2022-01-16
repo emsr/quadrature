@@ -29,9 +29,8 @@
 
 #include <vector>
 
-namespace __gnu_cxx _GLIBCXX_VISIBILITY(default)
+namespace emsr
 {
-_GLIBCXX_BEGIN_NAMESPACE_VERSION
 
   /**
    * A structure to store quadrature rules.
@@ -70,8 +69,7 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
     std::vector<quadrature_point_t<Tp>>
     jacobi_zeros(unsigned int n, Tp alpha1, Tp beta1);
 
-_GLIBCXX_END_NAMESPACE_VERSION
-} // namespace __gnu_cxx
+} // namespace emsr
 
 #include <ext/legendre_zeros.tcc>
 #include <ext/laguerre_zeros.tcc>

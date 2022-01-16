@@ -28,7 +28,7 @@
 #ifndef OSCILLATORY_INTEGRATION_TABLE_H
 #define OSCILLATORY_INTEGRATION_TABLE_H 1
 
-namespace __gnu_cxx
+namespace emsr
 {
 
   template<typename Tp>
@@ -111,7 +111,7 @@ namespace __gnu_cxx
 
     };
 
-} // namespace __gnu_cxx
+} // namespace emsr
 
 #include <ext/oscillatory_integration_table.tcc>
 

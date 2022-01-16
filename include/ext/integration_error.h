@@ -29,7 +29,7 @@
 #include <sstream>
 #include <string_view>
 
-namespace __gnu_cxx
+namespace emsr
 {
 
   enum
@@ -152,6 +152,6 @@ namespace __gnu_cxx
       return abserr;
     }
 
-} // namespace __gnu_cxx
+} // namespace emsr
 
 #endif // INTEGRATION_ERROR_H

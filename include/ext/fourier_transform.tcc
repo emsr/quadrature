@@ -25,7 +25,7 @@
 #include <vector>
 #include <complex>
 
-namespace __gnu_cxx
+namespace emsr
 {
 
   /**
@@ -279,6 +279,6 @@ namespace __gnu_cxx
       std::copy(z.begin(), z.end(), from);
     }
 
-} // namespace __gnu_cxx
+} // namespace emsr
 
 #endif // FOURIER_TRANSFORM_TCC

@@ -35,7 +35,7 @@
 
 #include <ext/integration_workspace.h>
 
-namespace __gnu_cxx
+namespace emsr
 {
 
   /**
@@ -189,6 +189,6 @@ namespace __gnu_cxx
 			      UNKNOWN_ERROR, result, abserr);
     }
 
-} // namespace __gnu_cxx
+} // namespace emsr
 
 #endif // QAG_INTEGRATE_TCC

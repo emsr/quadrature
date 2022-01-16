@@ -26,7 +26,7 @@
 
 #include <ext/quadrature_point.h>
 
-namespace __gnu_cxx
+namespace emsr
 {
 
 template<typename Tp, typename Func>
@@ -57,6 +57,6 @@ template<typename Tp, typename Func>
       }
   }
 
-} // namespace __gnu_cxx
+} // namespace emsr
 
 #endif // GAUSS_LAGUERRE_INTEGRATE_H

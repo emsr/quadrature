@@ -24,7 +24,7 @@
 #include <cstddef>
 #include <limits>
 
-namespace __gnu_cxx
+namespace emsr
 {
 
   /**
@@ -148,6 +148,6 @@ namespace __gnu_cxx
 	}
     }
 
-} // namespace __gnu_cxx
+} // namespace emsr
 
 #endif // MIDPOINT_INTEGRAL_H

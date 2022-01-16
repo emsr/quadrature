@@ -27,7 +27,7 @@
 #ifndef EXTRAPOLATION_TABLE_TCC
 #define EXTRAPOLATION_TABLE_TCC 1
 
-namespace __gnu_cxx
+namespace emsr
 {
 
   template<typename AreaTp, typename AbsAreaTp>
@@ -186,6 +186,6 @@ namespace __gnu_cxx
       return std::make_tuple(result, abserr);
     }
 
-} // namespace __gnu_cxx
+} // namespace emsr
 
 #endif // EXTRAPOLATION_TABLE_TCC
