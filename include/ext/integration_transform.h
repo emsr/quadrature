@@ -58,7 +58,7 @@ namespace __gnu_cxx
       : _M_func(__func)
       { }
 
-      _Tp
+      std::invoke_result_t<_FuncTp, _Tp>
       operator()(_Tp __t) const
       {
 	if (__t == _Tp{0})
@@ -93,7 +93,7 @@ namespace __gnu_cxx
       : _M_func(__func)
       { }
 
-      _Tp
+      std::invoke_result_t<_FuncTp, _Tp>
       operator()(_Tp __t) const
       {
 	if (__t == _Tp{0})
@@ -132,7 +132,7 @@ namespace __gnu_cxx
 	_M_b(__b)
       { }
 
-      _Tp
+      std::invoke_result_t<_FuncTp, _Tp>
       operator()(_Tp __t) const
       {
 	if (__t == _Tp{0})
@@ -168,7 +168,7 @@ namespace __gnu_cxx
 	_M_a(__a)
       { }
 
-      _Tp
+      std::invoke_result_t<_FuncTp, _Tp>
       operator()(_Tp __t) const
       {
 	if (__t == _Tp{1})

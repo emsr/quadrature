@@ -30,19 +30,19 @@
 namespace __gnu_cxx
 {
 
-  template<typename _Tp>
-    std::tuple<_Tp, _Tp>
-    extrapolation_table<_Tp>::qelg()
+  template<typename _AreaTp, typename _AbsAreaTp>
+    std::tuple<_AreaTp, _AbsAreaTp>
+    extrapolation_table<_AreaTp, _AbsAreaTp>::qelg()
     {
       const auto __cur_n = this->_M_nn - 1;
       const auto __current = this->_M_rlist2[__cur_n];
 
-      const auto _S_eps = std::numeric_limits<_Tp>::epsilon();
+      const auto _S_eps = std::numeric_limits<_AbsAreaTp>::epsilon();
       // Less than max to prevent overflow.
-      const auto _S_max = std::numeric_limits<_Tp>::max() / _Tp{100};
+      const auto _S_max = std::numeric_limits<_AbsAreaTp>::max() / _AbsAreaTp{100};
 
       auto __absolute = _S_max;
-      auto __relative = 5 * _S_eps * std::abs(__current);
+      auto __relative = _AbsAreaTp{5} * _S_eps * std::abs(__current);
 
       const auto __newelm = __cur_n / 2;
       const auto __n_orig = __cur_n;
@@ -103,8 +103,8 @@ namespace __gnu_cxx
 	      break;
 	    }
 
-	  const auto __ss = _Tp{1} / __delta1 + _Tp{1} / __delta2
-			  - _Tp{1} / __delta3;
+	  const auto __ss = _AbsAreaTp{1} / __delta1 + _AbsAreaTp{1} / __delta2
+			  - _AbsAreaTp{1} / __delta3;
 
 	  // Test to detect irregular behaviour in the table,
 	  // and eventually omit a part of the table by adjusting
@@ -116,7 +116,7 @@ namespace __gnu_cxx
 	    }
 
 	  // Compute a new element and eventually adjust the value of result.
-	  __res = __e1 + _Tp{1} / __ss;
+	  __res = __e1 + _AbsAreaTp{1} / __ss;
 	  this->_M_rlist2[__cur_n - 2 * __ii] = __res;
 	  {
 	    const auto __error = __err2 + std::abs(__res - __e2) + __err3;

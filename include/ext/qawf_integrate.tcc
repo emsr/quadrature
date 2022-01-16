@@ -51,10 +51,13 @@ namespace __gnu_cxx
 		   _Tp __lower, _Tp __max_abs_err)
     -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
     {
+      using _AreaTp = std::invoke_result_t<_FuncTp, _Tp>;
+      using _AbsAreaTp = decltype(std::abs(_AreaTp{}));
+
       std::size_t __ktmin = 0;
       std::size_t __iteration = 0;
 
-      extrapolation_table<_Tp> __table;
+      extrapolation_table<_AreaTp, _AbsAreaTp> __table;
 
       _Tp __cycle;
       auto __omega = __wf.omega;

@@ -66,6 +66,9 @@ namespace __gnu_cxx
 		   _Integrator __quad = gauss_kronrod_integral<_Tp>(Kronrod_21))
     -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
     {
+      using _AreaTp = std::invoke_result_t<_FuncTp, _Tp>;
+      using _AbsAreaTp = decltype(std::abs(_AreaTp{}));
+
       const auto _S_max = std::numeric_limits<_Tp>::max();
       const auto __max_iter = __workspace.capacity();
       const auto __n_ivals = __pts.size() - 1;
@@ -151,7 +154,7 @@ namespace __gnu_cxx
 				"A maximum of one iteration was insufficient",
 				MAX_ITER_ERROR, __result0, __abserr0);
 
-      extrapolation_table<_Tp> __table;
+      extrapolation_table<_AreaTp, _AbsAreaTp> __table;
       __table.append(__result0);
 
       auto __res_ext = __result0;

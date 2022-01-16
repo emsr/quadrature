@@ -51,12 +51,12 @@ namespace __gnu_cxx
 			    this->_M_w_kronrod);
     }
 
-  template<typename _Tp>
+  template<typename _AreaTp, typename _AbsAreaTp>
     inline bool
-    __test_positivity(_Tp __result, _Tp __resabs)
+    __test_positivity(_AreaTp __result, _AbsAreaTp __resabs)
     {
       return(std::abs(__result)
-	  >= (1 - 50 * std::numeric_limits<_Tp>::epsilon()) * __resabs);
+	  >= (1 - 50 * std::numeric_limits<_AbsAreaTp>::epsilon()) * __resabs);
     }
 
   // Class template for internal implementation of

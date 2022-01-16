@@ -52,6 +52,9 @@ namespace __gnu_cxx
 		   const _Tp __max_abs_err, const _Tp __max_rel_err)
     -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
     {
+      using _AreaTp = std::invoke_result_t<_FuncTp, _Tp>;
+      using _AbsAreaTp = decltype(std::abs(_AreaTp{}));
+
       const auto _S_max = std::numeric_limits<_Tp>::max();
       const auto _S_eps = std::numeric_limits<_Tp>::epsilon();
       const auto __limit = __workspace.capacity();
@@ -65,7 +68,7 @@ namespace __gnu_cxx
 
       __workspace.clear();
       //__wf.clear();
-      extrapolation_table<_Tp> __table;
+      extrapolation_table<_AreaTp, _AbsAreaTp> __table;
 
       const auto __upper = __lower + __wf.get_length();
       const auto __abs_omega = std::abs(__wf.omega);

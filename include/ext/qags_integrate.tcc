@@ -72,6 +72,9 @@ namespace __gnu_cxx
 		   _Integrator __quad = gauss_kronrod_integral<_Tp>(Kronrod_15))
     -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
     {
+      using _AreaTp = std::invoke_result_t<_FuncTp, _Tp>;
+      using _AbsAreaTp = decltype(std::abs(_AreaTp{}));
+
       const auto _S_max = std::numeric_limits<_Tp>::max();
       const auto __max_iter = __workspace.capacity();
       // Try to adjust tests for varing precision.
@@ -117,7 +120,7 @@ namespace __gnu_cxx
 				"A maximum of one iteration was insufficient",
 				MAX_ITER_ERROR, __result0, __abserr0);
 
-      extrapolation_table<_Tp> __table;
+      extrapolation_table<_AreaTp, _AbsAreaTp> __table;
       __table.append(__result0);
 
       auto __res_ext = __result0;
@@ -129,7 +132,7 @@ namespace __gnu_cxx
       auto __ktmin = 0u;
       auto __ertest = _Tp{0};
       auto __error_over_large_intervals = _Tp{0};
-      auto __reseps = _Tp{0}, __abseps = _Tp{0}, __correc = _Tp{0};
+      auto __reseps = _AreaTp{0}, __abseps = _AbsAreaTp{0}, __correc = _AbsAreaTp{0};
       int __error_type = NO_ERROR, __error_type2 = NO_ERROR;
       int __roundoff_type1 = 0, __roundoff_type2 = 0, __roundoff_type3 = 0;
       do
@@ -334,7 +337,7 @@ namespace __gnu_cxx
 	  std::__throw_runtime_error("qags_integrate: Unknown error.");
 	}
 
-      auto __ratio = __res_ext / __area;
+      auto __ratio = std::abs(__res_ext / __area); // FIXME: Added abs for complex type issues.
       if (__ratio < _Tp{0.01} || __ratio > _Tp{100}
 	  || __errsum > std::abs(__area))
 	__error_type = UNKNOWN_ERROR;
