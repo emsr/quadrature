@@ -4,7 +4,7 @@ include(CheckCXXCompilerFlag)
 
 project(
   cxx_integration
-  VERSION 0.5
+  VERSION 0.6
   LANGUAGES CXX
 )
 
@@ -54,51 +54,42 @@ target_link_libraries(test_phase_iterator
   cxx_integration)
 
 add_executable(test_quadrature src/test_quadrature.cpp)
-target_link_libraries(test_quadrature
-  cxx_integration
-  cxx_integration_special_functions)
+target_link_libraries(test_quadrature cxx_integration cxx_integration_special_functions)
 
 add_executable(test_trapezoid_integral src/test_trapezoid_integral.cpp)
-target_link_libraries(test_trapezoid_integral
-  cxx_integration
-  cxx_integration_polynomial)
+target_link_libraries(test_trapezoid_integral cxx_integration cxx_integration_polynomial)
 
 add_executable(test_midpoint_integral src/test_midpoint_integral.cpp)
-target_link_libraries(test_midpoint_integral
-  cxx_integration
-  cxx_integration_polynomial)
+target_link_libraries(test_midpoint_integral cxx_integration cxx_integration_polynomial)
 
 add_executable(test_simpson_integral src/test_simpson_integral.cpp)
-target_link_libraries(test_simpson_integral
-  cxx_integration
-  cxx_integration_polynomial)
+target_link_libraries(test_simpson_integral cxx_integration cxx_integration_polynomial)
 
 add_executable(test_double_exp_integrate src/test_double_exp_integrate.cpp)
-target_link_libraries(test_double_exp_integrate
-  cxx_integration
-  cxx_integration_polynomial)
+target_link_libraries(test_double_exp_integrate cxx_integration cxx_integration_polynomial)
 
 add_executable(test_gauss_hermite src/test_gauss_hermite.cpp)
-target_link_libraries(test_gauss_hermite
-  cxx_integration)
+target_link_libraries(test_gauss_hermite cxx_integration)
 
 add_executable(test_gauss_laguerre src/test_gauss_laguerre.cpp)
-target_link_libraries(test_gauss_laguerre
-  cxx_integration)
+target_link_libraries(test_gauss_laguerre cxx_integration)
 
 add_executable(test_mapper src/test_mapper.cpp)
-target_link_libraries(test_mapper
-  cxx_integration)
+target_link_libraries(test_mapper cxx_integration)
 
 add_executable(test_composite_trapezoid_integral src/test_composite_trapezoid_integral.cpp)
-target_link_libraries(test_composite_trapezoid_integral
-  cxx_integration
-  cxx_integration_polynomial)
+target_link_libraries(test_composite_trapezoid_integral cxx_integration cxx_integration_polynomial)
 
 add_executable(test_gauss_kronrod_rule src/test_gauss_kronrod_rule.cpp)
-target_link_libraries(test_gauss_kronrod_rule
-  cxx_integration)
+target_link_libraries(test_gauss_kronrod_rule cxx_integration)
 
 add_executable(test_factorial_integration src/test_factorial.cpp)
-target_link_libraries(test_factorial_integration
-  cxx_integration_special_functions)
+target_link_libraries(test_factorial_integration cxx_integration_special_functions)
+
+# Compile tests.
+
+add_executable(test_complex_deduction src/test_complex_deduction.cpp)
+target_link_libraries(test_complex_deduction cxx_integration)
+
+add_executable(test_complex_cquad_deduction src/test_complex_cquad_deduction.cpp)
+target_link_libraries(test_complex_cquad_deduction cxx_integration)
