@@ -24,17 +24,17 @@
 namespace __gnu_cxx
 {
 
-  template<typename _RandAccIter, typename _RandAccIterRHS>
+  template<typename RandAccIter, typename RandAccIterRHS>
     int
-    _S_tridiag(std::size_t __n,
-	       _RandAccIter __supd, _RandAccIter __diag, _RandAccIter __subd,
-	       _RandAccIterRHS __rhs);
+    s_tridiag(std::size_t n,
+	      RandAccIter supd, RandAccIter diag, RandAccIter subd,
+	      RandAccIterRHS rhs);
 
-  template<typename _RandAccIter, typename _RandAccIterRHS>
+  template<typename RandAccIter, typename RandAccIterRHS>
     int
-    _S_tridiag_symm(std::size_t __n,
-		    _RandAccIter& __diag, _RandAccIter& __subd,
-		    _RandAccIterRHS& __rhs);
+    s_tridiag_symm(std::size_t n,
+		   RandAccIter& diag, RandAccIter& subd,
+		   RandAccIterRHS& rhs);
 
 } // namespace __gnu_cxx
 

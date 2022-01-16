@@ -27,24 +27,24 @@ namespace __gnu_cxx _GLIBCXX_VISIBILITY(default)
 {
 _GLIBCXX_BEGIN_NAMESPACE_VERSION
 
-  template<typename _Tp>
+  template<typename Tp>
     constexpr
-    error_tolerance_t<_Tp>::
-    error_tolerance_t(_Tp __max_abs_err, _Tp __max_rel_err,
-			 unsigned __min_num_passes)
-    : _M_max_abs_err{std::abs(__max_abs_err)},
-      _M_max_rel_err{std::abs(__max_rel_err)},
-      _M_min_num_passes(__min_num_passes == 0 ? 1 : __min_num_passes),
-      _M_num_passes(0)
+    error_tolerance_t<Tp>::
+    error_tolerance_t(Tp max_abs_err, Tp max_rel_err,
+			 unsigned min_num_passes)
+    : m_max_abs_err{std::abs(max_abs_err)},
+      m_max_rel_err{std::abs(max_rel_err)},
+      m_min_num_passes(min_num_passes == 0 ? 1 : min_num_passes),
+      m_num_passes(0)
     {
-      if (!_S_valid_tolerances(this->_M_max_abs_err, this->_M_max_rel_err))
+      if (!s_valid_tolerances(this->m_max_abs_err, this->m_max_rel_err))
 	{
-	  std::ostringstream __msg;
-	  __msg << "integral_error_t: Integration tolerance cannot be achieved"
-		   " with given absolute (" << this->_M_max_abs_err
-		<< ") and relative (" << this->_M_max_rel_err
+	  std::ostringstream msg;
+	  msg << "integral_error_t: Integration tolerance cannot be achieved"
+		   " with given absolute (" << this->m_max_abs_err
+		<< ") and relative (" << this->m_max_rel_err
 		<< ") error limits.";
-	  std::__throw_runtime_error(__msg.str().c_str());
+	  throw std::runtime_error(msg.str().c_str());
 	}
     }
 
@@ -63,37 +63,37 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
    * @param qkintrule is the Gauss-Kronrod integration rule.
    * @return A structure containing the integration result and the error.
    */
-  template<typename _Tp, typename _FuncTp>
+  template<typename Tp, typename FuncTp>
     auto
-    integrate(_FuncTp __func,
-	      _Tp __lower, _Tp __upper,
-	      _Tp __max_abs_error,
-	      _Tp __max_rel_error,
-	      std::size_t __max_iter,
-	      Kronrod_Rule __qkintrule)
-    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    integrate(FuncTp func,
+	      Tp lower, Tp upper,
+	      Tp max_abs_error,
+	      Tp max_rel_error,
+	      std::size_t max_iter,
+	      Kronrod_Rule qkintrule)
+    -> adaptive_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>
     {
-      using __integ_t = adaptive_integral_t<_Tp,
-				     std::invoke_result_t<_FuncTp, _Tp>>;
-      using __area_t = typename __integ_t::_AreaTp;
-      using __absarea_t = typename __integ_t::_AbsAreaTp;
+      using integ_t = adaptive_integral_t<Tp,
+				     std::invoke_result_t<FuncTp, Tp>>;
+      using area_t = typename integ_t::AreaTp;
+      using absarea_t = typename integ_t::AbsAreaTp;
 
-      if (std::isnan(__lower) || std::isnan(__upper)
-          || std::isnan(__max_abs_error) || std::isnan(__max_rel_error))
+      if (std::isnan(lower) || std::isnan(upper)
+          || std::isnan(max_abs_error) || std::isnan(max_rel_error))
 	{
-	  const auto _S_NaN = std::numeric_limits<_Tp>::quiet_NaN();
-	  return {__area_t{} * _S_NaN, __absarea_t{} * _S_NaN};
+	  const auto s_NaN = std::numeric_limits<Tp>::quiet_NaN();
+	  return {area_t{} * s_NaN, absarea_t{} * s_NaN};
 	}
-      else if (__lower == __upper)
-	return {__area_t{}, __absarea_t{}};
+      else if (lower == upper)
+	return {area_t{}, absarea_t{}};
       else
 	{
-          integration_workspace<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
-	    __workspace(__max_iter);
-          return qag_integrate(__workspace, __func,
-			       __lower, __upper,
-			       __max_abs_error, __max_rel_error,
-			       gauss_kronrod_integral<_Tp>(__qkintrule));
+          integration_workspace<Tp, std::invoke_result_t<FuncTp, Tp>>
+	    workspace(max_iter);
+          return qag_integrate(workspace, func,
+			       lower, upper,
+			       max_abs_error, max_rel_error,
+			       gauss_kronrod_integral<Tp>(qkintrule));
 	}
     }
 
@@ -107,34 +107,34 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
    * @param qkintrule is the Gauss-Kronrod integration rule.
    * @return A structure containing the integration result and the error.
    */
-  template<typename _Tp, typename _FuncTp>
+  template<typename Tp, typename FuncTp>
     auto
-    integrate_minf_pinf(_FuncTp __func,
-			_Tp __max_abs_error,
-			_Tp __max_rel_error,
-			std::size_t __max_iter,
-			Kronrod_Rule __qkintrule)
-    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    integrate_minf_pinf(FuncTp func,
+			Tp max_abs_error,
+			Tp max_rel_error,
+			std::size_t max_iter,
+			Kronrod_Rule qkintrule)
+    -> adaptive_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>
     {
-      using __integ_t = adaptive_integral_t<_Tp,
-				     std::invoke_result_t<_FuncTp, _Tp>>;
-      using __area_t = typename __integ_t::_AreaTp;
-      using __absarea_t = typename __integ_t::_AbsAreaTp;
+      using integ_t = adaptive_integral_t<Tp,
+				     std::invoke_result_t<FuncTp, Tp>>;
+      using area_t = typename integ_t::AreaTp;
+      using absarea_t = typename integ_t::AbsAreaTp;
 
-      if (std::isnan(__max_abs_error) || std::isnan(__max_rel_error))
+      if (std::isnan(max_abs_error) || std::isnan(max_rel_error))
 	{
-	  const auto _S_NaN = std::numeric_limits<_Tp>::quiet_NaN();
-	  return {__area_t{} * _S_NaN, __absarea_t{} * _S_NaN};
+	  const auto s_NaN = std::numeric_limits<Tp>::quiet_NaN();
+	  return {area_t{} * s_NaN, absarea_t{} * s_NaN};
 	}
       else
 	{
-          integration_workspace<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
-	    __workspace(__max_iter);
-          return qag_integrate(__workspace,
-			       map_minf_pinf<_Tp, _FuncTp>(__func),
-			       _Tp{0}, _Tp{1},
-			       __max_abs_error, __max_rel_error,
-			       gauss_kronrod_integral<_Tp>(__qkintrule));
+          integration_workspace<Tp, std::invoke_result_t<FuncTp, Tp>>
+	    workspace(max_iter);
+          return qag_integrate(workspace,
+			       map_minf_pinf<Tp, FuncTp>(func),
+			       Tp{0}, Tp{1},
+			       max_abs_error, max_rel_error,
+			       gauss_kronrod_integral<Tp>(qkintrule));
 	}
     }
 
@@ -149,36 +149,36 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
    * @param qkintrule is the Gauss-Kronrod integration rule.
    * @return A structure containing the integration result and the error.
    */
-  template<typename _Tp, typename _FuncTp>
+  template<typename Tp, typename FuncTp>
     auto
-    integrate_minf_upper(_FuncTp __func,
-			 _Tp __upper,
-			 _Tp __max_abs_error,
-			 _Tp __max_rel_error,
-			 std::size_t __max_iter,
-			 Kronrod_Rule __qkintrule)
-    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    integrate_minf_upper(FuncTp func,
+			 Tp upper,
+			 Tp max_abs_error,
+			 Tp max_rel_error,
+			 std::size_t max_iter,
+			 Kronrod_Rule qkintrule)
+    -> adaptive_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>
     {
-      using __integ_t = adaptive_integral_t<_Tp,
-				     std::invoke_result_t<_FuncTp, _Tp>>;
-      using __area_t = typename __integ_t::_AreaTp;
-      using __absarea_t = typename __integ_t::_AbsAreaTp;
+      using integ_t = adaptive_integral_t<Tp,
+				     std::invoke_result_t<FuncTp, Tp>>;
+      using area_t = typename integ_t::AreaTp;
+      using absarea_t = typename integ_t::AbsAreaTp;
 
-      if (std::isnan(__upper)
-          || std::isnan(__max_abs_error) || std::isnan(__max_rel_error))
+      if (std::isnan(upper)
+          || std::isnan(max_abs_error) || std::isnan(max_rel_error))
 	{
-	  const auto _S_NaN = std::numeric_limits<_Tp>::quiet_NaN();
-	  return {__area_t{} * _S_NaN, __absarea_t{} * _S_NaN};
+	  const auto s_NaN = std::numeric_limits<Tp>::quiet_NaN();
+	  return {area_t{} * s_NaN, absarea_t{} * s_NaN};
 	}
       else
 	{
-          integration_workspace<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
-	    __workspace(__max_iter);
-          return qag_integrate(__workspace,
-			       map_minf_b(__func, __upper),
-			       _Tp{0}, _Tp{1},
-			       __max_abs_error, __max_rel_error,
-			       gauss_kronrod_integral<_Tp>(__qkintrule));
+          integration_workspace<Tp, std::invoke_result_t<FuncTp, Tp>>
+	    workspace(max_iter);
+          return qag_integrate(workspace,
+			       map_minf_b(func, upper),
+			       Tp{0}, Tp{1},
+			       max_abs_error, max_rel_error,
+			       gauss_kronrod_integral<Tp>(qkintrule));
 	}
     }
 
@@ -193,36 +193,36 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
    * @param qkintrule is the Gauss-Kronrod integration rule.
    * @return A structure containing the integration result and the error.
    */
-  template<typename _Tp, typename _FuncTp>
+  template<typename Tp, typename FuncTp>
     auto
-    integrate_lower_pinf(_FuncTp __func,
-			 _Tp __lower,
-			 _Tp __max_abs_error,
-			 _Tp __max_rel_error,
-			 std::size_t __max_iter,
-			 Kronrod_Rule __qkintrule)
-    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    integrate_lower_pinf(FuncTp func,
+			 Tp lower,
+			 Tp max_abs_error,
+			 Tp max_rel_error,
+			 std::size_t max_iter,
+			 Kronrod_Rule qkintrule)
+    -> adaptive_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>
     {
-      using __integ_t = adaptive_integral_t<_Tp,
-				     std::invoke_result_t<_FuncTp, _Tp>>;
-      using __area_t = typename __integ_t::_AreaTp;
-      using __absarea_t = typename __integ_t::_AbsAreaTp;
+      using integ_t = adaptive_integral_t<Tp,
+				     std::invoke_result_t<FuncTp, Tp>>;
+      using area_t = typename integ_t::AreaTp;
+      using absarea_t = typename integ_t::AbsAreaTp;
 
-      if (std::isnan(__lower)
-          || std::isnan(__max_abs_error) || std::isnan(__max_rel_error))
+      if (std::isnan(lower)
+          || std::isnan(max_abs_error) || std::isnan(max_rel_error))
 	{
-	  const auto _S_NaN = std::numeric_limits<_Tp>::quiet_NaN();
-	  return {__area_t{} * _S_NaN, __absarea_t{} * _S_NaN};
+	  const auto s_NaN = std::numeric_limits<Tp>::quiet_NaN();
+	  return {area_t{} * s_NaN, absarea_t{} * s_NaN};
 	}
       else
 	{
-          integration_workspace<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
-	    __workspace(__max_iter);
-          return qag_integrate(__workspace,
-			       map_a_pinf(__func, __lower),
-			       _Tp{0}, _Tp{1},
-			       __max_abs_error, __max_rel_error,
-			       gauss_kronrod_integral<_Tp>(__qkintrule));
+          integration_workspace<Tp, std::invoke_result_t<FuncTp, Tp>>
+	    workspace(max_iter);
+          return qag_integrate(workspace,
+			       map_a_pinf(func, lower),
+			       Tp{0}, Tp{1},
+			       max_abs_error, max_rel_error,
+			       gauss_kronrod_integral<Tp>(qkintrule));
 	}
     }
 
@@ -238,34 +238,34 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
    * @param max_iter is the maximum number of iterations allowed
    * @return A structure containing the integration result and the error.
    */
-  template<typename _Tp, typename _FuncTp>
+  template<typename Tp, typename FuncTp>
     auto
-    integrate_kronrod_singular(_FuncTp __func,
-			       _Tp __lower, _Tp __upper,
-			       _Tp __max_abs_error,
-			       _Tp __max_rel_error,
-			       std::size_t __max_iter)
-    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    integrate_kronrod_singular(FuncTp func,
+			       Tp lower, Tp upper,
+			       Tp max_abs_error,
+			       Tp max_rel_error,
+			       std::size_t max_iter)
+    -> adaptive_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>
     {
-      using __integ_t = adaptive_integral_t<_Tp,
-				     std::invoke_result_t<_FuncTp, _Tp>>;
-      using __area_t = typename __integ_t::_AreaTp;
-      using __absarea_t = typename __integ_t::_AbsAreaTp;
+      using integ_t = adaptive_integral_t<Tp,
+				     std::invoke_result_t<FuncTp, Tp>>;
+      using area_t = typename integ_t::AreaTp;
+      using absarea_t = typename integ_t::AbsAreaTp;
 
-      if (std::isnan(__lower) || std::isnan(__upper)
-          || std::isnan(__max_abs_error) || std::isnan(__max_rel_error))
+      if (std::isnan(lower) || std::isnan(upper)
+          || std::isnan(max_abs_error) || std::isnan(max_rel_error))
 	{
-	  const auto _S_NaN = std::numeric_limits<_Tp>::quiet_NaN();
-	  return {__area_t{} * _S_NaN, __absarea_t{} * _S_NaN};
+	  const auto s_NaN = std::numeric_limits<Tp>::quiet_NaN();
+	  return {area_t{} * s_NaN, absarea_t{} * s_NaN};
 	}
-      else if (__lower == __upper)
-	return {__area_t{}, __absarea_t{}};
+      else if (lower == upper)
+	return {area_t{}, absarea_t{}};
       else
 	{
-          integration_workspace<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
-	    __workspace(__max_iter);
-          return qags_integrate(__workspace, __func, __lower, __upper,
-			        __max_abs_error, __max_rel_error);
+          integration_workspace<Tp, std::invoke_result_t<FuncTp, Tp>>
+	    workspace(max_iter);
+          return qags_integrate(workspace, func, lower, upper,
+			        max_abs_error, max_rel_error);
 	}
     }
 
@@ -278,65 +278,65 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
    * @param max_iter is the maximum number of iterations allowed
    * @return A structure containing the integration result and the error.
    */
-  template<typename _Tp, typename _FuncTp>
+  template<typename Tp, typename FuncTp>
     auto
-    integrate_singular_minf_pinf(_FuncTp __func,
-				 _Tp __max_abs_error,
-				 _Tp __max_rel_error,
-				 std::size_t __max_iter)
-    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    integrate_singular_minf_pinf(FuncTp func,
+				 Tp max_abs_error,
+				 Tp max_rel_error,
+				 std::size_t max_iter)
+    -> adaptive_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>
     {
-      using __integ_t = adaptive_integral_t<_Tp,
-				     std::invoke_result_t<_FuncTp, _Tp>>;
-      using __area_t = typename __integ_t::_AreaTp;
-      using __absarea_t = typename __integ_t::_AbsAreaTp;
+      using integ_t = adaptive_integral_t<Tp,
+				     std::invoke_result_t<FuncTp, Tp>>;
+      using area_t = typename integ_t::AreaTp;
+      using absarea_t = typename integ_t::AbsAreaTp;
 
-      if (std::isnan(__max_abs_error) || std::isnan(__max_rel_error))
+      if (std::isnan(max_abs_error) || std::isnan(max_rel_error))
 	{
-	  const auto _S_NaN = std::numeric_limits<_Tp>::quiet_NaN();
-	  return {__area_t{} * _S_NaN, __absarea_t{} * _S_NaN};
+	  const auto s_NaN = std::numeric_limits<Tp>::quiet_NaN();
+	  return {area_t{} * s_NaN, absarea_t{} * s_NaN};
 	}
       else
 	{
-          integration_workspace<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
-	    __workspace(__max_iter);
-          return qags_integrate(__workspace,
-			        map_minf_pinf<_Tp, _FuncTp>(__func),
-			        _Tp{0}, _Tp{1},
-			        __max_abs_error, __max_rel_error);
+          integration_workspace<Tp, std::invoke_result_t<FuncTp, Tp>>
+	    workspace(max_iter);
+          return qags_integrate(workspace,
+			        map_minf_pinf<Tp, FuncTp>(func),
+			        Tp{0}, Tp{1},
+			        max_abs_error, max_rel_error);
 	}
     }
 
   /**
    * Integrate a potentially singular function from -infinity to b
    */
-  template<typename _Tp, typename _FuncTp>
+  template<typename Tp, typename FuncTp>
     auto
-    integrate_singular_minf_upper(_FuncTp __func, _Tp __upper,
-				  _Tp __max_abs_error,
-				  _Tp __max_rel_error,
-				  std::size_t __max_iter)
-    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    integrate_singular_minf_upper(FuncTp func, Tp upper,
+				  Tp max_abs_error,
+				  Tp max_rel_error,
+				  std::size_t max_iter)
+    -> adaptive_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>
     {
-      using __integ_t = adaptive_integral_t<_Tp,
-				     std::invoke_result_t<_FuncTp, _Tp>>;
-      using __area_t = typename __integ_t::_AreaTp;
-      using __absarea_t = typename __integ_t::_AbsAreaTp;
+      using integ_t = adaptive_integral_t<Tp,
+				     std::invoke_result_t<FuncTp, Tp>>;
+      using area_t = typename integ_t::AreaTp;
+      using absarea_t = typename integ_t::AbsAreaTp;
 
-      if (std::isnan(__upper)
-          || std::isnan(__max_abs_error) || std::isnan(__max_rel_error))
+      if (std::isnan(upper)
+          || std::isnan(max_abs_error) || std::isnan(max_rel_error))
 	{
-	  const auto _S_NaN = std::numeric_limits<_Tp>::quiet_NaN();
-	  return {__area_t{} * _S_NaN, __absarea_t{} * _S_NaN};
+	  const auto s_NaN = std::numeric_limits<Tp>::quiet_NaN();
+	  return {area_t{} * s_NaN, absarea_t{} * s_NaN};
 	}
       else
 	{
-          integration_workspace<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
-	    __workspace(__max_iter);
-          return qags_integrate(__workspace,
-			        map_minf_b(__func, __upper),
-			        _Tp{0}, _Tp{1},
-			        __max_abs_error, __max_rel_error);
+          integration_workspace<Tp, std::invoke_result_t<FuncTp, Tp>>
+	    workspace(max_iter);
+          return qags_integrate(workspace,
+			        map_minf_b(func, upper),
+			        Tp{0}, Tp{1},
+			        max_abs_error, max_rel_error);
 	}
     }
 
@@ -350,33 +350,33 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
    * @param max_iter is the maximum number of iterations allowed
    * @return A structure containing the integration result and the error.
    */
-  template<typename _Tp, typename _FuncTp>
+  template<typename Tp, typename FuncTp>
     auto
-    integrate_singular_lower_pinf(_FuncTp __func, _Tp __lower,
-				  _Tp __max_abs_error,
-				  _Tp __max_rel_error,
-				  std::size_t __max_iter)
-    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    integrate_singular_lower_pinf(FuncTp func, Tp lower,
+				  Tp max_abs_error,
+				  Tp max_rel_error,
+				  std::size_t max_iter)
+    -> adaptive_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>
     {
-      using __integ_t = adaptive_integral_t<_Tp,
-				     std::invoke_result_t<_FuncTp, _Tp>>;
-      using __area_t = typename __integ_t::_AreaTp;
-      using __absarea_t = typename __integ_t::_AbsAreaTp;
+      using integ_t = adaptive_integral_t<Tp,
+				     std::invoke_result_t<FuncTp, Tp>>;
+      using area_t = typename integ_t::AreaTp;
+      using absarea_t = typename integ_t::AbsAreaTp;
 
-      if (std::isnan(__lower)
-          || std::isnan(__max_abs_error) || std::isnan(__max_rel_error))
+      if (std::isnan(lower)
+          || std::isnan(max_abs_error) || std::isnan(max_rel_error))
 	{
-	  const auto _S_NaN = std::numeric_limits<_Tp>::quiet_NaN();
-	  return {__area_t{} * _S_NaN, __absarea_t{} * _S_NaN};
+	  const auto s_NaN = std::numeric_limits<Tp>::quiet_NaN();
+	  return {area_t{} * s_NaN, absarea_t{} * s_NaN};
 	}
       else
 	{
-          integration_workspace<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
-	    __workspace(__max_iter);
-          return qags_integrate(__workspace,
-			        map_a_pinf(__func, __lower),
-			        _Tp{0}, _Tp{1},
-			        __max_abs_error, __max_rel_error);
+          integration_workspace<Tp, std::invoke_result_t<FuncTp, Tp>>
+	    workspace(max_iter);
+          return qags_integrate(workspace,
+			        map_a_pinf(func, lower),
+			        Tp{0}, Tp{1},
+			        max_abs_error, max_rel_error);
 	}
     }
 
@@ -391,208 +391,208 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
    * @param max_iter is the maximum number of iterations allowed
    * @return A structure containing the integration result and the error.
    */
-  template<typename _Tp, typename _FuncTp>
+  template<typename Tp, typename FuncTp>
     auto
-    integrate_singular(_FuncTp __func,
-		       _Tp __lower, _Tp __upper,
-		       _Tp __max_abs_error,
-		       _Tp __max_rel_error,
-		       std::size_t __max_iter)
-    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    integrate_singular(FuncTp func,
+		       Tp lower, Tp upper,
+		       Tp max_abs_error,
+		       Tp max_rel_error,
+		       std::size_t max_iter)
+    -> adaptive_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>
     {
       using std::isnan; // To avoid ambiguous overload
-      using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
+      using RetTp = std::invoke_result_t<FuncTp, Tp>;
 
-      using __integ_t = adaptive_integral_t<_Tp, _RetTp>;
-      using __area_t = typename __integ_t::_AreaTp;
-      using __absarea_t = typename __integ_t::_AbsAreaTp;
+      using integ_t = adaptive_integral_t<Tp, RetTp>;
+      using area_t = typename integ_t::AreaTp;
+      using absarea_t = typename integ_t::AbsAreaTp;
 
-      constexpr _Tp __infty = std::numeric_limits<_Tp>::infinity();
-      constexpr _Tp __NaN = std::numeric_limits<_Tp>::quiet_NaN();
+      constexpr Tp infty = std::numeric_limits<Tp>::infinity();
+      constexpr Tp NaN = std::numeric_limits<Tp>::quiet_NaN();
 
-      if (std::isnan(__lower) || std::isnan(__upper)
-          || std::isnan(__max_abs_error) || std::isnan(__max_rel_error))
+      if (std::isnan(lower) || std::isnan(upper)
+          || std::isnan(max_abs_error) || std::isnan(max_rel_error))
 	{
-	  const auto _S_NaN = std::numeric_limits<_Tp>::quiet_NaN();
-	  return {__area_t{} * _S_NaN, __absarea_t{} * _S_NaN};
+	  const auto s_NaN = std::numeric_limits<Tp>::quiet_NaN();
+	  return {area_t{} * s_NaN, absarea_t{} * s_NaN};
 	}
-      else if (__lower == __upper)
-	return {__area_t{}, __absarea_t{}};
-      else if (__lower == -__infty)
+      else if (lower == upper)
+	return {area_t{}, absarea_t{}};
+      else if (lower == -infty)
 	{
-	  if (__upper == __infty) // Integration from -inf to +inf
-	    return integrate_minf_pinf(__func, __max_abs_error,
-				      __max_rel_error, __max_iter);
-	  else if (__upper == -__infty)
-	    std::__throw_runtime_error("integrate_singular: "
+	  if (upper == infty) // Integration from -inf to +inf
+	    return integrate_minf_pinf(func, max_abs_error,
+				      max_rel_error, max_iter);
+	  else if (upper == -infty)
+	    throw std::runtime_error("integrate_singular: "
 				       "Attempt to integrate from -infinity"
 				       " to -infinity");
 	  else // Integration from -inf to finite value
-	    return integrate_minf_upper(__func, __upper,
-					__max_abs_error,
-					__max_rel_error,
-					__max_iter);
+	    return integrate_minf_upper(func, upper,
+					max_abs_error,
+					max_rel_error,
+					max_iter);
 	}
-      else if (__lower == __infty)
+      else if (lower == infty)
 	{
-	  if (__upper == __infty)
-	    std::__throw_runtime_error("integrate_singular: "
+	  if (upper == infty)
+	    throw std::runtime_error("integrate_singular: "
 				       "Attempted to integrate from +infinity"
 				       " to +infinity");
-	  else if (__upper == -__infty) // Integration from +inf to -inf,
+	  else if (upper == -infty) // Integration from +inf to -inf,
 	    {		     // Call integrate_infinite() and flip sign
-	      adaptive_integral_t<_Tp, _RetTp> __res
-		= integrate_minf_pinf(__func, __max_abs_error,
-				      __max_rel_error, __max_iter);
-	      return {-__res.__result, __res.__abserr};
+	      adaptive_integral_t<Tp, RetTp> res
+		= integrate_minf_pinf(func, max_abs_error,
+				      max_rel_error, max_iter);
+	      return {-res.result, res.abserr};
 	    }
 	  else // Integration from +inf to finite value,
 	    { // Call integrate_singular_to_infinity and flip sign
-	      adaptive_integral_t<_Tp, _RetTp>
-		__res = integrate_lower_pinf(__func, __upper,
-					     __max_abs_error,
-					     __max_rel_error,
-					     __max_iter);
-	      return {-__res.__result, __res.__abserr};
+	      adaptive_integral_t<Tp, RetTp>
+		res = integrate_lower_pinf(func, upper,
+					     max_abs_error,
+					     max_rel_error,
+					     max_iter);
+	      return {-res.result, res.abserr};
 	    }
 	}
       else // a is finite
 	{
-	  if (__upper == __infty)
-	    return integrate_lower_pinf(__func, __lower,
-					__max_abs_error,
-					__max_rel_error, __max_iter);
-	  else if (__upper == -__infty)
+	  if (upper == infty)
+	    return integrate_lower_pinf(func, lower,
+					max_abs_error,
+					max_rel_error, max_iter);
+	  else if (upper == -infty)
 	    { // Call integrate_from_infinity and flip sign
-	      adaptive_integral_t<_Tp, _RetTp>
-		__res = integrate_minf_upper(__func, __lower,
-					     __max_abs_error,
-					     __max_rel_error,
-					     __max_iter);
-	      return {-__res.__result, __res.__abserr};
+	      adaptive_integral_t<Tp, RetTp>
+		res = integrate_minf_upper(func, lower,
+					     max_abs_error,
+					     max_rel_error,
+					     max_iter);
+	      return {-res.result, res.abserr};
 	    }
 	  else // Both a and b finite, call integrate_singular
-	    return integrate_kronrod_singular(__func, __lower, __upper,
-					      __max_abs_error, __max_rel_error,
-					      __max_iter);
+	    return integrate_kronrod_singular(func, lower, upper,
+					      max_abs_error, max_rel_error,
+					      max_iter);
 	}
     }
 
   /**
    * Integrate an oscillatory function.
    */
-  template<typename _Tp, typename _FuncTp>
+  template<typename Tp, typename FuncTp>
     auto
-    integrate_oscillatory(_FuncTp __func,
-			  _Tp __lower, _Tp __upper,
-			  _Tp __max_abs_error,
-			  _Tp __max_rel_error,
-			  std::size_t __max_iter)
-    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    integrate_oscillatory(FuncTp func,
+			  Tp lower, Tp upper,
+			  Tp max_abs_error,
+			  Tp max_rel_error,
+			  std::size_t max_iter)
+    -> adaptive_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>
     {
-      using __integ_t = adaptive_integral_t<_Tp,
-				     std::invoke_result_t<_FuncTp, _Tp>>;
-      using __area_t = typename __integ_t::_AreaTp;
-      using __absarea_t = typename __integ_t::_AbsAreaTp;
+      using integ_t = adaptive_integral_t<Tp,
+				     std::invoke_result_t<FuncTp, Tp>>;
+      using area_t = typename integ_t::AreaTp;
+      using absarea_t = typename integ_t::AbsAreaTp;
 
-      if (std::isnan(__lower) || std::isnan(__upper)
-          || std::isnan(__max_abs_error) || std::isnan(__max_rel_error))
+      if (std::isnan(lower) || std::isnan(upper)
+          || std::isnan(max_abs_error) || std::isnan(max_rel_error))
 	{
-	  const auto _S_NaN = std::numeric_limits<_Tp>::quiet_NaN();
-	  return {__area_t{} * _S_NaN, __absarea_t{} * _S_NaN};
+	  const auto s_NaN = std::numeric_limits<Tp>::quiet_NaN();
+	  return {area_t{} * s_NaN, absarea_t{} * s_NaN};
 	}
-      else if (__lower == __upper)
-	return {__area_t{}, __absarea_t{}};
+      else if (lower == upper)
+	return {area_t{}, absarea_t{}};
       else
 	{
-          using __iwksp_t
-	    = integration_workspace<_Tp, std::invoke_result_t<_FuncTp, _Tp>>;
-          using __oitab_t = oscillatory_integration_table<_Tp>;
+          using iwksp_t
+	    = integration_workspace<Tp, std::invoke_result_t<FuncTp, Tp>>;
+          using oitab_t = oscillatory_integration_table<Tp>;
 
-          __iwksp_t __w(__max_iter);
-          __oitab_t __wo(__upper, _Tp{1}, __oitab_t::INTEG_SINE, __max_iter);
-          return qawo_integrate(__w, __wo, __func, __lower,
-			        __max_abs_error, __max_rel_error);
+          iwksp_t w(max_iter);
+          oitab_t wo(upper, Tp{1}, oitab_t::INTEG_SINE, max_iter);
+          return qawo_integrate(w, wo, func, lower,
+			        max_abs_error, max_rel_error);
 	}
     }
 
   /**
    * Adaptively integrate a function with known singular/discontinuous points.
    *
-   * @tparam _FuncTp     A function type that takes a single real scalar
+   * @tparam FuncTp     A function type that takes a single real scalar
    *                     argument and returns a real scalar.
-   * @tparam _Tp         A real type for the limits of integration and the step.
+   * @tparam Tp         A real type for the limits of integration and the step.
    */
-  template<typename _FuncTp, typename _FwdIter, typename _Tp>//, typename _Integrator>
+  template<typename FuncTp, typename FwdIter, typename Tp>//, typename Integrator>
     auto
-    integrate_multisingular(_FuncTp __func,
-			    _FwdIter __ptbeg, _FwdIter __ptend,
-			    _Tp __max_abs_error,
-			    _Tp __max_rel_error,
-			    std::size_t __max_iter)
-    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    integrate_multisingular(FuncTp func,
+			    FwdIter ptbeg, FwdIter ptend,
+			    Tp max_abs_error,
+			    Tp max_rel_error,
+			    std::size_t max_iter)
+    -> adaptive_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>
     {
-      using __integ_t = adaptive_integral_t<_Tp,
-				     std::invoke_result_t<_FuncTp, _Tp>>;
-      using __area_t = typename __integ_t::_AreaTp;
-      using __absarea_t = typename __integ_t::_AbsAreaTp;
+      using integ_t = adaptive_integral_t<Tp,
+				     std::invoke_result_t<FuncTp, Tp>>;
+      using area_t = typename integ_t::AreaTp;
+      using absarea_t = typename integ_t::AbsAreaTp;
 
-      //using __pt_t = decltype(*__ptbeg);
-      //using __ret_t = decltype(__func(__pt_t()));
-      //using __area_t = decltype(__pt_t() * __func(__pt_t()));
-      //using __err_t = decltype(std::abs(__area_t()));
+      //using pt_t = decltype(*ptbeg);
+      //using ret_t = decltype(func(pt_t()));
+      //using area_t = decltype(pt_t() * func(pt_t()));
+      //using err_t = decltype(std::abs(area_t()));
 
-      if (std::isnan(__max_abs_error) || std::isnan(__max_rel_error))
+      if (std::isnan(max_abs_error) || std::isnan(max_rel_error))
 	{
-	  const auto _S_NaN = std::numeric_limits<_Tp>::quiet_NaN();
-	  return {__area_t{} * _S_NaN, __absarea_t{} * _S_NaN};
+	  const auto s_NaN = std::numeric_limits<Tp>::quiet_NaN();
+	  return {area_t{} * s_NaN, absarea_t{} * s_NaN};
 	}
       else
 	{
-          integration_workspace<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
-	    __wk(__max_iter);
-          return qagp_integrate(__wk, __func, std::vector(__ptbeg, __ptend),
-			        __max_abs_error, __max_rel_error);
+          integration_workspace<Tp, std::invoke_result_t<FuncTp, Tp>>
+	    wk(max_iter);
+          return qagp_integrate(wk, func, std::vector(ptbeg, ptend),
+			        max_abs_error, max_rel_error);
 	}
     }
 
   /**
    * Integrate a function using an adaptive Clenshaw-Curtis algorithm.
    *
-   * @tparam _FuncTp     A function type that takes a single real scalar
+   * @tparam FuncTp     A function type that takes a single real scalar
    *                     argument and returns a real scalar.
-   * @tparam _Tp         A real type for the limits of integration and the step.
+   * @tparam Tp         A real type for the limits of integration and the step.
    */
-  template<typename _Tp, typename _FuncTp>
+  template<typename Tp, typename FuncTp>
     auto
-    integrate_clenshaw_curtis(_FuncTp __func,
-			      _Tp __lower, _Tp __upper,
-			      _Tp __max_abs_error,
-			      _Tp __max_rel_error,
-			      std::size_t __max_iter)
-    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    integrate_clenshaw_curtis(FuncTp func,
+			      Tp lower, Tp upper,
+			      Tp max_abs_error,
+			      Tp max_rel_error,
+			      std::size_t max_iter)
+    -> adaptive_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>
     {
-      using __integ_t = adaptive_integral_t<_Tp,
-				     std::invoke_result_t<_FuncTp, _Tp>>;
-      using __area_t = typename __integ_t::_AreaTp;
-      using __absarea_t = typename __integ_t::_AbsAreaTp;
+      using integ_t = adaptive_integral_t<Tp,
+				     std::invoke_result_t<FuncTp, Tp>>;
+      using area_t = typename integ_t::AreaTp;
+      using absarea_t = typename integ_t::AbsAreaTp;
 
-      if (std::isnan(__lower) || std::isnan(__upper)
-          || std::isnan(__max_abs_error) || std::isnan(__max_rel_error))
+      if (std::isnan(lower) || std::isnan(upper)
+          || std::isnan(max_abs_error) || std::isnan(max_rel_error))
 	{
-	  const auto _S_NaN = std::numeric_limits<_Tp>::quiet_NaN();
-	  return {__area_t{} * _S_NaN, __absarea_t{} * _S_NaN};
+	  const auto s_NaN = std::numeric_limits<Tp>::quiet_NaN();
+	  return {area_t{} * s_NaN, absarea_t{} * s_NaN};
 	}
-      else if (__lower == __upper)
-	return {__area_t{}, __absarea_t{}};
+      else if (lower == upper)
+	return {area_t{}, absarea_t{}};
       else
 	{
-          using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
+          using RetTp = std::invoke_result_t<FuncTp, Tp>;
 
-          cquad_workspace<_Tp, _RetTp> __ws(__max_iter);
+          cquad_workspace<Tp, RetTp> ws(max_iter);
 
-          return cquad_integrate(__ws, __func, __lower, __upper,
-			         __max_abs_error, __max_rel_error);
+          return cquad_integrate(ws, func, lower, upper,
+			         max_abs_error, max_rel_error);
 	}
     }
 
@@ -600,31 +600,31 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
    * Adaptively integrate a function using a recursive Gauss-Kronrod quadrature
    * called the Patterson algorithm.
    */
-  template<typename _Tp, typename _FuncTp>
+  template<typename Tp, typename FuncTp>
     auto
-    integrate_patterson(_FuncTp __func,
-			_Tp __lower, _Tp __upper,
-			_Tp __max_abs_error,
-			_Tp __max_rel_error)
-    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    integrate_patterson(FuncTp func,
+			Tp lower, Tp upper,
+			Tp max_abs_error,
+			Tp max_rel_error)
+    -> adaptive_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>
     {
-      using __integ_t = adaptive_integral_t<_Tp,
-				     std::invoke_result_t<_FuncTp, _Tp>>;
-      using __area_t = typename __integ_t::_AreaTp;
-      using __absarea_t = typename __integ_t::_AbsAreaTp;
+      using integ_t = adaptive_integral_t<Tp,
+				     std::invoke_result_t<FuncTp, Tp>>;
+      using area_t = typename integ_t::AreaTp;
+      using absarea_t = typename integ_t::AbsAreaTp;
 
-      if (std::isnan(__lower) || std::isnan(__upper)
-          || std::isnan(__max_abs_error) || std::isnan(__max_rel_error))
+      if (std::isnan(lower) || std::isnan(upper)
+          || std::isnan(max_abs_error) || std::isnan(max_rel_error))
 	{
-	  const auto _S_NaN = std::numeric_limits<_Tp>::quiet_NaN();
-	  return {__area_t{} * _S_NaN, __absarea_t{} * _S_NaN};
+	  const auto s_NaN = std::numeric_limits<Tp>::quiet_NaN();
+	  return {area_t{} * s_NaN, absarea_t{} * s_NaN};
 	}
-      else if (__lower == __upper)
-	return {__area_t{}, __absarea_t{}};
+      else if (lower == upper)
+	return {area_t{}, absarea_t{}};
       else
 	{
-          return qng_integrate(__func, __lower, __upper,
-			       __max_abs_error, __max_rel_error);
+          return qng_integrate(func, lower, upper,
+			       max_abs_error, max_rel_error);
 	}
     }
 
@@ -648,73 +648,73 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
    * The QAWS algorithm is designed for integrands with algebraic-logarithmic
    * singularities at the end-points of an integration region.
    */
-  template<typename _Tp, typename _FuncTp>
+  template<typename Tp, typename FuncTp>
     auto
-    integrate_singular_endpoints(_FuncTp __func,
-				 _Tp __lower, _Tp __upper,
-				 _Tp __alpha, _Tp __beta,
-				 int __mu, int __nu,
-				 _Tp __max_abs_error,
-				 _Tp __max_rel_error,
-				 std::size_t __max_iter)
-    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    integrate_singular_endpoints(FuncTp func,
+				 Tp lower, Tp upper,
+				 Tp alpha, Tp beta,
+				 int mu, int nu,
+				 Tp max_abs_error,
+				 Tp max_rel_error,
+				 std::size_t max_iter)
+    -> adaptive_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>
     {
-      using __integ_t = adaptive_integral_t<_Tp,
-				     std::invoke_result_t<_FuncTp, _Tp>>;
-      using __area_t = typename __integ_t::_AreaTp;
-      using __absarea_t = typename __integ_t::_AbsAreaTp;
+      using integ_t = adaptive_integral_t<Tp,
+				     std::invoke_result_t<FuncTp, Tp>>;
+      using area_t = typename integ_t::AreaTp;
+      using absarea_t = typename integ_t::AbsAreaTp;
 
-      if (std::isnan(__lower) || std::isnan(__upper)
-          || std::isnan(__alpha) || std::isnan(__beta)
-          || std::isnan(__max_abs_error) || std::isnan(__max_rel_error))
+      if (std::isnan(lower) || std::isnan(upper)
+          || std::isnan(alpha) || std::isnan(beta)
+          || std::isnan(max_abs_error) || std::isnan(max_rel_error))
 	{
-	  const auto _S_NaN = std::numeric_limits<_Tp>::quiet_NaN();
-	  return {__area_t{} * _S_NaN, __absarea_t{} * _S_NaN};
+	  const auto s_NaN = std::numeric_limits<Tp>::quiet_NaN();
+	  return {area_t{} * s_NaN, absarea_t{} * s_NaN};
 	}
-      else if (__lower == __upper)
-	return {__area_t{}, __absarea_t{}};
+      else if (lower == upper)
+	return {area_t{}, absarea_t{}};
       else
 	{
-          integration_workspace<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
-	    __wksp(__max_iter);
-          qaws_integration_table<_Tp> __tab(__alpha, __beta, __mu, __nu);
+          integration_workspace<Tp, std::invoke_result_t<FuncTp, Tp>>
+	    wksp(max_iter);
+          qaws_integration_table<Tp> tab(alpha, beta, mu, nu);
 
-          return qaws_integrate(__wksp, __tab, __func, __lower, __upper,
-			        __max_abs_error, __max_rel_error);
+          return qaws_integrate(wksp, tab, func, lower, upper,
+			        max_abs_error, max_rel_error);
 	}
     }
 
   /**
    * Integrate the principal value of a function with a Cauchy singularity.
    */
-  template<typename _Tp, typename _FuncTp>
+  template<typename Tp, typename FuncTp>
     auto
-    integrate_cauchy_principal_value(_FuncTp __func,
-				     _Tp __lower, _Tp __upper, _Tp __center,
-				     _Tp __max_abs_error, _Tp __max_rel_error,
-				     std::size_t __max_iter)
-    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    integrate_cauchy_principal_value(FuncTp func,
+				     Tp lower, Tp upper, Tp center,
+				     Tp max_abs_error, Tp max_rel_error,
+				     std::size_t max_iter)
+    -> adaptive_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>
     {
-      using __integ_t = adaptive_integral_t<_Tp,
-				     std::invoke_result_t<_FuncTp, _Tp>>;
-      using __area_t = typename __integ_t::_AreaTp;
-      using __absarea_t = typename __integ_t::_AbsAreaTp;
+      using integ_t = adaptive_integral_t<Tp,
+				     std::invoke_result_t<FuncTp, Tp>>;
+      using area_t = typename integ_t::AreaTp;
+      using absarea_t = typename integ_t::AbsAreaTp;
 
-      if (std::isnan(__lower) || std::isnan(__upper) || std::isnan(__center)
-          || std::isnan(__max_abs_error) || std::isnan(__max_rel_error))
+      if (std::isnan(lower) || std::isnan(upper) || std::isnan(center)
+          || std::isnan(max_abs_error) || std::isnan(max_rel_error))
 	{
-	  const auto _S_NaN = std::numeric_limits<_Tp>::quiet_NaN();
-	  return {__area_t{} * _S_NaN, __absarea_t{} * _S_NaN};
+	  const auto s_NaN = std::numeric_limits<Tp>::quiet_NaN();
+	  return {area_t{} * s_NaN, absarea_t{} * s_NaN};
 	}
-      else if (__lower == __upper)
-	return {__area_t{}, __absarea_t{}};
+      else if (lower == upper)
+	return {area_t{}, absarea_t{}};
       else
 	{
-          integration_workspace<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
-	    __wksp(__max_iter);
+          integration_workspace<Tp, std::invoke_result_t<FuncTp, Tp>>
+	    wksp(max_iter);
 
-          return  qawc_integrate(__wksp, __func, __lower, __upper, __center,
-			         __max_abs_error, __max_rel_error);
+          return  qawc_integrate(wksp, func, lower, upper, center,
+			         max_abs_error, max_rel_error);
 	}
     }
 

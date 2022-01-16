@@ -48,31 +48,31 @@ namespace __gnu_cxx
   template<typename AreaTp, typename AbsAreaTp>
     class integration_error : public std::runtime_error
     {
-      AreaTp _M_result;
-      AbsAreaTp _M_abserr;
-      int _M_errcode;
+      AreaTp m_result;
+      AbsAreaTp m_abserr;
+      int m_errcode;
 
     public:
 
-      integration_error(const char* __what, int __errcode,
-			AreaTp __result, AbsAreaTp __abserr)
-      : std::runtime_error(__what),
-	_M_result(__result),
-	_M_abserr(__abserr),
-	_M_errcode(__errcode)
+      integration_error(const char* what, int errcode,
+			AreaTp result, AbsAreaTp abserr)
+      : std::runtime_error(what),
+	m_result(result),
+	m_abserr(abserr),
+	m_errcode(errcode)
       { }
 
       int
       error_code() const
-      { return _M_errcode; }
+      { return m_errcode; }
 
       AreaTp
       result() const
-      { return this->_M_result; }
+      { return this->m_result; }
 
       AbsAreaTp
       abserr() const
-      { return this->_M_abserr; }
+      { return this->m_abserr; }
     };
 
   /**
@@ -80,15 +80,15 @@ namespace __gnu_cxx
    */
   template<typename AreaTp, typename AbsAreaTp>
     void
-    check_error(std::string_view __func, int __errcode,
-		AreaTp __result, AbsAreaTp __abserr)
+    check_error(std::string_view func, int errcode,
+		AreaTp result, AbsAreaTp abserr)
     {
       std::ostringstream msg;
-      msg << __func << ": ";
+      msg << func << ": ";
 
-      if (__errcode > 2)
-	--__errcode;
-      switch(__errcode)
+      if (errcode > 2)
+	--errcode;
+      switch(errcode)
 	{
 	case NO_ERROR:
 	  return;
@@ -117,7 +117,7 @@ namespace __gnu_cxx
 	  msg << "Could not integrate function";
 	}
 
-      throw integration_error(msg.str().c_str(), __errcode, __result, __abserr);
+      throw integration_error(msg.str().c_str(), errcode, result, abserr);
     }
 
   /**
@@ -125,31 +125,31 @@ namespace __gnu_cxx
    */
   template<typename AreaTp, typename AbsAreaTp>
     AbsAreaTp
-    rescale_error(AreaTp __err,
-		  const AbsAreaTp __result_abs, const AbsAreaTp __result_asc)
+    rescale_error(AreaTp err,
+		  const AbsAreaTp result_abs, const AbsAreaTp result_asc)
     {
-      const auto _S_eps = std::numeric_limits<AbsAreaTp>::epsilon();
-      const auto _S_min = std::numeric_limits<AbsAreaTp>::min();
+      const auto s_eps = std::numeric_limits<AbsAreaTp>::epsilon();
+      const auto s_min = std::numeric_limits<AbsAreaTp>::min();
 
-      AbsAreaTp __abserr = std::abs(__err);
-      if (__result_asc != AbsAreaTp{} && __abserr != AbsAreaTp{})
+      AbsAreaTp abserr = std::abs(err);
+      if (result_asc != AbsAreaTp{} && abserr != AbsAreaTp{})
 	{
-	  auto __scale = std::pow((AbsAreaTp{200} * __abserr / __result_asc), AbsAreaTp{1.5});
+	  auto scale = std::pow((AbsAreaTp{200} * abserr / result_asc), AbsAreaTp{1.5});
 
-	  if (__scale < AbsAreaTp{1})
-	    __abserr = __result_asc * __scale;
+	  if (scale < AbsAreaTp{1})
+	    abserr = result_asc * scale;
 	  else
-	    __abserr = __result_asc;
+	    abserr = result_asc;
 	}
-      if (__result_abs > _S_min / (AbsAreaTp{50} * _S_eps))
+      if (result_abs > s_min / (AbsAreaTp{50} * s_eps))
 	{
-	  auto __min_err = AbsAreaTp{50} * _S_eps * __result_abs;
+	  auto min_err = AbsAreaTp{50} * s_eps * result_abs;
 
-	  if (__min_err > __abserr)
-	    __abserr = __min_err;
+	  if (min_err > abserr)
+	    abserr = min_err;
 	}
 
-      return __abserr;
+      return abserr;
     }
 
 } // namespace __gnu_cxx

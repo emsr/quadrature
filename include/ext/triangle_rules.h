@@ -28,46 +28,46 @@ namespace __gnu_cxx
   /**
    * A generic class for a triangle integration rule.
    */
-  template<typename _Tp>
+  template<typename Tp>
     class triangle_rule
     {
 
     public:
 
       triangle_rule()
-      : _M_order{0}, _M_point{}, _M_weight{}
+      : m_order{0}, m_point{}, m_weight{}
       { }
 
-      triangle_rule(const std::size_t __order,
-		    const std::vector<_Tp>& __weight,
-		    const std::vector<std::array<_Tp, 3>>& __point)
-      : _M_order(__order), _M_weight(__weight), _M_point(__point)
+      triangle_rule(const std::size_t order,
+		    const std::vector<Tp>& weight,
+		    const std::vector<std::array<Tp, 3>>& point)
+      : m_order(order), m_weight(weight), m_point(point)
       { }
 
       std::size_t
       order() const
-      { return this->_M_order; }
+      { return this->m_order; }
 
       void
-      point(const std::size_t __index, _Tp& __weight,
-	    std::array<_Tp,3>& __point) const
+      point(const std::size_t index, Tp& weight,
+	    std::array<Tp,3>& point) const
       {
-	__weight = this->_M_weight[__index];
-	__point = this->_M_point[__index];
+	weight = this->m_weight[index];
+	point = this->m_point[index];
       }
 
-      static const int _S_num_tri_rules = 6;
-      static const int _S_max_tri_order = 10;
+      static const int s_num_tri_rules = 6;
+      static const int s_max_tri_order = 10;
 
     private:
 
-      std::size_t _M_order;
-      std::vector<_Tp> _M_weight;
-      std::vector<std::array<_Tp, 3>> _M_point;
+      std::size_t m_order;
+      std::vector<Tp> m_weight;
+      std::vector<std::array<Tp, 3>> m_point;
 
-      static std::size_t _S_tri_order[_S_num_tri_rules];
-      static _Tp _S_tri_weight[_S_num_tri_rules][_S_max_tri_order];
-      static _Tp _S_tri_point[_S_num_tri_rules][_S_max_tri_order][3];
+      static std::size_t s_tri_order[s_num_tri_rules];
+      static Tp s_tri_weight[s_num_tri_rules][s_max_tri_order];
+      static Tp s_tri_point[s_num_tri_rules][s_max_tri_order][3];
 
     };
 
@@ -82,76 +82,76 @@ namespace __gnu_cxx
    * An array indicating the order of the canned rules.
    * This is the number of the weights and the barycenters for the rule.
    */
-  template<typename _Tp>
+  template<typename Tp>
     std::size_t
-    triangle_rule<_Tp>::_S_tri_order[triangle_rule<_Tp>::_S_num_tri_rules]
+    triangle_rule<Tp>::s_tri_order[triangle_rule<Tp>::s_num_tri_rules]
     { 1, 3, 3, 4, 4, 7 };
 
   /**
    * An array of weight arrays for the canned rules.
    */
-  template<typename _Tp>
-    _Tp
-    triangle_rule<_Tp>::_S_tri_weight[triangle_rule<_Tp>::_S_num_tri_rules][triangle_rule<_Tp>::_S_max_tri_order]
+  template<typename Tp>
+    Tp
+    triangle_rule<Tp>::s_tri_weight[triangle_rule<Tp>::s_num_tri_rules][triangle_rule<Tp>::s_max_tri_order]
     {
-      { _Tp{1} },
-      { _Tp{1} / _Tp{3}, _Tp{1} / _Tp{3}, _Tp{1} / _Tp{3} },
-      { _Tp{1} / _Tp{3}, _Tp{1} / _Tp{3}, _Tp{1} / _Tp{3} },
-      { _Tp{3} / _Tp{4}, _Tp{1} / _Tp{12}, _Tp{1} / _Tp{12}, _Tp{1} / _Tp{12} },
-      { -_Tp{9} / _Tp{16}, _Tp{25} / _Tp{48}, _Tp{25} / _Tp{48}, _Tp{25} / _Tp{48} },
-      { _Tp{9} / _Tp{20}, _Tp{2} / _Tp{15}, _Tp{2} / _Tp{15}, _Tp{2} / _Tp{15},
-	_Tp{1} / _Tp{20}, _Tp{1} / _Tp{20}, _Tp{1} / _Tp{20} }
+      { Tp{1} },
+      { Tp{1} / Tp{3}, Tp{1} / Tp{3}, Tp{1} / Tp{3} },
+      { Tp{1} / Tp{3}, Tp{1} / Tp{3}, Tp{1} / Tp{3} },
+      { Tp{3} / Tp{4}, Tp{1} / Tp{12}, Tp{1} / Tp{12}, Tp{1} / Tp{12} },
+      { -Tp{9} / Tp{16}, Tp{25} / Tp{48}, Tp{25} / Tp{48}, Tp{25} / Tp{48} },
+      { Tp{9} / Tp{20}, Tp{2} / Tp{15}, Tp{2} / Tp{15}, Tp{2} / Tp{15},
+	Tp{1} / Tp{20}, Tp{1} / Tp{20}, Tp{1} / Tp{20} }
     };
 
   /**
    * An array of barycentric point coordinate arrays for the canned rules.
    */
-  template<typename _Tp>
-    _Tp
-    triangle_rule<_Tp>::_S_tri_point[triangle_rule<_Tp>::_S_num_tri_rules][triangle_rule<_Tp>::_S_max_tri_order][3]
+  template<typename Tp>
+    Tp
+    triangle_rule<Tp>::s_tri_point[triangle_rule<Tp>::s_num_tri_rules][triangle_rule<Tp>::s_max_tri_order][3]
     {
       // One point in the center.
-      { { _Tp{1} / _Tp{3}, _Tp{1} / _Tp{3}, _Tp{1} / _Tp{3} } },
+      { { Tp{1} / Tp{3}, Tp{1} / Tp{3}, Tp{1} / Tp{3} } },
 
       // Three points near vertices.
       {
-	{ _Tp{2} / _Tp{3}, _Tp{1} / _Tp{6}, _Tp{1} / _Tp{6} },
-	{ _Tp{1} / _Tp{6}, _Tp{2} / _Tp{3}, _Tp{1} / _Tp{6} },
-	{ _Tp{1} / _Tp{6}, _Tp{1} / _Tp{6}, _Tp{2} / _Tp{3} }
+	{ Tp{2} / Tp{3}, Tp{1} / Tp{6}, Tp{1} / Tp{6} },
+	{ Tp{1} / Tp{6}, Tp{2} / Tp{3}, Tp{1} / Tp{6} },
+	{ Tp{1} / Tp{6}, Tp{1} / Tp{6}, Tp{2} / Tp{3} }
       },
 
       // Three points at edges.
       {
-	{ _Tp{0}, _Tp{1} / _Tp{2}, _Tp{1} / _Tp{2} },
-	{ _Tp{1} / _Tp{2}, _Tp{0}, _Tp{1} / _Tp{2} },
-	{ _Tp{1} / _Tp{2}, _Tp{1} / _Tp{2}, _Tp{0} }
+	{ Tp{0}, Tp{1} / Tp{2}, Tp{1} / Tp{2} },
+	{ Tp{1} / Tp{2}, Tp{0}, Tp{1} / Tp{2} },
+	{ Tp{1} / Tp{2}, Tp{1} / Tp{2}, Tp{0} }
       },
 
       // One point at center and three at vertices.
       {
-	{ _Tp{1} / _Tp{3}, _Tp{1} / _Tp{3}, _Tp{1} / _Tp{3} },
-	{ _Tp{1}, _Tp{0}, _Tp{0} },
-	{ _Tp{0}, _Tp{1}, _Tp{0} },
-	{ _Tp{0}, _Tp{0}, _Tp{1} }
+	{ Tp{1} / Tp{3}, Tp{1} / Tp{3}, Tp{1} / Tp{3} },
+	{ Tp{1}, Tp{0}, Tp{0} },
+	{ Tp{0}, Tp{1}, Tp{0} },
+	{ Tp{0}, Tp{0}, Tp{1} }
       },
 
       // One point at center and three near vertices.
       {
-	{ _Tp{1} / _Tp{3}, _Tp{1} / _Tp{3}, _Tp{1} / _Tp{3} },
-	{ _Tp{11} / _Tp{15}, _Tp{2} / _Tp{15}, _Tp{2} / _Tp{15} },
-	{ _Tp{2} / _Tp{15}, _Tp{11} / _Tp{15}, _Tp{2} / _Tp{15} },
-	{ _Tp{2} / _Tp{15}, _Tp{2} / _Tp{15}, _Tp{11} / _Tp{15} }
+	{ Tp{1} / Tp{3}, Tp{1} / Tp{3}, Tp{1} / Tp{3} },
+	{ Tp{11} / Tp{15}, Tp{2} / Tp{15}, Tp{2} / Tp{15} },
+	{ Tp{2} / Tp{15}, Tp{11} / Tp{15}, Tp{2} / Tp{15} },
+	{ Tp{2} / Tp{15}, Tp{2} / Tp{15}, Tp{11} / Tp{15} }
       },
 
       // One point at center, three points on edges, three points at vertices.
       {
-	{ _Tp{1} / _Tp{3}, _Tp{1} / _Tp{3}, _Tp{1} / _Tp{3} },
-	{ _Tp{0}, _Tp{1} / _Tp{2}, _Tp{1} / _Tp{2} },
-	{ _Tp{1} / _Tp{2}, _Tp{0}, _Tp{1} / _Tp{2} },
-	{ _Tp{1} / _Tp{2}, _Tp{1} / _Tp{2}, _Tp{0} },
-	{ _Tp{1}, _Tp{0}, _Tp{0} },
-	{ _Tp{0}, _Tp{1}, _Tp{0} },
-	{ _Tp{0}, _Tp{0}, _Tp{1} }
+	{ Tp{1} / Tp{3}, Tp{1} / Tp{3}, Tp{1} / Tp{3} },
+	{ Tp{0}, Tp{1} / Tp{2}, Tp{1} / Tp{2} },
+	{ Tp{1} / Tp{2}, Tp{0}, Tp{1} / Tp{2} },
+	{ Tp{1} / Tp{2}, Tp{1} / Tp{2}, Tp{0} },
+	{ Tp{1}, Tp{0}, Tp{0} },
+	{ Tp{0}, Tp{1}, Tp{0} },
+	{ Tp{0}, Tp{0}, Tp{1} }
       }
     };
 

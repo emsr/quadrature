@@ -33,16 +33,16 @@
 namespace __gnu_cxx
 {
 
-  template<typename _Tp, typename _FuncTp,
-	   typename _Integrator = gauss_kronrod_integral<_Tp>>
+  template<typename Tp, typename FuncTp,
+	   typename Integrator = gauss_kronrod_integral<Tp>>
     auto
-    qc25c(_FuncTp __func, _Tp __lower, _Tp __upper, _Tp __center,
-	  _Integrator __quad = gauss_kronrod_integral<_Tp>(Kronrod_15))
-    -> std::tuple<decltype(_Tp{} * __func(_Tp{})), _Tp, bool>;
+    qc25c(FuncTp func, Tp lower, Tp upper, Tp center,
+	  Integrator quad = gauss_kronrod_integral<Tp>(Kronrod_15))
+    -> std::tuple<decltype(Tp{} * func(Tp{})), Tp, bool>;
 
-  template<typename _Tp>
-    std::vector<_Tp>
-    compute_moments(std::size_t __N, _Tp __cc);
+  template<typename Tp>
+    std::vector<Tp>
+    compute_moments(std::size_t N, Tp cc);
 
   /**
    * Adaptive integration for Cauchy principal values:
@@ -56,145 +56,145 @@ namespace __gnu_cxx
    * the singularity. Further away from the singularity the algorithm uses
    * a user-supplied integration rule (default 15-point Gauss-Kronrod). 
    */
-  template<typename _Tp, typename _FuncTp,
-	   typename _Integrator = gauss_kronrod_integral<_Tp>>
+  template<typename Tp, typename FuncTp,
+	   typename Integrator = gauss_kronrod_integral<Tp>>
     auto
-    qawc_integrate(integration_workspace<_Tp,
-			std::invoke_result_t<_FuncTp, _Tp>>& __workspace,
-		   _FuncTp __func,
-		   _Tp __lower, _Tp __upper, _Tp __center,
-		   _Tp __max_abs_err, _Tp __max_rel_err,
-		   _Integrator __quad = gauss_kronrod_integral<_Tp>(Kronrod_15))
-    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    qawc_integrate(integration_workspace<Tp,
+			std::invoke_result_t<FuncTp, Tp>>& workspace,
+		   FuncTp func,
+		   Tp lower, Tp upper, Tp center,
+		   Tp max_abs_err, Tp max_rel_err,
+		   Integrator quad = gauss_kronrod_integral<Tp>(Kronrod_15))
+    -> adaptive_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>
     {
-      using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
-      using _AreaTp = decltype(_RetTp{} * _Tp{});
-      using _AbsAreaTp = decltype(std::abs(_AreaTp{}));
+      using RetTp = std::invoke_result_t<FuncTp, Tp>;
+      using AreaTp = decltype(RetTp{} * Tp{});
+      using AbsAreaTp = decltype(std::abs(AreaTp{}));
 
-      auto __result = _AreaTp{};
-      auto __abserr = _AbsAreaTp{};
+      auto result = AreaTp{};
+      auto abserr = AbsAreaTp{};
 
-      const auto __limit = __workspace.capacity();
+      const auto limit = workspace.capacity();
       // Try to adjust tests for varing precision.
-      const auto _M_rel_err = std::pow(_Tp{10.0},
-				 -std::numeric_limits<_Tp>::digits / _Tp{10.0});
+      const auto m_rel_err = std::pow(Tp{10.0},
+				 -std::numeric_limits<Tp>::digits / Tp{10.0});
 
-      int __sign = 1;
-      if (__upper < __lower)
+      int sign = 1;
+      if (upper < lower)
 	{
-	  std::swap(__lower, __upper);
-	  __sign = -1;
+	  std::swap(lower, upper);
+	  sign = -1;
 	}
 
-      if (!valid_tolerances(__max_abs_err, __max_rel_err))
+      if (!valid_tolerances(max_abs_err, max_rel_err))
 	{
-	  std::ostringstream __msg;
-	  __msg << "qawc_integrate: Tolerance cannot be achieved with given "
-		   "absolute (" << __max_abs_err << ") and relative ("
-		<< __max_rel_err << ") error limits.";
-	  std::__throw_runtime_error(__msg.str().c_str());
+	  std::ostringstream msg;
+	  msg << "qawc_integrate: Tolerance cannot be achieved with given "
+		   "absolute (" << max_abs_err << ") and relative ("
+		<< max_rel_err << ") error limits.";
+	  throw std::runtime_error(msg.str().c_str());
 	}
 
-      if (__center == __lower || __center == __upper)
-	std::__throw_runtime_error ("qawc_integrate: "
+      if (center == lower || center == upper)
+	throw std::runtime_error ("qawc_integrate: "
 				    "Cannot integrate with singularity "
 				    "on endpoint.");
 
-      __workspace.clear();
+      workspace.clear();
 
       // Perform the first integration.
-      auto [__result0, __abserr0, __err_reliable]
-	= qc25c(__func, __lower, __upper, __center, __quad);
+      auto [result0, abserr0, err_reliable]
+	= qc25c(func, lower, upper, center, quad);
 
-      __workspace.append(__lower, __upper, __result0, __abserr0);
+      workspace.append(lower, upper, result0, abserr0);
 
       // Test on accuracy; Use 0.01 relative error as an extra safety
       // margin on the first iteration (ignored for subsequent iterations).
-      auto __tolerance = std::max(__max_abs_err,
-				  __max_rel_err * std::abs( __result0));
-      if (__abserr0 < __tolerance && __abserr0
-	  < _Tp{0.01} * std::abs(__result0))
-	return {__sign * __result0, __abserr0};
-      else if (__limit == 1)
+      auto tolerance = std::max(max_abs_err,
+				  max_rel_err * std::abs( result0));
+      if (abserr0 < tolerance && abserr0
+	  < Tp{0.01} * std::abs(result0))
+	return {sign * result0, abserr0};
+      else if (limit == 1)
 	throw integration_error("qawc_integrate: "
 				"A maximum of one iteration was insufficient",
-				MAX_ITER_ERROR, __sign * __result0, __abserr0);
+				MAX_ITER_ERROR, sign * result0, abserr0);
 
-      auto __area = __result0;
-      auto __errsum = __abserr0;
-      auto __iteration = 1u;
-      int __error_type = NO_ERROR;
-      int __roundoff_type1 = 0, __roundoff_type2 = 0;
+      auto area = result0;
+      auto errsum = abserr0;
+      auto iteration = 1u;
+      int error_type = NO_ERROR;
+      int roundoff_type1 = 0, roundoff_type2 = 0;
       do
 	{
 	  // Bisect the subinterval with the largest error estimate.
-	  const auto& __curr = __workspace.retrieve();
+	  const auto& curr = workspace.retrieve();
 
-	  const auto __a1 = __curr.__lower_lim;
-	  const auto __b2 = __curr.__upper_lim;
-	  auto __mid = (__curr.__lower_lim + __curr.__upper_lim) / _Tp{2};
-	  if (__center > __a1 && __center <= __mid)
-	    __mid = (__center + __b2) / _Tp{2};
-	  else if (__center > __mid && __center < __b2)
-	    __mid = (__a1 + __center) / _Tp{2};
-	  const auto __a2 = __mid;
+	  const auto a1 = curr.lower_lim;
+	  const auto b2 = curr.upper_lim;
+	  auto mid = (curr.lower_lim + curr.upper_lim) / Tp{2};
+	  if (center > a1 && center <= mid)
+	    mid = (center + b2) / Tp{2};
+	  else if (center > mid && center < b2)
+	    mid = (a1 + center) / Tp{2};
+	  const auto a2 = mid;
 
-	  auto [__area1, __error1, __err_reliable1]
-	    = qc25c(__func, __a1, __mid, __center, __quad);
+	  auto [area1, error1, err_reliable1]
+	    = qc25c(func, a1, mid, center, quad);
 
-	  auto [__area2, __error2, __err_reliable2]
-	    = qc25c(__func, __a2, __b2, __center, __quad);
+	  auto [area2, error2, err_reliable2]
+	    = qc25c(func, a2, b2, center, quad);
 
-	  const auto __area12 = __area1 + __area2;
-	  const auto __error12 = __error1 + __error2;
+	  const auto area12 = area1 + area2;
+	  const auto error12 = error1 + error2;
 
-	  __errsum += __error12 - __curr.__abs_error;
-	  __area += __area12 - __curr.__result;
+	  errsum += error12 - curr.abs_error;
+	  area += area12 - curr.result;
 
-	  if (__err_reliable1 && __err_reliable2)
+	  if (err_reliable1 && err_reliable2)
 	    {
-	      const auto __delta = __curr.__result - __area12;
+	      const auto delta = curr.result - area12;
 
-	      if (std::abs (__delta) <= _M_rel_err * std::abs (__area12)
-	    	   && __error12 >= 0.99 * __curr.__abs_error)
-		++__roundoff_type1;
-	      if (__iteration >= 10 && __error12 > __curr.__abs_error)
-		++__roundoff_type2;
+	      if (std::abs (delta) <= m_rel_err * std::abs (area12)
+	    	   && error12 >= 0.99 * curr.abs_error)
+		++roundoff_type1;
+	      if (iteration >= 10 && error12 > curr.abs_error)
+		++roundoff_type2;
 	    }
 
-	  __tolerance = std::max(__max_abs_err, __max_rel_err * std::abs(__area));
-	  if (__errsum > __tolerance)
+	  tolerance = std::max(max_abs_err, max_rel_err * std::abs(area));
+	  if (errsum > tolerance)
 	    {
-	      if (__roundoff_type1 >= 6 || __roundoff_type2 >= 20)
-		__error_type = ROUNDOFF_ERROR;
+	      if (roundoff_type1 >= 6 || roundoff_type2 >= 20)
+		error_type = ROUNDOFF_ERROR;
 
 	      // set error flag in the case of bad integrand behaviour at
 	      // a point of the integration range
-	      if (__workspace.subinterval_too_small(__a1, __a2, __b2))
-		__error_type = SINGULAR_ERROR;
+	      if (workspace.subinterval_too_small(a1, a2, b2))
+		error_type = SINGULAR_ERROR;
 	    }
 
-	  __workspace.split(__mid, __area1, __error1, __area2, __error2);
+	  workspace.split(mid, area1, error1, area2, error2);
 
-	  ++__iteration;
+	  ++iteration;
 	}
-      while (__iteration < __limit && !__error_type && __errsum > __tolerance);
+      while (iteration < limit && !error_type && errsum > tolerance);
 
-      __result = __sign * __workspace.total_integral();
-      __abserr = __errsum;
+      result = sign * workspace.total_integral();
+      abserr = errsum;
 
-      if (__iteration == __limit)
-	__error_type = MAX_SUBDIV_ERROR;
+      if (iteration == limit)
+	error_type = MAX_SUBDIV_ERROR;
 
-      if (__errsum <= __tolerance)
-	return {__result, __abserr};
+      if (errsum <= tolerance)
+	return {result, abserr};
 
-      if (__error_type == NO_ERROR)
-	return {__result, __abserr};
+      if (error_type == NO_ERROR)
+	return {result, abserr};
 
-      check_error(__func__, __error_type, __result, __abserr);
+      check_error(__func__, error_type, result, abserr);
       throw integration_error("qawc_integrate: Unknown error.",
-			      UNKNOWN_ERROR, __result, __abserr);
+			      UNKNOWN_ERROR, result, abserr);
     }
 
   /**
@@ -209,58 +209,58 @@ namespace __gnu_cxx
    * the singularity. Further away from the singularity the algorithm uses
    * a user-supplied integration rule. 
    */
-  template<typename _Tp, typename _FuncTp,
-	   typename _Integrator = gauss_kronrod_integral<_Tp>>
+  template<typename Tp, typename FuncTp,
+	   typename Integrator = gauss_kronrod_integral<Tp>>
     auto
-    qc25c(_FuncTp __func, _Tp __lower, _Tp __upper, _Tp __center,
-	  _Integrator __quad)
-    -> std::tuple<decltype(_Tp{} * __func(_Tp{})), _Tp, bool>
+    qc25c(FuncTp func, Tp lower, Tp upper, Tp center,
+	  Integrator quad)
+    -> std::tuple<decltype(Tp{} * func(Tp{})), Tp, bool>
     {
-      using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
-      using _AreaTp = decltype(_RetTp{} * _Tp{});
-      using _AbsAreaTp = decltype(std::abs(_AreaTp{}));
-      bool __err_reliable;
+      using RetTp = std::invoke_result_t<FuncTp, Tp>;
+      using AreaTp = decltype(RetTp{} * Tp{});
+      using AbsAreaTp = decltype(std::abs(AreaTp{}));
+      bool err_reliable;
 
-      auto __result = _AreaTp{};
-      auto __abserr = _AbsAreaTp{};
+      auto result = AreaTp{};
+      auto abserr = AbsAreaTp{};
 
-      const auto __cc = (_Tp{2} * __center - __upper - __lower)
-		      / (__upper - __lower);
+      const auto cc = (Tp{2} * center - upper - lower)
+		      / (upper - lower);
 
-      if (std::abs(__cc) > _Tp{1.1})
+      if (std::abs(cc) > Tp{1.1})
 	{
-	  auto __func_cauchy = [__func, __center](_Tp __x)
-				-> _Tp
-				{ return __func(__x) / (__x - __center); };
+	  auto func_cauchy = [func, center](Tp x)
+				-> Tp
+				{ return func(x) / (x - center); };
 
-	  auto [__result, __abserr, __resabs, __resasc]
-	    = __quad(__func_cauchy, __lower, __upper);
+	  auto [result, abserr, resabs, resasc]
+	    = quad(func_cauchy, lower, upper);
 
-	  if (__abserr == __resasc)
-	    __err_reliable = false;
+	  if (abserr == resasc)
+	    err_reliable = false;
 	  else
-	    __err_reliable = true;
+	    err_reliable = true;
 
-	  return std::make_tuple(__result, __abserr, __err_reliable);
+	  return std::make_tuple(result, abserr, err_reliable);
 	}
       else
 	{
-	  auto [__cheb12, __cheb24] = qcheb_integrate(__func, __lower, __upper);
-	  const auto __moment = compute_moments(__cheb24.size(), __cc);
+	  auto [cheb12, cheb24] = qcheb_integrate(func, lower, upper);
+	  const auto moment = compute_moments(cheb24.size(), cc);
 
-	  auto __res12 = _AreaTp{0};
-	  for (size_t __i = 0u; __i < __cheb12.size(); ++__i)
-	    __res12 += __cheb12[__i] * __moment[__i];
+	  auto res12 = AreaTp{0};
+	  for (size_t i = 0u; i < cheb12.size(); ++i)
+	    res12 += cheb12[i] * moment[i];
 
-	  auto __res24 = _AreaTp{0};
-	  for (size_t __i = 0u; __i < __cheb24.size(); ++__i)
-	    __res24 += __cheb24[__i] * __moment[__i];
+	  auto res24 = AreaTp{0};
+	  for (size_t i = 0u; i < cheb24.size(); ++i)
+	    res24 += cheb24[i] * moment[i];
 
-	  __result = __res24;
-	  __abserr = std::abs(__res24 - __res12);
-	  __err_reliable = false;
+	  result = res24;
+	  abserr = std::abs(res24 - res12);
+	  err_reliable = false;
 
-	  return std::make_tuple(__result, __abserr, __err_reliable);
+	  return std::make_tuple(result, abserr, err_reliable);
 	}
     }
 
@@ -268,39 +268,39 @@ namespace __gnu_cxx
    * Compute Clenshaw-Curtis moments.
    * An iterator range version would be nicer I think.
    */
-  template<typename _Tp>
-    std::vector<_Tp>
-    compute_moments(std::size_t __N, _Tp __cc)
+  template<typename Tp>
+    std::vector<Tp>
+    compute_moments(std::size_t N, Tp cc)
     {
-      std::vector<_Tp> __moment(__N);
+      std::vector<Tp> moment(N);
 
-      auto __a0 = std::log(std::abs((_Tp{1} - __cc) / (_Tp{1} + __cc)));
-      auto __a1 = _Tp{2} + __a0 * __cc;
+      auto a0 = std::log(std::abs((Tp{1} - cc) / (Tp{1} + cc)));
+      auto a1 = Tp{2} + a0 * cc;
 
-      __moment[0] = __a0;
-      __moment[1] = __a1;
+      moment[0] = a0;
+      moment[1] = a1;
 
-      for (size_t __k = 2; __k < __N; ++__k)
+      for (size_t k = 2; k < N; ++k)
 	{
-	  _Tp __a2;
+	  Tp a2;
 
-	  if ((__k % 2) == 0)
-	    __a2 = _Tp{2} * __cc * __a1 - __a0;
+	  if ((k % 2) == 0)
+	    a2 = Tp{2} * cc * a1 - a0;
 	  else
 	    {
-	      const auto __km1 = _Tp(__k - 1);
-	      __a2 = _Tp{2} * __cc * __a1
-		   - __a0
-		   - _Tp{4} / (__km1 * __km1 - _Tp{1});
+	      const auto km1 = Tp(k - 1);
+	      a2 = Tp{2} * cc * a1
+		   - a0
+		   - Tp{4} / (km1 * km1 - Tp{1});
 	    }
 
-	  __moment[__k] = __a2;
+	  moment[k] = a2;
 
-	  __a0 = __a1;
-	  __a1 = __a2;
+	  a0 = a1;
+	  a1 = a2;
 	}
 
-      return __moment;
+      return moment;
     }
 
 } // namespace

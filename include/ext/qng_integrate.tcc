@@ -225,136 +225,136 @@ namespace __gnu_cxx
     0.037361073762679023410321241766599L,
   };
 
-  template<typename _Tp, typename _FuncTp>
+  template<typename Tp, typename FuncTp>
     auto
-    qng_integrate(_FuncTp __func,
-		  _Tp __lower, _Tp __upper,
-		  _Tp __max_abs_err, _Tp __max_rel_err)
-    -> gauss_kronrod_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    qng_integrate(FuncTp func,
+		  Tp lower, Tp upper,
+		  Tp max_abs_err, Tp max_rel_err)
+    -> gauss_kronrod_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>
     {
-      using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
-      using _AreaTp = decltype(_RetTp{} * _Tp{});
+      using RetTp = std::invoke_result_t<FuncTp, Tp>;
+      using AreaTp = decltype(RetTp{} * Tp{});
 
-      _RetTp __fv1[5], __fv2[5], __fv3[5], __fv4[5];
-      _RetTp __savfun[21];
+      RetTp fv1[5], fv2[5], fv3[5], fv4[5];
+      RetTp savfun[21];
 
-      const auto __half_length = (__upper - __lower) / _Tp{2};
-      const auto __abs_half_length = std::abs(__half_length);
-      const auto __center = (__upper + __lower) / _Tp{2};
-      const auto __f_center = __func(__center);
+      const auto half_length = (upper - lower) / Tp{2};
+      const auto abs_half_length = std::abs(half_length);
+      const auto center = (upper + lower) / Tp{2};
+      const auto f_center = func(center);
 
-      if (!valid_tolerances(__max_abs_err, __max_rel_err))
+      if (!valid_tolerances(max_abs_err, max_rel_err))
 	{
-	  std::ostringstream __msg;
-	  __msg << "qng_integrate: Tolerance cannot be achieved with given "
-		   "absolute (" << __max_abs_err << ") and relative ("
-		<< __max_rel_err << ") error limits.";
-	  std::__throw_runtime_error(__msg.str().c_str());
+	  std::ostringstream msg;
+	  msg << "qng_integrate: Tolerance cannot be achieved with given "
+		   "absolute (" << max_abs_err << ") and relative ("
+		<< max_rel_err << ") error limits.";
+	  throw std::runtime_error(msg.str().c_str());
 	}
 
       // Compute the integral using the 10- and 21-point formula.
 
-      auto __res10 = _AreaTp{0};
-      auto __res21 = _Tp(qng_w21b[5]) * __f_center;
+      auto res10 = AreaTp{0};
+      auto res21 = Tp(qng_w21b[5]) * f_center;
       // Approximation to the integral of abs(f)
-      auto __resabs = _Tp(qng_w21b[5]) * std::abs(__f_center);
+      auto resabs = Tp(qng_w21b[5]) * std::abs(f_center);
 
-      for (int __k = 0; __k < 5; ++__k)
+      for (int k = 0; k < 5; ++k)
 	{
-	  const auto __abscissa = __half_length * _Tp(qng_x1[__k]);
-	  const auto __fval1 = __func(__center + __abscissa);
-	  const auto __fval2 = __func(__center - __abscissa);
-	  const auto __fval = __fval1 + __fval2;
-	  __res10 += _Tp(qng_w10[__k]) * __fval;
-	  __res21 += _Tp(qng_w21a[__k]) * __fval;
-	  __resabs += _Tp(qng_w21a[__k])
-		    * (std::abs(__fval1) + std::abs(__fval2));
-	  __savfun[__k] = __fval;
-	  __fv1[__k] = __fval1;
-	  __fv2[__k] = __fval2;
+	  const auto abscissa = half_length * Tp(qng_x1[k]);
+	  const auto fval1 = func(center + abscissa);
+	  const auto fval2 = func(center - abscissa);
+	  const auto fval = fval1 + fval2;
+	  res10 += Tp(qng_w10[k]) * fval;
+	  res21 += Tp(qng_w21a[k]) * fval;
+	  resabs += Tp(qng_w21a[k])
+		    * (std::abs(fval1) + std::abs(fval2));
+	  savfun[k] = fval;
+	  fv1[k] = fval1;
+	  fv2[k] = fval2;
 	}
 
-      for (int __k = 0; __k < 5; ++__k)
+      for (int k = 0; k < 5; ++k)
 	{
-	  const auto __abscissa = __half_length * _Tp(qng_x2[__k]);
-	  const auto __fval1 = __func(__center + __abscissa);
-	  const auto __fval2 = __func(__center - __abscissa);
-	  const auto __fval = __fval1 + __fval2;
-	  __res21 += _Tp(qng_w21b[__k]) * __fval;
-	  __resabs += _Tp(qng_w21b[__k])
-		    * (std::abs(__fval1) + std::abs(__fval2));
-	  __savfun[__k + 5] = __fval;
-	  __fv3[__k] = __fval1;
-	  __fv4[__k] = __fval2;
+	  const auto abscissa = half_length * Tp(qng_x2[k]);
+	  const auto fval1 = func(center + abscissa);
+	  const auto fval2 = func(center - abscissa);
+	  const auto fval = fval1 + fval2;
+	  res21 += Tp(qng_w21b[k]) * fval;
+	  resabs += Tp(qng_w21b[k])
+		    * (std::abs(fval1) + std::abs(fval2));
+	  savfun[k + 5] = fval;
+	  fv3[k] = fval1;
+	  fv4[k] = fval2;
 	}
 
-      __resabs *= __abs_half_length;
+      resabs *= abs_half_length;
 
       // Approximation to the integral of abs(f-I/(b-a)).
-      const auto __mean = _Tp{0.5L} * __res21;
-      auto __resasc = _Tp(qng_w21b[5]) * std::abs(__f_center - __mean);
-      for (int __k = 0; __k < 5; ++__k)
+      const auto mean = Tp{0.5L} * res21;
+      auto resasc = Tp(qng_w21b[5]) * std::abs(f_center - mean);
+      for (int k = 0; k < 5; ++k)
 	{
-	  __resasc +=
-	    (_Tp(qng_w21a[__k]) * (std::abs(__fv1[__k] - __mean)
-				 + std::abs(__fv2[__k] - __mean))
-	   + _Tp(qng_w21b[__k]) * (std::abs(__fv3[__k] - __mean)
-				 + std::abs(__fv4[__k] - __mean)));
+	  resasc +=
+	    (Tp(qng_w21a[k]) * (std::abs(fv1[k] - mean)
+				 + std::abs(fv2[k] - mean))
+	   + Tp(qng_w21b[k]) * (std::abs(fv3[k] - mean)
+				 + std::abs(fv4[k] - mean)));
 	}
-      __resasc *= __abs_half_length;
+      resasc *= abs_half_length;
 
       // Test for convergence.
-      auto __result_kronrod = __res21 * __half_length;
-      auto __err = rescale_error((__res21 - __res10) * __half_length,
-				 __resabs, __resasc);
-      if (__err < __max_abs_err
-       || __err < __max_rel_err * std::abs(__result_kronrod))
-	return {__result_kronrod, __err, __resabs, __resasc};
+      auto result_kronrod = res21 * half_length;
+      auto err = rescale_error((res21 - res10) * half_length,
+				 resabs, resasc);
+      if (err < max_abs_err
+       || err < max_rel_err * std::abs(result_kronrod))
+	return {result_kronrod, err, resabs, resasc};
 
       // Compute the integral using the 43-point formula.
-      auto __res43 = _Tp(qng_w43b[11]) * __f_center;
-      for (int __k = 0; __k < 10; ++__k)
-	__res43 += __savfun[__k] * _Tp(qng_w43a[__k]);
-      for (int __k = 0; __k < 11; ++__k)
+      auto res43 = Tp(qng_w43b[11]) * f_center;
+      for (int k = 0; k < 10; ++k)
+	res43 += savfun[k] * Tp(qng_w43a[k]);
+      for (int k = 0; k < 11; ++k)
 	{
-	  const auto __abscissa = __half_length * _Tp(qng_x3[__k]);
-	  const auto __fval = __func(__center + __abscissa)
-			    + __func(__center - __abscissa);
-	  __res43 += __fval * _Tp(qng_w43b[__k]);
-	  __savfun[__k + 10] = __fval;
+	  const auto abscissa = half_length * Tp(qng_x3[k]);
+	  const auto fval = func(center + abscissa)
+			    + func(center - abscissa);
+	  res43 += fval * Tp(qng_w43b[k]);
+	  savfun[k + 10] = fval;
 	}
 
       // Test for convergence.
-      __result_kronrod = __res43 * __half_length;
-      __err = rescale_error((__res43 - __res21) * __half_length,
-			    __resabs, __resasc);
-      if (__err < __max_abs_err
-       || __err < __max_rel_err * std::abs(__result_kronrod))
-	return {__result_kronrod, __err, __resabs, __resasc};
+      result_kronrod = res43 * half_length;
+      err = rescale_error((res43 - res21) * half_length,
+			    resabs, resasc);
+      if (err < max_abs_err
+       || err < max_rel_err * std::abs(result_kronrod))
+	return {result_kronrod, err, resabs, resasc};
 
       // Compute the integral using the 87-point formula.
-      auto __res87 = _Tp(qng_w87b[22]) * __f_center;
-      for (int __k = 0; __k < 21; ++__k)
-	__res87 += __savfun[__k] * _Tp(qng_w87a[__k]);
-      for (int __k = 0; __k < 22; ++__k)
+      auto res87 = Tp(qng_w87b[22]) * f_center;
+      for (int k = 0; k < 21; ++k)
+	res87 += savfun[k] * Tp(qng_w87a[k]);
+      for (int k = 0; k < 22; ++k)
 	{
-	  const auto __abscissa = __half_length * _Tp(qng_x4[__k]);
-	  __res87 += _Tp(qng_w87b[__k]) * (__func(__center + __abscissa)
-					 + __func(__center - __abscissa));
+	  const auto abscissa = half_length * Tp(qng_x4[k]);
+	  res87 += Tp(qng_w87b[k]) * (func(center + abscissa)
+					 + func(center - abscissa));
 	}
 
       // Test for convergence.
-      __result_kronrod = __res87 * __half_length;
-      __err = rescale_error((__res87 - __res43) * __half_length,
-			    __resabs, __resasc);
-      if (__err < __max_abs_err
-       || __err < __max_rel_err * std::abs(__result_kronrod))
-	return {__result_kronrod, __err, __resabs, __resasc};
+      result_kronrod = res87 * half_length;
+      err = rescale_error((res87 - res43) * half_length,
+			    resabs, resasc);
+      if (err < max_abs_err
+       || err < max_rel_err * std::abs(result_kronrod))
+	return {result_kronrod, err, resabs, resasc};
 
       // Failed to converge.
       throw integration_error("qng_integrate: "
 			      "Failed to reach tolerance with highest-order rule",
-			      TOLERANCE_ERROR, __result_kronrod, __err);
+			      TOLERANCE_ERROR, result_kronrod, err);
     }
 
 } // namespace __gnu_cxx

@@ -31,91 +31,91 @@ namespace __gnu_cxx
   /**
    * 
    */
-  template<typename _Tp>
-    class __phase_iterator
+  template<typename Tp>
+    class phase_iterator
     : public std::iterator<std::input_iterator_tag,
-                           std::complex<_Tp>,
+                           std::complex<Tp>,
                            std::ptrdiff_t,
-                           const std::complex<_Tp>*,
-                           const std::complex<_Tp>&>
+                           const std::complex<Tp>*,
+                           const std::complex<Tp>&>
     {
     private:
 
-      std::complex<_Tp> _M_omega_pow_i;
-      std::complex<_Tp> _M_omega_pow_ik;
-      std::size_t _M_k;
+      std::complex<Tp> m_omega_pow_i;
+      std::complex<Tp> m_omega_pow_ik;
+      std::size_t m_k;
 
-      static _Tp
-      _S_rational_arg(std::size_t __i, std::size_t __m)
+      static Tp
+      s_rational_arg(std::size_t i, std::size_t m)
       {
 #if REPERIOD
-	return _Tp(2 * __i) / _Tp(__m);
+	return Tp(2 * i) / Tp(m);
 #else
-	const auto _S_2pi = _Tp{2}
-			  * _Tp{3.1415'92653'58979'32384'62643'38327'95028'84195e+0L};
-	return _S_2pi * _Tp(__i) / _Tp(__m);
+	const auto s_2pi = Tp{2}
+			  * Tp{3.1415'92653'58979'32384'62643'38327'95028'84195e+0L};
+	return s_2pi * Tp(i) / Tp(m);
 #endif
       }
 
     public:
 
-      __phase_iterator(_Tp __sign,
-                       std::size_t __i,
-                       std::size_t __len,
-                       bool __past_end = false)
-      : _M_omega_pow_i(std::polar(_Tp{1},
-				  -__sign * _S_rational_arg(__i, __len))),
-	_M_omega_pow_ik(_Tp{1}),
-	_M_k(__past_end ? __len : 0)
+      phase_iterator(Tp sign,
+                       std::size_t i,
+                       std::size_t len,
+                       bool past_end = false)
+      : m_omega_pow_i(std::polar(Tp{1},
+				  -sign * s_rational_arg(i, len))),
+	m_omega_pow_ik(Tp{1}),
+	m_k(past_end ? len : 0)
       { }
 
-      __phase_iterator(_Tp __delta)
-      : _M_omega_pow_i(std::polar(_Tp{1}, __delta)),
-	_M_omega_pow_ik(_Tp{1}),
-	_M_k(0)
+      phase_iterator(Tp delta)
+      : m_omega_pow_i(std::polar(Tp{1}, delta)),
+	m_omega_pow_ik(Tp{1}),
+	m_k(0)
       { }
 
-      std::complex<_Tp>
+      std::complex<Tp>
       operator*() const
-      { return _M_omega_pow_ik; }
+      { return m_omega_pow_ik; }
 
-      __phase_iterator&
+      phase_iterator&
       operator++()
       {
-	++this->_M_k;
-	this->_M_omega_pow_ik *= this->_M_omega_pow_i;
+	++this->m_k;
+	this->m_omega_pow_ik *= this->m_omega_pow_i;
 	return *this;
       }
 
-      __phase_iterator
+      phase_iterator
       operator++(int)
       {
-	__phase_iterator __dummy(*this);
-	++this->_M_k;
-	this->_M_omega_pow_ik *= this->_M_omega_pow_i;
-	return __dummy;
+	phase_iterator dummy(*this);
+	++this->m_k;
+	this->m_omega_pow_ik *= this->m_omega_pow_i;
+	return dummy;
       }
 
-      _Tp
+      Tp
       cos() const
-      { return std::real(this->_M_omega_pow_ik); }
+      { return std::real(this->m_omega_pow_ik); }
 
-      _Tp
+      Tp
       sin() const
-      { return std::imag(this->_M_omega_pow_ik); }
+      { return std::imag(this->m_omega_pow_ik); }
 
       bool
-      operator==(const __phase_iterator& __other) const
+      operator==(const phase_iterator& other) const
       {
-	return (this->_M_omega_pow_i == __other._M_omega_pow_i)
-	    && (this->_M_k == __other._M_k);
+	return (this->m_omega_pow_i == other.m_omega_pow_i)
+	    && (this->m_k == other.m_k);
       }
 
       bool
-      operator!=(const __phase_iterator& __other) const
-      { return !(*this == __other); }
+      operator!=(const phase_iterator& other) const
+      { return !(*this == other); }
 
-    }; // __phase_iterator
+    }; // phase_iterator
 
 /**
  * Fast Fourier Transform
@@ -148,130 +148,130 @@ namespace __gnu_cxx
   /**
    * Discrete Fourier transform type.
    */
-  template<typename _Tp>
+  template<typename Tp>
     class fourier_transform_t
     {
     private:
 
-      std::vector<std::complex<_Tp>> _M_xform;
+      std::vector<std::complex<Tp>> m_xform;
 
     public:
 
-      fourier_transform_t(std::size_t __n)
-      : _M_xform{}
-      { this->_M_xform.reserve(__n / 2 + 1); }
+      fourier_transform_t(std::size_t n)
+      : m_xform{}
+      { this->m_xform.reserve(n / 2 + 1); }
 
-      fourier_transform_t(std::vector<_Tp> __data);
+      fourier_transform_t(std::vector<Tp> data);
 
       std::size_t
       size() const
-      { return 2 * this->_M_xform.size() - 2; }
+      { return 2 * this->m_xform.size() - 2; }
 
-      std::complex<_Tp>
-      operator[](std::size_t __k) const
+      std::complex<Tp>
+      operator[](std::size_t k) const
       {
-	if (__k < this->_M_xform.size())
-	  return this->_M_xform[__k];
+	if (k < this->m_xform.size())
+	  return this->m_xform[k];
 	else
-	  return std::conj(this->_M_xform[this->_M_xform.size() - __k]);
+	  return std::conj(this->m_xform[this->m_xform.size() - k]);
 	// This is real array indexing.
-	//if (__k < len / 2)
-	//	? std::complex(xform[2 * __k], xform[2 * __k + 1])
+	//if (k < len / 2)
+	//	? std::complex(xform[2 * k], xform[2 * k + 1])
 	//	: std::complex(xform[2 * len - 2 * i - 2],
-	//		      -xform[2 * len - 2 * __k - 1]);
+	//		      -xform[2 * len - 2 * k - 1]);
       }
     };
 
   /**
    * Discrete Fourier transform specialization for transform of complex data.
    */
-  template<typename _Tp>
-    class fourier_transform_t<std::complex<_Tp>>
+  template<typename Tp>
+    class fourier_transform_t<std::complex<Tp>>
     {
     private:
 
-      std::vector<std::complex<_Tp>> _M_xform;
+      std::vector<std::complex<Tp>> m_xform;
 
     public:
 
-      fourier_transform_t(std::size_t __n)
-      : _M_xform{}
-      { this->_M_xform.reserve(__n / 2 + 1); }
+      fourier_transform_t(std::size_t n)
+      : m_xform{}
+      { this->m_xform.reserve(n / 2 + 1); }
 
-      fourier_transform_t(const std::vector<std::complex<_Tp>>& __data);
+      fourier_transform_t(const std::vector<std::complex<Tp>>& data);
 
       std::size_t
       size() const
-      { return 2 * this->_M_xform.size() - 2; }
+      { return 2 * this->m_xform.size() - 2; }
 
-      std::complex<_Tp>
-      operator[](std::size_t __k) const
-      { return this->_M_xform[__k]; }
+      std::complex<Tp>
+      operator[](std::size_t k) const
+      { return this->m_xform[k]; }
     };
 
   /**
    * Discrete Fourier transform on complex data.
    */
-  template<typename _Tp>
+  template<typename Tp>
     void
-    __discrete_fourier_transform(bool __do_forward,
-				 std::vector<std::complex<_Tp>>& __z);
+    discrete_fourier_transform(bool do_forward,
+				 std::vector<std::complex<Tp>>& z);
 
   /**
    * Fast Fourier Transform on complex data.
    */
-  template<typename _Tp>
+  template<typename Tp>
     void
-    fast_fourier_transform(std::vector<std::complex<_Tp>>& __z);
+    fast_fourier_transform(std::vector<std::complex<Tp>>& z);
 
   /**
    * Inverse Fast Fourier Transform on complex data.
    */
-  template<typename _Tp>
+  template<typename Tp>
     void
-    inv_fast_fourier_transform(std::vector<std::complex<_Tp>>& __z);
+    inv_fast_fourier_transform(std::vector<std::complex<Tp>>& z);
 
   /**
    * Fast Sine Transform on real data.
    */
-  template <typename _Tp>
+  template <typename Tp>
     void
-    fast_sine_transform(std::vector<_Tp>& __x);
+    fast_sine_transform(std::vector<Tp>& x);
 
   /**
    * Fast Sine Transform on real data.
    */
-  template <typename _Tp>
+  template <typename Tp>
     void
-    inv_fast_sine_transform(std::vector<_Tp>& __x);
+    inv_fast_sine_transform(std::vector<Tp>& x);
 
   /**
    * Fast Fourier Transform on real data.
    */
-  template<typename _Tp>
+  template<typename Tp>
     void
-    fast_fourier_transform(std::vector<_Tp>& __x);
+    fast_fourier_transform(std::vector<Tp>& x);
 
   /**
    * Inverse Fast Fourier Transform on real data.
    */
-  template<typename _Tp>
+  template<typename Tp>
     void
-    inv_fast_fourier_transform(std::vector<_Tp>& __x);
+    inv_fast_fourier_transform(std::vector<Tp>& x);
 
   /**
    * Fast Fourier Transform on input range.
    */
-  template <typename _CmplxIter>
+  template <typename CmplxIter>
     void
-    fast_fourier_transform(const _CmplxIter& __from, const _CmplxIter& __to);
+    fast_fourier_transform(const CmplxIter& from, const CmplxIter& to);
 
   /**
    * Inverse Fast Fourier Transform on input range.
    */
-  template <typename _CmplxIter>
+  template <typename CmplxIter>
     void
-    inv_fast_fourier_transform(const _CmplxIter& __from, const _CmplxIter& __to);
+    inv_fast_fourier_transform(const CmplxIter& from, const CmplxIter& to);
 
 } // namespace __gnu_cxx
 

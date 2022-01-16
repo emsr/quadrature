@@ -9,110 +9,110 @@ namespace __gnu_cxx
    * polynomial @f$ C_n^{(\lambda)}@f$.
    * This works for @f$ \lambda > -1/2 @f$
    *
-   * @tparam  _Tp  The real type of the order
-   * @param[in]  __n  The degree of the Gegenbauer polynomial
-   * @param[in]  __lambda  The order of the Gegenbauer polynomial
+   * @tparam  Tp  The real type of the order
+   * @param[in]  n  The degree of the Gegenbauer polynomial
+   * @param[in]  lambda  The order of the Gegenbauer polynomial
    */
-  template<typename _Tp>
-    std::vector<__quadrature_point_t<_Tp>>
-    __gegenbauer_zeros(unsigned int __n, _Tp __lambda)
+  template<typename Tp>
+    std::vector<quadrature_point_t<Tp>>
+    gegenbauer_zeros(unsigned int n, Tp lambda)
     {
-      const auto _S_eps = std::numeric_limits<_Tp>::epsilon();
-      const unsigned int _S_maxit = 1000u;
-      std::vector<__quadrature_point_t<_Tp>> __pt(__n);
+      const auto s_eps = std::numeric_limits<Tp>::epsilon();
+      const unsigned int s_maxit = 1000u;
+      std::vector<quadrature_point_t<Tp>> pt(n);
 
-      _Tp __z;
-      _Tp __w;
-      for (auto __i = 1u; __i <= __n; ++__i)
+      Tp z;
+      Tp w;
+      for (auto i = 1u; i <= n; ++i)
 	{
-	  if (__i == 1)
+	  if (i == 1)
 	    {
-	      auto __an = __lambda / __n;
-	      auto __an2 = __an * __an;
-	      auto __r1 = (1.0 + __lambda) * (2.78 / (4.0 + __n * __n)
-			+ 0.768 * __an / __n);
-	      auto __r2 = 1.0 + 1.48 * __an + 0.96 * __an + 1.282 * __an2;
-	      __z = 1.0 - __r1 / __r2;
+	      auto an = lambda / n;
+	      auto an2 = an * an;
+	      auto r1 = (1.0 + lambda) * (2.78 / (4.0 + n * n)
+			+ 0.768 * an / n);
+	      auto r2 = 1.0 + 1.48 * an + 0.96 * an + 1.282 * an2;
+	      z = 1.0 - r1 / r2;
 	    }
-	  else if (__i == 2)
+	  else if (i == 2)
 	    {
-	      auto __r1 = (4.1 + __lambda)
-			/ ((1.0 + __lambda) * (1.0 + 0.156 * __lambda));
-	      auto __r2 = 1.0
-			+ 0.06 * (__n - 8.0) * (1.0 + 0.12 * __lambda) / __n;
-	      auto __r3 = 1.0
-		   + 0.012 * __lambda * (1.0 + 0.25 * std::abs(__lambda)) / __n;
-	      __z -= (1.0 - __z) * __r1 * __r2 * __r3;
+	      auto r1 = (4.1 + lambda)
+			/ ((1.0 + lambda) * (1.0 + 0.156 * lambda));
+	      auto r2 = 1.0
+			+ 0.06 * (n - 8.0) * (1.0 + 0.12 * lambda) / n;
+	      auto r3 = 1.0
+		   + 0.012 * lambda * (1.0 + 0.25 * std::abs(lambda)) / n;
+	      z -= (1.0 - z) * r1 * r2 * r3;
 	    }
-	  else if (__i == 3)
+	  else if (i == 3)
 	    {
-	      auto __r1 = (1.67 + 0.28 * __lambda) / (1.0 + 0.37 * __lambda);
-	      auto __r2 = 1.0 + 0.22 * (__n - 8.0) / __n;
-	      auto __r3 = 1.0 + 8.0 *__lambda / ((6.28 + __lambda) * __n * __n);
-	      __z -= (__pt[0].__point - __z) * __r1 * __r2 * __r3;
+	      auto r1 = (1.67 + 0.28 * lambda) / (1.0 + 0.37 * lambda);
+	      auto r2 = 1.0 + 0.22 * (n - 8.0) / n;
+	      auto r3 = 1.0 + 8.0 *lambda / ((6.28 + lambda) * n * n);
+	      z -= (pt[0].point - z) * r1 * r2 * r3;
 	    }
-	  else if (__i == __n - 1)
+	  else if (i == n - 1)
 	    {
-	      auto __r1 = (1.0 + 0.235 * __lambda) / (0.766 + 0.119 * __lambda);
-	      auto __r2 = 1.0 / (1.0 + 0.639 * (__n - 4.0)
-						/ (1.0 + 0.71 * (__n - 4.0)));
-	      auto __r3 = 1.0 / (1.0 + 20.0 * __lambda
-				/ ((7.5 + __lambda) * __n * __n));
-	      __z += (__z - __pt[__n - 4].__point) * __r1 * __r2 * __r3;
+	      auto r1 = (1.0 + 0.235 * lambda) / (0.766 + 0.119 * lambda);
+	      auto r2 = 1.0 / (1.0 + 0.639 * (n - 4.0)
+						/ (1.0 + 0.71 * (n - 4.0)));
+	      auto r3 = 1.0 / (1.0 + 20.0 * lambda
+				/ ((7.5 + lambda) * n * n));
+	      z += (z - pt[n - 4].point) * r1 * r2 * r3;
 	    }
-	  else if (__i == __n)
+	  else if (i == n)
 	    {
-	      auto __r1 = (1.0 + 0.37 * __lambda) / (1.67 + 0.28 * __lambda);
-	      auto __r2 = 1.0 / (1.0 + 0.22 * (__n - 8.0) / __n);
-	      auto __r3 = 1.0 / (1.0 + 8.0 * __lambda
-				 / ((6.28 + __lambda) * __n * __n));
-	      __z += (__z - __pt[__n - 3].__point) * __r1 * __r2 * __r3;
+	      auto r1 = (1.0 + 0.37 * lambda) / (1.67 + 0.28 * lambda);
+	      auto r2 = 1.0 / (1.0 + 0.22 * (n - 8.0) / n);
+	      auto r3 = 1.0 / (1.0 + 8.0 * lambda
+				 / ((6.28 + lambda) * n * n));
+	      z += (z - pt[n - 3].point) * r1 * r2 * r3;
 	    }
 	  else
-	    __z = 3.0 * __pt[__i - 2].__point
-		- 3.0 * __pt[__i - 3].__point + __pt[__i - 4].__point;
+	    z = 3.0 * pt[i - 2].point
+		- 3.0 * pt[i - 3].point + pt[i - 4].point;
 
-	  auto __2lambda = _Tp{2} * __lambda;
-	  for (auto __its = 1u; __its <= _S_maxit; ++__its)
+	  auto __2lambda = Tp{2} * lambda;
+	  for (auto its = 1u; its <= s_maxit; ++its)
 	    {
-	      auto __temp = _Tp{2} + __2lambda;
-	      auto __C1 = (__temp * __z) / _Tp{2};
-	      auto __C2 = _Tp{1};
-	      for (auto __j = 2u; __j <= __n; ++__j)
+	      auto temp = Tp{2} + __2lambda;
+	      auto C1 = (temp * z) / Tp{2};
+	      auto C2 = Tp{1};
+	      for (auto j = 2u; j <= n; ++j)
 		{
-		  auto __C3 = __C2;
-		  __C2 = __C1;
-		  __temp = _Tp(2 * __j) + __2lambda;
-		  auto __a = _Tp(2 * __j) * (__j + __2lambda)
-			   * (__temp - _Tp{2});
-		  auto __b = (__temp - _Tp{1})
-			   * __temp * (__temp - _Tp{2}) * __z;
-		  auto __c = _Tp{2} * (__j - 1 + __lambda)
-			   * (__j - 1 + __lambda) * __temp;
-		  __C1 = (__b * __C2 - __c * __C3) / __a;
+		  auto C3 = C2;
+		  C2 = C1;
+		  temp = Tp(2 * j) + __2lambda;
+		  auto a = Tp(2 * j) * (j + __2lambda)
+			   * (temp - Tp{2});
+		  auto b = (temp - Tp{1})
+			   * temp * (temp - Tp{2}) * z;
+		  auto c = Tp{2} * (j - 1 + lambda)
+			   * (j - 1 + lambda) * temp;
+		  C1 = (b * C2 - c * C3) / a;
 		}
-	      auto __Cp = (__n * (-__temp * __z) * __C1
-			+ _Tp{2} * (__n + __lambda) * (__n + __lambda) * __C2)
-			/ (__temp * (_Tp{1} - __z * __z));
-	      auto __z1 = __z;
-	      __z = __z1 - __C1 / __Cp;
-	      if (std::abs(__z - __z1) <= _S_eps)
+	      auto Cp = (n * (-temp * z) * C1
+			+ Tp{2} * (n + lambda) * (n + lambda) * C2)
+			/ (temp * (Tp{1} - z * z));
+	      auto z1 = z;
+	      z = z1 - C1 / Cp;
+	      if (std::abs(z - z1) <= s_eps)
 		{
-		  __w = std::exp(std::lgamma(__lambda + _Tp(__n))
-			       + std::lgamma(__lambda + _Tp(__n))
-			       - std::lgamma(_Tp(__n + 1))
-			       - std::lgamma(_Tp(__n + 1) + __2lambda))
-		      * __temp * std::pow(_Tp{2}, __2lambda) / (__Cp * __C2);
+		  w = std::exp(std::lgamma(lambda + Tp(n))
+			       + std::lgamma(lambda + Tp(n))
+			       - std::lgamma(Tp(n + 1))
+			       - std::lgamma(Tp(n + 1) + __2lambda))
+		      * temp * std::pow(Tp{2}, __2lambda) / (Cp * C2);
 		  break;
 		}
-	      if (__its > _S_maxit)
-		std::__throw_logic_error("__gegenbauer_zeros: Too many iterations");
+	      if (its > s_maxit)
+		throw std::logic_error("gegenbauer_zeros: Too many iterations");
 	    }
-	  __pt[__i - 1].__point = __z;
-	  __pt[__i - 1].__weight = __w;
+	  pt[i - 1].point = z;
+	  pt[i - 1].weight = w;
 	}
 
-      return __pt;
+      return pt;
     }
 
 } // namespace __gnu_cxx

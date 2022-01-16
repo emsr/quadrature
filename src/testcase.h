@@ -20,50 +20,50 @@
 #ifndef QUADRATURE_TESTCASE_H
 #define QUADRATURE_TESTCASE_H 1
 
-template<typename _Tp>
+template<typename Tp>
   struct monomial
   {
     int degree;
-    _Tp constant;
+    Tp constant;
 
-    monomial(int deg, _Tp con)
+    monomial(int deg, Tp con)
     : degree(deg),
       constant(con)
     { }
 
-    _Tp
-    operator()(_Tp x) const
+    Tp
+    operator()(Tp x) const
     { return constant * std::pow(x, degree); }
 
     monomial
     integral() const
-    { return monomial(degree + 1, constant / _Tp(degree + 1)); }
+    { return monomial(degree + 1, constant / Tp(degree + 1)); }
 
     monomial
     derivative() const
     {
       auto deg = std::max(0, degree - 1);
-      return monomial(deg, _Tp(deg) * constant);
+      return monomial(deg, Tp(deg) * constant);
     }
   };
 
-template<typename _Tp>
-  _Tp
-  integrate(const monomial<_Tp>& mon, _Tp a, _Tp b)
+template<typename Tp>
+  Tp
+  integrate(const monomial<Tp>& mon, Tp a, Tp b)
   {
     auto integ = mon.integral();
     return integ(b) - integ(a);
   }
 
-template<typename _Tp>
+template<typename Tp>
   struct func_test
   {
-    typedef _Tp (*fptr) (_Tp);
+    typedef Tp (*fptr) (Tp);
 
     fptr fun;
-    _Tp a;
-    _Tp b;
-    _Tp exact;
+    Tp a;
+    Tp b;
+    Tp exact;
   };
 
 #include "testcase.tcc"

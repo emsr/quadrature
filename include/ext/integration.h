@@ -40,28 +40,28 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
    * Globally vs. locally adaptive integrals need to be distinguished.
    * abs(diff) vs. diff(abs) is also a thing.
    */
-  template<typename _Tp, typename _RetTp>
+  template<typename Tp, typename RetTp>
     struct fixed_integral_t
     {
-      using _AreaTp = decltype(_RetTp{} * _Tp{});
+      using AreaTp = decltype(RetTp{} * Tp{});
 
       /// Result of the integral.
-      _AreaTp __result = _AreaTp{};
+      AreaTp result = AreaTp{};
     };
 
   /**
    * The return type for an adaptive integral rule.
    */
-  template<typename _Tp, typename _RetTp>
+  template<typename Tp, typename RetTp>
     struct adaptive_integral_t
     {
-      using _AreaTp = decltype(_RetTp{} * _Tp{});
-      using _AbsAreaTp = decltype(std::abs(_AreaTp{}));
+      using AreaTp = decltype(RetTp{} * Tp{});
+      using AbsAreaTp = decltype(std::abs(AreaTp{}));
 
       /// Result of the integral.
-      _AreaTp    __result = _AreaTp{};
+      AreaTp    result = AreaTp{};
       /// Absolute value of estimated error.
-      _AbsAreaTp __abserr = _AbsAreaTp{};
+      AbsAreaTp abserr = AbsAreaTp{};
     };
 
 _GLIBCXX_END_NAMESPACE_VERSION
@@ -79,74 +79,74 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
   /**
    * An error tolerance model for integrals.
    */
-  template<typename _Tp>
+  template<typename Tp>
     struct error_tolerance_t
     {
       constexpr
-      error_tolerance_t(_Tp __max_abs_err, _Tp __max_rel_err,
-			unsigned __min_num_passes);
+      error_tolerance_t(Tp max_abs_err, Tp max_rel_err,
+			unsigned min_num_passes);
 
       /// Maximum absolute error tolerance.
-      _Tp _M_max_abs_err;
+      Tp m_max_abs_err;
       /// Maximum relative error tolerance.
-      _Tp _M_max_rel_err;
+      Tp m_max_rel_err;
       /// Current tolerance.
-      _Tp _M_tolerance = this->tolerance(_Tp{1});
+      Tp m_tolerance = this->tolerance(Tp{1});
       /// Minimum number of consecutive passes before result is OK.
-      unsigned _M_min_num_passes;
+      unsigned m_min_num_passes;
       /// Current number of passes.
-      unsigned _M_num_passes;
+      unsigned m_num_passes;
 
       /// Set and return the tolerance given an initial result.
-      template<typename _ResTp>
-	constexpr _Tp
-	tolerance(_ResTp __result)
+      template<typename ResTp>
+	constexpr Tp
+	tolerance(ResTp result)
 	{
-	  this->_M_tolerance
-		  = std::max(this->_M_max_abs_err,
-			     _Tp(this->_M_max_rel_err * std::abs(__result)));
-	  return this->_M_tolerance;
+	  this->m_tolerance
+		  = std::max(this->m_max_abs_err,
+			     Tp(this->m_max_rel_err * std::abs(result)));
+	  return this->m_tolerance;
 	}
 
       /// Return whether convergence is acceptable tolerance
       /// given two subsequent results.
-      template<typename _ResTp>
+      template<typename ResTp>
 	bool
-	test(_ResTp __curr_result, _ResTp __prev_result)
+	test(ResTp curr_result, ResTp prev_result)
 	{
-	  const auto __del = std::abs(__curr_result - __prev_result);
-	  if (__del < this->_M_max_abs_err
-	      || __del < this->_M_max_rel_err * std::abs(__curr_result))
-	    ++this->_M_num_passes;
+	  const auto del = std::abs(curr_result - prev_result);
+	  if (del < this->m_max_abs_err
+	      || del < this->m_max_rel_err * std::abs(curr_result))
+	    ++this->m_num_passes;
 	  else
-	    this->_M_num_passes = 0;
-	  return this->_M_num_passes >= this->_M_min_num_passes;
+	    this->m_num_passes = 0;
+	  return this->m_num_passes >= this->m_min_num_passes;
 	}
 
       /// Return the current tolerance.
-      constexpr _Tp
+      constexpr Tp
       tolerance() const
-      { return this->_M_tolerance; }
+      { return this->m_tolerance; }
 
       /// Test for valid error tolerances.
       static constexpr bool
-      _S_valid_tolerances(_Tp __max_abs_err, _Tp __max_rel_err)
+      s_valid_tolerances(Tp max_abs_err, Tp max_rel_err)
       {
-	constexpr auto _S_eps = std::numeric_limits<_Tp>::epsilon();
-	return !(__max_abs_err <= _Tp{0}
-	      && (__max_rel_err < _Tp{50} * _S_eps
-	       || __max_rel_err < 0.5e-28));
+	constexpr auto s_eps = std::numeric_limits<Tp>::epsilon();
+	return !(max_abs_err <= Tp{0}
+	      && (max_rel_err < Tp{50} * s_eps
+	       || max_rel_err < 0.5e-28));
 	// I don't understand the etymology of this last number.
       }
     };
 
   // Hack for now...
-  template<typename _Tp>
+  template<typename Tp>
     inline bool
-    valid_tolerances(_Tp __max_abs_err, _Tp __max_rel_err)
+    valid_tolerances(Tp max_abs_err, Tp max_rel_err)
     {
-      return error_tolerance_t<_Tp>::
-	     _S_valid_tolerances(__max_abs_err, __max_rel_err);
+      return error_tolerance_t<Tp>::
+	     s_valid_tolerances(max_abs_err, max_rel_err);
     }
 
 _GLIBCXX_END_NAMESPACE_VERSION
@@ -171,15 +171,15 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
    * @param qkintrule is the Gauss-Kronrod integration rule.
    * @return A structure containing the integration result and the error.
    */
-  template<typename _Tp, typename _FuncTp>
+  template<typename Tp, typename FuncTp>
     auto
-    integrate(_FuncTp __func,
-	      _Tp __lower, _Tp __upper,
-	      _Tp __max_abs_error,
-	      _Tp __max_rel_error,
-	      std::size_t __max_iter = 1024,
-	      Kronrod_Rule __qkintrule = Kronrod_21)
-    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>;
+    integrate(FuncTp func,
+	      Tp lower, Tp upper,
+	      Tp max_abs_error,
+	      Tp max_rel_error,
+	      std::size_t max_iter = 1024,
+	      Kronrod_Rule qkintrule = Kronrod_21)
+    -> adaptive_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>;
 
   /**
    * Integrates a smooth function from -infinity to +infinity.
@@ -191,14 +191,14 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
    * @param qkintrule is the Gauss-Kronrod integration rule.
    * @return A structure containing the integration result and the error.
    */
-  template<typename _Tp, typename _FuncTp>
+  template<typename Tp, typename FuncTp>
     auto
-    integrate_minf_pinf(_FuncTp __func,
-			_Tp __max_abs_error,
-			_Tp __max_rel_error,
-			std::size_t __max_iter = 1024,
-			Kronrod_Rule __qkintrule = Kronrod_21)
-    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>;
+    integrate_minf_pinf(FuncTp func,
+			Tp max_abs_error,
+			Tp max_rel_error,
+			std::size_t max_iter = 1024,
+			Kronrod_Rule qkintrule = Kronrod_21)
+    -> adaptive_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>;
 
   /**
    * Integrate a smooth function from -infinity to finite b.
@@ -211,29 +211,29 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
    * @param qkintrule is the Gauss-Kronrod integration rule.
    * @return A structure containing the integration result and the error.
    */
-  template<typename _Tp, typename _FuncTp>
+  template<typename Tp, typename FuncTp>
     auto
-    integrate_minf_upper(_FuncTp __func,
-			 _Tp __upper,
-			 _Tp __max_abs_error,
-			 _Tp __max_rel_error,
-			 std::size_t __max_iter = 1024,
-			 Kronrod_Rule __qkintrule = Kronrod_21)
-    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>;
+    integrate_minf_upper(FuncTp func,
+			 Tp upper,
+			 Tp max_abs_error,
+			 Tp max_rel_error,
+			 std::size_t max_iter = 1024,
+			 Kronrod_Rule qkintrule = Kronrod_21)
+    -> adaptive_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>;
 
-  template<typename _Tp, typename _FuncTp>
+  template<typename Tp, typename FuncTp>
     inline auto
-    integrate_lower_minf(_FuncTp __func,
-			 _Tp __lower,
-			 _Tp __max_abs_error,
-			 _Tp __max_rel_error,
-			 std::size_t __max_iter = 1024,
-			 Kronrod_Rule __qkintrule = Kronrod_21)
-    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    integrate_lower_minf(FuncTp func,
+			 Tp lower,
+			 Tp max_abs_error,
+			 Tp max_rel_error,
+			 std::size_t max_iter = 1024,
+			 Kronrod_Rule qkintrule = Kronrod_21)
+    -> adaptive_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>
     {
-      return -integrate_minf_upper(__func, __lower,
-				   __max_abs_error, __max_rel_error,
-				   __max_iter, __qkintrule);
+      return -integrate_minf_upper(func, lower,
+				   max_abs_error, max_rel_error,
+				   max_iter, qkintrule);
     }
 
   /**
@@ -247,29 +247,29 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
    * @param qkintrule is the Gauss-Kronrod integration rule.
    * @return A structure containing the integration result and the error.
    */
-  template<typename _Tp, typename _FuncTp>
+  template<typename Tp, typename FuncTp>
     auto
-    integrate_lower_pinf(_FuncTp __func,
-			 _Tp __lower,
-			 _Tp __max_abs_error,
-			 _Tp __max_rel_error,
-			 std::size_t __max_iter = 1024,
-			 Kronrod_Rule __qkintrule = Kronrod_21)
-    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>;
+    integrate_lower_pinf(FuncTp func,
+			 Tp lower,
+			 Tp max_abs_error,
+			 Tp max_rel_error,
+			 std::size_t max_iter = 1024,
+			 Kronrod_Rule qkintrule = Kronrod_21)
+    -> adaptive_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>;
 
-  template<typename _Tp, typename _FuncTp>
+  template<typename Tp, typename FuncTp>
     inline auto
-    integrate_pinf_upper(_FuncTp __func,
-			 _Tp __upper,
-			 _Tp __max_abs_error,
-			 _Tp __max_rel_error,
-			 std::size_t __max_iter = 1024,
-			 Kronrod_Rule __qkintrule = Kronrod_21)
-    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    integrate_pinf_upper(FuncTp func,
+			 Tp upper,
+			 Tp max_abs_error,
+			 Tp max_rel_error,
+			 std::size_t max_iter = 1024,
+			 Kronrod_Rule qkintrule = Kronrod_21)
+    -> adaptive_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>
     {
-      return -integrate_lower_pinf(__func, __upper,
-				   __max_abs_error, __max_rel_error,
-				   __max_iter, __qkintrule);
+      return -integrate_lower_pinf(func, upper,
+				   max_abs_error, max_rel_error,
+				   max_iter, qkintrule);
     }
 
   /**
@@ -284,14 +284,14 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
    * @param max_iter is the maximum number of iterations allowed
    * @return A structure containing the integration result and the error.
    */
-  template<typename _Tp, typename _FuncTp>
+  template<typename Tp, typename FuncTp>
     auto
-    integrate_kronrod_singular(_FuncTp __func,
-			       _Tp __lower, _Tp __upper,
-			       _Tp __max_abs_error,
-			       _Tp __max_rel_error,
-			       std::size_t __max_iter = 1024)
-    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>;
+    integrate_kronrod_singular(FuncTp func,
+			       Tp lower, Tp upper,
+			       Tp max_abs_error,
+			       Tp max_rel_error,
+			       std::size_t max_iter = 1024)
+    -> adaptive_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>;
 
   /**
    * Integrate a potentially singular function from -infinity to +infinity
@@ -302,36 +302,36 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
    * @param max_iter is the maximum number of iterations allowed
    * @return A structure containing the integration result and the error.
    */
-  template<typename _Tp, typename _FuncTp>
+  template<typename Tp, typename FuncTp>
     auto
-    integrate_singular_minf_pinf(_FuncTp __func,
-				 _Tp __max_abs_error,
-				 _Tp __max_rel_error,
-				 std::size_t __max_iter = 1024)
-    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>;
+    integrate_singular_minf_pinf(FuncTp func,
+				 Tp max_abs_error,
+				 Tp max_rel_error,
+				 std::size_t max_iter = 1024)
+    -> adaptive_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>;
 
   /**
    * Integrate a potentially singular function from -infinity to b
    */
-  template<typename _Tp, typename _FuncTp>
+  template<typename Tp, typename FuncTp>
     auto
-    integrate_singular_minf_upper(_FuncTp __func, _Tp __upper,
-				  _Tp __max_abs_error,
-				  _Tp __max_rel_error,
-				  std::size_t __max_iter = 1024)
-    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>;
+    integrate_singular_minf_upper(FuncTp func, Tp upper,
+				  Tp max_abs_error,
+				  Tp max_rel_error,
+				  std::size_t max_iter = 1024)
+    -> adaptive_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>;
 
-  template<typename _Tp, typename _FuncTp>
+  template<typename Tp, typename FuncTp>
     inline auto
-    integrate_singular_lower_minf(_FuncTp __func, _Tp __lower,
-				  _Tp __max_abs_error,
-				  _Tp __max_rel_error,
-				  std::size_t __max_iter = 1024)
-    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    integrate_singular_lower_minf(FuncTp func, Tp lower,
+				  Tp max_abs_error,
+				  Tp max_rel_error,
+				  std::size_t max_iter = 1024)
+    -> adaptive_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>
     {
-      return -integrate_singular_minf_upper(__func, __lower,
-					    __max_abs_error, __max_rel_error,
-					    __max_iter);
+      return -integrate_singular_minf_upper(func, lower,
+					    max_abs_error, max_rel_error,
+					    max_iter);
     }
 
   /**
@@ -344,25 +344,25 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
    * @param max_iter is the maximum number of iterations allowed
    * @return A structure containing the integration result and the error.
    */
-  template<typename _Tp, typename _FuncTp>
+  template<typename Tp, typename FuncTp>
     auto
-    integrate_singular_lower_pinf(_FuncTp __func, _Tp __lower,
-				  _Tp __max_abs_error,
-				  _Tp __max_rel_error,
-				  std::size_t __max_iter = 1024)
-    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>;
+    integrate_singular_lower_pinf(FuncTp func, Tp lower,
+				  Tp max_abs_error,
+				  Tp max_rel_error,
+				  std::size_t max_iter = 1024)
+    -> adaptive_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>;
 
-  template<typename _Tp, typename _FuncTp>
+  template<typename Tp, typename FuncTp>
     inline auto
-    integrate_singular_pinf_upper(_FuncTp __func, _Tp __upper,
-				  _Tp __max_abs_error,
-				  _Tp __max_rel_error,
-				  std::size_t __max_iter = 1024)
-    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    integrate_singular_pinf_upper(FuncTp func, Tp upper,
+				  Tp max_abs_error,
+				  Tp max_rel_error,
+				  std::size_t max_iter = 1024)
+    -> adaptive_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>
     {
-      return -integrate_singular_lower_pinf(__func, __upper,
-					    __max_abs_error, __max_rel_error,
-					    __max_iter);
+      return -integrate_singular_lower_pinf(func, upper,
+					    max_abs_error, max_rel_error,
+					    max_iter);
     }
 
   /**
@@ -376,70 +376,70 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
    * @param max_iter is the maximum number of iterations allowed
    * @return A structure containing the integration result and the error.
    */
-  template<typename _Tp, typename _FuncTp>
+  template<typename Tp, typename FuncTp>
     auto
-    integrate_singular(_FuncTp __func,
-		       _Tp __lower, _Tp __upper,
-		       _Tp __max_abs_error,
-		       _Tp __max_rel_error,
-		       std::size_t __max_iter = 1024)
-    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>;
+    integrate_singular(FuncTp func,
+		       Tp lower, Tp upper,
+		       Tp max_abs_error,
+		       Tp max_rel_error,
+		       std::size_t max_iter = 1024)
+    -> adaptive_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>;
 
   /**
    * Integrate an oscillatory function.
    */
-  template<typename _Tp, typename _FuncTp>
+  template<typename Tp, typename FuncTp>
     auto
-    integrate_oscillatory(_FuncTp __func,
-			  _Tp __lower, _Tp __upper,
-			  _Tp __max_abs_error,
-			  _Tp __max_rel_error,
-			  std::size_t __max_iter = 1024)
-    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>;
+    integrate_oscillatory(FuncTp func,
+			  Tp lower, Tp upper,
+			  Tp max_abs_error,
+			  Tp max_rel_error,
+			  std::size_t max_iter = 1024)
+    -> adaptive_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>;
 
   /**
    * Adaptively integrate a function with known singular/discontinuous points.
    *
-   * @tparam _FuncTp     A function type that takes a single real scalar
+   * @tparam FuncTp     A function type that takes a single real scalar
    *                     argument and returns a real scalar.
-   * @tparam _Tp         A real type for the limits of integration and the step.
+   * @tparam Tp         A real type for the limits of integration and the step.
    */
-  template<typename _FuncTp, typename _FwdIter, typename _Tp>
+  template<typename FuncTp, typename FwdIter, typename Tp>
     auto
-    integrate_multisingular(_FuncTp __func,
-			    _FwdIter __ptbeg, _FwdIter __ptend,
-			    _Tp __max_abs_error,
-			    _Tp __max_rel_error,
-			    std::size_t __max_iter = 1024)
-    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>;
+    integrate_multisingular(FuncTp func,
+			    FwdIter ptbeg, FwdIter ptend,
+			    Tp max_abs_error,
+			    Tp max_rel_error,
+			    std::size_t max_iter = 1024)
+    -> adaptive_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>;
 
   /**
    * Integrate a function using an adaptive Clenshaw-Curtis algorithm.
    *
-   * @tparam _FuncTp     A function type that takes a single real scalar
+   * @tparam FuncTp     A function type that takes a single real scalar
    *                     argument and returns a real scalar.
-   * @tparam _Tp         A real type for the limits of integration and the step.
+   * @tparam Tp         A real type for the limits of integration and the step.
    */
-  template<typename _Tp, typename _FuncTp>
+  template<typename Tp, typename FuncTp>
     auto
-    integrate_clenshaw_curtis(_FuncTp __func,
-			      _Tp __lower, _Tp __upper,
-			      _Tp __max_abs_error,
-			      _Tp __max_rel_error,
-			      std::size_t __max_iter = 1024)
-    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>;
+    integrate_clenshaw_curtis(FuncTp func,
+			      Tp lower, Tp upper,
+			      Tp max_abs_error,
+			      Tp max_rel_error,
+			      std::size_t max_iter = 1024)
+    -> adaptive_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>;
 
   /**
    * Adaptively integrate a function using a recursive Gauss-Kronrod quadrature
    * called the Patterson algorithm.
    */
-  template<typename _Tp, typename _FuncTp>
+  template<typename Tp, typename FuncTp>
     auto
-    integrate_patterson(_FuncTp __func,
-			_Tp __lower, _Tp __upper,
-			_Tp __max_abs_error,
-			_Tp __max_rel_error)
-    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>;
+    integrate_patterson(FuncTp func,
+			Tp lower, Tp upper,
+			Tp max_abs_error,
+			Tp max_rel_error)
+    -> adaptive_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>;
 
   /**
    * The singular weight function is defined by:
@@ -461,27 +461,27 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
    * The QAWS algorithm is designed for integrands with algebraic-logarithmic
    * singularities at the end-points of an integration region.
    */
-  template<typename _Tp, typename _FuncTp>
+  template<typename Tp, typename FuncTp>
     auto
-    integrate_singular_endpoints(_FuncTp __func,
-				 _Tp __lower, _Tp __upper,
-				 _Tp __alpha, _Tp __beta,
-				 int __mu, int __nu,
-				 _Tp __max_abs_error,
-				 _Tp __max_rel_error,
-				 std::size_t __max_iter = 1024)
-    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>;
+    integrate_singular_endpoints(FuncTp func,
+				 Tp lower, Tp upper,
+				 Tp alpha, Tp beta,
+				 int mu, int nu,
+				 Tp max_abs_error,
+				 Tp max_rel_error,
+				 std::size_t max_iter = 1024)
+    -> adaptive_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>;
 
   /**
    * Integrate the principal value of a function with a Cauchy singularity.
    */
-  template<typename _Tp, typename _FuncTp>
+  template<typename Tp, typename FuncTp>
     auto
-    integrate_cauchy_principal_value(_FuncTp __func,
-				     _Tp __lower, _Tp __upper, _Tp __center,
-				     _Tp __max_abs_err, _Tp __max_rel_err,
-				     std::size_t __max_iter = 1024)
-    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>;
+    integrate_cauchy_principal_value(FuncTp func,
+				     Tp lower, Tp upper, Tp center,
+				     Tp max_abs_err, Tp max_rel_err,
+				     std::size_t max_iter = 1024)
+    -> adaptive_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>;
 
   /**
    * @f[
@@ -499,11 +499,11 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
    *     = \sum_{k=-n}^{+n} 
    * @f]
    */
-  template<typename _Tp, typename _FuncTp>
-    adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
-    integrate_tanh_sinh(_FuncTp __func, _Tp __a, _Tp __b,
-			_Tp __max_abs_err, _Tp __max_rel_err,
-			int __max_iter = 4);
+  template<typename Tp, typename FuncTp>
+    adaptive_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>
+    integrate_tanh_sinh(FuncTp func, Tp a, Tp b,
+			Tp max_abs_err, Tp max_rel_err,
+			int max_iter = 4);
 
   /**
    * @f[
@@ -521,11 +521,11 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
    *     = \sum_{k=-n}^{+n} 
    * @f]
    */
-  template<typename _Tp, typename _FuncTp>
-    adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
-    integrate_sinh_sinh(_FuncTp __func,
-			_Tp __max_abs_err, _Tp __max_rel_err,
-			int __max_iter = 8);
+  template<typename Tp, typename FuncTp>
+    adaptive_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>
+    integrate_sinh_sinh(FuncTp func,
+			Tp max_abs_err, Tp max_rel_err,
+			int max_iter = 8);
 
   /**
    * @f[
@@ -548,78 +548,78 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
    * @param  func  The function to be integrated.
    * @param  a  The lower limit of the semi-infinite integral.
    */
-  template<typename _Tp, typename _FuncTp>
-    adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
-    integrate_exp_sinh(_FuncTp __func, _Tp __a,
-			_Tp __max_abs_err, _Tp __max_rel_err,
-			int __max_iter = 4);
+  template<typename Tp, typename FuncTp>
+    adaptive_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>
+    integrate_exp_sinh(FuncTp func, Tp a,
+			Tp max_abs_err, Tp max_rel_err,
+			int max_iter = 4);
 
-  template<typename _Tp, typename _FuncTp>
-    adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
-    integrate_trapezoid(_FuncTp __func, _Tp __a, _Tp __b,
-			_Tp __max_abs_err, _Tp __max_rel_err,
-			int __max_iter);
+  template<typename Tp, typename FuncTp>
+    adaptive_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>
+    integrate_trapezoid(FuncTp func, Tp a, Tp b,
+			Tp max_abs_err, Tp max_rel_err,
+			int max_iter);
 
-  template<typename _Tp, typename _FuncTp>
-    adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
-    integrate_midpoint(_FuncTp __func, _Tp __a, _Tp __b,
-			_Tp __max_abs_err, _Tp __max_rel_err,
-			int __max_iter);
+  template<typename Tp, typename FuncTp>
+    adaptive_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>
+    integrate_midpoint(FuncTp func, Tp a, Tp b,
+			Tp max_abs_err, Tp max_rel_err,
+			int max_iter);
 
-  template<typename _Tp, typename _FuncTp>
-    fixed_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
-    integrate_fixed_gauss_legendre(int __n,
-				   _FuncTp __func, _Tp __a, _Tp __b);
+  template<typename Tp, typename FuncTp>
+    fixed_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>
+    integrate_fixed_gauss_legendre(int n,
+				   FuncTp func, Tp a, Tp b);
 
-  template<typename _Tp, typename _FuncTp>
-    fixed_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
-    integrate_fixed_gauss_chebyshev_t(int __n,
-				      _FuncTp __func, _Tp __a, _Tp __b);
+  template<typename Tp, typename FuncTp>
+    fixed_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>
+    integrate_fixed_gauss_chebyshev_t(int n,
+				      FuncTp func, Tp a, Tp b);
 
-  template<typename _Tp, typename _FuncTp>
-    fixed_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
-    integrate_fixed_gauss_chebyshev_u(int __n,
-				      _FuncTp __func, _Tp __a, _Tp __b);
+  template<typename Tp, typename FuncTp>
+    fixed_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>
+    integrate_fixed_gauss_chebyshev_u(int n,
+				      FuncTp func, Tp a, Tp b);
 
-  template<typename _Tp, typename _FuncTp>
-    fixed_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
-    integrate_fixed_gauss_chebyshev_v(int __n,
-				      _FuncTp __func, _Tp __a, _Tp __b);
+  template<typename Tp, typename FuncTp>
+    fixed_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>
+    integrate_fixed_gauss_chebyshev_v(int n,
+				      FuncTp func, Tp a, Tp b);
 
-  template<typename _Tp, typename _FuncTp>
-    fixed_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
-    integrate_fixed_gauss_chebyshev_w(int __n,
-				      _FuncTp __func, _Tp __a, _Tp __b);
+  template<typename Tp, typename FuncTp>
+    fixed_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>
+    integrate_fixed_gauss_chebyshev_w(int n,
+				      FuncTp func, Tp a, Tp b);
 
-  template<typename _Tp, typename _FuncTp>
-    fixed_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
-    integrate_fixed_gauss_gegenbauer(int __n, _Tp __lambda,
-				     _FuncTp __func, _Tp __a, _Tp __b);
+  template<typename Tp, typename FuncTp>
+    fixed_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>
+    integrate_fixed_gauss_gegenbauer(int n, Tp lambda,
+				     FuncTp func, Tp a, Tp b);
 
-  template<typename _Tp, typename _FuncTp>
-    fixed_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
-    integrate_fixed_gauss_jacobi(int __n, _Tp __alf, _Tp __bet,
-				 _FuncTp __func, _Tp __a, _Tp __b);
+  template<typename Tp, typename FuncTp>
+    fixed_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>
+    integrate_fixed_gauss_jacobi(int n, Tp alf, Tp bet,
+				 FuncTp func, Tp a, Tp b);
 
-  template<typename _Tp, typename _FuncTp>
-    fixed_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
-    integrate_fixed_gauss_laguerre(int __n, _Tp __alf,
-				   _FuncTp __func, _Tp __a, _Tp __b);
+  template<typename Tp, typename FuncTp>
+    fixed_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>
+    integrate_fixed_gauss_laguerre(int n, Tp alf,
+				   FuncTp func, Tp a, Tp b);
 
-  template<typename _Tp, typename _FuncTp>
-    fixed_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
-    integrate_fixed_gauss_hermite(int __n, _Tp __alf,
-				  _FuncTp __func, _Tp __a, _Tp __b);
+  template<typename Tp, typename FuncTp>
+    fixed_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>
+    integrate_fixed_gauss_hermite(int n, Tp alf,
+				  FuncTp func, Tp a, Tp b);
 
-  template<typename _Tp, typename _FuncTp>
-    fixed_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
-    integrate_fixed_gauss_exponential(int __n, _Tp __alf,
-				      _FuncTp __func, _Tp __a, _Tp __b);
+  template<typename Tp, typename FuncTp>
+    fixed_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>
+    integrate_fixed_gauss_exponential(int n, Tp alf,
+				      FuncTp func, Tp a, Tp b);
 
-  template<typename _Tp, typename _FuncTp>
-    fixed_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
-    integrate_fixed_gauss_rational(int __n, _Tp __alf, _Tp __bet,
-				   _FuncTp __func, _Tp __a, _Tp __b);
+  template<typename Tp, typename FuncTp>
+    fixed_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>
+    integrate_fixed_gauss_rational(int n, Tp alf, Tp bet,
+				   FuncTp func, Tp a, Tp b);
 
 _GLIBCXX_END_NAMESPACE_VERSION
 } // namespace __gnu_cxx

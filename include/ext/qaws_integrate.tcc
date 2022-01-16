@@ -36,29 +36,29 @@
 namespace __gnu_cxx
 {
 
-  template<typename _Tp, typename _FuncTp>
+  template<typename Tp, typename FuncTp>
     struct fn_qaws;
 
-  template<typename _AreaTp>
+  template<typename AreaTp>
     struct compute_result_t
     {
-      _AreaTp __res12;
-      _AreaTp __res24;
+      AreaTp res12;
+      AreaTp res24;
     };
 
-  template<typename _Tp, typename _RetTp>
+  template<typename Tp, typename RetTp>
     auto
-    compute_result(const std::array<_Tp, 25>& __r,
-		   const std::array<_RetTp, 13>& __cheb12,
-		   const std::array<_RetTp, 25>& __cheb24)
-    -> compute_result_t<decltype(_Tp{} * _RetTp{})>;
+    compute_result(const std::array<Tp, 25>& r,
+		   const std::array<RetTp, 13>& cheb12,
+		   const std::array<RetTp, 25>& cheb24)
+    -> compute_result_t<decltype(Tp{} * RetTp{})>;
 
- template<typename _Tp, typename _FuncTp,
-	  typename _Integrator = gauss_kronrod_integral<_Tp>>
-    std::tuple<_Tp, _Tp, bool>
-    qc25s(qaws_integration_table<_Tp>& __t,
-	  _FuncTp __func, _Tp __lower, _Tp __upper, _Tp __a1, _Tp __mid,
-	  _Integrator __quad = gauss_kronrod_integral<_Tp>(Kronrod_15));
+ template<typename Tp, typename FuncTp,
+	  typename Integrator = gauss_kronrod_integral<Tp>>
+    std::tuple<Tp, Tp, bool>
+    qc25s(qaws_integration_table<Tp>& t,
+	  FuncTp func, Tp lower, Tp upper, Tp a1, Tp mid,
+	  Integrator quad = gauss_kronrod_integral<Tp>(Kronrod_15));
 
   /**
    * The singular weight function is defined by:
@@ -83,339 +83,339 @@ namespace __gnu_cxx
    * In order to work efficiently the algorithm requires a precomputed table
    * of Chebyshev moments.
    */
-  template<typename _Tp, typename _FuncTp,
-	   typename _Integrator = gauss_kronrod_integral<_Tp>>
+  template<typename Tp, typename FuncTp,
+	   typename Integrator = gauss_kronrod_integral<Tp>>
     auto
-    qaws_integrate(integration_workspace<_Tp,
-			std::invoke_result_t<_FuncTp, _Tp>>& __workspace,
-		   qaws_integration_table<_Tp>& __table,
-		   _FuncTp __func,
-		   _Tp __lower, _Tp __upper,
-		   _Tp __max_abs_err, _Tp __max_rel_err,
-		   _Integrator __quad = gauss_kronrod_integral<_Tp>(Kronrod_15))
-    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    qaws_integrate(integration_workspace<Tp,
+			std::invoke_result_t<FuncTp, Tp>>& workspace,
+		   qaws_integration_table<Tp>& table,
+		   FuncTp func,
+		   Tp lower, Tp upper,
+		   Tp max_abs_err, Tp max_rel_err,
+		   Integrator quad = gauss_kronrod_integral<Tp>(Kronrod_15))
+    -> adaptive_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>
     {
       // Try to adjust tests for varing precision.
-      const auto _M_rel_err = std::pow(_Tp{10},
-				 -std::numeric_limits<_Tp>::digits / _Tp{10});
+      const auto m_rel_err = std::pow(Tp{10},
+				 -std::numeric_limits<Tp>::digits / Tp{10});
 
-      if (__upper <= __lower)
-	std::__throw_runtime_error("qaws_integrate: "
+      if (upper <= lower)
+	throw std::runtime_error("qaws_integrate: "
 				   "Limits must form an ascending sequence");
-      if (!valid_tolerances(__max_abs_err, __max_rel_err))
+      if (!valid_tolerances(max_abs_err, max_rel_err))
 	{
-	  std::ostringstream __msg;
-	  __msg << "qaws_integrate: Tolerance cannot be achieved with given "
-		   "absolute (" << __max_abs_err << ") and relative ("
-		<< __max_rel_err << ") error limits.";
-	  std::__throw_runtime_error(__msg.str().c_str());
+	  std::ostringstream msg;
+	  msg << "qaws_integrate: Tolerance cannot be achieved with given "
+		   "absolute (" << max_abs_err << ") and relative ("
+		<< max_rel_err << ") error limits.";
+	  throw std::runtime_error(msg.str().c_str());
 	}
 
-      const auto __limit = __workspace.capacity();
-      __workspace.clear();
+      const auto limit = workspace.capacity();
+      workspace.clear();
 
       // Perform the first integration.
-      _Tp __result0, __abserr0;
+      Tp result0, abserr0;
       {
-	const auto __a1 = __lower;
-	const auto __mid = (__lower + __upper) / _Tp{2};
-	const auto __b2 = __upper;
+	const auto a1 = lower;
+	const auto mid = (lower + upper) / Tp{2};
+	const auto b2 = upper;
 
-        auto [__area1, __error1, __err_reliable1]
-	  = qc25s(__table, __func, __lower, __upper, __a1, __mid, __quad);
-	__workspace.append(__a1, __mid, __area1, __error1);
+        auto [area1, error1, err_reliable1]
+	  = qc25s(table, func, lower, upper, a1, mid, quad);
+	workspace.append(a1, mid, area1, error1);
 
-	auto [__area2, __error2, __err_reliable2]
-	  = qc25s(__table, __func, __lower, __upper, __mid, __b2, __quad);
-	__workspace.append(__mid, __b2, __area2, __error2);
+	auto [area2, error2, err_reliable2]
+	  = qc25s(table, func, lower, upper, mid, b2, quad);
+	workspace.append(mid, b2, area2, error2);
 
-	__result0 = __area1 + __area2;
-	__abserr0 = __error1 + __error2;
+	result0 = area1 + area2;
+	abserr0 = error1 + error2;
       }
 
       // Test on accuracy; Use 0.01 relative error as an extra safety
       // margin on the first iteration (ignored for subsequent iterations).
-      auto __tolerance = std::max(__max_abs_err, __max_rel_err * std::abs(__result0));
-      if (__abserr0 < __tolerance && __abserr0
-	  < _Tp{0.01} * std::abs(__result0))
-	return {__result0, __abserr0};
-      else if (__limit == 1)
+      auto tolerance = std::max(max_abs_err, max_rel_err * std::abs(result0));
+      if (abserr0 < tolerance && abserr0
+	  < Tp{0.01} * std::abs(result0))
+	return {result0, abserr0};
+      else if (limit == 1)
 	throw integration_error("qaws_integrate: "
 				"A maximum of one iteration was insufficient",
-				MAX_ITER_ERROR, __result0, __abserr0);
+				MAX_ITER_ERROR, result0, abserr0);
 
-      auto __area = __result0;
-      auto __errsum = __abserr0;
-      auto __iteration = 2u;
-      int __error_type = NO_ERROR;
-      int __roundoff_type1 = 0, __roundoff_type2 = 0;
+      auto area = result0;
+      auto errsum = abserr0;
+      auto iteration = 2u;
+      int error_type = NO_ERROR;
+      int roundoff_type1 = 0, roundoff_type2 = 0;
       do
 	{
 	  // Bisect the subinterval with the largest error estimate.
-	  const auto& __curr = __workspace.retrieve();
+	  const auto& curr = workspace.retrieve();
 
-	  const auto __a1 = __curr.__lower_lim;
-	  const auto __mid = (__curr.__lower_lim + __curr.__upper_lim) / _Tp{2};
-	  const auto __b2 = __curr.__upper_lim;
+	  const auto a1 = curr.lower_lim;
+	  const auto mid = (curr.lower_lim + curr.upper_lim) / Tp{2};
+	  const auto b2 = curr.upper_lim;
 
-	  auto [__area1, __error1, __err_reliable1]
-	    = qc25s(__table, __func, __lower, __upper, __a1, __mid, __quad);
+	  auto [area1, error1, err_reliable1]
+	    = qc25s(table, func, lower, upper, a1, mid, quad);
 
-	  auto [__area2, __error2, __err_reliable2]
-	    = qc25s(__table, __func, __lower, __upper, __mid, __b2, __quad);
+	  auto [area2, error2, err_reliable2]
+	    = qc25s(table, func, lower, upper, mid, b2, quad);
 
-	  const auto __area12 = __area1 + __area2;
-	  const auto __error12 = __error1 + __error2;
+	  const auto area12 = area1 + area2;
+	  const auto error12 = error1 + error2;
 
-	  __errsum += __error12 - __curr.__abs_error;
-	  __area += __area12 - __curr.__result;
+	  errsum += error12 - curr.abs_error;
+	  area += area12 - curr.result;
 
-	  if (__err_reliable1 && __err_reliable2)
+	  if (err_reliable1 && err_reliable2)
 	    {
-	      const auto __delta = __curr.__result - __area12;
+	      const auto delta = curr.result - area12;
 
-	      if (std::abs (__delta) <= _M_rel_err * std::abs(__area12)
-		 && __error12 >= 0.99 * __curr.__abs_error)
-		++__roundoff_type1;
-	      if (__iteration >= 10 && __error12 > __curr.__abs_error)
-		++__roundoff_type2;
+	      if (std::abs (delta) <= m_rel_err * std::abs(area12)
+		 && error12 >= 0.99 * curr.abs_error)
+		++roundoff_type1;
+	      if (iteration >= 10 && error12 > curr.abs_error)
+		++roundoff_type2;
 	    }
 
-	  __tolerance = std::max(__max_abs_err, __max_rel_err * std::abs(__area));
-	  if (__errsum > __tolerance)
+	  tolerance = std::max(max_abs_err, max_rel_err * std::abs(area));
+	  if (errsum > tolerance)
 	    {
-	      if (__roundoff_type1 >= 6 || __roundoff_type2 >= 20)
-		__error_type = ROUNDOFF_ERROR;
+	      if (roundoff_type1 >= 6 || roundoff_type2 >= 20)
+		error_type = ROUNDOFF_ERROR;
 
 	      // set error flag in the case of bad integrand behaviour at
 	      // a point of the integration range
-	      if (__workspace.subinterval_too_small(__a1, __mid, __b2))
-		__error_type = SINGULAR_ERROR;
+	      if (workspace.subinterval_too_small(a1, mid, b2))
+		error_type = SINGULAR_ERROR;
 	    }
 
-	  __workspace.split(__mid, __area1, __error1, __area2, __error2);
+	  workspace.split(mid, area1, error1, area2, error2);
 
-	  ++__iteration;
+	  ++iteration;
 	}
-      while (__iteration < __limit && !__error_type && __errsum > __tolerance);
+      while (iteration < limit && !error_type && errsum > tolerance);
 
-      const auto __result = __workspace.total_integral();
-      const auto __abserr = __errsum;
+      const auto result = workspace.total_integral();
+      const auto abserr = errsum;
 
-      if (__iteration == __limit)
-	__error_type = MAX_SUBDIV_ERROR;
+      if (iteration == limit)
+	error_type = MAX_SUBDIV_ERROR;
 
-      if (__errsum <= __tolerance)
-	return {__result, __abserr};
+      if (errsum <= tolerance)
+	return {result, abserr};
 
-      if (__error_type == NO_ERROR)
-	return {__result, __abserr};
+      if (error_type == NO_ERROR)
+	return {result, abserr};
 
-      check_error(__func__, __error_type, __result, __abserr);
+      check_error(__func__, error_type, result, abserr);
       throw integration_error("qaws_integrate: Unknown error.",
-			      UNKNOWN_ERROR, __result, __abserr);
+			      UNKNOWN_ERROR, result, abserr);
     }
 
   /**
    *
    */
-  template<typename _Tp, typename _FuncTp,
-	   typename _Integrator = gauss_kronrod_integral<_Tp>>
-    std::tuple<_Tp, _Tp, bool>
-    qc25s(qaws_integration_table<_Tp>& __t,
-	  _FuncTp __func, _Tp __lower, _Tp __upper, _Tp __a1, _Tp __b1,
-	  _Integrator __quad)
+  template<typename Tp, typename FuncTp,
+	   typename Integrator = gauss_kronrod_integral<Tp>>
+    std::tuple<Tp, Tp, bool>
+    qc25s(qaws_integration_table<Tp>& t,
+	  FuncTp func, Tp lower, Tp upper, Tp a1, Tp b1,
+	  Integrator quad)
     {
-      fn_qaws<_Tp, _FuncTp> __fqaws(&__t, __func, __lower, __upper);
+      fn_qaws<Tp, FuncTp> fqaws(&t, func, lower, upper);
 
-      if (__a1 == __lower && (__t.alpha != _Tp{0} || __t.mu != 0))
+      if (a1 == lower && (t.alpha != Tp{0} || t.mu != 0))
 	{
-	  const auto __factor
-	    = std::pow(0.5 * (__b1 - __a1), __t.alpha + _Tp{1});
+	  const auto factor
+	    = std::pow(0.5 * (b1 - a1), t.alpha + Tp{1});
 
-	  auto __f = [__fqaws](_Tp __x)
-		     -> _Tp { return __fqaws.eval_right(__x); };
-	  auto __chout = qcheb_integrate(__f, __a1, __b1);
-	  const auto& __cheb12 = __chout.__cheb12;
-	  const auto& __cheb24 = __chout.__cheb24;
+	  auto f = [fqaws](Tp x)
+		     -> Tp { return fqaws.eval_right(x); };
+	  auto chout = qcheb_integrate(f, a1, b1);
+	  const auto& cheb12 = chout.cheb12;
+	  const auto& cheb24 = chout.cheb24;
 
-	  if (__t.mu == 0)
+	  if (t.mu == 0)
 	    {
-	      const auto __u = __factor;
+	      const auto u = factor;
 
-	      auto [__res12, __res24]
-		= compute_result(__t.ri, __cheb12, __cheb24);
+	      auto [res12, res24]
+		= compute_result(t.ri, cheb12, cheb24);
 
-	      const auto __result = __u * __res24;
-	      const auto __abserr = std::abs(__u * (__res24 - __res12));
-	      return std::make_tuple(__result, __abserr, false);
+	      const auto result = u * res24;
+	      const auto abserr = std::abs(u * (res24 - res12));
+	      return std::make_tuple(result, abserr, false);
 	    }
 	  else
 	    {
-	      const auto __u = __factor * std::log(__b1 - __a1);
-	      const auto __v = __factor;
+	      const auto u = factor * std::log(b1 - a1);
+	      const auto v = factor;
 
-	      auto [__res12a, __res24a]
-		= compute_result(__t.ri, __cheb12, __cheb24);
-	      auto [__res12b, __res24b]
-		= compute_result(__t.rg, __cheb12, __cheb24);
+	      auto [res12a, res24a]
+		= compute_result(t.ri, cheb12, cheb24);
+	      auto [res12b, res24b]
+		= compute_result(t.rg, cheb12, cheb24);
 
-	      const auto __result = __u * __res24a + __v * __res24b;
-	      const auto __abserr = std::abs(__u * (__res24a - __res12a))
-				  + std::abs(__v * (__res24b - __res12b));
-	      return std::make_tuple(__result, __abserr, false);
+	      const auto result = u * res24a + v * res24b;
+	      const auto abserr = std::abs(u * (res24a - res12a))
+				  + std::abs(v * (res24b - res12b));
+	      return std::make_tuple(result, abserr, false);
 	    }
 	}
-      else if (__b1 == __upper && (__t.beta != _Tp{0} || __t.nu != 0))
+      else if (b1 == upper && (t.beta != Tp{0} || t.nu != 0))
 	{
-	  auto __factor = std::pow(0.5 * (__b1 - __a1), __t.beta + _Tp{1});
+	  auto factor = std::pow(0.5 * (b1 - a1), t.beta + Tp{1});
 
-	  auto __f = [__fqaws](_Tp __x)
-		     -> _Tp { return __fqaws.eval_left(__x); };
-	  auto __chout = qcheb_integrate(__f, __a1, __b1);
-	  const auto& __cheb12 = __chout.__cheb12;
-	  const auto& __cheb24 = __chout.__cheb24;
+	  auto f = [fqaws](Tp x)
+		     -> Tp { return fqaws.eval_left(x); };
+	  auto chout = qcheb_integrate(f, a1, b1);
+	  const auto& cheb12 = chout.cheb12;
+	  const auto& cheb24 = chout.cheb24;
 
-	  if (__t.nu == 0)
+	  if (t.nu == 0)
 	    {
-	      const auto __u = __factor;
+	      const auto u = factor;
 
-	      auto [__res12, __res24]
-		= compute_result(__t.rj, __cheb12, __cheb24);
+	      auto [res12, res24]
+		= compute_result(t.rj, cheb12, cheb24);
 
-	      const auto __result = __u * __res24;
-	      const auto __abserr = std::abs(__u * (__res24 - __res12));
-	      return std::make_tuple(__result, __abserr, false);
+	      const auto result = u * res24;
+	      const auto abserr = std::abs(u * (res24 - res12));
+	      return std::make_tuple(result, abserr, false);
 	    }
 	  else
 	    {
-	      const auto __u = __factor * std::log(__b1 - __a1);
-	      const auto __v = __factor;
+	      const auto u = factor * std::log(b1 - a1);
+	      const auto v = factor;
 
-	      auto [__res12a, __res24a]
-		= compute_result(__t.rj, __cheb12, __cheb24);
-	      auto [__res12b, __res24b]
-		= compute_result(__t.rh, __cheb12, __cheb24);
+	      auto [res12a, res24a]
+		= compute_result(t.rj, cheb12, cheb24);
+	      auto [res12b, res24b]
+		= compute_result(t.rh, cheb12, cheb24);
 
-	      const auto __result = __u * __res24a + __v * __res24b;
-	      const auto __abserr = std::abs(__u * (__res24a - __res12a))
-				  + std::abs(__v * (__res24b - __res12b));
-	      return std::make_tuple(__result, __abserr, false);
+	      const auto result = u * res24a + v * res24b;
+	      const auto abserr = std::abs(u * (res24a - res12a))
+				  + std::abs(v * (res24b - res12b));
+	      return std::make_tuple(result, abserr, false);
 	    }
 	}
       else
 	{
-	  auto __f = [__fqaws](_Tp __x)
-		     ->_Tp
-		     { return __fqaws.eval_middle(__x); };
+	  auto f = [fqaws](Tp x)
+		     ->Tp
+		     { return fqaws.eval_middle(x); };
 
-	  auto [__result, __abserr, __resabs, __resasc]
-	    = __quad(__f, __a1, __b1);
+	  auto [result, abserr, resabs, resasc]
+	    = quad(f, a1, b1);
 
-	  bool __err_reliable;
-	  if (__abserr == __resasc)
-	    __err_reliable = false;
+	  bool err_reliable;
+	  if (abserr == resasc)
+	    err_reliable = false;
 	  else
-	    __err_reliable = true;
+	    err_reliable = true;
 
-	  return std::make_tuple(__result, __abserr, __err_reliable);
+	  return std::make_tuple(result, abserr, err_reliable);
 	}
     }
 
   /*
    *
    */
-  template<typename _Tp, typename _FuncTp>
+  template<typename Tp, typename FuncTp>
     struct fn_qaws
     {
-      using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
-      using _AreaTp = decltype(_RetTp{} * _Tp{});
+      using RetTp = std::invoke_result_t<FuncTp, Tp>;
+      using AreaTp = decltype(RetTp{} * Tp{});
 
-      const qaws_integration_table<_Tp>* table;
-      _FuncTp func;
-      _Tp a;
-      _Tp b;
+      const qaws_integration_table<Tp>* table;
+      FuncTp func;
+      Tp a;
+      Tp b;
 
-      fn_qaws(const qaws_integration_table<_Tp>* __tab,
-	      _FuncTp __func, _Tp __a_in, _Tp __b_in)
-      : table(__tab),
-	func(__func), a(__a_in), b(__b_in)
+      fn_qaws(const qaws_integration_table<Tp>* tab,
+	      FuncTp func, Tp a_in, Tp b_in)
+      : table(tab),
+	func(func), a(a_in), b(b_in)
       { }
 
-      _RetTp eval_middle(_Tp) const;
-      _RetTp eval_left(_Tp) const;
-      _RetTp eval_right(_Tp) const;
+      RetTp eval_middle(Tp) const;
+      RetTp eval_left(Tp) const;
+      RetTp eval_right(Tp) const;
     };
 
-  template<typename _Tp, typename _FuncTp>
-    std::invoke_result_t<_FuncTp, _Tp>
-    fn_qaws<_Tp, _FuncTp>::eval_middle(_Tp __x) const
+  template<typename Tp, typename FuncTp>
+    std::invoke_result_t<FuncTp, Tp>
+    fn_qaws<Tp, FuncTp>::eval_middle(Tp x) const
     {
-      auto __factor = _Tp{1};
+      auto factor = Tp{1};
 
-      if (this->table->alpha != _Tp{0})
-	__factor *= std::pow(__x - this->a, this->table->alpha);
+      if (this->table->alpha != Tp{0})
+	factor *= std::pow(x - this->a, this->table->alpha);
 
       if (table->mu == 1)
-	__factor *= std::log(__x - this->a);
+	factor *= std::log(x - this->a);
 
-      if (this->table->beta != _Tp{0})
-	__factor *= std::pow(this->b - __x, this->table->beta);
+      if (this->table->beta != Tp{0})
+	factor *= std::pow(this->b - x, this->table->beta);
 
       if (table->nu == 1)
-	__factor *= std::log(this->b - __x);
+	factor *= std::log(this->b - x);
 
-      return __factor * this->func(__x);
+      return factor * this->func(x);
     }
 
-  template<typename _Tp, typename _FuncTp>
-    std::invoke_result_t<_FuncTp, _Tp>
-    fn_qaws<_Tp, _FuncTp>::eval_left(_Tp __x) const
+  template<typename Tp, typename FuncTp>
+    std::invoke_result_t<FuncTp, Tp>
+    fn_qaws<Tp, FuncTp>::eval_left(Tp x) const
     {
-      auto __factor = _Tp{1};
+      auto factor = Tp{1};
 
-      if (this->table->alpha != _Tp{0})
-	__factor *= std::pow(__x - this->a, this->table->alpha);
+      if (this->table->alpha != Tp{0})
+	factor *= std::pow(x - this->a, this->table->alpha);
 
       if (this->table->mu == 1)
-	__factor *= std::log(__x - this->a);
+	factor *= std::log(x - this->a);
 
-      return __factor * this->func(__x);
+      return factor * this->func(x);
     }
 
-  template<typename _Tp, typename _FuncTp>
-    std::invoke_result_t<_FuncTp, _Tp>
-    fn_qaws<_Tp, _FuncTp>::eval_right(_Tp __x) const
+  template<typename Tp, typename FuncTp>
+    std::invoke_result_t<FuncTp, Tp>
+    fn_qaws<Tp, FuncTp>::eval_right(Tp x) const
     {
-      auto __factor = _Tp{1};
+      auto factor = Tp{1};
 
-      if (this->table->beta != _Tp{0})
-	__factor *= std::pow(this->b - __x, this->table->beta);
+      if (this->table->beta != Tp{0})
+	factor *= std::pow(this->b - x, this->table->beta);
 
       if (this->table->nu == 1)
-	__factor *= std::log(this->b - __x);
+	factor *= std::log(this->b - x);
 
-      return __factor * this->func(__x);
+      return factor * this->func(x);
     }
 
-  template<typename _Tp, typename _RetTp>
+  template<typename Tp, typename RetTp>
     auto
-    compute_result(const std::array<_Tp, 25>& __r,
-		   const std::array<_RetTp, 13>& __cheb12,
-		   const std::array<_RetTp, 25>& __cheb24)
-    -> compute_result_t<decltype(_Tp{} * _RetTp{})>
+    compute_result(const std::array<Tp, 25>& r,
+		   const std::array<RetTp, 13>& cheb12,
+		   const std::array<RetTp, 25>& cheb24)
+    -> compute_result_t<decltype(Tp{} * RetTp{})>
     {
-      using _AreaTp = decltype(_RetTp{} * _Tp{});
+      using AreaTp = decltype(RetTp{} * Tp{});
 
-      auto __res12 = _AreaTp{};
-      for (size_t __i = 0; __i < __cheb12.size(); ++__i)
-	__res12 += __r[__i] * __cheb12[__i];
+      auto res12 = AreaTp{};
+      for (size_t i = 0; i < cheb12.size(); ++i)
+	res12 += r[i] * cheb12[i];
 
-      auto __res24 = _AreaTp{};
-      for (size_t __i = 0; __i < __cheb24.size(); ++__i)
-	__res24 += __r[__i] * __cheb24[__i];
+      auto res24 = AreaTp{};
+      for (size_t i = 0; i < cheb24.size(); ++i)
+	res24 += r[i] * cheb24[i];
 
-      return compute_result_t<_AreaTp>{__res12, __res24};
+      return compute_result_t<AreaTp>{res12, res24};
     }
 
 } // namespace __gnu_cxx

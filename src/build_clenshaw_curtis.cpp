@@ -15,22 +15,22 @@
    *   x_k = \cos\left(\frac{k\pi}{n+1}\right), k \elem {1, ..., n}
    * @f]
    */
-  template<typename _Tp>
-    std::vector<__gnu_cxx::__quadrature_point_t<_Tp>>
-    __chebyshev_u_zeros(unsigned int __n)
+  template<typename Tp>
+    std::vector<__gnu_cxx::quadrature_point_t<Tp>>
+    chebyshev_u_zeros(unsigned int n)
     {
-      const auto _S_pi = _Tp{3.1415'92653'58979'32384'62643'38327'95028'84195e+0L};
-      std::vector<__gnu_cxx::__quadrature_point_t<_Tp>> __pt(__n);
-      for (unsigned int __k = 1; __k <= __n; ++__k)
+      const auto s_pi = Tp{3.1415'92653'58979'32384'62643'38327'95028'84195e+0L};
+      std::vector<__gnu_cxx::quadrature_point_t<Tp>> pt(n);
+      for (unsigned int k = 1; k <= n; ++k)
 	{
-	  auto __arg = _Tp(__k) / _Tp(__n + 1);
-	  auto __half = __gnu_cxx::__fp_is_equal<_Tp>(__arg, _Tp{0.5L});
-	  auto __z = (__half ? _Tp{0} : __gnu_cxx::cos_pi(__arg));
-	  auto __w = _S_pi * (_Tp{1} - __z * __z) / _Tp(__n + 1);
-	  __pt[__k - 1].__point = __z;
-	  __pt[__k - 1].__weight = __w;
+	  auto arg = Tp(k) / Tp(n + 1);
+	  auto half = gnu_cxx::fp_is_equal<Tp>(arg, Tp{0.5L});
+	  auto z = (half ? Tp{0} : gnu_cxx::cos_pi(arg));
+	  auto w = s_pi * (Tp{1} - z * z) / Tp(n + 1);
+	  pt[k - 1].point = z;
+	  pt[k - 1].weight = w;
 	}
-      return __pt;
+      return pt;
     }
 
 /**
@@ -44,40 +44,40 @@
  * 
  * @see Fast Construction of the Fejer and Clenshaw-Curtis Quadrature Rules
  */
-template<typename _Tp>
-  std::vector<__gnu_cxx::__quadrature_point_t<_Tp>>
+template<typename Tp>
+  std::vector<__gnu_cxx::quadrature_point_t<Tp>>
   build_clenshaw_curtis_sum(std::size_t __n)
   {
-    std::vector<__gnu_cxx::__quadrature_point_t<_Tp>> __out(__n + 1);
-    if (__n == 1)
+    std::vector<__gnu_cxx::quadrature_point_t<Tp>> out(n + 1);
+    if (n == 1)
       {
-	__out[0].__point = _Tp{0};
-	__out[0].__weight = _Tp{2};
-	return __out;
+	out[0].point = Tp{0};
+	out[0].weight = Tp{2};
+	return out;
       }
     else
       {
-	const auto _S_pi = _Tp{3.1415'92653'58979'32384'62643'38327'95028'84195e+0L};
-	auto uz = __chebyshev_u_zeros<_Tp>(__n - 1);
-	__out[0].__point = _Tp{+1};
-	__out[0].__weight = _Tp{1} / (__n * __n - 1 + __n % 2);
-	for (auto __k = 1u; __k <= uz.size(); ++__k)
+	const auto s_pi = Tp{3.1415'92653'58979'32384'62643'38327'95028'84195e+0L};
+	auto uz = chebyshev_u_zeros<Tp>(n - 1);
+	out[0].point = Tp{+1};
+	out[0].weight = Tp{1} / (n * n - 1 + n % 2);
+	for (auto k = 1u; k <= uz.size(); ++k)
 	  {
-	    __out[__k].__point = uz[__k - 1].__point;
+	    out[k].point = uz[k - 1].point;
 
-	    auto __sum = _Tp{0};
-	    for (auto __j = 1u; __j <= __n / 2; ++__j)
+	    auto sum = Tp{0};
+	    for (auto j = 1u; j <= n / 2; ++j)
 	      {
-		auto __b = _Tp(__j == __n / 2 ? 1 : 2);
-		__sum += __b * std::cos(2 * __j * __k * _S_pi / __n)
-		       / _Tp(4 * __j * __j - 1);
+		auto b = Tp(j == n / 2 ? 1 : 2);
+		sum += b * std::cos(2 * j * k * s_pi / n)
+		       / Tp(4 * j * j - 1);
 	      }
-	    auto __w = _Tp{2} * (_Tp{1} - __sum) / _Tp(__n);
-	    __out[__k].__weight = __w;
+	    auto w = Tp{2} * (Tp{1} - sum) / Tp(n);
+	    out[k].weight = w;
 	  }
-	__out[__n].__point = _Tp{-1};
-	__out[__n].__weight = __out[0].__weight;
-	return __out;
+	out[n].point = Tp{-1};
+	out[n].weight = out[0].weight;
+	return out;
       }
   }
 
@@ -92,11 +92,11 @@ template<typename _Tp>
  * 
  * @see Fast Construction of the Fejer and Clenshaw-Curtis Quadrature Rules
  */
-template<typename _Tp>
-  std::vector<__gnu_cxx::__quadrature_point_t<_Tp>>
+template<typename Tp>
+  std::vector<__gnu_cxx::quadrature_point_t<Tp>>
   build_clenshaw_curtis_fft(std::size_t __n)
   {
-    std::vector<__gnu_cxx::__quadrature_point_t<_Tp>> __out(__n + 1);
+    std::vector<__gnu_cxx::quadrature_point_t<Tp>> __out(__n + 1);
     return __out;
   }
 
@@ -109,37 +109,37 @@ template<typename _Tp>
  *    \mbox{   } k = 0, 1, ..., n-1
  * @f]
  */
-template<typename _Tp>
-  std::vector<__gnu_cxx::__quadrature_point_t<_Tp>>
-  build_fejer_1_sum(std::size_t __n)
+template<typename Tp>
+  std::vector<__gnu_cxx::quadrature_point_t<Tp>>
+  build_fejer_1_sum(std::size_t n)
   {
-    std::vector<__gnu_cxx::__quadrature_point_t<_Tp>> __out(__n + 1);
-    if (__n == 1)
+    std::vector<__gnu_cxx::quadrature_point_t<Tp>> out(n + 1);
+    if (n == 1)
       {
-	__out[0].__point = _Tp{0};
-	__out[0].__weight = _Tp{2};
-	return __out;
+	out[0].point = Tp{0};
+	out[0].weight = Tp{2};
+	return out;
       }
     else
       {
-	const auto _S_pi = _Tp{3.1415'92653'58979'32384'62643'38327'95028'84195e+0L};
-	auto uz = __chebyshev_u_zeros<_Tp>(__n - 1);
-	__out[0].__point = _Tp{+1};
-	__out[0].__weight = _Tp{1} / (__n * __n - 1 + __n % 2);
-	for (auto __k = 1u; __k <= uz.size(); ++__k)
+	const auto s_pi = Tp{3.1415'92653'58979'32384'62643'38327'95028'84195e+0L};
+	auto uz = chebyshev_u_zeros<Tp>(n - 1);
+	out[0].point = Tp{+1};
+	out[0].weight = Tp{1} / (n * n - 1 + n % 2);
+	for (auto k = 1u; k <= uz.size(); ++k)
 	  {
-	    __out[__k].__point = uz[__k - 1].__point;
+	    out[k].point = uz[k - 1].point;
 
-	    auto __sum = _Tp{0};
-	    for (auto __j = 1u; __j <= __n / 2; ++__j)
-	      __sum += _Tp{2} * std::cos(__j * (2 * __k + 1) * _S_pi / __n)
-		     / _Tp(4 * __j * __j - 1);
-	    auto __w = _Tp{2} * (_Tp{1} - __sum) / _Tp(__n);
-	    __out[__k].__weight = __w;
+	    auto sum = Tp{0};
+	    for (auto j = 1u; j <= n / 2; ++j)
+	      sum += Tp{2} * std::cos(j * (2 * k + 1) * s_pi / n)
+		     / Tp(4 * j * j - 1);
+	    auto w = Tp{2} * (Tp{1} - sum) / Tp(n);
+	    out[k].weight = w;
 	  }
-	__out[__n].__point = _Tp{-1};
-	__out[__n].__weight = __out[0].__weight;
-	return __out;
+	out[n].point = Tp{-1};
+	out[n].weight = out[0].weight;
+	return out;
       }
   }
 
@@ -152,22 +152,22 @@ template<typename _Tp>
  *    \mbox{   } k = 0, 1, ..., n-1
  * @f]
  */
-template<typename _Tp>
-  std::vector<__gnu_cxx::__quadrature_point_t<_Tp>>
-  build_fejer_1_fft(std::size_t __n)
+template<typename Tp>
+  std::vector<__gnu_cxx::quadrature_point_t<Tp>>
+  build_fejer_1_fft(std::size_t n)
   {
-    const auto _S_pi = _Tp{3.1415'92653'58979'32384'62643'38327'95028'84195e+0L};
-    std::vector<__gnu_cxx::__quadrature_point_t<_Tp>> __out(__n);
-    std::vector<std::complex<_Tp>> __v(__n + 1);
-    for (auto __k = 0u; __k < __n / 2; ++__k)
-      __v[__n - __k] = __v[__k] = std::polar(_Tp{2}, __k * _S_pi / _Tp{2})
-      		     / _Tp(1 - 4 * __k * __k);
-    __v[__n / 2] = _Tp(__n - 3) / _Tp(2 * (__n / 2) - 1) - _Tp(1);
-    __gnu_cxx::inv_fast_fourier_transform(__v);
+    const auto s_pi = Tp{3.1415'92653'58979'32384'62643'38327'95028'84195e+0L};
+    std::vector<__gnu_cxx::quadrature_point_t<Tp>> out(n);
+    std::vector<std::complex<Tp>> v(n + 1);
+    for (auto k = 0u; k < n / 2; ++k)
+      v[n - k] = v[k] = std::polar(Tp{2}, k * s_pi / Tp{2})
+      		     / Tp(1 - 4 * k * k);
+    v[n / 2] = Tp(n - 3) / Tp(2 * (n / 2) - 1) - Tp(1);
+    __gnu_cxx::inv_fast_fourier_transform(v);
 std::cout << '\n';
-for (auto x : __v)
+for (auto x : v)
 std::cout << x << '\n';
-    return __out;
+    return out;
   }
 
 /**
@@ -179,46 +179,46 @@ std::cout << x << '\n';
  *    \mbox{   } k = 0, 1, ..., n
  * @f]
  */
-template<typename _Tp>
-  std::vector<__gnu_cxx::__quadrature_point_t<_Tp>>
-  build_fejer_2_sum(std::size_t __n)
+template<typename Tp>
+  std::vector<__gnu_cxx::__quadrature_point_t<Tp>>
+  build_fejer_2_sum(std::size_t n)
   {
-    std::vector<__gnu_cxx::__quadrature_point_t<_Tp>> __out(__n + 1);
-    if (__n == 0)
+    std::vector<__gnu_cxx::quadrature_point_t<Tp>> out(n + 1);
+    if (n == 0)
       {
-	__out[0].__point = _Tp{0};
-	__out[0].__weight = _Tp{2};
-	return __out;
+	out[0].point = Tp{0};
+	out[0].weight = Tp{2};
+	return out;
       }
-    else if (__n == 1)
+    else if (n == 1)
       {
-	__out[0].__point = _Tp{-0.5L};
-	__out[0].__weight = _Tp{0};
-	__out[1].__point = _Tp{+0.5L};
-	__out[1].__weight = _Tp{0};
-	return __out;
+	out[0].point = Tp{-0.5L};
+	out[0].weight = Tp{0};
+	out[1].point = Tp{+0.5L};
+	out[1].weight = Tp{0};
+	return out;
       }
     else
       {
-	const auto _S_pi = _Tp{3.1415'92653'58979'32384'62643'38327'95028'84195e+0L};
-	auto uz = __chebyshev_u_zeros<_Tp>(__n - 1);
-	__out[0].__point = _Tp{+1};
-	__out[0].__weight = _Tp{0};
-	for (auto __k = 1u; __k <= uz.size(); ++__k)
+	const auto s_pi = Tp{3.1415'92653'58979'32384'62643'38327'95028'84195e+0L};
+	auto uz = chebyshev_u_zeros<Tp>(n - 1);
+	out[0].point = Tp{+1};
+	out[0].weight = Tp{0};
+	for (auto k = 1u; k <= uz.size(); ++k)
 	  {
-	    __out[__k].__point = uz[__k - 1].__point;
+	    out[k].point = uz[k - 1].point;
 
-	    auto __sum = _Tp{0};
-	    for (auto __j = 1u; __j <= __n / 2; ++__j)
-	      __sum += std::sin((2 * __j - 1) * __k * _S_pi / __n)
-		     / _Tp(2 * __j - 1);
-	    auto __w = _Tp{4} * std::sin(__k * _S_pi / __n) * __sum
-		     / _Tp(__n);
-	    __out[__k].__weight = __w;
+	    auto sum = Tp{0};
+	    for (auto j = 1u; j <= n / 2; ++j)
+	      sum += std::sin((2 * j - 1) * k * s_pi / n)
+		     / Tp(2 * j - 1);
+	    auto w = Tp{4} * std::sin(k * s_pi / n) * sum
+		     / Tp(n);
+	    out[k].weight = w;
 	  }
-	__out[__n].__point = _Tp{-1};
-	__out[__n].__weight = _Tp{0};
-	return __out;
+	out[n].point = Tp{-1};
+	out[n].weight = Tp{0};
+	return out;
       }
   }
 
@@ -231,20 +231,20 @@ template<typename _Tp>
  *    \mbox{   } k = 0, 1, ..., n
  * @f]
  */
-template<typename _Tp>
-  std::vector<__gnu_cxx::__quadrature_point_t<_Tp>>
-  build_fejer_2_fft(std::size_t __n)
+template<typename Tp>
+  std::vector<__gnu_cxx::__quadrature_point_t<Tp>>
+  build_fejer_2_fft(std::size_t n)
   {
-    std::vector<__gnu_cxx::__quadrature_point_t<_Tp>> __out(__n + 1);
-    std::vector<std::complex<_Tp>> __v(__n + 1);
-    for (auto __k = 0u; __k < __n / 2; ++__k)
-      __v[__n - __k] = __v[__k] = _Tp{2} / _Tp(1 - 4 * __k * __k);
-    __v[__n / 2] = _Tp(__n - 3) / _Tp(2 * (__n / 2) - 1) - _Tp(1);
-    __gnu_cxx::inv_fast_fourier_transform(__v);
+    std::vector<__gnu_cxx::quadrature_point_t<Tp>> out(n + 1);
+    std::vector<std::complex<Tp>> v(n + 1);
+    for (auto k = 0u; k < n / 2; ++k)
+      v[n - k] = v[k] = Tp{2} / Tp(1 - 4 * k * k);
+    v[n / 2] = Tp(n - 3) / Tp(2 * (n / 2) - 1) - Tp(1);
+    gnu_cxx::inv_fast_fourier_transform(v);
 std::cout << '\n';
-for (auto x : __v)
+for (auto x : v)
 std::cout << x << '\n';
-    return __out;
+    return out;
   }
 
 int
@@ -261,10 +261,10 @@ main()
   int i = 0;
   for (const auto& cc : cc24s)
     {
-      std::cout << std::setw(w) << cc.__point << ' '
-		<< std::setw(w) << cc.__weight << ' '
-		<< std::setw(w) << cc.__point - cc24b[i].__point << ' '
-		<< std::setw(w) << cc.__weight - cc24b[i].__weight
+      std::cout << std::setw(w) << cc.point << ' '
+		<< std::setw(w) << cc.weight << ' '
+		<< std::setw(w) << cc.point - cc24b[i].point << ' '
+		<< std::setw(w) << cc.weight - cc24b[i].weight
 		<< '\n';
       ++i;
     }
@@ -276,10 +276,10 @@ main()
   i = 0;
   for (const auto& cc : cc48)
     {
-      std::cout << std::setw(w) << cc.__point << ' '
-		<< std::setw(w) << cc.__weight << ' '
-		<< std::setw(w) << cc.__point - cc48b[i].__point << ' '
-		<< std::setw(w) << cc.__weight - cc48b[i].__weight
+      std::cout << std::setw(w) << cc.point << ' '
+		<< std::setw(w) << cc.weight << ' '
+		<< std::setw(w) << cc.point - cc48b[i].point << ' '
+		<< std::setw(w) << cc.weight - cc48b[i].weight
 		<< '\n';
       ++i;
     }
@@ -293,10 +293,10 @@ main()
   i = 0;
   for (const auto& f1 : f1_24s)
     {
-      std::cout << std::setw(w) << f1.__point << ' '
-		<< std::setw(w) << f1.__weight << ' '
-		<< std::setw(w) << f1.__point - f1_24b[i].__point << ' '
-		<< std::setw(w) << f1.__weight - f1_24b[i].__weight
+      std::cout << std::setw(w) << f1.point << ' '
+		<< std::setw(w) << f1.weight << ' '
+		<< std::setw(w) << f1.point - f1_24b[i].point << ' '
+		<< std::setw(w) << f1.weight - f1_24b[i].weight
 		<< '\n';
       ++i;
     }
@@ -309,10 +309,10 @@ main()
   i = 0;
   for (const auto& f2 : f2_24s)
     {
-      std::cout << std::setw(w) << f2.__point << ' '
-		<< std::setw(w) << f2.__weight << ' '
-		<< std::setw(w) << f2.__point - f2_24b[i].__point << ' '
-		<< std::setw(w) << f2.__weight - f2_24b[i].__weight
+      std::cout << std::setw(w) << f2.point << ' '
+		<< std::setw(w) << f2.weight << ' '
+		<< std::setw(w) << f2.point - f2_24b[i].point << ' '
+		<< std::setw(w) << f2.weight - f2_24b[i].weight
 		<< '\n';
       ++i;
     }
@@ -323,8 +323,8 @@ main()
       std::cout << "\nClenshaw-Curtis " << n << "\n";
       for (const auto& cc : build_clenshaw_curtis_sum<long double>(n))
 	{
-	  std::cout << std::setw(w) << cc.__point << ' '
-		    << std::setw(w) << cc.__weight << ' '
+	  std::cout << std::setw(w) << cc.point << ' '
+		    << std::setw(w) << cc.weight << ' '
 		    << '\n';
 	}
     }

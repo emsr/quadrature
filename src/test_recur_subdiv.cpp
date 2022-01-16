@@ -6,20 +6,20 @@
 #include <vector>
 #include <cmath>
 
-template<typename _Tp>
-  struct __subdiv
+template<typename Tp>
+  struct subdiv
   {
-    std::size_t __n_segs;
-    std::vector<_Tp> __pt;
-    std::vector<std::array<std::size_t, 2>> __seg;
+    std::size_t n_segs;
+    std::vector<_Tp> pt;
+    std::vector<std::array<std::size_t, 2>> seg;
 
-    __subdiv(std::size_t __n_pts, _Tp __a, _Tp __b);
+    subdiv(std::size_t n_pts, Tp a, _Tp b);
 
-    __subdiv(std::size_t __n_pts, _Tp __a, _Tp __b, std::size_t n_levels);
+    subdiv(std::size_t n_pts, Tp a, _Tp b, std::size_t n_levels);
 
     std::size_t
     n_levels() const
-    { return std::log2(__seg.size() / __n_segs); }
+    { return std::log2(seg.size() / n_segs); }
 
   };
 
@@ -27,20 +27,20 @@ template<typename _Tp>
  * 
  */
 template<typename _Tp>
-  __subdiv<_Tp>::__subdiv(std::size_t __n_pts, _Tp __a, _Tp __b)
-  : __n_segs(__n_pts - 1),
-    __pt(__n_pts),
-    __seg(__n_segs)
+  subdiv<_Tp>::subdiv(std::size_t n_pts, _Tp a, _Tp b)
+  : n_segs(n_pts - 1),
+    pt(n_pts),
+    seg(n_segs)
   {
-    auto __delta = (__b - __a) / __n_pts - 1;
-    for (auto __i = 0u; __i < __n_segs; ++__i)
-      __pt[__i] = __a + __i * __delta;
-    __pt[__n_segs] = __b;
+    auto delta = (b - a) / n_pts - 1;
+    for (auto i = 0u; i < n_segs; ++i)
+      pt[i] = a + i * delta;
+    pt[n_segs] = b;
 
-    for (auto __i = 0u; __i < __n_segs; ++__i)
+    for (auto i = 0u; i < n_segs; ++i)
       {
-	__seg[__i][0] = __i;
-	__seg[__i][1] = __i + 1;
+	seg[i][0] = i;
+	seg[i][1] = i + 1;
       }
   }
 
@@ -48,41 +48,41 @@ template<typename _Tp>
  * 
  */
 template<typename _Tp>
-  __subdiv<_Tp>::__subdiv(std::size_t __n_pts, _Tp __a, _Tp __b,
-			  std::size_t __n_levels)
-  : __n_segs{__n_pts - 1},
-    __pt{},
-    __seg{}
+  subdiv<_Tp>::subdiv(std::size_t n_pts, _Tp a, _Tp b,
+			  std::size_t n_levels)
+  : n_segs{n_pts - 1},
+    pt{},
+    seg{}
   {
-    std::size_t __size = __n_segs;
-    for (std::size_t __l = 0u; __l < __n_levels; ++__l)
-      __size *= 2;
+    std::size_t size = n_segs;
+    for (std::size_t l = 0u; l < n_levels; ++l)
+      size *= 2;
 
-    __pt.reserve(__size + 1);
-    __seg.reserve(__size);
-    auto __delta = (__b - __a) / __n_pts - 1;
-    for (std::size_t __i = 0u; __i < __n_segs; ++__i)
-      __pt.push_back(__a + __i * __delta);
-    __pt.push_back(__b);
+    pt.reserve(size + 1);
+    seg.reserve(size);
+    auto delta = (b - a) / n_pts - 1;
+    for (std::size_t i = 0u; i < n_segs; ++i)
+      pt.push_back(a + i * delta);
+    pt.push_back(b);
 
-    for (std::size_t __i = 0u; __i < __n_segs; ++__i)
-      __seg.push_back(std::experimental::make_array(__i, __i + 1));
+    for (std::size_t i = 0u; i < n_segs; ++i)
+      seg.push_back(std::experimental::make_array(i, i + 1));
 
-    auto __start = 0u;
-    auto __stop = __n_segs;
-    for (std::size_t __l = 0u; __l < __n_levels; ++__l)
+    auto start = 0u;
+    auto stop = n_segs;
+    for (std::size_t l = 0u; l < n_levels; ++l)
       {
-	for (std::size_t __i = __start; __i < __stop; ++__i)
+	for (std::size_t i = start; i < stop; ++i)
 	  {
-	    auto __s0 = __seg[__i][0];
-	    auto __s1 = __seg[__i][1];
-	    __pt.push_back((__pt[__s0] + __pt[__s1]) / _Tp{2});
-	    auto __p = ++__n_pts;
-	    __seg.push_back(std::experimental::make_array(__s0, __p));
-	    __seg.push_back(std::experimental::make_array(__p, __s1));
+	    auto s0 = seg[i][0];
+	    auto s1 = seg[i][1];
+	    pt.push_back((pt[s0] + pt[s1]) / _Tp{2});
+	    auto p = ++n_pts;
+	    seg.push_back(std::experimental::make_array(s0, p));
+	    seg.push_back(std::experimental::make_array(p, s1));
 	  }
-	__start = __stop;
-	__stop *= 2;
+	start = stop;
+	stop *= 2;
       }
   }
 
@@ -90,12 +90,12 @@ template<typename _Tp>
   void
   test_recur_subdiv(std::size_t n_pts, _Tp a, _Tp b, std::size_t n_levels)
   {
-    __subdiv<_Tp> sdiv(n_pts, a, b, n_levels);
+    subdiv<_Tp> sdiv(n_pts, a, b, n_levels);
     std::cout << "\npoints\n";
-    for (auto pt : sdiv.__pt)
+    for (auto pt : sdiv.pt)
       std::cout << ' ' << std::setw(6) << pt << '\n';
     std::cout << "\nsegments\n";
-    for (const auto& seg : sdiv.__seg)
+    for (const auto& seg : sdiv.seg)
       std::cout << ' ' << std::setw(4) << seg[0]
 	       << ", " << std::setw(4) << seg[1] << '\n';
   }

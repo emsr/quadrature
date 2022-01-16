@@ -27,7 +27,7 @@
 namespace __gnu_cxx
 {
 
-namespace __detail
+namespace detail
 {
 
   /**
@@ -49,33 +49,33 @@ namespace __detail
    * @param[out]  pt[n]  The points of the integration rule.
    * @param[out]  wt[n]  The weights of the integration rule.
    */
-  template<typename _Tp, typename _InIter, typename _OutIter>
+  template<typename Tp, typename InIter, typename OutIter>
     void
-    __golub_welsch(_Tp __moment0, int __n, _InIter& __diag, _InIter& __subd,
-		   _OutIter& __pt, _OutIter& __wt)
+    golub_welsch(Tp moment0, int n, InIter& diag, InIter& subd,
+		 OutIter& pt, OutIter& wt)
     {
       // Bail if the zero-th moment is not positive.
-      if (__moment0 <= _Tp{0})
-	std::__throw_domain_error("__golub_welsch: moment0 <= 0");
+      if (moment0 <= Tp{0})
+	throw std::domain_error("golub_welsch: moment0 <= 0");
 
       // Set up vectors for matrix diagonalization.
-      for (int i = 0; i < __n; ++i)
-	__pt[i] = __diag[i];
+      for (int i = 0; i < n; ++i)
+	pt[i] = diag[i];
 
-      __wt[0] = std::sqrt(__moment0);
-      for (int i = 1; i < __n; ++i)
-	__wt[i] = _Tp{0};
+      wt[0] = std::sqrt(moment0);
+      for (int i = 1; i < n; ++i)
+	wt[i] = Tp{0};
 
       // Diagonalize the Jacobi matrix.
-      _S_tridiag_symm(std::size_t(__n), __pt, __subd, __wt);
+      s_tridiag_symm(std::size_t(n), pt, subd, wt);
 
-      for (int i = 0; i < __n; ++i)
-	__wt[i] *= __wt[i];
+      for (int i = 0; i < n; ++i)
+	wt[i] *= wt[i];
 
       return;
     }
 
-} // namespace __detail
+} // namespace detail
 
 
   /**
@@ -84,22 +84,22 @@ namespace __detail
    * Weight function: @f$ 1 @f$
    * Constraints: @f$ b > a @f$
    */
-  template<typename _Tp>
-    fixed_gauss_legendre_integral<_Tp>::
-    fixed_gauss_legendre_integral(int __n)
-    : order(__n),
-      point(__n),
-      weight(__n)
+  template<typename Tp>
+    fixed_gauss_legendre_integral<Tp>::
+    fixed_gauss_legendre_integral(int n)
+    : order(n),
+      point(n),
+      weight(n)
     {
-      const auto __mu_0 = _Tp{2};
+      const auto mu_0 = Tp{2};
 
-      std::vector<_Tp> __diag(this->order, _Tp{0});
-      std::vector<_Tp> __subd(this->order);
+      std::vector<Tp> diag(this->order, Tp{0});
+      std::vector<Tp> subd(this->order);
 
-      for (int __i = 1; __i <= this->order; ++__i)
-	__subd[__i - 1] = _Tp(__i) / std::sqrt(_Tp(4 * __i * __i - 1));
+      for (int i = 1; i <= this->order; ++i)
+	subd[i - 1] = Tp(i) / std::sqrt(Tp(4 * i * i - 1));
 
-      __detail::__golub_welsch(__mu_0, this->order, __diag, __subd,
+      detail::golub_welsch(mu_0, this->order, diag, subd,
 			       this->point, this->weight);
     }
 
@@ -109,32 +109,32 @@ namespace __detail
    *
    * Interval: @f$ (a, b) @f$
    */
-  template<typename _Tp>
-    template<typename _FuncTp>
-      decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
-      fixed_gauss_legendre_integral<_Tp>::
-      operator()(_FuncTp __func, _Tp __a, _Tp __b) const
+  template<typename Tp>
+    template<typename FuncTp>
+      decltype(std::invoke_result_t<FuncTp, Tp>{} * Tp{})
+      fixed_gauss_legendre_integral<Tp>::
+      operator()(FuncTp func, Tp a, Tp b) const
       {
-	using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
-	using _AreaTp = decltype(_RetTp{} * _Tp{});
+	using RetTp = std::invoke_result_t<FuncTp, Tp>;
+	using AreaTp = decltype(RetTp{} * Tp{});
 
-	auto __sign = _Tp{1};
-	if (__b < __a)
+	auto sign = Tp{1};
+	if (b < a)
 	  {
-	    __sign = _Tp{-1};
-	    std::swap(__a, __b);
+	    sign = Tp{-1};
+	    std::swap(a, b);
 	  }
 
-	const auto __shift = (__b + __a) / _Tp{2};
-	const auto __slope = (__b - __a) / _Tp{2};
-	const auto __fact = __slope;
+	const auto shift = (b + a) / Tp{2};
+	const auto slope = (b - a) / Tp{2};
+	const auto fact = slope;
 
-	auto __sum = _AreaTp{0};
-	for (int __i = 0; __i < this->order; ++__i)
-	  __sum += this->weight[__i]
-		 * __func(__shift + __slope * this->point[__i]);
+	auto sum = AreaTp{0};
+	for (int i = 0; i < this->order; ++i)
+	  sum += this->weight[i]
+		 * func(shift + slope * this->point[i]);
 
-	return __sign * __fact * __sum;
+	return sign * fact * sum;
       }
 
   /**
@@ -145,21 +145,21 @@ namespace __detail
    * Jacobi parameter: @f$ \alpha = 1/2 @f$
    * Jacobi parameter: @f$ \beta = 1/2 @f$
    */
-  template<typename _Tp>
-    fixed_gauss_chebyshev_t_integral<_Tp>::
-    fixed_gauss_chebyshev_t_integral(int __n)
-    : order(__n),
-      point(__n),
-      weight(__n)
+  template<typename Tp>
+    fixed_gauss_chebyshev_t_integral<Tp>::
+    fixed_gauss_chebyshev_t_integral(int n)
+    : order(n),
+      point(n),
+      weight(n)
     {
-      const auto __mu_0 = _Tp{3.1415'92653'58979'32384'62643'38327'95028'84195e+0L};
+      const auto mu_0 = Tp{3.1415'92653'58979'32384'62643'38327'95028'84195e+0L};
 
-      std::vector<_Tp> __diag(this->order, _Tp{0});
-      std::vector<_Tp> __subd(this->order, _Tp{0.5L});
+      std::vector<Tp> diag(this->order, Tp{0});
+      std::vector<Tp> subd(this->order, Tp{0.5L});
 
-      __subd[0] = std::sqrt(_Tp{0.5L});
+      subd[0] = std::sqrt(Tp{0.5L});
 
-      __detail::__golub_welsch(__mu_0, this->order, __diag, __subd,
+      detail::golub_welsch(mu_0, this->order, diag, subd,
 			       this->point, this->weight);
     }
 
@@ -170,32 +170,32 @@ namespace __detail
    * Weight function: @f$ ((b-x)(x-a))^{-1/2} @f$
    * Constraints: @f$ b > a @f$
    */
-  template<typename _Tp>
-    template<typename _FuncTp>
-      decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
-      fixed_gauss_chebyshev_t_integral<_Tp>::
-      operator()(_FuncTp __func, _Tp __a, _Tp __b) const
+  template<typename Tp>
+    template<typename FuncTp>
+      decltype(std::invoke_result_t<FuncTp, Tp>{} * Tp{})
+      fixed_gauss_chebyshev_t_integral<Tp>::
+      operator()(FuncTp func, Tp a, Tp b) const
       {
-	using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
-	using _AreaTp = decltype(_RetTp{} * _Tp{});
+	using RetTp = std::invoke_result_t<FuncTp, Tp>;
+	using AreaTp = decltype(RetTp{} * Tp{});
 
-	auto __sign = _Tp{1};
-	if (__b < __a)
+	auto sign = Tp{1};
+	if (b < a)
 	  {
-	    __sign = _Tp{-1};
-	    std::swap(__a, __b);
+	    sign = Tp{-1};
+	    std::swap(a, b);
 	  }
 
-	const auto __shift = (__b + __a) / _Tp{2};
-	const auto __slope = (__b - __a) / _Tp{2};
-	const auto __fact = _Tp{1};
+	const auto shift = (b + a) / Tp{2};
+	const auto slope = (b - a) / Tp{2};
+	const auto fact = Tp{1};
 
-	auto __sum = _AreaTp{0};
-	for (int __i = 0; __i < this->order; ++__i)
-	  __sum += this->weight[__i]
-		 * __func(__shift + __slope * this->point[__i]);
+	auto sum = AreaTp{0};
+	for (int i = 0; i < this->order; ++i)
+	  sum += this->weight[i]
+		 * func(shift + slope * this->point[i]);
 
-	return __sign * __fact * __sum;
+	return sign * fact * sum;
       }
 
   /**
@@ -206,19 +206,19 @@ namespace __detail
    * Jacobi parameter: @f$ \alpha = -1/2 @f$
    * Jacobi parameter: @f$ \beta = -1/2 @f$
    */
-  template<typename _Tp>
-    fixed_gauss_chebyshev_u_integral<_Tp>::
-    fixed_gauss_chebyshev_u_integral(int __n)
-    : order(__n),
-      point(__n),
-      weight(__n)
+  template<typename Tp>
+    fixed_gauss_chebyshev_u_integral<Tp>::
+    fixed_gauss_chebyshev_u_integral(int n)
+    : order(n),
+      point(n),
+      weight(n)
     {
-      const auto __mu_0 = _Tp{3.1415'92653'58979'32384'62643'38327'95028'84195e+0L} / _Tp{2};
+      const auto mu_0 = Tp{3.1415'92653'58979'32384'62643'38327'95028'84195e+0L} / Tp{2};
 
-      std::vector<_Tp> __diag(this->order, _Tp{0});
-      std::vector<_Tp> __subd(this->order, _Tp{0.5L});
+      std::vector<Tp> diag(this->order, Tp{0});
+      std::vector<Tp> subd(this->order, Tp{0.5L});
 
-      __detail::__golub_welsch(__mu_0, this->order, __diag, __subd,
+      detail::golub_welsch(mu_0, this->order, diag, subd,
 			       this->point, this->weight);
     }
 
@@ -229,32 +229,32 @@ namespace __detail
    * Interval: @f$ (a, b), b > a @f$
    * Weight function: @f$ [(b-x)(x-a)]^{1/2} @f$
    */
-  template<typename _Tp>
-    template<typename _FuncTp>
-      decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
-      fixed_gauss_chebyshev_u_integral<_Tp>::
-      operator()(_FuncTp __func, _Tp __a, _Tp __b) const
+  template<typename Tp>
+    template<typename FuncTp>
+      decltype(std::invoke_result_t<FuncTp, Tp>{} * Tp{})
+      fixed_gauss_chebyshev_u_integral<Tp>::
+      operator()(FuncTp func, Tp a, Tp b) const
       {
-	using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
-	using _AreaTp = decltype(_RetTp{} * _Tp{});
+	using RetTp = std::invoke_result_t<FuncTp, Tp>;
+	using AreaTp = decltype(RetTp{} * Tp{});
 
-	auto __sign = _Tp{1};
-	if (__b < __a)
+	auto sign = Tp{1};
+	if (b < a)
 	  {
-	    __sign = _Tp{-1};
-	    std::swap(__a, __b);
+	    sign = Tp{-1};
+	    std::swap(a, b);
 	  }
 
-	const auto __shift = (__b + __a) / _Tp{2};
-	const auto __slope = (__b - __a) / _Tp{2};
-	const auto __fact = __slope * __slope;
+	const auto shift = (b + a) / Tp{2};
+	const auto slope = (b - a) / Tp{2};
+	const auto fact = slope * slope;
 
-	auto __sum = _AreaTp{0};
-	for (int __i = 0; __i < this->order; ++__i)
-	  __sum += this->weight[__i]
-		 * __func(__shift + __slope * this->point[__i]);
+	auto sum = AreaTp{0};
+	for (int i = 0; i < this->order; ++i)
+	  sum += this->weight[i]
+		 * func(shift + slope * this->point[i]);
 
-	return __sign * __fact * __sum;
+	return sign * fact * sum;
       }
 
   /**
@@ -265,22 +265,22 @@ namespace __detail
    * Jacobi parameter: @f$ \alpha = +1/2 @f$
    * Jacobi parameter: @f$ \beta = -1/2 @f$
    */
-  template<typename _Tp>
-    fixed_gauss_chebyshev_v_integral<_Tp>::
-    fixed_gauss_chebyshev_v_integral(int __n)
-    : order(__n),
-      point(__n),
-      weight(__n)
+  template<typename Tp>
+    fixed_gauss_chebyshev_v_integral<Tp>::
+    fixed_gauss_chebyshev_v_integral(int n)
+    : order(n),
+      point(n),
+      weight(n)
     {
-      const auto __mu_0 = _Tp{3.1415'92653'58979'32384'62643'38327'95028'84195e+0L};
+      const auto mu_0 = Tp{3.1415'92653'58979'32384'62643'38327'95028'84195e+0L};
 
-      std::vector<_Tp> __diag(this->order, _Tp{0});
-      std::vector<_Tp> __subd(this->order, _Tp{0.5L});
+      std::vector<Tp> diag(this->order, Tp{0});
+      std::vector<Tp> subd(this->order, Tp{0.5L});
 
-      __diag[0] = _Tp{-0.5L};
-      __subd[0] = std::sqrt(_Tp{2});
+      diag[0] = Tp{-0.5L};
+      subd[0] = std::sqrt(Tp{2});
 
-      __detail::__golub_welsch(__mu_0, this->order, __diag, __subd,
+      detail::golub_welsch(mu_0, this->order, diag, subd,
 			       this->point, this->weight);
     }
 
@@ -292,32 +292,32 @@ namespace __detail
    * Weight function: @f$ [(x-a)/(b-x)]^{1/2} @f$
    * 
    */
-  template<typename _Tp>
-    template<typename _FuncTp>
-      decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
-      fixed_gauss_chebyshev_v_integral<_Tp>::
-      operator()(_FuncTp __func, _Tp __a, _Tp __b) const
+  template<typename Tp>
+    template<typename FuncTp>
+      decltype(std::invoke_result_t<FuncTp, Tp>{} * Tp{})
+      fixed_gauss_chebyshev_v_integral<Tp>::
+      operator()(FuncTp func, Tp a, Tp b) const
       {
-	using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
-	using _AreaTp = decltype(_RetTp{} * _Tp{});
+	using RetTp = std::invoke_result_t<FuncTp, Tp>;
+	using AreaTp = decltype(RetTp{} * Tp{});
 
-	auto __sign = _Tp{1};
-	if (__b < __a)
+	auto sign = Tp{1};
+	if (b < a)
 	  {
-	    __sign = _Tp{-1};
-	    std::swap(__a, __b);
+	    sign = Tp{-1};
+	    std::swap(a, b);
 	  }
 
-	const auto __shift = (__b + __a) / _Tp{2};
-	const auto __slope = (__b - __a) / _Tp{2};
-	const auto __fact = __slope;
+	const auto shift = (b + a) / Tp{2};
+	const auto slope = (b - a) / Tp{2};
+	const auto fact = slope;
 
-	auto __sum = _AreaTp{0};
-	for (int __i = 0; __i < this->order; ++__i)
-	  __sum += this->weight[__i]
-		 * __func(__shift + __slope * this->point[__i]);
+	auto sum = AreaTp{0};
+	for (int i = 0; i < this->order; ++i)
+	  sum += this->weight[i]
+		 * func(shift + slope * this->point[i]);
 
-	return __sign * __fact * __sum;
+	return sign * fact * sum;
       }
 
   /**
@@ -328,22 +328,22 @@ namespace __detail
    * Jacobi parameter: @f$ \alpha = -1/2 @f$
    * Jacobi parameter: @f$ \beta = +1/2 @f$
    */
-  template<typename _Tp>
-    fixed_gauss_chebyshev_w_integral<_Tp>::
-    fixed_gauss_chebyshev_w_integral(int __n)
-    : order(__n),
-      point(__n),
-      weight(__n)
+  template<typename Tp>
+    fixed_gauss_chebyshev_w_integral<Tp>::
+    fixed_gauss_chebyshev_w_integral(int n)
+    : order(n),
+      point(n),
+      weight(n)
     {
-      const auto __mu_0 = _Tp{3.1415'92653'58979'32384'62643'38327'95028'84195e+0L};
+      const auto mu_0 = Tp{3.1415'92653'58979'32384'62643'38327'95028'84195e+0L};
 
-      std::vector<_Tp> __diag(this->order, _Tp{0});
-      std::vector<_Tp> __subd(this->order, _Tp{0.5L});
+      std::vector<Tp> diag(this->order, Tp{0});
+      std::vector<Tp> subd(this->order, Tp{0.5L});
 
-      __diag[0] = _Tp{0.5L};
-      __subd[0] = std::sqrt(_Tp{2});
+      diag[0] = Tp{0.5L};
+      subd[0] = std::sqrt(Tp{2});
 
-      __detail::__golub_welsch(__mu_0, this->order, __diag, __subd,
+      detail::golub_welsch(mu_0, this->order, diag, subd,
 			       this->point, this->weight);
     }
 
@@ -354,32 +354,32 @@ namespace __detail
    * Interval: @f$ (a, b), b > a @f$
    * Weight function: @f$ [(b-x)/(x-a)]^{1/2} @f$
    */
-  template<typename _Tp>
-    template<typename _FuncTp>
-      decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
-      fixed_gauss_chebyshev_w_integral<_Tp>::
-      operator()(_FuncTp __func, _Tp __a, _Tp __b) const
+  template<typename Tp>
+    template<typename FuncTp>
+      decltype(std::invoke_result_t<FuncTp, Tp>{} * Tp{})
+      fixed_gauss_chebyshev_w_integral<Tp>::
+      operator()(FuncTp func, Tp a, Tp b) const
       {
-	using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
-	using _AreaTp = decltype(_RetTp{} * _Tp{});
+	using RetTp = std::invoke_result_t<FuncTp, Tp>;
+	using AreaTp = decltype(RetTp{} * Tp{});
 
-	auto __sign = _Tp{1};
-	if (__b < __a)
+	auto sign = Tp{1};
+	if (b < a)
 	  {
-	    __sign = _Tp{-1};
-	    std::swap(__a, __b);
+	    sign = Tp{-1};
+	    std::swap(a, b);
 	  }
 
-	const auto __shift = (__b + __a) / _Tp{2};
-	const auto __slope = (__b - __a) / _Tp{2};
-	const auto __fact = __slope;
+	const auto shift = (b + a) / Tp{2};
+	const auto slope = (b - a) / Tp{2};
+	const auto fact = slope;
 
-	auto __sum = _AreaTp{0};
-	for (int __i = 0; __i < this->order; ++__i)
-	  __sum += this->weight[__i]
-		 * __func(__shift + __slope * this->point[__i]);
+	auto sum = AreaTp{0};
+	for (int i = 0; i < this->order; ++i)
+	  sum += this->weight[i]
+		 * func(shift + slope * this->point[i]);
 
-	return __sign * __fact * __sum;
+	return sign * fact * sum;
       }
 
   /**
@@ -388,30 +388,30 @@ namespace __detail
    * Weight function: @f$ [(b-x)(x-a)]^\lambda @f$
    * Constraints: @f$ \lambda > -1 @f$
    */
-  template<typename _Tp>
-    fixed_gauss_gegenbauer_integral<_Tp>::
-    fixed_gauss_gegenbauer_integral(int __n, _Tp __lam)
-    : order(__n),
-      lambda(__lam),
-      point(__n),
-      weight(__n)
+  template<typename Tp>
+    fixed_gauss_gegenbauer_integral<Tp>::
+    fixed_gauss_gegenbauer_integral(int n, Tp lam)
+    : order(n),
+      lambda(lam),
+      point(n),
+      weight(n)
     {
-      const auto __ab = _Tp{2} * this->lambda;
-      const auto __gam = std::tgamma(this->lambda + _Tp{1});
-      const auto __mu_0 = std::pow(_Tp{2}, __ab + _Tp{1})
-			* __gam * __gam / std::tgamma(__ab + _Tp{2});
+      const auto ab = Tp{2} * this->lambda;
+      const auto gam = std::tgamma(this->lambda + Tp{1});
+      const auto mu_0 = std::pow(Tp{2}, ab + Tp{1})
+			* gam * gam / std::tgamma(ab + Tp{2});
 
-      std::vector<_Tp> __diag(this->order, _Tp{0});
-      std::vector<_Tp> __subd(this->order);
+      std::vector<Tp> diag(this->order, Tp{0});
+      std::vector<Tp> subd(this->order);
 
-      __subd[0] = std::sqrt(_Tp{1} / (_Tp{2} * this->lambda + _Tp{3}));
+      subd[0] = std::sqrt(Tp{1} / (Tp{2} * this->lambda + Tp{3}));
 
-      for (int __i = 2; __i <= this->order; ++__i)
-	__subd[__i - 1] = std::sqrt(_Tp(__i) * (__ab + _Tp(__i))
-		        / (_Tp{4}
-			  * std::pow(this->lambda + _Tp(__i), _Tp{2}) - _Tp{1}));
+      for (int i = 2; i <= this->order; ++i)
+	subd[i - 1] = std::sqrt(Tp(i) * (ab + Tp(i))
+		        / (Tp{4}
+			  * std::pow(this->lambda + Tp(i), Tp{2}) - Tp{1}));
 
-      __detail::__golub_welsch(__mu_0, this->order, __diag, __subd,
+      detail::golub_welsch(mu_0, this->order, diag, subd,
 			       this->point, this->weight);
     }
 
@@ -422,32 +422,32 @@ namespace __detail
    * Interval: @f$ (a, b) @f$
    * Constraints: @f$ b > a @f$
    */
-  template<typename _Tp>
-    template<typename _FuncTp>
-      decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
-      fixed_gauss_gegenbauer_integral<_Tp>::
-      operator()(_FuncTp __func, _Tp __a, _Tp __b) const
+  template<typename Tp>
+    template<typename FuncTp>
+      decltype(std::invoke_result_t<FuncTp, Tp>{} * Tp{})
+      fixed_gauss_gegenbauer_integral<Tp>::
+      operator()(FuncTp func, Tp a, Tp b) const
       {
-	using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
-	using _AreaTp = decltype(_RetTp{} * _Tp{});
+	using RetTp = std::invoke_result_t<FuncTp, Tp>;
+	using AreaTp = decltype(RetTp{} * Tp{});
 
-	auto __sign = _Tp{1};
-	if (__b < __a)
+	auto sign = Tp{1};
+	if (b < a)
 	  {
-	    __sign = _Tp{-1};
-	    std::swap(__a, __b);
+	    sign = Tp{-1};
+	    std::swap(a, b);
 	  }
 
-	const auto __shift = (__b + __a) / _Tp{2};
-	const auto __slope = (__b - __a) / _Tp{2};
-	const auto __fact = std::pow(__slope, _Tp{2} * this->lambda + _Tp{1});
+	const auto shift = (b + a) / Tp{2};
+	const auto slope = (b - a) / Tp{2};
+	const auto fact = std::pow(slope, Tp{2} * this->lambda + Tp{1});
 
-	auto __sum = _AreaTp{0};
-	for (int __i = 0; __i < this->order; ++__i)
-	  __sum += this->weight[__i]
-		 * __func(__shift + __slope * this->point[__i]);
+	auto sum = AreaTp{0};
+	for (int i = 0; i < this->order; ++i)
+	  sum += this->weight[i]
+		 * func(shift + slope * this->point[i]);
 
-	return __sign * __fact * __sum;
+	return sign * fact * sum;
       }
 
   /**
@@ -457,43 +457,43 @@ namespace __detail
    * Weight function: @f$ (1-x)^\alpha (1+x)^\beta @f$
    * Constraints: @f$ \alpha, \beta > -1 @f$
    */
-  template<typename _Tp>
-    fixed_gauss_jacobi_integral<_Tp>::
-    fixed_gauss_jacobi_integral(int __n, _Tp __alf, _Tp __bet)
-    : order(__n),
-      alpha(__alf),
-      beta(__bet),
-      point(__n),
-      weight(__n)
+  template<typename Tp>
+    fixed_gauss_jacobi_integral<Tp>::
+    fixed_gauss_jacobi_integral(int n, Tp alf, Tp bet)
+    : order(n),
+      alpha(alf),
+      beta(bet),
+      point(n),
+      weight(n)
     {
-      const auto __ab = this->alpha + this->beta;
-      auto __abp2i = __ab + _Tp{2};
-      const auto __mu_0 = std::pow(_Tp{2}, __ab + _Tp{1})
-			* std::tgamma(this->alpha + _Tp{1})
-			* std::tgamma(this->beta + _Tp{1})
-			/ std::tgamma(__abp2i);
+      const auto ab = this->alpha + this->beta;
+      auto abp2i = ab + Tp{2};
+      const auto mu_0 = std::pow(Tp{2}, ab + Tp{1})
+			* std::tgamma(this->alpha + Tp{1})
+			* std::tgamma(this->beta + Tp{1})
+			/ std::tgamma(abp2i);
 
-      std::vector<_Tp> __diag(this->order);
-      std::vector<_Tp> __subd(this->order);
+      std::vector<Tp> diag(this->order);
+      std::vector<Tp> subd(this->order);
 
-      __diag[0] = (this->beta - this->alpha) / __abp2i;
-      __subd[0] = _Tp{2} * std::sqrt((this->alpha + _Tp{1})
-				   * (this->beta + _Tp{1})
-				   / (__abp2i + _Tp{1})) / __abp2i;
+      diag[0] = (this->beta - this->alpha) / abp2i;
+      subd[0] = Tp{2} * std::sqrt((this->alpha + Tp{1})
+				   * (this->beta + Tp{1})
+				   / (abp2i + Tp{1})) / abp2i;
       const auto a2mb2 = (this->beta - this->alpha)
 			* (this->beta + this->alpha);
-      for (int __i = 1; __i < this->order; ++__i)
+      for (int i = 1; i < this->order; ++i)
 	{
-	  const auto abp2ip2 = __abp2i + _Tp{2};
-	  __diag[__i] = a2mb2 / __abp2i / abp2ip2;
-	  const auto __ip1 = _Tp(__i + 1);
-	  __subd[__i] = std::sqrt(_Tp(4 * __ip1) * (this->alpha + __ip1)
-				  * (this->beta + __ip1) * (__ab + __ip1)
-				  / (abp2ip2 * abp2ip2 - _Tp{1})) / abp2ip2;
-	  __abp2i += _Tp{2};
+	  const auto abp2ip2 = abp2i + Tp{2};
+	  diag[i] = a2mb2 / abp2i / abp2ip2;
+	  const auto ip1 = Tp(i + 1);
+	  subd[i] = std::sqrt(Tp(4 * ip1) * (this->alpha + ip1)
+				  * (this->beta + ip1) * (ab + ip1)
+				  / (abp2ip2 * abp2ip2 - Tp{1})) / abp2ip2;
+	  abp2i += Tp{2};
 	}
 
-      __detail::__golub_welsch(__mu_0, this->order, __diag, __subd,
+      detail::golub_welsch(mu_0, this->order, diag, subd,
 			       this->point, this->weight);
     }
 
@@ -505,32 +505,32 @@ namespace __detail
    * Weight function: @f$ (b-x)^\alpha (x-a)^\beta @f$
    * Constraints: @f$ b > a @f$
    */
-  template<typename _Tp>
-    template<typename _FuncTp>
-      decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
-      fixed_gauss_jacobi_integral<_Tp>::
-      operator()(_FuncTp __func, _Tp __a, _Tp __b) const
+  template<typename Tp>
+    template<typename FuncTp>
+      decltype(std::invoke_result_t<FuncTp, Tp>{} * Tp{})
+      fixed_gauss_jacobi_integral<Tp>::
+      operator()(FuncTp func, Tp a, Tp b) const
       {
-	using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
-	using _AreaTp = decltype(_RetTp{} * _Tp{});
+	using RetTp = std::invoke_result_t<FuncTp, Tp>;
+	using AreaTp = decltype(RetTp{} * Tp{});
 
-	auto __sign = _Tp{1};
-	if (__b < __a)
+	auto sign = Tp{1};
+	if (b < a)
 	  {
-	    __sign = _Tp{-1};
-	    std::swap(__a, __b);
+	    sign = Tp{-1};
+	    std::swap(a, b);
 	  }
 
-	const auto __shift = (__b + __a) / _Tp{2};
-	const auto __slope = (__b - __a) / _Tp{2};
-	const auto __fact = std::pow(__slope, this->alpha + this->beta + _Tp{1});
+	const auto shift = (b + a) / Tp{2};
+	const auto slope = (b - a) / Tp{2};
+	const auto fact = std::pow(slope, this->alpha + this->beta + Tp{1});
 
-	auto __sum = _AreaTp{0};
-	for (int __i = 0; __i < this->order; ++__i)
-	  __sum += this->weight[__i]
-		 * __func(__shift + __slope * this->point[__i]);
+	auto sum = AreaTp{0};
+	for (int i = 0; i < this->order; ++i)
+	  sum += this->weight[i]
+		 * func(shift + slope * this->point[i]);
 
-	return __sign * __fact * __sum;
+	return sign * fact * sum;
       }
 
   /**
@@ -540,26 +540,26 @@ namespace __detail
    * Weight function: @f$ x^\alpha \exp(-b(x-a)) @f$
    * Constraints: @f$ \alpha > -1 @f$
    */
-  template<typename _Tp>
-    fixed_gauss_laguerre_integral<_Tp>::
-    fixed_gauss_laguerre_integral(int __n, _Tp __alf)
-    : order(__n),
-      alpha(__alf),
-      point(__n),
-      weight(__n)
+  template<typename Tp>
+    fixed_gauss_laguerre_integral<Tp>::
+    fixed_gauss_laguerre_integral(int n, Tp alf)
+    : order(n),
+      alpha(alf),
+      point(n),
+      weight(n)
     {
-      const auto __mu_0 = std::tgamma(this->alpha + _Tp{1});
+      const auto mu_0 = std::tgamma(this->alpha + Tp{1});
 
-      std::vector<_Tp> __diag(this->order);
-      std::vector<_Tp> __subd(this->order);
+      std::vector<Tp> diag(this->order);
+      std::vector<Tp> subd(this->order);
 
-      for (int __i = 0; __i < this->order; ++__i)
+      for (int i = 0; i < this->order; ++i)
 	{
-	  __diag[__i] = _Tp(2 * __i + 1) + this->alpha;
-	  __subd[__i] = std::sqrt(_Tp(__i + 1) * (this->alpha + _Tp(__i + 1)));
+	  diag[i] = Tp(2 * i + 1) + this->alpha;
+	  subd[i] = std::sqrt(Tp(i + 1) * (this->alpha + Tp(i + 1)));
 	}
 
-      __detail::__golub_welsch(__mu_0, this->order, __diag, __subd,
+      detail::golub_welsch(mu_0, this->order, diag, subd,
 			       this->point, this->weight);
     }
 
@@ -571,25 +571,25 @@ namespace __detail
    * Weight function: @f$ (x-a)^\alpha \exp(-b(x-a)) @f$
    * Constraints: @f$ b > 0 @f$
    */
-  template<typename _Tp>
-    template<typename _FuncTp>
-      decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
-      fixed_gauss_laguerre_integral<_Tp>::
-      operator()(_FuncTp __func, _Tp __a, _Tp __b) const
+  template<typename Tp>
+    template<typename FuncTp>
+      decltype(std::invoke_result_t<FuncTp, Tp>{} * Tp{})
+      fixed_gauss_laguerre_integral<Tp>::
+      operator()(FuncTp func, Tp a, Tp b) const
       {
-	using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
-	using _AreaTp = decltype(_RetTp{} * _Tp{});
+	using RetTp = std::invoke_result_t<FuncTp, Tp>;
+	using AreaTp = decltype(RetTp{} * Tp{});
 
-	const auto __shift = __a;
-	const auto __slope = _Tp{1} / __b;
-	const auto __fact = std::pow(__slope, this->alpha + _Tp{1});
+	const auto shift = a;
+	const auto slope = Tp{1} / b;
+	const auto fact = std::pow(slope, this->alpha + Tp{1});
 
-	auto __sum = _AreaTp{0};
-	for (int __i = 0; __i < this->order; ++__i)
-	  __sum += this->weight[__i]
-		 * __func(__shift + __slope * this->point[__i]);
+	auto sum = AreaTp{0};
+	for (int i = 0; i < this->order; ++i)
+	  sum += this->weight[i]
+		 * func(shift + slope * this->point[i]);
 
-	return __fact * __sum;
+	return fact * sum;
       }
 
   /**
@@ -599,24 +599,24 @@ namespace __detail
    * Weight function: @f$ |x-a|^\alpha \exp(-b(x-a)^2) @f$
    * Constraints: @f$ \alpha > -1 @f$
    */
-  template<typename _Tp>
-    fixed_gauss_hermite_integral<_Tp>::
-    fixed_gauss_hermite_integral(int __n, _Tp __alf)
-    : order(__n),
-      alpha(__alf),
-      point(__n),
-      weight(__n)
+  template<typename Tp>
+    fixed_gauss_hermite_integral<Tp>::
+    fixed_gauss_hermite_integral(int n, Tp alf)
+    : order(n),
+      alpha(alf),
+      point(n),
+      weight(n)
     {
-      const auto __mu_0 = std::tgamma((this->alpha + _Tp{1}) / _Tp{2});
+      const auto mu_0 = std::tgamma((this->alpha + Tp{1}) / Tp{2});
 
-      std::vector<_Tp> __diag(this->order, _Tp{0});
-      std::vector<_Tp> __subd(this->order);
+      std::vector<Tp> diag(this->order, Tp{0});
+      std::vector<Tp> subd(this->order);
 
-      for (int __i = 1; __i <= this->order; ++__i)
-	__subd[__i - 1] = std::sqrt((_Tp(__i) + _Tp(__i % 2) * this->alpha)
-				   / _Tp{2});
+      for (int i = 1; i <= this->order; ++i)
+	subd[i - 1] = std::sqrt((Tp(i) + Tp(i % 2) * this->alpha)
+				   / Tp{2});
 
-      __detail::__golub_welsch(__mu_0, this->order, __diag, __subd,
+      detail::golub_welsch(mu_0, this->order, diag, subd,
 			       this->point, this->weight);
     }
 
@@ -628,25 +628,25 @@ namespace __detail
    * Weight function: @f$ |x-a|^\alpha \exp(-b(x-a)^2) @f$
    * Constraints: @f$ b > 0 @f$
    */
-  template<typename _Tp>
-    template<typename _FuncTp>
-      decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
-      fixed_gauss_hermite_integral<_Tp>::
-      operator()(_FuncTp __func, _Tp __a, _Tp __b) const
+  template<typename Tp>
+    template<typename FuncTp>
+      decltype(std::invoke_result_t<FuncTp, Tp>{} * Tp{})
+      fixed_gauss_hermite_integral<Tp>::
+      operator()(FuncTp func, Tp a, Tp b) const
       {
-	using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
-	using _AreaTp = decltype(_RetTp{} * _Tp{});
+	using RetTp = std::invoke_result_t<FuncTp, Tp>;
+	using AreaTp = decltype(RetTp{} * Tp{});
 
-	const auto __shift = __a;
-	const auto __slope = _Tp{1} / std::sqrt(__b);
-	const auto __fact = std::pow(__slope, this->alpha + _Tp{1});
+	const auto shift = a;
+	const auto slope = Tp{1} / std::sqrt(b);
+	const auto fact = std::pow(slope, this->alpha + Tp{1});
 
-	auto __sum = _AreaTp{0};
-	for (int __i = 0; __i < this->order; ++__i)
-	  __sum += this->weight[__i]
-		 * __func(__shift + __slope * this->point[__i]);
+	auto sum = AreaTp{0};
+	for (int i = 0; i < this->order; ++i)
+	  sum += this->weight[i]
+		 * func(shift + slope * this->point[i]);
 
-	return __fact * __sum;
+	return fact * sum;
       }
 
   /**
@@ -656,28 +656,28 @@ namespace __detail
    * Weight function: @f$ |x - (a + b) / 2|^\alpha @f$
    * Constraints: @f$ \alpha > -1 @f$
    */
-  template<typename _Tp>
-    fixed_gauss_exponential_integral<_Tp>::
-    fixed_gauss_exponential_integral(int __n, _Tp __alf)
-    : order(__n),
-      alpha(__alf),
-      point(__n),
-      weight(__n)
+  template<typename Tp>
+    fixed_gauss_exponential_integral<Tp>::
+    fixed_gauss_exponential_integral(int n, Tp alf)
+    : order(n),
+      alpha(alf),
+      point(n),
+      weight(n)
     {
-      const auto __mu_0 = _Tp{2} / (this->alpha + _Tp{1});
+      const auto mu_0 = Tp{2} / (this->alpha + Tp{1});
 
-      std::vector<_Tp> __diag(this->order, _Tp{0});
-      std::vector<_Tp> __subd(this->order);
+      std::vector<Tp> diag(this->order, Tp{0});
+      std::vector<Tp> subd(this->order);
 
-      auto __ap2i = this->alpha;
-      for (int __i = 1; __i <= this->order; ++__i)
+      auto ap2i = this->alpha;
+      for (int i = 1; i <= this->order; ++i)
 	{
-	  __ap2i += _Tp{2};
-	  __subd[__i - 1] = (_Tp(__i) + _Tp(__i % 2) * this->alpha)
-			  / std::sqrt((__ap2i * __ap2i - _Tp{1}));
+	  ap2i += Tp{2};
+	  subd[i - 1] = (Tp(i) + Tp(i % 2) * this->alpha)
+			  / std::sqrt((ap2i * ap2i - Tp{1}));
 	}
 
-      __detail::__golub_welsch(__mu_0, this->order, __diag, __subd,
+      detail::golub_welsch(mu_0, this->order, diag, subd,
 			       this->point, this->weight);
     }
 
@@ -687,32 +687,32 @@ namespace __detail
    *
    * Constraints: @f$ b > a @f$
    */
-  template<typename _Tp>
-    template<typename _FuncTp>
-      decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
-      fixed_gauss_exponential_integral<_Tp>::
-      operator()(_FuncTp __func, _Tp __a, _Tp __b) const
+  template<typename Tp>
+    template<typename FuncTp>
+      decltype(std::invoke_result_t<FuncTp, Tp>{} * Tp{})
+      fixed_gauss_exponential_integral<Tp>::
+      operator()(FuncTp func, Tp a, Tp b) const
       {
-	using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
-	using _AreaTp = decltype(_RetTp{} * _Tp{});
+	using RetTp = std::invoke_result_t<FuncTp, Tp>;
+	using AreaTp = decltype(RetTp{} * Tp{});
 
-	auto __sign = _Tp{1};
-	if (__b < __a)
+	auto sign = Tp{1};
+	if (b < a)
 	  {
-	    __sign = _Tp{-1};
-	    std::swap(__a, __b);
+	    sign = Tp{-1};
+	    std::swap(a, b);
 	  }
 
-	const auto __shift = (__b + __a) / _Tp{2};
-	const auto __slope = (__b - __a) / _Tp{2};
-	const auto __fact = std::pow(__slope, this->alpha + _Tp{1});
+	const auto shift = (b + a) / Tp{2};
+	const auto slope = (b - a) / Tp{2};
+	const auto fact = std::pow(slope, this->alpha + Tp{1});
 
-	auto __sum = _AreaTp{0};
-	for (int __i = 0; __i < this->order; ++__i)
-	  __sum += this->weight[__i]
-		 * __func(__shift + __slope * this->point[__i]);
+	auto sum = AreaTp{0};
+	for (int i = 0; i < this->order; ++i)
+	  sum += this->weight[i]
+		 * func(shift + slope * this->point[i]);
 
-	return __sign * __fact * __sum;
+	return sign * fact * sum;
       }
 
   /**
@@ -721,48 +721,48 @@ namespace __detail
    * Weight function: @f$ (x - a)^\alpha (b + x)^\beta @f$
    * Constraints: @f$ \alpha > -1, \alpha + \beta + 2n < 0
    */
-  template<typename _Tp>
-    fixed_gauss_rational_integral<_Tp>::
-    fixed_gauss_rational_integral(int __n, _Tp __alf, _Tp __bet)
-    : order(__n),
-      alpha(__alf),
-      beta(__bet),
-      point(__n),
-      weight(__n)
+  template<typename Tp>
+    fixed_gauss_rational_integral<Tp>::
+    fixed_gauss_rational_integral(int n, Tp alf, Tp bet)
+    : order(n),
+      alpha(alf),
+      beta(bet),
+      point(n),
+      weight(n)
     {
-      const auto __ab = this->alpha + this->beta;
-      const auto __mu_0 = std::tgamma(this->alpha + _Tp{1})
-			* std::tgamma(-(__ab + _Tp{1}))
+      const auto ab = this->alpha + this->beta;
+      const auto mu_0 = std::tgamma(this->alpha + Tp{1})
+			* std::tgamma(-(ab + Tp{1}))
 			/ std::tgamma(-this->beta);
-      const auto __ap1 = this->alpha + _Tp{1};
-      const auto __aba = __ab * __ap1;
+      const auto ap1 = this->alpha + Tp{1};
+      const auto aba = ab * ap1;
 
-      std::vector<_Tp> __diag(this->order);
-      std::vector<_Tp> __subd(this->order);
+      std::vector<Tp> diag(this->order);
+      std::vector<Tp> subd(this->order);
 
-      __diag[0] = -__ap1 / (__ab + _Tp{2});
-      __subd[0] = -__diag[0] * (this->beta + _Tp{1})
-		/ (__ab + _Tp{2}) / (__ab + _Tp{3});
-      for (int __i = 2; __i <= this->order; ++__i)
+      diag[0] = -ap1 / (ab + Tp{2});
+      subd[0] = -diag[0] * (this->beta + Tp{1})
+		/ (ab + Tp{2}) / (ab + Tp{3});
+      for (int i = 2; i <= this->order; ++i)
 	{
-	  const auto __abp2i = __ab + _Tp(2 * __i);
-	  __diag[__i - 1] = __aba + _Tp{2} * (__ab + _Tp(__i)) * _Tp(__i - 1);
-	  __diag[__i - 1] = -__diag[__i-1] / __abp2i / (__abp2i - _Tp{2});
+	  const auto abp2i = ab + Tp(2 * i);
+	  diag[i - 1] = aba + Tp{2} * (ab + Tp(i)) * Tp(i - 1);
+	  diag[i - 1] = -diag[i-1] / abp2i / (abp2i - Tp{2});
 	}
 
-      for (int __i = 2; __i <= this->order - 1; ++__i)
+      for (int i = 2; i <= this->order - 1; ++i)
 	{
-	  const auto __abp2i = __ab + _Tp(2 * __i);
-	  __subd[__i - 1] = _Tp(__i) * (this->alpha + _Tp(__i))
-			  / (__abp2i - _Tp{1}) * (this->beta + _Tp(__i))
-			  / (__abp2i * __abp2i) * (__ab + _Tp(__i))
-			  / (__abp2i + _Tp{1});
+	  const auto abp2i = ab + Tp(2 * i);
+	  subd[i - 1] = Tp(i) * (this->alpha + Tp(i))
+			  / (abp2i - Tp{1}) * (this->beta + Tp(i))
+			  / (abp2i * abp2i) * (ab + Tp(i))
+			  / (abp2i + Tp{1});
 	}
-      __subd[this->order - 1] = _Tp{0};
-      for (int __i = 0; __i < this->order; ++__i)
-	__subd[__i] = std::sqrt(__subd[__i]);
+      subd[this->order - 1] = Tp{0};
+      for (int i = 0; i < this->order; ++i)
+	subd[i] = std::sqrt(subd[i]);
 
-      __detail::__golub_welsch(__mu_0, this->order, __diag, __subd,
+      detail::golub_welsch(mu_0, this->order, diag, subd,
 			       this->point, this->weight);
     }
 
@@ -773,32 +773,32 @@ namespace __detail
    * Interval: @f$ (a, \infty) @f$
    * Constraints: @f$ a + b > 0 @f$
    */
-  template<typename _Tp>
-    template<typename _FuncTp>
-      decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
-      fixed_gauss_rational_integral<_Tp>::
-      operator()(_FuncTp __func, _Tp __a, _Tp __b) const
+  template<typename Tp>
+    template<typename FuncTp>
+      decltype(std::invoke_result_t<FuncTp, Tp>{} * Tp{})
+      fixed_gauss_rational_integral<Tp>::
+      operator()(FuncTp func, Tp a, Tp b) const
       {
-	using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
-	using _AreaTp = decltype(_RetTp{} * _Tp{});
+	using RetTp = std::invoke_result_t<FuncTp, Tp>;
+	using AreaTp = decltype(RetTp{} * Tp{});
 
-	auto __sign = _Tp{1};
-	if (__b < __a)
+	auto sign = Tp{1};
+	if (b < a)
 	  {
-	    __sign = _Tp{-1};
-	    std::swap(__a, __b);
+	    sign = Tp{-1};
+	    std::swap(a, b);
 	  }
 
-	const auto __shift = __a;
-	const auto __slope = __b + __a;
-	const auto __fact = std::pow(__slope, this->alpha + this->beta + _Tp{1});
+	const auto shift = a;
+	const auto slope = b + a;
+	const auto fact = std::pow(slope, this->alpha + this->beta + Tp{1});
 
-	auto __sum = _AreaTp{0};
-	for (int __i = 0; __i < this->order; ++__i)
-	  __sum += this->weight[__i]
-		 * __func(__shift + __slope * this->point[__i]);
+	auto sum = AreaTp{0};
+	for (int i = 0; i < this->order; ++i)
+	  sum += this->weight[i]
+		 * func(shift + slope * this->point[i]);
 
-	return __sign * __fact * __sum;
+	return sign * fact * sum;
       }
 
 } // namespace __gnu_cxx

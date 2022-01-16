@@ -29,31 +29,31 @@
 namespace __gnu_cxx
 {
 
-template<typename _Tp, typename _Func>
-  decltype(std::invoke_result_t<_Func, _Tp>{} * _Tp{})
-  gauss_laguerre_integrate(_Func __func,
-			   unsigned int __n, _Tp __alpha)
+template<typename Tp, typename Func>
+  decltype(std::invoke_result_t<Func, Tp>{} * Tp{})
+  gauss_laguerre_integrate(Func func,
+			   unsigned int n, Tp alpha)
   {
-    using _RetTp = std::invoke_result_t<_Func, _Tp>;
-    using _AreaTp = decltype(_RetTp{} * _Tp{});
-    //using _AbsAreaTp = decltype(std::abs(_AreaTp{}));
+    using RetTp = std::invoke_result_t<Func, Tp>;
+    using AreaTp = decltype(RetTp{} * Tp{});
+    //using AbsAreaTp = decltype(std::abs(AreaTp{}));
 
-    if(__n == 0)
-      std::__throw_domain_error("gauss_laguerre_integrate: "
+    if(n == 0)
+      throw std::domain_error("gauss_laguerre_integrate: "
     				"laguerre order must be greater than 0");
-    else if (std::isnan(__alpha))
-      return _AreaTp{} * std::numeric_limits<_Tp>::quiet_NaN();
+    else if (std::isnan(alpha))
+      return AreaTp{} * std::numeric_limits<Tp>::quiet_NaN();
     else
      {
-	auto __rule = __laguerre_zeros(__n, __alpha);
-	auto __sum = _AreaTp{};
-	for (const auto& __pt : __rule)
+	auto rule = laguerre_zeros(n, alpha);
+	auto sum = AreaTp{};
+	for (const auto& pt : rule)
 	  {
-	    auto __x = __pt.__point;
-	    auto __w = __pt.__weight;
-	    __sum += __w * __func(__x);
+	    auto x = pt.point;
+	    auto w = pt.weight;
+	    sum += w * func(x);
 	  }
-	return __sum;
+	return sum;
       }
   }
 

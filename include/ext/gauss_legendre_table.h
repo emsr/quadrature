@@ -62,22 +62,22 @@ namespace __gnu_cxx
     GL_19 = 19
   };
 
-  template<typename _Tp>
+  template<typename Tp>
     struct gauss_legendre_table
     {
       std::size_t order;
-      const _Tp* point;
-      const _Tp* weight;
+      const Tp* point;
+      const Tp* weight;
       bool precomputed = false;
       std::size_t i_precomp = -1;
-      std::vector<__gnu_cxx::__quadrature_point_t<_Tp>> rule;
+      std::vector<quadrature_point_t<Tp>> rule;
 
-      gauss_legendre_table(std::size_t __n, const _Tp* __pt, const _Tp* __wt,
-			   bool __precomp)
-      : order(__n),
-	point(__pt),
-	weight(__wt),
-	precomputed(__precomp),
+      gauss_legendre_table(std::size_t n, const Tp* pt, const Tp* wt,
+			   bool precomp)
+      : order(n),
+	point(pt),
+	weight(wt),
+	precomputed(precomp),
 	i_precomp(-1),
 	rule()
       { }
@@ -85,11 +85,11 @@ namespace __gnu_cxx
       explicit
       gauss_legendre_table(std::size_t n);
 
-      std::tuple<_Tp, _Tp> get_point(_Tp __a, _Tp __b, std::size_t __i) const;
+      std::tuple<Tp, Tp> get_point(Tp a, Tp b, std::size_t i) const;
 
-      _Tp pt(std::size_t __i) const;
+      Tp pt(std::size_t i) const;
 
-      _Tp wt(std::size_t __i) const;
+      Tp wt(std::size_t i) const;
     };
 
   // n = 2

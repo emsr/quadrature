@@ -3,100 +3,100 @@
 #include <iostream>
 #include <iomanip>
 
-  template<typename _Tp>
+  template<typename Tp>
     void
-    build_tanh_sinh_rule(int __n = 128)
+    build_tanh_sinh_rule(int n = 128)
     {
-      std::cout.precision(std::numeric_limits<_Tp>::digits10);
+      std::cout.precision(std::numeric_limits<Tp>::digits10);
       auto w = 8 + std::cout.precision();
 
-      const auto _S_pi_4 = __gnu_cxx::__math_constants<_Tp>::__pi_quarter;
+      const auto s_pi_4 = __gnu_cxx::math_constants<Tp>::pi_quarter;
 
-      __n /= 2;
+      n /= 2;
 
       // Find K = ln(ln(max_number))
-      const auto __k_max = std::log(std::log(std::numeric_limits<_Tp>::max()))
-		- _Tp{1};
-      auto __h = __k_max / __n;
+      const auto k_max = std::log(std::log(std::numeric_limits<Tp>::max()))
+		- Tp{1};
+      auto h = k_max / n;
 
-      std::cout << " k_max = " << __k_max << '\n';
-      std::cout << " h     = " << __h << '\n';
+      std::cout << " k_max = " << k_max << '\n';
+      std::cout << " h     = " << h << '\n';
 
-      for (int __k = -__n; __k <= __n; ++__k)
+      for (int k = -n; k <= n; ++k)
 	{
-	  const auto __u = __h * _Tp(__k);
-	  const auto __eu = std::exp(__u);
-	  const auto __cosh = __eu + _Tp{1} / __eu;
-	  const auto __sinh = __eu - _Tp{1} / __eu;
-          const auto __esh = std::exp(_S_pi_4 * __sinh);
-	  const auto __w = __esh + _Tp{1} / __esh;
-	  const auto __dxdu = __cosh / (__w * __w);
-	  const auto __x = (__esh - _Tp{1} / __esh) / __w;
-	  std::cout << ' ' << std::setw(w) << __x << ' ' << std::setw(w) << __dxdu << '\n';
+	  const auto u = h * Tp(k);
+	  const auto eu = std::exp(u);
+	  const auto cosh = eu + Tp{1} / eu;
+	  const auto sinh = eu - Tp{1} / eu;
+          const auto esh = std::exp(s_pi_4 * sinh);
+	  const auto w = esh + Tp{1} / esh;
+	  const auto dxdu = cosh / (w * w);
+	  const auto x = (esh - Tp{1} / esh) / w;
+	  std::cout << ' ' << std::setw(w) << x << ' ' << std::setw(w) << dxdu << '\n';
 	}
     }
 
-  template<typename _Tp>
+  template<typename Tp>
     void
-    build_sinh_sinh_rule(int __n = 128)
+    build_sinh_sinh_rule(int n = 128)
     {
-      std::cout.precision(std::numeric_limits<_Tp>::digits10);
+      std::cout.precision(std::numeric_limits<Tp>::digits10);
       auto w = 8 + std::cout.precision();
 
-      const auto _S_pi_4 = __gnu_cxx::__math_constants<_Tp>::__pi_quarter;
+      const auto s_pi_4 = gnu_cxx::math_constants<Tp>::pi_quarter;
 
-      __n /= 2;
+      n /= 2;
 
       // Find K = ln(ln(max_number))
-      const auto __k_max = std::log(std::log(std::numeric_limits<_Tp>::max()))
-		- _Tp{1};
-      auto __h = __k_max / __n;
+      const auto k_max = std::log(std::log(std::numeric_limits<Tp>::max()))
+		- Tp{1};
+      auto h = k_max / n;
 
-      std::cout << " k_max = " << __k_max << '\n';
-      std::cout << " h     = " << __h << '\n';
+      std::cout << " k_max = " << k_max << '\n';
+      std::cout << " h     = " << h << '\n';
 
-      for (int __k = -__n; __k <= __n; ++__k)
+      for (int k = -n; k <= n; ++k)
 	{
-	  const auto __u = __h * _Tp(__k);
-	  const auto __eu = std::exp(__u);
-	  const auto __cosh = __eu + _Tp{1} / __eu;
-	  const auto __sinh = __eu - _Tp{1} / __eu;
-          const auto __esh = std::exp(_S_pi_4 * __sinh);
-	  const auto __x = (__esh - _Tp{1} / __esh) / _Tp{2};
-	  const auto __w = __esh + _Tp{1} / __esh;
-	  const auto __dxdu = __cosh * __w / _Tp{4};
-	  std::cout << ' ' << std::setw(w) << __x << ' ' << std::setw(w) << __dxdu << '\n';
+	  const auto u = h * Tp(k);
+	  const auto eu = std::exp(u);
+	  const auto cosh = eu + Tp{1} / eu;
+	  const auto sinh = eu - Tp{1} / eu;
+          const auto esh = std::exp(s_pi_4 * sinh);
+	  const auto x = (esh - Tp{1} / esh) / Tp{2};
+	  const auto w = esh + Tp{1} / esh;
+	  const auto dxdu = cosh * w / Tp{4};
+	  std::cout << ' ' << std::setw(w) << x << ' ' << std::setw(w) << dxdu << '\n';
 	}
     }
 
-  template<typename _Tp>
+  template<typename Tp>
     void
-    build_exp_sinh_rule(int __n = 128)
+    build_exp_sinh_rule(int n = 128)
     {
-      std::cout.precision(std::numeric_limits<_Tp>::digits10);
+      std::cout.precision(std::numeric_limits<Tp>::digits10);
       auto w = 8 + std::cout.precision();
 
-      const auto _S_pi_4 = __gnu_cxx::__math_constants<_Tp>::__pi_quarter;
+      const auto s_pi_4 = __gnu_cxx::math_constants<Tp>::pi_quarter;
 
-      __n /= 2;
+      n /= 2;
 
       // Find K = ln(ln(max_number))
-      const auto __k_max = std::log(std::log(std::numeric_limits<_Tp>::max()))
-		- _Tp{1};
-      auto __h = __k_max / __n;
+      const auto k_max = std::log(std::log(std::numeric_limits<Tp>::max()))
+		- Tp{1};
+      auto h = k_max / n;
 
-      std::cout << " k_max = " << __k_max << '\n';
-      std::cout << " h     = " << __h << '\n';
+      std::cout << " k_max = " << k_max << '\n';
+      std::cout << " h     = " << h << '\n';
 
-      for (int __k = -__n; __k <= __n; ++__k)
+      for (int k = -n; k <= n; ++k)
 	{
-	  const auto __u = __h * _Tp(__k);
-	  const auto __eu = std::exp(__u);
-	  const auto __cosh = __eu + _Tp{1} / __eu;
-	  const auto __sinh = __eu - _Tp{1} / __eu;
-          const auto __esh = std::exp(_S_pi_4 * __sinh);
-	  const auto __dxdu = __cosh * __esh;
-	  std::cout << ' ' << std::setw(w) << __esh << ' ' << std::setw(w) << __dxdu << '\n';
+	  const auto u = h * Tp(k);
+	  const auto eu = std::exp(u);
+	  const auto cosh = eu + Tp{1} / eu;
+	  const auto sinh = eu - Tp{1} / eu;
+          const auto esh = std::exp(s_pi_4 * sinh);
+	  const auto dxdu = cosh * esh;
+	  std::cout << ' ' << std::setw(w) << esh << ' ' << std::setw(w) << dxdu << '\n';
 	}
     }
 

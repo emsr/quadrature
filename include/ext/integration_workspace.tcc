@@ -37,9 +37,9 @@ namespace __gnu_cxx
    * Rebuild the current heap.
    * N.B. this->begin() includes curr_index()!
    */
-  template<typename _Tp, typename _RetTp>
+  template<typename Tp, typename RetTp>
     void
-    integration_workspace<_Tp, _RetTp>::sort_error()
+    integration_workspace<Tp, RetTp>::sort_error()
     {
       std::make_heap(this->begin(), this->end(), interval_comp{});
       return;
@@ -48,58 +48,58 @@ namespace __gnu_cxx
   /**
    *
    */
-  template<typename _Tp, typename _RetTp>
+  template<typename Tp, typename RetTp>
     void
-    integration_workspace<_Tp, _RetTp>::
-    append(_Tp __a, _Tp __b,
-	   _AreaTp __area, _ErrorTp __error,
-	   std::size_t __depth)
+    integration_workspace<Tp, RetTp>::
+    append(Tp a, Tp b,
+	   AreaTp area, ErrorTp error,
+	   std::size_t depth)
     {
-      interval __iv;
-      __iv.__lower_lim = __a;
-      __iv.__upper_lim = __b;
-      __iv.__result = __area;
-      __iv.__abs_error = __error;
-      __iv.__depth = __depth;
-      this->push(__iv);
+      interval iv;
+      iv.lower_lim = a;
+      iv.upper_lim = b;
+      iv.result = area;
+      iv.abs_error = error;
+      iv.depth = depth;
+      this->push(iv);
     }
 
   /**
    *
    */
-  template<typename _Tp, typename _RetTp>
+  template<typename Tp, typename RetTp>
     void
-    integration_workspace<_Tp, _RetTp>::
-    split(_Tp __ab,
-	  _AreaTp __area1, _ErrorTp __error1,
-	  _AreaTp __area2, _ErrorTp __error2)
+    integration_workspace<Tp, RetTp>::
+    split(Tp ab,
+	  AreaTp area1, ErrorTp error1,
+	  AreaTp area2, ErrorTp error2)
     {
-      auto __iv = this->top();
-      const auto __a1 = __iv.__lower_lim;
-      const auto __b1 = __ab;
-      const auto __a2 = __ab;
-      const auto __b2 = __iv.__upper_lim;
-      const auto __depth = __iv.__depth + 1;
+      auto iv = this->top();
+      const auto a1 = iv.lower_lim;
+      const auto b1 = ab;
+      const auto a2 = ab;
+      const auto b2 = iv.upper_lim;
+      const auto depth = iv.depth + 1;
       this->pop();
 
-      interval __iv1;
-      __iv1.__lower_lim = __a1;
-      __iv1.__upper_lim = __b1;
-      __iv1.__result = __area1;
-      __iv1.__abs_error = __error1;
-      __iv1.__depth = __depth;
-      this->push(__iv1);
+      interval iv1;
+      iv1.lower_lim = a1;
+      iv1.upper_lim = b1;
+      iv1.result = area1;
+      iv1.abs_error = error1;
+      iv1.depth = depth;
+      this->push(iv1);
 
-      interval __iv2;
-      __iv2.__lower_lim = __a2;
-      __iv2.__upper_lim = __b2;
-      __iv2.__result = __area2;
-      __iv2.__abs_error = __error2;
-      __iv2.__depth = __depth;
-      this->push(__iv2);
+      interval iv2;
+      iv2.lower_lim = a2;
+      iv2.upper_lim = b2;
+      iv2.result = area2;
+      iv2.abs_error = error2;
+      iv2.depth = depth;
+      this->push(iv2);
 
-      if (__depth > this->_M_max_depth)
-	this->_M_max_depth = __depth;
+      if (depth > this->m_max_depth)
+	this->m_max_depth = depth;
     }
 
   /**
@@ -113,24 +113,24 @@ namespace __gnu_cxx
    * Before bisecting decrease the sum of the errors over the larger intervals
    * (error_over_large_intervals) and perform extrapolation.
    */
-  template<typename _Tp, typename _RetTp>
+  template<typename Tp, typename RetTp>
     bool
-    integration_workspace<_Tp, _RetTp>::increment_curr_index()
+    integration_workspace<Tp, RetTp>::increment_curr_index()
     {
-      size_t __limit = this->max_size();
-      size_t __last = this->size() - 1 ;
-      size_t __jupbnd = __last > 1 + __limit / 2
-		      ? __limit + 1 - __last
-		      : __last;
+      size_t limit = this->max_size();
+      size_t last = this->size() - 1 ;
+      size_t jupbnd = last > 1 + limit / 2
+		      ? limit + 1 - last
+		      : last;
 
-      const auto __i_max = this->curr_index();
-      for (auto __k = __i_max; __k <= __jupbnd; ++__k)
+      const auto i_max = this->curr_index();
+      for (auto k = i_max; k <= jupbnd; ++k)
 	{
-	  if (this->_M_ival[__k].__depth < this->max_depth())
+	  if (this->m_ival[k].depth < this->max_depth())
 	    return true;
 	  else if (this->curr_index() + 1 < this->size())
 	    {
-	      ++this->_M_curr_index;
+	      ++this->m_curr_index;
 	      this->sort_error();
 	    }
 	}
@@ -140,23 +140,23 @@ namespace __gnu_cxx
   /**
    * Output the integration workspace to a stream.
    */
-  template<typename _Tp, typename _RetTp>
+  template<typename Tp, typename RetTp>
     std::ostream&
-    operator<<(std::ostream& __out,
-	       const integration_workspace<_Tp, _RetTp>& __ws)
+    operator<<(std::ostream& out,
+	       const integration_workspace<Tp, RetTp>& ws)
     {
-      auto __w = __out.width();
-      __out << std::setw(0);
-      __out << ' ' << std::setw(2) << __ws.max_depth() << '\n';
-      __out << ' ' << std::setw(2) << __ws.curr_index() << '\n';
-      for (const auto& __seg : __ws.intervals())
-	__out << ' ' << std::setw(2) << __seg.__depth
-	      << ' ' << std::setw(__w) << __seg.__lower_lim
-	      << ' ' << std::setw(__w) << __seg.__upper_lim
-	      << ' ' << std::setw(__w) << __seg.__result
-	      << ' ' << std::setw(__w) << __seg.__abs_error
+      auto w = out.width();
+      out << std::setw(0);
+      out << ' ' << std::setw(2) << ws.max_depth() << '\n';
+      out << ' ' << std::setw(2) << ws.curr_index() << '\n';
+      for (const auto& seg : ws.intervals())
+	out << ' ' << std::setw(2) << seg.depth
+	      << ' ' << std::setw(w) << seg.lower_lim
+	      << ' ' << std::setw(w) << seg.upper_lim
+	      << ' ' << std::setw(w) << seg.result
+	      << ' ' << std::setw(w) << seg.abs_error
 	      << '\n';
-      return __out;
+      return out;
     }
 
 } // namespace __gnu_cxx

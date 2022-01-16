@@ -28,40 +28,40 @@
 namespace __gnu_cxx
 {
 
-  template<typename _Tp, typename _FuncTp>
-    decltype(std::invoke_result_t<_FuncTp, _Tp>{} * _Tp{})
-    glfixed_integrate(const gauss_legendre_table<_Tp>& __t,
-		      _FuncTp __func,
-		      _Tp __lower, _Tp __upper)
+  template<typename Tp, typename FuncTp>
+    decltype(std::invoke_result_t<FuncTp, Tp>{} * Tp{})
+    glfixed_integrate(const gauss_legendre_table<Tp>& t,
+		      FuncTp func,
+		      Tp lower, Tp upper)
     {
-      using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
-      using _AreaTp = decltype(_RetTp{} * _Tp{});
+      using RetTp = std::invoke_result_t<FuncTp, Tp>;
+      using AreaTp = decltype(RetTp{} * Tp{});
 
-      const int __n = __t.order;
+      const int n = t.order;
 
-      auto __m = (__n + 1) >> 1;
-      auto __A = (__upper - __lower) / _Tp{2};
-      auto __B = (__upper + __lower) / _Tp{2};
+      auto m = (n + 1) >> 1;
+      auto A = (upper - lower) / Tp{2};
+      auto B = (upper + lower) / Tp{2};
 
-      if (__n & 1) // n is odd.
+      if (n & 1) // n is odd.
 	{
-	  auto __sum = __t.wt(0) * __func(__B);
-	  for (int __i = 1; __i < __m; ++__i)
+	  auto sum = t.wt(0) * func(B);
+	  for (int i = 1; i < m; ++i)
 	    {
-	      auto __Ax = __A * __t.pt(__i);
-	      __sum += __t.wt(__i) * (__func(__B + __Ax) + __func(__B - __Ax));
+	      auto Ax = A * t.pt(i);
+	      sum += t.wt(i) * (func(B + Ax) + func(B - Ax));
 	    }
-	  return __A * __sum;
+	  return A * sum;
 	}
       else // n is even.
 	{
-	  auto __sum = _AreaTp{0};
-	  for (int __i = 0; __i < __m; ++__i)
+	  auto sum = AreaTp{0};
+	  for (int i = 0; i < m; ++i)
 	    {
-	      auto __Ax = __A * __t.pt(__i);
-	      __sum += __t.wt(__i) * (__func(__B + __Ax) + __func(__B - __Ax));
+	      auto Ax = A * t.pt(i);
+	      sum += t.wt(i) * (func(B + Ax) + func(B - Ax));
 	    }
-	  return __A * __sum;
+	  return A * sum;
 	}
     }
 

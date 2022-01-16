@@ -14,9 +14,9 @@ fun(double x)
   return std::cos(3.0 * x);
 }
 
-template<typename _Tp>
+template<typename Tp>
   void
-  test_gauss_jacobi(int Q, _Tp alpha, _Tp beta)
+  test_gauss_jacobi(int Q, Tp alpha, Tp beta)
   {
     jac_quadrature<double> quad(Gauss, Q, alpha, beta);
 

@@ -40,180 +40,180 @@ namespace __gnu_cxx
    * This function attempts to compute a Fourier integral of the function f
    * over the semi-infinite interval [a,+\infty)
    */
-  template<typename _Tp, typename _FuncTp>
+  template<typename Tp, typename FuncTp>
     auto
-    qawf_integrate(integration_workspace<_Tp,
-			std::invoke_result_t<_FuncTp, _Tp>>& __workspace,
-		   integration_workspace<_Tp,
-			std::invoke_result_t<_FuncTp, _Tp>>& __cycle_workspace,
-		   oscillatory_integration_table<_Tp>& __wf,
-		   _FuncTp __func,
-		   _Tp __lower, _Tp __max_abs_err)
-    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    qawf_integrate(integration_workspace<Tp,
+			std::invoke_result_t<FuncTp, Tp>>& workspace,
+		   integration_workspace<Tp,
+			std::invoke_result_t<FuncTp, Tp>>& cycle_workspace,
+		   oscillatory_integration_table<Tp>& wf,
+		   FuncTp func,
+		   Tp lower, Tp max_abs_err)
+    -> adaptive_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>
     {
-      using _AreaTp = std::invoke_result_t<_FuncTp, _Tp>;
-      using _AbsAreaTp = decltype(std::abs(_AreaTp{}));
+      using AreaTp = std::invoke_result_t<FuncTp, Tp>;
+      using AbsAreaTp = decltype(std::abs(AreaTp{}));
 
-      std::size_t __ktmin = 0;
-      std::size_t __iteration = 0;
+      std::size_t ktmin = 0;
+      std::size_t iteration = 0;
 
-      extrapolation_table<_AreaTp, _AbsAreaTp> __table;
+      extrapolation_table<AreaTp, AbsAreaTp> table;
 
-      _Tp __cycle;
-      auto __omega = __wf.omega;
+      Tp cycle;
+      auto omega = wf.omega;
 
-      const _Tp __p = 0.9;
-      _Tp __factor = 1;
-      _Tp __initial_eps, __eps;
-      int __error_type = NO_ERROR;
+      const Tp p = 0.9;
+      Tp factor = 1;
+      Tp initial_eps, eps;
+      int error_type = NO_ERROR;
 
-      int __status = 0;
-      auto __result = _Tp{0};
-      auto __abserr = _Tp{0};
+      int status = 0;
+      auto result = Tp{0};
+      auto abserr = Tp{0};
 
-      const auto _S_max = std::numeric_limits<_Tp>::max();
-      const auto __limit = __workspace.capacity();
+      const auto s_max = std::numeric_limits<Tp>::max();
+      const auto limit = workspace.capacity();
 
-      __workspace.clear();
-      __cycle_workspace.clear();
-      //__wf.clear();
+      workspace.clear();
+      cycle_workspace.clear();
+      //wf.clear();
 
       // Test on accuracy.
-      if (__max_abs_err <= _Tp{0})
-	std::__throw_domain_error("absolute tolerance epsabs must be positive") ;
+      if (max_abs_err <= Tp{0})
+	throw std::domain_error("absolute tolerance epsabs must be positive") ;
 
-      if (__omega == _Tp{0})
+      if (omega == Tp{0})
 	{
-	  if (__wf.circfun == oscillatory_integration_table<_Tp>::INTEG_SINE)
+	  if (wf.circfun == oscillatory_integration_table<Tp>::INTEG_SINE)
 	    // The function sin(w x) f(x) is always zero for w = 0.
-	    return {_Tp{0}, _Tp{0}};
+	    return {Tp{0}, Tp{0}};
 	  else
 	    // The function cos(w x) f(x) is always f(x) for w = 0.
-	    return qagiu_integrate(__cycle_workspace, __func, __lower, __max_abs_err,
-				   _Tp{0});
+	    return qagiu_integrate(cycle_workspace, func, lower, max_abs_err,
+				   Tp{0});
 	}
 
-      if (__max_abs_err * (_Tp{1} - __p) > std::numeric_limits<_Tp>::min())
-	__eps = __max_abs_err * (_Tp{1} - __p);
+      if (max_abs_err * (Tp{1} - p) > std::numeric_limits<Tp>::min())
+	eps = max_abs_err * (Tp{1} - p);
       else
-	__eps = __max_abs_err;
+	eps = max_abs_err;
 
-      __initial_eps = __eps;
+      initial_eps = eps;
 
-      auto __area = _Tp{0};
-      auto __errsum = _Tp{0};
-      auto __res_ext = _Tp{0};
-      auto __err_ext = _S_max;
-      auto __correc = _Tp{0};
-      auto __total_error = _Tp{0};
-      auto __truncation_error = _Tp{0};
+      auto area = Tp{0};
+      auto errsum = Tp{0};
+      auto res_ext = Tp{0};
+      auto err_ext = s_max;
+      auto correc = Tp{0};
+      auto total_error = Tp{0};
+      auto truncation_error = Tp{0};
 
-      __cycle = (2 * std::floor(std::abs(__omega)) + 1)
-	      * M_PI / std::abs(__omega);
+      cycle = (2 * std::floor(std::abs(omega)) + 1)
+	      * M_PI / std::abs(omega);
 
-      __wf.set_length(__cycle);
+      wf.set_length(cycle);
 
-      for (__iteration = 0; __iteration < __limit; ++__iteration)
+      for (iteration = 0; iteration < limit; ++iteration)
 	{
-	  const auto __a1 = __lower + __iteration * __cycle;
-	  const auto __b1 = __a1 + __cycle;
+	  const auto a1 = lower + iteration * cycle;
+	  const auto b1 = a1 + cycle;
 
-	  const auto __max_abs_err1 = __eps * __factor;
+	  const auto max_abs_err1 = eps * factor;
 
-	  auto __out1 = qawo_integrate(__cycle_workspace, __wf, __func, __a1,
-			     __max_abs_err1, _Tp{0});
-	  auto __area1 = __out1.__result;
-	  auto __error1 = __out1.__abserr;
+	  auto out1 = qawo_integrate(cycle_workspace, wf, func, a1,
+			     max_abs_err1, Tp{0});
+	  auto area1 = out1.result;
+	  auto error1 = out1.abserr;
 
-	  __workspace.append(__a1, __b1, __area1, __error1);
+	  workspace.append(a1, b1, area1, error1);
 
-	  __factor *= __p;
+	  factor *= p;
 
-	  __area += __area1;
-	  __errsum += __error1;
+	  area += area1;
+	  errsum += error1;
 
 	  // Estimate the truncation error as 50 times the final term.
-	  __truncation_error = 50 * std::abs(__area1);
-	  __total_error = __errsum + __truncation_error;
-	  if (__total_error < __max_abs_err && __iteration > 4)
+	  truncation_error = 50 * std::abs(area1);
+	  total_error = errsum + truncation_error;
+	  if (total_error < max_abs_err && iteration > 4)
 	    goto compute_result;
 
-	  if (__error1 > __correc)
-	    __correc = __error1;
+	  if (error1 > correc)
+	    correc = error1;
 
-	  if (__status)
-	    __eps = std::max(__initial_eps, __correc * (_Tp{1} - __p));
+	  if (status)
+	    eps = std::max(initial_eps, correc * (Tp{1} - p));
 
-	  if (__status && __total_error < 10 * __correc && __iteration > 3)
+	  if (status && total_error < 10 * correc && iteration > 3)
 	    goto compute_result;
 
-	  __table.append(__area);
+	  table.append(area);
 
-	  if (__table.get_nn() < 2)
+	  if (table.get_nn() < 2)
 	    continue;
 
-	  _Tp __reseps, __erreps;
-	  std::tie(__reseps, __erreps) = __table.qelg();
+	  Tp reseps, erreps;
+	  std::tie(reseps, erreps) = table.qelg();
 
-	  ++__ktmin;
-	  if (__ktmin >= 15 && __err_ext < _Tp{0.001L} * __total_error)
-	    __error_type = EXTRAP_ROUNDOFF_ERROR;
+	  ++ktmin;
+	  if (ktmin >= 15 && err_ext < Tp{0.001L} * total_error)
+	    error_type = EXTRAP_ROUNDOFF_ERROR;
 
-	  if (__erreps < __err_ext)
+	  if (erreps < err_ext)
 	    {
-	      __ktmin = 0;
-	      __err_ext = __erreps;
-	      __res_ext = __reseps;
+	      ktmin = 0;
+	      err_ext = erreps;
+	      res_ext = reseps;
 
-	      if (__err_ext + 10 * __correc <= __max_abs_err)
+	      if (err_ext + 10 * correc <= max_abs_err)
 		break;
-	      if (__err_ext <= __max_abs_err && 10 * __correc >= __max_abs_err)
+	      if (err_ext <= max_abs_err && 10 * correc >= max_abs_err)
 		break;
 	    }
 	}
 
-      if (__iteration == __limit)
-	__error_type = MAX_ITER_ERROR;
+      if (iteration == limit)
+	error_type = MAX_ITER_ERROR;
 
-      if (__err_ext == _S_max)
+      if (err_ext == s_max)
 	goto compute_result;
 
-      __err_ext += 10 * __correc;
+      err_ext += 10 * correc;
 
-      __result = __res_ext;
-      __abserr = __err_ext;
+      result = res_ext;
+      abserr = err_ext;
 
-      if (__error_type == NO_ERROR)
-	return {__result, __abserr};
+      if (error_type == NO_ERROR)
+	return {result, abserr};
 
-      if (__res_ext != _Tp{0} && __area != _Tp{0})
+      if (res_ext != Tp{0} && area != Tp{0})
 	{
-	  if (__err_ext / std::abs(__res_ext) > __errsum / std::abs(__area))
+	  if (err_ext / std::abs(res_ext) > errsum / std::abs(area))
 	    goto compute_result;
 	}
-      else if (__err_ext > __errsum)
+      else if (err_ext > errsum)
 	goto compute_result;
-      else if (__area == _Tp{0})
+      else if (area == Tp{0})
 	goto return_error;
 
-      if (__error_type == EXTRAP_ROUNDOFF_ERROR)
-	__err_ext += __truncation_error;
+      if (error_type == EXTRAP_ROUNDOFF_ERROR)
+	err_ext += truncation_error;
 
       goto return_error;
 
     compute_result:
 
-      __result = __area;
-      __abserr = __total_error;
+      result = area;
+      abserr = total_error;
 
-      if (__error_type == NO_ERROR)
-	return {__result, __abserr};
+      if (error_type == NO_ERROR)
+	return {result, abserr};
 
     return_error:
 
-      check_error(__func__, __error_type, __result, __abserr);
+      check_error(__func__, error_type, result, abserr);
       throw integration_error("qawf_integrate: Unknown error.", UNKNOWN_ERROR,
-				__result, __abserr);
+			      result, abserr);
     }
 
 } // namespace __gn_test

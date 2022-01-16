@@ -29,91 +29,91 @@ namespace __gnu_cxx
   /**
    * Integrate the function by naive subdivision.
    */
-  template<typename _Tp, typename _FuncTp>
-    typename composite_trapezoid_integral< _Tp, _FuncTp>::_AreaTp
-    composite_trapezoid_integral< _Tp, _FuncTp>::operator()()
+  template<typename Tp, typename FuncTp>
+    typename composite_trapezoid_integral< Tp, FuncTp>::AreaTp
+    composite_trapezoid_integral< Tp, FuncTp>::operator()()
     {
-      const auto __delta = (this->_M_upper_lim - this->_M_lower_lim)
-			   / this->_M_num_segs;
+      const auto delta = (this->m_upper_lim - this->m_lower_lim)
+			   / this->m_num_segs;
 
-      auto __sum = this->_M_fun(this->_M_lower_lim) / _Tp{2};
-      for (std::size_t __j = 1; __j < this->_M_num_segs; ++__j)
-	__sum += this->_M_fun(this->_M_lower_lim + __j * __delta);
-      __sum += this->_M_fun(this->_M_upper_lim) / _Tp{2};
+      auto sum = this->m_fun(this->m_lower_lim) / Tp{2};
+      for (std::size_t j = 1; j < this->m_num_segs; ++j)
+	sum += this->m_fun(this->m_lower_lim + j * delta);
+      sum += this->m_fun(this->m_upper_lim) / Tp{2};
 
-      this->_M_result = __sum * __delta;
+      this->m_result = sum * delta;
 
-      return this->_M_result;
+      return this->m_result;
     }
 
   /**
    * Integrate the function by globally adaptive binary subdivision.
    */
-  template<typename _Tp, typename _FuncTp>
-    typename trapezoid_integral< _Tp, _FuncTp>::_AreaTp
-    trapezoid_integral< _Tp, _FuncTp>::operator()()
+  template<typename Tp, typename FuncTp>
+    typename trapezoid_integral< Tp, FuncTp>::AreaTp
+    trapezoid_integral< Tp, FuncTp>::operator()()
     {
-      auto __sum_prev = this->_M_step();
-      for (std::size_t __j = 1; __j < _S_max_iter; ++__j)
+      auto sum_prev = this->m_step();
+      for (std::size_t j = 1; j < s_max_iter; ++j)
 	{
-	  const auto __sum = this->_M_step();
-	  this->_M_abs_error = std::abs(__sum - __sum_prev);
-	  if (this->_M_abs_error < this->_M_rel_tol * std::abs(__sum))
-	    return __sum;
-	  if (__j > 6
-	      && std::abs(__sum) < this->_M_rel_tol
-	      && std::abs(__sum_prev) < this->_M_rel_tol )
-	    return __sum;
-	  __sum_prev = __sum;
+	  const auto sum = this->m_step();
+	  this->m_abs_error = std::abs(sum - sum_prev);
+	  if (this->m_abs_error < this->m_rel_tol * std::abs(sum))
+	    return sum;
+	  if (j > 6
+	      && std::abs(sum) < this->m_rel_tol
+	      && std::abs(sum_prev) < this->m_rel_tol )
+	    return sum;
+	  sum_prev = sum;
 	}
-      return __sum_prev;
+      return sum_prev;
     }
 
   /**
    * Chances are, if the function returns Nan or inf, we stepped on a pole.
    */
-  template<typename _Tp, typename _FuncTp>
-    std::invoke_result_t<_FuncTp, _Tp>
-    __wrap_func(_FuncTp __func, _Tp __x)
+  template<typename Tp, typename FuncTp>
+    std::invoke_result_t<FuncTp, Tp>
+    wrap_func(FuncTp func, Tp x)
     {
-      auto __y = __func(__x);
-      if (std::isnan(__y) || std::isinf(__y))
-	return _Tp{0};
+      auto y = func(x);
+      if (std::isnan(y) || std::isinf(y))
+	return Tp{0};
       else
-	return __y;
+	return y;
     }
 
   /**
    * 
    */
-  template<typename _Tp, typename _FuncTp>
-    typename trapezoid_integral< _Tp, _FuncTp>::_AreaTp
-    trapezoid_integral< _Tp, _FuncTp>::_M_step()
+  template<typename Tp, typename FuncTp>
+    typename trapezoid_integral< Tp, FuncTp>::AreaTp
+    trapezoid_integral< Tp, FuncTp>::m_step()
     {
-      if (this->_M_iter == 0)
+      if (this->m_iter == 0)
 	{
-	  this->_M_iter = 1;
-	  this->_M_result = (this->_M_upper_lim - this->_M_lower_lim)
-			  * (__wrap_func(this->_M_fun, this->_M_lower_lim)
-			   + __wrap_func(this->_M_fun, this->_M_upper_lim))
-		       / _Tp{2};
-	  this->_M_pow2 = 1;
+	  this->m_iter = 1;
+	  this->m_result = (this->m_upper_lim - this->m_lower_lim)
+			  * (wrap_func(this->m_fun, this->m_lower_lim)
+			   + wrap_func(this->m_fun, this->m_upper_lim))
+		       / Tp{2};
+	  this->m_pow2 = 1;
 	}
       else
 	{
-	  ++this->_M_iter;
-	  const auto __del = (this->_M_upper_lim - this->_M_lower_lim)
-			   / this->_M_pow2;
-	  if (std::abs(__del) < _S_min_delta)
-	    return this->_M_result;
-	  auto __x = this->_M_lower_lim + __del / _Tp{2};
-	  auto __sum = _AreaTp{};
-	  for (std::size_t __j = 0; __j < this->_M_pow2; ++__j, __x += __del)
-	    __sum += __wrap_func(this->_M_fun, __x);
-	  this->_M_result = (this->_M_result + __del * __sum) / _Tp{2};
-	  this->_M_pow2 *= 2;
+	  ++this->m_iter;
+	  const auto del = (this->m_upper_lim - this->m_lower_lim)
+			   / this->m_pow2;
+	  if (std::abs(del) < s_min_delta)
+	    return this->m_result;
+	  auto x = this->m_lower_lim + del / Tp{2};
+	  auto sum = AreaTp{};
+	  for (std::size_t j = 0; j < this->m_pow2; ++j, x += del)
+	    sum += wrap_func(this->m_fun, x);
+	  this->m_result = (this->m_result + del * sum) / Tp{2};
+	  this->m_pow2 *= 2;
 	}
-      return this->_M_result;
+      return this->m_result;
     }
 
 } // namespace __gnu_cxx

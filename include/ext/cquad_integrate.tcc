@@ -39,46 +39,46 @@ namespace __gnu_cxx
    * Compute the product of the fx with one of the inverse
    * Vandermonde-like matrices.
    */
-  template<typename _RetTp>
+  template<typename RetTp>
     void
-    _Vinvfx(const std::array<_RetTp, 33>& __fx,
-	    _RetTp* __coeff, const int __depth)
+    Vinvfx(const std::array<RetTp, 33>& fx,
+	   RetTp* coeff, const int depth)
     {
-      switch (__depth)
+      switch (depth)
 	{
 	case 0:
-	  for (int __i = 0; __i <= 4; ++__i)
+	  for (int i = 0; i <= 4; ++i)
 	    {
-	      __coeff[__i] = _RetTp{0};
-	      for (int __j = 0; __j <= 4; ++__j)
-		__coeff[__i] += _RetTp(V1inv[__i * 5 + __j]) * __fx[__j * 8];
+	      coeff[i] = RetTp{0};
+	      for (int j = 0; j <= 4; ++j)
+		coeff[i] += RetTp(V1inv[i * 5 + j]) * fx[j * 8];
 	    }
 	  break;
 
 	case 1:
-	  for (int __i = 0; __i <= 8; ++__i)
+	  for (int i = 0; i <= 8; ++i)
 	    {
-	      __coeff[__i] = _RetTp{0};
-	      for (int __j = 0; __j <= 8; ++__j)
-		__coeff[__i] +=  _RetTp(V2inv[__i * 9 + __j]) * __fx[__j * 4];
+	      coeff[i] = RetTp{0};
+	      for (int j = 0; j <= 8; ++j)
+		coeff[i] +=  RetTp(V2inv[i * 9 + j]) * fx[j * 4];
 	    }
 	  break;
 
 	case 2:
-	  for (int __i = 0; __i <= 16; ++__i)
+	  for (int i = 0; i <= 16; ++i)
 	    {
-	      __coeff[__i] = _RetTp{0};
-	      for (int __j = 0; __j <= 16; ++__j)
-		__coeff[__i] +=  _RetTp(V3inv[__i * 17 + __j]) * __fx[__j * 2];
+	      coeff[i] = RetTp{0};
+	      for (int j = 0; j <= 16; ++j)
+		coeff[i] +=  RetTp(V3inv[i * 17 + j]) * fx[j * 2];
 	    }
 	  break;
 
 	case 3:
-	  for (int __i = 0; __i <= 32; ++__i)
+	  for (int i = 0; i <= 32; ++i)
 	    {
-	      __coeff[__i] = _RetTp{0};
-	      for (int __j = 0; __j <= 32; ++__j)
-		__coeff[__i] +=  _RetTp(V4inv[__i * 33 + __j]) * __fx[__j];
+	      coeff[i] = RetTp{0};
+	      for (int j = 0; j <= 32; ++j)
+		coeff[i] +=  RetTp(V4inv[i * 33 + j]) * fx[j];
 	    }
 	  break;
 	}
@@ -88,32 +88,32 @@ namespace __gnu_cxx
    * Downdate the interpolation given by the n coefficients c
    * by removing the nodes with indices in NaNs.
    */
-  template<typename _Tp>
+  template<typename Tp>
     void
-    downdate(_Tp* __coeff, std::ptrdiff_t __n, std::ptrdiff_t __depth,
-	     std::ptrdiff_t* __NaN, std::ptrdiff_t __num_NaNs)
+    downdate(Tp* coeff, std::ptrdiff_t n, std::ptrdiff_t depth,
+	     std::ptrdiff_t* NaN, std::ptrdiff_t num_NaNs)
     {
-      constexpr std::ptrdiff_t __bidx[4] = { 0, 6, 16, 34 };
-      _Tp __b_new[34], __alpha;
+      constexpr std::ptrdiff_t bidx[4] = { 0, 6, 16, 34 };
+      Tp b_new[34], alpha;
 
-      for (std::ptrdiff_t __i = 0; __i <= __n + 1; ++__i)
-	__b_new[__i] = bee[__bidx[__depth] + __i];
-      for (std::ptrdiff_t __i = 0; __i < __num_NaNs; ++__i)
+      for (std::ptrdiff_t i = 0; i <= n + 1; ++i)
+	b_new[i] = bee[bidx[depth] + i];
+      for (std::ptrdiff_t i = 0; i < num_NaNs; ++i)
 	{
-	  __b_new[__n + 1] = __b_new[__n + 1] / _Tp(Lalpha[__n]);
-	  __b_new[__n] = (__b_new[__n] + _Tp(xi[__NaN[__i]]) * __b_new[__n + 1])
-		       / _Tp(Lalpha[__n - 1]);
-	  for (std::ptrdiff_t __j = __n - 1; __j > 0; --__j)
-	    __b_new[__j] = (__b_new[__j] + _Tp(xi[__NaN[__i]]) * __b_new[__j + 1]
-			   - _Tp(Lgamma[__j + 1]) * __b_new[__j + 2])
-			 / _Tp(Lalpha[__j - 1]);
-	  for (std::ptrdiff_t __j = 0; __j <= __n; ++__j)
-	    __b_new[__j] = __b_new[__j + 1];
-	  __alpha = __coeff[__n] / __b_new[__n];
-	  for (std::ptrdiff_t __j = 0; __j < __n; ++__j)
-	    __coeff[__j] -= __alpha * __b_new[__j];
-	  __coeff[__n] = _Tp{0};
-	  --__n;
+	  b_new[n + 1] = b_new[n + 1] / Tp(Lalpha[n]);
+	  b_new[n] = (b_new[n] + Tp(xi[NaN[i]]) * b_new[n + 1])
+		       / Tp(Lalpha[n - 1]);
+	  for (std::ptrdiff_t j = n - 1; j > 0; --j)
+	    b_new[j] = (b_new[j] + Tp(xi[NaN[i]]) * b_new[j + 1]
+			   - Tp(Lgamma[j + 1]) * b_new[j + 2])
+			 / Tp(Lalpha[j - 1]);
+	  for (std::ptrdiff_t j = 0; j <= n; ++j)
+	    b_new[j] = b_new[j + 1];
+	  alpha = coeff[n] / b_new[n];
+	  for (std::ptrdiff_t j = 0; j < n; ++j)
+	    coeff[j] -= alpha * b_new[j];
+	  coeff[n] = Tp{0};
+	  --n;
 	}
     }
 
@@ -144,326 +144,326 @@ namespace __gnu_cxx
    * If the highest-degree rule has already been used, or the interpolatory
    * polynomials differ significantly, the interval is bisected. 
    */
-  template<typename _Tp, typename _FuncTp>
+  template<typename Tp, typename FuncTp>
     auto
-    cquad_integrate(cquad_workspace<_Tp, std::invoke_result_t<_FuncTp, _Tp>>& __ws,
-		    _FuncTp __func,
-		    _Tp __a, _Tp __b,
-		    _Tp __epsabs, _Tp __epsrel)
-    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    cquad_integrate(cquad_workspace<Tp, std::invoke_result_t<FuncTp, Tp>>& ws,
+		    FuncTp func,
+		    Tp a, Tp b,
+		    Tp epsabs, Tp epsrel)
+    -> adaptive_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>
     {
-      using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
-      using _AreaTp = decltype(_RetTp{} * _Tp{});
-      //using _AbsAreaTp = decltype(std::abs(_AreaTp{}));
-      using _AbsRetTp = decltype(std::abs(_RetTp{}));
+      using RetTp = std::invoke_result_t<FuncTp, Tp>;
+      using AreaTp = decltype(RetTp{} * Tp{});
+      //using AbsAreaTp = decltype(std::abs(AreaTp{}));
+      using AbsRetTp = decltype(std::abs(RetTp{}));
 
       // Some constants that we will need.
-      constexpr std::ptrdiff_t __n[4] = { 4, 8, 16, 32 };
-      constexpr std::ptrdiff_t __skip[4] = { 8, 4, 2, 1 };
-      constexpr std::ptrdiff_t __idx[4] = { 0, 5, 14, 31 };
-      constexpr std::ptrdiff_t __ndiv_max = 20;
-      constexpr auto _S_eps = std::numeric_limits<_Tp>::epsilon();
-      constexpr auto _S_NaN = std::numeric_limits<_Tp>::quiet_NaN();
-      constexpr auto _S_inf = std::numeric_limits<_Tp>::infinity();
-      constexpr _Tp _S_sqrt2 = M_SQRT2;
-      constexpr auto __w = _S_sqrt2 / _Tp{2};
+      constexpr std::ptrdiff_t n[4] = { 4, 8, 16, 32 };
+      constexpr std::ptrdiff_t skip[4] = { 8, 4, 2, 1 };
+      constexpr std::ptrdiff_t idx[4] = { 0, 5, 14, 31 };
+      constexpr std::ptrdiff_t ndiv_max = 20;
+      constexpr auto s_eps = std::numeric_limits<Tp>::epsilon();
+      constexpr auto s_NaN = std::numeric_limits<Tp>::quiet_NaN();
+      constexpr auto s_inf = std::numeric_limits<Tp>::infinity();
+      constexpr Tp s_sqrt2 = M_SQRT2;
+      constexpr auto w = s_sqrt2 / Tp{2};
 
       // Actual variables (as opposed to constants above).
-      bool __split;
-      std::ptrdiff_t __num_NaNs, __NaN[32];
-      _AbsRetTp __nc, __ncdiff;
+      bool split;
+      std::ptrdiff_t num_NaNs, NaN[32];
+      AbsRetTp nc, ncdiff;
 
       // Check for unreasonable accuracy demands.
-      if (__epsabs < _Tp{0} || __epsrel < _Tp{0})
-	std::__throw_domain_error("tolerances may not be negative");
-      if (__epsabs <= _Tp{0} && __epsrel < _S_eps)
-	std::__throw_domain_error("unreasonable accuracy requirement");
+      if (epsabs < Tp{0} || epsrel < Tp{0})
+	throw std::domain_error("tolerances may not be negative");
+      if (epsabs <= Tp{0} && epsrel < s_eps)
+	throw std::domain_error("unreasonable accuracy requirement");
 
       // Create the first interval.
-      __ws.clear();
-      cquad_interval<_Tp, _RetTp> __iv;
-      auto __m = (__a + __b) / _Tp{2};
-      auto __h = (__b - __a) / _Tp{2};
-      __num_NaNs = 0;
-      for (std::ptrdiff_t __i = 0; __i <= __n[3]; ++__i)
+      ws.clear();
+      cquad_interval<Tp, RetTp> iv;
+      auto m = (a + b) / Tp{2};
+      auto h = (b - a) / Tp{2};
+      num_NaNs = 0;
+      for (std::ptrdiff_t i = 0; i <= n[3]; ++i)
 	{
-	  __iv.fx[__i] = __func(__m + _Tp(xi[__i]) * __h);
-	  if (std::isinf(__iv.fx[__i]) || std::isnan(__iv.fx[__i]))
+	  iv.fx[i] = func(m + Tp(xi[i]) * h);
+	  if (std::isinf(iv.fx[i]) || std::isnan(iv.fx[i]))
 	    {
-	      __NaN[__num_NaNs++] = __i;
-	      __iv.fx[__i] = _RetTp{0};
+	      NaN[num_NaNs++] = i;
+	      iv.fx[i] = RetTp{0};
 	    }
 	}
-      _Vinvfx(__iv.fx, &(__iv._M_coeff[__idx[0]]), 0);
-      _Vinvfx(__iv.fx, &(__iv._M_coeff[__idx[3]]), 3);
-      _Vinvfx(__iv.fx, &(__iv._M_coeff[__idx[2]]), 2);
-      for (std::ptrdiff_t __i = 0; __i < __num_NaNs; ++__i)
-	__iv.fx[__NaN[__i]] = _S_NaN;
-      __iv._M_lower_lim = __a;
-      __iv._M_upper_lim = __b;
-      __iv.depth = 3;
-      __iv.rdepth = 1;
-      __iv.ndiv = 0;
-      __iv._M_result = _Tp{2} * __h * __iv._M_coeff[__idx[3]] * __w;
-      __nc = _AbsRetTp{0};
-      for (std::ptrdiff_t __i = __n[2] + 1; __i <= __n[3]; ++__i)
+      Vinvfx(iv.fx, &(iv.m_coeff[idx[0]]), 0);
+      Vinvfx(iv.fx, &(iv.m_coeff[idx[3]]), 3);
+      Vinvfx(iv.fx, &(iv.m_coeff[idx[2]]), 2);
+      for (std::ptrdiff_t i = 0; i < num_NaNs; ++i)
+	iv.fx[NaN[i]] = s_NaN;
+      iv.m_lower_lim = a;
+      iv.m_upper_lim = b;
+      iv.depth = 3;
+      iv.rdepth = 1;
+      iv.ndiv = 0;
+      iv.m_result = Tp{2} * h * iv.m_coeff[idx[3]] * w;
+      nc = AbsRetTp{0};
+      for (std::ptrdiff_t i = n[2] + 1; i <= n[3]; ++i)
 	{
-	  const auto __temp = std::abs(__iv._M_coeff[__idx[3] + __i]);
-	  __nc += __temp * __temp;
+	  const auto temp = std::abs(iv.m_coeff[idx[3] + i]);
+	  nc += temp * temp;
 	}
-      __ncdiff = __nc;
-      for (std::ptrdiff_t __i = 0; __i <= __n[2]; ++__i)
+      ncdiff = nc;
+      for (std::ptrdiff_t i = 0; i <= n[2]; ++i)
 	{
-	  const auto __temp = std::abs(__iv._M_coeff[__idx[2] + __i]
-				     - __iv._M_coeff[__idx[3] + __i]);
-	  __ncdiff += __temp * __temp;
-	  __nc += std::abs(__iv._M_coeff[__idx[3] + __i])
-		* std::abs(__iv._M_coeff[__idx[3] + __i]);
+	  const auto temp = std::abs(iv.m_coeff[idx[2] + i]
+				     - iv.m_coeff[idx[3] + i]);
+	  ncdiff += temp * temp;
+	  nc += std::abs(iv.m_coeff[idx[3] + i])
+		* std::abs(iv.m_coeff[idx[3] + i]);
 	}
-      __ncdiff = std::sqrt(__ncdiff);
-      __nc = std::sqrt(__nc);
-      __iv._M_abs_error = __ncdiff * _Tp{2} * __h;
-      if (__ncdiff / __nc > _Tp{0.1} && __iv._M_abs_error < _Tp{2} * __h * __nc)
-	__iv._M_abs_error = _Tp{2} * __h * __nc;
-      __ws.push(__iv);
+      ncdiff = std::sqrt(ncdiff);
+      nc = std::sqrt(nc);
+      iv.m_abs_error = ncdiff * Tp{2} * h;
+      if (ncdiff / nc > Tp{0.1} && iv.m_abs_error < Tp{2} * h * nc)
+	iv.m_abs_error = Tp{2} * h * nc;
+      ws.push(iv);
 
       // Main loop...
-      auto __igral = __iv._M_result;
-      auto __igral_final = _AreaTp{0};
-      auto __err = __iv._M_abs_error;
-      auto __err_final = _Tp{0};
-      while (__ws.size() > 0 && __err > _Tp{0} &&
-	     !(__err <= std::abs(__igral) * __epsrel || __err <= __epsabs)
-	     && !(__err_final > std::abs(__igral) * __epsrel
-		  && __err - __err_final < std::abs(__igral) * __epsrel)
-	     && !(__err_final > __epsabs && __err - __err_final < __epsabs))
+      auto igral = iv.m_result;
+      auto igral_final = AreaTp{0};
+      auto err = iv.m_abs_error;
+      auto err_final = Tp{0};
+      while (ws.size() > 0 && err > Tp{0} &&
+	     !(err <= std::abs(igral) * epsrel || err <= epsabs)
+	     && !(err_final > std::abs(igral) * epsrel
+		  && err - err_final < std::abs(igral) * epsrel)
+	     && !(err_final > epsabs && err - err_final < epsabs))
 	{
 	  // Put our finger on the interval with the largest error.
-	  auto& __iv = __ws.top();
-	  __m = (__iv._M_lower_lim + __iv._M_upper_lim) / _Tp{2};
-	  __h = (__iv._M_upper_lim - __iv._M_lower_lim) / _Tp{2};
+	  auto& iv = ws.top();
+	  m = (iv.m_lower_lim + iv.m_upper_lim) / Tp{2};
+	  h = (iv.m_upper_lim - iv.m_lower_lim) / Tp{2};
 
 	  // Should we try to increase the degree?
-	  if (__iv.depth < 3)
+	  if (iv.depth < 3)
 	    {
 	      // Keep tabs on some variables.
-	      auto __depth = ++__iv.depth;
+	      auto depth = ++iv.depth;
 
 	      // Get the new (missing) function values.
-	      for (std::ptrdiff_t __i = __skip[__depth];
-			__i <= 32; __i += 2 * __skip[__depth])
-		__iv.fx[__i] = __func(__m + _Tp(xi[__i]) * __h);
-	      __num_NaNs = 0;
-	      for (std::ptrdiff_t __i = 0; __i <= 32; __i += __skip[__depth])
-		if (std::isinf(__iv.fx[__i]) || std::isnan(__iv.fx[__i]))
+	      for (std::ptrdiff_t i = skip[depth];
+			i <= 32; i += 2 * skip[depth])
+		iv.fx[i] = func(m + Tp(xi[i]) * h);
+	      num_NaNs = 0;
+	      for (std::ptrdiff_t i = 0; i <= 32; i += skip[depth])
+		if (std::isinf(iv.fx[i]) || std::isnan(iv.fx[i]))
 		  {
-		    __NaN[__num_NaNs++] = __i;
-		    __iv.fx[__i] = _RetTp{0};
+		    NaN[num_NaNs++] = i;
+		    iv.fx[i] = RetTp{0};
 		  }
 
 	      // Compute the new coefficients.
-	      _Vinvfx(__iv.fx, &(__iv._M_coeff[__idx[__depth]]), __depth);
+	      Vinvfx(iv.fx, &(iv.m_coeff[idx[depth]]), depth);
 
 	      // Downdate any NaNs.
-	      if (__num_NaNs > 0)
+	      if (num_NaNs > 0)
 		{
-		  downdate(&(__iv._M_coeff[__idx[__depth]]),
-			   __n[__depth], __depth, __NaN, __num_NaNs);
-		  for (std::ptrdiff_t __i = 0; __i < __num_NaNs; ++__i)
-		    __iv.fx[__NaN[__i]] = _S_NaN;
+		  downdate(&(iv.m_coeff[idx[depth]]),
+			   n[depth], depth, NaN, num_NaNs);
+		  for (std::ptrdiff_t i = 0; i < num_NaNs; ++i)
+		    iv.fx[NaN[i]] = s_NaN;
 		}
 
 	      // Compute the error estimate.
-	      __nc = _AbsRetTp{0};
-	      for (std::ptrdiff_t __i = __n[__depth - 1] + 1;
-		   __i <= __n[__depth]; ++__i)
+	      nc = AbsRetTp{0};
+	      for (std::ptrdiff_t i = n[depth - 1] + 1;
+		   i <= n[depth]; ++i)
 		{
-		  const auto __temp = std::abs(__iv._M_coeff[__idx[__depth] + __i]);
-		  __nc += __temp * __temp;
+		  const auto temp = std::abs(iv.m_coeff[idx[depth] + i]);
+		  nc += temp * temp;
 		}
-	      __ncdiff = __nc;
-	      for (std::ptrdiff_t __i = 0; __i <= __n[__depth - 1]; ++__i)
+	      ncdiff = nc;
+	      for (std::ptrdiff_t i = 0; i <= n[depth - 1]; ++i)
 		{
-		  const auto __temp
-		    = std::abs(__iv._M_coeff[__idx[__depth - 1] + __i]
-			     - __iv._M_coeff[__idx[__depth] + __i]);
-		  __ncdiff += __temp * __temp;
-		  __nc += abs(__iv._M_coeff[__idx[__depth] + __i])
-			* abs(__iv._M_coeff[__idx[__depth] + __i]);
+		  const auto temp
+		    = std::abs(iv.m_coeff[idx[depth - 1] + i]
+			     - iv.m_coeff[idx[depth] + i]);
+		  ncdiff += temp * temp;
+		  nc += abs(iv.m_coeff[idx[depth] + i])
+			* abs(iv.m_coeff[idx[depth] + i]);
 		}
-	      __ncdiff = std::sqrt(__ncdiff);
-	      __nc = std::sqrt(__nc);
-	      __iv._M_abs_error = __ncdiff * _Tp{2} * __h;
+	      ncdiff = std::sqrt(ncdiff);
+	      nc = std::sqrt(nc);
+	      iv.m_abs_error = ncdiff * Tp{2} * h;
 
 	      // Compute the local integral.
-	      __iv._M_result = _Tp{2} * __h * __w
-			     * __iv._M_coeff[__idx[__depth]];
+	      iv.m_result = Tp{2} * h * w
+			     * iv.m_coeff[idx[depth]];
 
 	      // Split the interval prematurely?
-	      __split = (__nc > _Tp{0} && __ncdiff / __nc > _Tp{0.1});
+	      split = (nc > Tp{0} && ncdiff / nc > Tp{0.1});
 	    }
 	  else // Maximum degree reached, just split.
-	    __split = true;
+	    split = true;
 
 	  // Should we drop this interval?
-	  if ((__m + __h * _Tp(xi[0])) >= (__m + __h * _Tp(xi[1]))
-	      || (__m + __h * _Tp(xi[31])) >= (__m + __h * _Tp(xi[32]))
-	      || __iv._M_abs_error < std::abs(__iv._M_result) * _S_eps * 10)
+	  if ((m + h * Tp(xi[0])) >= (m + h * Tp(xi[1]))
+	      || (m + h * Tp(xi[31])) >= (m + h * Tp(xi[32]))
+	      || iv.m_abs_error < std::abs(iv.m_result) * s_eps * 10)
 	    {
 	      // Keep this interval's contribution.
-	      __err_final += __iv._M_abs_error;
-	      __igral_final += __iv._M_result;
+	      err_final += iv.m_abs_error;
+	      igral_final += iv.m_result;
 
-	      __ws.pop();
+	      ws.pop();
 	    }
-	  else if (__split) // Do we need to split this interval?
+	  else if (split) // Do we need to split this interval?
 	    {
 	      // Some values we will need often...
-	      auto __depth = __iv.depth;
+	      auto depth = iv.depth;
 
 	      // Generate the interval on the left.
-	      cquad_interval<_Tp, _RetTp> __ivl;
-	      __ivl._M_lower_lim = __iv._M_lower_lim;
-	      __ivl._M_upper_lim = __m;
-	      __ivl.depth = 0;
-	      __ivl.rdepth = __iv.rdepth + 1;
-	      __ivl.fx[0] = __iv.fx[0];
-	      __ivl.fx[32] = __iv.fx[16];
-	      for (std::ptrdiff_t __i = __skip[0]; __i < 32; __i += __skip[0])
-		__ivl.fx[__i] = __func((__ivl._M_lower_lim + __ivl._M_upper_lim)
-			      / _Tp{2} + _Tp(xi[__i]) * __h / _Tp{2});
-	      __num_NaNs = 0;
-	      for (std::ptrdiff_t __i = 0; __i <= 32; __i += __skip[0])
+	      cquad_interval<Tp, RetTp> ivl;
+	      ivl.m_lower_lim = iv.m_lower_lim;
+	      ivl.m_upper_lim = m;
+	      ivl.depth = 0;
+	      ivl.rdepth = iv.rdepth + 1;
+	      ivl.fx[0] = iv.fx[0];
+	      ivl.fx[32] = iv.fx[16];
+	      for (std::ptrdiff_t i = skip[0]; i < 32; i += skip[0])
+		ivl.fx[i] = func((ivl.m_lower_lim + ivl.m_upper_lim)
+			      / Tp{2} + Tp(xi[i]) * h / Tp{2});
+	      num_NaNs = 0;
+	      for (std::ptrdiff_t i = 0; i <= 32; i += skip[0])
 		{
-		  if (std::isinf(__ivl.fx[__i]) || std::isnan(__ivl.fx[__i]))
+		  if (std::isinf(ivl.fx[i]) || std::isnan(ivl.fx[i]))
 		    {
-		      __NaN[__num_NaNs++] = __i;
-		      __ivl.fx[__i] = _RetTp{0};
+		      NaN[num_NaNs++] = i;
+		      ivl.fx[i] = RetTp{0};
 		    }
 		}
-	      _Vinvfx(__ivl.fx, __ivl._M_coeff, 0);
-	      if (__num_NaNs > 0)
+	      Vinvfx(ivl.fx, ivl.m_coeff, 0);
+	      if (num_NaNs > 0)
 		{
-		  downdate(__ivl._M_coeff, __n[0], 0, __NaN, __num_NaNs);
-		  for (std::ptrdiff_t __i = 0; __i < __num_NaNs; ++__i)
-		    __ivl.fx[__NaN[__i]] = _S_NaN;
+		  downdate(ivl.m_coeff, n[0], 0, NaN, num_NaNs);
+		  for (std::ptrdiff_t i = 0; i < num_NaNs; ++i)
+		    ivl.fx[NaN[i]] = s_NaN;
 		}
-	      for (std::ptrdiff_t __i = 0; __i <= __n[__depth]; ++__i)
+	      for (std::ptrdiff_t i = 0; i <= n[depth]; ++i)
 		{
-		  __ivl._M_coeff[__idx[__depth] + __i] = _Tp{0};
-		  for (std::ptrdiff_t __j = __i; __j <= __n[__depth]; ++__j)
-		    __ivl._M_coeff[__idx[__depth] + __i]
-			+= _Tp(Tleft[__i * 33 + __j])
-			   * __iv._M_coeff[__idx[__depth] + __j];
+		  ivl.m_coeff[idx[depth] + i] = Tp{0};
+		  for (std::ptrdiff_t j = i; j <= n[depth]; ++j)
+		    ivl.m_coeff[idx[depth] + i]
+			+= Tp(Tleft[i * 33 + j])
+			   * iv.m_coeff[idx[depth] + j];
 		}
-	      __ncdiff = _AbsRetTp{0};
-	      for (std::ptrdiff_t __i = 0; __i <= __n[0]; ++__i)
+	      ncdiff = AbsRetTp{0};
+	      for (std::ptrdiff_t i = 0; i <= n[0]; ++i)
 		{
-		  const auto __temp
-		    = std::abs(__ivl._M_coeff[__i]
-			     - __ivl._M_coeff[__idx[__depth] + __i]);
-		  __ncdiff += __temp * __temp;
+		  const auto temp
+		    = std::abs(ivl.m_coeff[i]
+			     - ivl.m_coeff[idx[depth] + i]);
+		  ncdiff += temp * temp;
 		}
-	      for (std::ptrdiff_t __i = __n[0] + 1; __i <= __n[__depth]; ++__i)
+	      for (std::ptrdiff_t i = n[0] + 1; i <= n[depth]; ++i)
 		{
-		  const auto __temp
-		    = std::abs(__ivl._M_coeff[__idx[__depth] + __i]);
-		  __ncdiff += __temp * __temp;
+		  const auto temp
+		    = std::abs(ivl.m_coeff[idx[depth] + i]);
+		  ncdiff += temp * temp;
 		}
-	      __ncdiff = std::sqrt(__ncdiff);
-	      __ivl._M_abs_error = __ncdiff * __h;
+	      ncdiff = std::sqrt(ncdiff);
+	      ivl.m_abs_error = ncdiff * h;
 
 	      // Check for divergence.
-	      __ivl.ndiv = __iv.ndiv
-			 + (std::abs(__iv._M_coeff[0]) > 0
-			 && std::abs(__ivl._M_coeff[0] / __iv._M_coeff[0]) > 2);
-	      if (__ivl.ndiv > __ndiv_max && 2 * __ivl.ndiv > __ivl.rdepth)
+	      ivl.ndiv = iv.ndiv
+			 + (std::abs(iv.m_coeff[0]) > 0
+			 && std::abs(ivl.m_coeff[0] / iv.m_coeff[0]) > 2);
+	      if (ivl.ndiv > ndiv_max && 2 * ivl.ndiv > ivl.rdepth)
 		{
-		  //const auto __result = std::copysign(_S_inf, __igral);
-		  return {_AreaTp(_S_inf), _S_inf};
+		  //const auto result = std::copysign(s_inf, igral);
+		  return {AreaTp(s_inf), s_inf};
 		}
 
 	      // Compute the local integral.
-	      __ivl._M_result = __h * __w * __ivl._M_coeff[0];
+	      ivl.m_result = h * w * ivl.m_coeff[0];
 
 	      // Generate the interval on the right.
-	      cquad_interval<_Tp, _RetTp> __ivr;
-	      __ivr._M_lower_lim = __m;
-	      __ivr._M_upper_lim = __iv._M_upper_lim;
-	      __ivr.depth = 0;
-	      __ivr.rdepth = __iv.rdepth + 1;
-	      __ivr.fx[0] = __iv.fx[16];
-	      __ivr.fx[32] = __iv.fx[32];
-	      for (std::ptrdiff_t __i = __skip[0]; __i < 32; __i += __skip[0])
-		__ivr.fx[__i] = __func((__ivr._M_lower_lim + __ivr._M_upper_lim)
-			      / _Tp{2} + _Tp(xi[__i]) * __h / _Tp{2});
-	      __num_NaNs = 0;
-	      for (std::ptrdiff_t __i = 0; __i <= 32; __i += __skip[0])
+	      cquad_interval<Tp, RetTp> ivr;
+	      ivr.m_lower_lim = m;
+	      ivr.m_upper_lim = iv.m_upper_lim;
+	      ivr.depth = 0;
+	      ivr.rdepth = iv.rdepth + 1;
+	      ivr.fx[0] = iv.fx[16];
+	      ivr.fx[32] = iv.fx[32];
+	      for (std::ptrdiff_t i = skip[0]; i < 32; i += skip[0])
+		ivr.fx[i] = func((ivr.m_lower_lim + ivr.m_upper_lim)
+			      / Tp{2} + Tp(xi[i]) * h / Tp{2});
+	      num_NaNs = 0;
+	      for (std::ptrdiff_t i = 0; i <= 32; i += skip[0])
 		{
-		  if (std::isinf(__ivr.fx[__i]) || std::isnan(__ivr.fx[__i]))
+		  if (std::isinf(ivr.fx[i]) || std::isnan(ivr.fx[i]))
 		    {
-		      __NaN[__num_NaNs++] = __i;
-		      __ivr.fx[__i] = _RetTp{0};
+		      NaN[num_NaNs++] = i;
+		      ivr.fx[i] = RetTp{0};
 		    }
 		}
-	      _Vinvfx (__ivr.fx, __ivr._M_coeff, 0);
-	      if (__num_NaNs > 0)
+	      Vinvfx (ivr.fx, ivr.m_coeff, 0);
+	      if (num_NaNs > 0)
 		{
-		  downdate(__ivr._M_coeff, __n[0], 0, __NaN, __num_NaNs);
-		  for (std::ptrdiff_t __i = 0; __i < __num_NaNs; ++__i)
-		    __ivr.fx[__NaN[__i]] = _S_NaN;
+		  downdate(ivr.m_coeff, n[0], 0, NaN, num_NaNs);
+		  for (std::ptrdiff_t i = 0; i < num_NaNs; ++i)
+		    ivr.fx[NaN[i]] = s_NaN;
 		}
-	      for (std::ptrdiff_t __i = 0; __i <= __n[__depth]; ++__i)
+	      for (std::ptrdiff_t i = 0; i <= n[depth]; ++i)
 		{
-		  __ivr._M_coeff[__idx[__depth] + __i] = _Tp{0};
-		  for (std::ptrdiff_t __j = __i; __j <= __n[__depth]; ++__j)
-		    __ivr._M_coeff[__idx[__depth] + __i]
-			+= _Tp(Tright[__i * 33 + __j])
-			 * __iv._M_coeff[__idx[__depth] + __j];
+		  ivr.m_coeff[idx[depth] + i] = Tp{0};
+		  for (std::ptrdiff_t j = i; j <= n[depth]; ++j)
+		    ivr.m_coeff[idx[depth] + i]
+			+= Tp(Tright[i * 33 + j])
+			 * iv.m_coeff[idx[depth] + j];
 		}
-	      __ncdiff = _AbsRetTp{0};
-	      for (std::ptrdiff_t __i = 0; __i <= __n[0]; ++__i)
+	      ncdiff = AbsRetTp{0};
+	      for (std::ptrdiff_t i = 0; i <= n[0]; ++i)
 		{
-		  const auto __temp
-		    = std::abs(__ivr._M_coeff[__i]
-			    - __ivr._M_coeff[__idx[__depth] + __i]);
-		  __ncdiff += __temp * __temp;
+		  const auto temp
+		    = std::abs(ivr.m_coeff[i]
+			    - ivr.m_coeff[idx[depth] + i]);
+		  ncdiff += temp * temp;
 		}
-	      for (std::ptrdiff_t __i = __n[0] + 1; __i <= __n[__depth]; ++__i)
+	      for (std::ptrdiff_t i = n[0] + 1; i <= n[depth]; ++i)
 		{
-		  const auto __temp
-		    = std::abs(__ivr._M_coeff[__idx[__depth] + __i]);
-		  __ncdiff += __temp * __temp;
+		  const auto temp
+		    = std::abs(ivr.m_coeff[idx[depth] + i]);
+		  ncdiff += temp * temp;
 		}
-	      __ncdiff = std::sqrt(__ncdiff);
-	      __ivr._M_abs_error = __ncdiff * __h;
+	      ncdiff = std::sqrt(ncdiff);
+	      ivr.m_abs_error = ncdiff * h;
 
 	      // Check for divergence.
-	      __ivr.ndiv = __iv.ndiv
-			 + (std::abs(__iv._M_coeff[0]) > 0
-			 && std::abs(__ivr._M_coeff[0] / __iv._M_coeff[0]) > 2);
-	      if (__ivr.ndiv > __ndiv_max && 2 * __ivr.ndiv > __ivr.rdepth)
+	      ivr.ndiv = iv.ndiv
+			 + (std::abs(iv.m_coeff[0]) > 0
+			 && std::abs(ivr.m_coeff[0] / iv.m_coeff[0]) > 2);
+	      if (ivr.ndiv > ndiv_max && 2 * ivr.ndiv > ivr.rdepth)
 		{
-		  //const auto __result = std::copysign(_S_inf, __igral);
-		  return {_AreaTp(_S_inf), _S_inf};
+		  //const auto result = std::copysign(s_inf, igral);
+		  return {AreaTp(s_inf), s_inf};
 		}
 
 	      // Compute the local integral.
-	      __ivr._M_result = __h * __w * __ivr._M_coeff[0];
+	      ivr.m_result = h * w * ivr.m_coeff[0];
 
-	      __ws.pop();
-	      __ws.push(__ivl);
-	      __ws.push(__ivr);
+	      ws.pop();
+	      ws.push(ivl);
+	      ws.push(ivr);
 	    }
 	  else // Otherwise, just fix-up the heap.
-	    __ws.update();
+	    ws.update();
 
 	  // Collect the value of the integral and error.
-	  __igral = __igral_final + __ws.total_integral();
-	  __err = __err_final + __ws.total_error();
+	  igral = igral_final + ws.total_integral();
+	  err = err_final + ws.total_error();
 	}
 
-      return {__igral, __err};
+      return {igral, err};
     }
 
 } // namespace __gnu_cxx

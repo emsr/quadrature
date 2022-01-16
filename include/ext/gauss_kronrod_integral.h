@@ -47,64 +47,64 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
   /**
    * The return type for a Gauss-Kronrod rule.
    */
-  template<typename _Tp, typename _RetTp>
+  template<typename Tp, typename RetTp>
     struct gauss_kronrod_integral_t
     {
-      using _AreaTp = decltype(_RetTp{} * _Tp{});
-      using _AbsAreaTp = decltype(std::abs(_AreaTp{}));
+      using AreaTp = decltype(RetTp{} * Tp{});
+      using AbsAreaTp = decltype(std::abs(AreaTp{}));
 
       /// Result of the integral.
-      _AreaTp __result = _AreaTp{};
+      AreaTp result = AreaTp{};
       /// Estimated error as difference between Gauss and Kronrod integrals.
-      _AbsAreaTp __abserr = _AbsAreaTp{};
+      AbsAreaTp abserr = AbsAreaTp{};
       /// Integral of absolute value of function.
-      _AbsAreaTp __resabs = _AbsAreaTp{};
+      AbsAreaTp resabs = AbsAreaTp{};
       /// Integral of absolute value of difference between function
       /// and weighted mean function value.
-      _AbsAreaTp __resasc = _AbsAreaTp{};
+      AbsAreaTp resasc = AbsAreaTp{};
     };
 
-  template<typename _Tp>
+  template<typename Tp>
     class gauss_kronrod_integral
     {
     public:
 
-      explicit gauss_kronrod_integral(unsigned __gk_rule);
+      explicit gauss_kronrod_integral(unsigned gk_rule);
 
-      template<typename _FuncTp>
+      template<typename FuncTp>
 	auto
-	integrate(_FuncTp __func, _Tp __lower, _Tp __upper) const
-	-> gauss_kronrod_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>;
+	integrate(FuncTp func, Tp lower, Tp upper) const
+	-> gauss_kronrod_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>;
 
-      template<typename _FuncTp>
+      template<typename FuncTp>
 	auto
-	operator()(_FuncTp __func, _Tp __lower, _Tp __upper) const
-	-> gauss_kronrod_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
-	{ return this->integrate(__func, __lower, __upper); }
+	operator()(FuncTp func, Tp lower, Tp upper) const
+	-> gauss_kronrod_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>
+	{ return this->integrate(func, lower, upper); }
 
 
-      template<typename _FuncTp, typename _KronrodIter, typename _GaussIter>
+      template<typename FuncTp, typename KronrodIter, typename GaussIter>
 	static auto
-	_S_integrate(const _KronrodIter& __xgk,
-		     const _GaussIter& __wg,
-		     const _KronrodIter& __wgk,
-		     _FuncTp __func, _Tp __lower, _Tp __upper)
-	-> gauss_kronrod_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>;
+	s_integrate(const KronrodIter& xgk,
+		     const GaussIter& wg,
+		     const KronrodIter& wgk,
+		     FuncTp func, Tp lower, Tp upper)
+	-> gauss_kronrod_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>;
 
     private:
 
-      unsigned _M_rule = Kronrod_15;
+      unsigned m_rule = Kronrod_15;
 
-      std::vector<_Tp> _M_x_kronrod;
-      std::vector<_Tp> _M_w_gauss;
-      std::vector<_Tp> _M_w_kronrod;
+      std::vector<Tp> m_x_kronrod;
+      std::vector<Tp> m_w_gauss;
+      std::vector<Tp> m_w_kronrod;
     };
 
-  template<typename _Tp, typename _FuncTp>
+  template<typename Tp, typename FuncTp>
     auto
-    qk_integrate(_FuncTp __func, _Tp __lower, _Tp __upper,
-		 Kronrod_Rule __qkintrule)
-    -> gauss_kronrod_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>;
+    qk_integrate(FuncTp func, Tp lower, Tp upper,
+		 Kronrod_Rule qkintrule)
+    -> gauss_kronrod_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>;
 
 _GLIBCXX_END_NAMESPACE_VERSION
 } // namespace __gnu_cxx

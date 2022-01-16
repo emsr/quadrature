@@ -30,101 +30,101 @@
 namespace __gnu_cxx
 {
 
-  template<typename _AreaTp, typename _AbsAreaTp>
-    std::tuple<_AreaTp, _AbsAreaTp>
-    extrapolation_table<_AreaTp, _AbsAreaTp>::qelg()
+  template<typename AreaTp, typename AbsAreaTp>
+    std::tuple<AreaTp, AbsAreaTp>
+    extrapolation_table<AreaTp, AbsAreaTp>::qelg()
     {
-      const auto __cur_n = this->_M_nn - 1;
-      const auto __current = this->_M_rlist2[__cur_n];
+      const auto cur_n = this->m_nn - 1;
+      const auto current = this->m_rlist2[cur_n];
 
-      const auto _S_eps = std::numeric_limits<_AbsAreaTp>::epsilon();
+      const auto s_eps = std::numeric_limits<AbsAreaTp>::epsilon();
       // Less than max to prevent overflow.
-      const auto _S_max = std::numeric_limits<_AbsAreaTp>::max() / _AbsAreaTp{100};
+      const auto s_max = std::numeric_limits<AbsAreaTp>::max() / AbsAreaTp{100};
 
-      auto __absolute = _S_max;
-      auto __relative = _AbsAreaTp{5} * _S_eps * std::abs(__current);
+      auto absolute = s_max;
+      auto relative = AbsAreaTp{5} * s_eps * std::abs(current);
 
-      const auto __newelm = __cur_n / 2;
-      const auto __n_orig = __cur_n;
-      auto __n_final = __cur_n;
+      const auto newelm = cur_n / 2;
+      const auto n_orig = cur_n;
+      auto n_final = cur_n;
 
-      const auto __nres_orig = this->_M_nres;
+      const auto nres_orig = this->m_nres;
 
-      auto __result = __current;
-      auto __abserr = _S_max;
+      auto result = current;
+      auto abserr = s_max;
 
-      if (__cur_n < 2)
+      if (cur_n < 2)
 	{
-	  __result = __current;
-	  __abserr = std::max(__absolute, __relative);
-	  return std::make_tuple(__result, __abserr);
+	  result = current;
+	  abserr = std::max(absolute, relative);
+	  return std::make_tuple(result, abserr);
 	}
 
-      this->_M_rlist2[__cur_n + 2] = this->_M_rlist2[__cur_n];
-      this->_M_rlist2[__cur_n] = _S_max;
+      this->m_rlist2[cur_n + 2] = this->m_rlist2[cur_n];
+      this->m_rlist2[cur_n] = s_max;
 
-      for (size_t __ii = 0; __ii < __newelm; ++__ii)
+      for (size_t ii = 0; ii < newelm; ++ii)
 	{
-	  auto __res = this->_M_rlist2[__cur_n - 2 * __ii + 2];
-	  const auto __e0 = this->_M_rlist2[__cur_n - 2 * __ii - 2];
-	  const auto __e1 = this->_M_rlist2[__cur_n - 2 * __ii - 1];
-	  const auto __e2 = __res;
+	  auto res = this->m_rlist2[cur_n - 2 * ii + 2];
+	  const auto e0 = this->m_rlist2[cur_n - 2 * ii - 2];
+	  const auto e1 = this->m_rlist2[cur_n - 2 * ii - 1];
+	  const auto e2 = res;
 
-	  const auto __e1abs = std::abs(__e1);
-	  const auto __delta2 = __e2 - __e1;
-	  const auto __err2 = std::abs(__delta2);
-	  const auto __tol2 = std::max(std::abs(__e2), __e1abs) * _S_eps;
-	  const auto __delta3 = __e1 - __e0;
-	  const auto __err3 = std::abs(__delta3);
-	  const auto __tol3 = std::max(__e1abs, std::abs(__e0)) * _S_eps;
+	  const auto e1abs = std::abs(e1);
+	  const auto delta2 = e2 - e1;
+	  const auto err2 = std::abs(delta2);
+	  const auto tol2 = std::max(std::abs(e2), e1abs) * s_eps;
+	  const auto delta3 = e1 - e0;
+	  const auto err3 = std::abs(delta3);
+	  const auto tol3 = std::max(e1abs, std::abs(e0)) * s_eps;
 
-	  if (__err2 <= __tol2 && __err3 <= __tol3)
+	  if (err2 <= tol2 && err3 <= tol3)
 	    {
 	      // If e0, e1 and e2 are equal to within machine accuracy,
 	      // convergence is assumed.
-	      __result = __res;
-	      __absolute = __err2 + __err3;
-	      __relative = 5 * _S_eps * std::abs(__res);
-	      __abserr = std::max(__absolute, __relative);
-	      return std::make_tuple(__result, __abserr);
+	      result = res;
+	      absolute = err2 + err3;
+	      relative = 5 * s_eps * std::abs(res);
+	      abserr = std::max(absolute, relative);
+	      return std::make_tuple(result, abserr);
 	    }
 
-	  const auto __e3 = this->_M_rlist2[__cur_n - 2 * __ii];
-	  this->_M_rlist2[__cur_n - 2 * __ii] = __e1;
-	  const auto __delta1 = __e1 - __e3;
-	  const auto __err1 = std::abs(__delta1);
-	  const auto __tol1 = std::max(__e1abs, std::abs(__e3)) * _S_eps;
+	  const auto e3 = this->m_rlist2[cur_n - 2 * ii];
+	  this->m_rlist2[cur_n - 2 * ii] = e1;
+	  const auto delta1 = e1 - e3;
+	  const auto err1 = std::abs(delta1);
+	  const auto tol1 = std::max(e1abs, std::abs(e3)) * s_eps;
 
 	  // If two elements are very close to each other, omit a part of
 	  // the table by adjusting the value of n.
-	  if (__err1 <= __tol1 || __err2 <= __tol2 || __err3 <= __tol3)
+	  if (err1 <= tol1 || err2 <= tol2 || err3 <= tol3)
 	    {
-	      __n_final = 2 * __ii;
+	      n_final = 2 * ii;
 	      break;
 	    }
 
-	  const auto __ss = _AbsAreaTp{1} / __delta1 + _AbsAreaTp{1} / __delta2
-			  - _AbsAreaTp{1} / __delta3;
+	  const auto ss = AbsAreaTp{1} / delta1 + AbsAreaTp{1} / delta2
+			  - AbsAreaTp{1} / delta3;
 
 	  // Test to detect irregular behaviour in the table,
 	  // and eventually omit a part of the table by adjusting
 	  // the value of n.
-	  if (std::abs(__ss * __e1) <= this->_M_irreg_test)
+	  if (std::abs(ss * e1) <= this->m_irreg_test)
 	    {
-	      __n_final = 2 * __ii;
+	      n_final = 2 * ii;
 	      break;
 	    }
 
 	  // Compute a new element and eventually adjust the value of result.
-	  __res = __e1 + _AbsAreaTp{1} / __ss;
-	  this->_M_rlist2[__cur_n - 2 * __ii] = __res;
+	  res = e1 + AbsAreaTp{1} / ss;
+	  this->m_rlist2[cur_n - 2 * ii] = res;
 	  {
-	    const auto __error = __err2 + std::abs(__res - __e2) + __err3;
+	    const auto error = err2 + std::abs(res - e2) + err3;
 
-	    if (__error <= __abserr)
+	    if (error <= abserr)
 	      {
-		__abserr = __error;
-		__result = __res;
+		abserr = error;
+		result = res;
 	      }
 	  }
 	}
@@ -132,45 +132,45 @@ namespace __gnu_cxx
       // Shift the table.
 
       {
-	const size_t __limexp = 50 - 1;
+	const size_t limexp = 50 - 1;
 
-	if (__n_final == __limexp)
-	  __n_final = 2 * (__limexp / 2);
+	if (n_final == limexp)
+	  n_final = 2 * (limexp / 2);
       }
 
-      if (__n_orig % 2 == 1)
+      if (n_orig % 2 == 1)
 	{
-	  for (size_t __ii = 0; __ii <= __newelm; ++__ii)
-	    this->_M_rlist2[__ii * 2 + 1] = this->_M_rlist2[__ii * 2 + 3];
+	  for (size_t ii = 0; ii <= newelm; ++ii)
+	    this->m_rlist2[ii * 2 + 1] = this->m_rlist2[ii * 2 + 3];
 	}
       else
 	{
-	  for (size_t __ii = 0; __ii <= __newelm; ++__ii)
-	    this->_M_rlist2[__ii * 2] = this->_M_rlist2[__ii * 2 + 2];
+	  for (size_t ii = 0; ii <= newelm; ++ii)
+	    this->m_rlist2[ii * 2] = this->m_rlist2[ii * 2 + 2];
 	}
 
-      if (__n_orig != __n_final)
+      if (n_orig != n_final)
 	{
-	  for (size_t __ii = 0; __ii <= __n_final; ++__ii)
-	    this->_M_rlist2[__ii] = this->_M_rlist2[__ii + __n_orig - __n_final];
+	  for (size_t ii = 0; ii <= n_final; ++ii)
+	    this->m_rlist2[ii] = this->m_rlist2[ii + n_orig - n_final];
 	}
 
-      this->_M_nn = __n_final + 1;
+      this->m_nn = n_final + 1;
 
-      if (__nres_orig < 3)
+      if (nres_orig < 3)
 	{
-	  this->_M_res3la[__nres_orig] = __result;
-	  __abserr = _S_max;
+	  this->m_res3la[nres_orig] = result;
+	  abserr = s_max;
 	}
       else
 	{ // Compute error estimate.
-	  __abserr = (std::abs(__result - this->_M_res3la[2])
-		    + std::abs(__result - this->_M_res3la[1])
-		    + std::abs(__result - this->_M_res3la[0]));
+	  abserr = (std::abs(result - this->m_res3la[2])
+		    + std::abs(result - this->m_res3la[1])
+		    + std::abs(result - this->m_res3la[0]));
 
-	  this->_M_res3la[0] = this->_M_res3la[1];
-	  this->_M_res3la[1] = this->_M_res3la[2];
-	  this->_M_res3la[2] = __result;
+	  this->m_res3la[0] = this->m_res3la[1];
+	  this->m_res3la[1] = this->m_res3la[2];
+	  this->m_res3la[2] = result;
 	}
 
       /* In QUADPACK the variable table->nres is incremented at the top of
@@ -179,11 +179,11 @@ namespace __gnu_cxx
 	have moved the update to this point so that its value more
 	useful. */
 
-      this->_M_nres = __nres_orig + 1;
+      this->m_nres = nres_orig + 1;
 
-      __abserr = std::max(__abserr, 5 * _S_eps * std::abs(__result));
+      abserr = std::max(abserr, 5 * s_eps * std::abs(result));
 
-      return std::make_tuple(__result, __abserr);
+      return std::make_tuple(result, abserr);
     }
 
 } // namespace __gnu_cxx

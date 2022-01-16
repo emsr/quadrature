@@ -36,156 +36,156 @@ namespace __gnu_cxx
   /**
    * Compute Chebyshev moments at level @c level.
    */
-  template<typename _Tp>
+  template<typename Tp>
     void
-    oscillatory_integration_table<_Tp>::
-    compute_moments(_Tp __par, std::size_t __level)
+    oscillatory_integration_table<Tp>::
+    compute_moments(Tp par, std::size_t level)
     {
-      std::array<_Tp, 28> __v;
-      std::array<_Tp, 25> __diag, __dsub, __dsup;
+      std::array<Tp, 28> v;
+      std::array<Tp, 25> diag, dsub, dsup;
 
-      const size_t __noeq = 25;
+      const size_t noeq = 25;
 
-      const auto __par2 = __par * __par;
-      const auto __par4 = __par2 * __par2;
-      const auto __par22 = __par2 + _Tp{2};
+      const auto par2 = par * par;
+      const auto par4 = par2 * par2;
+      const auto par22 = par2 + Tp{2};
 
-      const auto __sinpar = std::sin(__par);
-      const auto __cospar = std::cos(__par);
+      const auto sinpar = std::sin(par);
+      const auto cospar = std::cos(par);
 
       //
       // Compute the Chebyschev moments with respect to cosine.
       //
 
-      auto __ac = _Tp{8} * __cospar;
-      auto __as = _Tp{24} * __par * __sinpar;
+      auto ac = Tp{8} * cospar;
+      auto as = Tp{24} * par * sinpar;
 
-      __v[0] = _Tp{2} * __sinpar / __par;
-      __v[1] = (_Tp{8} * __cospar + (_Tp{2} * __par2 - _Tp{8})
-			 * __sinpar / __par) / __par2;
-      __v[2] = (_Tp{32} * (__par2 - _Tp{12}) * __cospar
-	   + (_Tp{2} * ((__par2 - _Tp{80}) * __par2 + _Tp{192}) * __sinpar)
-		 / __par) / __par4;
+      v[0] = Tp{2} * sinpar / par;
+      v[1] = (Tp{8} * cospar + (Tp{2} * par2 - Tp{8})
+			 * sinpar / par) / par2;
+      v[2] = (Tp{32} * (par2 - Tp{12}) * cospar
+	   + (Tp{2} * ((par2 - Tp{80}) * par2 + Tp{192}) * sinpar)
+		 / par) / par4;
 
-      if (std::abs(__par) <= _Tp{24})
+      if (std::abs(par) <= Tp{24})
 	{
 	  // Compute the moments as the solution of a boundary value
 	  // problem using the asyptotic expansion as an endpoint.
-	  auto __an = _Tp{6};
-	  for (auto __k = 0u; __k < __noeq - 1; ++__k)
+	  auto an = Tp{6};
+	  for (auto k = 0u; k < noeq - 1; ++k)
 	    {
-	      auto __an2 = __an * __an;
-	      __diag[__k] = _Tp{-2} * (__an2 - _Tp{4})
-			 * (__par22 - _Tp{2} * __an2);
-	      __dsup[__k] = (__an - 1) * (__an - _Tp{2}) * __par2;
-	      __dsub[__k + 1] = (__an + _Tp{3}) * (__an + _Tp{4}) * __par2;
-	      __v[__k + 3] = __as - (__an2 - _Tp{4}) * __ac;
-	      __an += _Tp{2};
+	      auto an2 = an * an;
+	      diag[k] = Tp{-2} * (an2 - Tp{4})
+			 * (par22 - Tp{2} * an2);
+	      dsup[k] = (an - 1) * (an - Tp{2}) * par2;
+	      dsub[k + 1] = (an + Tp{3}) * (an + Tp{4}) * par2;
+	      v[k + 3] = as - (an2 - Tp{4}) * ac;
+	      an += Tp{2};
 	    }
 
-	  const auto __an2 = __an * __an;
+	  const auto an2 = an * an;
 
-	  __diag[__noeq - 1] = _Tp{-2} * (__an2 - _Tp{4})
-			  * (__par22 - _Tp{2} * __an2);
-	  __v[__noeq + 2] = __as - (__an2 - _Tp{4}) * __ac;
-	  __v[3] = __v[3] - _Tp{56} * __par2 * __v[2];
+	  diag[noeq - 1] = Tp{-2} * (an2 - Tp{4})
+			  * (par22 - Tp{2} * an2);
+	  v[noeq + 2] = as - (an2 - Tp{4}) * ac;
+	  v[3] = v[3] - Tp{56} * par2 * v[2];
 
-	  const auto __ass = __par * __sinpar;
-	  const auto __asap = (((((_Tp{210} * __par2 - 1) * __cospar
-			    - (_Tp{105} * __par2 - _Tp{63}) * __ass) / __an2
-			   - (_Tp{1} - _Tp{15} * __par2) * __cospar
-				 + _Tp{15} * __ass) / __an2
-			  - __cospar + _Tp{3} * __ass) / __an2
-			 - __cospar) / __an2;
-	  __v[__noeq + 2] -= _Tp{2} * __asap * __par2
-			   * (__an - _Tp{1}) * (__an - _Tp{2});
+	  const auto ass = par * sinpar;
+	  const auto asap = (((((Tp{210} * par2 - 1) * cospar
+			    - (Tp{105} * par2 - Tp{63}) * ass) / an2
+			   - (Tp{1} - Tp{15} * par2) * cospar
+				 + Tp{15} * ass) / an2
+			  - cospar + Tp{3} * ass) / an2
+			 - cospar) / an2;
+	  v[noeq + 2] -= Tp{2} * asap * par2
+			   * (an - Tp{1}) * (an - Tp{2});
 
-	  _S_tridiag(__noeq, __dsup, __diag, __dsub, __v.begin() + 3);
+	  s_tridiag(noeq, dsup, diag, dsub, v.begin() + 3);
 	}
       else
 	{
 	  // Compute the moments by forward recursion.
-	  auto __an = _Tp{4};
-	  for (auto __k = 3u; __k < 13u; ++__k)
+	  auto an = Tp{4};
+	  for (auto k = 3u; k < 13u; ++k)
 	    {
-	      auto __an2 = __an * __an;
-	      __v[__k] = ((__an2 - _Tp{4})
-		       * (_Tp{2} * (__par22 - _Tp{2} * __an2)
-				 * __v[__k - 1] - __ac)
-		  + __as
-		  - __par2 * (__an + _Tp{1}) * (__an + _Tp{2}) * __v[__k - 2])
-		  / (__par2 * (__an - _Tp{1}) * (__an - _Tp{2}));
-	      __an += _Tp{2};
+	      auto an2 = an * an;
+	      v[k] = ((an2 - Tp{4})
+		       * (Tp{2} * (par22 - Tp{2} * an2)
+				 * v[k - 1] - ac)
+		  + as
+		  - par2 * (an + Tp{1}) * (an + Tp{2}) * v[k - 2])
+		  / (par2 * (an - Tp{1}) * (an - Tp{2}));
+	      an += Tp{2};
 	    }
 	}
 
 
-      for (auto __i = 0u; __i < 13u; ++__i)
-	this->chebmo[25 * __level + 2 * __i] = __v[__i];
+      for (auto i = 0u; i < 13u; ++i)
+	this->chebmo[25 * level + 2 * i] = v[i];
 
       //
       // Compute the Chebyschev moments with respect to sine.
       //
 
-      __v[0] = _Tp{2} * (__sinpar - __par * __cospar) / __par2;
-      __v[1] = (_Tp{18} - _Tp{48} / __par2) * __sinpar / __par2
-	   + (_Tp{-2} + _Tp{48} / __par2) * __cospar / __par;
+      v[0] = Tp{2} * (sinpar - par * cospar) / par2;
+      v[1] = (Tp{18} - Tp{48} / par2) * sinpar / par2
+	   + (Tp{-2} + Tp{48} / par2) * cospar / par;
 
-      __ac = _Tp{-24} * __par * __cospar;
-      __as = _Tp{-8} * __sinpar;
+      ac = Tp{-24} * par * cospar;
+      as = Tp{-8} * sinpar;
 
-      if (std::abs(__par) <= 24)
+      if (std::abs(par) <= 24)
 	{
 	  // Compute the moments as the solution of a boundary value
 	  // problem using the asyptotic expansion as an endpoint.
-	  auto __an = _Tp{5};
-	  for (auto __k = 0u; __k < __noeq - 1; ++__k)
+	  auto an = Tp{5};
+	  for (auto k = 0u; k < noeq - 1; ++k)
 	    {
-	      auto __an2 = __an * __an;
-	      __diag[__k] = -_Tp{2} * (__an2 - _Tp{4})
-			 * (__par22 - _Tp{2} * __an2);
-	      __dsup[__k] = (__an - 1) * (__an - _Tp{2}) * __par2;
-	      __dsub[__k + 1] = (__an + 3) * (__an + _Tp{4}) * __par2;
-	      __v[__k + 2] = __ac + (__an2 - _Tp{4}) * __as;
-	      __an += _Tp{2};
+	      auto an2 = an * an;
+	      diag[k] = -Tp{2} * (an2 - Tp{4})
+			 * (par22 - Tp{2} * an2);
+	      dsup[k] = (an - 1) * (an - Tp{2}) * par2;
+	      dsub[k + 1] = (an + 3) * (an + Tp{4}) * par2;
+	      v[k + 2] = ac + (an2 - Tp{4}) * as;
+	      an += Tp{2};
 	    }
-	  const auto __an2 = __an * __an;
+	  const auto an2 = an * an;
 
-	  __diag[__noeq - 1] = -_Tp{2} * (__an2 - _Tp{4})
-			     * (__par22 - 2 * __an2);
-	  __v[__noeq + 1] = __ac + (__an2 - _Tp{4}) * __as;
-	  __v[2] = __v[2] - _Tp{42} * __par2 * __v[1];
+	  diag[noeq - 1] = -Tp{2} * (an2 - Tp{4})
+			     * (par22 - 2 * an2);
+	  v[noeq + 1] = ac + (an2 - Tp{4}) * as;
+	  v[2] = v[2] - Tp{42} * par2 * v[1];
 
-	  const auto __ass = __par * __cospar;
-	  const auto __asap = (((((_Tp{105} * __par2 - _Tp{63}) * __ass
-			 - (_Tp{210} * __par2 - _Tp{1}) * __sinpar) / __an2
-		    + (_Tp{15} * __par2 - 1) * __sinpar
-		    - _Tp{15} * __ass) / __an2 - __sinpar - _Tp{3} * __ass)
-			 / __an2 - __sinpar) / __an2;
-	  __v[__noeq + 1] -= _Tp{2} * __asap * __par2
-			   * (__an - _Tp{1}) * (__an - _Tp{2});
+	  const auto ass = par * cospar;
+	  const auto asap = (((((Tp{105} * par2 - Tp{63}) * ass
+			 - (Tp{210} * par2 - Tp{1}) * sinpar) / an2
+		    + (Tp{15} * par2 - 1) * sinpar
+		    - Tp{15} * ass) / an2 - sinpar - Tp{3} * ass)
+			 / an2 - sinpar) / an2;
+	  v[noeq + 1] -= Tp{2} * asap * par2
+			   * (an - Tp{1}) * (an - Tp{2});
 
-	  _S_tridiag(__noeq, __dsup, __diag, __dsub, __v.begin() + 2);
+	  s_tridiag(noeq, dsup, diag, dsub, v.begin() + 2);
 	}
       else
 	{
 	  // Compute the moments by forward recursion.
-	  auto __an = _Tp{3};
-	  for (auto __k = 2u; __k < 12u; ++__k)
+	  auto an = Tp{3};
+	  for (auto k = 2u; k < 12u; ++k)
 	    {
-	      const auto __an2 = __an * __an;
-	      __v[__k] = ((__an2 - _Tp{4})
-		       * (_Tp{2} * (__par22 - _Tp{2} * __an2)
-				 * __v[__k - 1] + __as)
-		   + __ac
-		   - __par2 * (__an + _Tp{1}) * (__an + _Tp{2}) * __v[__k - 2])
-		   / (__par2 * (__an - _Tp{1}) * (__an - _Tp{2}));
-	      __an += _Tp{2};
+	      const auto an2 = an * an;
+	      v[k] = ((an2 - Tp{4})
+		       * (Tp{2} * (par22 - Tp{2} * an2)
+				 * v[k - 1] + as)
+		   + ac
+		   - par2 * (an + Tp{1}) * (an + Tp{2}) * v[k - 2])
+		   / (par2 * (an - Tp{1}) * (an - Tp{2}));
+	      an += Tp{2};
 	    }
 	}
 
-      for (auto __i = 0u; __i < 12u; ++__i)
-	this->chebmo[25 * __level + 2 * __i + 1] = __v[__i];
+      for (auto i = 0u; i < 12u; ++i)
+	this->chebmo[25 * level + 2 * i + 1] = v[i];
     }
 
 } // namespace __gnu_cxx

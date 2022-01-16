@@ -33,27 +33,27 @@
 namespace __gnu_cxx
 {
 
-  template<typename _Tp>
-      gauss_legendre_table<_Tp>::gauss_legendre_table(std::size_t __n)
-      : order(__n),
+  template<typename Tp>
+      gauss_legendre_table<Tp>::gauss_legendre_table(std::size_t n)
+      : order(n),
 	point(nullptr),
 	weight(nullptr),
 	precomputed(false),
 	i_precomp(-1),
 	rule()
       {
-	using __prec_t = decltype(gauss_legendre_precomp[0]);
-	auto __prec_beg = gauss_legendre_precomp;
-	auto __prec_end = gauss_legendre_precomp + num_gauss_legendre_precomp;
-	auto __prec = std::find_if(__prec_beg, __prec_end,
-				   [this, __n](__prec_t __tab)
-				   { return __tab.order == this->order; });
-	if (__prec == __prec_end)
-	  this->rule = __legendre_zeros<_Tp>(this->order);
+	using prec_t = decltype(gauss_legendre_precomp[0]);
+	auto prec_beg = gauss_legendre_precomp;
+	auto prec_end = gauss_legendre_precomp + num_gauss_legendre_precomp;
+	auto prec = std::find_if(prec_beg, prec_end,
+				   [this, n](prec_t tab)
+				   { return tab.order == this->order; });
+	if (prec == prec_end)
+	  this->rule = legendre_zeros<Tp>(this->order);
 	else
 	  {
 	    this->precomputed = true;
-	    this->i_precomp = __prec - __prec_beg;
+	    this->i_precomp = prec - prec_beg;
 	  }
       }
 
@@ -63,67 +63,67 @@ namespace __gnu_cxx
    * the high-precision gauss_legendre_table struct.
    * Points are indexed and presented in increasing order to the caller.
    */
-  template<typename _Tp>
-    std::tuple<_Tp, _Tp>
-    gauss_legendre_table<_Tp>::get_point(_Tp __lower, _Tp __upper, size_t __i) const
+  template<typename Tp>
+    std::tuple<Tp, Tp>
+    gauss_legendre_table<Tp>::get_point(Tp lower, Tp upper, size_t i) const
     {
-      const auto __hwidth = (__upper - __lower) / _Tp{2};
-      const auto __midpt = (__lower + __upper) / _Tp{2};
+      const auto hwidth = (upper - lower) / Tp{2};
+      const auto midpt = (lower + upper) / Tp{2};
 
-      if (__i >= this->order)
-	std::__throw_domain_error("gauss_legendre_table: i must be less than n");
+      if (i >= this->order)
+	throw std::domain_error("gauss_legendre_table: i must be less than n");
 
       // See comments above gauss_legendre_table for struct's x, w layout.
       // Simply unpack that layout into a sorted set of points, weights.
-      _Tp __xi, __wi;
+      Tp xi, wi;
       if (this->order & 1) // n is odd
 	{
-	  const auto __k = int(__i) - int(this->order) / 2;
-	  const auto sign = (__k < 0 ? -1 : +1);
+	  const auto k = int(i) - int(this->order) / 2;
+	  const auto sign = (k < 0 ? -1 : +1);
 
-	  __xi = __midpt + sign * __hwidth * this->pt(sign * __k);
-	  __wi =		  __hwidth * this->wt(sign * __k);
+	  xi = midpt + sign * hwidth * this->pt(sign * k);
+	  wi =		  hwidth * this->wt(sign * k);
 	}
-      else if (/* n is even && */ __i < this->order / 2)
+      else if (/* n is even && */ i < this->order / 2)
 	{
-	  __i = int(this->order) / 2 - 1 - int(__i);
-	  __xi = __midpt - __hwidth * this->pt(__i);
-	  __wi =	   __hwidth * this->wt(__i);
+	  i = int(this->order) / 2 - 1 - int(i);
+	  xi = midpt - hwidth * this->pt(i);
+	  wi =	   hwidth * this->wt(i);
 	}
-      else // n is even and __i >= n / 2
+      else // n is even and i >= n / 2
 	{
-	  __i  -= this->order / 2;
-	  __xi = __midpt + __hwidth * this->pt(__i);
-	  __wi =	   __hwidth * this->wt(__i);
+	  i  -= this->order / 2;
+	  xi = midpt + hwidth * this->pt(i);
+	  wi =	   hwidth * this->wt(i);
 	}
 
-      return std::make_tuple(__xi, __wi);
+      return std::make_tuple(xi, wi);
     }
 
-  template<typename _Tp>
-    _Tp
-    gauss_legendre_table<_Tp>::pt(size_t __i) const
+  template<typename Tp>
+    Tp
+    gauss_legendre_table<Tp>::pt(size_t i) const
     {
       if (this->precomputed)
 	if (this->i_precomp == std::size_t(-1))
-	  return this->point[__i];
+	  return this->point[i];
 	else
-	  return _Tp(gauss_legendre_precomp[this->i_precomp].point[__i]);
+	  return Tp(gauss_legendre_precomp[this->i_precomp].point[i]);
       else
-	return this->rule[__i + this->order / 2].__point;
+	return this->rule[i + this->order / 2].point;
     }
 
-  template<typename _Tp>
-    _Tp
-    gauss_legendre_table<_Tp>::wt(size_t __i) const
+  template<typename Tp>
+    Tp
+    gauss_legendre_table<Tp>::wt(size_t i) const
     {
       if (this->precomputed)
 	if (this->i_precomp == std::size_t(-1))
-	  return this->weight[__i];
+	  return this->weight[i];
 	else
-	  return _Tp(gauss_legendre_precomp[this->i_precomp].weight[__i]);
+	  return Tp(gauss_legendre_precomp[this->i_precomp].weight[i]);
       else
-	return this->rule[__i + this->order / 2].__weight;
+	return this->rule[i + this->order / 2].weight;
     }
 
 } // namespace __gnu_cxx

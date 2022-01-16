@@ -7,15 +7,15 @@
 
 #include <fourier_transform.h>
 
-template<typename _Tp>
+template<typename Tp>
   void
   test_fft_seq()
   {
-    std::cout.precision(std::numeric_limits<_Tp>::digits10);
+    std::cout.precision(std::numeric_limits<Tp>::digits10);
     auto w = 8 + std::cout.precision();
     auto cw = 4 + 2 * w;
     const auto len = 1000u;
-    using Cmplx = std::complex<_Tp>;
+    using Cmplx = std::complex<Tp>;
 
     // Complex doesn't have ++.
     std::vector<Cmplx> vec(len);
@@ -24,16 +24,16 @@ template<typename _Tp>
     auto xform = vec;
     __gnu_cxx::fast_fourier_transform(xform);
 
-    auto mean_abs_diff = _Tp{0};
+    auto mean_abs_diff = Tp{0};
     std::cout << '\n';
-    auto diff = xform[0] - Cmplx(len * (len - 1) / _Tp{2});
+    auto diff = xform[0] - Cmplx(len * (len - 1) / Tp{2});
     auto abs_diff = std::abs(diff);
     mean_abs_diff += abs_diff;
-    __gnu_cxx::__phase_iterator omega_k(_Tp{-1}, 1, len);
+    __gnu_cxx::__phase_iterator omega_k(Tp{-1}, 1, len);
     ++omega_k;
     for (auto k = 1u; k < len; ++k, ++omega_k)
       {
-        auto xact = _Tp(len) / (_Tp{1} - *omega_k);
+        auto xact = Tp(len) / (Tp{1} - *omega_k);
         diff = xform[k] - xact;
 	abs_diff = std::abs(diff);
 	mean_abs_diff += abs_diff;
@@ -44,27 +44,27 @@ template<typename _Tp>
 		  << ' ' << std::setw(w) << abs_diff
 		  << '\n';
       }
-    mean_abs_diff /= _Tp(len);
+    mean_abs_diff /= Tp(len);
     std::cout << "mean_abs_diff = " << mean_abs_diff << '\n';
   }
 
-template<typename _Tp>
+template<typename Tp>
   void
   test_fft()
   {
-    const auto _S_2pi = 2 * _Tp{3.1415'92653'58979'32384'62643'38327'95028'84195e+0L};
-    std::cout.precision(std::numeric_limits<_Tp>::digits10);
+    const auto s_2pi = 2 * Tp{3.1415'92653'58979'32384'62643'38327'95028'84195e+0L};
+    std::cout.precision(std::numeric_limits<Tp>::digits10);
     auto w = 8 + std::cout.precision();
     auto cw = 4 + 2 * w;
     const auto len = 1000u;
 
     std::default_random_engine re;
-    std::uniform_real_distribution<_Tp> ud(_Tp{0}, _S_2pi);
-    auto gen = [&ud, &re]()->_Tp{ return ud(re); };
-    std::vector<std::complex<_Tp>> vec;
+    std::uniform_real_distribution<Tp> ud(Tp{0}, s_2pi);
+    auto gen = [&ud, &re]()->Tp{ return ud(re); };
+    std::vector<std::complex<Tp>> vec;
     vec.reserve(len);
     for (auto i = 0u; i < len; ++i)
-      vec.push_back(std::polar(_Tp{1}, gen()));
+      vec.push_back(std::polar(Tp{1}, gen()));
 
     auto xform = vec;
     __gnu_cxx::fast_fourier_transform(xform);
@@ -72,7 +72,7 @@ template<typename _Tp>
     auto iform = xform;
     __gnu_cxx::inv_fast_fourier_transform(iform);
 
-    auto mean_abs_diff = _Tp{0};
+    auto mean_abs_diff = Tp{0};
     std::cout << '\n';
     for (auto i = 0u; i < len; ++i)
       {
@@ -86,23 +86,23 @@ template<typename _Tp>
 		  << ' ' << std::setw(w) << abs_diff
 		  << '\n';
       }
-    mean_abs_diff /= _Tp(len);
+    mean_abs_diff /= Tp(len);
     std::cout << "mean_abs_diff = " << mean_abs_diff << '\n';
   }
 
-template<typename _Tp>
+template<typename Tp>
   void
   test_real_fft()
   {
-    std::cout.precision(std::numeric_limits<_Tp>::digits10);
+    std::cout.precision(std::numeric_limits<Tp>::digits10);
     auto w = 8 + std::cout.precision();
     auto cw = 4 + 2 * w;
     const auto len = 1000u;
 
     std::default_random_engine re;
-    std::uniform_real_distribution<_Tp> ud(_Tp{-5}, _Tp{+5});
-    auto gen = [&ud, &re]()->_Tp{ return ud(re); };
-    std::vector<_Tp> vec;
+    std::uniform_real_distribution<Tp> ud(Tp{-5}, Tp{+5});
+    auto gen = [&ud, &re]()->Tp{ return ud(re); };
+    std::vector<Tp> vec;
     vec.reserve(len);
     for (auto i = 0u; i < len; ++i)
       vec.push_back(gen());
@@ -114,7 +114,7 @@ template<typename _Tp>
     __gnu_cxx::inv_fast_fourier_transform(iform);
 
     // This has the correct indexing you would want for fourier_transform_t<real_t>.
-    auto mean_abs_diff = _Tp{0};
+    auto mean_abs_diff = Tp{0};
     std::cout << '\n';
     for (auto i = 0u; i < len; ++i)
       {
@@ -132,22 +132,22 @@ template<typename _Tp>
 		  << ' ' << std::setw(w) << abs_diff
 		  << '\n';
       }
-    mean_abs_diff /= _Tp(len);
+    mean_abs_diff /= Tp(len);
     std::cout << "mean_abs_diff = " << mean_abs_diff << '\n';
   }
 
-template<typename _Tp>
+template<typename Tp>
   void
   test_fst()
   {
-    std::cout.precision(std::numeric_limits<_Tp>::digits10);
+    std::cout.precision(std::numeric_limits<Tp>::digits10);
     auto w = 8 + std::cout.precision();
     const auto len = 1000u;
 
     std::default_random_engine re;
-    std::uniform_real_distribution<_Tp> ud(_Tp{-5}, _Tp{+5});
-    auto gen = [&ud, &re]()->_Tp{ return ud(re); };
-    std::vector<_Tp> vec;
+    std::uniform_real_distribution<Tp> ud(Tp{-5}, Tp{+5});
+    auto gen = [&ud, &re]()->Tp{ return ud(re); };
+    std::vector<Tp> vec;
     vec.reserve(len);
     for (auto i = 0u; i < len; ++i)
       vec.push_back(gen());
@@ -159,7 +159,7 @@ template<typename _Tp>
     __gnu_cxx::inv_fast_sine_transform(iform);
 
     // This has the correct indexing you would want for fourier_transform_t<real_t>.
-    auto mean_abs_diff = _Tp{0};
+    auto mean_abs_diff = Tp{0};
     std::cout << '\n';
     for (auto i = 0u; i < len; ++i)
       {
@@ -174,7 +174,7 @@ template<typename _Tp>
 		  << ' ' << std::setw(w) << abs_diff
 		  << '\n';
       }
-    mean_abs_diff /= _Tp(len);
+    mean_abs_diff /= Tp(len);
     std::cout << "mean_abs_diff = " << mean_abs_diff << '\n';
   }
 

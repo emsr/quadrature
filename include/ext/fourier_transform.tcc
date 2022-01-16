@@ -31,70 +31,70 @@ namespace __gnu_cxx
   /**
    * Discrete Fourier transform on complex data.
    */
-  template<typename _Tp>
+  template<typename Tp>
     void
-    __discrete_fourier_transform(bool __do_forward,
-				 std::vector<std::complex<_Tp>>& __z)
+    discrete_fourier_transform(bool do_forward,
+				 std::vector<std::complex<Tp>>& z)
     {
-      const auto __sign(__do_forward ? _Tp{+1} : _Tp{-1});
-      const auto __len = __z.size();
+      const auto sign(do_forward ? Tp{+1} : Tp{-1});
+      const auto len = z.size();
 
-      std::vector<std::complex<_Tp>> __result;
-      __result.reserve(__len);
+      std::vector<std::complex<Tp>> result;
+      result.reserve(len);
 
       // Do matrix multiplication.
-      for (std::size_t __i = 0; __i < __len; ++__i)
+      for (std::size_t i = 0; i < len; ++i)
 	{
-	  __phase_iterator __coefficient_iter(__sign, __i, __len);
-	  __result.push_back(std::inner_product(__z.begin(), __z.end(),
-			     __coefficient_iter, std::complex<_Tp>{0}));
+	  phase_iterator coefficient_iter(sign, i, len);
+	  result.push_back(std::inner_product(z.begin(), z.end(),
+			     coefficient_iter, std::complex<Tp>{0}));
 	}
 
       // Rescale if forward.
-      if (__do_forward)
+      if (do_forward)
 	{
-	  const auto __norm = _Tp{1} / _Tp(__len);
-	  for (std::size_t __i = 0; __i < __len; ++__i)
-	    __result[__i] *= __norm;
+	  const auto norm = Tp{1} / Tp(len);
+	  for (std::size_t i = 0; i < len; ++i)
+	    result[i] *= norm;
 	}
 
       // Copy data back (swap is fast!).
-      __z.swap(__result);
+      z.swap(result);
     }
 
   /**
    * Fast Fourier Transform on complex data.
    */
-  template<typename _Tp>
+  template<typename Tp>
     void
-    fast_fourier_transform(std::vector<std::complex<_Tp>>& __z)
+    fast_fourier_transform(std::vector<std::complex<Tp>>& z)
     {
-      const auto __len = __z.size();
-      if (__len % 2 == 1) // Too bad, we're odd.
-	__discrete_fourier_transform(true, __z);
+      const auto len = z.size();
+      if (len % 2 == 1) // Too bad, we're odd.
+	discrete_fourier_transform(true, z);
       else // Good, we're even.
 	{
 	  // Let's divide and conquer!
-	  std::vector<std::complex<_Tp>> __odd;
-	  std::vector<std::complex<_Tp>> __even;
-	  const auto __halflen = __len / 2;
-	  __odd.reserve(__halflen);
-	  __even.reserve(__halflen);
-	  for (auto __run = __z.cbegin(); __run != __z.cend(); ++__run)
+	  std::vector<std::complex<Tp>> odd;
+	  std::vector<std::complex<Tp>> even;
+	  const auto halflen = len / 2;
+	  odd.reserve(halflen);
+	  even.reserve(halflen);
+	  for (auto run = z.cbegin(); run != z.cend(); ++run)
 	    {
-              __even.push_back(*__run);
-              ++__run;
-              __odd.push_back(*__run);
+              even.push_back(*run);
+              ++run;
+              odd.push_back(*run);
 	    }
-	  fast_fourier_transform(__even);
-	  fast_fourier_transform(__odd);
-	  __phase_iterator __omega_iter(_Tp{1}, 1, __len);
-	  for (std::size_t __i = 0, __j = __halflen; __i < __halflen;
-		++__i, ++__j, ++__omega_iter)
+	  fast_fourier_transform(even);
+	  fast_fourier_transform(odd);
+	  phase_iterator omega_iter(Tp{1}, 1, len);
+	  for (std::size_t i = 0, j = halflen; i < halflen;
+		++i, ++j, ++omega_iter)
 	    {
-              __z[__i] = (__even[__i] + *__omega_iter * __odd[__i]) / _Tp{2};
+              z[i] = (even[i] + *omega_iter * odd[i]) / Tp{2};
               // The next line works because omega^(length/2) = -1.
-              __z[__j] = (__even[__i] - *__omega_iter * __odd[__i]) / _Tp{2};
+              z[j] = (even[i] - *omega_iter * odd[i]) / Tp{2};
 	    }
 	}
     }
@@ -102,36 +102,36 @@ namespace __gnu_cxx
   /**
    * Inverse Fast Fourier Transform on complex data.
    */
-  template<typename _Tp>
+  template<typename Tp>
     void
-    inv_fast_fourier_transform(std::vector<std::complex<_Tp>>& __z)
+    inv_fast_fourier_transform(std::vector<std::complex<Tp>>& z)
     {
-      const std::size_t __len = __z.size();
-      if (__len % 2 == 1) // Too bad, we're odd.
-	__discrete_fourier_transform(false, __z);
+      const std::size_t len = z.size();
+      if (len % 2 == 1) // Too bad, we're odd.
+	discrete_fourier_transform(false, z);
       else // Good, we are even.
 	{
 	  // Let's divide and conquer!
-	  std::vector<std::complex<_Tp>> __odd;
-	  std::vector<std::complex<_Tp>> __even;
-	  const auto __halflen = __len / 2;
-	  __odd.reserve(__halflen);
-	  __even.reserve(__halflen);
-	  for (auto __run = __z.cbegin(); __run != __z.cend(); ++__run)
+	  std::vector<std::complex<Tp>> odd;
+	  std::vector<std::complex<Tp>> even;
+	  const auto halflen = len / 2;
+	  odd.reserve(halflen);
+	  even.reserve(halflen);
+	  for (auto run = z.cbegin(); run != z.cend(); ++run)
 	    {
-	      __even.push_back(*__run);
-	      ++__run;
-	      __odd.push_back(*__run);
+	      even.push_back(*run);
+	      ++run;
+	      odd.push_back(*run);
 	    }
-	  inv_fast_fourier_transform(__even);
-	  inv_fast_fourier_transform(__odd);
-	  __phase_iterator __omega_iter(_Tp{-1}, 1, __len);
-	  for (std::size_t __i = 0, __j = __halflen; __i < __halflen;
-		++__i, ++__j, ++__omega_iter)
+	  inv_fast_fourier_transform(even);
+	  inv_fast_fourier_transform(odd);
+	  phase_iterator omega_iter(Tp{-1}, 1, len);
+	  for (std::size_t i = 0, j = halflen; i < halflen;
+		++i, ++j, ++omega_iter)
 	    {
-	      __z[__i] = __even[__i] + *__omega_iter * __odd[__i];
+	      z[i] = even[i] + *omega_iter * odd[i];
 	      // The next line works because omega^(length/2) = -1.
-	      __z[__j] = __even[__i] - *__omega_iter * __odd[__i];
+	      z[j] = even[i] - *omega_iter * odd[i];
 	    }
 	}
     }
@@ -139,34 +139,34 @@ namespace __gnu_cxx
   /**
    * Fast Fourier Transform on real data.
    */
-  template<typename _Tp>
+  template<typename Tp>
     void
-    fast_fourier_transform(std::vector<_Tp>& __x)
+    fast_fourier_transform(std::vector<Tp>& x)
     {
-      const auto __len = __x.size();
-      if (__len % 2 == 1) // Too bad, we're odd.
-	std::__throw_domain_error("fast_fourier_transform: "
+      const auto len = x.size();
+      if (len % 2 == 1) // Too bad, we're odd.
+	throw std::domain_error("fast_fourier_transform: "
 				  "Real data must have even length.");
       else // Good, we're even.
 	{
 	  // @todo I really want to just make a view to a complex vector.
-	  const auto __halflen = __len / 2;
-	  std::vector<std::complex<_Tp>> __z;
-	  __z.reserve(__halflen + 1);
-	  for (std::size_t __i = 0; __i < __halflen; ++__i)
-	    __z.emplace_back(__x[2 * __i], __x[2 * __i + 1]);
-	  fast_fourier_transform(__z);
-	  __z.emplace_back(__z[0]); // Use symmetry.  We need N/2 transform.
-	  const auto _S_i2 = std::complex<_Tp>{0, 2};
-	  __phase_iterator __omega_iter(_Tp{+1}, 1, __halflen);
-	  for (std::size_t __i = 0; __i < __halflen; ++__i)
+	  const auto halflen = len / 2;
+	  std::vector<std::complex<Tp>> z;
+	  z.reserve(halflen + 1);
+	  for (std::size_t i = 0; i < halflen; ++i)
+	    z.emplace_back(x[2 * i], x[2 * i + 1]);
+	  fast_fourier_transform(z);
+	  z.emplace_back(z[0]); // Use symmetry.  We need N/2 transform.
+	  const auto s_i2 = std::complex<Tp>{0, 2};
+	  phase_iterator omega_iter(Tp{+1}, 1, halflen);
+	  for (std::size_t i = 0; i < halflen; ++i)
 	    {
-	      const auto __z1 = __z[__i];
-	      const auto __z2 = std::conj(__z[__halflen - __i]);
-	      const auto __f = (__z1 + __z2) / _Tp{2}
-			     + *__omega_iter * (__z1 - __z2) / _S_i2;
-	      __x[2 * __i] = __f.real();
-	      __x[2 * __i + 1] = __f.imag();
+	      const auto z1 = z[i];
+	      const auto z2 = std::conj(z[halflen - i]);
+	      const auto f = (z1 + z2) / Tp{2}
+			     + *omega_iter * (z1 - z2) / s_i2;
+	      x[2 * i] = f.real();
+	      x[2 * i + 1] = f.imag();
 	    }
 	}
     }
@@ -174,35 +174,35 @@ namespace __gnu_cxx
   /**
    * Inverse Fast Fourier Transform on real data.
    */
-  template<typename _Tp>
+  template<typename Tp>
     void
-    inv_fast_fourier_transform(std::vector<_Tp>& __x)
+    inv_fast_fourier_transform(std::vector<Tp>& x)
     {
-      const auto __len = __x.size();
-      if (__len % 2 == 1) // Too bad, we're odd.
-	std::__throw_domain_error("inv_fast_fourier_transform: "
+      const auto len = x.size();
+      if (len % 2 == 1) // Too bad, we're odd.
+	throw std::domain_error("inv_fast_fourier_transform: "
 				  "Real data must have even length.");
       else // Good, we're even.
 	{
 	  // @todo I really want to just make a view to a complex vector.
-	  const auto __halflen = __len / 2;
-	  std::vector<std::complex<_Tp>> __z;
-	  __z.reserve(__halflen);
-	  const auto _S_i2 = std::complex<_Tp>{0, 2};
-	  __phase_iterator __omega_iter(_Tp{-1}, 1, __halflen);
-	  for (std::size_t __i = 0; __i < __halflen; ++__i)
+	  const auto halflen = len / 2;
+	  std::vector<std::complex<Tp>> z;
+	  z.reserve(halflen);
+	  const auto s_i2 = std::complex<Tp>{0, 2};
+	  phase_iterator omega_iter(Tp{-1}, 1, halflen);
+	  for (std::size_t i = 0; i < halflen; ++i)
 	    {
-	      const auto __z1 = std::complex<_Tp>(__x[2 * __i], __x[2 * __i + 1]);
-	      const auto __z2 = std::complex<_Tp>(__x[__len - 2 * __i - 2], -__x[__len - 2 * __i - 1]);
-	      const auto __ze = (__z1 + __z2) / _Tp{2};
-	      const auto __zo = -*__omega_iter * (__z1 - __z2) / _S_i2;
-	      __z.emplace_back(__ze + __zo);
+	      const auto z1 = std::complex<Tp>(x[2 * i], x[2 * i + 1]);
+	      const auto z2 = std::complex<Tp>(x[len - 2 * i - 2], -x[len - 2 * i - 1]);
+	      const auto ze = (z1 + z2) / Tp{2};
+	      const auto zo = -*omega_iter * (z1 - z2) / s_i2;
+	      z.emplace_back(ze + zo);
 	    }
-	  inv_fast_fourier_transform(__z);
-	  for (std::size_t __i = 0; __i < __halflen; ++__i)
+	  inv_fast_fourier_transform(z);
+	  for (std::size_t i = 0; i < halflen; ++i)
 	    {
-	      __x[2 * __i] = __z[__i].real();
-	      __x[2 * __i + 1] = __z[__i].imag();
+	      x[2 * i] = z[i].real();
+	      x[2 * i + 1] = z[i].imag();
 	    }
 	}
     }
@@ -210,73 +210,73 @@ namespace __gnu_cxx
   /**
    * Fast Sine Transform on real data.
    */
-  template <typename _Tp>
+  template <typename Tp>
     void
-    fast_sine_transform(std::vector<_Tp>& __x)
+    fast_sine_transform(std::vector<Tp>& x)
     {
-      const auto __len = __x.size();
-      const auto __halflen = __len / 2;
-      const auto __n2 = __len - 1;
-      __phase_iterator __omega_iter(_Tp{+1}, 1, __len);
-      __x[0] = _Tp{0};
-      for (std::size_t __k = 1; __k <= __halflen; ++__k, ++__omega_iter)
+      const auto len = x.size();
+      const auto halflen = len / 2;
+      const auto n2 = len - 1;
+      phase_iterator omega_iter(Tp{+1}, 1, len);
+      x[0] = Tp{0};
+      for (std::size_t k = 1; k <= halflen; ++k, ++omega_iter)
 	{
-	  const auto __y1 = __omega_iter.sin()
-			  * (__x[__k] + __x[__n2 - __k]);
-	  const auto __y2 = (__x[__k] - __x[__n2 - __k]) / _Tp{2};
-	  __x[__k] = __y1 + __y2;
-	  __x[__n2 - __k] = __y1 - __y2;
+	  const auto y1 = omega_iter.sin()
+			  * (x[k] + x[n2 - k]);
+	  const auto y2 = (x[k] - x[n2 - k]) / Tp{2};
+	  x[k] = y1 + y2;
+	  x[n2 - k] = y1 - y2;
 	}
-      fast_fourier_transform(__x);
-      __x[0] *= _Tp{0.5L};
-      __x[1] = _Tp{0};
-      auto __sum = _Tp{0};
-      for (std::size_t __i = 2; __i < __halflen; __i += 2)
+      fast_fourier_transform(x);
+      x[0] *= Tp{0.5L};
+      x[1] = Tp{0};
+      auto sum = Tp{0};
+      for (std::size_t i = 2; i < halflen; i += 2)
 	{
-	  __sum += std::exchange(__x[__i], __x[__i + 1]);
-	  __x[__i + 1] = __sum;
+	  sum += std::exchange(x[i], x[i + 1]);
+	  x[i + 1] = sum;
 	}
     }
 
   /**
    * Fast Sine Transform on real data.
    */
-  template <typename _Tp>
+  template <typename Tp>
     void
-    inv_fast_sine_transform(std::vector<_Tp>& __x)
+    inv_fast_sine_transform(std::vector<Tp>& x)
     {
-      fast_sine_transform(__x);
-      const auto __norm = _Tp{2} / __x.size();
-      for (std::size_t __i = 0; __i < __x.size(); ++__i)
-	__x[__i] *= __norm;
+      fast_sine_transform(x);
+      const auto norm = Tp{2} / x.size();
+      for (std::size_t i = 0; i < x.size(); ++i)
+	x[i] *= norm;
     }
 
   /**
    * Fast Fourier Transform on input range.
    */
-  template <typename _CmplxIter>
+  template <typename CmplxIter>
     void
-    fast_fourier_transform(const _CmplxIter& __from, const _CmplxIter& __to)
+    fast_fourier_transform(const CmplxIter& from, const CmplxIter& to)
     {
-      using _Cmplx = typename _CmplxIter::value_type;
-      using _Tp = typename _Cmplx::value_type;
-      std::vector<std::complex<_Tp>> __z(__from, __to);
-      fast_fourier_transform(__z);
-      std::copy(__z.begin(), __z.end(), __from);
+      using Cmplx = typename CmplxIter::value_type;
+      using Tp = typename Cmplx::value_type;
+      std::vector<std::complex<Tp>> z(from, to);
+      fast_fourier_transform(z);
+      std::copy(z.begin(), z.end(), from);
     }
 
   /**
    * Inverse Fast Fourier Transform on input range.
    */
-  template <typename _CmplxIter>
+  template <typename CmplxIter>
     void
-    inv_fast_fourier_transform(const _CmplxIter& __from, const _CmplxIter& __to)
+    inv_fast_fourier_transform(const CmplxIter& from, const CmplxIter& to)
     {
-      using _Cmplx = typename _CmplxIter::value_type;
-      using _Tp = typename _Cmplx::value_type;
-      std::vector<std::complex<_Tp>> __z(__from, __to);
-      inv_fast_fourier_transform(__z);
-      std::copy(__z.begin(), __z.end(), __from);
+      using Cmplx = typename CmplxIter::value_type;
+      using Tp = typename Cmplx::value_type;
+      std::vector<std::complex<Tp>> z(from, to);
+      inv_fast_fourier_transform(z);
+      std::copy(z.begin(), z.end(), from);
     }
 
 } // namespace __gnu_cxx

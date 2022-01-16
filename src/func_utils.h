@@ -5,27 +5,27 @@
  * Make a function object absorbing all parameters but a single
  * real scalar argument.
  */
-template<typename _Tp, typename _FuncTp, typename... _Parms,
-	 typename _Ret = std::invoke_result_t<_FuncTp, _Tp, _Parms...>>
-  std::function<_Ret(_Tp)>
-  make_function(_FuncTp f, _Parms... p)
-  { return [f, p...](_Tp x)->_Ret{ return f(x, p...); }; }
+template<typename Tp, typename FuncTp, typename... Parms,
+	 typename Ret = std::invoke_result_t<FuncTp, Tp, Parms...>>
+  std::function<Ret(Tp)>
+  make_function(FuncTp f, Parms... p)
+  { return [f, p...](Tp x)->Ret{ return f(x, p...); }; }
 
 /**
  * Function wrapper to count evaluations of the target function.
  *
  * Note to self: Argument deduction order matters.
  */
-template<typename _Tp, typename _FuncTp,
-	 typename _Ret = std::invoke_result_t<_FuncTp, _Tp>>
+template<typename Tp, typename FuncTp,
+	 typename Ret = std::invoke_result_t<FuncTp, Tp>>
   struct counted_function
   {
-    counted_function(_FuncTp f)
+    counted_function(FuncTp f)
     : m_func(f), m_neval(new int{0})
     { }
 
-    _Ret
-    operator()(_Tp x) const
+    Ret
+    operator()(Tp x) const
     {
       ++(*this->m_neval);
       return this->m_func(x);
@@ -45,7 +45,7 @@ template<typename _Tp, typename _FuncTp,
 
   private:
 
-    _FuncTp m_func;
+    FuncTp m_func;
 
     mutable std::shared_ptr<int> m_neval;
   };
@@ -57,12 +57,12 @@ template<typename _Tp, typename _FuncTp,
  *
  * Note to self: Argument deduction order matters.
  */
-template<typename _Tp, typename _FuncTp, typename... _Parms,
-	 typename _Ret = std::invoke_result_t<_FuncTp, _Tp, _Parms...>>
-  counted_function<_Tp, std::function<_Ret(_Tp)>>
-  make_counted_function(_FuncTp&& f, _Parms... p)
+template<typename Tp, typename FuncTp, typename... Parms,
+	 typename Ret = std::invoke_result_t<FuncTp, Tp, Parms...>>
+  counted_function<Tp, std::function<Ret(Tp)>>
+  make_counted_function(FuncTp&& f, Parms... p)
   {
-    return counted_function<_Tp, std::function<_Ret(_Tp)>>(make_function<_Tp>(std::forward(f), p...));
+    return counted_function<Tp, std::function<Ret(Tp)>>(make_function<Tp>(std::forward(f), p...));
   }
 
 #endif // FUNC_UTILS_H

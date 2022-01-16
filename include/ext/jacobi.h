@@ -60,7 +60,7 @@
  * This strucuture is used to store data about the quadrature. It can be later used to integrate, 
  * derive or interpolate functions. It should be created using the jac_quadrature_alloc function.
  */
-template<typename _Tp>
+template<typename Tp>
   struct jac_quadrature
   {
     /// Quadrature type
@@ -70,12 +70,12 @@ template<typename _Tp>
     int Q;
 
     /// Alpha weight of the quadrature
-    _Tp alpha;
+    Tp alpha;
 
     /// Beta weight of the quadrature
-    _Tp beta;
+    Tp beta;
 
-    jac_quadrature(gauss_quad_type qtype, int nq, _Tp a, _Tp b)
+    jac_quadrature(gauss_quad_type qtype, int nq, Tp a, Tp b)
     : type(qtype), Q(nq), alpha(a), beta(b),
       x(nq), w(nq), D(nq),
       xp{}, imat{}
@@ -85,8 +85,8 @@ template<typename _Tp>
 
     /// Calculates the integral of a function with values at quadrature points
     /// given by f with quadrature weights w.
-    template<typename _Func>
-      _Tp integrate(_Func fun);
+    template<typename Func>
+      Tp integrate(Func fun);
 
     ~jac_quadrature() = default;
 
@@ -96,42 +96,42 @@ template<typename _Tp>
     int quadrature_zwd();
 
     /// Allocates memory for an interpolation matrix.
-    int interpmat_alloc(int npoints, _Tp* xp);
+    int interpmat_alloc(int npoints, Tp* xp);
 
     /// Calculates the derivative at quadrature points of a function f
     /// and derivative matrix D
-    int differentiate(_Tp* f, _Tp* d);
+    int differentiate(Tp* f, Tp* d);
 
     /// Interpolates the function given by f using the interpolation matrix.
-    int interpolate(_Tp* f, _Tp* fout);
+    int interpolate(Tp* f, Tp* fout);
 
     /// Array that stores the nodes coordinates
-    std::vector<_Tp> x;
+    std::vector<Tp> x;
 
     /// Array that stores quadrature weights
-    std::vector<_Tp> w;
+    std::vector<Tp> w;
 
     /// Array that stores the derivative matrix
-    std::vector<_Tp> D;
+    std::vector<Tp> D;
 
     /// Interpolation points
-    std::vector<_Tp> xp;
+    std::vector<Tp> xp;
 
     /// Array That stores the interpolation matrix
-    std::vector<_Tp> imat;
+    std::vector<Tp> imat;
 
 
     /// Calculates the derivative of the Jacobi polynomial of order n
-    _Tp jacobi_deriv(_Tp x, int n, _Tp alpha, _Tp beta);
+    Tp jacobi_deriv(Tp x, int n, Tp alpha, Tp beta);
 
     /// Calculates Jacobi polynomials at an array of points
-    //int jacobi_value_array(int nx, _Tp* x, _Tp* result_array, int n, _Tp alpha, _Tp beta);
+    //int jacobi_value_array(int nx, Tp* x, Tp* result_array, int n, Tp alpha, Tp beta);
 
     /// Calculates the derivative of Jacobi polynomials at an array of points
-    //int jacobi_deriv_array(int nx, _Tp* x, _Tp* result_array, int n, _Tp alpha, _Tp beta);
+    //int jacobi_deriv_array(int nx, Tp* x, Tp* result_array, int n, Tp alpha, Tp beta);
 
     /// Calculates the zeros of Jacobi polynomials in the interval -1 up to 1
-    int jacobi_zeros(_Tp* x, int m, _Tp alpha, _Tp beta);
+    int jacobi_zeros(Tp* x, int m, Tp alpha, Tp beta);
 
 
     /// Calculates the Gauss-Jacobi quadrature points.
@@ -144,7 +144,7 @@ template<typename _Tp>
     int diffmat_gj();
 
     /// Calculates the Lagrange polynomials through Gauss-Jacobi quadratures.
-    _Tp lagrange_gj(int i, _Tp zz);
+    Tp lagrange_gj(int i, Tp zz);
 
     /// Calculates the interpolation matrix for GJ quadrature.
     int interpmat_gj();
@@ -161,7 +161,7 @@ template<typename _Tp>
     int diffmat_glj();
 
     /// Calculates the Lagrange polynomials through Gauss-Lobatto-Jacobi quadratures
-    _Tp lagrange_glj(int i, _Tp zz);
+    Tp lagrange_glj(int i, Tp zz);
 
     /// Calculates the interpolation matrix for GLJ quadrature
     int interpmat_glj();
@@ -179,7 +179,7 @@ template<typename _Tp>
 
     /// Calculates the Lagrange polynomials through Gauss-Radau-Jacobi quadratures
     /// (point -1 included)
-    _Tp lagrange_grjm(int i, _Tp zz);
+    Tp lagrange_grjm(int i, Tp zz);
 
     /// Calculates the interpolation matrix for GRJM quadrature.
     int interpmat_grjm();
@@ -197,7 +197,7 @@ template<typename _Tp>
 
     /// Calculates the Lagrange polynomials through Gauss-Radau-Jacobi quadratures
     /// (point +1 included).
-    _Tp lagrange_grjp(int i, _Tp zz);
+    Tp lagrange_grjp(int i, Tp zz);
 
     /// Calculates the interpolation matrix for GRJP quadrature.
     int interpmat_grjp();

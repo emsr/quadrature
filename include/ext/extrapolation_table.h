@@ -36,51 +36,51 @@
 namespace __gnu_cxx
 {
 
-  template<typename _AreaTp, typename _AbsAreaTp>
+  template<typename AreaTp, typename AbsAreaTp>
     class extrapolation_table
     {
 
     private:
 
-      std::size_t _M_nn;
-      std::array<_AreaTp, 52> _M_rlist2;
-      std::size_t _M_nres;
-      std::array<_AreaTp, 3> _M_res3la;
+      std::size_t m_nn;
+      std::array<AreaTp, 52> m_rlist2;
+      std::size_t m_nres;
+      std::array<AreaTp, 3> m_res3la;
 
-      const _AbsAreaTp _M_irreg_test = _AbsAreaTp{0.0001};
+      const AbsAreaTp m_irreg_test = AbsAreaTp{0.0001};
 
     public:
 
       extrapolation_table()
-      : _M_nn(0),
-	_M_nres(0)
+      : m_nn(0),
+	m_nres(0)
       {
 	// Try to adjust tests for varing precision?
 	// I don't think this is a precision-sensitive limit.
-	//this->_M_irreg_test = std::pow(_AbsAreaTp{10},
-	//			 -std::numeric_limits<_AbsAreaTp>::digits10 / _AbsAreaTp{4.0});
+	//this->m_irreg_test = std::pow(AbsAreaTp{10},
+	//			 -std::numeric_limits<AbsAreaTp>::digits10 / AbsAreaTp{4.0});
       }
 
-      explicit extrapolation_table(_AreaTp __y)
-      : _M_nn(0),
-	_M_nres(0)
-      { this->append(__y); }
+      explicit extrapolation_table(AreaTp y)
+      : m_nn(0),
+	m_nres(0)
+      { this->append(y); }
 
       void
-      append(_AreaTp __y)
+      append(AreaTp y)
       {
-	if (this->_M_nn < this->_M_rlist2.size())
+	if (this->m_nn < this->m_rlist2.size())
 	  {
-	    this->_M_rlist2[this->_M_nn] = __y;
-	    ++this->_M_nn;
+	    this->m_rlist2[this->m_nn] = y;
+	    ++this->m_nn;
 	  }
       }
 
-      std::tuple<_AreaTp, _AbsAreaTp> qelg();
+      std::tuple<AreaTp, AbsAreaTp> qelg();
 
       std::size_t
       get_nn() const
-      { return this->_M_nn; }
+      { return this->m_nn; }
     };
 
 } // namespace __gnu_cxx

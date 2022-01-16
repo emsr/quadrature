@@ -3,12 +3,12 @@
 #include <ext/sf_factorial.h>
 
 // Factorial.
-template<typename _Tp>
+template<typename Tp>
   struct testcase_factorial
   {
-    _Tp f0;
+    Tp f0;
     unsigned int n;
-    _Tp f;
+    Tp f;
   };
 
 const testcase_factorial<double>

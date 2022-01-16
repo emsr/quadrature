@@ -30,124 +30,121 @@ namespace __gnu_cxx
   /**
    * 
    */
-  template<typename _Tp, typename _FuncTp>
+  template<typename Tp, typename FuncTp>
     class composite_midpoint_integral
     {
     public:
 
-      using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
-      using _AreaTp = decltype(_RetTp{} * _Tp{});
-      using _AbsAreaTp = decltype(std::abs(_AreaTp{}));
+      using RetTp = std::invoke_result_t<FuncTp, Tp>;
+      using AreaTp = decltype(RetTp{} * Tp{});
+      using AbsAreaTp = decltype(std::abs(AreaTp{}));
 
-      composite_midpoint_integral(_FuncTp __fun, _Tp __lower, _Tp __upper,
-				   std::size_t __num_segs)
-      : _M_fun(__fun), _M_lower_lim(__lower), _M_upper_lim(__upper),
-	_M_num_segs(__num_segs), _M_result()
+      composite_midpoint_integral(FuncTp fun, Tp lower, Tp upper,
+				  std::size_t num_segs)
+      : m_fun(fun), m_lower_lim(lower), m_upper_lim(upper),
+	m_num_segs(num_segs), m_result()
       { }
 
-      _AreaTp operator()();
+      AreaTp operator()();
 
-      template<typename _FuncTp2>
-	fixed_integral_t<_Tp, std::invoke_result_t<_FuncTp2, _Tp>>
-	integrate(_FuncTp2 __fun, _Tp __lower, _Tp __upper)
+      template<typename FuncTp2>
+	fixed_integral_t<Tp, std::invoke_result_t<FuncTp2, Tp>>
+	integrate(FuncTp2 fun, Tp lower, Tp upper)
 	{
-	  composite_midpoint_integral<_FuncTp2, _Tp>
-	    __trapi(__fun, __lower, __upper, this->_M_num_segments);
-	  return {__trapi()};
+	  composite_midpoint_integral<FuncTp2, Tp>
+	    trapi(fun, lower, upper, this->m_num_segments);
+	  return {trapi()};
 	}
 
     private:
 
-      _FuncTp _M_fun;
-      _Tp _M_lower_lim;
-      _Tp _M_upper_lim;
-      std::size_t _M_num_segs;
-      _AreaTp _M_result;
-      _AreaTp _M_asymp_error;
+      FuncTp m_fun;
+      Tp m_lower_lim;
+      Tp m_upper_lim;
+      std::size_t m_num_segs;
+      AreaTp m_result;
+      AreaTp m_asymp_error;
     };
 
   /**
    * A globally adaptive recursive midpoint integrator.
    */
-  template<typename _Tp, typename _FuncTp>
+  template<typename Tp, typename FuncTp>
     class midpoint_integral
     {
     public:
 
-      using _RetTp = std::invoke_result_t<_FuncTp, _Tp>;
-      using _AreaTp = decltype(_RetTp{} * _Tp{});
-      using _AbsAreaTp = decltype(std::abs(_AreaTp{}));
+      using RetTp = std::invoke_result_t<FuncTp, Tp>;
+      using AreaTp = decltype(RetTp{} * Tp{});
+      using AbsAreaTp = decltype(std::abs(AreaTp{}));
 
-      midpoint_integral(_FuncTp __fun, _Tp __lower, _Tp __upper,
-			_Tp __abs_tol, _Tp __rel_tol)
-      : _M_fun(__fun), _M_lower_lim(__lower), _M_upper_lim(__upper),
-	_M_abs_tol(std::abs(__abs_tol)), _M_rel_tol(std::abs(__rel_tol)),
-	_M_result(), _M_abs_error()
+      midpoint_integral(FuncTp fun, Tp lower, Tp upper,
+			Tp abs_tol, Tp rel_tol)
+      : m_fun(fun), m_lower_lim(lower), m_upper_lim(upper),
+	m_abs_tol(std::abs(abs_tol)), m_rel_tol(std::abs(rel_tol)),
+	m_result(), m_abs_error()
       { }
 
-      _AreaTp operator()();
+      AreaTp operator()();
 
-      _AbsAreaTp abs_error() const
-      { return this->_M_abs_error; }
+      AbsAreaTp abs_error() const
+      { return this->m_abs_error; }
 
-      template<typename _FuncTp2>
-	adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp2, _Tp>>
-	integrate(_FuncTp2 __fun, _Tp __lower, _Tp __upper)
+      template<typename FuncTp2>
+	adaptive_integral_t<Tp, std::invoke_result_t<FuncTp2, Tp>>
+	integrate(FuncTp2 fun, Tp lower, Tp upper)
 	{
-	  midpoint_integral<_FuncTp2, _Tp>
-	    __mpi(__fun, __lower, __upper,
-		  this->_M_abs_tol, this->_M_rel_tol);
-	  return {__mpi(), __mpi.abs_error() };
+	  midpoint_integral<FuncTp2, Tp>
+	    mpi(fun, lower, upper,
+		  this->m_abs_tol, this->m_rel_tol);
+	  return {mpi(), mpi.abs_error() };
 	}
 
-      template<typename _FuncTp2>
-	adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp2, _Tp>>
-	operator()(_FuncTp2 __fun, _Tp __lower, _Tp __upper)
-	{ return this->integrate(__fun, __lower, __upper); }
+      template<typename FuncTp2>
+	adaptive_integral_t<Tp, std::invoke_result_t<FuncTp2, Tp>>
+	operator()(FuncTp2 fun, Tp lower, Tp upper)
+	{ return this->integrate(fun, lower, upper); }
 
     private:
 
-      static constexpr auto _S_max_iter = std::numeric_limits<_Tp>::digits / 2;
-      static constexpr auto _S_min_delta
-			   = std::sqrt(std::numeric_limits<_Tp>::epsilon());
+      static constexpr auto s_max_iter = std::numeric_limits<Tp>::digits / 2;
+      static constexpr auto s_min_delta = std::sqrt(std::numeric_limits<Tp>::epsilon());
 
-      _AreaTp _M_step();
+      AreaTp m_step();
 
-      _FuncTp _M_fun;
-      _Tp _M_lower_lim;
-      _Tp _M_upper_lim;
-      _AbsAreaTp _M_abs_tol;
-      _AbsAreaTp _M_rel_tol;
-      _AreaTp _M_result;
-      _AbsAreaTp _M_abs_error;
-      std::size_t _M_iter = 0;
-      std::size_t _M_pow3 = 0;
+      FuncTp m_fun;
+      Tp m_lower_lim;
+      Tp m_upper_lim;
+      AbsAreaTp m_abs_tol;
+      AbsAreaTp m_rel_tol;
+      AreaTp m_result;
+      AbsAreaTp m_abs_error;
+      std::size_t m_iter = 0;
+      std::size_t m_pow3 = 0;
     };
 
-  template<typename _Tp, typename _FuncTp>
-    inline adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
-    integrate_midpoint(_FuncTp __func, _Tp __lower, _Tp __upper,
-			_Tp __max_abs_err, _Tp __max_rel_err, int __max_iter)
+  template<typename Tp, typename FuncTp>
+    inline adaptive_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>
+    integrate_midpoint(FuncTp func, Tp lower, Tp upper,
+			Tp max_abs_err, Tp max_rel_err, int max_iter)
     {
-      using __integ_t = adaptive_integral_t<_Tp,
-				     std::invoke_result_t<_FuncTp, _Tp>>;
-      using __area_t = typename __integ_t::_AreaTp;
-      using __absarea_t = typename __integ_t::_AbsAreaTp;
+      using integ_t = adaptive_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>;
+      using area_t = typename integ_t::AreaTp;
+      using absarea_t = typename integ_t::AbsAreaTp;
 
-      if (std::isnan(__lower) || std::isnan(__upper)
-          || std::isnan(__max_abs_err) || std::isnan(__max_rel_err))
+      if (std::isnan(lower) || std::isnan(upper)
+          || std::isnan(max_abs_err) || std::isnan(max_rel_err))
 	{
-	  const auto _S_NaN = std::numeric_limits<_Tp>::quiet_NaN();
-	  return {__area_t{} * _S_NaN, __absarea_t{} * _S_NaN};
+	  const auto s_NaN = std::numeric_limits<Tp>::quiet_NaN();
+	  return {area_t{} * s_NaN, absarea_t{} * s_NaN};
 	}
-      else if (__lower == __upper)
-	return {__area_t{}, __absarea_t{}};
+      else if (lower == upper)
+	return {area_t{}, absarea_t{}};
       else
 	{
-          midpoint_integral<_Tp, _FuncTp>
-	    __mpi(__func, __lower, __upper, __max_abs_err, __max_rel_err,
-		  __max_iter);
-          return {__mpi(), __mpi.abs_error()};
+          midpoint_integral<Tp, FuncTp>
+	    mpi(func, lower, upper, max_abs_err, max_rel_err, max_iter);
+          return {mpi(), mpi.abs_error()};
 	}
     }
 

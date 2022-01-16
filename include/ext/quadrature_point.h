@@ -36,39 +36,39 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
   /**
    * A structure to store quadrature rules.
    */
-  template<typename _Tp>
-    struct __quadrature_point_t
+  template<typename Tp>
+    struct quadrature_point_t
     {
-      _Tp __point;
-      _Tp __weight;
+      Tp point;
+      Tp weight;
 
-      constexpr __quadrature_point_t() = default;
+      constexpr quadrature_point_t() = default;
 
-      constexpr __quadrature_point_t(_Tp __pt, _Tp __wt)
-      : __point(__pt),
-	__weight(__wt)
+      constexpr quadrature_point_t(Tp pt, Tp wt)
+      : point(pt),
+	weight(wt)
       { }
     };
 
-  template<typename _Tp>
-    std::vector<__quadrature_point_t<_Tp>>
-    __legendre_zeros(unsigned int __l);
+  template<typename Tp>
+    std::vector<quadrature_point_t<Tp>>
+    legendre_zeros(unsigned int l);
 
-  template<typename _Tp>
-    std::vector<__quadrature_point_t<_Tp>>
-    __laguerre_zeros(unsigned int __n, _Tp __alpha1);
+  template<typename Tp>
+    std::vector<quadrature_point_t<Tp>>
+    laguerre_zeros(unsigned int n, Tp alpha1);
 
-  template<typename _Tp>
-    std::vector<__quadrature_point_t<_Tp>>
-    __hermite_zeros(unsigned int __n);
+  template<typename Tp>
+    std::vector<quadrature_point_t<Tp>>
+    hermite_zeros(unsigned int n);
 
-  template<typename _Tp>
-    std::vector<__quadrature_point_t<_Tp>>
-    __gegenbauer_zeros(unsigned int __n, _Tp __lambda);
+  template<typename Tp>
+    std::vector<quadrature_point_t<Tp>>
+    gegenbauer_zeros(unsigned int n, Tp lambda);
 
-  template<typename _Tp>
-    std::vector<__quadrature_point_t<_Tp>>
-    __jacobi_zeros(unsigned int __n, _Tp __alpha1, _Tp __beta1);
+  template<typename Tp>
+    std::vector<quadrature_point_t<Tp>>
+    jacobi_zeros(unsigned int n, Tp alpha1, Tp beta1);
 
 _GLIBCXX_END_NAMESPACE_VERSION
 } // namespace __gnu_cxx

@@ -27,13 +27,13 @@
 namespace __gnu_cxx
 {
   //  Is this useful?
-  template<typename _Tp, typename _FuncTp>
+  template<typename Tp, typename FuncTp>
     struct mapper
     {
-      _FuncTp _M_func;
+      FuncTp m_func;
 
-      mapper(_FuncTp __func)
-      : _M_func(__func)
+      mapper(FuncTp func)
+      : m_func(func)
       { }
     };
 
@@ -49,27 +49,27 @@ namespace __gnu_cxx
    * Note: @f$ g(t) @f$ actually returns @f$ [f(-x) + f(+x)]dx/dt @f$.
    * Note: @f$ x:0->\infty @f$ as @f$ t:1->0 @f$.
    */
-  template<typename _Tp, typename _FuncTp>
+  template<typename Tp, typename FuncTp>
     struct map_minf_pinf_symm
     {
-      _FuncTp _M_func;
+      FuncTp m_func;
 
-      map_minf_pinf_symm(_FuncTp __func)
-      : _M_func(__func)
+      map_minf_pinf_symm(FuncTp func)
+      : m_func(func)
       { }
 
-      std::invoke_result_t<_FuncTp, _Tp>
-      operator()(_Tp __t) const
+      std::invoke_result_t<FuncTp, Tp>
+      operator()(Tp t) const
       {
-	if (__t == _Tp{0})
-	  return _M_func(-std::numeric_limits<_Tp>::infinity());
-	else if (__t == _Tp{1})
-	  return _M_func(+std::numeric_limits<_Tp>::infinity());
+	if (t == Tp{0})
+	  return m_func(-std::numeric_limits<Tp>::infinity());
+	else if (t == Tp{1})
+	  return m_func(+std::numeric_limits<Tp>::infinity());
 	else
 	  {
-	    const auto __x = (_Tp{1} - __t) / __t;
-	    const auto __y = _M_func(+__x) + _M_func(-__x);
-	    return __y / __t / __t;
+	    const auto x = (Tp{1} - t) / t;
+	    const auto y = m_func(+x) + m_func(-x);
+	    return y / t / t;
 	  }
       }
     };
@@ -84,29 +84,29 @@ namespace __gnu_cxx
    *    x(t) = -\frac{1}{t} + \frac{1}{1-t}
    * $f]
    */
-  template<typename _Tp, typename _FuncTp>
+  template<typename Tp, typename FuncTp>
     struct map_minf_pinf
     {
-      _FuncTp _M_func;
+      FuncTp m_func;
 
-      map_minf_pinf(_FuncTp __func)
-      : _M_func(__func)
+      map_minf_pinf(FuncTp func)
+      : m_func(func)
       { }
 
-      std::invoke_result_t<_FuncTp, _Tp>
-      operator()(_Tp __t) const
+      std::invoke_result_t<FuncTp, Tp>
+      operator()(Tp t) const
       {
-	if (__t == _Tp{0})
-	  return _M_func(-std::numeric_limits<_Tp>::infinity());
-	else if (__t == _Tp{1})
-	  return _M_func(+std::numeric_limits<_Tp>::infinity());
+	if (t == Tp{0})
+	  return m_func(-std::numeric_limits<Tp>::infinity());
+	else if (t == Tp{1})
+	  return m_func(+std::numeric_limits<Tp>::infinity());
 	else
 	  {
-	    const auto __inv_t = _Tp{1} / __t;
-	    const auto __inv_1mt = _Tp{1} / (_Tp{1} - __t);
-	    const auto __x = -__inv_t + __inv_1mt;
-	    const auto __y = _M_func(__x);
-	    return __y * (__inv_t * __inv_t + __inv_1mt * __inv_1mt);
+	    const auto inv_t = Tp{1} / t;
+	    const auto inv_1mt = Tp{1} / (Tp{1} - t);
+	    const auto x = -inv_t + inv_1mt;
+	    const auto y = m_func(x);
+	    return y * (inv_t * inv_t + inv_1mt * inv_1mt);
 	  }
       }
     };
@@ -121,28 +121,28 @@ namespace __gnu_cxx
    *    x(t) = b - \frac{1-t}{t}
    * $f]
    */
-  template<typename _Tp, typename _FuncTp>
+  template<typename Tp, typename FuncTp>
     struct map_minf_b
     {
-      _FuncTp _M_func;
-      const _Tp _M_b;
+      FuncTp m_func;
+      const Tp m_b;
 
-      map_minf_b(_FuncTp __func, _Tp __b)
-      : _M_func(__func),
-	_M_b(__b)
+      map_minf_b(FuncTp func, Tp b)
+      : m_func(func),
+	m_b(b)
       { }
 
-      std::invoke_result_t<_FuncTp, _Tp>
-      operator()(_Tp __t) const
+      std::invoke_result_t<FuncTp, Tp>
+      operator()(Tp t) const
       {
-	if (__t == _Tp{0})
-	  return _M_func(-std::numeric_limits<_Tp>::infinity());
+	if (t == Tp{0})
+	  return m_func(-std::numeric_limits<Tp>::infinity());
 	else
 	  {
-	    const auto __inv_t = _Tp{1} / __t;
-	    const auto __x = _M_b - (_Tp{1} - __t) * __inv_t;
-	    const auto __y = _M_func(__x);
-	    return __y * __inv_t * __inv_t;
+	    const auto inv_t = Tp{1} / t;
+	    const auto x = m_b - (Tp{1} - t) * inv_t;
+	    const auto y = m_func(x);
+	    return y * inv_t * inv_t;
 	  }
       }
     };
@@ -157,28 +157,28 @@ namespace __gnu_cxx
    *    x(t) = a + \frac{t}{1-t}
    * $f]
    */
-  template<typename _Tp, typename _FuncTp>
+  template<typename Tp, typename FuncTp>
     struct map_a_pinf
     {
-      _FuncTp _M_func;
-      const _Tp _M_a;
+      FuncTp m_func;
+      const Tp m_a;
 
-      map_a_pinf(_FuncTp __func, _Tp __a)
-      : _M_func(__func),
-	_M_a(__a)
+      map_a_pinf(FuncTp func, Tp a)
+      : m_func(func),
+	m_a(a)
       { }
 
-      std::invoke_result_t<_FuncTp, _Tp>
-      operator()(_Tp __t) const
+      std::invoke_result_t<FuncTp, Tp>
+      operator()(Tp t) const
       {
-	if (__t == _Tp{1})
-	  return _M_func(+std::numeric_limits<_Tp>::infinity());
+	if (t == Tp{1})
+	  return m_func(+std::numeric_limits<Tp>::infinity());
 	else
 	  {
-	    const auto __inv_1mt = _Tp{1} / (_Tp{1} - __t);
-	    const auto __x = _M_a + __t * __inv_1mt;
-	    const auto __y = _M_func(__x);
-	    return __y * __inv_1mt * __inv_1mt;
+	    const auto inv_1mt = Tp{1} / (Tp{1} - t);
+	    const auto x = m_a + t * inv_1mt;
+	    const auto y = m_func(x);
+	    return y * inv_1mt * inv_1mt;
 	  }
       }
     };

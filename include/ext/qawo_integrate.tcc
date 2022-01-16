@@ -35,435 +35,433 @@
 namespace __gnu_cxx
 {
 
-  template<typename _Tp, typename _FuncTp>
+  template<typename Tp, typename FuncTp>
     auto
-    qc25f(oscillatory_integration_table<_Tp>& __wf,
-	  _FuncTp __func, _Tp __lower, _Tp __upper,
-	  std::size_t __depth)
-    -> gauss_kronrod_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>;
+    qc25f(oscillatory_integration_table<Tp>& wf,
+	  FuncTp func, Tp lower, Tp upper,
+	  std::size_t depth)
+    -> gauss_kronrod_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>;
 
-  template<typename _Tp, typename _FuncTp>
+  template<typename Tp, typename FuncTp>
     auto
-    qawo_integrate(integration_workspace<_Tp,
-			std::invoke_result_t<_FuncTp, _Tp>>& __workspace,
-		   oscillatory_integration_table<_Tp>& __wf,
-		   _FuncTp __func,
-		   const _Tp __lower,
-		   const _Tp __max_abs_err, const _Tp __max_rel_err)
-    -> adaptive_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    qawo_integrate(integration_workspace<Tp,
+			std::invoke_result_t<FuncTp, Tp>>& workspace,
+		   oscillatory_integration_table<Tp>& wf,
+		   FuncTp func,
+		   const Tp lower,
+		   const Tp max_abs_err, const Tp max_rel_err)
+    -> adaptive_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>
     {
-      using _AreaTp = std::invoke_result_t<_FuncTp, _Tp>;
-      using _AbsAreaTp = decltype(std::abs(_AreaTp{}));
+      using AreaTp = std::invoke_result_t<FuncTp, Tp>;
+      using AbsAreaTp = decltype(std::abs(AreaTp{}));
 
-      const auto _S_max = std::numeric_limits<_Tp>::max();
-      const auto _S_eps = std::numeric_limits<_Tp>::epsilon();
-      const auto __limit = __workspace.capacity();
+      const auto s_max = std::numeric_limits<Tp>::max();
+      const auto s_eps = std::numeric_limits<Tp>::epsilon();
+      const auto limit = workspace.capacity();
       // Try to adjust tests for varing precision. 10^{-5.3} for double.
-      const auto _S_rel_err = std::pow(_Tp{10},
-				 -std::numeric_limits<_Tp>::digits / _Tp{10});
+      const auto s_rel_err = std::pow(Tp{10},
+				 -std::numeric_limits<Tp>::digits / Tp{10});
 
-      bool __extrapolate = false;
-      bool __extall = false;
-      bool __allow_extrapolation = true;
+      bool extrapolate = false;
+      bool extall = false;
+      bool allow_extrapolation = true;
 
-      __workspace.clear();
-      //__wf.clear();
-      extrapolation_table<_AreaTp, _AbsAreaTp> __table;
+      workspace.clear();
+      //wf.clear();
+      extrapolation_table<AreaTp, AbsAreaTp> table;
 
-      const auto __upper = __lower + __wf.get_length();
-      const auto __abs_omega = std::abs(__wf.omega);
+      const auto upper = lower + wf.get_length();
+      const auto abs_omega = std::abs(wf.omega);
 
-      auto __result = _Tp{0};
-      auto __abserr = _Tp{0};
+      auto result = Tp{0};
+      auto abserr = Tp{0};
 
-      if (!valid_tolerances(__max_abs_err, __max_rel_err))
+      if (!valid_tolerances(max_abs_err, max_rel_err))
 	{
-	  std::ostringstream __msg;
-	  __msg << "qawo_integrate: Tolerance cannot be achieved with given "
-		   "absolute (" << __max_abs_err << ") and relative ("
-		<< __max_rel_err << ") error limits.";
-	  std::__throw_runtime_error(__msg.str().c_str());
+	  std::ostringstream msg;
+	  msg << "qawo_integrate: Tolerance cannot be achieved with given "
+		   "absolute (" << max_abs_err << ") and relative ("
+		<< max_rel_err << ") error limits.";
+	  throw std::runtime_error(msg.str().c_str());
 	}
 
       // Perform the first integration.
-      auto [__result0, __abserr0, __resabs0, __resasc0]
-	= qc25f(__wf, __func, __lower, __upper, 0);
+      auto [result0, abserr0, resabs0, resasc0]
+	= qc25f(wf, func, lower, upper, 0);
 
-      __workspace.append(__lower, __upper, __result0, __abserr0);
+      workspace.append(lower, upper, result0, abserr0);
 
-      auto __tolerance = std::max(__max_abs_err,
-				  __max_rel_err * std::abs(__result0));
+      auto tolerance = std::max(max_abs_err,
+				  max_rel_err * std::abs(result0));
 
-      if (__abserr0 <= _Tp{100} * _S_eps * __resabs0
-	  && __abserr0 > __tolerance)
+      if (abserr0 <= Tp{100} * s_eps * resabs0
+	  && abserr0 > tolerance)
 	throw integration_error("qawo_integrate: "
 				"Cannot reach tolerance because "
 				"of roundoff error on first attempt",
-				ROUNDOFF_ERROR, __result0, __abserr0);
-      else if ((__abserr0 <= __tolerance && __abserr0 != __resasc0)
-		|| __abserr0 == _Tp{0})
-	return {__result0, __abserr0};
-      else if (__limit == 1)
+				ROUNDOFF_ERROR, result0, abserr0);
+      else if ((abserr0 <= tolerance && abserr0 != resasc0)
+		|| abserr0 == Tp{0})
+	return {result0, abserr0};
+      else if (limit == 1)
 	throw integration_error("qawo_integrate: "
 				"A maximum of one iteration was insufficient",
-				MAX_ITER_ERROR, __result0, __abserr0);
+				MAX_ITER_ERROR, result0, abserr0);
 
-      if (0.5 * __abs_omega * std::abs(__upper - __lower) <= _Tp{2})
+      if (0.5 * abs_omega * std::abs(upper - lower) <= Tp{2})
 	{
-	  __table.append(__result0);
-	  __extall = true;
+	  table.append(result0);
+	  extall = true;
 	}
 
-      auto __res_ext = __result0;
-      auto __err_ext = _S_max;
+      auto res_ext = result0;
+      auto err_ext = s_max;
 
-      auto __area = __result0;
-      auto __errsum = __abserr0;
-      auto __iteration = 1u;
-      auto __ktmin = 0u;
-      auto __ertest = _Tp{0};
-      auto __error_over_large_intervals = _Tp{0};
-      auto __correc = _Tp{0};
-      int __roundoff_type1 = 0, __roundoff_type2 = 0, __roundoff_type3 = 0;
-      int __error_type = NO_ERROR, __error_type2 = NO_ERROR;
+      auto area = result0;
+      auto errsum = abserr0;
+      auto iteration = 1u;
+      auto ktmin = 0u;
+      auto ertest = Tp{0};
+      auto error_over_large_intervals = Tp{0};
+      auto correc = Tp{0};
+      int roundoff_type1 = 0, roundoff_type2 = 0, roundoff_type3 = 0;
+      int error_type = NO_ERROR, error_type2 = NO_ERROR;
       do
 	{
 	  // Bisect the subinterval with the largest error estimate.
-	  const auto& __curr = __workspace.retrieve();
+	  const auto& curr = workspace.retrieve();
 
-	  const auto __current_depth = __workspace.curr_depth() + 1;
+	  const auto current_depth = workspace.curr_depth() + 1;
 
-	  if (__current_depth >= __wf.n)
+	  if (current_depth >= wf.n)
 	    {
-	      __error_type = -1; // exceeded limit of table.
+	      error_type = -1; // exceeded limit of table.
 	      break;
 	    }
 
-	  const auto __a1 = __curr.__lower_lim;
-	  const auto __mid = (__curr.__lower_lim + __curr.__upper_lim) / _Tp{2};
-	  const auto __a2 = __mid;
-	  const auto __b2 = __curr.__upper_lim;
+	  const auto a1 = curr.lower_lim;
+	  const auto mid = (curr.lower_lim + curr.upper_lim) / Tp{2};
+	  const auto a2 = mid;
+	  const auto b2 = curr.upper_lim;
 
-	  ++__iteration;
+	  ++iteration;
 
-	  auto [__area1, __error1, __resabs1, __resasc1]
-	    = qc25f(__wf, __func, __a1, __mid, __current_depth);
+	  auto [area1, error1, resabs1, resasc1]
+	    = qc25f(wf, func, a1, mid, current_depth);
 
-	  auto [__area2, __error2, __resabs2, __resasc2]
-	    = qc25f(__wf, __func, __a2, __b2, __current_depth);
+	  auto [area2, error2, resabs2, resasc2]
+	    = qc25f(wf, func, a2, b2, current_depth);
 
-	  const auto __area12 = __area1 + __area2;
-	  const auto __error12 = __error1 + __error2;
-	  const auto __last_e_i = __curr.__abs_error;
+	  const auto area12 = area1 + area2;
+	  const auto error12 = error1 + error2;
+	  const auto last_e_i = curr.abs_error;
 
 	  // Improve previous approximations to the integral and test
 	  // for accuracy.
-	  __area += __area12 - __curr.__result;
-	  __errsum += __error12 - __curr.__abs_error;
+	  area += area12 - curr.result;
+	  errsum += error12 - curr.abs_error;
 
-	  __tolerance = std::max(__max_abs_err,
-				 __max_rel_err * std::abs(__area));
+	  tolerance = std::max(max_abs_err,
+				 max_rel_err * std::abs(area));
 
-	  if (__resasc1 != __error1 && __resasc2 != __error2)
+	  if (resasc1 != error1 && resasc2 != error2)
 	    {
-	      const auto __delta = __curr.__result - __area12;
+	      const auto delta = curr.result - area12;
 
-	      if (std::abs(__delta) <= _S_rel_err * std::abs(__area12)
-			 && __error12 >= _Tp{0.99} * __curr.__abs_error)
+	      if (std::abs(delta) <= s_rel_err * std::abs(area12)
+			 && error12 >= Tp{0.99} * curr.abs_error)
 		{
-		  if (!__extrapolate)
-		    ++__roundoff_type1;
+		  if (!extrapolate)
+		    ++roundoff_type1;
 		  else
-		    ++__roundoff_type2;
+		    ++roundoff_type2;
 		}
-	      if (__iteration > 10 && __error12 > __curr.__abs_error)
-		++__roundoff_type3;
+	      if (iteration > 10 && error12 > curr.abs_error)
+		++roundoff_type3;
 	    }
 
 	  // Test for roundoff and eventually set error flag.
 
-	  if (__roundoff_type1 + __roundoff_type2 >= 10
-	   || __roundoff_type3 >= 20)
-	    __error_type = ROUNDOFF_ERROR;
+	  if (roundoff_type1 + roundoff_type2 >= 10
+	   || roundoff_type3 >= 20)
+	    error_type = ROUNDOFF_ERROR;
 
-	  if (__roundoff_type2 >= 5)
-	    __error_type2 = MAX_ITER_ERROR;
+	  if (roundoff_type2 >= 5)
+	    error_type2 = MAX_ITER_ERROR;
 
 	  // Set error flag in the case of bad integrand behaviour at
 	  // a point of the integration range.
-	  if (__workspace.subinterval_too_small(__a1, __a2, __b2))
-	    __error_type = EXTRAP_ROUNDOFF_ERROR;
+	  if (workspace.subinterval_too_small(a1, a2, b2))
+	    error_type = EXTRAP_ROUNDOFF_ERROR;
 
 	  // Split the current interval in two.
-	  __workspace.split(__mid, __area1, __error1, __area2, __error2);
+	  workspace.split(mid, area1, error1, area2, error2);
 
-	  if (__errsum <= __tolerance)
+	  if (errsum <= tolerance)
 	    {
-	      __result = __workspace.total_integral();
-	      __abserr = __errsum;
-	      check_error(__func__, __error_type, __result, __abserr);
-	      return {__result, __abserr};
+	      result = workspace.total_integral();
+	      abserr = errsum;
+	      check_error(__func__, error_type, result, abserr);
+	      return {result, abserr};
 	    }
 
-	  if (__error_type != NO_ERROR)
+	  if (error_type != NO_ERROR)
 	    break;
 
-	  if (__iteration >= __limit - 1)
+	  if (iteration >= limit - 1)
 	    {
-	      __error_type = MAX_ITER_ERROR;
+	      error_type = MAX_ITER_ERROR;
 	      break;
 	    }
 
 	  // Set up variables on first iteration.
-	  if (__iteration == 2 && __extall)
+	  if (iteration == 2 && extall)
 	    {
-	      __error_over_large_intervals = __errsum;
-	      __ertest = __tolerance;
-	      __table.append(__area);
+	      error_over_large_intervals = errsum;
+	      ertest = tolerance;
+	      table.append(area);
 	      continue;
 	    }
 
-	  if (!__allow_extrapolation)
+	  if (!allow_extrapolation)
 	    continue;
 
-	  if (__extall)
+	  if (extall)
 	    {
-	      __error_over_large_intervals -= __last_e_i;
+	      error_over_large_intervals -= last_e_i;
 
-	      if (__current_depth < __workspace.max_depth())
-		__error_over_large_intervals += __error12;
+	      if (current_depth < workspace.max_depth())
+		error_over_large_intervals += error12;
 
-	      if (__extrapolate)
-		if (__error_type2 != NO_ERROR
-		 && __error_over_large_intervals > __ertest)
-		  if (__workspace.increment_curr_index())
+	      if (extrapolate)
+		if (error_type2 != NO_ERROR
+		 && error_over_large_intervals > ertest)
+		  if (workspace.increment_curr_index())
 		    continue;
 	    }
 
-	  if (__workspace.large_interval())
+	  if (workspace.large_interval())
 	    continue;
 
-	  if (__extall)
+	  if (extall)
 	    {
-	      __extrapolate = true;
-	      __workspace.increment_curr_index();
+	      extrapolate = true;
+	      workspace.increment_curr_index();
 	    }
 	  else
 	    {
 	      // Test whether the interval to be bisected next is the
 	      // smallest interval.
-	      auto __width = __workspace.upper_lim() - __workspace.lower_lim();
+	      auto width = workspace.upper_lim() - workspace.lower_lim();
 
-	      if (0.25 * std::abs(__width) * __abs_omega > _Tp{2})
+	      if (0.25 * std::abs(width) * abs_omega > Tp{2})
 		continue;
 
-	      __extall = true;
-	      __error_over_large_intervals = __errsum;
-	      __ertest = __tolerance;
+	      extall = true;
+	      error_over_large_intervals = errsum;
+	      ertest = tolerance;
 	      continue;
 	    }
 
-	  if (__error_type2 != NO_ERROR
-	   && __error_over_large_intervals > __ertest)
-	    if (__workspace.increment_curr_index())
+	  if (error_type2 != NO_ERROR
+	   && error_over_large_intervals > ertest)
+	    if (workspace.increment_curr_index())
 	      continue;
 
 	  // Perform extrapolation.
 
-	  __table.append(__area);
+	  table.append(area);
 
-	  if (__table.get_nn() < 3)
+	  if (table.get_nn() < 3)
 	    {
-	      __workspace.reset_curr_index();
-	      __extrapolate = false;
-	      __error_over_large_intervals = __errsum;
+	      workspace.reset_curr_index();
+	      extrapolate = false;
+	      error_over_large_intervals = errsum;
 	      continue;
 	    }
 
-	  _Tp __reseps, __abseps;
-	  std::tie(__reseps, __abseps) = __table.qelg();
+	  Tp reseps, abseps;
+	  std::tie(reseps, abseps) = table.qelg();
 
-	  ++__ktmin;
-	  if (__ktmin > 5 && __err_ext < 0.001 * __errsum)
-	    __error_type = DIVERGENCE_ERROR;
+	  ++ktmin;
+	  if (ktmin > 5 && err_ext < 0.001 * errsum)
+	    error_type = DIVERGENCE_ERROR;
 
-	  if (__abseps < __err_ext)
+	  if (abseps < err_ext)
 	    {
-	      __ktmin = 0;
-	      __err_ext = __abseps;
-	      __res_ext = __reseps;
-	      __correc = __error_over_large_intervals;
-	      __ertest = std::max(__max_abs_err,
-				  __max_rel_err * std::abs(__reseps));
-	      if (__err_ext <= __ertest)
+	      ktmin = 0;
+	      err_ext = abseps;
+	      res_ext = reseps;
+	      correc = error_over_large_intervals;
+	      ertest = std::max(max_abs_err, max_rel_err * std::abs(reseps));
+	      if (err_ext <= ertest)
 		break;
 	    }
 
 	  // Prepare bisection of the smallest interval.
-	  if (__table.get_nn() == 1)
-	    __allow_extrapolation = false;
+	  if (table.get_nn() == 1)
+	    allow_extrapolation = false;
 
-	  if (__error_type == DIVERGENCE_ERROR)
+	  if (error_type == DIVERGENCE_ERROR)
 	    break;
 
 	  // Work on interval with largest error.
-	  __workspace.reset_curr_index();
-	  __extrapolate = false;
-	  __error_over_large_intervals = __errsum;
+	  workspace.reset_curr_index();
+	  extrapolate = false;
+	  error_over_large_intervals = errsum;
 	}
-      while (__iteration < __limit);
+      while (iteration < limit);
 
-      __result = __res_ext;
-      __abserr = __err_ext;
+      result = res_ext;
+      abserr = err_ext;
 
-      if (__err_ext == _S_max)
+      if (err_ext == s_max)
 	{
-	  __result = __workspace.total_integral();
-	  __abserr = __errsum;
-	  check_error(__func__, __error_type, __result, __abserr);
-	  return {__result, __abserr};
+	  result = workspace.total_integral();
+	  abserr = errsum;
+	  check_error(__func__, error_type, result, abserr);
+	  return {result, abserr};
 	}
 
-      if (__error_type != NO_ERROR || __error_type2 != NO_ERROR)
+      if (error_type != NO_ERROR || error_type2 != NO_ERROR)
 	{
-	  if (__error_type2 != NO_ERROR)
-	    __err_ext += __correc;
+	  if (error_type2 != NO_ERROR)
+	    err_ext += correc;
 
-	  if (__error_type == NO_ERROR)
-	    __error_type = SINGULAR_ERROR;
+	  if (error_type == NO_ERROR)
+	    error_type = SINGULAR_ERROR;
 
-	  if (__result != 0 && __area != 0)
+	  if (result != 0 && area != 0)
 	    {
-	      if (__err_ext / std::abs(__res_ext) > __errsum / std::abs(__area))
+	      if (err_ext / std::abs(res_ext) > errsum / std::abs(area))
 		{
-		  __result = __workspace.total_integral();
-		  __abserr = __errsum;
-		  check_error(__func__, __error_type,
-				     __result, __abserr);
-		  return {__result, __abserr};
+		  result = workspace.total_integral();
+		  abserr = errsum;
+		  check_error(__func__, error_type, result, abserr);
+		  return {result, abserr};
 		}
 	    }
-	  else if (__err_ext > __errsum)
+	  else if (err_ext > errsum)
 	    {
-	      __result = __workspace.total_integral();
-	      __abserr = __errsum;
-	      check_error(__func__, __error_type, __result, __abserr);
-	      return {__result, __abserr};
+	      result = workspace.total_integral();
+	      abserr = errsum;
+	      check_error(__func__, error_type, result, abserr);
+	      return {result, abserr};
 	    }
-	  else if (__area == _Tp{0})
+	  else if (area == Tp{0})
 	    {
-	      check_error(__func__, __error_type, __result, __abserr);
-	      return {__result, __abserr};
+	      check_error(__func__, error_type, result, abserr);
+	      return {result, abserr};
 	    }
 	}
 
       // Test on divergence.
-      bool __positive_integrand = __test_positivity(__result0, __resabs0);
-      auto __max_area = std::max(std::abs(__res_ext), std::abs(__area));
-      if (!__positive_integrand && __max_area < _Tp{0.01} * __resabs0)
+      bool positive_integrand = test_positivity(result0, resabs0);
+      auto max_area = std::max(std::abs(res_ext), std::abs(area));
+      if (!positive_integrand && max_area < Tp{0.01} * resabs0)
 	{
-	  check_error(__func__, __error_type, __result, __abserr);
-	  return {__result, __abserr};
+	  check_error(__func__, error_type, result, abserr);
+	  return {result, abserr};
 	}
 
-      auto __ratio = __res_ext / __area;
-      if (__ratio < _Tp{0.01} || __ratio > _Tp{100}
-	  || __errsum > std::abs(__area))
-	__error_type = UNKNOWN_ERROR;
+      auto ratio = res_ext / area;
+      if (ratio < Tp{0.01} || ratio > Tp{100}
+	  || errsum > std::abs(area))
+	error_type = UNKNOWN_ERROR;
 
-      check_error(__func__, __error_type, __result, __abserr);
-      return {__result, __abserr};
+      check_error(__func__, error_type, result, abserr);
+      return {result, abserr};
     }
 
 
-  template<typename _Tp, typename _FuncTp>
+  template<typename Tp, typename FuncTp>
     auto
-    qc25f(oscillatory_integration_table<_Tp>& __wf,
-	  _FuncTp __func, _Tp __lower, _Tp __upper,
-	  std::size_t __depth)
-    -> gauss_kronrod_integral_t<_Tp, std::invoke_result_t<_FuncTp, _Tp>>
+    qc25f(oscillatory_integration_table<Tp>& wf,
+	  FuncTp func, Tp lower, Tp upper,
+	  std::size_t depth)
+    -> gauss_kronrod_integral_t<Tp, std::invoke_result_t<FuncTp, Tp>>
     {
-      const auto _S_max = std::numeric_limits<_Tp>::max();
-      const auto __center = ( __lower + __upper) / _Tp{2};
-      const auto __half_length = (__upper - __lower) / _Tp{2};
-      const auto __omega = __wf.omega;
+      const auto s_max = std::numeric_limits<Tp>::max();
+      const auto center = ( lower + upper) / Tp{2};
+      const auto half_length = (upper - lower) / Tp{2};
+      const auto omega = wf.omega;
 
-      const auto __par = __omega * __half_length;
+      const auto par = omega * half_length;
 
-      if (std::abs(__par) < _Tp{2})
+      if (std::abs(par) < Tp{2})
 	{
-	  if (__wf.circfun == oscillatory_integration_table<_Tp>::INTEG_SINE)
+	  if (wf.circfun == oscillatory_integration_table<Tp>::INTEG_SINE)
 	    {
-	      auto __wfun = [__func, __omega](_Tp __x)
-			    ->_Tp
-			    { return std::sin(__omega * __x) * __func(__x); };
-	      return qk_integrate(__wfun, __lower, __upper, Kronrod_15);
+	      auto wfun = [func, omega](Tp x)
+			    ->Tp
+			    { return std::sin(omega * x) * func(x); };
+	      return qk_integrate(wfun, lower, upper, Kronrod_15);
 	    }
 	  else
 	    {
-	      auto __wfun = [__func, __omega](_Tp __x)
-			    ->_Tp
-			    { return std::cos(__omega * __x) * __func(__x); };
-	      return qk_integrate(__wfun, __lower, __upper, Kronrod_15);
+	      auto wfun = [func, omega](Tp x)
+			    ->Tp
+			    { return std::cos(omega * x) * func(x); };
+	      return qk_integrate(wfun, lower, upper, Kronrod_15);
 	    }
 	}
       else
 	{
-	  auto __chout = qcheb_integrate(__func, __lower, __upper);
-	  const auto& __cheb12 = __chout.__cheb12;
-	  const auto& __cheb24 = __chout.__cheb24;
+	  auto chout = qcheb_integrate(func, lower, upper);
+	  const auto& cheb12 = chout.cheb12;
+	  const auto& cheb24 = chout.cheb24;
 
-	  if (__depth >= __wf.n)
+	  if (depth >= wf.n)
 	    {
 	      // Table overflow should not happen, check before calling.
-	      std::__throw_runtime_error("Table overflow in internal function");
+	      throw std::runtime_error("Table overflow in internal function");
 	    }
 
-	  const auto& __moment = __wf.get_moments(__depth);
+	  const auto& moment = wf.get_moments(depth);
 
-	  auto __res12_cos = __cheb12[12] * __moment[12];
-	  auto __res12_sin = _Tp{0};
-	  for (int __i = 0; __i < 6; ++__i)
+	  auto res12_cos = cheb12[12] * moment[12];
+	  auto res12_sin = Tp{0};
+	  for (int i = 0; i < 6; ++i)
 	    {
-	      const std::size_t __k = 10 - 2 * __i;
-	      __res12_cos += __cheb12[__k] * __moment[__k];
-	      __res12_sin += __cheb12[__k + 1] * __moment[__k + 1];
+	      const std::size_t k = 10 - 2 * i;
+	      res12_cos += cheb12[k] * moment[k];
+	      res12_sin += cheb12[k + 1] * moment[k + 1];
 	    }
 
-	  auto __res24_cos = __cheb24[24] * __moment[24];
-	  auto __res24_sin = _Tp{0};
-	  auto __result_abs = std::abs(__cheb24[24]);
-	  for (int __i = 0; __i < 12; ++__i)
+	  auto res24_cos = cheb24[24] * moment[24];
+	  auto res24_sin = Tp{0};
+	  auto result_abs = std::abs(cheb24[24]);
+	  for (int i = 0; i < 12; ++i)
 	    {
-	      const std::size_t __k = 22 - 2 * __i;
-	      __res24_cos += __cheb24[__k] * __moment[__k];
-	      __res24_sin += __cheb24[__k + 1] * __moment[__k + 1];
-	      __result_abs += std::abs(__cheb24[__k])
-			    + std::abs(__cheb24[__k + 1]);
+	      const std::size_t k = 22 - 2 * i;
+	      res24_cos += cheb24[k] * moment[k];
+	      res24_sin += cheb24[k + 1] * moment[k + 1];
+	      result_abs += std::abs(cheb24[k])
+			  + std::abs(cheb24[k + 1]);
 	    }
 
-	  const auto __est_cos = std::abs(__res24_cos - __res12_cos);
-	  const auto __est_sin = std::abs(__res24_sin - __res12_sin);
+	  const auto est_cos = std::abs(res24_cos - res12_cos);
+	  const auto est_sin = std::abs(res24_sin - res12_sin);
 
-	  const auto __c = __half_length * std::cos(__center * __omega);
-	  const auto __s = __half_length * std::sin(__center * __omega);
+	  const auto c = half_length * std::cos(center * omega);
+	  const auto s = half_length * std::sin(center * omega);
 
-	  _Tp __result, __abserr, __resabs, __resasc;
-	  if (__wf.circfun == oscillatory_integration_table<_Tp>::INTEG_SINE)
+	  Tp result, abserr, resabs, resasc;
+	  if (wf.circfun == oscillatory_integration_table<Tp>::INTEG_SINE)
 	    {
-	      __result = __c * __res24_sin + __s * __res24_cos;
-	      __abserr = std::abs(__c * __est_sin) + std::abs(__s * __est_cos);
+	      result = c * res24_sin + s * res24_cos;
+	      abserr = std::abs(c * est_sin) + std::abs(s * est_cos);
 	    }
 	  else
 	    {
-	      __result = __c * __res24_cos - __s * __res24_sin;
-	      __abserr = std::abs(__c * __est_cos) + std::abs(__s * __est_sin);
+	      result = c * res24_cos - s * res24_sin;
+	      abserr = std::abs(c * est_cos) + std::abs(s * est_sin);
 	    }
 
-	  __resabs = __result_abs * __half_length;
-	  __resasc = _S_max;
+	  resabs = result_abs * half_length;
+	  resasc = s_max;
 
-	  return {__result, __abserr, __resabs, __resasc};
+	  return {result, abserr, resabs, resasc};
 	}
     }
 

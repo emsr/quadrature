@@ -32,40 +32,40 @@
 
 /*
 //  Y = alpha A X + beta Y
-template<typename _Tp>
+template<typename Tp>
   void
   fake_gemv(// Specifies row-major (C) or column-major (Fortran) data ordering.
 	    // SpecifiesIn file included from test_gauss_jacobi.cpp:14:0:
 jacobi.h:111:10: note: declared private here
-     _Tp* x;
+     Tp* x;
           ^
-test_gauss_jacobi.cpp:52:40: error: \u2018_Tp jac_quadrature<_Tp>::integrate(_Tp*) [with _Tp = double]\u2019 is private within this context
+test_gauss_jacobi.cpp:52:40: error: \u2018_Tp jac_quadrature<Tp>::integrate(Tp*) [with Tp = double]\u2019 is private within this context
    auto integr = quad.integrate(f.data());
                                         ^
 In file included from jacobi.h:238:0,
                  from test_gauss_jacobi.cpp:14:
 gauss_jacobi_interface.tcc:291:3: note: declared private here
-   jac_quadrature<_Tp>::integrate(_Tp* f)
+   jac_quadrature<Tp>::integrate(Tp* f)
    ^~~~~~~~~~~~~~~~~~~
-gauss_jacobi_interface.tcc: In instantiation of \u2018_Tp jac_quadrature<_Tp>::integrate(_Tp*) [with _Tp = double]\u2019:
+gauss_jacobi_interface.tcc: In instantiation of \u2018_Tp jac_quadrature<Tp>::integrate(Tp*) [with Tp = double]\u2019:
 test_gauss_jacobi.cpp:52:40:   required from here
  whether to transpose matrix A.
 	    int __M,	   // 
 	    int __N,	   // 
-	    _Tp __alpha,   // Scaling factor for the product of matrix A and vector X.
-	    const _Tp*__A, // Matrix A.
+	    Tp __alpha,   // Scaling factor for the product of matrix A and vector X.
+	    const Tp*__A, // Matrix A.
 	    int __lda,     // The size of the first dimension of matrix A; if you are passing a matrix A[m][n], the value should be m.
-	    const _Tp*__X, // Vector X.
+	    const Tp*__X, // Vector X.
 	    int __incX,    // Stride within X. For example, if incX is 7, every 7th element is used.
-	    _Tp __beta,    // Scaling factor for vector Y.
-	    _Tp* __Y,       // Vector Y
+	    Tp __beta,    // Scaling factor for vector Y.
+	    Tp* __Y,       // Vector Y
 	    int __incY)    // Stride within Y. For example, if incY is 7, every 7th element is used.
   {
-    if (__beta != _Tp{0})
+    if (__beta != Tp{0})
       for (std::size_t __iy = 0, __ir = 0; __ir < __lda; __iy += __incY, ++__ir)
 	__Y[__iy] *= __beta;
 
-    if (__alpha != _Tp{0})
+    if (__alpha != Tp{0})
       for (std::size_t __iy = 0, __ir = 0; __ir < __lda; __iy += __incY, ++__ir)
 	{
 	  for (std::size_t __ix = 0, __ic = 0; __ic < __N; __ix += __incX, ++__ic)
@@ -73,17 +73,17 @@ test_gauss_jacobi.cpp:52:40:   required from here
 	}
   }
 */
-//    cblas_dgemv(CblasRowMajor, CblasNoTrans, quad->Q, quad->Q, _Tp{1}, quad->D, quad->Q, f, 1, _Tp{0}, d, 1);
+//    cblas_dgemv(CblasRowMajor, CblasNoTrans, quad->Q, quad->Q, Tp{1}, quad->D, quad->Q, f, 1, Tp{0}, d, 1);
 //    matvec(quad->Q, quad->D, f, d);
 
 //  Y = A X
-template<typename _Tp>
+template<typename Tp>
   void
-  matvec(std::size_t __n, const _Tp* __A, const _Tp* __x, _Tp* __y)
+  matvec(std::size_t __n, const Tp* __A, const Tp* __x, Tp* __y)
   {
     for (std::size_t __ir = 0; __ir < __n; ++__ir)
       {
-	__y[__ir] = _Tp{0};
+	__y[__ir] = Tp{0};
 	for (std::size_t __ic = 0; __ic < __n; ++__ic)
 	  __y[__ir] += __A[__ir][__ic] * __x[__ic];
       }
@@ -100,9 +100,9 @@ template<typename _Tp>
  * @param b Beta weight
  * @return An error code or 0
  */
-template<typename _Tp>
+template<typename Tp>
   int
-  jac_quadrature<_Tp>::quadrature_zwd()
+  jac_quadrature<Tp>::quadrature_zwd()
   {
     // Calculates the zeros of the quadrature
     int err = 0;
@@ -111,49 +111,49 @@ template<typename _Tp>
       case Gauss:
 	err = this->zeros_gj();
 	if (err)
-	  __gnu_cxx::__throw___integration_error("Problem calculating the zeros", err, _Tp{}, _Tp{});
+	  __gnu_cxx::__throw___integration_error("Problem calculating the zeros", err, Tp{}, Tp{});
 	err = this->weights_gj();
 	if (err)
-	  __gnu_cxx::__throw___integration_error("Problem calculating the weightd", err, _Tp{}, _Tp{});
+	  __gnu_cxx::__throw___integration_error("Problem calculating the weightd", err, Tp{}, Tp{});
 	err = this->diffmat_gj();
 	if (err)
-	  __gnu_cxx::__throw___integration_error("Problem calculating the differentiation matrix", err, _Tp{}, _Tp{});
+	  __gnu_cxx::__throw___integration_error("Problem calculating the differentiation matrix", err, Tp{}, Tp{});
 	break;
       case Gauss_Lobatto:
 	err = this->zeros_glj();
 	if (err)
-	  __gnu_cxx::__throw___integration_error("Problem calculating the zeros", err, _Tp{}, _Tp{});
+	  __gnu_cxx::__throw___integration_error("Problem calculating the zeros", err, Tp{}, Tp{});
 	err = this->weights_glj();
 	if (err)
-	  __gnu_cxx::__throw___integration_error("Problem calculating the weightd", err, _Tp{}, _Tp{});
+	  __gnu_cxx::__throw___integration_error("Problem calculating the weightd", err, Tp{}, Tp{});
 	err = this->diffmat_glj();
 	if (err)
-	  __gnu_cxx::__throw___integration_error("Problem calculating the differentiation matrix", err, _Tp{}, _Tp{});
+	  __gnu_cxx::__throw___integration_error("Problem calculating the differentiation matrix", err, Tp{}, Tp{});
 	break;
       case Gauss_Radau_lower:
 	err = this->zeros_grjm();
 	if (err)
-	  __gnu_cxx::__throw___integration_error("Problem calculating the zeros", err, _Tp{}, _Tp{});
+	  __gnu_cxx::__throw___integration_error("Problem calculating the zeros", err, Tp{}, Tp{});
 	err = this->weights_grjm();
 	if (err)
-	  __gnu_cxx::__throw___integration_error("Problem calculating the weightd", err, _Tp{}, _Tp{});
+	  __gnu_cxx::__throw___integration_error("Problem calculating the weightd", err, Tp{}, Tp{});
 	err = this->diffmat_grjm();
 	if (err)
-	  __gnu_cxx::__throw___integration_error("Problem calculating the differentiation matrix", err, _Tp{}, _Tp{});
+	  __gnu_cxx::__throw___integration_error("Problem calculating the differentiation matrix", err, Tp{}, Tp{});
 	break;
       case Gauss_Radau_upper:
 	err = this->zeros_grjp();
 	if (err)
-	  __gnu_cxx::__throw___integration_error("Problem calculating the zeros", err, _Tp{}, _Tp{});
+	  __gnu_cxx::__throw___integration_error("Problem calculating the zeros", err, Tp{}, Tp{});
 	err = this->weights_grjp();
 	if (err)
-	  __gnu_cxx::__throw___integration_error("Problem calculating the weightd", err, _Tp{}, _Tp{});
+	  __gnu_cxx::__throw___integration_error("Problem calculating the weightd", err, Tp{}, Tp{});
 	err = this->diffmat_grjp();
 	if (err)
-	  __gnu_cxx::__throw___integration_error("Problem calculating the differentiation matrix", err, _Tp{}, _Tp{});
+	  __gnu_cxx::__throw___integration_error("Problem calculating the differentiation matrix", err, Tp{}, Tp{});
 	break;
       default:
-	__gnu_cxx::__throw___integration_error("Illegal quadrature type", err, _Tp{}, _Tp{});
+	__gnu_cxx::__throw___integration_error("Illegal quadrature type", err, Tp{}, Tp{});
       }
 
     return 0;
@@ -169,9 +169,9 @@ template<typename _Tp>
  * @param xp Interpolation points
  * @return Error code or 0
  */
-template<typename _Tp>
+template<typename Tp>
   int
-  jac_quadrature<_Tp>::interpmat_alloc(int npoints, _Tp* xp)
+  jac_quadrature<Tp>::interpmat_alloc(int npoints, Tp* xp)
   {
     if (npoints < 1)
       std::__throw_domain_error("The number of interpolating points should be at least 1");
@@ -198,7 +198,7 @@ template<typename _Tp>
       err = this->interpmat_grjp();
       break;
     default:
-      __gnu_cxx::__throw___integration_error("Illegal quadrature type", err, _Tp{}, _Tp{});
+      __gnu_cxx::__throw___integration_error("Illegal quadrature type", err, Tp{}, Tp{});
     }
 
     return err;
@@ -217,16 +217,16 @@ template<typename _Tp>
  * @param f Value of function at quadrature points
  * @return @f$\int_{-1}^{1} f(x) dx \approx \sum_{i=0}^{Q-1} w_i f(x_i)@f$
  */
-template<typename _Tp>
-  template<typename _Func>
-    _Tp
-    jac_quadrature<_Tp>::integrate(_Func fun)
+template<typename Tp>
+  template<typename Func>
+    Tp
+    jac_quadrature<Tp>::integrate(Func fun)
     {
-      std::vector<_Tp> f(this->Q);
+      std::vector<Tp> f(this->Q);
       for (int i = 0; i < this->Q; ++i)
         f[i] = fun(this->x[i]);
       return std::inner_product(std::begin(this->w), std::end(this->w),
-				std::begin(f), _Tp{0});
+				std::begin(f), Tp{0});
     }
     
 
@@ -252,9 +252,9 @@ template<typename _Tp>
  * @param d The Estimated derivative at quadrature points: 
  * @return 0 if everything was ok. Otherwise return an error code
  */
-template<typename _Tp>
+template<typename Tp>
   int
-  jac_quadrature<_Tp>::differentiate(_Tp* f, _Tp* d)
+  jac_quadrature<Tp>::differentiate(Tp* f, Tp* d)
   {
     matvec(this->Q, this->D, f, d);
     return 0;
@@ -280,14 +280,14 @@ template<typename _Tp>
  * @return 0 if everything was ok. Otherwise return an error code
  * 
  */
-template<typename _Tp>
+template<typename Tp>
   int
-  jac_quadrature<_Tp>::interpolate(_Tp* f, _Tp* fout)
+  jac_quadrature<Tp>::interpolate(Tp* f, Tp* fout)
   {
     if (this->xp.size() == 0)
-      std::__throw_runtime_error("No interpolation info was setup");
+      throw std::runtime_error("No interpolation info was setup");
 
-    //cblas_dgemv(CblasRowMajor, CblasNoTrans, this->np, this->Q, _Tp{1}, this->imat, this->Q, f, 1, _Tp{0}, fout, 1);
+    //cblas_dgemv(CblasRowMajor, CblasNoTrans, this->np, this->Q, Tp{1}, this->imat, this->Q, f, 1, Tp{0}, fout, 1);
     matvec(this->Q, this->D, f, fout);
     return 0;
   }

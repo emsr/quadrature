@@ -28,82 +28,82 @@ namespace __gnu_cxx
   /**
    * Integrate the function by naive subdivision.
    */
-  template<typename _Tp, typename _FuncTp>
-    typename composite_midpoint_integral< _Tp, _FuncTp>::_AreaTp
-    composite_midpoint_integral< _Tp, _FuncTp>::operator()()
+  template<typename Tp, typename FuncTp>
+    typename composite_midpoint_integral< Tp, FuncTp>::AreaTp
+    composite_midpoint_integral< Tp, FuncTp>::operator()()
     {
-      const auto __delta = (this->_M_upper_lim - this->_M_lower_lim)
-			   / this->_M_num_segs;
+      const auto delta = (this->m_upper_lim - this->m_lower_lim)
+			   / this->m_num_segs;
 
-      auto __sum = this->_M_fun(this->_M_lower_lim + __delta / _Tp{2}) / _Tp{2};
-      for (std::size_t __j = 1; __j < this->_M_num_segs; ++__j)
-	__sum += this->_M_fun(this->_M_lower_lim + _Tp(__j + 0.5) * __delta);
+      auto sum = this->m_fun(this->m_lower_lim + delta / Tp{2}) / Tp{2};
+      for (std::size_t j = 1; j < this->m_num_segs; ++j)
+	sum += this->m_fun(this->m_lower_lim + Tp(j + 0.5) * delta);
 
-      this->_M_result = __sum * __delta;
+      this->m_result = sum * delta;
 
-      return this->_M_result;
+      return this->m_result;
     }
 
   /**
    * Integrate the function by naive subdivision.
    */
-  template<typename _Tp, typename _FuncTp>
-    typename midpoint_integral< _Tp, _FuncTp>::_AreaTp
-    midpoint_integral< _Tp, _FuncTp>::operator()()
+  template<typename Tp, typename FuncTp>
+    typename midpoint_integral< Tp, FuncTp>::AreaTp
+    midpoint_integral< Tp, FuncTp>::operator()()
     {
-      auto __sum_prev = this->_M_step();
-      for (std::size_t __j = 1; __j < _S_max_iter; ++__j)
+      auto sum_prev = this->m_step();
+      for (std::size_t j = 1; j < s_max_iter; ++j)
 	{
-	  const auto __sum = this->_M_step();
-	  this->_M_abs_error = std::abs(__sum - __sum_prev);
-	  if (this->_M_abs_error < this->_M_rel_tol * std::abs(__sum))
-	    return __sum;
-	  if (__j > 6
-	      && std::abs(__sum) < this->_M_rel_tol
-	      && std::abs(__sum_prev) < this->_M_rel_tol )
-	    return __sum;
-	  __sum_prev = __sum;
+	  const auto sum = this->m_step();
+	  this->m_abs_error = std::abs(sum - sum_prev);
+	  if (this->m_abs_error < this->m_rel_tol * std::abs(sum))
+	    return sum;
+	  if (j > 6
+	      && std::abs(sum) < this->m_rel_tol
+	      && std::abs(sum_prev) < this->m_rel_tol )
+	    return sum;
+	  sum_prev = sum;
 	}
-      return __sum_prev;
+      return sum_prev;
     }
 
   /**
    * 
    */
-  template<typename _Tp, typename _FuncTp>
-    typename midpoint_integral< _Tp, _FuncTp>::_AreaTp
-    midpoint_integral< _Tp, _FuncTp>::_M_step()
+  template<typename Tp, typename FuncTp>
+    typename midpoint_integral< Tp, FuncTp>::AreaTp
+    midpoint_integral< Tp, FuncTp>::m_step()
     {
-      const auto __a = this->_M_lower_lim;
-      const auto __b = this->_M_upper_lim;
-      if (this->_M_iter == 0)
+      const auto a = this->m_lower_lim;
+      const auto b = this->m_upper_lim;
+      if (this->m_iter == 0)
 	{
-	  this->_M_iter = 1;
-	  this->_M_pow3 = 1;
-	  const auto __m = (__a + __b) / _Tp{2};
-	  this->_M_result = (__b - __a) * this->_M_fun(__m);
+	  this->m_iter = 1;
+	  this->m_pow3 = 1;
+	  const auto m = (a + b) / Tp{2};
+	  this->m_result = (b - a) * this->m_fun(m);
 	}
       else
 	{
-	  ++this->_M_iter;
-	  const auto __del = (__b - __a) / _Tp(3 * this->_M_pow3);
-	  if (std::abs(__del) < _S_min_delta)
-	    return this->_M_result;
-	  const auto __ddel = _Tp{2} * __del;
-	  auto __m = __a + __del / _Tp{2};
-	  auto __sum = _AreaTp{};
-	  for (auto __j = 1u; __j <= this->_M_pow3; ++__j)
+	  ++this->m_iter;
+	  const auto del = (b - a) / Tp(3 * this->m_pow3);
+	  if (std::abs(del) < s_min_delta)
+	    return this->m_result;
+	  const auto ddel = Tp{2} * del;
+	  auto m = a + del / Tp{2};
+	  auto sum = AreaTp{};
+	  for (auto j = 1u; j <= this->m_pow3; ++j)
 	    {
-	      __sum += this->_M_fun(__m);
-	      __m += __ddel;
-	      __sum += this->_M_fun(__m);
-	      __m += __del;
+	      sum += this->m_fun(m);
+	      m += ddel;
+	      sum += this->m_fun(m);
+	      m += del;
 	    }
-	  this->_M_result += (__b - __a) * __sum / _Tp(this->_M_pow3);
-	  this->_M_result /= _Tp{3};
-	  this->_M_pow3 *= 3;
+	  this->m_result += (b - a) * sum / Tp(this->m_pow3);
+	  this->m_result /= Tp{3};
+	  this->m_pow3 *= 3;
 	}
-      return this->_M_result;
+      return this->m_result;
     }
 
 } // namespace __gnu_cxx

@@ -20,16 +20,16 @@ template<typename Tp>
     std::cout.flags(std::ios::showpoint);
     const auto w = 8 + std::cout.precision();
 
-    const auto _S_pi = Tp{3.1415'92653'58979'32384'62643'38327'95028'84195e+0L};
+    const auto s_pi = Tp{3.1415'92653'58979'32384'62643'38327'95028'84195e+0L};
 
     auto sin2 = [](Tp x) ->Tp { Tp s = std::sin(x); return s * s; };
     auto cos2 = [](Tp x) ->Tp { Tp c = std::cos(x); return c * c; };
     auto j1 = [](Tp x) ->Tp { return std::cyl_bessel_j(Tp{1}, x); };
     auto foo = [](Tp x) ->Tp { return (Tp{1} - x) * std::exp(-x / Tp{2}); };
     auto foonum = [](Tp x) ->Tp { return (Tp{1} - x); };
-    auto funk1 = [_S_pi](Tp x) ->Tp { return std::cos(x) / std::sqrt(x * (_S_pi - x)); };
+    auto funk1 = [s_pi](Tp x) ->Tp { return std::cos(x) / std::sqrt(x * (s_pi - x)); };
     auto funk1num = [](Tp x) ->Tp { return std::cos(x); };
-    auto funk2 = [_S_pi](Tp x) ->Tp { return (Tp{2} + std::sin(x)) / std::sqrt(x * (_S_pi - x)); };
+    auto funk2 = [s_pi](Tp x) ->Tp { return (Tp{2} + std::sin(x)) / std::sqrt(x * (s_pi - x)); };
     auto funk2num = [](Tp x) ->Tp { return Tp{2} + std::sin(x); };
     auto one = [](Tp) ->Tp { return Tp{1}; };
     auto ex = [](Tp x) ->Tp { return x; };
@@ -37,7 +37,7 @@ template<typename Tp>
     auto chank2 = [](Tp x) ->std::complex<Tp> { return test_cyl_hankel_2(Tp{1}, x); };
 
     auto a = Tp{0};
-    auto b = Tp(_S_pi);
+    auto b = Tp(s_pi);
     auto abs_err = Tp{0};
     auto rel_err = Tp{1.0e-10};
 
@@ -65,7 +65,7 @@ template<typename Tp>
 
     __gnu_cxx::midpoint_integral<Tp, decltype(cos2)> t2(cos2, a, b, abs_err, rel_err);
     Tp a2 = t2();
-    Tp e2 = _S_pi / Tp{2};
+    Tp e2 = s_pi / Tp{2};
     std::cout << "cos2    : "
 	      << ' ' << std::setw(w) << a2
 	      << ' ' << std::setw(w) << e2
@@ -74,7 +74,7 @@ template<typename Tp>
 
     __gnu_cxx::midpoint_integral<Tp, decltype(sin2)> t3(sin2, a, b, abs_err, rel_err);
     Tp a3 = t3();
-    Tp e3 = _S_pi / Tp{2};
+    Tp e3 = s_pi / Tp{2};
     std::cout << "sin2    : "
 	      << ' ' << std::setw(w) << a3
 	      << ' ' << std::setw(w) << e3
@@ -83,7 +83,7 @@ template<typename Tp>
 
     __gnu_cxx::midpoint_integral<Tp, decltype(j1)> t4(j1, a, b, abs_err, rel_err);
     Tp a4 = t4();
-    Tp e4 = std::cyl_bessel_j(Tp{0}, Tp{0}) - std::cyl_bessel_j(Tp{0}, _S_pi);
+    Tp e4 = std::cyl_bessel_j(Tp{0}, Tp{0}) - std::cyl_bessel_j(Tp{0}, s_pi);
     std::cout << "j1      : "
 	      << ' ' << std::setw(w) << a4
 	      << ' ' << std::setw(w) << e4
@@ -91,7 +91,7 @@ template<typename Tp>
 	      << ' ' << std::setw(w) << t4.abs_error() << '\n';
 
     a = Tp{0};
-    b = Tp{10} * _S_pi;
+    b = Tp{10} * s_pi;
     __gnu_cxx::midpoint_integral<Tp, decltype(foo)> t5(foo, a, b, abs_err, rel_err);
     Tp a5 = t5();
     Tp e5 = Tp{2} * (Tp{1} + b) * std::exp(-b / Tp{2})
@@ -122,7 +122,7 @@ template<typename Tp>
 	      << ' ' << std::setw(w) << t6.abs_error() << '\n';
 
     a = Tp{0};
-    b = _S_pi;
+    b = s_pi;
     __gnu_cxx::midpoint_integral<Tp, decltype(funk1)> t7(funk1, a, b, abs_err, rel_err);
     Tp a7 = t7();
     Tp e7 = Tp{0};

@@ -31,7 +31,7 @@
 namespace __gnu_cxx
 {
 
-  template<typename _Tp>
+  template<typename Tp>
     struct oscillatory_integration_table
     {
       enum circular_function
@@ -41,13 +41,13 @@ namespace __gnu_cxx
       };
 
       std::size_t n;
-      _Tp omega;
-      _Tp length;
-      _Tp par;
+      Tp omega;
+      Tp length;
+      Tp par;
       enum circular_function circfun;
-      std::vector<_Tp> chebmo;
+      std::vector<Tp> chebmo;
 
-      oscillatory_integration_table(_Tp omega_in, _Tp length_in,
+      oscillatory_integration_table(Tp omega_in, Tp length_in,
 				    circular_function circfun_in,
 				    std::size_t n_in)
       : n(n_in),
@@ -57,27 +57,27 @@ namespace __gnu_cxx
 	circfun(circfun_in),
 	chebmo(25 * n_in)
       {
-	auto __scale = _Tp{1};
-	for (auto __i = 0u; __i < this->n; ++__i)
+	auto scale = Tp{1};
+	for (auto i = 0u; i < this->n; ++i)
 	  {
-	    this->compute_moments(this->par * __scale, __i);
-	    __scale *= 0.5;
+	    this->compute_moments(this->par * scale, i);
+	    scale *= 0.5;
 	    // Prevent divide by zero.
-	    if (const auto __scale2 = __scale * __scale;
-		__scale2 * __scale2 == _Tp{0})
+	    if (const auto scale2 = scale * scale;
+		scale2 * scale2 == Tp{0})
 	      {
-		this->n = __i;
+		this->n = i;
 		break;
 	      }
 	  }
       }
 
-      _Tp
+      Tp
       get_length() const
       { return this->length; }
 
-      oscillatory_integration_table<_Tp>&
-      set_length(_Tp length_in)
+      oscillatory_integration_table<Tp>&
+      set_length(Tp length_in)
       {
 	this->length = length_in;
 	this->par = 0.5 * this->omega * this->length;
@@ -86,28 +86,28 @@ namespace __gnu_cxx
       }
 
       void
-      reset(_Tp omega_in, _Tp length_in,
+      reset(Tp omega_in, Tp length_in,
 	    circular_function circfun_in)
       {
 	this->omega = omega_in;
 	this->length = length_in;
 	this->par = 0.5 * omega_in * length_in;
 	this->circfun = circfun_in;
-	auto __scale = _Tp{1};
-	for (auto __i = 0u; __i < this->n; ++__i)
+	auto scale = Tp{1};
+	for (auto i = 0u; i < this->n; ++i)
 	  {
-	    this->compute_moments(this->par * __scale, __i);
-	    __scale *= 0.5;
+	    this->compute_moments(this->par * scale, i);
+	    scale *= 0.5;
 	  }
       }
 
-      inline const _Tp*
-      get_moments(std::size_t __level) const
-      { return this->chebmo.data() + 25 * __level; }
+      inline const Tp*
+      get_moments(std::size_t level) const
+      { return this->chebmo.data() + 25 * level; }
 
     private:
 
-      void compute_moments(_Tp par, std::size_t __level);
+      void compute_moments(Tp par, std::size_t level);
 
     };
 

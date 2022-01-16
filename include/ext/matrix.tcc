@@ -36,67 +36,67 @@ namespace __gnu_cxx
    * @param[out]  rhs  The right hand side in [0, n - 1],
    *                   replaced by the solution vector x
    */
-  template<typename _RandAccIter, typename _RandAccIterRHS>
+  template<typename RandAccIter, typename RandAccIterRHS>
     int
-    _S_tridiag(size_t __n,
-	       _RandAccIter __supd, _RandAccIter __diag, _RandAccIter __subd,
-	       _RandAccIterRHS __rhs)
+    s_tridiag(size_t n,
+	       RandAccIter supd, RandAccIter diag, RandAccIter subd,
+	       RandAccIterRHS rhs)
     {
-      using _Tp = std::decay_t<decltype(__subd[0])>;
+      using Tp = std::decay_t<decltype(subd[0])>;
 
-      __subd[0] = __diag[0];
+      subd[0] = diag[0];
 
-      if (__n == 0)
+      if (n == 0)
 	return 0;
 
-      if (__n == 1)
+      if (n == 1)
 	{
-	  __rhs[0] /= __diag[0];
+	  rhs[0] /= diag[0];
 	  return 0;
 	}
 
-      __diag[0] = __supd[0];
-      __supd[0] = _Tp{0};
-      __supd[__n - 1] = _Tp{0};
+      diag[0] = supd[0];
+      supd[0] = Tp{0};
+      supd[n - 1] = Tp{0};
 
-      for (auto __k = 0u; __k < __n - 1; ++__k)
+      for (auto k = 0u; k < n - 1; ++k)
 	{
-	  const auto __k1 = __k + 1;
+	  const auto k1 = k + 1;
 
-	  if (std::abs(__subd[__k1]) >= std::abs(__subd[__k]))
+	  if (std::abs(subd[k1]) >= std::abs(subd[k]))
 	    {
-	      std::swap(__subd[__k1], __subd[__k]);
-	      std::swap(__diag[__k1], __diag[__k]);
-	      std::swap(__supd[__k1], __supd[__k]);
-	      std::swap(__rhs[__k1], __rhs[__k]);
+	      std::swap(subd[k1], subd[k]);
+	      std::swap(diag[k1], diag[k]);
+	      std::swap(supd[k1], supd[k]);
+	      std::swap(rhs[k1], rhs[k]);
 	    }
 
-	  if (__subd[__k] == _Tp{0})
+	  if (subd[k] == Tp{0})
 	    return 1;
 
 	  {
-	    const auto __t = -__subd[__k1] / __subd[__k];
+	    const auto t = -subd[k1] / subd[k];
 
-	    __subd[__k1] = __diag[__k1] + __t * __diag[__k];
-	    __diag[__k1] = __supd[__k1] + __t * __supd[__k];
-	    __supd[__k1] = _Tp{0};
-	    __rhs[__k1] = __rhs[__k1] + __t * __rhs[__k];
+	    subd[k1] = diag[k1] + t * diag[k];
+	    diag[k1] = supd[k1] + t * supd[k];
+	    supd[k1] = Tp{0};
+	    rhs[k1] = rhs[k1] + t * rhs[k];
 	  }
 	}
 
-      if (__subd[__n - 1] == _Tp{0})
+      if (subd[n - 1] == Tp{0})
 	return 1;
 
-      __rhs[__n - 1] = __rhs[__n - 1] / __subd[__n - 1];
+      rhs[n - 1] = rhs[n - 1] / subd[n - 1];
 
-      __rhs[__n - 2] = (__rhs[__n - 2] - __diag[__n - 2] * __rhs[__n - 1])
-		     / __subd[__n - 2];
+      rhs[n - 2] = (rhs[n - 2] - diag[n - 2] * rhs[n - 1])
+		     / subd[n - 2];
 
-      for (std::ptrdiff_t __k = __n ; __k > 2; --__k)
+      for (std::ptrdiff_t k = n ; k > 2; --k)
 	{
-	  const auto __kb = __k - 3;
-	  __rhs[__kb] = (__rhs[__kb] - __diag[__kb] * __rhs[__kb + 1]
-		     - __supd[__kb] * __rhs[__kb + 2]) / __subd[__kb];
+	  const auto kb = k - 3;
+	  rhs[kb] = (rhs[kb] - diag[kb] * rhs[kb + 1]
+		     - supd[kb] * rhs[kb + 2]) / subd[kb];
 	}
 
       return 0;
@@ -136,112 +136,112 @@ namespace __gnu_cxx
    *                       where Q is the matrix that diagonalizes the
    *                       input symmetric tridiagonal matrix.
    */
-  template<typename _RandAccIter, typename _RandAccIterRHS>
+  template<typename RandAccIter, typename RandAccIterRHS>
     int
-    _S_tridiag_symm(std::size_t __n, _RandAccIter& __diag, _RandAccIter& __subd,
-		    _RandAccIterRHS& __rhs)
+    s_tridiag_symm(std::size_t n, RandAccIter& diag, RandAccIter& subd,
+		   RandAccIterRHS& rhs)
     {
-      using _Tp = std::decay_t<decltype(__subd[0])>;
+      using Tp = std::decay_t<decltype(subd[0])>;
 
-      const int __max_iter = 50;
-      int __upper = 0;
+      const int max_iter = 50;
+      int upper = 0;
 
-      const auto __prec = std::numeric_limits<_Tp>::epsilon();
+      const auto prec = std::numeric_limits<Tp>::epsilon();
 
-      if (__n == 1)
+      if (n == 1)
 	return 0;
 
-      __subd[__n - 1] = _Tp{0};
+      subd[n - 1] = Tp{0};
 
-      for (int __lower = 1; __lower <= int(__n); ++__lower)
+      for (int lower = 1; lower <= int(n); ++lower)
 	{
-	  int __j = 0;
+	  int j = 0;
 	  while (true)
 	    {
-	      for (__upper = __lower; __upper <= int(__n); ++__upper)
+	      for (upper = lower; upper <= int(n); ++upper)
 		{
-        	  if (__upper == int(__n))
+        	  if (upper == int(n))
         	    break;
-        	  if (std::abs(__subd[__upper - 1])
-			<= __prec * (std::abs(__diag[__upper - 1])
-				   + std::abs(__diag[__upper])))
+        	  if (std::abs(subd[upper - 1])
+			<= prec * (std::abs(diag[upper - 1])
+				   + std::abs(diag[upper])))
         	    break;
 		}
-	      auto __p = __diag[__lower - 1];
-	      if (__upper == __lower)
+	      auto p = diag[lower - 1];
+	      if (upper == lower)
         	break;
-	      if (__max_iter <= __j)
-		std::__throw_runtime_error("_S_tridiag_symm:"
+	      if (max_iter <= j)
+		throw std::runtime_error("s_tridiag_symm:"
 					   " Iteration limit exceeded");
-	      ++__j;
-	      auto __g = (__diag[__lower] - __p)
-			 / (_Tp{2} * __subd[__lower - 1]);
-	      auto __r = std::sqrt(__g * __g + _Tp{1});
-	      __g = __diag[__upper - 1] - __p
-		  + __subd[__lower - 1]
-			/ (__g + std::copysign(std::abs(__r), __g));
-	      auto __s = _Tp{1};
-	      auto __c = _Tp{1};
-	      __p = _Tp{0};
+	      ++j;
+	      auto g = (diag[lower] - p)
+			 / (Tp{2} * subd[lower - 1]);
+	      auto r = std::sqrt(g * g + Tp{1});
+	      g = diag[upper - 1] - p
+		  + subd[lower - 1]
+			/ (g + std::copysign(std::abs(r), g));
+	      auto s = Tp{1};
+	      auto c = Tp{1};
+	      p = Tp{0};
 
-	      const auto __mml = __upper - __lower;
-	      for (int __ii = 1; __ii <= __mml; __ii++)
+	      const auto mml = upper - lower;
+	      for (int ii = 1; ii <= mml; ii++)
 		{
-        	  const auto __i = __upper - __ii;
-        	  auto __f = __s * __subd[__i - 1];
-        	  auto __b = __c * __subd[__i - 1];
+        	  const auto i = upper - ii;
+        	  auto f = s * subd[i - 1];
+        	  auto b = c * subd[i - 1];
 
-        	  if (std::abs(__g) <= std::abs(__f))
+        	  if (std::abs(g) <= std::abs(f))
         	    {
-        	      __c = __g / __f;
-        	      __r =  std::sqrt(__c * __c + _Tp{1});
-        	      __subd[__i] = __f * __r;
-        	      __s = _Tp{1} / __r;
-        	      __c *= __s;
+        	      c = g / f;
+        	      r =  std::sqrt(c * c + Tp{1});
+        	      subd[i] = f * r;
+        	      s = Tp{1} / r;
+        	      c *= s;
         	    }
         	  else
         	    {
-        	      __s = __f / __g;
-        	      __r =  std::sqrt(__s * __s + _Tp{1});
-        	      __subd[__i] = __g * __r;
-        	      __c = _Tp{1} / __r;
-        	      __s *= __c;
+        	      s = f / g;
+        	      r =  std::sqrt(s * s + Tp{1});
+        	      subd[i] = g * r;
+        	      c = Tp{1} / r;
+        	      s *= c;
         	    }
 
-        	  __g = __diag[__i] - __p;
-        	  __r = (__diag[__i - 1] - __g) * __s + _Tp{2} * __c * __b;
-        	  __p = __s * __r;
-        	  __diag[__i] = __g + __p;
-        	  __g = __c * __r - __b;
-        	  __f = __rhs[__i];
-        	  __rhs[__i] = __s * __rhs[__i - 1] + __c * __f;
-        	  __rhs[__i - 1] = __c * __rhs[__i - 1] - __s * __f;
+        	  g = diag[i] - p;
+        	  r = (diag[i - 1] - g) * s + Tp{2} * c * b;
+        	  p = s * r;
+        	  diag[i] = g + p;
+        	  g = c * r - b;
+        	  f = rhs[i];
+        	  rhs[i] = s * rhs[i - 1] + c * f;
+        	  rhs[i - 1] = c * rhs[i - 1] - s * f;
 		}
-	      __diag[__lower - 1] = __diag[__lower - 1] - __p;
-	      __subd[__lower - 1] = __g;
-	      __subd[__upper - 1] = _Tp{0};
+	      diag[lower - 1] = diag[lower - 1] - p;
+	      subd[lower - 1] = g;
+	      subd[upper - 1] = Tp{0};
 	    }
 	}
 
       // Sorting.
-      for (int __ii = 2; __ii <= __upper; ++__ii)
+      for (int ii = 2; ii <= upper; ++ii)
 	{
-	  int __i = __ii - 1;
-	  int __k = __i;
-	  auto __p = __diag[__i - 1];
+	  int i = ii - 1;
+	  int k = i;
+	  auto p = diag[i - 1];
 
-	  for (int __j = __ii; __j <= int(__n); ++__j)
-	    if (__diag[__j - 1] < __p)
+	  for (int j = ii; j <= int(n); ++j)
+	    if (diag[j - 1] < p)
               {
-        	__k = __j;
-        	__p = __diag[__j - 1];
+        	k = j;
+        	p = diag[j - 1];
               }
 
-	  if (__k != __i)
+	  if (k != i)
 	    {
-	      __diag[__k - 1] = __diag[__i - 1];
-	      __diag[__i - 1] = __p;
-	      std::swap(__rhs[__i - 1], __rhs[__k - 1]);
+	      diag[k - 1] = diag[i - 1];
+	      diag[i - 1] = p;
+	      std::swap(rhs[i - 1], rhs[k - 1]);
 	    }
 	}
 
