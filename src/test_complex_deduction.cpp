@@ -15,9 +15,6 @@ fun(Tp x)
 template <typename Tp>
 void test()
 {
-    const auto alpha = Tp{2.6L};
-    //auto f = make_function<Tp>(f1<Tp>, alpha);
-    //auto f_x = [](Tp x) ->std::complex<Tp> { return {0,x}; };
     auto ans = emsr::integrate_singular(fun<Tp>, Tp{0.001}, Tp{1}, Tp{1e-8}, Tp{1e-8});
     std::cout << "integral = " << ans.result << std::endl;
 }

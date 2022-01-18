@@ -2,12 +2,12 @@
 // Integration utilities for the C++ library testsuite.
 //
 // Copyright (C) 2016-2019 Free Software Foundation, Inc.
+// Copyright (C) 2020-2022 Edward M. Smith-Rowland
 //
-// This file is part of the GNU ISO C++ Library.  This library is free
-// software; you can redistribute it and/or modify it under the
-// terms of the GNU General Public License as published by the
-// Free Software Foundation; either version 3, or (at your option)
-// any later version.
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 3 of the License, or (at
+// your option) any later version.
 //
 // This library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -21,39 +21,40 @@
 #include <limits>
 #include <cassert>
 #include <cmath>
-#include "integration.h"
+
+#include <ext/integration.h>
 
 /**
  * Neumann's number
  */
-template<typename _Tp>
-  _Tp
+template<typename Tp>
+  Tp
   epsilon(int m)
-  { return m == 0 ? _Tp{2} : _Tp{1}; }
+  { return m == 0 ? Tp{2} : Tp{1}; }
 
 // Function which should integrate to 1 for n1 == n2, 0 otherwise.
-template<typename _Tp>
-  _Tp
-  normalized_radpoly(int n1, int m1, int n2, int m2, _Tp rho)
+template<typename Tp>
+  Tp
+  normalized_radpoly(int n1, int m1, int n2, int m2, Tp rho)
   {
-    auto norm = _Tp{1} / std::sqrt(_Tp(2 * n1 + 2) * _Tp(2 * n2 + 2));
+    auto norm = Tp{1} / std::sqrt(Tp(2 * n1 + 2) * Tp(2 * n2 + 2));
     return rho
 	 * __gnu_cxx::radpoly(n1, m1, rho)
 	 * __gnu_cxx::radpoly(n2, m2, rho) / norm;
   }
 
-template<typename _Tp>
-  _Tp
+template<typename Tp>
+  Tp
   delta(int n1, int m1, int n2, int m2)
-  { return (n1 == n2 && m1 == m2) ? _Tp{1} : _Tp{0}; }
+  { return (n1 == n2 && m1 == m2) ? Tp{1} : Tp{0}; }
 
-template<typename _Tp>
+template<typename Tp>
   void
   test_radpoly()
   {
-    const auto eps = std::numeric_limits<_Tp>::epsilon();
-    const auto integ_precision = _Tp{1000} * eps;
-    const auto comp_precision = _Tp{10} * integ_precision;
+    constexpr auto eps = std::numeric_limits<Tp>::epsilon();
+    constexpr auto integ_precision = Tp{1000} * eps;
+    constexpr auto comp_precision = Tp{10} * integ_precision;
 
     for (int n1 : {0, 2, 5})
       {
@@ -72,15 +73,15 @@ template<typename _Tp>
 		    if ((n2 - m2) & 1)
 		      continue;
 
-		    auto func = [n1, m1, n2, m2](_Tp x)
-				-> _Tp
+		    auto func = [n1, m1, n2, m2](Tp x)
+				-> Tp
 			      { return normalized_radpoly(n1, m1, n2, m2, x); };
 
 		    auto [result, error]
-			= integrate_singular(func, _Tp{0}, _Tp{1},
-					     integ_precision, _Tp{0});
+			= emsr::integrate_singular(func, Tp{0}, Tp{1},
+					     integ_precision, Tp{0});
 
-		    assert(std::abs(delta<_Tp>(n1, n2) - result) < cmp_prec);
+		    assert(std::abs(delta<Tp>(n1, n2) - result) < cmp_prec);
 		  }
 	      }
 	  }

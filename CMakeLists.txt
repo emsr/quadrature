@@ -8,7 +8,7 @@ project(
   LANGUAGES CXX
 )
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_FLAGS "-Wall -Wextra -Wno-psabi -Wno-deprecated-declarations -Wold-style-cast")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
@@ -85,6 +85,26 @@ target_link_libraries(test_gauss_kronrod_rule cxx_integration)
 
 add_executable(test_factorial_integration src/test_factorial.cpp)
 target_link_libraries(test_factorial_integration cxx_integration_special_functions)
+
+# Standard library special function orthonormality checks.
+
+add_executable(orthonorm_assoc_laguerre orthonorm_test/src/orthonorm_assoc_laguerre.cc)
+target_link_libraries(orthonorm_assoc_laguerre cxx_integration cxx_integration_special_functions)
+
+add_executable(orthonorm_assoc_legendre orthonorm_test/src/orthonorm_assoc_legendre.cc)
+target_link_libraries(orthonorm_assoc_legendre cxx_integration cxx_integration_special_functions)
+
+add_executable(orthonorm_hermite orthonorm_test/src/orthonorm_hermite.cc)
+target_link_libraries(orthonorm_hermite cxx_integration cxx_integration_special_functions)
+
+add_executable(orthonorm_laguerre orthonorm_test/src/orthonorm_laguerre.cc)
+target_link_libraries(orthonorm_laguerre cxx_integration cxx_integration_special_functions)
+
+add_executable(orthonorm_legendre orthonorm_test/src/orthonorm_legendre.cc)
+target_link_libraries(orthonorm_legendre cxx_integration cxx_integration_special_functions)
+
+add_executable(orthonorm_sph_legendre orthonorm_test/src/orthonorm_sph_legendre.cc)
+target_link_libraries(orthonorm_sph_legendre cxx_integration cxx_integration_special_functions)
 
 # Compile tests.
 

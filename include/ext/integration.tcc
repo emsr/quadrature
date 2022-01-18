@@ -1,13 +1,11 @@
-// -*- C++ -*-
-// Integration utilities for C++.
 //
 // Copyright (C) 2011-2020 Free Software Foundation, Inc.
+// Copyright (C) 2021-2022 Edward M. Smith-Rowland
 //
-// This file is part of the GNU ISO C++ Library.  This library is free
-// software; you can redistribute it and/or modify it under the
-// terms of the GNU General Public License as published by the
-// Free Software Foundation; either version 3, or (at your option)
-// any later version.
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 3 of the License, or (at
+// your option) any later version.
 //
 // This library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -407,8 +405,7 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
       using area_t = typename integ_t::AreaTp;
       using absarea_t = typename integ_t::AbsAreaTp;
 
-      constexpr Tp infty = std::numeric_limits<Tp>::infinity();
-      constexpr Tp NaN = std::numeric_limits<Tp>::quiet_NaN();
+      constexpr auto infty = std::numeric_limits<Tp>::infinity();
 
       if (std::isnan(lower) || std::isnan(upper)
           || std::isnan(max_abs_error) || std::isnan(max_rel_error))
