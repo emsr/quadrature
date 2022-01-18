@@ -34,7 +34,7 @@ template<typename Tp>
     auto funk2num = [](Tp x) ->Tp { return Tp{2} + std::sin(x); };
     auto one = [](Tp) ->Tp { return Tp{1}; };
     auto ex = [](Tp x) ->Tp { return x; };
-    __gnu_cxx::_Polynomial<Tp> poly1({1.0l, -0.5l, -3.5l, 2.0l});
+    emsr::Polynomial<Tp> poly1({1.0l, -0.5l, -3.5l, 2.0l});
     auto chank2 = [](Tp x) ->std::complex<Tp> { return test_cyl_hankel_2(Tp{1}, x); };
 
     auto a = Tp{0};
@@ -113,7 +113,7 @@ template<typename Tp>
 	      << ' ' << std::setw(w) << a5n - e5n
 	      << ' ' << std::setw(w) << t5n.abs_error() << '\n';
 
-    emsr::trapezoid_integral<Tp, __gnu_cxx::_Polynomial<Tp>> t6(poly1, a, b, abs_err, rel_err);
+    emsr::trapezoid_integral<Tp, emsr::Polynomial<Tp>> t6(poly1, a, b, abs_err, rel_err);
     auto a6 = t6();
     auto e6 = poly1.integral()(b) - poly1.integral()(a);
     std::cout << "poly1   : "

@@ -29,7 +29,7 @@ template<typename Tp>
     auto funk2num = [](Tp x) -> Tp { return Tp{2} + std::sin(x); };
     auto one = [](Tp) -> Tp { return Tp{1}; };
     auto ex = [](Tp x) -> Tp { return x; };
-    __gnu_cxx::_Polynomial<Tp> poly1({1.0l, -0.5l, -3.5l, 2.0l});
+    emsr::Polynomial<Tp> poly1({1.0l, -0.5l, -3.5l, 2.0l});
 
     auto a = Tp{0};
     auto b = pi;
