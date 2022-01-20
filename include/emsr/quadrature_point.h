@@ -34,37 +34,37 @@ namespace emsr
    * A structure to store quadrature rules.
    */
   template<typename Tp>
-    struct quadrature_point_t
+    struct QuadraturePoint
     {
       Tp point;
       Tp weight;
 
-      constexpr quadrature_point_t() = default;
+      constexpr QuadraturePoint() = default;
 
-      constexpr quadrature_point_t(Tp pt, Tp wt)
+      constexpr QuadraturePoint(Tp pt, Tp wt)
       : point(pt),
 	weight(wt)
       { }
     };
 
   template<typename Tp>
-    std::vector<quadrature_point_t<Tp>>
+    std::vector<QuadraturePoint<Tp>>
     legendre_zeros(unsigned int l);
 
   template<typename Tp>
-    std::vector<quadrature_point_t<Tp>>
+    std::vector<QuadraturePoint<Tp>>
     laguerre_zeros(unsigned int n, Tp alpha1);
 
   template<typename Tp>
-    std::vector<quadrature_point_t<Tp>>
+    std::vector<QuadraturePoint<Tp>>
     hermite_zeros(unsigned int n);
 
   template<typename Tp>
-    std::vector<quadrature_point_t<Tp>>
+    std::vector<QuadraturePoint<Tp>>
     gegenbauer_zeros(unsigned int n, Tp lambda);
 
   template<typename Tp>
-    std::vector<quadrature_point_t<Tp>>
+    std::vector<QuadraturePoint<Tp>>
     jacobi_zeros(unsigned int n, Tp alpha1, Tp beta1);
 
 } // namespace emsr

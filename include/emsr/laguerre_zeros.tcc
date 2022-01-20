@@ -8,13 +8,13 @@ namespace emsr
    * Return an array of abscissae and weights for the Gauss-Laguerre rule.
    */
   template<typename Tp>
-    std::vector<quadrature_point_t<Tp>>
+    std::vector<QuadraturePoint<Tp>>
     laguerre_zeros(unsigned int n, Tp alpha1)
     {
       const auto s_eps = std::numeric_limits<Tp>::epsilon();
       const unsigned int s_maxit = 1000;
 
-      std::vector<quadrature_point_t<Tp>> pt(n);
+      std::vector<QuadraturePoint<Tp>> pt(n);
 
       for (auto i = 1u; i <= n; ++i)
 	{

@@ -15,13 +15,13 @@ namespace emsr
    * @param[in]  beta1  The second order parameter of the Jacobi polynomial
    */
   template<typename Tp>
-    std::vector<quadrature_point_t<Tp>>
+    std::vector<QuadraturePoint<Tp>>
     jacobi_zeros(unsigned int n, Tp alpha1, Tp beta1)
     {
       const auto s_eps = epsilon(alpha1);
       const unsigned int s_maxit = 1000u;
 
-      std::vector<quadrature_point_t<Tp>> pt(n);
+      std::vector<QuadraturePoint<Tp>> pt(n);
 
       Tp z;
       Tp w;

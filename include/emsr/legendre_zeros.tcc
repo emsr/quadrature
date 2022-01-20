@@ -11,14 +11,14 @@ namespace emsr
    * for the Legendre polynomial of degree @c l.
    */
   template<typename Tp>
-    std::vector<quadrature_point_t<Tp>>
+    std::vector<QuadraturePoint<Tp>>
     legendre_zeros(unsigned int l)
     {
       const auto s_eps = std::numeric_limits<Tp>::epsilon();
       const auto s_pi = Tp{3.1415'92653'58979'32384'62643'38327'95028'84195e+0L};
       const unsigned int s_maxit = 1000u;
 
-      std::vector<quadrature_point_t<Tp>> pt(l);
+      std::vector<QuadraturePoint<Tp>> pt(l);
 
       auto m = l / 2;
 

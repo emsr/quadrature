@@ -10,7 +10,7 @@ namespace emsr
    * Build a vector of the Gauss-Hermite integration rule abscissae and weights.
    */
   template<typename Tp>
-    std::vector<quadrature_point_t<Tp>>
+    std::vector<QuadraturePoint<Tp>>
     hermite_zeros(unsigned int n)
     {
       const auto s_eps = std::numeric_limits<Tp>::epsilon();
@@ -18,7 +18,7 @@ namespace emsr
       const auto s_pim4 = Tp{0.7511255444649424828587030047762276930510L};
       const auto s_sqrt_pi = Tp{1} / Tp{5.6418'95835'47756'28694'80794'51560'77258'58438e-1L};
 
-      std::vector<quadrature_point_t<Tp>> pt(n);
+      std::vector<QuadraturePoint<Tp>> pt(n);
 
       const auto m = n / 2;
 

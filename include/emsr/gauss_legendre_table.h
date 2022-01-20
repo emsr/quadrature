@@ -68,7 +68,7 @@ namespace emsr
       const Tp* weight;
       bool precomputed = false;
       std::size_t i_precomp = -1;
-      std::vector<quadrature_point_t<Tp>> rule;
+      std::vector<QuadraturePoint<Tp>> rule;
 
       gauss_legendre_table(std::size_t n, const Tp* pt, const Tp* wt,
 			   bool precomp)
