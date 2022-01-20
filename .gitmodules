@@ -1,6 +1,3 @@
 [submodule "3rdparty/cxx_polynomial"]
 	path = 3rdparty/cxx_polynomial
 	url = https://github.com/emsr/polynomial.git
-[submodule "3rdparty/cxx_math_const"]
-	path = 3rdparty/cxx_math_const
-	url = https://github.com/emsr/cxx_math_const.git
