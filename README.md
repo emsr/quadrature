@@ -2,9 +2,9 @@
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/5e3495d8c4004bc5a7ec7e25c65a98f8)](https://app.codacy.com/app/emsr/quadrature?utm_source=github.com&utm_medium=referral&utm_content=emsr/quadrature&utm_campaign=Badge_Grade_Dashboard)
 
-_Note: I originally envisioned providing this library as an extension to the gnu C++ standard library.
+<em>Note: I originally envisioned providing this library as an extension to the gnu C++ standard library.
 I've given up on that idea. The standard C++ library is difficult enough to keep up with as it is.
-I've changed the namespace from __gnu_cxx to emsr (if nlohmann can do it so can I :-))._
+I've changed the namespace from __gnu_cxx to emsr (if nlohmann can do it so can I :-)). It stands for <b>Excellent Math System - Reborn</b>. Really!</em>
 
 This is a C++ quadrature library reengineered from GSL and with new things added.  This was hived off from tr29124_test.
 
@@ -18,4 +18,4 @@ The goals and ideal of this implementation are:
 - Add new quadrature algorithms.  The GSL was focused on what I think is the middle of the spectrum: Gauss-Kronrod, Fejer and Clenshaw-Curtis, etc. This library adds simple recursive midpoint, trapezoid, and Simpson rules at the "low-end" and double-exponential, sinh-tanh rules at the "high-end".
 - Support contour integration in the complex plane and for vector spaces.
 
-Currently, this is a one-dimensional library.  Cubature is a future goal.  Monte-Carlo is another subject left out for now.  The standard C++ <random> library was developed in large part to support this use-case and it is a worthy thing to have in a C++ library.  After we get these done.
+Currently, this is a one-dimensional library.  Cubature is a future goal.  Monte-Carlo is another subject left out for now.  The standard C++ <random> library was developed in part to support this use-case and it is a worthy thing to have in a C++ library.  After we get these done.

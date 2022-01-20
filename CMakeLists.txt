@@ -49,41 +49,44 @@ add_library(cxx_integration INTERFACE)
 target_include_directories(cxx_integration INTERFACE include)
 target_link_libraries(cxx_integration INTERFACE cxx_integration_complex_utils)
 
-add_executable(test_phase_iterator src/test_phase_iterator.cpp)
+add_library(test_utils INTERFACE)
+target_include_directories(test_utils INTERFACE test/include)
+
+add_executable(test_phase_iterator test/src/test_phase_iterator.cpp)
 target_link_libraries(test_phase_iterator
   cxx_integration)
 
-add_executable(test_quadrature src/test_quadrature.cpp)
-target_link_libraries(test_quadrature cxx_integration cxx_integration_special_functions)
+add_executable(test_quadrature test/src/test_quadrature.cpp)
+target_link_libraries(test_quadrature test_utils cxx_integration cxx_integration_special_functions)
 
-add_executable(test_trapezoid_integral src/test_trapezoid_integral.cpp)
+add_executable(test_trapezoid_integral test/src/test_trapezoid_integral.cpp)
 target_link_libraries(test_trapezoid_integral cxx_integration cxx_integration_polynomial)
 
-add_executable(test_midpoint_integral src/test_midpoint_integral.cpp)
+add_executable(test_midpoint_integral test/src/test_midpoint_integral.cpp)
 target_link_libraries(test_midpoint_integral cxx_integration cxx_integration_polynomial)
 
-add_executable(test_simpson_integral src/test_simpson_integral.cpp)
+add_executable(test_simpson_integral test/src/test_simpson_integral.cpp)
 target_link_libraries(test_simpson_integral cxx_integration cxx_integration_polynomial)
 
-add_executable(test_double_exp_integrate src/test_double_exp_integrate.cpp)
+add_executable(test_double_exp_integrate test/src/test_double_exp_integrate.cpp)
 target_link_libraries(test_double_exp_integrate cxx_integration cxx_integration_polynomial)
 
-add_executable(test_gauss_hermite src/test_gauss_hermite.cpp)
+add_executable(test_gauss_hermite test/src/test_gauss_hermite.cpp)
 target_link_libraries(test_gauss_hermite cxx_integration)
 
-add_executable(test_gauss_laguerre src/test_gauss_laguerre.cpp)
+add_executable(test_gauss_laguerre test/src/test_gauss_laguerre.cpp)
 target_link_libraries(test_gauss_laguerre cxx_integration)
 
-add_executable(test_mapper src/test_mapper.cpp)
+add_executable(test_mapper test/src/test_mapper.cpp)
 target_link_libraries(test_mapper cxx_integration)
 
-add_executable(test_composite_trapezoid_integral src/test_composite_trapezoid_integral.cpp)
+add_executable(test_composite_trapezoid_integral test/src/test_composite_trapezoid_integral.cpp)
 target_link_libraries(test_composite_trapezoid_integral cxx_integration cxx_integration_polynomial)
 
-add_executable(test_gauss_kronrod_rule src/test_gauss_kronrod_rule.cpp)
+add_executable(test_gauss_kronrod_rule test/src/test_gauss_kronrod_rule.cpp)
 target_link_libraries(test_gauss_kronrod_rule cxx_integration)
 
-add_executable(test_factorial_integration src/test_factorial.cpp)
+add_executable(test_factorial_integration test/src/test_factorial.cpp)
 target_link_libraries(test_factorial_integration cxx_integration_special_functions)
 
 # Standard library special function orthonormality checks.
@@ -108,8 +111,8 @@ target_link_libraries(orthonorm_sph_legendre cxx_integration cxx_integration_spe
 
 # Compile tests.
 
-add_executable(test_complex_deduction src/test_complex_deduction.cpp)
+add_executable(test_complex_deduction test/src/test_complex_deduction.cpp)
 target_link_libraries(test_complex_deduction cxx_integration)
 
-add_executable(test_complex_cquad_deduction src/test_complex_cquad_deduction.cpp)
+add_executable(test_complex_cquad_deduction test/src/test_complex_cquad_deduction.cpp)
 target_link_libraries(test_complex_cquad_deduction cxx_integration)

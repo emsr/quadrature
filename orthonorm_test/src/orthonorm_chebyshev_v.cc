@@ -22,7 +22,7 @@
 #include <cassert>
 #include <cmath>
 
-#include <ext/integration.h>
+#include <emsr/integration.h>
 
 // Function which should integrate to 1 for n1 == n2, 0 otherwise.
 template<typename Tp>

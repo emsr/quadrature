@@ -22,7 +22,7 @@
 #include <cassert>
 #include <cmath>
 
-#include <ext/integration.h>
+#include <emsr/integration.h>
 
 // Try to manage the gamma ratio.
 template<typename Tp>
