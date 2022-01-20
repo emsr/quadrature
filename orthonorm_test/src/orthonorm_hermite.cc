@@ -4,13 +4,14 @@
 #include <cmath>
 
 #include <emsr/integration.h>
+#include <emsr/math_constants.h>
 
 // Function which should integrate to 1 for n1 == n2, 0 otherwise.
 template<typename Tp>
   Tp
   norm_hermite(int n1, int n2, Tp x)
   {
-    constexpr auto pi = std::numbers::pi_v<Tp>;
+    constexpr auto pi = emsr::pi_v<Tp>;
     Tp lnorm = Tp{0.5} * (std::log(pi) + (n1 + n2) * std::log(Tp{2})
 			  + std::lgamma(Tp(1 + n1))
 			  + std::lgamma(Tp(1 + n2)));

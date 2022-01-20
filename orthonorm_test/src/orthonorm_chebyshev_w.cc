@@ -23,6 +23,7 @@
 #include <cmath>
 
 #include <emsr/integration.h>
+#include <emsr/math_constants.h>
 
 // Function which should integrate to 1 for n1 == n2, 0 otherwise.
 template<typename Tp>
@@ -31,7 +32,7 @@ template<typename Tp>
   {
     constexpr auto eps = std::numeric_limits<Tp>::epsilon();
     constexpr auto inf = std::numeric_limits<Tp>::infinity();
-    constexpr auto pi = std::numbers::pi_v<Tp>;
+    constexpr auto pi = emsr::pi_v<Tp>;
     if (std::abs(x + Tp{1}) < eps)
       return (n1 + n2) & 1 ? -inf : inf;
     else

@@ -1,11 +1,11 @@
 
 // Copyright (C) 2006-2019 Free Software Foundation, Inc.
+// Copyright (C) 2020-2022 Edward M. Smith-Rowland
 //
-// This file is part of the GNU ISO C++ Library.  This library is free
-// software; you can redistribute it and/or modify it under the
-// terms of the GNU General Public License as published by the
-// Free Software Foundation; either version 3, or (at your option)
-// any later version.
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 3 of the License, or (at
+// your option) any later version.
 
 // This library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -36,25 +36,25 @@ namespace emsr
    * value or element type.  This will be specialized for complex
    * and other types as appropriate.
    */
-  template<typename _Tp>
+  template<typename Tp>
     struct num_traits
     {
-      using value_type = _Tp;
+      using value_type = Tp;
     };
 
-  template<typename _Tp>
-    using num_traits_t = typename num_traits<_Tp>::value_type;
+  template<typename Tp>
+    using num_traits_t = typename num_traits<Tp>::value_type;
 
 
   /**
    * Return a fraction as a real number.
    */
-  template<intmax_t _Num, intmax_t _Den = 1, typename _Tp = double>
-    inline constexpr _Tp
+  template<intmax_t Num, intmax_t Den = 1, typename Tp = double>
+    inline constexpr Tp
     frac()
     {
-      using rat_t = std::ratio<_Num, _Den>;
-      return _Tp(rat_t::num) / _Tp(rat_t::den);
+      using rat_t = std::ratio<Num, Den>;
+      return Tp(rat_t::num) / Tp(rat_t::den);
     }
 
 
@@ -62,27 +62,27 @@ namespace emsr
    * Create a NaN.
    * This will be overloaded for complex and vector types.
    */
-  template<typename _Tp>
+  template<typename Tp>
     struct make_NaN
     {
-      constexpr _Tp
+      constexpr Tp
       operator()()
-      { return std::numeric_limits<_Tp>::quiet_NaN(); }
+      { return std::numeric_limits<Tp>::quiet_NaN(); }
     };
 
   /**
    * This is a more modern version of promote_N in ext/type_traits.
    * This is used for numeric argument promotion of complex and cmath.
    */
-  template<typename _Tp, bool = std::is_integral<_Tp>::value>
+  template<typename Tp, bool = std::is_integral<Tp>::value>
     struct fp_promote_help
     { using type = double; };
 
   // No nested type member for non-integer non-floating point types,
   // allows this type to be used for SFINAE to constrain overloads in
   // <cmath> and <complex> to only the intended types.
-  template<typename _Tp>
-    struct fp_promote_help<_Tp, false>
+  template<typename Tp>
+    struct fp_promote_help<Tp, false>
     { };
 
   template<>
@@ -108,16 +108,16 @@ namespace emsr
 
   // Decay refs and cv...
   // Alternatively we could decay refs and propagate cv to promoted type.
-  // @todo We use decay_t instead of remove_reference_t just in case _Tp
+  // @todo We use decay_t instead of remove_reference_t just in case Tp
   // is an array.
-  template<typename _Tp, typename... _Tps>
+  template<typename Tp, typename... _Tps>
     struct fp_promote
-    { using type = decltype(fp_promote_help_t<std::decay_t<_Tp>>{}
+    { using type = decltype(fp_promote_help_t<std::decay_t<Tp>>{}
 		   + typename fp_promote<_Tps...>::type{}); };
 
-  template<typename _Tp>
-    struct fp_promote<_Tp>
-    { using type = decltype(fp_promote_help_t<std::decay_t<_Tp>>{}); };
+  template<typename Tp>
+    struct fp_promote<Tp>
+    { using type = decltype(fp_promote_help_t<std::decay_t<Tp>>{}); };
 
   template<typename... _Tps>
     using fp_promote_t = typename fp_promote<_Tps...>::type;

@@ -24,6 +24,7 @@
 #include <numbers>
 
 #include <emsr/integration.h>
+#include <emsr/math_constants.h>
 
 /**
  * Neumann's number
@@ -40,7 +41,7 @@ template<typename Tp>
   norm_zernike(int n1, int m1, int n2, int m2, Tp rho)
   {
     constexpr auto eps = Tp{10000} * std::numeric_limits<Tp>::epsilon();
-    constexpr auto 2pi = Tp{2} * std::numbers::pi_v<Tp>;
+    constexpr auto 2pi = Tp{2} * emsr::pi_v<Tp>;
     auto z1 = [n1, m1, rho](Tp phi)
 	      ->Tp { return __gnu_cxx::zernike(n1, m1, rho, phi); };
     auto z2 = [n2, m2, rho](Tp phi)

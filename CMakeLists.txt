@@ -27,6 +27,9 @@ if (DOXYGEN_FOUND)
   )
 endif (DOXYGEN_FOUND)
 
+add_library(cxx_integration_math_constants INTERFACE)
+target_include_directories(cxx_integration_math_constants INTERFACE 3rdparty/cxx_math_const/include)
+
 add_library(cxx_integration_polynomial INTERFACE)
 target_include_directories(cxx_integration_polynomial INTERFACE 3rdparty/cxx_polynomial/include)
 
@@ -43,7 +46,7 @@ target_include_directories(cxx_integration_numeric_limits INTERFACE 3rdparty/cxx
 add_library(cxx_integration_special_functions INTERFACE)
 target_include_directories(cxx_integration_special_functions INTERFACE 3rdparty/cxx_special_functions/include)
 target_link_libraries(cxx_integration_special_functions
-  INTERFACE cxx_integration_numeric_limits cxx_integration_fp_utils)
+  INTERFACE cxx_integration_numeric_limits cxx_integration_fp_utils cxx_integration_math_constants)
 
 add_library(cxx_integration INTERFACE)
 target_include_directories(cxx_integration INTERFACE include)

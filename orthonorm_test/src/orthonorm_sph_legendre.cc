@@ -24,13 +24,14 @@
 #include <numbers>
 
 #include <emsr/integration.h>
+#include <emsr/math_constants.h>
 
 // Function which should integrate to 1 for l1 == l2, 0 otherwise.
 template<typename Tp>
   Tp
   norm_sph_legendre(int l1, int m1, int l2, int m2, Tp theta)
   {
-    constexpr auto pi = std::numbers::pi_v<Tp>;
+    constexpr auto pi = emsr::pi_v<Tp>;
     return Tp{2} * pi * std::sin(theta)
 	 * std::sph_legendre(l1, m1, theta)
 	 * std::sph_legendre(l2, m2, theta);
@@ -46,7 +47,7 @@ template<typename Tp>
   test_sph_legendre()
   {
     constexpr auto eps = std::numeric_limits<Tp>::epsilon();
-    constexpr auto pi = std::numbers::pi_v<Tp>;
+    constexpr auto pi = emsr::pi_v<Tp>;
     constexpr auto integ_prec = Tp{1000} * eps;
     constexpr auto cmp_prec = Tp{10} * integ_prec;
 

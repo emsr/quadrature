@@ -24,13 +24,14 @@
 #include <numbers>
 
 #include <emsr/integration.h>
+#include <emsr/math_constants.h>
 
 // Function which should integrate to 1 for n1 == n2, 0 otherwise.
 template<typename Tp>
   Tp
   norm_chebyshev_u(int n1, int n2, Tp x)
   {
-    constexpr auto pi_2 = std::numbers::pi_v<Tp> / Tp{2};
+    constexpr auto pi_2 = emsr::pi_v<Tp> / Tp{2};
     return __gnu_cxx::chebyshev_u(n2, x)
 	 * __gnu_cxx::chebyshev_u(n1, x)
 	 * std::sqrt(Tp{1} - x * x)

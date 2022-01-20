@@ -1,11 +1,11 @@
 
 // Copyright (C) 2016-2019 Free Software Foundation, Inc.
+// Copyright (C) 2020-2022 Edward M. Smith-Rowland
 //
-// This file is part of the GNU ISO C++ Library.  This library is free
-// software; you can redistribute it and/or modify it under the
-// terms of the GNU General Public License as published by the
-// Free Software Foundation; either version 3, or (at your option)
-// any later version.
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 3 of the License, or (at
+// your option) any later version.
 //
 // This library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -39,17 +39,17 @@ namespace std
    * We need isnan to be extended to std::complex.
    * Return true if one component of a complex number is NaN.
    */
-  template<typename _Tp>
+  template<typename Tp>
     inline bool
-    isnan(const std::complex<_Tp>& z)
+    isnan(const std::complex<Tp>& z)
     { return std::isnan(std::real(z)) || std::isnan(std::imag(z)); }
 
   /**
    * Return true if one component of a complex number is inf.
    */
-  template<typename _Tp>
+  template<typename Tp>
     inline bool
-    isinf(const std::complex<_Tp>& z)
+    isinf(const std::complex<Tp>& z)
     { return isinf(std::real(z)) || isinf(std::imag(z)); }
 
 } // namespace std
@@ -66,23 +66,23 @@ namespace emsr
    * A class to reach into compound numeric types to extract the
    * value or element type - specialized for complex.
    */
-  template<typename _Tp>
-    struct num_traits<std::complex<_Tp>>
+  template<typename Tp>
+    struct num_traits<std::complex<Tp>>
     {
-      using value_type = typename std::complex<_Tp>::value_type;
+      using value_type = typename std::complex<Tp>::value_type;
     };
 
   /**
    * Create a complex number NaN.
    */
-  template<typename _Tp>
-    struct make_NaN<std::complex<_Tp>>
+  template<typename Tp>
+    struct make_NaN<std::complex<Tp>>
     {
-      constexpr std::complex<_Tp>
+      constexpr std::complex<Tp>
       operator()()
       {
-	auto NaN = std::numeric_limits<_Tp>::quiet_NaN();
-	return std::complex<_Tp>{NaN, NaN};
+	auto NaN = std::numeric_limits<Tp>::quiet_NaN();
+	return std::complex<Tp>{NaN, NaN};
       }
     };
 
@@ -94,15 +94,15 @@ namespace emsr
    * @return  @c true if @f$ Im(w) @f$ is zero within @f$ mul * epsilon @f$,
    *          @c false otherwize.
    */
-  template<typename _Tp>
+  template<typename Tp>
     bool
-    fp_is_real(const std::complex<_Tp>& w, const _Tp mul = _Tp{1})
+    fp_is_real(const std::complex<Tp>& w, const Tp mul = Tp{1})
     { return fp_is_zero(std::imag(w), mul); }
 
   // Specialize for real numbers.
-  template<typename _Tp>
+  template<typename Tp>
     bool
-    fp_is_real(const _Tp)
+    fp_is_real(const Tp)
     { return true; }
 
   /**
@@ -113,15 +113,15 @@ namespace emsr
    * @return  @c true if @f$ Re(w) @f$ is zero within @f$ mul * epsilon @f$,
    *          @c false otherwize.
    */
-  template<typename _Tp>
+  template<typename Tp>
     bool
-    fp_is_imag(const std::complex<_Tp>& w, const _Tp mul = _Tp{1})
+    fp_is_imag(const std::complex<Tp>& w, const Tp mul = Tp{1})
     { return fp_is_zero(std::real(w), mul); }
 
   // Specialize for real numbers.
-  template<typename _Tp>
+  template<typename Tp>
     bool
-    fp_is_imag(const _Tp)
+    fp_is_imag(const Tp)
     { return false; }
 
   //  Overloads of integral queries in math_util.h
@@ -135,12 +135,12 @@ namespace emsr
    * @return @c true if a and b are equal to zero
    *         or differ only by @f$ max(a,b) * mul * epsilon @f$
    */
-  template<typename _Tp>
+  template<typename Tp>
     inline bool
-    fp_is_equal(const std::complex<_Tp>& a, const std::complex<_Tp>& b,
-		  _Tp mul = _Tp{1})
+    fp_is_equal(const std::complex<Tp>& a, const std::complex<Tp>& b,
+		  Tp mul = Tp{1})
     {
-      const auto _S_eps = std::numeric_limits<_Tp>::epsilon();
+      const auto _S_eps = std::numeric_limits<Tp>::epsilon();
       const auto _S_tol = mul * _S_eps;
       bool retval = true;
       if (!fp_is_zero(std::abs(a), mul) || !fp_is_zero(std::abs(b), mul))
@@ -158,12 +158,12 @@ namespace emsr
    * @return @c true if a and b are equal to zero
    *         or differ only by @f$ max(a,b) * mul * epsilon @f$
    */
-  template<typename _Tp>
+  template<typename Tp>
     inline bool
-    fp_is_equal(const std::complex<_Tp>& a, _Tp b,
-		  _Tp mul = _Tp{1})
+    fp_is_equal(const std::complex<Tp>& a, Tp b,
+		  Tp mul = Tp{1})
     {
-      const auto _S_eps = std::numeric_limits<_Tp>::epsilon();
+      const auto _S_eps = std::numeric_limits<Tp>::epsilon();
       const auto _S_tol = mul * _S_eps;
       bool retval = true;
       if (fp_is_real(a, mul))
@@ -181,12 +181,12 @@ namespace emsr
    * @return @c true if a and b are equal to zero
    *         or differ only by @f$ max(a,b) * mul * epsilon @f$
    */
-  template<typename _Tp>
+  template<typename Tp>
     inline bool
-    fp_is_equal(const _Tp a, std::complex<_Tp>& b,
-		  _Tp mul = _Tp{1})
+    fp_is_equal(const Tp a, std::complex<Tp>& b,
+		  Tp mul = Tp{1})
     {
-      const auto _S_eps = std::numeric_limits<_Tp>::epsilon();
+      const auto _S_eps = std::numeric_limits<Tp>::epsilon();
       const auto _S_tol = mul * _S_eps;
       bool retval = true;
       if (fp_is_real(b, mul))
@@ -203,9 +203,9 @@ namespace emsr
    * @return @c true if a and b are equal to zero
    *         or differ only by @f$ max(a,b) * mul * epsilon @f$
    */
-  template<typename _Tp>
+  template<typename Tp>
     inline bool
-    fp_is_zero(const std::complex<_Tp>& a, _Tp mul = _Tp{1})
+    fp_is_zero(const std::complex<Tp>& a, Tp mul = Tp{1})
     { return fp_is_zero(std::abs(a), mul); }
 
   /**
@@ -214,9 +214,9 @@ namespace emsr
    * @param a The complex number
    * @return @c true if a is an integer within mul * epsilon.
    */
-  template<typename _Tp>
+  template<typename Tp>
     inline fp_is_integer_t
-    fp_is_integer(const std::complex<_Tp>& a, _Tp mul = _Tp{1})
+    fp_is_integer(const std::complex<Tp>& a, Tp mul = Tp{1})
     {
       if (fp_is_real(a, mul))
 	return fp_is_integer(std::real(a), mul);
@@ -231,9 +231,9 @@ namespace emsr
    * @return @c true if 2a is an integer within mul * epsilon
    *            and the returned value is half the integer, int(a) / 2.
    */
-  template<typename _Tp>
+  template<typename Tp>
     inline fp_is_integer_t
-    fp_is_half_integer(const std::complex<_Tp>& a, _Tp mul = _Tp{1})
+    fp_is_half_integer(const std::complex<Tp>& a, Tp mul = Tp{1})
     {
       if (fp_is_real(a, mul))
 	return fp_is_half_integer(std::real(a), mul);
@@ -249,9 +249,9 @@ namespace emsr
    * @return @c true if 2a is an odd integer within mul * epsilon
    *            and the returned value is int(a - 1) / 2.
    */
-  template<typename _Tp>
+  template<typename Tp>
     inline fp_is_integer_t
-    fp_is_half_odd_integer(const std::complex<_Tp>& a, _Tp mul = _Tp{1})
+    fp_is_half_odd_integer(const std::complex<Tp>& a, Tp mul = Tp{1})
     {
       if (fp_is_real(a, mul))
 	return fp_is_half_odd_integer(std::real(a), mul);
@@ -266,9 +266,9 @@ namespace emsr
    * @param mul The multiplier of machine epsilon for the tolerance
    * @return @c true if a is an even integer within mul * epsilon.
    */
-  template<typename _Tp>
+  template<typename Tp>
     inline fp_is_integer_t
-    fp_is_even_integer(const std::complex<_Tp>& a, _Tp mul = _Tp{1})
+    fp_is_even_integer(const std::complex<Tp>& a, Tp mul = Tp{1})
     {
       if (fp_is_real(a, mul))
 	{
@@ -286,9 +286,9 @@ namespace emsr
    * @param mul The multiplier of machine epsilon for the tolerance
    * @return @c true if a is an odd integer within mul * epsilon.
    */
-  template<typename _Tp>
+  template<typename Tp>
     inline fp_is_integer_t
-    fp_is_odd_integer(const std::complex<_Tp>& a, _Tp mul = _Tp{1})
+    fp_is_odd_integer(const std::complex<Tp>& a, Tp mul = Tp{1})
     {
       if (fp_is_real(a, mul))
 	{
@@ -304,11 +304,11 @@ namespace emsr
    * specialized for complex.
    * This is used for numeric argument promotion of complex and cmath
    */
-  template<typename _Tp>
-    struct fp_promote_help<std::complex<_Tp>, false>
+  template<typename Tp>
+    struct fp_promote_help<std::complex<Tp>, false>
     {
     private:
-      using vtype = typename std::complex<_Tp>::value_type;
+      using vtype = typename std::complex<Tp>::value_type;
     public:
       using type = decltype(std::complex<fp_promote_help_t<vtype>>{});
     };
@@ -316,36 +316,36 @@ namespace emsr
   /**
    * Type introspection for complex.
    */
-  template<typename _Tp>
+  template<typename Tp>
     struct is_complex
     : public std::false_type
     { };
 
-  template<typename _Tp>
-    struct is_complex<const _Tp>
-    : public is_complex<_Tp>
+  template<typename Tp>
+    struct is_complex<const Tp>
+    : public is_complex<Tp>
     { };
 
-  template<typename _Tp>
-    struct is_complex<volatile _Tp>
-    : public is_complex<_Tp>
+  template<typename Tp>
+    struct is_complex<volatile Tp>
+    : public is_complex<Tp>
     { };
 
-  template<typename _Tp>
-    struct is_complex<const volatile _Tp>
-    : public is_complex<_Tp>
+  template<typename Tp>
+    struct is_complex<const volatile Tp>
+    : public is_complex<Tp>
     { };
 
-  template<typename _Tp>
-    struct is_complex<std::complex<_Tp>>
+  template<typename Tp>
+    struct is_complex<std::complex<Tp>>
     : public std::true_type
     { };
 
-  template<typename _Tp>
-    using is_complex_t = typename is_complex<_Tp>::type;
+  template<typename Tp>
+    using is_complex_t = typename is_complex<Tp>::type;
 
-  template<typename _Tp>
-    constexpr bool is_complex_v = is_complex<_Tp>::value;
+  template<typename Tp>
+    constexpr bool is_complex_v = is_complex<Tp>::value;
 
 } // namespace emsr
 

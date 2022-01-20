@@ -1,11 +1,11 @@
 
 // Copyright (C) 2016-2019 Free Software Foundation, Inc.
+// Copyright (C) 2020-2022 Edward M. Smith-Rowland
 //
-// This file is part of the GNU ISO C++ Library.  This library is free
-// software; you can redistribute it and/or modify it under the
-// terms of the GNU General Public License as published by the
-// Free Software Foundation; either version 3, or (at your option)
-// any later version.
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 3 of the License, or (at
+// your option) any later version.
 
 // This library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -33,10 +33,10 @@ namespace emsr
   /**
    * Return -1 if the integer argument is odd and +1 if it is even.
    */
-  template<typename _Tp, typename _IntTp>
-    inline constexpr _Tp
+  template<typename Tp, typename _IntTp>
+    inline constexpr Tp
     parity(_IntTp k) noexcept
-    { return (k & 1) ? _Tp{-1} : _Tp{+1}; }
+    { return (k & 1) ? Tp{-1} : Tp{+1}; }
 
   /**
    * A function to return the maximum of the absolute values of two numbers
@@ -44,12 +44,12 @@ namespace emsr
    * @param a The left hand side
    * @param b The right hand side
    */
-  template<typename _Tp>
-    inline constexpr _Tp
-    fp_max_abs(_Tp a, _Tp b) noexcept
+  template<typename Tp>
+    inline constexpr Tp
+    fp_max_abs(Tp a, Tp b) noexcept
     {
       if (std::isnan(a) || std::isnan(b))
-	return std::numeric_limits<_Tp>::quiet_NaN();
+	return std::numeric_limits<Tp>::quiet_NaN();
       else
 	{
 	  const auto aa = std::abs(a);
@@ -67,17 +67,17 @@ namespace emsr
    * @return @c true if a and b are equal to zero
    *         or differ only by @f$ max(a,b) * mul * epsilon @f$
    */
-  template<typename _Tp>
+  template<typename Tp>
     inline constexpr bool
-    fp_is_equal(_Tp a, _Tp b, _Tp mul = _Tp{1}) noexcept
+    fp_is_equal(Tp a, Tp b, Tp mul = Tp{1}) noexcept
     {
       if (std::isnan(a) || std::isnan(b) || std::isnan(mul))
 	return false;
       else
 	{
-	  const auto _S_tol = mul * std::numeric_limits<_Tp>::epsilon();
+	  const auto _S_tol = mul * std::numeric_limits<Tp>::epsilon();
 	  bool retval = true;
-	  if ((a != _Tp{0}) || (b != _Tp{0}))
+	  if ((a != Tp{0}) || (b != Tp{0}))
 	    // Looks mean, but is necessary that the next line has sense.
 	    retval = (std::abs(a - b) < fp_max_abs(a, b) * _S_tol);
 	  return retval;
@@ -92,16 +92,16 @@ namespace emsr
    * @return @c true if a and b are equal to zero
    *         or differ only by @f$ max(a,b) * mul * epsilon @f$
    */
-  template<typename _Tp>
+  template<typename Tp>
     inline constexpr bool
-    fp_is_zero(_Tp a, _Tp mul = _Tp{1}) noexcept
+    fp_is_zero(Tp a, Tp mul = Tp{1}) noexcept
     {
       if (std::isnan(a) || std::isnan(mul))
 	return false;
       else
 	{
-	  const auto _S_tol = mul * std::numeric_limits<_Tp>::epsilon();
-	  if (a != _Tp{0})
+	  const auto _S_tol = mul * std::numeric_limits<Tp>::epsilon();
+	  if (a != Tp{0})
 	    return (std::abs(a) < _S_tol);
 	  else
             return true;
@@ -136,16 +136,16 @@ namespace emsr
    * @param mul The multiplier of machine epsilon for the tolerance
    * @return @c true if a is an integer within mul * epsilon.
    */
-  template<typename _Tp>
+  template<typename Tp>
     inline constexpr fp_is_integer_t
-    fp_is_integer(_Tp a, _Tp mul = _Tp{1}) noexcept
+    fp_is_integer(Tp a, Tp mul = Tp{1}) noexcept
     {
       if (std::isnan(a) || std::isnan(mul))
 	return fp_is_integer_t{false, 0};
       else
 	{
 	  const auto n = static_cast<int>(std::nearbyint(a));
-	  const auto eq = fp_is_equal(a, _Tp(n), mul);
+	  const auto eq = fp_is_equal(a, Tp(n), mul);
 	  return fp_is_integer_t{eq, n};
 	}
     }
@@ -158,16 +158,16 @@ namespace emsr
    * @return @c true if 2a is an integer within mul * epsilon
    *            and the returned value is half the integer, int(a) / 2. 
    */
-  template<typename _Tp>
+  template<typename Tp>
     inline constexpr fp_is_integer_t
-    fp_is_half_integer(_Tp a, _Tp mul = _Tp{1}) noexcept
+    fp_is_half_integer(Tp a, Tp mul = Tp{1}) noexcept
     {
       if (std::isnan(a) || std::isnan(mul))
 	return fp_is_integer_t{false, 0};
       else
 	{
-	  const auto n = static_cast<int>(std::nearbyint(_Tp{2} * a));
-	  const auto eq = fp_is_equal(_Tp{2} * a, _Tp(n), mul);
+	  const auto n = static_cast<int>(std::nearbyint(Tp{2} * a));
+	  const auto eq = fp_is_equal(Tp{2} * a, Tp(n), mul);
 	  return fp_is_integer_t{eq, n / 2};
 	}
     }
@@ -181,17 +181,17 @@ namespace emsr
    * @return @c true if 2a is an odd integer within mul * epsilon
    *            and the returned value is int(a - 1) / 2.
    */
-  template<typename _Tp>
+  template<typename Tp>
     inline constexpr fp_is_integer_t
-    fp_is_half_odd_integer(_Tp a, _Tp mul = _Tp{1}) noexcept
+    fp_is_half_odd_integer(Tp a, Tp mul = Tp{1}) noexcept
     {
       if (std::isnan(a) || std::isnan(mul))
 	return fp_is_integer_t{false, 0};
       else
 	{
-	  const auto n = static_cast<int>(std::nearbyint(_Tp{2} * a));
+	  const auto n = static_cast<int>(std::nearbyint(Tp{2} * a));
 	  const bool halfodd = (n & 1 == 1)
-				&& fp_is_equal(_Tp{2} * a, _Tp(n), mul);
+				&& fp_is_equal(Tp{2} * a, Tp(n), mul);
 	  return fp_is_integer_t{halfodd, (n - 1) / 2};
 	}
     }
@@ -203,9 +203,9 @@ namespace emsr
    * @param mul The multiplier of machine epsilon for the tolerance
    * @return @c true if a is an even integer within mul * epsilon.
    */
-  template<typename _Tp>
+  template<typename Tp>
     inline constexpr fp_is_integer_t
-    fp_is_even_integer(_Tp a, _Tp mul = _Tp{1}) noexcept
+    fp_is_even_integer(Tp a, Tp mul = Tp{1}) noexcept
     {
       if (std::isnan(a) || std::isnan(mul))
 	return fp_is_integer_t{false, 0};
@@ -223,9 +223,9 @@ namespace emsr
    * @param mul The multiplier of machine epsilon for the tolerance
    * @return @c true if a is an odd integer within mul * epsilon.
    */
-  template<typename _Tp>
+  template<typename Tp>
     inline constexpr fp_is_integer_t
-    fp_is_odd_integer(_Tp a, _Tp mul = _Tp{1}) noexcept
+    fp_is_odd_integer(Tp a, Tp mul = Tp{1}) noexcept
     {
       if (std::isnan(a) || std::isnan(mul))
 	return fp_is_integer_t{false, 0};

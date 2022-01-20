@@ -24,21 +24,21 @@ namespace emsr
    * @see Handbook of Floating-Point Arithmetic, Muller, et. al.
    *      Birkhauser, 2010, Chapter 2.6, pp. 32-39.
    */
-  template<typename _Tp>
-    constexpr _Tp
-    ulp(_Tp __x)
+  template<typename Tp>
+    constexpr Tp
+    ulp(Tp x)
     {
       if (std::isnan(__x))
-	return std::numeric_limits<_Tp>::quiet_NaN();
+	return std::numeric_limits<Tp>::quiet_NaN();
       else if (std::isinf(__x))
-	return std::numeric_limits<_Tp>::infinity();
+	return std::numeric_limits<Tp>::infinity();
       else
 	{
-	  const auto __exp = std::ilogb(std::abs(__x));
-	  const auto __exp_min = std::numeric_limits<_Tp>::min_exponent;
-	  const auto _prec = std::numeric_limits<_Tp>::digits;
+	  const auto exp = std::ilogb(std::abs(__x));
+	  const auto exp_min = std::numeric_limits<Tp>::min_exponent;
+	  const auto prec = std::numeric_limits<Tp>::digits;
 
-	  return std::scalbn(_Tp{1}, std::max(__exp, __exp_min) - _prec + 1);
+	  return std::scalbn(Tp{1}, std::max(exp, exp_min) - prec + 1);
 	}
     }
 

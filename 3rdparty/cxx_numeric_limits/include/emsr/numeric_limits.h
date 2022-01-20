@@ -1,11 +1,11 @@
 
 // Copyright (C) 2016-2019 Free Software Foundation, Inc.
+// Copyright (C) 2020-2022 Edward M. Smith-Rowland
 //
-// This file is part of the GNU ISO C++ Library.  This library is free
-// software; you can redistribute it and/or modify it under the
-// terms of the GNU General Public License as published by the
-// Free Software Foundation; either version 3, or (at your option)
-// any later version.
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 3 of the License, or (at
+// your option) any later version.
 //
 // This library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -44,249 +44,249 @@ namespace emsr
 
   // Constexpr function template versions of std::numeric_limits.
 
-  template<typename _Tp>
+  template<typename Tp>
     constexpr bool
-    is_specialized(_Tp = _Tp{}) noexcept
-    { return std::numeric_limits<_Tp>::is_specialized; }
+    is_specialized(Tp = Tp{}) noexcept
+    { return std::numeric_limits<Tp>::is_specialized; }
 
-  template<typename _Tp>
-    constexpr _Tp
-    lim_min(_Tp = _Tp{}) noexcept
-    { return std::numeric_limits<_Tp>::min(); }
+  template<typename Tp>
+    constexpr Tp
+    lim_min(Tp = Tp{}) noexcept
+    { return std::numeric_limits<Tp>::min(); }
 
-  template<typename _Tp>
-    constexpr _Tp
-    lim_max(_Tp = _Tp{}) noexcept
-    { return std::numeric_limits<_Tp>::max(); }
+  template<typename Tp>
+    constexpr Tp
+    lim_max(Tp = Tp{}) noexcept
+    { return std::numeric_limits<Tp>::max(); }
 
-  template<typename _Tp>
-    constexpr _Tp
-    lowest(_Tp = _Tp{}) noexcept
-    { return std::numeric_limits<_Tp>::lowest(); }
+  template<typename Tp>
+    constexpr Tp
+    lowest(Tp = Tp{}) noexcept
+    { return std::numeric_limits<Tp>::lowest(); }
 
-  template<typename _Tp>
+  template<typename Tp>
     constexpr int
-    digits(_Tp = _Tp{}) noexcept
-    { return std::numeric_limits<_Tp>::digits; }
+    digits(Tp = Tp{}) noexcept
+    { return std::numeric_limits<Tp>::digits; }
 
-  template<typename _Tp>
+  template<typename Tp>
     constexpr int
-    digits10(_Tp = _Tp{}) noexcept
-    { return std::numeric_limits<_Tp>::digits10; }
+    digits10(Tp = Tp{}) noexcept
+    { return std::numeric_limits<Tp>::digits10; }
 
-  template<typename _Tp>
+  template<typename Tp>
     constexpr int
-    max_digits10(_Tp = _Tp{}) noexcept
-    { return std::numeric_limits<_Tp>::max_digits10; }
+    max_digits10(Tp = Tp{}) noexcept
+    { return std::numeric_limits<Tp>::max_digits10; }
 
-  template<typename _Tp>
+  template<typename Tp>
     constexpr bool
-    is_signed(_Tp = _Tp{}) noexcept
-    { return std::numeric_limits<_Tp>::is_signed; }
+    is_signed(Tp = Tp{}) noexcept
+    { return std::numeric_limits<Tp>::is_signed; }
 
-  template<typename _Tp>
+  template<typename Tp>
     constexpr bool
-    is_integer(_Tp = _Tp{}) noexcept
-    { return std::numeric_limits<_Tp>::is_integer; }
+    is_integer(Tp = Tp{}) noexcept
+    { return std::numeric_limits<Tp>::is_integer; }
 
-  template<typename _Tp>
+  template<typename Tp>
     constexpr bool
-    is_exact(_Tp = _Tp{}) noexcept
-    { return std::numeric_limits<_Tp>::is_exact; }
+    is_exact(Tp = Tp{}) noexcept
+    { return std::numeric_limits<Tp>::is_exact; }
 
-  template<typename _Tp>
+  template<typename Tp>
     constexpr int
-    radix(_Tp = _Tp{}) noexcept
-    { return std::numeric_limits<_Tp>::radix; }
+    radix(Tp = Tp{}) noexcept
+    { return std::numeric_limits<Tp>::radix; }
 
-  template<typename _Tp>
-    constexpr _Tp
-    epsilon(_Tp = _Tp{}) noexcept
-    { return std::numeric_limits<_Tp>::epsilon(); }
+  template<typename Tp>
+    constexpr Tp
+    epsilon(Tp = Tp{}) noexcept
+    { return std::numeric_limits<Tp>::epsilon(); }
 
-  template<typename _Tp>
-    constexpr _Tp
-    round_error(_Tp = _Tp{}) noexcept
-    { return std::numeric_limits<_Tp>::round_error(); }
+  template<typename Tp>
+    constexpr Tp
+    round_error(Tp = Tp{}) noexcept
+    { return std::numeric_limits<Tp>::round_error(); }
 
-  template<typename _Tp>
+  template<typename Tp>
     constexpr int
-    min_exponent(_Tp = _Tp{}) noexcept
-    { return std::numeric_limits<_Tp>::min_exponent; }
+    min_exponent(Tp = Tp{}) noexcept
+    { return std::numeric_limits<Tp>::min_exponent; }
 
-  template<typename _Tp>
+  template<typename Tp>
     constexpr int
-    min_exponent10(_Tp = _Tp{}) noexcept
-    { return std::numeric_limits<_Tp>::min_exponent10; }
+    min_exponent10(Tp = Tp{}) noexcept
+    { return std::numeric_limits<Tp>::min_exponent10; }
 
-  template<typename _Tp>
+  template<typename Tp>
     constexpr int
-    max_exponent(_Tp = _Tp{}) noexcept
-    { return std::numeric_limits<_Tp>::max_exponent; }
+    max_exponent(Tp = Tp{}) noexcept
+    { return std::numeric_limits<Tp>::max_exponent; }
 
-  template<typename _Tp>
+  template<typename Tp>
     constexpr int
-    max_exponent10(_Tp = _Tp{}) noexcept
-    { return std::numeric_limits<_Tp>::max_exponent10; }
+    max_exponent10(Tp = Tp{}) noexcept
+    { return std::numeric_limits<Tp>::max_exponent10; }
 
-  template<typename _Tp>
+  template<typename Tp>
     constexpr bool
-    has_infinity(_Tp = _Tp{}) noexcept
-    { return std::numeric_limits<_Tp>::has_infinity; }
+    has_infinity(Tp = Tp{}) noexcept
+    { return std::numeric_limits<Tp>::has_infinity; }
 
-  template<typename _Tp>
+  template<typename Tp>
     constexpr bool
-    has_quiet_NaN(_Tp = _Tp{}) noexcept
-    { return std::numeric_limits<_Tp>::has_quiet_NaN; }
+    has_quiet_NaN(Tp = Tp{}) noexcept
+    { return std::numeric_limits<Tp>::has_quiet_NaN; }
 
-  template<typename _Tp>
+  template<typename Tp>
     constexpr bool
-    has_signaling_NaN(_Tp = _Tp{}) noexcept
-    { return std::numeric_limits<_Tp>::has_signaling_NaN; }
+    has_signaling_NaN(Tp = Tp{}) noexcept
+    { return std::numeric_limits<Tp>::has_signaling_NaN; }
 
-  template<typename _Tp>
+  template<typename Tp>
     constexpr std::float_denorm_style
-    has_denorm(_Tp = _Tp{}) noexcept
-    { return std::numeric_limits<_Tp>::has_denorm; }
+    has_denorm(Tp = Tp{}) noexcept
+    { return std::numeric_limits<Tp>::has_denorm; }
 
-  template<typename _Tp>
+  template<typename Tp>
     constexpr bool
-    has_denorm_loss(_Tp = _Tp{}) noexcept
-    { return std::numeric_limits<_Tp>::has_denorm_loss; }
+    has_denorm_loss(Tp = Tp{}) noexcept
+    { return std::numeric_limits<Tp>::has_denorm_loss; }
 
-  template<typename _Tp>
-    constexpr _Tp
-    infinity(_Tp = _Tp{}) noexcept
-    { return std::numeric_limits<_Tp>::infinity(); }
+  template<typename Tp>
+    constexpr Tp
+    infinity(Tp = Tp{}) noexcept
+    { return std::numeric_limits<Tp>::infinity(); }
 
-  template<typename _Tp>
-    constexpr _Tp
-    quiet_NaN(_Tp = _Tp{}) noexcept
-    { return std::numeric_limits<_Tp>::quiet_NaN(); }
+  template<typename Tp>
+    constexpr Tp
+    quiet_NaN(Tp = Tp{}) noexcept
+    { return std::numeric_limits<Tp>::quiet_NaN(); }
 
-  template<typename _Tp>
-    constexpr _Tp
-    signaling_NaN(_Tp = _Tp{}) noexcept
-    { return std::numeric_limits<_Tp>::signaling_NaN(); }
+  template<typename Tp>
+    constexpr Tp
+    signaling_NaN(Tp = Tp{}) noexcept
+    { return std::numeric_limits<Tp>::signaling_NaN(); }
 
-  template<typename _Tp>
-    constexpr _Tp
-    denorm_min(_Tp = _Tp{}) noexcept
-    { return std::numeric_limits<_Tp>::denorm_min(); }
+  template<typename Tp>
+    constexpr Tp
+    denorm_min(Tp = Tp{}) noexcept
+    { return std::numeric_limits<Tp>::denorm_min(); }
 
-  template<typename _Tp>
+  template<typename Tp>
     constexpr bool
-    is_iec559(_Tp = _Tp{}) noexcept
-    { return std::numeric_limits<_Tp>::is_iec559; }
+    is_iec559(Tp = Tp{}) noexcept
+    { return std::numeric_limits<Tp>::is_iec559; }
 
-  template<typename _Tp>
+  template<typename Tp>
     constexpr bool
-    is_bounded(_Tp = _Tp{}) noexcept
-    { return std::numeric_limits<_Tp>::is_bounded; }
+    is_bounded(Tp = Tp{}) noexcept
+    { return std::numeric_limits<Tp>::is_bounded; }
 
-  template<typename _Tp>
+  template<typename Tp>
     constexpr bool
-    is_modulo(_Tp = _Tp{}) noexcept
-    { return std::numeric_limits<_Tp>::is_modulo; }
+    is_modulo(Tp = Tp{}) noexcept
+    { return std::numeric_limits<Tp>::is_modulo; }
 
-  template<typename _Tp>
+  template<typename Tp>
     constexpr bool
-    traps(_Tp = _Tp{}) noexcept
-    { return std::numeric_limits<_Tp>::traps; }
+    traps(Tp = Tp{}) noexcept
+    { return std::numeric_limits<Tp>::traps; }
 
-  template<typename _Tp>
+  template<typename Tp>
     constexpr bool
-    tinyness_before(_Tp = _Tp{}) noexcept
-    { return std::numeric_limits<_Tp>::tinyness_before; }
+    tinyness_before(Tp = Tp{}) noexcept
+    { return std::numeric_limits<Tp>::tinyness_before; }
 
-  template<typename _Tp>
+  template<typename Tp>
     constexpr std::float_round_style
-    round_style(_Tp = _Tp{}) noexcept
-    { return std::numeric_limits<_Tp>::round_style; }
+    round_style(Tp = Tp{}) noexcept
+    { return std::numeric_limits<Tp>::round_style; }
 
   // Extra bits to help with numerics...
   // These depend on constexpr math functions.
 
-  template<typename _Tp>
-    inline _Tp
-    max_integer(_Tp = _Tp{}) noexcept
-    { return std::ldexp(_Tp{1}, digits(_Tp{})); }
+  template<typename Tp>
+    inline Tp
+    max_integer(Tp = Tp{}) noexcept
+    { return std::ldexp(Tp{1}, digits(Tp{})); }
 
-  template<typename _Tp>
-    inline _Tp
-    sqrt_max(_Tp = _Tp{}) noexcept
-    { return std::sqrt(lim_max(_Tp{})); }
+  template<typename Tp>
+    inline Tp
+    sqrt_max(Tp = Tp{}) noexcept
+    { return std::sqrt(lim_max(Tp{})); }
 
-  template<typename _Tp>
-    inline _Tp
-    cbrt_max(_Tp = _Tp{}) noexcept
-    { return std::cbrt(lim_max(_Tp{})); }
+  template<typename Tp>
+    inline Tp
+    cbrt_max(Tp = Tp{}) noexcept
+    { return std::cbrt(lim_max(Tp{})); }
 
-  template<typename _Tp>
-    inline _Tp
-    root_max(_Tp root) noexcept
-    { return std::pow(lim_max(_Tp{}), 1 / root); }
+  template<typename Tp>
+    inline Tp
+    root_max(Tp root) noexcept
+    { return std::pow(lim_max(Tp{}), 1 / root); }
 
-  template<typename _Tp>
-    inline _Tp
-    log_max(_Tp = _Tp{}) noexcept
-    { return std::log(lim_max(_Tp{})); }
+  template<typename Tp>
+    inline Tp
+    log_max(Tp = Tp{}) noexcept
+    { return std::log(lim_max(Tp{})); }
 
-  template<typename _Tp>
-    inline _Tp
-    log10_max(_Tp = _Tp{}) noexcept
-    { return std::log10(lim_max(_Tp{})); }
+  template<typename Tp>
+    inline Tp
+    log10_max(Tp = Tp{}) noexcept
+    { return std::log10(lim_max(Tp{})); }
 
 
-  template<typename _Tp>
-    inline _Tp
-    sqrt_min(_Tp = _Tp{}) noexcept
-    { return std::sqrt(lim_min(_Tp{})); }
+  template<typename Tp>
+    inline Tp
+    sqrt_min(Tp = Tp{}) noexcept
+    { return std::sqrt(lim_min(Tp{})); }
 
-  template<typename _Tp>
-    inline _Tp
-    cbrt_min(_Tp = _Tp{}) noexcept
-    { return std::cbrt(lim_min(_Tp{})); }
+  template<typename Tp>
+    inline Tp
+    cbrt_min(Tp = Tp{}) noexcept
+    { return std::cbrt(lim_min(Tp{})); }
 
-  template<typename _Tp>
-    inline _Tp
-    root_min(_Tp root) noexcept
-    { return std::pow(lim_min(_Tp{}), 1 / root); }
+  template<typename Tp>
+    inline Tp
+    root_min(Tp root) noexcept
+    { return std::pow(lim_min(Tp{}), 1 / root); }
 
-  template<typename _Tp>
-    inline _Tp
-    log_min(_Tp = _Tp{}) noexcept
-    { return std::log(lim_min(_Tp{})); }
+  template<typename Tp>
+    inline Tp
+    log_min(Tp = Tp{}) noexcept
+    { return std::log(lim_min(Tp{})); }
 
-  template<typename _Tp>
-    inline _Tp
-    log10_min(_Tp = _Tp{}) noexcept
-    { return std::log10(lim_min(_Tp{})); }
+  template<typename Tp>
+    inline Tp
+    log10_min(Tp = Tp{}) noexcept
+    { return std::log10(lim_min(Tp{})); }
 
-  template<typename _Tp>
-    inline _Tp
-    sqrt_eps(_Tp = _Tp{}) noexcept
-    { return std::sqrt(epsilon(_Tp{})); }
+  template<typename Tp>
+    inline Tp
+    sqrt_eps(Tp = Tp{}) noexcept
+    { return std::sqrt(epsilon(Tp{})); }
 
-  template<typename _Tp>
-    inline _Tp
-    cbrt_eps(_Tp = _Tp{}) noexcept
-    { return std::cbrt(epsilon(_Tp{})); }
+  template<typename Tp>
+    inline Tp
+    cbrt_eps(Tp = Tp{}) noexcept
+    { return std::cbrt(epsilon(Tp{})); }
 
-  template<typename _Tp>
-    inline _Tp
-    root_eps(_Tp root) noexcept
-    { return std::pow(epsilon(_Tp{}), 1 / root); }
+  template<typename Tp>
+    inline Tp
+    root_eps(Tp root) noexcept
+    { return std::pow(epsilon(Tp{}), 1 / root); }
 
-  template<typename _Tp>
-    inline _Tp
-    log_eps(_Tp = _Tp{}) noexcept
-    { return std::log(epsilon(_Tp{})); }
+  template<typename Tp>
+    inline Tp
+    log_eps(Tp = Tp{}) noexcept
+    { return std::log(epsilon(Tp{})); }
 
-  template<typename _Tp>
-    inline _Tp
-    log10_eps(_Tp = _Tp{}) noexcept
-    { return std::log10(epsilon(_Tp{})); }
+  template<typename Tp>
+    inline Tp
+    log10_eps(Tp = Tp{}) noexcept
+    { return std::log10(epsilon(Tp{})); }
 
 } // namespace emsr
 
