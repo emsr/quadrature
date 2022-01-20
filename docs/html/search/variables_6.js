@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['f_5fexact',['f_exact',['../test__integral_8tcc.html#ac976a7672df8a7a03bec324e352ed050',1,'test_integral.tcc']]],
-  ['func',['func',['../struct____gnu__cxx_1_1fn__qaws.html#a0fe42f7ea452aae136c5dba3264c3e93',1,'__gnu_cxx::fn_qaws']]],
-  ['fx',['fx',['../struct____gnu__cxx_1_1cquad__interval.html#ab3c4ae7b9f1ad8fe99f385e388514fae',1,'__gnu_cxx::cquad_interval']]]
+  ['gauss_5fhermite_5fintegrate_711',['gauss_hermite_integrate',['../namespaceemsr.html#a1b6c1de0ac483e85e1e8596608a953bc',1,'emsr']]],
+  ['gauss_5flaguerre_5fintegrate_712',['gauss_laguerre_integrate',['../namespaceemsr.html#a0e461ebebd31989d720f0028fca3761a',1,'emsr']]],
+  ['gauss_5flegendre_5fprecomp_713',['gauss_legendre_precomp',['../namespaceemsr.html#aca7ebd8e66e48cb5d513e91beafeb56e',1,'emsr']]],
+  ['glfixed_5fintegrate_714',['glfixed_integrate',['../namespaceemsr.html#a7aaa9f8ceaf4c26bb5e38bfce4ef9fe0',1,'emsr']]]
 ];

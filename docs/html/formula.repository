@@ -1,80 +1,80 @@
-\form#0:\[ \int_{-1}^{+1}f(x)dx \]
-\form#1:\[ x = tanh\left[\frac{\pi}{2}sinh(u)\right], dx = \frac{\pi}{2} \frac{cosh(u)}{cosh^2\left[\frac{\pi}{2}sinh(u)\right]}du \]
-\form#2:\[ \int_{-\infty}^{+\infty}f(tanh\left[\frac{\pi}{2}sinh(u)\right]) = \sum_{k=-n}^{+n} \]
-\form#3:\[ \int_{-\infty}^{+\infty}f(x)dx \]
-\form#4:\[ x = sinh\left[\frac{\pi}{2}sinh(u)\right], dx = \frac{\pi}{2} cosh(u) cosh\left[\frac{\pi}{2}sinh(u)\right]du \]
-\form#5:\[ \int_{-\infty}^{+\infty}f(sinh\left[\frac{\pi}{2}sinh(u)\right]) = \sum_{k=-n}^{+n} \]
-\form#6:\[ \int_{0}^{+\infty}f(x)dx \]
-\form#7:\[ x = exp\left[\frac{\pi}{2}sinh(u)\right], dx = \frac{\pi}{2} cosh(u) exp\left[\frac{\pi}{2}sinh(u)\right]du \]
-\form#8:\[ \int_{0}^{+\infty}f(exp\left[\frac{\pi}{2}sinh(u)\right]) = \sum_{k=-n}^{+n} \]
-\form#9:$ \omega^0, \omega, \omega^2, ..., \omega^(N-1) $
-\form#10:$ \omega $
-\form#11:\[ p(t) = a_0 + a_1 t + a_2 t^2 + ... \]
-\form#12:\[ p(t) = a_0 + a_2 t^2 + a_4 t^4 + ... + t(a_1 + a_3 t^2 + ...) = q_{even}(t^2) + t q_{odd} (t^2) \]
-\form#13:$-1\le x_i \le 1$
-\form#14:$\alpha$
-\form#15:$\beta$
-\form#16:\[ P^{(\alpha, \beta)}_Q(x_i) = 0 \]
-\form#17:\[ D[j+iQ] = \left.\frac{dh_j(x)}{dx}\right|_{x=x_i} \]
-\form#18:\[ h_i(zz) \]
-\form#19:\[ I_{ij} = I[iQ+j] = h_j(x_i) \]
-\form#20:\[ P^{\alpha+1, \beta+1}_{Q-2}(x_i) = 0 \]
-\form#21:\[ P^{(\alpha, \beta+1)}_{Q-1}(x_i) = 0 \]
-\form#22:\[ P^{(\alpha+1, \beta)}_{Q-1}(x_i) = 0 \]
-\form#23:\[ \int_{-1}^1 f(x) dx \approx \sum_{i=0}^{Q-1} w_i f(x_i) \]
-\form#24:$x_i$
-\form#25:$w_i$
-\form#26:$\int_{-1}^{1} f(x) dx \approx \sum_{i=0}^{Q-1} w_i f(x_i)$
-\form#27:\[ \left.\frac{du(x)}{dx}\right|_{x=x_i} = \sum_{j=0}^{Q-1} D_{ij} u(x_j) \]
-\form#28:\[ D_{ij} = \left.\frac{dh_j(x)}{dx}\right|_{x=x_i} \]
-\form#29:$h_j(x)$
-\form#30:\[ I_{ij} = h_j(x_i) \]
-\form#31:\[ f^{interpolated}(x_i) = \sum_{j=0}^{Q-1} f_j h_j(x_i) \]
-\form#32:$ 1 $
-\form#33:$ b > a $
-\form#34:$ (a, b) $
-\form#35:$ (-1, +1) $
-\form#36:$ [(1-x)(1+x)]^{-1/2} $
-\form#37:$ \alpha = 1/2 $
-\form#38:$ \beta = 1/2 $
-\form#39:$ ((b-x)(x-a))^{-1/2} $
-\form#40:$ [(b-x)(x-a)]^{-1/2} $
-\form#41:$ \alpha = -1/2 $
-\form#42:$ \beta = -1/2 $
-\form#43:$ (a, b), b > a $
-\form#44:$ [(b-x)(x-a)]^{1/2} $
-\form#45:$ [(x-a)/(b-x)]^{1/2} $
-\form#46:$ \alpha = +1/2 $
-\form#47:$ [(1-x)/(1+x)]^{1/2} $
-\form#48:$ \beta = +1/2 $
-\form#49:$ [(b-x)/(x-a)]^{1/2} $
-\form#50:$ [(b-x)(x-a)]^\lambda $
-\form#51:$ \lambda > -1 $
-\form#52:$ (1-x)^\alpha (1+x)^\beta $
-\form#53:$ \alpha, \beta > -1 $
-\form#54:$ (b-x)^\alpha (x-a)^\beta $
-\form#55:$ (0, \infty) $
-\form#56:$ x^\alpha \exp(-b(x-a)) $
-\form#57:$ \alpha > -1 $
-\form#58:$ (a, \infty) $
-\form#59:$ (x-a)^\alpha \exp(-b(x-a)) $
-\form#60:$ b > 0 $
-\form#61:$ (-\infty, \infty) $
-\form#62:$ |x-a|^\alpha \exp(-b(x-a)^2) $
-\form#63:$ |x - (a + b) / 2|^\alpha $
-\form#64:\[ W(x) = (x-a)^\alpha (b-x)^\beta log^\mu (x-a) log^\nu (b-x) \]
-\form#65:$ \beta > -1 $
-\form#66:$ \mu = 0 $
-\form#67:$ \nu = 0, 1 $
-\form#68:\[ W(x) = (x-a)^\alpha (b-x)^\beta (\mu = 0, \nu = 0) W(x) = (x-a)^\alpha (b-x)^\beta log(x-a) (\mu = 1, \nu = 0) W(x) = (x-a)^\alpha (b-x)^\beta log(b-x) (\mu = 0, \nu = 1) W(x) = (x-a)^\alpha (b-x)^\beta log(x-a) log(b-x) (\mu = 1, \nu = 1) \]
-\form#69:$ x \in (-\infty, +\infty) $
-\form#70:$ t \in (0, 1] $
-\form#71:$ g(t) $
-\form#72:$ [f(-x) + f(+x)]dx/dt $
-\form#73:$ x:0->\infty $
-\form#74:$ t:1->0 $
-\form#75:$ t \in (0, 1) $
-\form#76:$ x \in (-\infty, b] $
-\form#77:$ x \in [a, +\infty) $
-\form#78:\[ I = \int_a^b dx f(x) / (x - c) \]
-\form#79:\[ log(x - \alpha) log(\beta - x) \]
+\_form#0=66x33:\[ \int_{-1}^{+1}f(x)dx \]
+\_form#1=274x33:\[ x = tanh\left[\frac{\pi}{2}sinh(u)\right], dx = \frac{\pi}{2} \frac{cosh(u)}{cosh^2\left[\frac{\pi}{2}sinh(u)\right]}du \]
+\_form#2=185x38:\[ \int_{-\infty}^{+\infty}f(tanh\left[\frac{\pi}{2}sinh(u)\right]) = \sum_{k=-n}^{+n} \]
+\_form#3=71x33:\[ \int_{-\infty}^{+\infty}f(x)dx \]
+\_form#4=311x24:\[ x = sinh\left[\frac{\pi}{2}sinh(u)\right], dx = \frac{\pi}{2} cosh(u) cosh\left[\frac{\pi}{2}sinh(u)\right]du \]
+\_form#5=184x38:\[ \int_{-\infty}^{+\infty}f(sinh\left[\frac{\pi}{2}sinh(u)\right]) = \sum_{k=-n}^{+n} \]
+\_form#6=71x33:\[ \int_{0}^{+\infty}f(x)dx \]
+\_form#7=300x24:\[ x = exp\left[\frac{\pi}{2}sinh(u)\right], dx = \frac{\pi}{2} cosh(u) exp\left[\frac{\pi}{2}sinh(u)\right]du \]
+\_form#8=179x38:\[ \int_{0}^{+\infty}f(exp\left[\frac{\pi}{2}sinh(u)\right]) = \sum_{k=-n}^{+n} \]
+\_form#9=119x16:$ \omega^0, \omega, \omega^2, ..., \omega^(N-1) $
+\_form#10=9x6:$ \omega $
+\_form#11=145x16:\[ p(t) = a_0 + a_1 t + a_2 t^2 + ... \]
+\_form#12=380x16:\[ p(t) = a_0 + a_2 t^2 + a_4 t^4 + ... + t(a_1 + a_3 t^2 + ...) = q_{even}(t^2) + t q_{odd} (t^2) \]
+\_form#13=66x11:$-1\le x_i \le 1$
+\_form#14=8x6:$\alpha$
+\_form#15=9x13:$\beta$
+\_form#16=78x19:\[ P^{(\alpha, \beta)}_Q(x_i) = 0 \]
+\_form#17=136x34:\[ D[j+iQ] = \left.\frac{dh_j(x)}{dx}\right|_{x=x_i} \]
+\_form#18=34x14:\[ h_i(zz) \]
+\_form#19=129x14:\[ I_{ij} = I[iQ+j] = h_j(x_i) \]
+\_form#20=95x18:\[ P^{\alpha+1, \beta+1}_{Q-2}(x_i) = 0 \]
+\_form#21=90x19:\[ P^{(\alpha, \beta+1)}_{Q-1}(x_i) = 0 \]
+\_form#22=90x19:\[ P^{(\alpha+1, \beta)}_{Q-1}(x_i) = 0 \]
+\_form#23=140x39:\[ \int_{-1}^1 f(x) dx \approx \sum_{i=0}^{Q-1} w_i f(x_i) \]
+\_form#24=11x9:$x_i$
+\_form#25=14x9:$w_i$
+\_form#26=153x19:$\int_{-1}^{1} f(x) dx \approx \sum_{i=0}^{Q-1} w_i f(x_i)$
+\_form#27=146x40:\[ \left.\frac{du(x)}{dx}\right|_{x=x_i} = \sum_{j=0}^{Q-1} D_{ij} u(x_j) \]
+\_form#28=103x34:\[ D_{ij} = \left.\frac{dh_j(x)}{dx}\right|_{x=x_i} \]
+\_form#29=28x14:$h_j(x)$
+\_form#30=64x14:\[ I_{ij} = h_j(x_i) \]
+\_form#31=168x40:\[ f^{interpolated}(x_i) = \sum_{j=0}^{Q-1} f_j h_j(x_i) \]
+\_form#32=5x9:$ 1 $
+\_form#33=29x11:$ b > a $
+\_form#34=26x14:$ (a, b) $
+\_form#35=46x14:$ (-1, +1) $
+\_form#36=106x16:$ [(1-x)(1+x)]^{-1/2} $
+\_form#37=43x14:$ \alpha = 1/2 $
+\_form#38=44x14:$ \beta = 1/2 $
+\_form#39=108x16:$ ((b-x)(x-a))^{-1/2} $
+\_form#40=105x16:$ [(b-x)(x-a)]^{-1/2} $
+\_form#41=53x14:$ \alpha = -1/2 $
+\_form#42=54x14:$ \beta = -1/2 $
+\_form#43=61x14:$ (a, b), b > a $
+\_form#44=98x16:$ [(b-x)(x-a)]^{1/2} $
+\_form#45=104x16:$ [(x-a)/(b-x)]^{1/2} $
+\_form#46=53x14:$ \alpha = +1/2 $
+\_form#47=104x16:$ [(1-x)/(1+x)]^{1/2} $
+\_form#48=54x14:$ \beta = +1/2 $
+\_form#49=104x16:$ [(b-x)/(x-a)]^{1/2} $
+\_form#50=89x15:$ [(b-x)(x-a)]^\lambda $
+\_form#51=39x11:$ \lambda > -1 $
+\_form#52=89x15:$ (1-x)^\alpha (1+x)^\beta $
+\_form#53=53x13:$ \alpha, \beta > -1 $
+\_form#54=89x15:$ (b-x)^\alpha (x-a)^\beta $
+\_form#55=33x14:$ (0, \infty) $
+\_form#56=99x14:$ x^\alpha \exp(-b(x-a)) $
+\_form#57=40x10:$ \alpha > -1 $
+\_form#58=34x14:$ (a, \infty) $
+\_form#59=129x14:$ (x-a)^\alpha \exp(-b(x-a)) $
+\_form#60=28x11:$ b > 0 $
+\_form#61=49x14:$ (-\infty, \infty) $
+\_form#62=133x15:$ |x-a|^\alpha \exp(-b(x-a)^2) $
+\_form#63=85x14:$ |x - (a + b) / 2|^\alpha $
+\_form#64=258x16:\[ W(x) = (x-a)^\alpha (b-x)^\beta log^\mu (x-a) log^\nu (b-x) \]
+\_form#65=41x13:$ \beta > -1 $
+\_form#66=31x11:$ \mu = 0 $
+\_form#67=41x11:$ \nu = 0, 1 $
+\_form#68=598x16:\[ W(x) = (x-a)^\alpha (b-x)^\beta (\mu = 0, \nu = 0) W(x) = (x-a)^\alpha (b-x)^\beta log(x-a) (\mu = 1, \nu = 0) W(x) = (x-a)^\alpha (b-x)^\beta log(b-x) (\mu = 0, \nu = 1) W(x) = (x-a)^\alpha (b-x)^\beta log(x-a) log(b-x) (\mu = 1, \nu = 1) \]
+\_form#69=83x14:$ x \in (-\infty, +\infty) $
+\_form#70=46x14:$ t \in (0, 1] $
+\_form#71=21x14:$ g(t) $
+\_form#72=120x14:$ [f(-x) + f(+x)]dx/dt $
+\_form#73=64x10:$ x:0->\infty $
+\_form#74=55x10:$ t:1->0 $
+\_form#75=48x14:$ t \in (0, 1) $
+\_form#76=64x14:$ x \in (-\infty, b] $
+\_form#77=65x14:$ x \in [a, +\infty) $
+\_form#78=124x33:\[ I = \int_a^b dx f(x) / (x - c) \]
+\_form#79=111x14:\[ log(x - \alpha) log(\beta - x) \]

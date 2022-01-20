@@ -1,8 +1,9 @@
-\hypertarget{qagp__integrate_8tcc}{}\section{include/ext/qagp\+\_\+integrate.tcc File Reference}
-\label{qagp__integrate_8tcc}\index{include/ext/qagp\+\_\+integrate.\+tcc@{include/ext/qagp\+\_\+integrate.\+tcc}}
+\hypertarget{qagp__integrate_8tcc}{}\doxysection{include/emsr/qagp\+\_\+integrate.tcc File Reference}
+\label{qagp__integrate_8tcc}\index{include/emsr/qagp\_integrate.tcc@{include/emsr/qagp\_integrate.tcc}}
+{\ttfamily \#include $<$type\+\_\+traits$>$}\newline
 {\ttfamily \#include $<$tuple$>$}\newline
-{\ttfamily \#include $<$ext/integration\+\_\+workspace.\+h$>$}\newline
-{\ttfamily \#include $<$ext/extrapolation\+\_\+table.\+h$>$}\newline
+{\ttfamily \#include $<$emsr/integration\+\_\+workspace.\+h$>$}\newline
+{\ttfamily \#include $<$emsr/extrapolation\+\_\+table.\+h$>$}\newline
 Include dependency graph for qagp\+\_\+integrate.\+tcc\+:
 \nopagebreak
 \begin{figure}[H]
@@ -16,34 +17,34 @@ This graph shows which files directly or indirectly include this file\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=227pt]{qagp__integrate_8tcc__dep__incl}
+\includegraphics[width=253pt]{qagp__integrate_8tcc__dep__incl}
 \end{center}
 \end{figure}
-\subsection*{Namespaces}
+\doxysubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
- \hyperlink{namespace____gnu__cxx}{\+\_\+\+\_\+gnu\+\_\+cxx}
+ \mbox{\hyperlink{namespaceemsr}{emsr}}
 \end{DoxyCompactItemize}
-\subsection*{Macros}
+\doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\#define \hyperlink{qagp__integrate_8tcc_a169e97951b2784b3a8523124af652c2b}{Q\+A\+G\+P\+\_\+\+I\+N\+T\+E\+G\+R\+A\+T\+E\+\_\+\+T\+CC}~1
+\#define \mbox{\hyperlink{qagp__integrate_8tcc_a169e97951b2784b3a8523124af652c2b}{QAGP\+\_\+\+INTEGRATE\+\_\+\+TCC}}~1
 \end{DoxyCompactItemize}
-\subsection*{Functions}
+\doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$typename \+\_\+\+Tp , typename \+\_\+\+Func\+Tp , typename \+\_\+\+Integrator  = gauss\+\_\+kronrod\+\_\+integral$<$\+\_\+\+Tp$>$$>$ }\\auto \hyperlink{namespace____gnu__cxx_adf59cfc2db130a9f92d68887e71bbd5f}{\+\_\+\+\_\+gnu\+\_\+cxx\+::qagp\+\_\+integrate} (integration\+\_\+workspace$<$ \+\_\+\+Tp, std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp, \+\_\+\+Tp $>$$>$ \&\+\_\+\+\_\+workspace, \+\_\+\+Func\+Tp \+\_\+\+\_\+func, std\+::vector$<$ \+\_\+\+Tp $>$ \+\_\+\+\_\+pts, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+abs\+\_\+err, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+rel\+\_\+err, \+\_\+\+Integrator \+\_\+\+\_\+quad=gauss\+\_\+kronrod\+\_\+integral$<$ \+\_\+\+Tp $>$(Kronrod\+\_\+21)) -\/$>$ adaptive\+\_\+integral\+\_\+t$<$ \+\_\+\+Tp, std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp, \+\_\+\+Tp $>$$>$
+{\footnotesize template$<$typename Tp , typename Func\+Tp , typename Integrator  = gauss\+\_\+kronrod\+\_\+integral$<$\+Tp$>$$>$ }\\auto \mbox{\hyperlink{namespaceemsr_aadd49cb6dc0bcc517dcd5c69c070b6ff}{emsr\+::qagp\+\_\+integrate}} (integration\+\_\+workspace$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, std\+::invoke\+\_\+result\+\_\+t$<$ Func\+Tp, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$$>$ \&workspace, Func\+Tp func, std\+::vector$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$ pts, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} max\+\_\+abs\+\_\+err, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} max\+\_\+rel\+\_\+err, Integrator quad=gauss\+\_\+kronrod\+\_\+integral$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$(Kronrod\+\_\+21)) -\/$>$ adaptive\+\_\+integral\+\_\+t$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, std\+::invoke\+\_\+result\+\_\+t$<$ Func\+Tp, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$$>$
 \end{DoxyCompactItemize}
 
 
-\subsection{Macro Definition Documentation}
+\doxysubsection{Macro Definition Documentation}
 \mbox{\Hypertarget{qagp__integrate_8tcc_a169e97951b2784b3a8523124af652c2b}\label{qagp__integrate_8tcc_a169e97951b2784b3a8523124af652c2b}} 
-\index{qagp\+\_\+integrate.\+tcc@{qagp\+\_\+integrate.\+tcc}!Q\+A\+G\+P\+\_\+\+I\+N\+T\+E\+G\+R\+A\+T\+E\+\_\+\+T\+CC@{Q\+A\+G\+P\+\_\+\+I\+N\+T\+E\+G\+R\+A\+T\+E\+\_\+\+T\+CC}}
-\index{Q\+A\+G\+P\+\_\+\+I\+N\+T\+E\+G\+R\+A\+T\+E\+\_\+\+T\+CC@{Q\+A\+G\+P\+\_\+\+I\+N\+T\+E\+G\+R\+A\+T\+E\+\_\+\+T\+CC}!qagp\+\_\+integrate.\+tcc@{qagp\+\_\+integrate.\+tcc}}
-\subsubsection{\texorpdfstring{Q\+A\+G\+P\+\_\+\+I\+N\+T\+E\+G\+R\+A\+T\+E\+\_\+\+T\+CC}{QAGP\_INTEGRATE\_TCC}}
-{\footnotesize\ttfamily \#define Q\+A\+G\+P\+\_\+\+I\+N\+T\+E\+G\+R\+A\+T\+E\+\_\+\+T\+CC~1}
+\index{qagp\_integrate.tcc@{qagp\_integrate.tcc}!QAGP\_INTEGRATE\_TCC@{QAGP\_INTEGRATE\_TCC}}
+\index{QAGP\_INTEGRATE\_TCC@{QAGP\_INTEGRATE\_TCC}!qagp\_integrate.tcc@{qagp\_integrate.tcc}}
+\doxysubsubsection{\texorpdfstring{QAGP\_INTEGRATE\_TCC}{QAGP\_INTEGRATE\_TCC}}
+{\footnotesize\ttfamily \#define QAGP\+\_\+\+INTEGRATE\+\_\+\+TCC~1}
 
 
 
-Definition at line 29 of file qagp\+\_\+integrate.\+tcc.
+Definition at line 27 of file qagp\+\_\+integrate.\+tcc.
 

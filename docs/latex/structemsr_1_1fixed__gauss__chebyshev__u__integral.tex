@@ -1,0 +1,96 @@
+\hypertarget{structemsr_1_1fixed__gauss__chebyshev__u__integral}{}\doxysection{emsr\+::fixed\+\_\+gauss\+\_\+chebyshev\+\_\+u\+\_\+integral$<$ Tp $>$ Struct Template Reference}
+\label{structemsr_1_1fixed__gauss__chebyshev__u__integral}\index{emsr::fixed\_gauss\_chebyshev\_u\_integral$<$ Tp $>$@{emsr::fixed\_gauss\_chebyshev\_u\_integral$<$ Tp $>$}}
+
+
+{\ttfamily \#include $<$gauss\+\_\+quadrature.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structemsr_1_1fixed__gauss__chebyshev__u__integral_a9e037f2be9927dcc004184ac5786749a}{fixed\+\_\+gauss\+\_\+chebyshev\+\_\+u\+\_\+integral}} (int n)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename Func\+Tp $>$ }\\decltype(std\+::invoke\+\_\+result\+\_\+t$<$ Func\+Tp, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$\{\} $\ast$\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{\} \mbox{\hyperlink{structemsr_1_1fixed__gauss__chebyshev__u__integral_ac8bff8918b666cb51c7c3c0753344552}{operator()}} )(Func\+Tp func, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} lower, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} upper) const
+\item 
+int \mbox{\hyperlink{structemsr_1_1fixed__gauss__chebyshev__u__integral_abc2d556e2d7dbfbd15b8e049fb5a66df}{order}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename Tp$>$\newline
+struct emsr\+::fixed\+\_\+gauss\+\_\+chebyshev\+\_\+u\+\_\+integral$<$ Tp $>$}
+
+
+
+Definition at line 71 of file gauss\+\_\+quadrature.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structemsr_1_1fixed__gauss__chebyshev__u__integral_a9e037f2be9927dcc004184ac5786749a}\label{structemsr_1_1fixed__gauss__chebyshev__u__integral_a9e037f2be9927dcc004184ac5786749a}} 
+\index{emsr::fixed\_gauss\_chebyshev\_u\_integral$<$ Tp $>$@{emsr::fixed\_gauss\_chebyshev\_u\_integral$<$ Tp $>$}!fixed\_gauss\_chebyshev\_u\_integral@{fixed\_gauss\_chebyshev\_u\_integral}}
+\index{fixed\_gauss\_chebyshev\_u\_integral@{fixed\_gauss\_chebyshev\_u\_integral}!emsr::fixed\_gauss\_chebyshev\_u\_integral$<$ Tp $>$@{emsr::fixed\_gauss\_chebyshev\_u\_integral$<$ Tp $>$}}
+\doxysubsubsection{\texorpdfstring{fixed\_gauss\_chebyshev\_u\_integral()}{fixed\_gauss\_chebyshev\_u\_integral()}}
+{\footnotesize\ttfamily template$<$typename Tp $>$ \\
+\mbox{\hyperlink{structemsr_1_1fixed__gauss__chebyshev__u__integral}{emsr\+::fixed\+\_\+gauss\+\_\+chebyshev\+\_\+u\+\_\+integral}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$\+::\mbox{\hyperlink{structemsr_1_1fixed__gauss__chebyshev__u__integral}{fixed\+\_\+gauss\+\_\+chebyshev\+\_\+u\+\_\+integral}} (\begin{DoxyParamCaption}\item[{int}]{n }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+Construct a Gauss-\/\+Chebyshev-\/U rule of order {\ttfamily n}.
+
+Interval\+: $ (a, b) $ Weight function\+: $ [(b-x)(x-a)]^{-1/2} $ Jacobi parameter\+: $ \alpha = -1/2 $ Jacobi parameter\+: $ \beta = -1/2 $ 
+
+Definition at line 208 of file gauss\+\_\+quadrature.\+tcc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{210     : \mbox{\hyperlink{structemsr_1_1fixed__gauss__chebyshev__u__integral_abc2d556e2d7dbfbd15b8e049fb5a66df}{order}}(n),}
+\DoxyCodeLine{211       point(n),}
+\DoxyCodeLine{212       weight(n)}
+\DoxyCodeLine{213     \{}
+\DoxyCodeLine{214       \textcolor{keyword}{const} \textcolor{keyword}{auto} mu\_0 = \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{3.1415'92653'58979'32384'62643'38327'95028'84195e+0L\} / \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\};}
+\DoxyCodeLine{215 }
+\DoxyCodeLine{216       std::vector<Tp> diag(this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__chebyshev__u__integral_abc2d556e2d7dbfbd15b8e049fb5a66df}{order}}, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{0\});}
+\DoxyCodeLine{217       std::vector<Tp> subd(this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__chebyshev__u__integral_abc2d556e2d7dbfbd15b8e049fb5a66df}{order}}, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{0.5L\});}
+\DoxyCodeLine{218 }
+\DoxyCodeLine{219       \mbox{\hyperlink{namespaceemsr_1_1detail_a3a01597b0d4e1996d86ceaf2f68eabc8}{detail::golub\_welsch}}(mu\_0, this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__chebyshev__u__integral_abc2d556e2d7dbfbd15b8e049fb5a66df}{order}}, diag, subd,}
+\DoxyCodeLine{220                                this-\/>point, this-\/>weight);}
+\DoxyCodeLine{221     \}}
+
+\end{DoxyCode}
+
+
+References emsr\+::detail\+::golub\+\_\+welsch(), and Tp.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structemsr_1_1fixed__gauss__chebyshev__u__integral_ac8bff8918b666cb51c7c3c0753344552}\label{structemsr_1_1fixed__gauss__chebyshev__u__integral_ac8bff8918b666cb51c7c3c0753344552}} 
+\index{emsr::fixed\_gauss\_chebyshev\_u\_integral$<$ Tp $>$@{emsr::fixed\_gauss\_chebyshev\_u\_integral$<$ Tp $>$}!operator()@{operator()}}
+\index{operator()@{operator()}!emsr::fixed\_gauss\_chebyshev\_u\_integral$<$ Tp $>$@{emsr::fixed\_gauss\_chebyshev\_u\_integral$<$ Tp $>$}}
+\doxysubsubsection{\texorpdfstring{operator()}{operator()}}
+{\footnotesize\ttfamily template$<$typename Tp $>$ \\
+template$<$typename Func\+Tp $>$ \\
+decltype(std\+::invoke\+\_\+result\+\_\+t$<$Func\+Tp, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}$>$\{\} $\ast$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{\} \mbox{\hyperlink{structemsr_1_1fixed__gauss__chebyshev__u__integral}{emsr\+::fixed\+\_\+gauss\+\_\+chebyshev\+\_\+u\+\_\+integral}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$\+::operator()) (Func\+Tp func, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} lower, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} upper) const}
+
+
+
+Definition at line 79 of file gauss\+\_\+quadrature.\+h.
+
+\mbox{\Hypertarget{structemsr_1_1fixed__gauss__chebyshev__u__integral_abc2d556e2d7dbfbd15b8e049fb5a66df}\label{structemsr_1_1fixed__gauss__chebyshev__u__integral_abc2d556e2d7dbfbd15b8e049fb5a66df}} 
+\index{emsr::fixed\_gauss\_chebyshev\_u\_integral$<$ Tp $>$@{emsr::fixed\_gauss\_chebyshev\_u\_integral$<$ Tp $>$}!order@{order}}
+\index{order@{order}!emsr::fixed\_gauss\_chebyshev\_u\_integral$<$ Tp $>$@{emsr::fixed\_gauss\_chebyshev\_u\_integral$<$ Tp $>$}}
+\doxysubsubsection{\texorpdfstring{order}{order}}
+{\footnotesize\ttfamily template$<$typename Tp $>$ \\
+int \mbox{\hyperlink{structemsr_1_1fixed__gauss__chebyshev__u__integral}{emsr\+::fixed\+\_\+gauss\+\_\+chebyshev\+\_\+u\+\_\+integral}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$\+::order}
+
+
+
+Definition at line 73 of file gauss\+\_\+quadrature.\+h.
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/emsr/\mbox{\hyperlink{gauss__quadrature_8h}{gauss\+\_\+quadrature.\+h}}\item 
+include/emsr/\mbox{\hyperlink{gauss__quadrature_8tcc}{gauss\+\_\+quadrature.\+tcc}}\end{DoxyCompactItemize}

@@ -1,6 +1,9 @@
-<map id="include/ext/qawo_integrate.tcc" name="include/ext/qawo_integrate.tcc">
-<area shape="rect" id="node3" href="$oscillatory__integration__table_8h.html" title="ext/oscillatory_integration\l_table.h" alt="" coords="89,80,259,121"/>
-<area shape="rect" id="node4" href="$oscillatory__integration__table_8tcc.html" title="ext/oscillatory_integration\l_table.tcc" alt="" coords="89,169,259,211"/>
-<area shape="rect" id="node5" href="$matrix_8h.html" title="ext/matrix.h" alt="" coords="129,259,219,285"/>
-<area shape="rect" id="node6" href="$matrix_8tcc.html" title="ext/matrix.tcc" alt="" coords="123,333,225,360"/>
+<map id="include/emsr/qawo_integrate.tcc" name="include/emsr/qawo_integrate.tcc">
+<area shape="rect" id="node1" title=" " alt="" coords="5,5,240,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="57,408,149,435"/>
+<area shape="rect" id="node3" title=" " alt="" coords="91,87,154,114"/>
+<area shape="rect" id="node4" href="$oscillatory__integration__table_8h.html" title=" " alt="" coords="179,80,384,121"/>
+<area shape="rect" id="node5" href="$oscillatory__integration__table_8tcc.html" title=" " alt="" coords="135,169,340,211"/>
+<area shape="rect" id="node6" href="$matrix_8h.html" title=" " alt="" coords="159,259,273,285"/>
+<area shape="rect" id="node7" href="$matrix_8tcc.html" title=" " alt="" coords="132,333,257,360"/>
 </map>

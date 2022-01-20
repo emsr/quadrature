@@ -1,0 +1,112 @@
+\hypertarget{classemsr_1_1fourier__transform__t}{}\doxysection{emsr\+::fourier\+\_\+transform\+\_\+t$<$ Tp $>$ Class Template Reference}
+\label{classemsr_1_1fourier__transform__t}\index{emsr::fourier\_transform\_t$<$ Tp $>$@{emsr::fourier\_transform\_t$<$ Tp $>$}}
+
+
+{\ttfamily \#include $<$fourier\+\_\+transform.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classemsr_1_1fourier__transform__t_a3f7c16080720efe6eecfbdd5f71dc051}{fourier\+\_\+transform\+\_\+t}} (std\+::size\+\_\+t n)
+\item 
+\mbox{\hyperlink{classemsr_1_1fourier__transform__t_a53d222e24ec750dc2f0366e356888eb7}{fourier\+\_\+transform\+\_\+t}} (std\+::vector$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$ data)
+\item 
+std\+::complex$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$ \mbox{\hyperlink{classemsr_1_1fourier__transform__t_a98a72eb6ed66dd5a64038ec29c753feb}{operator\mbox{[}$\,$\mbox{]}}} (std\+::size\+\_\+t k) const
+\item 
+std\+::size\+\_\+t \mbox{\hyperlink{classemsr_1_1fourier__transform__t_ac2428ee0ba644d37d84fb2fd71c60631}{size}} () const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename Tp$>$\newline
+class emsr\+::fourier\+\_\+transform\+\_\+t$<$ Tp $>$}
+
+Fast Fourier Transform
+
+Discrete Fourier Transform can be regarded as evaluating a polynomial of degree N-\/1 on the powers $ \omega^0, \omega, \omega^2, ..., \omega^(N-1) $ where $ \omega $ is the Nth root of unity.
+
+Given a polynomial of even degree \[ p(t) = a_0 + a_1 t + a_2 t^2 + ... \] we find\+: \[ p(t) = a_0 + a_2 t^2 + a_4 t^4 + ... + t(a_1 + a_3 t^2 + ...) = q_{even}(t^2) + t q_{odd} (t^2) \] where q\+\_\+e and q\+\_\+o are polynomials formed with the even and odd coefficients of p(t). Thus, we get
+
+p(1) = q\+\_\+\{even\}(1) + \textbackslash{}omega$^\wedge$0 q\+\_\+\{odd\}(1) p(\textbackslash{}omega) = q\+\_\+\{even\}(\textbackslash{}omega$^\wedge$2) + \textbackslash{}omega$^\wedge$1 q\+\_\+\{odd\}(\textbackslash{}omega$^\wedge$2) p(\textbackslash{}omega$^\wedge$2) = q\+\_\+\{even\}(\textbackslash{}omega$^\wedge$4) + \textbackslash{}omega$^\wedge$2 q\+\_\+\{odd\}(\textbackslash{}omega$^\wedge$4) ...
+
+Note how on the RHS the Fourier transforms of q\+\_\+e and q\+\_\+o appear. Thus\+: Discrete Fourier transform type. 
+
+Definition at line 150 of file fourier\+\_\+transform.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classemsr_1_1fourier__transform__t_a3f7c16080720efe6eecfbdd5f71dc051}\label{classemsr_1_1fourier__transform__t_a3f7c16080720efe6eecfbdd5f71dc051}} 
+\index{emsr::fourier\_transform\_t$<$ Tp $>$@{emsr::fourier\_transform\_t$<$ Tp $>$}!fourier\_transform\_t@{fourier\_transform\_t}}
+\index{fourier\_transform\_t@{fourier\_transform\_t}!emsr::fourier\_transform\_t$<$ Tp $>$@{emsr::fourier\_transform\_t$<$ Tp $>$}}
+\doxysubsubsection{\texorpdfstring{fourier\_transform\_t()}{fourier\_transform\_t()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename Tp $>$ \\
+\mbox{\hyperlink{classemsr_1_1fourier__transform__t}{emsr\+::fourier\+\_\+transform\+\_\+t}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$\+::\mbox{\hyperlink{classemsr_1_1fourier__transform__t}{fourier\+\_\+transform\+\_\+t}} (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{n }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 158 of file fourier\+\_\+transform.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{159       : m\_xform\{\}}
+\DoxyCodeLine{160       \{ this-\/>m\_xform.reserve(n / 2 + 1); \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classemsr_1_1fourier__transform__t_a53d222e24ec750dc2f0366e356888eb7}\label{classemsr_1_1fourier__transform__t_a53d222e24ec750dc2f0366e356888eb7}} 
+\index{emsr::fourier\_transform\_t$<$ Tp $>$@{emsr::fourier\_transform\_t$<$ Tp $>$}!fourier\_transform\_t@{fourier\_transform\_t}}
+\index{fourier\_transform\_t@{fourier\_transform\_t}!emsr::fourier\_transform\_t$<$ Tp $>$@{emsr::fourier\_transform\_t$<$ Tp $>$}}
+\doxysubsubsection{\texorpdfstring{fourier\_transform\_t()}{fourier\_transform\_t()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Tp $>$ \\
+\mbox{\hyperlink{classemsr_1_1fourier__transform__t}{emsr\+::fourier\+\_\+transform\+\_\+t}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$\+::\mbox{\hyperlink{classemsr_1_1fourier__transform__t}{fourier\+\_\+transform\+\_\+t}} (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$}]{data }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classemsr_1_1fourier__transform__t_a98a72eb6ed66dd5a64038ec29c753feb}\label{classemsr_1_1fourier__transform__t_a98a72eb6ed66dd5a64038ec29c753feb}} 
+\index{emsr::fourier\_transform\_t$<$ Tp $>$@{emsr::fourier\_transform\_t$<$ Tp $>$}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!emsr::fourier\_transform\_t$<$ Tp $>$@{emsr::fourier\_transform\_t$<$ Tp $>$}}
+\doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}}
+{\footnotesize\ttfamily template$<$typename Tp $>$ \\
+std\+::complex$<$\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}$>$ \mbox{\hyperlink{classemsr_1_1fourier__transform__t}{emsr\+::fourier\+\_\+transform\+\_\+t}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{k }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 169 of file fourier\+\_\+transform.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{170       \{}
+\DoxyCodeLine{171         \textcolor{keywordflow}{if} (k < this-\/>m\_xform.size())}
+\DoxyCodeLine{172           \textcolor{keywordflow}{return} this-\/>m\_xform[k];}
+\DoxyCodeLine{173         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{174           \textcolor{keywordflow}{return} std::conj(this-\/>m\_xform[this-\/>m\_xform.size() -\/ k]);}
+\DoxyCodeLine{175         \textcolor{comment}{// This is real array indexing.}}
+\DoxyCodeLine{176         \textcolor{comment}{//if (k < len / 2)}}
+\DoxyCodeLine{177         \textcolor{comment}{//      ? std::complex(xform[2 * k], xform[2 * k + 1])}}
+\DoxyCodeLine{178         \textcolor{comment}{//      : std::complex(xform[2 * len -\/ 2 * i -\/ 2],}}
+\DoxyCodeLine{179         \textcolor{comment}{//                    -\/xform[2 * len -\/ 2 * k -\/ 1]);}}
+\DoxyCodeLine{180       \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classemsr_1_1fourier__transform__t_ac2428ee0ba644d37d84fb2fd71c60631}\label{classemsr_1_1fourier__transform__t_ac2428ee0ba644d37d84fb2fd71c60631}} 
+\index{emsr::fourier\_transform\_t$<$ Tp $>$@{emsr::fourier\_transform\_t$<$ Tp $>$}!size@{size}}
+\index{size@{size}!emsr::fourier\_transform\_t$<$ Tp $>$@{emsr::fourier\_transform\_t$<$ Tp $>$}}
+\doxysubsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily template$<$typename Tp $>$ \\
+std\+::size\+\_\+t \mbox{\hyperlink{classemsr_1_1fourier__transform__t}{emsr\+::fourier\+\_\+transform\+\_\+t}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 165 of file fourier\+\_\+transform.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{166       \{ \textcolor{keywordflow}{return} 2 * this-\/>m\_xform.size() -\/ 2; \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/emsr/\mbox{\hyperlink{fourier__transform_8h}{fourier\+\_\+transform.\+h}}\end{DoxyCompactItemize}

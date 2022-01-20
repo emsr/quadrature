@@ -1,10 +1,10 @@
 var structjac__quadrature =
 [
-    [ "jac_quadrature", "structjac__quadrature.html#a0d4d6c5fbb285c4b6d63e59579bb86a0", null ],
-    [ "~jac_quadrature", "structjac__quadrature.html#adca300f6457471f03b0392b4d6bc5aea", null ],
-    [ "integrate", "structjac__quadrature.html#a428a88c5ee5e6b5caae2dd312639297d", null ],
-    [ "alpha", "structjac__quadrature.html#a24503b91f0dbdc3d3ab3bd802c990e68", null ],
-    [ "beta", "structjac__quadrature.html#ad4fd571dd4977ed96b8155c79367ac41", null ],
-    [ "Q", "structjac__quadrature.html#a91ae5ef05b9ea80951e40cc8a794c834", null ],
-    [ "type", "structjac__quadrature.html#a9af6c3334c23994de4547b9d2631ce28", null ]
+    [ "jac_quadrature", "structjac__quadrature.html#ad8fdd8394147e34e2391e2e2bc14c19b", null ],
+    [ "~jac_quadrature", "structjac__quadrature.html#abe92ca2db49f495fd88422eb94b4da87", null ],
+    [ "integrate", "structjac__quadrature.html#abeaeb050069d1a6408f0ee7091c1008e", null ],
+    [ "alpha", "structjac__quadrature.html#a7178c643d347309aca12e0e05aea7cda", null ],
+    [ "beta", "structjac__quadrature.html#ae432111b069bc5da6eb22e44eb2e8a87", null ],
+    [ "Q", "structjac__quadrature.html#a20d0db1598e72081e68da49ad0524551", null ],
+    [ "type", "structjac__quadrature.html#a7d39e7f4635680fa6197b94bb79dafc9", null ]
 ];

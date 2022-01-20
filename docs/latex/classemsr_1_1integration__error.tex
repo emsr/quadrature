@@ -1,0 +1,126 @@
+\hypertarget{classemsr_1_1integration__error}{}\doxysection{emsr\+::integration\+\_\+error$<$ Area\+Tp, Abs\+Area\+Tp $>$ Class Template Reference}
+\label{classemsr_1_1integration__error}\index{emsr::integration\_error$<$ AreaTp, AbsAreaTp $>$@{emsr::integration\_error$<$ AreaTp, AbsAreaTp $>$}}
+
+
+{\ttfamily \#include $<$integration\+\_\+error.\+h$>$}
+
+
+
+Inheritance diagram for emsr\+::integration\+\_\+error$<$ Area\+Tp, Abs\+Area\+Tp $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=212pt]{classemsr_1_1integration__error__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for emsr\+::integration\+\_\+error$<$ Area\+Tp, Abs\+Area\+Tp $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=212pt]{classemsr_1_1integration__error__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classemsr_1_1integration__error_ad2c191fe39e674b47610c2586b05bc3f}{integration\+\_\+error}} (const char $\ast$what, int errcode, Area\+Tp \mbox{\hyperlink{classemsr_1_1integration__error_a96ecc045d77edfa8cc5283fe06e2bd08}{result}}, Abs\+Area\+Tp \mbox{\hyperlink{classemsr_1_1integration__error_ad714e489304329edaa33a9308e323291}{abserr}})
+\item 
+Abs\+Area\+Tp \mbox{\hyperlink{classemsr_1_1integration__error_ad714e489304329edaa33a9308e323291}{abserr}} () const
+\item 
+int \mbox{\hyperlink{classemsr_1_1integration__error_a7bae408793d18793f71c8ea4aa64b5a2}{error\+\_\+code}} () const
+\item 
+Area\+Tp \mbox{\hyperlink{classemsr_1_1integration__error_a96ecc045d77edfa8cc5283fe06e2bd08}{result}} () const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename Area\+Tp, typename Abs\+Area\+Tp$>$\newline
+class emsr\+::integration\+\_\+error$<$ Area\+Tp, Abs\+Area\+Tp $>$}
+
+
+
+Definition at line 47 of file integration\+\_\+error.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classemsr_1_1integration__error_ad2c191fe39e674b47610c2586b05bc3f}\label{classemsr_1_1integration__error_ad2c191fe39e674b47610c2586b05bc3f}} 
+\index{emsr::integration\_error$<$ AreaTp, AbsAreaTp $>$@{emsr::integration\_error$<$ AreaTp, AbsAreaTp $>$}!integration\_error@{integration\_error}}
+\index{integration\_error@{integration\_error}!emsr::integration\_error$<$ AreaTp, AbsAreaTp $>$@{emsr::integration\_error$<$ AreaTp, AbsAreaTp $>$}}
+\doxysubsubsection{\texorpdfstring{integration\_error()}{integration\_error()}}
+{\footnotesize\ttfamily template$<$typename Area\+Tp , typename Abs\+Area\+Tp $>$ \\
+\mbox{\hyperlink{classemsr_1_1integration__error}{emsr\+::integration\+\_\+error}}$<$ Area\+Tp, Abs\+Area\+Tp $>$\+::\mbox{\hyperlink{classemsr_1_1integration__error}{integration\+\_\+error}} (\begin{DoxyParamCaption}\item[{const char $\ast$}]{what,  }\item[{int}]{errcode,  }\item[{Area\+Tp}]{result,  }\item[{Abs\+Area\+Tp}]{abserr }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 55 of file integration\+\_\+error.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{57       : std::runtime\_error(what),}
+\DoxyCodeLine{58         m\_result(\mbox{\hyperlink{classemsr_1_1integration__error_a96ecc045d77edfa8cc5283fe06e2bd08}{result}}),}
+\DoxyCodeLine{59         m\_abserr(\mbox{\hyperlink{classemsr_1_1integration__error_ad714e489304329edaa33a9308e323291}{abserr}}),}
+\DoxyCodeLine{60         m\_errcode(errcode)}
+\DoxyCodeLine{61       \{ \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classemsr_1_1integration__error_ad714e489304329edaa33a9308e323291}\label{classemsr_1_1integration__error_ad714e489304329edaa33a9308e323291}} 
+\index{emsr::integration\_error$<$ AreaTp, AbsAreaTp $>$@{emsr::integration\_error$<$ AreaTp, AbsAreaTp $>$}!abserr@{abserr}}
+\index{abserr@{abserr}!emsr::integration\_error$<$ AreaTp, AbsAreaTp $>$@{emsr::integration\_error$<$ AreaTp, AbsAreaTp $>$}}
+\doxysubsubsection{\texorpdfstring{abserr()}{abserr()}}
+{\footnotesize\ttfamily template$<$typename Area\+Tp , typename Abs\+Area\+Tp $>$ \\
+Abs\+Area\+Tp \mbox{\hyperlink{classemsr_1_1integration__error}{emsr\+::integration\+\_\+error}}$<$ Area\+Tp, Abs\+Area\+Tp $>$\+::abserr (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 72 of file integration\+\_\+error.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{73       \{ \textcolor{keywordflow}{return} this-\/>m\_abserr; \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classemsr_1_1integration__error_a7bae408793d18793f71c8ea4aa64b5a2}\label{classemsr_1_1integration__error_a7bae408793d18793f71c8ea4aa64b5a2}} 
+\index{emsr::integration\_error$<$ AreaTp, AbsAreaTp $>$@{emsr::integration\_error$<$ AreaTp, AbsAreaTp $>$}!error\_code@{error\_code}}
+\index{error\_code@{error\_code}!emsr::integration\_error$<$ AreaTp, AbsAreaTp $>$@{emsr::integration\_error$<$ AreaTp, AbsAreaTp $>$}}
+\doxysubsubsection{\texorpdfstring{error\_code()}{error\_code()}}
+{\footnotesize\ttfamily template$<$typename Area\+Tp , typename Abs\+Area\+Tp $>$ \\
+int \mbox{\hyperlink{classemsr_1_1integration__error}{emsr\+::integration\+\_\+error}}$<$ Area\+Tp, Abs\+Area\+Tp $>$\+::error\+\_\+code (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 64 of file integration\+\_\+error.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{65       \{ \textcolor{keywordflow}{return} m\_errcode; \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classemsr_1_1integration__error_a96ecc045d77edfa8cc5283fe06e2bd08}\label{classemsr_1_1integration__error_a96ecc045d77edfa8cc5283fe06e2bd08}} 
+\index{emsr::integration\_error$<$ AreaTp, AbsAreaTp $>$@{emsr::integration\_error$<$ AreaTp, AbsAreaTp $>$}!result@{result}}
+\index{result@{result}!emsr::integration\_error$<$ AreaTp, AbsAreaTp $>$@{emsr::integration\_error$<$ AreaTp, AbsAreaTp $>$}}
+\doxysubsubsection{\texorpdfstring{result()}{result()}}
+{\footnotesize\ttfamily template$<$typename Area\+Tp , typename Abs\+Area\+Tp $>$ \\
+Area\+Tp \mbox{\hyperlink{classemsr_1_1integration__error}{emsr\+::integration\+\_\+error}}$<$ Area\+Tp, Abs\+Area\+Tp $>$\+::result (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 68 of file integration\+\_\+error.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{69       \{ \textcolor{keywordflow}{return} this-\/>m\_result; \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/emsr/\mbox{\hyperlink{integration__error_8h}{integration\+\_\+error.\+h}}\end{DoxyCompactItemize}

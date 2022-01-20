@@ -1,9 +1,10 @@
-<map id="include/ext/integration_workspace.tcc" name="include/ext/integration_workspace.tcc">
-<area shape="rect" id="node2" href="$integration__workspace_8h.html" title="include/ext/integration\l_workspace.h" alt="" coords="463,95,612,136"/>
-<area shape="rect" id="node3" href="$qag__integrate_8tcc.html" title="include/ext/qag_integrate.tcc" alt="" coords="5,184,195,211"/>
-<area shape="rect" id="node5" href="$qagp__integrate_8tcc.html" title="include/ext/qagp_integrate.tcc" alt="" coords="219,184,415,211"/>
-<area shape="rect" id="node6" href="$qags__integrate_8tcc.html" title="include/ext/qags_integrate.tcc" alt="" coords="439,184,635,211"/>
-<area shape="rect" id="node7" href="$qawf__integrate_8tcc.html" title="include/ext/qawf_integrate.tcc" alt="" coords="659,184,855,211"/>
-<area shape="rect" id="node8" href="$qaws__integrate_8tcc.html" title="include/ext/qaws_integrate.tcc" alt="" coords="879,184,1078,211"/>
-<area shape="rect" id="node4" href="$integration_8h.html" title="include/ext/integration.h" alt="" coords="457,259,617,285"/>
+<map id="include/emsr/integration_workspace.tcc" name="include/emsr/integration_workspace.tcc">
+<area shape="rect" id="node1" title=" " alt="" coords="531,5,713,47"/>
+<area shape="rect" id="node2" href="$integration__workspace_8h.html" title=" " alt="" coords="531,95,713,136"/>
+<area shape="rect" id="node3" href="$qag__integrate_8tcc.html" title=" " alt="" coords="5,184,228,211"/>
+<area shape="rect" id="node5" href="$qagp__integrate_8tcc.html" title=" " alt="" coords="252,184,483,211"/>
+<area shape="rect" id="node6" href="$qags__integrate_8tcc.html" title=" " alt="" coords="507,184,737,211"/>
+<area shape="rect" id="node7" href="$qawf__integrate_8tcc.html" title=" " alt="" coords="761,184,992,211"/>
+<area shape="rect" id="node8" href="$qaws__integrate_8tcc.html" title=" " alt="" coords="1016,184,1249,211"/>
+<area shape="rect" id="node4" href="$integration_8h.html" title=" " alt="" coords="525,259,719,285"/>
 </map>

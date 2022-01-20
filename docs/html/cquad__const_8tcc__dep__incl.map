@@ -1,4 +1,5 @@
-<map id="include/ext/cquad_const.tcc" name="include/ext/cquad_const.tcc">
-<area shape="rect" id="node2" href="$cquad__integrate_8tcc.html" title="include/ext/cquad_integrate.tcc" alt="" coords="5,80,208,107"/>
-<area shape="rect" id="node3" href="$integration_8h.html" title="include/ext/integration.h" alt="" coords="27,155,187,181"/>
+<map id="include/emsr/cquad_const.tcc" name="include/emsr/cquad_const.tcc">
+<area shape="rect" id="node1" title=" " alt="" coords="27,5,177,47"/>
+<area shape="rect" id="node2" href="$cquad__integrate_8tcc.html" title=" " alt="" coords="27,95,177,136"/>
+<area shape="rect" id="node3" href="$integration_8h.html" title=" " alt="" coords="5,184,199,211"/>
 </map>

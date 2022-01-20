@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['b',['b',['../struct____gnu__cxx_1_1fn__qaws.html#a35f509512c31f2ee8fddc16405dc6e80',1,'__gnu_cxx::fn_qaws']]],
-  ['bee',['bee',['../namespace____gnu__cxx.html#aad4f17907300687377704d1e628e1d70',1,'__gnu_cxx']]],
-  ['beta',['beta',['../struct____gnu__cxx_1_1fixed__gauss__jacobi__integral.html#aa9e160852c8912532deda29fae96824a',1,'__gnu_cxx::fixed_gauss_jacobi_integral::beta()'],['../struct____gnu__cxx_1_1fixed__gauss__rational__integral.html#aa6c563ee188859be79a987b67312d7ac',1,'__gnu_cxx::fixed_gauss_rational_integral::beta()'],['../structjac__quadrature.html#ad4fd571dd4977ed96b8155c79367ac41',1,'jac_quadrature::beta()'],['../struct____gnu__cxx_1_1qaws__integration__table.html#ad7cdd51af800d8830907d0718035753c',1,'__gnu_cxx::qaws_integration_table::beta()']]],
-  ['bool',['bool',['../namespace____gnu__cxx.html#ae83aca57f97767d5d09188718728a0ac',1,'__gnu_cxx']]]
+  ['cheb12_702',['cheb12',['../structemsr_1_1chebyshev__integral__t.html#ae3aa5924571db36f0a5c3f0b38a14d69',1,'emsr::chebyshev_integral_t']]],
+  ['cheb24_703',['cheb24',['../structemsr_1_1chebyshev__integral__t.html#aef7b9f1f72fa81ee0c6b1756ba4caaeb',1,'emsr::chebyshev_integral_t']]],
+  ['chebmo_704',['chebmo',['../structemsr_1_1oscillatory__integration__table.html#a7c601c2eb89b5902055268736637164a',1,'emsr::oscillatory_integration_table']]],
+  ['circfun_705',['circfun',['../structemsr_1_1oscillatory__integration__table.html#a3661064fe12db42867aca873f56ce438',1,'emsr::oscillatory_integration_table']]]
 ];

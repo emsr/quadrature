@@ -1,0 +1,103 @@
+\hypertarget{structemsr_1_1fixed__gauss__legendre__integral}{}\doxysection{emsr\+::fixed\+\_\+gauss\+\_\+legendre\+\_\+integral$<$ Tp $>$ Struct Template Reference}
+\label{structemsr_1_1fixed__gauss__legendre__integral}\index{emsr::fixed\_gauss\_legendre\_integral$<$ Tp $>$@{emsr::fixed\_gauss\_legendre\_integral$<$ Tp $>$}}
+
+
+{\ttfamily \#include $<$gauss\+\_\+quadrature.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structemsr_1_1fixed__gauss__legendre__integral_af50f8f9dc32ccea372b3781dac5654c9}{fixed\+\_\+gauss\+\_\+legendre\+\_\+integral}} (int n)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename Func\+Tp $>$ }\\decltype(std\+::invoke\+\_\+result\+\_\+t$<$ Func\+Tp, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$\{\} $\ast$\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{\} \mbox{\hyperlink{structemsr_1_1fixed__gauss__legendre__integral_ae4730bca61b72ddab97b5630e09b17e8}{operator()}} )(Func\+Tp func, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} lower, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} upper) const
+\item 
+int \mbox{\hyperlink{structemsr_1_1fixed__gauss__legendre__integral_a88a2f8cd8edf336de3b0bace8cac579c}{order}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename Tp$>$\newline
+struct emsr\+::fixed\+\_\+gauss\+\_\+legendre\+\_\+integral$<$ Tp $>$}
+
+Build the absiscae and weights of a Gauss quadrature rule from a symmetric tridiagonal Jacobi matrix. 
+
+Definition at line 33 of file gauss\+\_\+quadrature.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structemsr_1_1fixed__gauss__legendre__integral_af50f8f9dc32ccea372b3781dac5654c9}\label{structemsr_1_1fixed__gauss__legendre__integral_af50f8f9dc32ccea372b3781dac5654c9}} 
+\index{emsr::fixed\_gauss\_legendre\_integral$<$ Tp $>$@{emsr::fixed\_gauss\_legendre\_integral$<$ Tp $>$}!fixed\_gauss\_legendre\_integral@{fixed\_gauss\_legendre\_integral}}
+\index{fixed\_gauss\_legendre\_integral@{fixed\_gauss\_legendre\_integral}!emsr::fixed\_gauss\_legendre\_integral$<$ Tp $>$@{emsr::fixed\_gauss\_legendre\_integral$<$ Tp $>$}}
+\doxysubsubsection{\texorpdfstring{fixed\_gauss\_legendre\_integral()}{fixed\_gauss\_legendre\_integral()}}
+{\footnotesize\ttfamily template$<$typename Tp $>$ \\
+\mbox{\hyperlink{structemsr_1_1fixed__gauss__legendre__integral}{emsr\+::fixed\+\_\+gauss\+\_\+legendre\+\_\+integral}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$\+::\mbox{\hyperlink{structemsr_1_1fixed__gauss__legendre__integral}{fixed\+\_\+gauss\+\_\+legendre\+\_\+integral}} (\begin{DoxyParamCaption}\item[{int}]{n }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+Construct a Gauss-\/\+Legendre rule of order {\ttfamily n}.
+
+Weight function\+: $ 1 $ Constraints\+: $ b > a $ 
+
+Definition at line 86 of file gauss\+\_\+quadrature.\+tcc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{88     : \mbox{\hyperlink{structemsr_1_1fixed__gauss__legendre__integral_a88a2f8cd8edf336de3b0bace8cac579c}{order}}(n),}
+\DoxyCodeLine{89       point(n),}
+\DoxyCodeLine{90       weight(n)}
+\DoxyCodeLine{91     \{}
+\DoxyCodeLine{92       \textcolor{keyword}{const} \textcolor{keyword}{auto} mu\_0 = \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\};}
+\DoxyCodeLine{93 }
+\DoxyCodeLine{94       std::vector<Tp> diag(this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__legendre__integral_a88a2f8cd8edf336de3b0bace8cac579c}{order}}, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{0\});}
+\DoxyCodeLine{95       std::vector<Tp> subd(this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__legendre__integral_a88a2f8cd8edf336de3b0bace8cac579c}{order}});}
+\DoxyCodeLine{96 }
+\DoxyCodeLine{97       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 1; i <= this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__legendre__integral_a88a2f8cd8edf336de3b0bace8cac579c}{order}}; ++i)}
+\DoxyCodeLine{98         subd[i -\/ 1] = \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}(i) / std::sqrt(\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}(4 * i * i -\/ 1));}
+\DoxyCodeLine{99 }
+\DoxyCodeLine{100       \mbox{\hyperlink{namespaceemsr_1_1detail_a3a01597b0d4e1996d86ceaf2f68eabc8}{detail::golub\_welsch}}(mu\_0, this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__legendre__integral_a88a2f8cd8edf336de3b0bace8cac579c}{order}}, diag, subd,}
+\DoxyCodeLine{101                                this-\/>point, this-\/>weight);}
+\DoxyCodeLine{102     \}}
+
+\end{DoxyCode}
+
+
+References emsr\+::detail\+::golub\+\_\+welsch(), emsr\+::fixed\+\_\+gauss\+\_\+legendre\+\_\+integral$<$ Tp $>$\+::order, and Tp.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structemsr_1_1fixed__gauss__legendre__integral_ae4730bca61b72ddab97b5630e09b17e8}\label{structemsr_1_1fixed__gauss__legendre__integral_ae4730bca61b72ddab97b5630e09b17e8}} 
+\index{emsr::fixed\_gauss\_legendre\_integral$<$ Tp $>$@{emsr::fixed\_gauss\_legendre\_integral$<$ Tp $>$}!operator()@{operator()}}
+\index{operator()@{operator()}!emsr::fixed\_gauss\_legendre\_integral$<$ Tp $>$@{emsr::fixed\_gauss\_legendre\_integral$<$ Tp $>$}}
+\doxysubsubsection{\texorpdfstring{operator()}{operator()}}
+{\footnotesize\ttfamily template$<$typename Tp $>$ \\
+template$<$typename Func\+Tp $>$ \\
+decltype(std\+::invoke\+\_\+result\+\_\+t$<$Func\+Tp, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}$>$\{\} $\ast$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{\} \mbox{\hyperlink{structemsr_1_1fixed__gauss__legendre__integral}{emsr\+::fixed\+\_\+gauss\+\_\+legendre\+\_\+integral}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$\+::operator()) (Func\+Tp func, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} lower, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} upper) const}
+
+
+
+Definition at line 41 of file gauss\+\_\+quadrature.\+h.
+
+\mbox{\Hypertarget{structemsr_1_1fixed__gauss__legendre__integral_a88a2f8cd8edf336de3b0bace8cac579c}\label{structemsr_1_1fixed__gauss__legendre__integral_a88a2f8cd8edf336de3b0bace8cac579c}} 
+\index{emsr::fixed\_gauss\_legendre\_integral$<$ Tp $>$@{emsr::fixed\_gauss\_legendre\_integral$<$ Tp $>$}!order@{order}}
+\index{order@{order}!emsr::fixed\_gauss\_legendre\_integral$<$ Tp $>$@{emsr::fixed\_gauss\_legendre\_integral$<$ Tp $>$}}
+\doxysubsubsection{\texorpdfstring{order}{order}}
+{\footnotesize\ttfamily template$<$typename Tp $>$ \\
+int \mbox{\hyperlink{structemsr_1_1fixed__gauss__legendre__integral}{emsr\+::fixed\+\_\+gauss\+\_\+legendre\+\_\+integral}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$\+::order}
+
+
+
+Definition at line 35 of file gauss\+\_\+quadrature.\+h.
+
+
+
+Referenced by emsr\+::fixed\+\_\+gauss\+\_\+legendre\+\_\+integral$<$ Tp $>$\+::fixed\+\_\+gauss\+\_\+legendre\+\_\+integral().
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/emsr/\mbox{\hyperlink{gauss__quadrature_8h}{gauss\+\_\+quadrature.\+h}}\item 
+include/emsr/\mbox{\hyperlink{gauss__quadrature_8tcc}{gauss\+\_\+quadrature.\+tcc}}\end{DoxyCompactItemize}

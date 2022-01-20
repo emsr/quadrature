@@ -1,12 +1,12 @@
-\hypertarget{matrix_8tcc}{}\section{include/ext/matrix.tcc File Reference}
-\label{matrix_8tcc}\index{include/ext/matrix.\+tcc@{include/ext/matrix.\+tcc}}
+\hypertarget{matrix_8tcc}{}\doxysection{include/emsr/matrix.tcc File Reference}
+\label{matrix_8tcc}\index{include/emsr/matrix.tcc@{include/emsr/matrix.tcc}}
 {\ttfamily \#include $<$type\+\_\+traits$>$}\newline
 Include dependency graph for matrix.\+tcc\+:
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=190pt]{matrix_8tcc__incl}
+\includegraphics[width=212pt]{matrix_8tcc__incl}
 \end{center}
 \end{figure}
 This graph shows which files directly or indirectly include this file\+:
@@ -17,33 +17,33 @@ This graph shows which files directly or indirectly include this file\+:
 \includegraphics[width=350pt]{matrix_8tcc__dep__incl}
 \end{center}
 \end{figure}
-\subsection*{Namespaces}
+\doxysubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
- \hyperlink{namespace____gnu__cxx}{\+\_\+\+\_\+gnu\+\_\+cxx}
+ \mbox{\hyperlink{namespaceemsr}{emsr}}
 \end{DoxyCompactItemize}
-\subsection*{Macros}
+\doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\#define \hyperlink{matrix_8tcc_a970f96e7f8c79cd72af477aa073d7781}{M\+A\+T\+R\+I\+X\+\_\+\+T\+CC}~1
+\#define \mbox{\hyperlink{matrix_8tcc_a970f96e7f8c79cd72af477aa073d7781}{MATRIX\+\_\+\+TCC}}~1
 \end{DoxyCompactItemize}
-\subsection*{Functions}
+\doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$typename \+\_\+\+Rand\+Acc\+Iter , typename \+\_\+\+Rand\+Acc\+Iter\+R\+HS $>$ }\\int \hyperlink{namespace____gnu__cxx_a4e853338765c8d1dc659feedb9813e2a}{\+\_\+\+\_\+gnu\+\_\+cxx\+::\+\_\+\+S\+\_\+tridiag} (size\+\_\+t \+\_\+\+\_\+n, \+\_\+\+Rand\+Acc\+Iter \+\_\+\+\_\+supd, \+\_\+\+Rand\+Acc\+Iter \+\_\+\+\_\+diag, \+\_\+\+Rand\+Acc\+Iter \+\_\+\+\_\+subd, \+\_\+\+Rand\+Acc\+Iter\+R\+HS \+\_\+\+\_\+rhs)
+{\footnotesize template$<$typename Rand\+Acc\+Iter , typename Rand\+Acc\+Iter\+RHS $>$ }\\int \mbox{\hyperlink{namespaceemsr_a375ffc73e85805ac3e591dac6236339c}{emsr\+::s\+\_\+tridiag}} (size\+\_\+t n, Rand\+Acc\+Iter supd, Rand\+Acc\+Iter diag, Rand\+Acc\+Iter subd, Rand\+Acc\+Iter\+RHS rhs)
 \item 
-{\footnotesize template$<$typename \+\_\+\+Rand\+Acc\+Iter , typename \+\_\+\+Rand\+Acc\+Iter\+R\+HS $>$ }\\int \hyperlink{namespace____gnu__cxx_a4b9501d94b3eebf5f1ffe990b81cae93}{\+\_\+\+\_\+gnu\+\_\+cxx\+::\+\_\+\+S\+\_\+tridiag\+\_\+symm} (std\+::size\+\_\+t \+\_\+\+\_\+n, \+\_\+\+Rand\+Acc\+Iter \&\+\_\+\+\_\+diag, \+\_\+\+Rand\+Acc\+Iter \&\+\_\+\+\_\+subd, \+\_\+\+Rand\+Acc\+Iter\+R\+HS \&\+\_\+\+\_\+rhs)
+{\footnotesize template$<$typename Rand\+Acc\+Iter , typename Rand\+Acc\+Iter\+RHS $>$ }\\int \mbox{\hyperlink{namespaceemsr_a5cb28151a49c36c36b58a1dc7af7654c}{emsr\+::s\+\_\+tridiag\+\_\+symm}} (std\+::size\+\_\+t n, Rand\+Acc\+Iter \&diag, Rand\+Acc\+Iter \&subd, Rand\+Acc\+Iter\+RHS \&rhs)
 \begin{DoxyCompactList}\small\item\em Diagonalize a symmetric tridiagonal matrix. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
-\subsection{Macro Definition Documentation}
+\doxysubsection{Macro Definition Documentation}
 \mbox{\Hypertarget{matrix_8tcc_a970f96e7f8c79cd72af477aa073d7781}\label{matrix_8tcc_a970f96e7f8c79cd72af477aa073d7781}} 
-\index{matrix.\+tcc@{matrix.\+tcc}!M\+A\+T\+R\+I\+X\+\_\+\+T\+CC@{M\+A\+T\+R\+I\+X\+\_\+\+T\+CC}}
-\index{M\+A\+T\+R\+I\+X\+\_\+\+T\+CC@{M\+A\+T\+R\+I\+X\+\_\+\+T\+CC}!matrix.\+tcc@{matrix.\+tcc}}
-\subsubsection{\texorpdfstring{M\+A\+T\+R\+I\+X\+\_\+\+T\+CC}{MATRIX\_TCC}}
-{\footnotesize\ttfamily \#define M\+A\+T\+R\+I\+X\+\_\+\+T\+CC~1}
+\index{matrix.tcc@{matrix.tcc}!MATRIX\_TCC@{MATRIX\_TCC}}
+\index{MATRIX\_TCC@{MATRIX\_TCC}!matrix.tcc@{matrix.tcc}}
+\doxysubsubsection{\texorpdfstring{MATRIX\_TCC}{MATRIX\_TCC}}
+{\footnotesize\ttfamily \#define MATRIX\+\_\+\+TCC~1}
 
 
 
-Definition at line 22 of file matrix.\+tcc.
+Definition at line 20 of file matrix.\+tcc.
 

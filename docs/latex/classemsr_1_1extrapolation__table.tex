@@ -1,0 +1,303 @@
+\hypertarget{classemsr_1_1extrapolation__table}{}\doxysection{emsr\+::extrapolation\+\_\+table$<$ Area\+Tp, Abs\+Area\+Tp $>$ Class Template Reference}
+\label{classemsr_1_1extrapolation__table}\index{emsr::extrapolation\_table$<$ AreaTp, AbsAreaTp $>$@{emsr::extrapolation\_table$<$ AreaTp, AbsAreaTp $>$}}
+
+
+{\ttfamily \#include $<$extrapolation\+\_\+table.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classemsr_1_1extrapolation__table_a2b5bdc55eb8f3ea2f54b367d7ea86359}{extrapolation\+\_\+table}} ()
+\item 
+\mbox{\hyperlink{classemsr_1_1extrapolation__table_ac5e0cec8baa2ad5b2ba637f150f27708}{extrapolation\+\_\+table}} (Area\+Tp y)
+\item 
+void \mbox{\hyperlink{classemsr_1_1extrapolation__table_a64549f1cf5151bdeec02caa6beef4994}{append}} (Area\+Tp y)
+\item 
+std\+::size\+\_\+t \mbox{\hyperlink{classemsr_1_1extrapolation__table_abd5d696127e2aace3d0bf75a51f0e378}{get\+\_\+nn}} () const
+\item 
+std\+::tuple$<$ Area\+Tp, Abs\+Area\+Tp $>$ \mbox{\hyperlink{classemsr_1_1extrapolation__table_af059bf86f53dc16d507927327680cfd4}{qelg}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename Area\+Tp, typename Abs\+Area\+Tp$>$\newline
+class emsr\+::extrapolation\+\_\+table$<$ Area\+Tp, Abs\+Area\+Tp $>$}
+
+
+
+Definition at line 38 of file extrapolation\+\_\+table.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classemsr_1_1extrapolation__table_a2b5bdc55eb8f3ea2f54b367d7ea86359}\label{classemsr_1_1extrapolation__table_a2b5bdc55eb8f3ea2f54b367d7ea86359}} 
+\index{emsr::extrapolation\_table$<$ AreaTp, AbsAreaTp $>$@{emsr::extrapolation\_table$<$ AreaTp, AbsAreaTp $>$}!extrapolation\_table@{extrapolation\_table}}
+\index{extrapolation\_table@{extrapolation\_table}!emsr::extrapolation\_table$<$ AreaTp, AbsAreaTp $>$@{emsr::extrapolation\_table$<$ AreaTp, AbsAreaTp $>$}}
+\doxysubsubsection{\texorpdfstring{extrapolation\_table()}{extrapolation\_table()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename Area\+Tp , typename Abs\+Area\+Tp $>$ \\
+\mbox{\hyperlink{classemsr_1_1extrapolation__table}{emsr\+::extrapolation\+\_\+table}}$<$ Area\+Tp, Abs\+Area\+Tp $>$\+::\mbox{\hyperlink{classemsr_1_1extrapolation__table}{extrapolation\+\_\+table}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 52 of file extrapolation\+\_\+table.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{53       : m\_nn(0),}
+\DoxyCodeLine{54         m\_nres(0)}
+\DoxyCodeLine{55       \{}
+\DoxyCodeLine{56         \textcolor{comment}{// Try to adjust tests for varing precision?}}
+\DoxyCodeLine{57         \textcolor{comment}{// I don't think this is a precision-\/sensitive limit.}}
+\DoxyCodeLine{58         \textcolor{comment}{//this-\/>m\_irreg\_test = std::pow(AbsAreaTp\{10\},}}
+\DoxyCodeLine{59         \textcolor{comment}{//                       -\/std::numeric\_limits<AbsAreaTp>::digits10 / AbsAreaTp\{4.0\});}}
+\DoxyCodeLine{60       \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classemsr_1_1extrapolation__table_ac5e0cec8baa2ad5b2ba637f150f27708}\label{classemsr_1_1extrapolation__table_ac5e0cec8baa2ad5b2ba637f150f27708}} 
+\index{emsr::extrapolation\_table$<$ AreaTp, AbsAreaTp $>$@{emsr::extrapolation\_table$<$ AreaTp, AbsAreaTp $>$}!extrapolation\_table@{extrapolation\_table}}
+\index{extrapolation\_table@{extrapolation\_table}!emsr::extrapolation\_table$<$ AreaTp, AbsAreaTp $>$@{emsr::extrapolation\_table$<$ AreaTp, AbsAreaTp $>$}}
+\doxysubsubsection{\texorpdfstring{extrapolation\_table()}{extrapolation\_table()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Area\+Tp , typename Abs\+Area\+Tp $>$ \\
+\mbox{\hyperlink{classemsr_1_1extrapolation__table}{emsr\+::extrapolation\+\_\+table}}$<$ Area\+Tp, Abs\+Area\+Tp $>$\+::\mbox{\hyperlink{classemsr_1_1extrapolation__table}{extrapolation\+\_\+table}} (\begin{DoxyParamCaption}\item[{Area\+Tp}]{y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+
+Definition at line 62 of file extrapolation\+\_\+table.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{63       : m\_nn(0),}
+\DoxyCodeLine{64         m\_nres(0)}
+\DoxyCodeLine{65       \{ this-\/>\mbox{\hyperlink{classemsr_1_1extrapolation__table_a64549f1cf5151bdeec02caa6beef4994}{append}}(y); \}}
+
+\end{DoxyCode}
+
+
+References emsr\+::extrapolation\+\_\+table$<$ Area\+Tp, Abs\+Area\+Tp $>$\+::append().
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classemsr_1_1extrapolation__table_a64549f1cf5151bdeec02caa6beef4994}\label{classemsr_1_1extrapolation__table_a64549f1cf5151bdeec02caa6beef4994}} 
+\index{emsr::extrapolation\_table$<$ AreaTp, AbsAreaTp $>$@{emsr::extrapolation\_table$<$ AreaTp, AbsAreaTp $>$}!append@{append}}
+\index{append@{append}!emsr::extrapolation\_table$<$ AreaTp, AbsAreaTp $>$@{emsr::extrapolation\_table$<$ AreaTp, AbsAreaTp $>$}}
+\doxysubsubsection{\texorpdfstring{append()}{append()}}
+{\footnotesize\ttfamily template$<$typename Area\+Tp , typename Abs\+Area\+Tp $>$ \\
+void \mbox{\hyperlink{classemsr_1_1extrapolation__table}{emsr\+::extrapolation\+\_\+table}}$<$ Area\+Tp, Abs\+Area\+Tp $>$\+::append (\begin{DoxyParamCaption}\item[{Area\+Tp}]{y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 68 of file extrapolation\+\_\+table.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{69       \{}
+\DoxyCodeLine{70         \textcolor{keywordflow}{if} (this-\/>m\_nn < this-\/>m\_rlist2.size())}
+\DoxyCodeLine{71           \{}
+\DoxyCodeLine{72             this-\/>m\_rlist2[this-\/>m\_nn] = y;}
+\DoxyCodeLine{73             ++this-\/>m\_nn;}
+\DoxyCodeLine{74           \}}
+\DoxyCodeLine{75       \}}
+
+\end{DoxyCode}
+
+
+Referenced by emsr\+::extrapolation\+\_\+table$<$ Area\+Tp, Abs\+Area\+Tp $>$\+::extrapolation\+\_\+table(), emsr\+::qagp\+\_\+integrate(), emsr\+::qags\+\_\+integrate(), emsr\+::qawf\+\_\+integrate(), and emsr\+::qawo\+\_\+integrate().
+
+\mbox{\Hypertarget{classemsr_1_1extrapolation__table_abd5d696127e2aace3d0bf75a51f0e378}\label{classemsr_1_1extrapolation__table_abd5d696127e2aace3d0bf75a51f0e378}} 
+\index{emsr::extrapolation\_table$<$ AreaTp, AbsAreaTp $>$@{emsr::extrapolation\_table$<$ AreaTp, AbsAreaTp $>$}!get\_nn@{get\_nn}}
+\index{get\_nn@{get\_nn}!emsr::extrapolation\_table$<$ AreaTp, AbsAreaTp $>$@{emsr::extrapolation\_table$<$ AreaTp, AbsAreaTp $>$}}
+\doxysubsubsection{\texorpdfstring{get\_nn()}{get\_nn()}}
+{\footnotesize\ttfamily template$<$typename Area\+Tp , typename Abs\+Area\+Tp $>$ \\
+std\+::size\+\_\+t \mbox{\hyperlink{classemsr_1_1extrapolation__table}{emsr\+::extrapolation\+\_\+table}}$<$ Area\+Tp, Abs\+Area\+Tp $>$\+::get\+\_\+nn (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 80 of file extrapolation\+\_\+table.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{81       \{ \textcolor{keywordflow}{return} this-\/>m\_nn; \}}
+
+\end{DoxyCode}
+
+
+Referenced by emsr\+::qagp\+\_\+integrate(), emsr\+::qags\+\_\+integrate(), emsr\+::qawf\+\_\+integrate(), and emsr\+::qawo\+\_\+integrate().
+
+\mbox{\Hypertarget{classemsr_1_1extrapolation__table_af059bf86f53dc16d507927327680cfd4}\label{classemsr_1_1extrapolation__table_af059bf86f53dc16d507927327680cfd4}} 
+\index{emsr::extrapolation\_table$<$ AreaTp, AbsAreaTp $>$@{emsr::extrapolation\_table$<$ AreaTp, AbsAreaTp $>$}!qelg@{qelg}}
+\index{qelg@{qelg}!emsr::extrapolation\_table$<$ AreaTp, AbsAreaTp $>$@{emsr::extrapolation\_table$<$ AreaTp, AbsAreaTp $>$}}
+\doxysubsubsection{\texorpdfstring{qelg()}{qelg()}}
+{\footnotesize\ttfamily template$<$typename Area\+Tp , typename Abs\+Area\+Tp $>$ \\
+std\+::tuple$<$ Area\+Tp, Abs\+Area\+Tp $>$ \mbox{\hyperlink{classemsr_1_1extrapolation__table}{emsr\+::extrapolation\+\_\+table}}$<$ Area\+Tp, Abs\+Area\+Tp $>$\+::qelg}
+
+
+
+Definition at line 33 of file extrapolation\+\_\+table.\+tcc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{34     \{}
+\DoxyCodeLine{35       \textcolor{keyword}{const} \textcolor{keyword}{auto} cur\_n = this-\/>m\_nn -\/ 1;}
+\DoxyCodeLine{36       \textcolor{keyword}{const} \textcolor{keyword}{auto} current = this-\/>m\_rlist2[cur\_n];}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38       \textcolor{keyword}{const} \textcolor{keyword}{auto} s\_eps = std::numeric\_limits<AbsAreaTp>::epsilon();}
+\DoxyCodeLine{39       \textcolor{comment}{// Less than max to prevent overflow.}}
+\DoxyCodeLine{40       \textcolor{keyword}{const} \textcolor{keyword}{auto} s\_max = std::numeric\_limits<AbsAreaTp>::max() / AbsAreaTp\{100\};}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42       \textcolor{keyword}{auto} absolute = s\_max;}
+\DoxyCodeLine{43       \textcolor{keyword}{auto} relative = AbsAreaTp\{5\} * s\_eps * std::abs(current);}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45       \textcolor{keyword}{const} \textcolor{keyword}{auto} newelm = cur\_n / 2;}
+\DoxyCodeLine{46       \textcolor{keyword}{const} \textcolor{keyword}{auto} n\_orig = cur\_n;}
+\DoxyCodeLine{47       \textcolor{keyword}{auto} n\_final = cur\_n;}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49       \textcolor{keyword}{const} \textcolor{keyword}{auto} nres\_orig = this-\/>m\_nres;}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51       \textcolor{keyword}{auto} result = current;}
+\DoxyCodeLine{52       \textcolor{keyword}{auto} abserr = s\_max;}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{54       \textcolor{keywordflow}{if} (cur\_n < 2)}
+\DoxyCodeLine{55         \{}
+\DoxyCodeLine{56           result = current;}
+\DoxyCodeLine{57           abserr = std::max(absolute, relative);}
+\DoxyCodeLine{58           \textcolor{keywordflow}{return} std::make\_tuple(result, abserr);}
+\DoxyCodeLine{59         \}}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61       this-\/>m\_rlist2[cur\_n + 2] = this-\/>m\_rlist2[cur\_n];}
+\DoxyCodeLine{62       this-\/>m\_rlist2[cur\_n] = s\_max;}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} ii = 0; ii < newelm; ++ii)}
+\DoxyCodeLine{65         \{}
+\DoxyCodeLine{66           \textcolor{keyword}{auto} res = this-\/>m\_rlist2[cur\_n -\/ 2 * ii + 2];}
+\DoxyCodeLine{67           \textcolor{keyword}{const} \textcolor{keyword}{auto} e0 = this-\/>m\_rlist2[cur\_n -\/ 2 * ii -\/ 2];}
+\DoxyCodeLine{68           \textcolor{keyword}{const} \textcolor{keyword}{auto} e1 = this-\/>m\_rlist2[cur\_n -\/ 2 * ii -\/ 1];}
+\DoxyCodeLine{69           \textcolor{keyword}{const} \textcolor{keyword}{auto} e2 = res;}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71           \textcolor{keyword}{const} \textcolor{keyword}{auto} e1abs = std::abs(e1);}
+\DoxyCodeLine{72           \textcolor{keyword}{const} \textcolor{keyword}{auto} delta2 = e2 -\/ e1;}
+\DoxyCodeLine{73           \textcolor{keyword}{const} \textcolor{keyword}{auto} err2 = std::abs(delta2);}
+\DoxyCodeLine{74           \textcolor{keyword}{const} \textcolor{keyword}{auto} tol2 = std::max(std::abs(e2), e1abs) * s\_eps;}
+\DoxyCodeLine{75           \textcolor{keyword}{const} \textcolor{keyword}{auto} delta3 = e1 -\/ e0;}
+\DoxyCodeLine{76           \textcolor{keyword}{const} \textcolor{keyword}{auto} err3 = std::abs(delta3);}
+\DoxyCodeLine{77           \textcolor{keyword}{const} \textcolor{keyword}{auto} tol3 = std::max(e1abs, std::abs(e0)) * s\_eps;}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{79           \textcolor{keywordflow}{if} (err2 <= tol2 \&\& err3 <= tol3)}
+\DoxyCodeLine{80             \{}
+\DoxyCodeLine{81               \textcolor{comment}{// If e0, e1 and e2 are equal to within machine accuracy,}}
+\DoxyCodeLine{82               \textcolor{comment}{// convergence is assumed.}}
+\DoxyCodeLine{83               result = res;}
+\DoxyCodeLine{84               absolute = err2 + err3;}
+\DoxyCodeLine{85               relative = 5 * s\_eps * std::abs(res);}
+\DoxyCodeLine{86               abserr = std::max(absolute, relative);}
+\DoxyCodeLine{87               \textcolor{keywordflow}{return} std::make\_tuple(result, abserr);}
+\DoxyCodeLine{88             \}}
+\DoxyCodeLine{89 }
+\DoxyCodeLine{90           \textcolor{keyword}{const} \textcolor{keyword}{auto} e3 = this-\/>m\_rlist2[cur\_n -\/ 2 * ii];}
+\DoxyCodeLine{91           this-\/>m\_rlist2[cur\_n -\/ 2 * ii] = e1;}
+\DoxyCodeLine{92           \textcolor{keyword}{const} \textcolor{keyword}{auto} delta1 = e1 -\/ e3;}
+\DoxyCodeLine{93           \textcolor{keyword}{const} \textcolor{keyword}{auto} err1 = std::abs(delta1);}
+\DoxyCodeLine{94           \textcolor{keyword}{const} \textcolor{keyword}{auto} tol1 = std::max(e1abs, std::abs(e3)) * s\_eps;}
+\DoxyCodeLine{95 }
+\DoxyCodeLine{96           \textcolor{comment}{// If two elements are very close to each other, omit a part of}}
+\DoxyCodeLine{97           \textcolor{comment}{// the table by adjusting the value of n.}}
+\DoxyCodeLine{98           \textcolor{keywordflow}{if} (err1 <= tol1 || err2 <= tol2 || err3 <= tol3)}
+\DoxyCodeLine{99             \{}
+\DoxyCodeLine{100               n\_final = 2 * ii;}
+\DoxyCodeLine{101               \textcolor{keywordflow}{break};}
+\DoxyCodeLine{102             \}}
+\DoxyCodeLine{103 }
+\DoxyCodeLine{104           \textcolor{keyword}{const} \textcolor{keyword}{auto} ss = AbsAreaTp\{1\} / delta1 + AbsAreaTp\{1\} / delta2}
+\DoxyCodeLine{105                           -\/ AbsAreaTp\{1\} / delta3;}
+\DoxyCodeLine{106 }
+\DoxyCodeLine{107           \textcolor{comment}{// Test to detect irregular behaviour in the table,}}
+\DoxyCodeLine{108           \textcolor{comment}{// and eventually omit a part of the table by adjusting}}
+\DoxyCodeLine{109           \textcolor{comment}{// the value of n.}}
+\DoxyCodeLine{110           \textcolor{keywordflow}{if} (std::abs(ss * e1) <= this-\/>m\_irreg\_test)}
+\DoxyCodeLine{111             \{}
+\DoxyCodeLine{112               n\_final = 2 * ii;}
+\DoxyCodeLine{113               \textcolor{keywordflow}{break};}
+\DoxyCodeLine{114             \}}
+\DoxyCodeLine{115 }
+\DoxyCodeLine{116           \textcolor{comment}{// Compute a new element and eventually adjust the value of result.}}
+\DoxyCodeLine{117           res = e1 + AbsAreaTp\{1\} / ss;}
+\DoxyCodeLine{118           this-\/>m\_rlist2[cur\_n -\/ 2 * ii] = res;}
+\DoxyCodeLine{119           \{}
+\DoxyCodeLine{120             \textcolor{keyword}{const} \textcolor{keyword}{auto} error = err2 + std::abs(res -\/ e2) + err3;}
+\DoxyCodeLine{121 }
+\DoxyCodeLine{122             \textcolor{keywordflow}{if} (error <= abserr)}
+\DoxyCodeLine{123               \{}
+\DoxyCodeLine{124                 abserr = error;}
+\DoxyCodeLine{125                 result = res;}
+\DoxyCodeLine{126               \}}
+\DoxyCodeLine{127           \}}
+\DoxyCodeLine{128         \}}
+\DoxyCodeLine{129 }
+\DoxyCodeLine{130       \textcolor{comment}{// Shift the table.}}
+\DoxyCodeLine{131 }
+\DoxyCodeLine{132       \{}
+\DoxyCodeLine{133         \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} limexp = 50 -\/ 1;}
+\DoxyCodeLine{134 }
+\DoxyCodeLine{135         \textcolor{keywordflow}{if} (n\_final == limexp)}
+\DoxyCodeLine{136           n\_final = 2 * (limexp / 2);}
+\DoxyCodeLine{137       \}}
+\DoxyCodeLine{138 }
+\DoxyCodeLine{139       \textcolor{keywordflow}{if} (n\_orig \% 2 == 1)}
+\DoxyCodeLine{140         \{}
+\DoxyCodeLine{141           \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} ii = 0; ii <= newelm; ++ii)}
+\DoxyCodeLine{142             this-\/>m\_rlist2[ii * 2 + 1] = this-\/>m\_rlist2[ii * 2 + 3];}
+\DoxyCodeLine{143         \}}
+\DoxyCodeLine{144       \textcolor{keywordflow}{else}}
+\DoxyCodeLine{145         \{}
+\DoxyCodeLine{146           \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} ii = 0; ii <= newelm; ++ii)}
+\DoxyCodeLine{147             this-\/>m\_rlist2[ii * 2] = this-\/>m\_rlist2[ii * 2 + 2];}
+\DoxyCodeLine{148         \}}
+\DoxyCodeLine{149 }
+\DoxyCodeLine{150       \textcolor{keywordflow}{if} (n\_orig != n\_final)}
+\DoxyCodeLine{151         \{}
+\DoxyCodeLine{152           \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} ii = 0; ii <= n\_final; ++ii)}
+\DoxyCodeLine{153             this-\/>m\_rlist2[ii] = this-\/>m\_rlist2[ii + n\_orig -\/ n\_final];}
+\DoxyCodeLine{154         \}}
+\DoxyCodeLine{155 }
+\DoxyCodeLine{156       this-\/>m\_nn = n\_final + 1;}
+\DoxyCodeLine{157 }
+\DoxyCodeLine{158       \textcolor{keywordflow}{if} (nres\_orig < 3)}
+\DoxyCodeLine{159         \{}
+\DoxyCodeLine{160           this-\/>m\_res3la[nres\_orig] = result;}
+\DoxyCodeLine{161           abserr = s\_max;}
+\DoxyCodeLine{162         \}}
+\DoxyCodeLine{163       \textcolor{keywordflow}{else}}
+\DoxyCodeLine{164         \{ \textcolor{comment}{// Compute error estimate.}}
+\DoxyCodeLine{165           abserr = (std::abs(result -\/ this-\/>m\_res3la[2])}
+\DoxyCodeLine{166                     + std::abs(result -\/ this-\/>m\_res3la[1])}
+\DoxyCodeLine{167                     + std::abs(result -\/ this-\/>m\_res3la[0]));}
+\DoxyCodeLine{168 }
+\DoxyCodeLine{169           this-\/>m\_res3la[0] = this-\/>m\_res3la[1];}
+\DoxyCodeLine{170           this-\/>m\_res3la[1] = this-\/>m\_res3la[2];}
+\DoxyCodeLine{171           this-\/>m\_res3la[2] = result;}
+\DoxyCodeLine{172         \}}
+\DoxyCodeLine{173 }
+\DoxyCodeLine{174       \textcolor{comment}{/* In QUADPACK the variable table-\/>nres is incremented at the top of}}
+\DoxyCodeLine{175 \textcolor{comment}{        qelg, so it increases on every call. This leads to the array}}
+\DoxyCodeLine{176 \textcolor{comment}{        res3la being accessed when its elements are still undefined, so I}}
+\DoxyCodeLine{177 \textcolor{comment}{        have moved the update to this point so that its value more}}
+\DoxyCodeLine{178 \textcolor{comment}{        useful. */}}
+\DoxyCodeLine{179 }
+\DoxyCodeLine{180       this-\/>m\_nres = nres\_orig + 1;}
+\DoxyCodeLine{181 }
+\DoxyCodeLine{182       abserr = std::max(abserr, 5 * s\_eps * std::abs(result));}
+\DoxyCodeLine{183 }
+\DoxyCodeLine{184       \textcolor{keywordflow}{return} std::make\_tuple(result, abserr);}
+\DoxyCodeLine{185     \}}
+
+\end{DoxyCode}
+
+
+Referenced by emsr\+::qagp\+\_\+integrate(), emsr\+::qags\+\_\+integrate(), emsr\+::qawf\+\_\+integrate(), and emsr\+::qawo\+\_\+integrate().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/emsr/\mbox{\hyperlink{extrapolation__table_8h}{extrapolation\+\_\+table.\+h}}\item 
+include/emsr/\mbox{\hyperlink{extrapolation__table_8tcc}{extrapolation\+\_\+table.\+tcc}}\end{DoxyCompactItemize}

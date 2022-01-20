@@ -1,12 +1,12 @@
-\hypertarget{jacobi_8h}{}\section{include/ext/jacobi.h File Reference}
-\label{jacobi_8h}\index{include/ext/jacobi.\+h@{include/ext/jacobi.\+h}}
+\hypertarget{jacobi_8h}{}\doxysection{include/emsr/jacobi.h File Reference}
+\label{jacobi_8h}\index{include/emsr/jacobi.h@{include/emsr/jacobi.h}}
 
 
 Header file for jacobi library.  
 
 
-{\ttfamily \#include $<$ext/gauss\+\_\+jacobi\+\_\+interface.\+tcc$>$}\newline
-{\ttfamily \#include $<$ext/gauss\+\_\+jacobi\+\_\+integrate.\+tcc$>$}\newline
+{\ttfamily \#include $<$emsr/gauss\+\_\+jacobi\+\_\+interface.\+tcc$>$}\newline
+{\ttfamily \#include $<$emsr/gauss\+\_\+jacobi\+\_\+integrate.\+tcc$>$}\newline
 Include dependency graph for jacobi.\+h\+:
 \nopagebreak
 \begin{figure}[H]
@@ -20,78 +20,78 @@ This graph shows which files directly or indirectly include this file\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=346pt]{jacobi_8h__dep__incl}
+\includegraphics[width=201pt]{jacobi_8h__dep__incl}
 \end{center}
 \end{figure}
-\subsection*{Classes}
+\doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
-struct \hyperlink{structjac__quadrature}{jac\+\_\+quadrature$<$ \+\_\+\+Tp $>$}
+struct \mbox{\hyperlink{structjac__quadrature}{jac\+\_\+quadrature$<$ Tp $>$}}
 \begin{DoxyCompactList}\small\item\em Struct used to store information and memory on the quadrature. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\subsection*{Enumerations}
+\doxysubsection*{Enumerations}
 \begin{DoxyCompactItemize}
 \item 
-enum \hyperlink{jacobi_8h_a58cc26f41a96f9220797038d2d3b4c8a}{gauss\+\_\+quad\+\_\+type} \{ \hyperlink{jacobi_8h_a58cc26f41a96f9220797038d2d3b4c8aab15a7891aa5223439e4692a1048cb220}{Gauss}, 
-\hyperlink{jacobi_8h_a58cc26f41a96f9220797038d2d3b4c8aadd3020585839e72f9b36b53076db8583}{Gauss\+\_\+\+Lobatto}, 
-\hyperlink{jacobi_8h_a58cc26f41a96f9220797038d2d3b4c8aa4c779fa441010c7fbe90c4f40129b584}{Gauss\+\_\+\+Radau\+\_\+lower}, 
-\hyperlink{jacobi_8h_a58cc26f41a96f9220797038d2d3b4c8aaabd8ea80c614be833d14da250a270973}{Gauss\+\_\+\+Radau\+\_\+upper}
- \}\begin{DoxyCompactList}\small\item\em Enumeration gor differing types of Gauss quadrature. The gauss\+\_\+quad\+\_\+type is used to determine the boundary condition modifications applied to orthogonal polynomials for quadrature rules. \end{DoxyCompactList}
-\end{DoxyCompactItemize}
+enum \mbox{\hyperlink{jacobi_8h_a58cc26f41a96f9220797038d2d3b4c8a}{gauss\+\_\+quad\+\_\+type}} \{ \mbox{\hyperlink{jacobi_8h_a58cc26f41a96f9220797038d2d3b4c8aab15a7891aa5223439e4692a1048cb220}{Gauss}}
+, \mbox{\hyperlink{jacobi_8h_a58cc26f41a96f9220797038d2d3b4c8aadd3020585839e72f9b36b53076db8583}{Gauss\+\_\+\+Lobatto}}
+, \mbox{\hyperlink{jacobi_8h_a58cc26f41a96f9220797038d2d3b4c8aa4c779fa441010c7fbe90c4f40129b584}{Gauss\+\_\+\+Radau\+\_\+lower}}
+, \mbox{\hyperlink{jacobi_8h_a58cc26f41a96f9220797038d2d3b4c8aaabd8ea80c614be833d14da250a270973}{Gauss\+\_\+\+Radau\+\_\+upper}}
+ \}
+\begin{DoxyCompactList}\small\item\em Enumeration gor differing types of Gauss quadrature. The gauss\+\_\+quad\+\_\+type is used to determine the boundary condition modifications applied to orthogonal polynomials for quadrature rules. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
-\subsection{Detailed Description}
+\doxysubsection{Detailed Description}
 Header file for jacobi library. 
 
-The jacobi library implements Jacobi polynomials and Gauss-\/\+Jacobi quadrature related functions. This library was developed to be used in high order finite element methods (Spectral Element/hp methods. The interfaces were inspired by the software Polylib (\href{http://www.nektar.info}{\tt http\+://www.\+nektar.\+info}).
+The jacobi library implements Jacobi polynomials and Gauss-\/\+Jacobi quadrature related functions. This library was developed to be used in high order finite element methods (Spectral Element/hp methods. The interfaces were inspired by the software Polylib (\href{http://www.nektar.info}{\texttt{ http\+://www.\+nektar.\+info}}).
 
 The main sources used to develop this library where\+:
 
 (1) Abramowitz, Milton and Stegun, Irene (editors); \char`\"{}\+Handbook of Mathematical functions\char`\"{}, Dover Publications 1965.
 
-(2) Karniadakis, George Em and Sherwin, Spencer; \char`\"{}\+Spectral/hp Element Methods for Computational
-    Fluid Dynamics\char`\"{}, Oxford Science Publications, 2nd edition, 2005.
+(2) Karniadakis, George Em and Sherwin, Spencer; \char`\"{}\+Spectral/hp Element Methods for Computational     Fluid Dynamics\char`\"{}, Oxford Science Publications, 2nd edition, 2005.
 
-This software is supposed to be an add-\/on module for the G\+NU Scientific Library 
+This software is supposed to be an add-\/on module for the GNU Scientific Library 
 
-\subsection{Enumeration Type Documentation}
+\doxysubsection{Enumeration Type Documentation}
 \mbox{\Hypertarget{jacobi_8h_a58cc26f41a96f9220797038d2d3b4c8a}\label{jacobi_8h_a58cc26f41a96f9220797038d2d3b4c8a}} 
-\index{jacobi.\+h@{jacobi.\+h}!gauss\+\_\+quad\+\_\+type@{gauss\+\_\+quad\+\_\+type}}
-\index{gauss\+\_\+quad\+\_\+type@{gauss\+\_\+quad\+\_\+type}!jacobi.\+h@{jacobi.\+h}}
-\subsubsection{\texorpdfstring{gauss\+\_\+quad\+\_\+type}{gauss\_quad\_type}}
-{\footnotesize\ttfamily enum \hyperlink{jacobi_8h_a58cc26f41a96f9220797038d2d3b4c8a}{gauss\+\_\+quad\+\_\+type}}
+\index{jacobi.h@{jacobi.h}!gauss\_quad\_type@{gauss\_quad\_type}}
+\index{gauss\_quad\_type@{gauss\_quad\_type}!jacobi.h@{jacobi.h}}
+\doxysubsubsection{\texorpdfstring{gauss\_quad\_type}{gauss\_quad\_type}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{jacobi_8h_a58cc26f41a96f9220797038d2d3b4c8a}{gauss\+\_\+quad\+\_\+type}}}
 
 
 
 Enumeration gor differing types of Gauss quadrature. The gauss\+\_\+quad\+\_\+type is used to determine the boundary condition modifications applied to orthogonal polynomials for quadrature rules. 
 
 \begin{DoxyEnumFields}{Enumerator}
-\raisebox{\heightof{T}}[0pt][0pt]{\index{Gauss@{Gauss}!jacobi.\+h@{jacobi.\+h}}\index{jacobi.\+h@{jacobi.\+h}!Gauss@{Gauss}}}\mbox{\Hypertarget{jacobi_8h_a58cc26f41a96f9220797038d2d3b4c8aab15a7891aa5223439e4692a1048cb220}\label{jacobi_8h_a58cc26f41a96f9220797038d2d3b4c8aab15a7891aa5223439e4692a1048cb220}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Gauss@{Gauss}!jacobi.h@{jacobi.h}}\index{jacobi.h@{jacobi.h}!Gauss@{Gauss}}}\mbox{\Hypertarget{jacobi_8h_a58cc26f41a96f9220797038d2d3b4c8aab15a7891aa5223439e4692a1048cb220}\label{jacobi_8h_a58cc26f41a96f9220797038d2d3b4c8aab15a7891aa5223439e4692a1048cb220}} 
 Gauss&Gauss quadrature. \\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{Gauss\+\_\+\+Lobatto@{Gauss\+\_\+\+Lobatto}!jacobi.\+h@{jacobi.\+h}}\index{jacobi.\+h@{jacobi.\+h}!Gauss\+\_\+\+Lobatto@{Gauss\+\_\+\+Lobatto}}}\mbox{\Hypertarget{jacobi_8h_a58cc26f41a96f9220797038d2d3b4c8aadd3020585839e72f9b36b53076db8583}\label{jacobi_8h_a58cc26f41a96f9220797038d2d3b4c8aadd3020585839e72f9b36b53076db8583}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Gauss\_Lobatto@{Gauss\_Lobatto}!jacobi.h@{jacobi.h}}\index{jacobi.h@{jacobi.h}!Gauss\_Lobatto@{Gauss\_Lobatto}}}\mbox{\Hypertarget{jacobi_8h_a58cc26f41a96f9220797038d2d3b4c8aadd3020585839e72f9b36b53076db8583}\label{jacobi_8h_a58cc26f41a96f9220797038d2d3b4c8aadd3020585839e72f9b36b53076db8583}} 
 Gauss\+\_\+\+Lobatto&Gauss-\/\+Lobatto quadrature. \\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{Gauss\+\_\+\+Radau\+\_\+lower@{Gauss\+\_\+\+Radau\+\_\+lower}!jacobi.\+h@{jacobi.\+h}}\index{jacobi.\+h@{jacobi.\+h}!Gauss\+\_\+\+Radau\+\_\+lower@{Gauss\+\_\+\+Radau\+\_\+lower}}}\mbox{\Hypertarget{jacobi_8h_a58cc26f41a96f9220797038d2d3b4c8aa4c779fa441010c7fbe90c4f40129b584}\label{jacobi_8h_a58cc26f41a96f9220797038d2d3b4c8aa4c779fa441010c7fbe90c4f40129b584}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Gauss\_Radau\_lower@{Gauss\_Radau\_lower}!jacobi.h@{jacobi.h}}\index{jacobi.h@{jacobi.h}!Gauss\_Radau\_lower@{Gauss\_Radau\_lower}}}\mbox{\Hypertarget{jacobi_8h_a58cc26f41a96f9220797038d2d3b4c8aa4c779fa441010c7fbe90c4f40129b584}\label{jacobi_8h_a58cc26f41a96f9220797038d2d3b4c8aa4c779fa441010c7fbe90c4f40129b584}} 
 Gauss\+\_\+\+Radau\+\_\+lower&Gauss-\/\+Radau quadrature including the node -\/1. \\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{Gauss\+\_\+\+Radau\+\_\+upper@{Gauss\+\_\+\+Radau\+\_\+upper}!jacobi.\+h@{jacobi.\+h}}\index{jacobi.\+h@{jacobi.\+h}!Gauss\+\_\+\+Radau\+\_\+upper@{Gauss\+\_\+\+Radau\+\_\+upper}}}\mbox{\Hypertarget{jacobi_8h_a58cc26f41a96f9220797038d2d3b4c8aaabd8ea80c614be833d14da250a270973}\label{jacobi_8h_a58cc26f41a96f9220797038d2d3b4c8aaabd8ea80c614be833d14da250a270973}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Gauss\_Radau\_upper@{Gauss\_Radau\_upper}!jacobi.h@{jacobi.h}}\index{jacobi.h@{jacobi.h}!Gauss\_Radau\_upper@{Gauss\_Radau\_upper}}}\mbox{\Hypertarget{jacobi_8h_a58cc26f41a96f9220797038d2d3b4c8aaabd8ea80c614be833d14da250a270973}\label{jacobi_8h_a58cc26f41a96f9220797038d2d3b4c8aaabd8ea80c614be833d14da250a270973}} 
 Gauss\+\_\+\+Radau\+\_\+upper&Gauss-\/\+Radau quadrature including the node +1. \\
 \hline
 
 \end{DoxyEnumFields}
 
 
-Definition at line 48 of file jacobi.\+h.
+Definition at line 47 of file jacobi.\+h.
 
 
-\begin{DoxyCode}
-49   \{
-50     \hyperlink{jacobi_8h_a58cc26f41a96f9220797038d2d3b4c8aab15a7891aa5223439e4692a1048cb220}{Gauss},             \textcolor{comment}{///< Gauss quadrature}
-51 \textcolor{comment}{}    \hyperlink{jacobi_8h_a58cc26f41a96f9220797038d2d3b4c8aadd3020585839e72f9b36b53076db8583}{Gauss\_Lobatto},     \textcolor{comment}{///< Gauss-Lobatto quadrature}
-52 \textcolor{comment}{}    \hyperlink{jacobi_8h_a58cc26f41a96f9220797038d2d3b4c8aa4c779fa441010c7fbe90c4f40129b584}{Gauss\_Radau\_lower}, \textcolor{comment}{///< Gauss-Radau quadrature including the node -1}
-53 \textcolor{comment}{}    \hyperlink{jacobi_8h_a58cc26f41a96f9220797038d2d3b4c8aaabd8ea80c614be833d14da250a270973}{Gauss\_Radau\_upper}  \textcolor{comment}{///< Gauss-Radau quadrature including the node +1}
-54 \textcolor{comment}{}  \};
+\begin{DoxyCode}{0}
+\DoxyCodeLine{48   \{}
+\DoxyCodeLine{49     \mbox{\hyperlink{jacobi_8h_a58cc26f41a96f9220797038d2d3b4c8aab15a7891aa5223439e4692a1048cb220}{Gauss}},             \textcolor{comment}{///< Gauss quadrature}}
+\DoxyCodeLine{50     \mbox{\hyperlink{jacobi_8h_a58cc26f41a96f9220797038d2d3b4c8aadd3020585839e72f9b36b53076db8583}{Gauss\_Lobatto}},     \textcolor{comment}{///< Gauss-\/Lobatto quadrature}}
+\DoxyCodeLine{51     \mbox{\hyperlink{jacobi_8h_a58cc26f41a96f9220797038d2d3b4c8aa4c779fa441010c7fbe90c4f40129b584}{Gauss\_Radau\_lower}}, \textcolor{comment}{///< Gauss-\/Radau quadrature including the node -\/1}}
+\DoxyCodeLine{52     \mbox{\hyperlink{jacobi_8h_a58cc26f41a96f9220797038d2d3b4c8aaabd8ea80c614be833d14da250a270973}{Gauss\_Radau\_upper}}  \textcolor{comment}{///< Gauss-\/Radau quadrature including the node +1}}
+\DoxyCodeLine{53   \};}
+
 \end{DoxyCode}

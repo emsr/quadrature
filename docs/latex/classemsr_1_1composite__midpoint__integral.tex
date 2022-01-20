@@ -1,0 +1,152 @@
+\hypertarget{classemsr_1_1composite__midpoint__integral}{}\doxysection{emsr\+::composite\+\_\+midpoint\+\_\+integral$<$ Tp, Func\+Tp $>$ Class Template Reference}
+\label{classemsr_1_1composite__midpoint__integral}\index{emsr::composite\_midpoint\_integral$<$ Tp, FuncTp $>$@{emsr::composite\_midpoint\_integral$<$ Tp, FuncTp $>$}}
+
+
+{\ttfamily \#include $<$midpoint\+\_\+integral.\+h$>$}
+
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classemsr_1_1composite__midpoint__integral_aba3ce1267321551c0a831e132cb45463}{Abs\+Area\+Tp}} = decltype(std\+::abs(\mbox{\hyperlink{classemsr_1_1composite__midpoint__integral_ac0f0936a21e362de8c29ad47059a6fa4}{Area\+Tp}}\{\}))
+\item 
+using \mbox{\hyperlink{classemsr_1_1composite__midpoint__integral_ac0f0936a21e362de8c29ad47059a6fa4}{Area\+Tp}} = decltype(\mbox{\hyperlink{classemsr_1_1composite__midpoint__integral_a55863687d93ffa986702d61d4dababea}{Ret\+Tp}}\{\} $\ast$\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{\})
+\item 
+using \mbox{\hyperlink{classemsr_1_1composite__midpoint__integral_a55863687d93ffa986702d61d4dababea}{Ret\+Tp}} = std\+::invoke\+\_\+result\+\_\+t$<$ Func\+Tp, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classemsr_1_1composite__midpoint__integral_ad0fb8f9baf3ccabd1134f594bb30e88b}{composite\+\_\+midpoint\+\_\+integral}} (Func\+Tp fun, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} lower, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} upper, std\+::size\+\_\+t num\+\_\+segs)
+\item 
+{\footnotesize template$<$typename Func\+Tp2 $>$ }\\\mbox{\hyperlink{structemsr_1_1fixed__integral__t}{fixed\+\_\+integral\+\_\+t}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, std\+::invoke\+\_\+result\+\_\+t$<$ Func\+Tp2, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$ $>$ \mbox{\hyperlink{classemsr_1_1composite__midpoint__integral_afbc5a0ebe527ed5e616c5fd21627f2c6}{integrate}} (Func\+Tp2 fun, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} lower, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} upper)
+\item 
+\mbox{\hyperlink{classemsr_1_1composite__midpoint__integral_ac0f0936a21e362de8c29ad47059a6fa4}{Area\+Tp}} \mbox{\hyperlink{classemsr_1_1composite__midpoint__integral_a4655858a0256ca67b16bcbe1e2aa2864}{operator()}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename Tp, typename Func\+Tp$>$\newline
+class emsr\+::composite\+\_\+midpoint\+\_\+integral$<$ Tp, Func\+Tp $>$}
+
+
+
+Definition at line 34 of file midpoint\+\_\+integral.\+h.
+
+
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classemsr_1_1composite__midpoint__integral_aba3ce1267321551c0a831e132cb45463}\label{classemsr_1_1composite__midpoint__integral_aba3ce1267321551c0a831e132cb45463}} 
+\index{emsr::composite\_midpoint\_integral$<$ Tp, FuncTp $>$@{emsr::composite\_midpoint\_integral$<$ Tp, FuncTp $>$}!AbsAreaTp@{AbsAreaTp}}
+\index{AbsAreaTp@{AbsAreaTp}!emsr::composite\_midpoint\_integral$<$ Tp, FuncTp $>$@{emsr::composite\_midpoint\_integral$<$ Tp, FuncTp $>$}}
+\doxysubsubsection{\texorpdfstring{AbsAreaTp}{AbsAreaTp}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Func\+Tp $>$ \\
+using \mbox{\hyperlink{classemsr_1_1composite__midpoint__integral}{emsr\+::composite\+\_\+midpoint\+\_\+integral}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Func\+Tp $>$\+::\mbox{\hyperlink{classemsr_1_1composite__midpoint__integral_aba3ce1267321551c0a831e132cb45463}{Abs\+Area\+Tp}} =  decltype(std\+::abs(\mbox{\hyperlink{classemsr_1_1composite__midpoint__integral_ac0f0936a21e362de8c29ad47059a6fa4}{Area\+Tp}}\{\}))}
+
+
+
+Definition at line 40 of file midpoint\+\_\+integral.\+h.
+
+\mbox{\Hypertarget{classemsr_1_1composite__midpoint__integral_ac0f0936a21e362de8c29ad47059a6fa4}\label{classemsr_1_1composite__midpoint__integral_ac0f0936a21e362de8c29ad47059a6fa4}} 
+\index{emsr::composite\_midpoint\_integral$<$ Tp, FuncTp $>$@{emsr::composite\_midpoint\_integral$<$ Tp, FuncTp $>$}!AreaTp@{AreaTp}}
+\index{AreaTp@{AreaTp}!emsr::composite\_midpoint\_integral$<$ Tp, FuncTp $>$@{emsr::composite\_midpoint\_integral$<$ Tp, FuncTp $>$}}
+\doxysubsubsection{\texorpdfstring{AreaTp}{AreaTp}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Func\+Tp $>$ \\
+using \mbox{\hyperlink{classemsr_1_1composite__midpoint__integral}{emsr\+::composite\+\_\+midpoint\+\_\+integral}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Func\+Tp $>$\+::\mbox{\hyperlink{classemsr_1_1composite__midpoint__integral_ac0f0936a21e362de8c29ad47059a6fa4}{Area\+Tp}} =  decltype(\mbox{\hyperlink{classemsr_1_1composite__midpoint__integral_a55863687d93ffa986702d61d4dababea}{Ret\+Tp}}\{\} $\ast$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{\})}
+
+
+
+Definition at line 39 of file midpoint\+\_\+integral.\+h.
+
+\mbox{\Hypertarget{classemsr_1_1composite__midpoint__integral_a55863687d93ffa986702d61d4dababea}\label{classemsr_1_1composite__midpoint__integral_a55863687d93ffa986702d61d4dababea}} 
+\index{emsr::composite\_midpoint\_integral$<$ Tp, FuncTp $>$@{emsr::composite\_midpoint\_integral$<$ Tp, FuncTp $>$}!RetTp@{RetTp}}
+\index{RetTp@{RetTp}!emsr::composite\_midpoint\_integral$<$ Tp, FuncTp $>$@{emsr::composite\_midpoint\_integral$<$ Tp, FuncTp $>$}}
+\doxysubsubsection{\texorpdfstring{RetTp}{RetTp}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Func\+Tp $>$ \\
+using \mbox{\hyperlink{classemsr_1_1composite__midpoint__integral}{emsr\+::composite\+\_\+midpoint\+\_\+integral}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Func\+Tp $>$\+::\mbox{\hyperlink{classemsr_1_1composite__midpoint__integral_a55863687d93ffa986702d61d4dababea}{Ret\+Tp}} =  std\+::invoke\+\_\+result\+\_\+t$<$Func\+Tp, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}$>$}
+
+
+
+Definition at line 38 of file midpoint\+\_\+integral.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classemsr_1_1composite__midpoint__integral_ad0fb8f9baf3ccabd1134f594bb30e88b}\label{classemsr_1_1composite__midpoint__integral_ad0fb8f9baf3ccabd1134f594bb30e88b}} 
+\index{emsr::composite\_midpoint\_integral$<$ Tp, FuncTp $>$@{emsr::composite\_midpoint\_integral$<$ Tp, FuncTp $>$}!composite\_midpoint\_integral@{composite\_midpoint\_integral}}
+\index{composite\_midpoint\_integral@{composite\_midpoint\_integral}!emsr::composite\_midpoint\_integral$<$ Tp, FuncTp $>$@{emsr::composite\_midpoint\_integral$<$ Tp, FuncTp $>$}}
+\doxysubsubsection{\texorpdfstring{composite\_midpoint\_integral()}{composite\_midpoint\_integral()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Func\+Tp $>$ \\
+\mbox{\hyperlink{classemsr_1_1composite__midpoint__integral}{emsr\+::composite\+\_\+midpoint\+\_\+integral}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Func\+Tp $>$\+::\mbox{\hyperlink{classemsr_1_1composite__midpoint__integral}{composite\+\_\+midpoint\+\_\+integral}} (\begin{DoxyParamCaption}\item[{Func\+Tp}]{fun,  }\item[{\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}}]{lower,  }\item[{\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}}]{upper,  }\item[{std\+::size\+\_\+t}]{num\+\_\+segs }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 42 of file midpoint\+\_\+integral.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{44       : m\_fun(fun), m\_lower\_lim(lower), m\_upper\_lim(upper),}
+\DoxyCodeLine{45         m\_num\_segs(num\_segs), m\_result()}
+\DoxyCodeLine{46       \{ \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classemsr_1_1composite__midpoint__integral_afbc5a0ebe527ed5e616c5fd21627f2c6}\label{classemsr_1_1composite__midpoint__integral_afbc5a0ebe527ed5e616c5fd21627f2c6}} 
+\index{emsr::composite\_midpoint\_integral$<$ Tp, FuncTp $>$@{emsr::composite\_midpoint\_integral$<$ Tp, FuncTp $>$}!integrate@{integrate}}
+\index{integrate@{integrate}!emsr::composite\_midpoint\_integral$<$ Tp, FuncTp $>$@{emsr::composite\_midpoint\_integral$<$ Tp, FuncTp $>$}}
+\doxysubsubsection{\texorpdfstring{integrate()}{integrate()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Func\+Tp $>$ \\
+template$<$typename Func\+Tp2 $>$ \\
+\mbox{\hyperlink{structemsr_1_1fixed__integral__t}{fixed\+\_\+integral\+\_\+t}}$<$\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, std\+::invoke\+\_\+result\+\_\+t$<$Func\+Tp2, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}$>$ $>$ \mbox{\hyperlink{classemsr_1_1composite__midpoint__integral}{emsr\+::composite\+\_\+midpoint\+\_\+integral}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Func\+Tp $>$\+::integrate (\begin{DoxyParamCaption}\item[{Func\+Tp2}]{fun,  }\item[{\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}}]{lower,  }\item[{\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}}]{upper }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 52 of file midpoint\+\_\+integral.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{53         \{}
+\DoxyCodeLine{54           composite\_midpoint\_integral<FuncTp2, Tp>}
+\DoxyCodeLine{55             trapi(fun, lower, upper, this-\/>m\_num\_segments);}
+\DoxyCodeLine{56           \textcolor{keywordflow}{return} \{trapi()\};}
+\DoxyCodeLine{57         \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classemsr_1_1composite__midpoint__integral_a4655858a0256ca67b16bcbe1e2aa2864}\label{classemsr_1_1composite__midpoint__integral_a4655858a0256ca67b16bcbe1e2aa2864}} 
+\index{emsr::composite\_midpoint\_integral$<$ Tp, FuncTp $>$@{emsr::composite\_midpoint\_integral$<$ Tp, FuncTp $>$}!operator()@{operator()}}
+\index{operator()@{operator()}!emsr::composite\_midpoint\_integral$<$ Tp, FuncTp $>$@{emsr::composite\_midpoint\_integral$<$ Tp, FuncTp $>$}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Func\+Tp $>$ \\
+\mbox{\hyperlink{classemsr_1_1composite__midpoint__integral}{composite\+\_\+midpoint\+\_\+integral}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Func\+Tp $>$\+::\mbox{\hyperlink{classemsr_1_1composite__midpoint__integral_ac0f0936a21e362de8c29ad47059a6fa4}{Area\+Tp}} \mbox{\hyperlink{classemsr_1_1composite__midpoint__integral}{emsr\+::composite\+\_\+midpoint\+\_\+integral}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Func\+Tp $>$\+::operator()}
+
+Integrate the function by naive subdivision. 
+
+Definition at line 33 of file midpoint\+\_\+integral.\+tcc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{34     \{}
+\DoxyCodeLine{35       \textcolor{keyword}{const} \textcolor{keyword}{auto} delta = (this-\/>m\_upper\_lim -\/ this-\/>m\_lower\_lim)}
+\DoxyCodeLine{36                            / this-\/>m\_num\_segs;}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38       \textcolor{keyword}{auto} sum = this-\/>m\_fun(this-\/>m\_lower\_lim + delta / \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\}) / \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\};}
+\DoxyCodeLine{39       \textcolor{keywordflow}{for} (std::size\_t j = 1; j < this-\/>m\_num\_segs; ++j)}
+\DoxyCodeLine{40         sum += this-\/>m\_fun(this-\/>m\_lower\_lim + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}(j + 0.5) * delta);}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42       this-\/>m\_result = sum * delta;}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44       \textcolor{keywordflow}{return} this-\/>m\_result;}
+\DoxyCodeLine{45     \}}
+
+\end{DoxyCode}
+
+
+References Tp.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/emsr/\mbox{\hyperlink{midpoint__integral_8h}{midpoint\+\_\+integral.\+h}}\item 
+include/emsr/\mbox{\hyperlink{midpoint__integral_8tcc}{midpoint\+\_\+integral.\+tcc}}\end{DoxyCompactItemize}

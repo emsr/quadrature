@@ -1,0 +1,73 @@
+\hypertarget{namespaceemsr_1_1detail}{}\doxysection{emsr\+::detail Namespace Reference}
+\label{namespaceemsr_1_1detail}\index{emsr::detail@{emsr::detail}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename Tp , typename In\+Iter , typename Out\+Iter $>$ }\\void \mbox{\hyperlink{namespaceemsr_1_1detail_a3a01597b0d4e1996d86ceaf2f68eabc8}{golub\+\_\+welsch}} (\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} moment0, int n, In\+Iter \&diag, In\+Iter \&subd, Out\+Iter \&pt, Out\+Iter \&wt)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespaceemsr_1_1detail_a3a01597b0d4e1996d86ceaf2f68eabc8}\label{namespaceemsr_1_1detail_a3a01597b0d4e1996d86ceaf2f68eabc8}} 
+\index{emsr::detail@{emsr::detail}!golub\_welsch@{golub\_welsch}}
+\index{golub\_welsch@{golub\_welsch}!emsr::detail@{emsr::detail}}
+\doxysubsubsection{\texorpdfstring{golub\_welsch()}{golub\_welsch()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename In\+Iter , typename Out\+Iter $>$ \\
+void emsr\+::detail\+::golub\+\_\+welsch (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}}]{moment0,  }\item[{int}]{n,  }\item[{In\+Iter \&}]{diag,  }\item[{In\+Iter \&}]{subd,  }\item[{Out\+Iter \&}]{pt,  }\item[{Out\+Iter \&}]{wt }\end{DoxyParamCaption})}
+
+Build the absiscae and weights of a Gauss quadrature rule from a symmetric tridiagonal Jacobi matrix using the Golub-\/\+Welsch technique.
+
+Sylvan Elhay, Jaroslav Kautsky, Algorithm 655\+: IQPACK, Fortran Subroutines for the Weights of Interpolatory Quadrature, ACM Transactions on Mathematical Software, Volume 13, Number 4, December 1987, pages 399-\/415.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em n} & The number of knots. \\
+\hline
+\mbox{\texttt{ in}}  & {\em diag} & The diagonal of the Jacobi matrix in \mbox{[}0..n-\/1\mbox{]}. \\
+\hline
+\mbox{\texttt{ in,out}}  & {\em subd} & The subdiagonal of the Jacobi matrix in \mbox{[}1 ... n-\/1\mbox{]}. On output subd is overwritten. \\
+\hline
+\mbox{\texttt{ in}}  & {\em moment0} & The zero-\/th moment of the weight function.\\
+\hline
+\mbox{\texttt{ out}}  & {\em pt\mbox{[}n\mbox{]}} & The points of the integration rule. \\
+\hline
+\mbox{\texttt{ out}}  & {\em wt\mbox{[}n\mbox{]}} & The weights of the integration rule. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 52 of file gauss\+\_\+quadrature.\+tcc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{54     \{}
+\DoxyCodeLine{55       \textcolor{comment}{// Bail if the zero-\/th moment is not positive.}}
+\DoxyCodeLine{56       \textcolor{keywordflow}{if} (moment0 <= \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{0\})}
+\DoxyCodeLine{57         \textcolor{keywordflow}{throw} std::domain\_error(\textcolor{stringliteral}{"{}golub\_welsch: moment0 <= 0"{}});}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59       \textcolor{comment}{// Set up vectors for matrix diagonalization.}}
+\DoxyCodeLine{60       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < n; ++i)}
+\DoxyCodeLine{61         pt[i] = diag[i];}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{63       wt[0] = std::sqrt(moment0);}
+\DoxyCodeLine{64       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 1; i < n; ++i)}
+\DoxyCodeLine{65         wt[i] = \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{0\};}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67       \textcolor{comment}{// Diagonalize the Jacobi matrix.}}
+\DoxyCodeLine{68       \mbox{\hyperlink{namespaceemsr_a5cb28151a49c36c36b58a1dc7af7654c}{s\_tridiag\_symm}}(std::size\_t(n), pt, subd, wt);}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{70       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < n; ++i)}
+\DoxyCodeLine{71         wt[i] *= wt[i];}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{73       \textcolor{keywordflow}{return};}
+\DoxyCodeLine{74     \}}
+
+\end{DoxyCode}
+
+
+References emsr\+::s\+\_\+tridiag\+\_\+symm(), and Tp.
+
+
+
+Referenced by emsr\+::fixed\+\_\+gauss\+\_\+chebyshev\+\_\+t\+\_\+integral$<$ Tp $>$\+::fixed\+\_\+gauss\+\_\+chebyshev\+\_\+t\+\_\+integral(), emsr\+::fixed\+\_\+gauss\+\_\+chebyshev\+\_\+u\+\_\+integral$<$ Tp $>$\+::fixed\+\_\+gauss\+\_\+chebyshev\+\_\+u\+\_\+integral(), emsr\+::fixed\+\_\+gauss\+\_\+chebyshev\+\_\+v\+\_\+integral$<$ Tp $>$\+::fixed\+\_\+gauss\+\_\+chebyshev\+\_\+v\+\_\+integral(), emsr\+::fixed\+\_\+gauss\+\_\+chebyshev\+\_\+w\+\_\+integral$<$ Tp $>$\+::fixed\+\_\+gauss\+\_\+chebyshev\+\_\+w\+\_\+integral(), emsr\+::fixed\+\_\+gauss\+\_\+exponential\+\_\+integral$<$ Tp $>$\+::fixed\+\_\+gauss\+\_\+exponential\+\_\+integral(), emsr\+::fixed\+\_\+gauss\+\_\+gegenbauer\+\_\+integral$<$ Tp $>$\+::fixed\+\_\+gauss\+\_\+gegenbauer\+\_\+integral(), emsr\+::fixed\+\_\+gauss\+\_\+hermite\+\_\+integral$<$ Tp $>$\+::fixed\+\_\+gauss\+\_\+hermite\+\_\+integral(), emsr\+::fixed\+\_\+gauss\+\_\+jacobi\+\_\+integral$<$ Tp $>$\+::fixed\+\_\+gauss\+\_\+jacobi\+\_\+integral(), emsr\+::fixed\+\_\+gauss\+\_\+laguerre\+\_\+integral$<$ Tp $>$\+::fixed\+\_\+gauss\+\_\+laguerre\+\_\+integral(), and emsr\+::fixed\+\_\+gauss\+\_\+legendre\+\_\+integral$<$ Tp $>$\+::fixed\+\_\+gauss\+\_\+legendre\+\_\+integral().
+

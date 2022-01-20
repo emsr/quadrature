@@ -1,9 +1,9 @@
-\hypertarget{gauss__jacobi__interface_8tcc}{}\section{include/ext/gauss\+\_\+jacobi\+\_\+interface.tcc File Reference}
-\label{gauss__jacobi__interface_8tcc}\index{include/ext/gauss\+\_\+jacobi\+\_\+interface.\+tcc@{include/ext/gauss\+\_\+jacobi\+\_\+interface.\+tcc}}
+\hypertarget{gauss__jacobi__interface_8tcc}{}\doxysection{include/emsr/gauss\+\_\+jacobi\+\_\+interface.tcc File Reference}
+\label{gauss__jacobi__interface_8tcc}\index{include/emsr/gauss\_jacobi\_interface.tcc@{include/emsr/gauss\_jacobi\_interface.tcc}}
 {\ttfamily \#include $<$cstdlib$>$}\newline
 {\ttfamily \#include $<$numeric$>$}\newline
-{\ttfamily \#include $<$ext/jacobi.\+h$>$}\newline
-{\ttfamily \#include $<$ext/integration\+\_\+error.\+h$>$}\newline
+{\ttfamily \#include $<$emsr/jacobi.\+h$>$}\newline
+{\ttfamily \#include $<$emsr/integration\+\_\+error.\+h$>$}\newline
 Include dependency graph for gauss\+\_\+jacobi\+\_\+interface.\+tcc\+:
 \nopagebreak
 \begin{figure}[H]
@@ -17,44 +17,59 @@ This graph shows which files directly or indirectly include this file\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=204pt]{gauss__jacobi__interface_8tcc__dep__incl}
+\includegraphics[width=201pt]{gauss__jacobi__interface_8tcc__dep__incl}
 \end{center}
 \end{figure}
-\subsection*{Functions}
+\doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$typename \+\_\+\+Tp $>$ }\\void \hyperlink{gauss__jacobi__interface_8tcc_a3a2988b4408ce3696d34df82f1dcba57}{matvec} (std\+::size\+\_\+t \+\_\+\+\_\+n, const \+\_\+\+Tp $\ast$\+\_\+\+\_\+A, const \+\_\+\+Tp $\ast$\+\_\+\+\_\+x, \+\_\+\+Tp $\ast$\+\_\+\+\_\+y)
+\#define \mbox{\hyperlink{gauss__jacobi__interface_8tcc_adef683aafaba9ea14e575964a5bdbc8d}{GAUSS\+\_\+\+JACOBI\+\_\+\+INTERFACE\+\_\+\+TCC}}~1
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename Tp $>$ }\\void \mbox{\hyperlink{gauss__jacobi__interface_8tcc_ac0ed91d648c6c895a9ec99cf0e863aaa}{matvec}} (std\+::size\+\_\+t \+\_\+\+\_\+n, const \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $\ast$\+\_\+\+\_\+A, const \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $\ast$\+\_\+\+\_\+x, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $\ast$\+\_\+\+\_\+y)
 \end{DoxyCompactItemize}
 
 
-\subsection{Function Documentation}
-\mbox{\Hypertarget{gauss__jacobi__interface_8tcc_a3a2988b4408ce3696d34df82f1dcba57}\label{gauss__jacobi__interface_8tcc_a3a2988b4408ce3696d34df82f1dcba57}} 
-\index{gauss\+\_\+jacobi\+\_\+interface.\+tcc@{gauss\+\_\+jacobi\+\_\+interface.\+tcc}!matvec@{matvec}}
-\index{matvec@{matvec}!gauss\+\_\+jacobi\+\_\+interface.\+tcc@{gauss\+\_\+jacobi\+\_\+interface.\+tcc}}
-\subsubsection{\texorpdfstring{matvec()}{matvec()}}
-{\footnotesize\ttfamily template$<$typename \+\_\+\+Tp $>$ \\
-void matvec (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{\+\_\+\+\_\+n,  }\item[{const \+\_\+\+Tp $\ast$}]{\+\_\+\+\_\+A,  }\item[{const \+\_\+\+Tp $\ast$}]{\+\_\+\+\_\+x,  }\item[{\+\_\+\+Tp $\ast$}]{\+\_\+\+\_\+y }\end{DoxyParamCaption})}
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{gauss__jacobi__interface_8tcc_adef683aafaba9ea14e575964a5bdbc8d}\label{gauss__jacobi__interface_8tcc_adef683aafaba9ea14e575964a5bdbc8d}} 
+\index{gauss\_jacobi\_interface.tcc@{gauss\_jacobi\_interface.tcc}!GAUSS\_JACOBI\_INTERFACE\_TCC@{GAUSS\_JACOBI\_INTERFACE\_TCC}}
+\index{GAUSS\_JACOBI\_INTERFACE\_TCC@{GAUSS\_JACOBI\_INTERFACE\_TCC}!gauss\_jacobi\_interface.tcc@{gauss\_jacobi\_interface.tcc}}
+\doxysubsubsection{\texorpdfstring{GAUSS\_JACOBI\_INTERFACE\_TCC}{GAUSS\_JACOBI\_INTERFACE\_TCC}}
+{\footnotesize\ttfamily \#define GAUSS\+\_\+\+JACOBI\+\_\+\+INTERFACE\+\_\+\+TCC~1}
 
 
 
-Definition at line 79 of file gauss\+\_\+jacobi\+\_\+interface.\+tcc.
+Definition at line 22 of file gauss\+\_\+jacobi\+\_\+interface.\+tcc.
 
 
 
-References \+\_\+\+\_\+gnu\+\_\+cxx\+::\+\_\+\+Tp, Gauss, Gauss\+\_\+\+Lobatto, Gauss\+\_\+\+Radau\+\_\+lower, and Gauss\+\_\+\+Radau\+\_\+upper.
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{gauss__jacobi__interface_8tcc_ac0ed91d648c6c895a9ec99cf0e863aaa}\label{gauss__jacobi__interface_8tcc_ac0ed91d648c6c895a9ec99cf0e863aaa}} 
+\index{gauss\_jacobi\_interface.tcc@{gauss\_jacobi\_interface.tcc}!matvec@{matvec}}
+\index{matvec@{matvec}!gauss\_jacobi\_interface.tcc@{gauss\_jacobi\_interface.tcc}}
+\doxysubsubsection{\texorpdfstring{matvec()}{matvec()}}
+{\footnotesize\ttfamily template$<$typename Tp $>$ \\
+void matvec (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{\+\_\+\+\_\+n,  }\item[{const \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $\ast$}]{\+\_\+\+\_\+A,  }\item[{const \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $\ast$}]{\+\_\+\+\_\+x,  }\item[{\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $\ast$}]{\+\_\+\+\_\+y }\end{DoxyParamCaption})}
 
 
 
-Referenced by jac\+\_\+quadrature$<$ \+\_\+\+Tp $>$\+::integrate().
+Definition at line 84 of file gauss\+\_\+jacobi\+\_\+interface.\+tcc.
 
 
-\begin{DoxyCode}
-80   \{
-81     \textcolor{keywordflow}{for} (std::size\_t \_\_ir = 0; \_\_ir < \_\_n; ++\_\_ir)
-82       \{
-83         \_\_y[\_\_ir] = \hyperlink{namespace____gnu__cxx_a3b19a9c800ca194374ef9172290f7d79}{\_Tp}\{0\};
-84         \textcolor{keywordflow}{for} (std::size\_t \_\_ic = 0; \_\_ic < \_\_n; ++\_\_ic)
-85           \_\_y[\_\_ir] += \_\_A[\_\_ir][\_\_ic] * \_\_x[\_\_ic];
-86       \}
-87   \}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{85   \{}
+\DoxyCodeLine{86     \textcolor{keywordflow}{for} (std::size\_t \_\_ir = 0; \_\_ir < \_\_n; ++\_\_ir)}
+\DoxyCodeLine{87       \{}
+\DoxyCodeLine{88         \_\_y[\_\_ir] = \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{0\};}
+\DoxyCodeLine{89         \textcolor{keywordflow}{for} (std::size\_t \_\_ic = 0; \_\_ic < \_\_n; ++\_\_ic)}
+\DoxyCodeLine{90           \_\_y[\_\_ir] += \_\_A[\_\_ir][\_\_ic] * \_\_x[\_\_ic];}
+\DoxyCodeLine{91       \}}
+\DoxyCodeLine{92   \}}
+
 \end{DoxyCode}
+
+
+References Tp.
+

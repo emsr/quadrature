@@ -1,7 +1,21 @@
-<map id="include/ext/qagp_integrate.tcc" name="include/ext/qagp_integrate.tcc">
-<area shape="rect" id="node3" href="$integration__workspace_8h.html" title="ext/integration_workspace.h" alt="" coords="314,80,499,107"/>
-<area shape="rect" id="node15" href="$extrapolation__table_8h.html" title="ext/extrapolation_table.h" alt="" coords="575,80,739,107"/>
-<area shape="rect" id="node9" href="$integration__workspace_8tcc.html" title="ext/integration_workspace.tcc" alt="" coords="173,155,369,181"/>
-<area shape="rect" id="node12" href="$integration__error_8h.html" title="ext/integration_error.h" alt="" coords="34,229,182,256"/>
-<area shape="rect" id="node18" href="$extrapolation__table_8tcc.html" title="ext/extrapolation_table.tcc" alt="" coords="847,155,1022,181"/>
+<map id="include/emsr/qagp_integrate.tcc" name="include/emsr/qagp_integrate.tcc">
+<area shape="rect" id="node1" title=" " alt="" coords="253,5,484,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="145,87,237,114"/>
+<area shape="rect" id="node3" title=" " alt="" coords="261,87,316,114"/>
+<area shape="rect" id="node4" href="$integration__workspace_8h.html" title=" " alt="" coords="341,87,559,114"/>
+<area shape="rect" id="node16" href="$extrapolation__table_8h.html" title=" " alt="" coords="638,80,785,121"/>
+<area shape="rect" id="node5" title=" " alt="" coords="538,177,623,203"/>
+<area shape="rect" id="node6" title=" " alt="" coords="5,177,68,203"/>
+<area shape="rect" id="node7" title=" " alt="" coords="403,333,462,360"/>
+<area shape="rect" id="node8" title=" " alt="" coords="487,333,549,360"/>
+<area shape="rect" id="node9" title=" " alt="" coords="92,177,157,203"/>
+<area shape="rect" id="node10" href="$integration__workspace_8tcc.html" title=" " alt="" coords="181,177,412,203"/>
+<area shape="rect" id="node11" title=" " alt="" coords="333,259,413,285"/>
+<area shape="rect" id="node12" title=" " alt="" coords="234,259,309,285"/>
+<area shape="rect" id="node13" href="$integration__error_8h.html" title=" " alt="" coords="29,259,209,285"/>
+<area shape="rect" id="node14" title=" " alt="" coords="27,333,102,360"/>
+<area shape="rect" id="node15" title=" " alt="" coords="127,333,224,360"/>
+<area shape="rect" id="node17" title=" " alt="" coords="749,177,805,203"/>
+<area shape="rect" id="node18" title=" " alt="" coords="829,177,889,203"/>
+<area shape="rect" id="node19" href="$extrapolation__table_8tcc.html" title=" " alt="" coords="914,169,1061,211"/>
 </map>

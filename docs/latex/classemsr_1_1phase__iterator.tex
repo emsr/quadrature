@@ -1,0 +1,231 @@
+\hypertarget{classemsr_1_1phase__iterator}{}\doxysection{emsr\+::phase\+\_\+iterator$<$ Tp $>$ Class Template Reference}
+\label{classemsr_1_1phase__iterator}\index{emsr::phase\_iterator$<$ Tp $>$@{emsr::phase\_iterator$<$ Tp $>$}}
+
+
+{\ttfamily \#include $<$fourier\+\_\+transform.\+h$>$}
+
+
+
+Inheritance diagram for emsr\+::phase\+\_\+iterator$<$ Tp $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classemsr_1_1phase__iterator__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for emsr\+::phase\+\_\+iterator$<$ Tp $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classemsr_1_1phase__iterator__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classemsr_1_1phase__iterator_a463c13c79665b70c15fd70af292daa59}{phase\+\_\+iterator}} (\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} delta)
+\item 
+\mbox{\hyperlink{classemsr_1_1phase__iterator_a497a7183220c7c23c3b6ace8a10fca02}{phase\+\_\+iterator}} (\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} sign, std\+::size\+\_\+t i, std\+::size\+\_\+t len, bool past\+\_\+end=false)
+\item 
+\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} \mbox{\hyperlink{classemsr_1_1phase__iterator_a6d0182140813a2043f188d51a1eb5d85}{cos}} () const
+\item 
+bool \mbox{\hyperlink{classemsr_1_1phase__iterator_a84aa3a05c53d37793daee29f9626d140}{operator!=}} (const \mbox{\hyperlink{classemsr_1_1phase__iterator}{phase\+\_\+iterator}} \&other) const
+\item 
+std\+::complex$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$ \mbox{\hyperlink{classemsr_1_1phase__iterator_a096ac38b00fc5df93460fb892abec415}{operator$\ast$}} () const
+\item 
+\mbox{\hyperlink{classemsr_1_1phase__iterator}{phase\+\_\+iterator}} \& \mbox{\hyperlink{classemsr_1_1phase__iterator_a8d3f56f39f6d2fb00944784e13510005}{operator++}} ()
+\item 
+\mbox{\hyperlink{classemsr_1_1phase__iterator}{phase\+\_\+iterator}} \mbox{\hyperlink{classemsr_1_1phase__iterator_ae2ec93c8fda8b565fdc5bafb4d97b915}{operator++}} (int)
+\item 
+bool \mbox{\hyperlink{classemsr_1_1phase__iterator_a103817f0c42f0a76858e7aa91f9fad47}{operator==}} (const \mbox{\hyperlink{classemsr_1_1phase__iterator}{phase\+\_\+iterator}} \&other) const
+\item 
+\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} \mbox{\hyperlink{classemsr_1_1phase__iterator_af3e65608d26d64779a45c72b7ac87372}{sin}} () const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename Tp$>$\newline
+class emsr\+::phase\+\_\+iterator$<$ Tp $>$}
+
+
+
+Definition at line 33 of file fourier\+\_\+transform.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classemsr_1_1phase__iterator_a497a7183220c7c23c3b6ace8a10fca02}\label{classemsr_1_1phase__iterator_a497a7183220c7c23c3b6ace8a10fca02}} 
+\index{emsr::phase\_iterator$<$ Tp $>$@{emsr::phase\_iterator$<$ Tp $>$}!phase\_iterator@{phase\_iterator}}
+\index{phase\_iterator@{phase\_iterator}!emsr::phase\_iterator$<$ Tp $>$@{emsr::phase\_iterator$<$ Tp $>$}}
+\doxysubsubsection{\texorpdfstring{phase\_iterator()}{phase\_iterator()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename Tp $>$ \\
+\mbox{\hyperlink{classemsr_1_1phase__iterator}{emsr\+::phase\+\_\+iterator}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$\+::\mbox{\hyperlink{classemsr_1_1phase__iterator}{phase\+\_\+iterator}} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}}]{sign,  }\item[{std\+::size\+\_\+t}]{i,  }\item[{std\+::size\+\_\+t}]{len,  }\item[{bool}]{past\+\_\+end = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 60 of file fourier\+\_\+transform.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{64       : m\_omega\_pow\_i(std::polar(\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\},}
+\DoxyCodeLine{65                                   -\/sign * s\_rational\_arg(i, len))),}
+\DoxyCodeLine{66         m\_omega\_pow\_ik(\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\}),}
+\DoxyCodeLine{67         m\_k(past\_end ? len : 0)}
+\DoxyCodeLine{68       \{ \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classemsr_1_1phase__iterator_a463c13c79665b70c15fd70af292daa59}\label{classemsr_1_1phase__iterator_a463c13c79665b70c15fd70af292daa59}} 
+\index{emsr::phase\_iterator$<$ Tp $>$@{emsr::phase\_iterator$<$ Tp $>$}!phase\_iterator@{phase\_iterator}}
+\index{phase\_iterator@{phase\_iterator}!emsr::phase\_iterator$<$ Tp $>$@{emsr::phase\_iterator$<$ Tp $>$}}
+\doxysubsubsection{\texorpdfstring{phase\_iterator()}{phase\_iterator()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Tp $>$ \\
+\mbox{\hyperlink{classemsr_1_1phase__iterator}{emsr\+::phase\+\_\+iterator}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$\+::\mbox{\hyperlink{classemsr_1_1phase__iterator}{phase\+\_\+iterator}} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}}]{delta }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 70 of file fourier\+\_\+transform.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{71       : m\_omega\_pow\_i(std::polar(\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\}, delta)),}
+\DoxyCodeLine{72         m\_omega\_pow\_ik(\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\}),}
+\DoxyCodeLine{73         m\_k(0)}
+\DoxyCodeLine{74       \{ \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classemsr_1_1phase__iterator_a6d0182140813a2043f188d51a1eb5d85}\label{classemsr_1_1phase__iterator_a6d0182140813a2043f188d51a1eb5d85}} 
+\index{emsr::phase\_iterator$<$ Tp $>$@{emsr::phase\_iterator$<$ Tp $>$}!cos@{cos}}
+\index{cos@{cos}!emsr::phase\_iterator$<$ Tp $>$@{emsr::phase\_iterator$<$ Tp $>$}}
+\doxysubsubsection{\texorpdfstring{cos()}{cos()}}
+{\footnotesize\ttfamily template$<$typename Tp $>$ \\
+\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} \mbox{\hyperlink{classemsr_1_1phase__iterator}{emsr\+::phase\+\_\+iterator}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$\+::cos (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 98 of file fourier\+\_\+transform.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{99       \{ \textcolor{keywordflow}{return} std::real(this-\/>m\_omega\_pow\_ik); \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classemsr_1_1phase__iterator_a84aa3a05c53d37793daee29f9626d140}\label{classemsr_1_1phase__iterator_a84aa3a05c53d37793daee29f9626d140}} 
+\index{emsr::phase\_iterator$<$ Tp $>$@{emsr::phase\_iterator$<$ Tp $>$}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!emsr::phase\_iterator$<$ Tp $>$@{emsr::phase\_iterator$<$ Tp $>$}}
+\doxysubsubsection{\texorpdfstring{operator"!=()}{operator!=()}}
+{\footnotesize\ttfamily template$<$typename Tp $>$ \\
+bool \mbox{\hyperlink{classemsr_1_1phase__iterator}{emsr\+::phase\+\_\+iterator}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$\+::operator!= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classemsr_1_1phase__iterator}{phase\+\_\+iterator}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$ \&}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 113 of file fourier\+\_\+transform.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{114       \{ \textcolor{keywordflow}{return} !(*\textcolor{keyword}{this} == other); \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classemsr_1_1phase__iterator_a096ac38b00fc5df93460fb892abec415}\label{classemsr_1_1phase__iterator_a096ac38b00fc5df93460fb892abec415}} 
+\index{emsr::phase\_iterator$<$ Tp $>$@{emsr::phase\_iterator$<$ Tp $>$}!operator$\ast$@{operator$\ast$}}
+\index{operator$\ast$@{operator$\ast$}!emsr::phase\_iterator$<$ Tp $>$@{emsr::phase\_iterator$<$ Tp $>$}}
+\doxysubsubsection{\texorpdfstring{operator$\ast$()}{operator*()}}
+{\footnotesize\ttfamily template$<$typename Tp $>$ \\
+std\+::complex$<$\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}$>$ \mbox{\hyperlink{classemsr_1_1phase__iterator}{emsr\+::phase\+\_\+iterator}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$\+::operator$\ast$ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 77 of file fourier\+\_\+transform.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{78       \{ \textcolor{keywordflow}{return} m\_omega\_pow\_ik; \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classemsr_1_1phase__iterator_a8d3f56f39f6d2fb00944784e13510005}\label{classemsr_1_1phase__iterator_a8d3f56f39f6d2fb00944784e13510005}} 
+\index{emsr::phase\_iterator$<$ Tp $>$@{emsr::phase\_iterator$<$ Tp $>$}!operator++@{operator++}}
+\index{operator++@{operator++}!emsr::phase\_iterator$<$ Tp $>$@{emsr::phase\_iterator$<$ Tp $>$}}
+\doxysubsubsection{\texorpdfstring{operator++()}{operator++()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename Tp $>$ \\
+\mbox{\hyperlink{classemsr_1_1phase__iterator}{phase\+\_\+iterator}}\& \mbox{\hyperlink{classemsr_1_1phase__iterator}{emsr\+::phase\+\_\+iterator}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$\+::operator++ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 81 of file fourier\+\_\+transform.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{82       \{}
+\DoxyCodeLine{83         ++this-\/>m\_k;}
+\DoxyCodeLine{84         this-\/>m\_omega\_pow\_ik *= this-\/>m\_omega\_pow\_i;}
+\DoxyCodeLine{85         \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
+\DoxyCodeLine{86       \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classemsr_1_1phase__iterator_ae2ec93c8fda8b565fdc5bafb4d97b915}\label{classemsr_1_1phase__iterator_ae2ec93c8fda8b565fdc5bafb4d97b915}} 
+\index{emsr::phase\_iterator$<$ Tp $>$@{emsr::phase\_iterator$<$ Tp $>$}!operator++@{operator++}}
+\index{operator++@{operator++}!emsr::phase\_iterator$<$ Tp $>$@{emsr::phase\_iterator$<$ Tp $>$}}
+\doxysubsubsection{\texorpdfstring{operator++()}{operator++()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Tp $>$ \\
+\mbox{\hyperlink{classemsr_1_1phase__iterator}{phase\+\_\+iterator}} \mbox{\hyperlink{classemsr_1_1phase__iterator}{emsr\+::phase\+\_\+iterator}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$\+::operator++ (\begin{DoxyParamCaption}\item[{int}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 89 of file fourier\+\_\+transform.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{90       \{}
+\DoxyCodeLine{91         \mbox{\hyperlink{classemsr_1_1phase__iterator_a497a7183220c7c23c3b6ace8a10fca02}{phase\_iterator}} dummy(*\textcolor{keyword}{this});}
+\DoxyCodeLine{92         ++this-\/>m\_k;}
+\DoxyCodeLine{93         this-\/>m\_omega\_pow\_ik *= this-\/>m\_omega\_pow\_i;}
+\DoxyCodeLine{94         \textcolor{keywordflow}{return} dummy;}
+\DoxyCodeLine{95       \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classemsr_1_1phase__iterator_a103817f0c42f0a76858e7aa91f9fad47}\label{classemsr_1_1phase__iterator_a103817f0c42f0a76858e7aa91f9fad47}} 
+\index{emsr::phase\_iterator$<$ Tp $>$@{emsr::phase\_iterator$<$ Tp $>$}!operator==@{operator==}}
+\index{operator==@{operator==}!emsr::phase\_iterator$<$ Tp $>$@{emsr::phase\_iterator$<$ Tp $>$}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily template$<$typename Tp $>$ \\
+bool \mbox{\hyperlink{classemsr_1_1phase__iterator}{emsr\+::phase\+\_\+iterator}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classemsr_1_1phase__iterator}{phase\+\_\+iterator}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$ \&}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 106 of file fourier\+\_\+transform.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{107       \{}
+\DoxyCodeLine{108         \textcolor{keywordflow}{return} (this-\/>m\_omega\_pow\_i == other.m\_omega\_pow\_i)}
+\DoxyCodeLine{109             \&\& (this-\/>m\_k == other.m\_k);}
+\DoxyCodeLine{110       \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classemsr_1_1phase__iterator_af3e65608d26d64779a45c72b7ac87372}\label{classemsr_1_1phase__iterator_af3e65608d26d64779a45c72b7ac87372}} 
+\index{emsr::phase\_iterator$<$ Tp $>$@{emsr::phase\_iterator$<$ Tp $>$}!sin@{sin}}
+\index{sin@{sin}!emsr::phase\_iterator$<$ Tp $>$@{emsr::phase\_iterator$<$ Tp $>$}}
+\doxysubsubsection{\texorpdfstring{sin()}{sin()}}
+{\footnotesize\ttfamily template$<$typename Tp $>$ \\
+\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} \mbox{\hyperlink{classemsr_1_1phase__iterator}{emsr\+::phase\+\_\+iterator}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$\+::sin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 102 of file fourier\+\_\+transform.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{103       \{ \textcolor{keywordflow}{return} std::imag(this-\/>m\_omega\_pow\_ik); \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/emsr/\mbox{\hyperlink{fourier__transform_8h}{fourier\+\_\+transform.\+h}}\end{DoxyCompactItemize}

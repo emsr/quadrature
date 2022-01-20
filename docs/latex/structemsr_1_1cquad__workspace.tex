@@ -1,0 +1,368 @@
+\hypertarget{structemsr_1_1cquad__workspace}{}\doxysection{emsr\+::cquad\+\_\+workspace$<$ Tp, Ret\+Tp $>$ Struct Template Reference}
+\label{structemsr_1_1cquad__workspace}\index{emsr::cquad\_workspace$<$ Tp, RetTp $>$@{emsr::cquad\_workspace$<$ Tp, RetTp $>$}}
+
+
+{\ttfamily \#include $<$cquad\+\_\+workspace.\+h$>$}
+
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{structemsr_1_1cquad__workspace_a18ffe9f66bca3034e0ac0bae99625fef}{Abs\+Area\+Tp}} = decltype(std\+::abs(\mbox{\hyperlink{structemsr_1_1cquad__workspace_acb3a95a344659c5acf0557a6809fe034}{Area\+Tp}}\{\}))
+\item 
+using \mbox{\hyperlink{structemsr_1_1cquad__workspace_acb3a95a344659c5acf0557a6809fe034}{Area\+Tp}} = decltype(Ret\+Tp\{\} $\ast$\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{\})
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structemsr_1_1cquad__workspace_a9b042b0726b68126b7eae6d4e2569444}{cquad\+\_\+workspace}} (std\+::size\+\_\+t len=200)
+\item 
+std\+::vector$<$ \mbox{\hyperlink{structemsr_1_1cquad__interval}{cquad\+\_\+interval}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$ $>$\+::iterator \mbox{\hyperlink{structemsr_1_1cquad__workspace_a3a16511becc63206cce25d9b589a072e}{begin}} ()
+\item 
+std\+::size\+\_\+t \mbox{\hyperlink{structemsr_1_1cquad__workspace_ad91ea4a8d5a53e7e0c33bd951f9d6364}{capacity}} () const
+\item 
+void \mbox{\hyperlink{structemsr_1_1cquad__workspace_aee787ebc2dad0b897bf9a47080e07a30}{clear}} ()
+\item 
+std\+::vector$<$ \mbox{\hyperlink{structemsr_1_1cquad__interval}{cquad\+\_\+interval}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$ $>$\+::iterator \mbox{\hyperlink{structemsr_1_1cquad__workspace_a243c55455d3213090bbf9e7827a78e04}{end}} ()
+\item 
+void \mbox{\hyperlink{structemsr_1_1cquad__workspace_a33099212a5ce32f3a0d587de163f12f8}{pop}} ()
+\item 
+void \mbox{\hyperlink{structemsr_1_1cquad__workspace_a7399c5206d72add3ba5594abce9235aa}{push}} (const \mbox{\hyperlink{structemsr_1_1cquad__interval}{cquad\+\_\+interval}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$ \&iv)
+\item 
+std\+::size\+\_\+t \mbox{\hyperlink{structemsr_1_1cquad__workspace_a346cefdc972db6cc5e2296e34f1331e7}{size}} () const
+\item 
+\mbox{\hyperlink{structemsr_1_1cquad__interval}{cquad\+\_\+interval}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$ \& \mbox{\hyperlink{structemsr_1_1cquad__workspace_ae0413bb65a3c1b8fd0f76c569f38c1b4}{top}} ()
+\item 
+const \mbox{\hyperlink{structemsr_1_1cquad__interval}{cquad\+\_\+interval}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$ \& \mbox{\hyperlink{structemsr_1_1cquad__workspace_a2f382ea13d9677d8f533f33fe3194b13}{top}} () const
+\item 
+\mbox{\hyperlink{structemsr_1_1cquad__workspace_a18ffe9f66bca3034e0ac0bae99625fef}{Abs\+Area\+Tp}} \mbox{\hyperlink{structemsr_1_1cquad__workspace_a1529b77efac962b40569a5805ac1e3b8}{total\+\_\+error}} () const
+\item 
+\mbox{\hyperlink{structemsr_1_1cquad__workspace_acb3a95a344659c5acf0557a6809fe034}{Area\+Tp}} \mbox{\hyperlink{structemsr_1_1cquad__workspace_a73e20995703eae3aee3c471552705fe0}{total\+\_\+integral}} () const
+\item 
+void \mbox{\hyperlink{structemsr_1_1cquad__workspace_a7662291fc0b7352a120f7fdca3575883}{update}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{structemsr_1_1cquad__interval}{cquad\+\_\+interval}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$ $>$ \mbox{\hyperlink{structemsr_1_1cquad__workspace_a0c3ecf7b1ecac556f4742c037a20a412}{m\+\_\+ival}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename Tp, typename Ret\+Tp$>$\newline
+struct emsr\+::cquad\+\_\+workspace$<$ Tp, Ret\+Tp $>$}
+
+The workspace is a collection of intervals. Actually, it is a priority queue where the priority is the absolute error of the interval integral. 
+
+Definition at line 78 of file cquad\+\_\+workspace.\+h.
+
+
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{structemsr_1_1cquad__workspace_a18ffe9f66bca3034e0ac0bae99625fef}\label{structemsr_1_1cquad__workspace_a18ffe9f66bca3034e0ac0bae99625fef}} 
+\index{emsr::cquad\_workspace$<$ Tp, RetTp $>$@{emsr::cquad\_workspace$<$ Tp, RetTp $>$}!AbsAreaTp@{AbsAreaTp}}
+\index{AbsAreaTp@{AbsAreaTp}!emsr::cquad\_workspace$<$ Tp, RetTp $>$@{emsr::cquad\_workspace$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{AbsAreaTp}{AbsAreaTp}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+using \mbox{\hyperlink{structemsr_1_1cquad__workspace}{emsr\+::cquad\+\_\+workspace}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::\mbox{\hyperlink{structemsr_1_1cquad__workspace_a18ffe9f66bca3034e0ac0bae99625fef}{Abs\+Area\+Tp}} =  decltype(std\+::abs(\mbox{\hyperlink{structemsr_1_1cquad__workspace_acb3a95a344659c5acf0557a6809fe034}{Area\+Tp}}\{\}))}
+
+
+
+Definition at line 81 of file cquad\+\_\+workspace.\+h.
+
+\mbox{\Hypertarget{structemsr_1_1cquad__workspace_acb3a95a344659c5acf0557a6809fe034}\label{structemsr_1_1cquad__workspace_acb3a95a344659c5acf0557a6809fe034}} 
+\index{emsr::cquad\_workspace$<$ Tp, RetTp $>$@{emsr::cquad\_workspace$<$ Tp, RetTp $>$}!AreaTp@{AreaTp}}
+\index{AreaTp@{AreaTp}!emsr::cquad\_workspace$<$ Tp, RetTp $>$@{emsr::cquad\_workspace$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{AreaTp}{AreaTp}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+using \mbox{\hyperlink{structemsr_1_1cquad__workspace}{emsr\+::cquad\+\_\+workspace}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::\mbox{\hyperlink{structemsr_1_1cquad__workspace_acb3a95a344659c5acf0557a6809fe034}{Area\+Tp}} =  decltype(Ret\+Tp\{\} $\ast$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{\})}
+
+
+
+Definition at line 80 of file cquad\+\_\+workspace.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structemsr_1_1cquad__workspace_a9b042b0726b68126b7eae6d4e2569444}\label{structemsr_1_1cquad__workspace_a9b042b0726b68126b7eae6d4e2569444}} 
+\index{emsr::cquad\_workspace$<$ Tp, RetTp $>$@{emsr::cquad\_workspace$<$ Tp, RetTp $>$}!cquad\_workspace@{cquad\_workspace}}
+\index{cquad\_workspace@{cquad\_workspace}!emsr::cquad\_workspace$<$ Tp, RetTp $>$@{emsr::cquad\_workspace$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{cquad\_workspace()}{cquad\_workspace()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+\mbox{\hyperlink{structemsr_1_1cquad__workspace}{emsr\+::cquad\+\_\+workspace}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::\mbox{\hyperlink{structemsr_1_1cquad__workspace}{cquad\+\_\+workspace}} (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{len = {\ttfamily 200} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 85 of file cquad\+\_\+workspace.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{86       : \mbox{\hyperlink{structemsr_1_1cquad__workspace_a0c3ecf7b1ecac556f4742c037a20a412}{m\_ival}}()}
+\DoxyCodeLine{87       \{ this-\/>\mbox{\hyperlink{structemsr_1_1cquad__workspace_a0c3ecf7b1ecac556f4742c037a20a412}{m\_ival}}.reserve(len); \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structemsr_1_1cquad__workspace_a3a16511becc63206cce25d9b589a072e}\label{structemsr_1_1cquad__workspace_a3a16511becc63206cce25d9b589a072e}} 
+\index{emsr::cquad\_workspace$<$ Tp, RetTp $>$@{emsr::cquad\_workspace$<$ Tp, RetTp $>$}!begin@{begin}}
+\index{begin@{begin}!emsr::cquad\_workspace$<$ Tp, RetTp $>$@{emsr::cquad\_workspace$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{begin()}{begin()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+std\+::vector$<$\mbox{\hyperlink{structemsr_1_1cquad__interval}{cquad\+\_\+interval}}$<$\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp$>$ $>$\+::iterator \mbox{\hyperlink{structemsr_1_1cquad__workspace}{emsr\+::cquad\+\_\+workspace}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 97 of file cquad\+\_\+workspace.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{98       \{ \textcolor{keywordflow}{return} this-\/>\mbox{\hyperlink{structemsr_1_1cquad__workspace_a0c3ecf7b1ecac556f4742c037a20a412}{m\_ival}}.begin(); \}}
+
+\end{DoxyCode}
+
+
+Referenced by emsr\+::cquad\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::pop(), emsr\+::cquad\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::push(), and emsr\+::cquad\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::update().
+
+\mbox{\Hypertarget{structemsr_1_1cquad__workspace_ad91ea4a8d5a53e7e0c33bd951f9d6364}\label{structemsr_1_1cquad__workspace_ad91ea4a8d5a53e7e0c33bd951f9d6364}} 
+\index{emsr::cquad\_workspace$<$ Tp, RetTp $>$@{emsr::cquad\_workspace$<$ Tp, RetTp $>$}!capacity@{capacity}}
+\index{capacity@{capacity}!emsr::cquad\_workspace$<$ Tp, RetTp $>$@{emsr::cquad\_workspace$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{capacity()}{capacity()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+std\+::size\+\_\+t \mbox{\hyperlink{structemsr_1_1cquad__workspace}{emsr\+::cquad\+\_\+workspace}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::capacity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 93 of file cquad\+\_\+workspace.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{94       \{ \textcolor{keywordflow}{return} this-\/>\mbox{\hyperlink{structemsr_1_1cquad__workspace_a0c3ecf7b1ecac556f4742c037a20a412}{m\_ival}}.capacity(); \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structemsr_1_1cquad__workspace_aee787ebc2dad0b897bf9a47080e07a30}\label{structemsr_1_1cquad__workspace_aee787ebc2dad0b897bf9a47080e07a30}} 
+\index{emsr::cquad\_workspace$<$ Tp, RetTp $>$@{emsr::cquad\_workspace$<$ Tp, RetTp $>$}!clear@{clear}}
+\index{clear@{clear}!emsr::cquad\_workspace$<$ Tp, RetTp $>$@{emsr::cquad\_workspace$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{clear()}{clear()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+void \mbox{\hyperlink{structemsr_1_1cquad__workspace}{emsr\+::cquad\+\_\+workspace}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::clear (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 113 of file cquad\+\_\+workspace.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{114       \{ this-\/>\mbox{\hyperlink{structemsr_1_1cquad__workspace_a0c3ecf7b1ecac556f4742c037a20a412}{m\_ival}}.clear(); \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structemsr_1_1cquad__workspace_a243c55455d3213090bbf9e7827a78e04}\label{structemsr_1_1cquad__workspace_a243c55455d3213090bbf9e7827a78e04}} 
+\index{emsr::cquad\_workspace$<$ Tp, RetTp $>$@{emsr::cquad\_workspace$<$ Tp, RetTp $>$}!end@{end}}
+\index{end@{end}!emsr::cquad\_workspace$<$ Tp, RetTp $>$@{emsr::cquad\_workspace$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{end()}{end()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+std\+::vector$<$\mbox{\hyperlink{structemsr_1_1cquad__interval}{cquad\+\_\+interval}}$<$\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp$>$ $>$\+::iterator \mbox{\hyperlink{structemsr_1_1cquad__workspace}{emsr\+::cquad\+\_\+workspace}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::end (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 101 of file cquad\+\_\+workspace.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{102       \{ \textcolor{keywordflow}{return} this-\/>\mbox{\hyperlink{structemsr_1_1cquad__workspace_a0c3ecf7b1ecac556f4742c037a20a412}{m\_ival}}.end(); \}}
+
+\end{DoxyCode}
+
+
+Referenced by emsr\+::cquad\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::pop(), emsr\+::cquad\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::push(), and emsr\+::cquad\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::update().
+
+\mbox{\Hypertarget{structemsr_1_1cquad__workspace_a33099212a5ce32f3a0d587de163f12f8}\label{structemsr_1_1cquad__workspace_a33099212a5ce32f3a0d587de163f12f8}} 
+\index{emsr::cquad\_workspace$<$ Tp, RetTp $>$@{emsr::cquad\_workspace$<$ Tp, RetTp $>$}!pop@{pop}}
+\index{pop@{pop}!emsr::cquad\_workspace$<$ Tp, RetTp $>$@{emsr::cquad\_workspace$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{pop()}{pop()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+void \mbox{\hyperlink{structemsr_1_1cquad__workspace}{emsr\+::cquad\+\_\+workspace}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::pop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 125 of file cquad\+\_\+workspace.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{126       \{}
+\DoxyCodeLine{127         std::pop\_heap(this-\/>\mbox{\hyperlink{structemsr_1_1cquad__workspace_a3a16511becc63206cce25d9b589a072e}{begin}}(), this-\/>\mbox{\hyperlink{structemsr_1_1cquad__workspace_a243c55455d3213090bbf9e7827a78e04}{end}}());}
+\DoxyCodeLine{128         this-\/>\mbox{\hyperlink{structemsr_1_1cquad__workspace_a0c3ecf7b1ecac556f4742c037a20a412}{m\_ival}}.pop\_back();}
+\DoxyCodeLine{129       \}}
+
+\end{DoxyCode}
+
+
+References emsr\+::cquad\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::begin(), and emsr\+::cquad\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::end().
+
+\mbox{\Hypertarget{structemsr_1_1cquad__workspace_a7399c5206d72add3ba5594abce9235aa}\label{structemsr_1_1cquad__workspace_a7399c5206d72add3ba5594abce9235aa}} 
+\index{emsr::cquad\_workspace$<$ Tp, RetTp $>$@{emsr::cquad\_workspace$<$ Tp, RetTp $>$}!push@{push}}
+\index{push@{push}!emsr::cquad\_workspace$<$ Tp, RetTp $>$@{emsr::cquad\_workspace$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{push()}{push()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+void \mbox{\hyperlink{structemsr_1_1cquad__workspace}{emsr\+::cquad\+\_\+workspace}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::push (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structemsr_1_1cquad__interval}{cquad\+\_\+interval}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$ \&}]{iv }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 117 of file cquad\+\_\+workspace.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{118       \{}
+\DoxyCodeLine{119         this-\/>\mbox{\hyperlink{structemsr_1_1cquad__workspace_a0c3ecf7b1ecac556f4742c037a20a412}{m\_ival}}.push\_back(iv);}
+\DoxyCodeLine{120         std::push\_heap(this-\/>\mbox{\hyperlink{structemsr_1_1cquad__workspace_a3a16511becc63206cce25d9b589a072e}{begin}}(), this-\/>\mbox{\hyperlink{structemsr_1_1cquad__workspace_a243c55455d3213090bbf9e7827a78e04}{end}}(),}
+\DoxyCodeLine{121                        cquad\_interval\_comp<Tp, RetTp>\{\});}
+\DoxyCodeLine{122       \}}
+
+\end{DoxyCode}
+
+
+References emsr\+::cquad\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::begin(), and emsr\+::cquad\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::end().
+
+\mbox{\Hypertarget{structemsr_1_1cquad__workspace_a346cefdc972db6cc5e2296e34f1331e7}\label{structemsr_1_1cquad__workspace_a346cefdc972db6cc5e2296e34f1331e7}} 
+\index{emsr::cquad\_workspace$<$ Tp, RetTp $>$@{emsr::cquad\_workspace$<$ Tp, RetTp $>$}!size@{size}}
+\index{size@{size}!emsr::cquad\_workspace$<$ Tp, RetTp $>$@{emsr::cquad\_workspace$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+std\+::size\+\_\+t \mbox{\hyperlink{structemsr_1_1cquad__workspace}{emsr\+::cquad\+\_\+workspace}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 89 of file cquad\+\_\+workspace.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{90       \{ \textcolor{keywordflow}{return} this-\/>\mbox{\hyperlink{structemsr_1_1cquad__workspace_a0c3ecf7b1ecac556f4742c037a20a412}{m\_ival}}.size(); \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structemsr_1_1cquad__workspace_ae0413bb65a3c1b8fd0f76c569f38c1b4}\label{structemsr_1_1cquad__workspace_ae0413bb65a3c1b8fd0f76c569f38c1b4}} 
+\index{emsr::cquad\_workspace$<$ Tp, RetTp $>$@{emsr::cquad\_workspace$<$ Tp, RetTp $>$}!top@{top}}
+\index{top@{top}!emsr::cquad\_workspace$<$ Tp, RetTp $>$@{emsr::cquad\_workspace$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{top()}{top()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+\mbox{\hyperlink{structemsr_1_1cquad__interval}{cquad\+\_\+interval}}$<$\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp$>$\& \mbox{\hyperlink{structemsr_1_1cquad__workspace}{emsr\+::cquad\+\_\+workspace}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::top (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 109 of file cquad\+\_\+workspace.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{110       \{ \textcolor{keywordflow}{return} this-\/>\mbox{\hyperlink{structemsr_1_1cquad__workspace_a0c3ecf7b1ecac556f4742c037a20a412}{m\_ival}}[0]; \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structemsr_1_1cquad__workspace_a2f382ea13d9677d8f533f33fe3194b13}\label{structemsr_1_1cquad__workspace_a2f382ea13d9677d8f533f33fe3194b13}} 
+\index{emsr::cquad\_workspace$<$ Tp, RetTp $>$@{emsr::cquad\_workspace$<$ Tp, RetTp $>$}!top@{top}}
+\index{top@{top}!emsr::cquad\_workspace$<$ Tp, RetTp $>$@{emsr::cquad\_workspace$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{top()}{top()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+const \mbox{\hyperlink{structemsr_1_1cquad__interval}{cquad\+\_\+interval}}$<$\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp$>$\& \mbox{\hyperlink{structemsr_1_1cquad__workspace}{emsr\+::cquad\+\_\+workspace}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::top (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 105 of file cquad\+\_\+workspace.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{106       \{ \textcolor{keywordflow}{return} this-\/>\mbox{\hyperlink{structemsr_1_1cquad__workspace_a0c3ecf7b1ecac556f4742c037a20a412}{m\_ival}}[0]; \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{structemsr_1_1cquad__workspace_a1529b77efac962b40569a5805ac1e3b8}\label{structemsr_1_1cquad__workspace_a1529b77efac962b40569a5805ac1e3b8}} 
+\index{emsr::cquad\_workspace$<$ Tp, RetTp $>$@{emsr::cquad\_workspace$<$ Tp, RetTp $>$}!total\_error@{total\_error}}
+\index{total\_error@{total\_error}!emsr::cquad\_workspace$<$ Tp, RetTp $>$@{emsr::cquad\_workspace$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{total\_error()}{total\_error()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+\mbox{\hyperlink{structemsr_1_1cquad__workspace_a18ffe9f66bca3034e0ac0bae99625fef}{Abs\+Area\+Tp}} \mbox{\hyperlink{structemsr_1_1cquad__workspace}{emsr\+::cquad\+\_\+workspace}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::total\+\_\+error (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 148 of file cquad\+\_\+workspace.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{149       \{}
+\DoxyCodeLine{150         \textcolor{keyword}{auto} tot\_error = \mbox{\hyperlink{structemsr_1_1cquad__workspace_a18ffe9f66bca3034e0ac0bae99625fef}{AbsAreaTp}}\{0\};}
+\DoxyCodeLine{151         \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}\& iv : \mbox{\hyperlink{structemsr_1_1cquad__workspace_a0c3ecf7b1ecac556f4742c037a20a412}{m\_ival}})}
+\DoxyCodeLine{152           tot\_error += iv.m\_abs\_error;}
+\DoxyCodeLine{153         \textcolor{keywordflow}{return} tot\_error;}
+\DoxyCodeLine{154       \}}
+
+\end{DoxyCode}
+
+
+References emsr\+::cquad\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::m\+\_\+ival.
+
+\mbox{\Hypertarget{structemsr_1_1cquad__workspace_a73e20995703eae3aee3c471552705fe0}\label{structemsr_1_1cquad__workspace_a73e20995703eae3aee3c471552705fe0}} 
+\index{emsr::cquad\_workspace$<$ Tp, RetTp $>$@{emsr::cquad\_workspace$<$ Tp, RetTp $>$}!total\_integral@{total\_integral}}
+\index{total\_integral@{total\_integral}!emsr::cquad\_workspace$<$ Tp, RetTp $>$@{emsr::cquad\_workspace$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{total\_integral()}{total\_integral()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+\mbox{\hyperlink{structemsr_1_1cquad__workspace_acb3a95a344659c5acf0557a6809fe034}{Area\+Tp}} \mbox{\hyperlink{structemsr_1_1cquad__workspace}{emsr\+::cquad\+\_\+workspace}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::total\+\_\+integral (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 139 of file cquad\+\_\+workspace.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{140       \{}
+\DoxyCodeLine{141         \textcolor{keyword}{auto} tot\_igral = \mbox{\hyperlink{structemsr_1_1cquad__workspace_acb3a95a344659c5acf0557a6809fe034}{AreaTp}}\{0\};}
+\DoxyCodeLine{142         \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}\& iv : \mbox{\hyperlink{structemsr_1_1cquad__workspace_a0c3ecf7b1ecac556f4742c037a20a412}{m\_ival}})}
+\DoxyCodeLine{143           tot\_igral += iv.m\_result;}
+\DoxyCodeLine{144         \textcolor{keywordflow}{return} tot\_igral;}
+\DoxyCodeLine{145       \}}
+
+\end{DoxyCode}
+
+
+References emsr\+::cquad\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::m\+\_\+ival.
+
+\mbox{\Hypertarget{structemsr_1_1cquad__workspace_a7662291fc0b7352a120f7fdca3575883}\label{structemsr_1_1cquad__workspace_a7662291fc0b7352a120f7fdca3575883}} 
+\index{emsr::cquad\_workspace$<$ Tp, RetTp $>$@{emsr::cquad\_workspace$<$ Tp, RetTp $>$}!update@{update}}
+\index{update@{update}!emsr::cquad\_workspace$<$ Tp, RetTp $>$@{emsr::cquad\_workspace$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+void \mbox{\hyperlink{structemsr_1_1cquad__workspace}{emsr\+::cquad\+\_\+workspace}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 132 of file cquad\+\_\+workspace.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{133       \{}
+\DoxyCodeLine{134         std::make\_heap(this-\/>\mbox{\hyperlink{structemsr_1_1cquad__workspace_a3a16511becc63206cce25d9b589a072e}{begin}}(), this-\/>\mbox{\hyperlink{structemsr_1_1cquad__workspace_a243c55455d3213090bbf9e7827a78e04}{end}}(),}
+\DoxyCodeLine{135                        cquad\_interval\_comp<Tp, RetTp>\{\});}
+\DoxyCodeLine{136       \}}
+
+\end{DoxyCode}
+
+
+References emsr\+::cquad\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::begin(), and emsr\+::cquad\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::end().
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structemsr_1_1cquad__workspace_a0c3ecf7b1ecac556f4742c037a20a412}\label{structemsr_1_1cquad__workspace_a0c3ecf7b1ecac556f4742c037a20a412}} 
+\index{emsr::cquad\_workspace$<$ Tp, RetTp $>$@{emsr::cquad\_workspace$<$ Tp, RetTp $>$}!m\_ival@{m\_ival}}
+\index{m\_ival@{m\_ival}!emsr::cquad\_workspace$<$ Tp, RetTp $>$@{emsr::cquad\_workspace$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{m\_ival}{m\_ival}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+std\+::vector$<$\mbox{\hyperlink{structemsr_1_1cquad__interval}{cquad\+\_\+interval}}$<$\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp$>$ $>$ \mbox{\hyperlink{structemsr_1_1cquad__workspace}{emsr\+::cquad\+\_\+workspace}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::m\+\_\+ival}
+
+
+
+Definition at line 83 of file cquad\+\_\+workspace.\+h.
+
+
+
+Referenced by emsr\+::cquad\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::total\+\_\+error(), and emsr\+::cquad\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::total\+\_\+integral().
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/emsr/\mbox{\hyperlink{cquad__workspace_8h}{cquad\+\_\+workspace.\+h}}\end{DoxyCompactItemize}

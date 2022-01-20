@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['oscillatory_5fintegration_5ftable',['oscillatory_integration_table',['../struct____gnu__cxx_1_1oscillatory__integration__table.html',1,'__gnu_cxx']]]
+  ['phase_5fiterator_468',['phase_iterator',['../classemsr_1_1phase__iterator.html',1,'emsr']]]
 ];

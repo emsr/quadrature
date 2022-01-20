@@ -1,7 +1,10 @@
 var searchData=
 [
-  ['jac_5fquadrature',['jac_quadrature',['../structjac__quadrature.html',1,'jac_quadrature&lt; _Tp &gt;'],['../structjac__quadrature.html#a0d4d6c5fbb285c4b6d63e59579bb86a0',1,'jac_quadrature::jac_quadrature()']]],
-  ['jacobi_2eh',['jacobi.h',['../jacobi_8h.html',1,'']]],
-  ['jacobi_5fderiv_5farray',['jacobi_deriv_array',['../gauss__jacobi__integrate_8tcc.html#aa3c283237c0f0fa73fbd1bc2f867ead2',1,'gauss_jacobi_integrate.tcc']]],
-  ['jacobi_5fvalue_5farray',['jacobi_value_array',['../gauss__jacobi__integrate_8tcc.html#a17622e4f72acae1977c8ab8deb58e77f',1,'gauss_jacobi_integrate.tcc']]]
+  ['lalpha_197',['Lalpha',['../namespaceemsr.html#a0a63c86f921e1b6e07bff10c6e3d4673',1,'emsr']]],
+  ['lambda_198',['lambda',['../structemsr_1_1fixed__gauss__gegenbauer__integral.html#a926e8b2421a9c24717660235e359b972',1,'emsr::fixed_gauss_gegenbauer_integral']]],
+  ['large_5finterval_199',['large_interval',['../classemsr_1_1integration__workspace.html#a2129f9b537626de039ec848293e908dc',1,'emsr::integration_workspace']]],
+  ['length_200',['length',['../structemsr_1_1oscillatory__integration__table.html#a70f46a3e499079af908326971dc2da5b',1,'emsr::oscillatory_integration_table']]],
+  ['lgamma_201',['Lgamma',['../namespaceemsr.html#a628ab1358a8a43ff3e35494460b07149',1,'emsr']]],
+  ['limits_202',['limits',['../test__integral_8tcc.html#a5e4cbe559ff3391639d856f01555e49c',1,'test_integral.tcc']]],
+  ['lower_5flim_203',['lower_lim',['../classemsr_1_1integration__workspace.html#a018e8021713177086c0743e2ae7dcee0',1,'emsr::integration_workspace']]]
 ];

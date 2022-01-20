@@ -1,27 +1,9 @@
 var searchData=
 [
-  ['capacity',['capacity',['../struct____gnu__cxx_1_1cquad__workspace.html#a379ef600e71c787579e107ffef46fcdf',1,'__gnu_cxx::cquad_workspace::capacity()'],['../class____gnu__cxx_1_1integration__workspace.html#ab09606a7308122e0159e49df289d37af',1,'__gnu_cxx::integration_workspace::capacity()']]],
-  ['chebmo',['chebmo',['../struct____gnu__cxx_1_1oscillatory__integration__table.html#a29c973330c5f164962da57a528ccab55',1,'__gnu_cxx::oscillatory_integration_table']]],
-  ['chebyshev_5fintegral_5ft',['chebyshev_integral_t',['../struct____gnu__cxx_1_1chebyshev__integral__t.html',1,'__gnu_cxx']]],
-  ['circfun',['circfun',['../struct____gnu__cxx_1_1oscillatory__integration__table.html#a21f86f96ca3654c18fa987f15bc14eaf',1,'__gnu_cxx::oscillatory_integration_table']]],
-  ['circular_5ffunction',['circular_function',['../struct____gnu__cxx_1_1oscillatory__integration__table.html#aea06e472bb9ff6c535cfdc6a84b14e96',1,'__gnu_cxx::oscillatory_integration_table']]],
-  ['clear',['clear',['../struct____gnu__cxx_1_1cquad__workspace.html#ac3b3e8c4e17571349b56ac1635789b34',1,'__gnu_cxx::cquad_workspace::clear()'],['../class____gnu__cxx_1_1integration__workspace.html#a4e6791e8c8489b9cf5a0cf9f0e1a7fba',1,'__gnu_cxx::integration_workspace::clear()']]],
-  ['composite_5fmidpoint_5fintegral',['composite_midpoint_integral',['../class____gnu__cxx_1_1composite__midpoint__integral.html',1,'__gnu_cxx::composite_midpoint_integral&lt; _Tp, _FuncTp &gt;'],['../class____gnu__cxx_1_1composite__midpoint__integral.html#a298a54b9f6c71969b28f8b7216d0a78a',1,'__gnu_cxx::composite_midpoint_integral::composite_midpoint_integral()']]],
-  ['composite_5fsimpson_5fintegral',['composite_simpson_integral',['../class____gnu__cxx_1_1composite__simpson__integral.html',1,'__gnu_cxx::composite_simpson_integral&lt; _Tp, _FuncTp &gt;'],['../class____gnu__cxx_1_1composite__simpson__integral.html#a1348464cb4681d828755d647c513aba7',1,'__gnu_cxx::composite_simpson_integral::composite_simpson_integral()']]],
-  ['composite_5ftrapezoid_5fintegral',['composite_trapezoid_integral',['../class____gnu__cxx_1_1composite__trapezoid__integral.html',1,'__gnu_cxx::composite_trapezoid_integral&lt; _Tp, _FuncTp &gt;'],['../class____gnu__cxx_1_1composite__trapezoid__integral.html#a168c2e7ecd8c89e87cc308e756c486ed',1,'__gnu_cxx::composite_trapezoid_integral::composite_trapezoid_integral()']]],
-  ['compute_5fmoments',['compute_moments',['../namespace____gnu__cxx.html#a698ae16aa1c82aa755f3703cc20e2b8e',1,'__gnu_cxx']]],
-  ['compute_5fresult',['compute_result',['../namespace____gnu__cxx.html#a10e06852570922cdc1aca86883b5161e',1,'__gnu_cxx']]],
-  ['compute_5fresult_5ft',['compute_result_t',['../struct____gnu__cxx_1_1compute__result__t.html',1,'__gnu_cxx']]],
-  ['cos',['cos',['../class____gnu__cxx_1_1____phase__iterator.html#a4a6cbe9737e8073a586c35d355a89cca',1,'__gnu_cxx::__phase_iterator']]],
-  ['cquad_5fconst_2etcc',['cquad_const.tcc',['../cquad__const_8tcc.html',1,'']]],
-  ['cquad_5fconst_5ftcc',['CQUAD_CONST_TCC',['../cquad__const_8tcc.html#add45880010d7c8e58bc44b322ebb55c7',1,'cquad_const.tcc']]],
-  ['cquad_5fintegrate',['cquad_integrate',['../namespace____gnu__cxx.html#a569f7c4b604e9539bddd25996c5e67b6',1,'__gnu_cxx']]],
-  ['cquad_5fintegrate_2etcc',['cquad_integrate.tcc',['../cquad__integrate_8tcc.html',1,'']]],
-  ['cquad_5fintegrate_5ftcc',['CQUAD_INTEGRATE_TCC',['../cquad__integrate_8tcc.html#a476c60286a48a81f7de414958775fa1e',1,'cquad_integrate.tcc']]],
-  ['cquad_5finterval',['cquad_interval',['../struct____gnu__cxx_1_1cquad__interval.html',1,'__gnu_cxx']]],
-  ['cquad_5finterval_5fcomp',['cquad_interval_comp',['../struct____gnu__cxx_1_1cquad__interval__comp.html',1,'__gnu_cxx']]],
-  ['cquad_5fworkspace',['cquad_workspace',['../struct____gnu__cxx_1_1cquad__workspace.html',1,'__gnu_cxx::cquad_workspace&lt; _Tp, _RetTp &gt;'],['../struct____gnu__cxx_1_1cquad__workspace.html#a3d7601160fd8f630b70109b61f493738',1,'__gnu_cxx::cquad_workspace::cquad_workspace()']]],
-  ['cquad_5fworkspace_2eh',['cquad_workspace.h',['../cquad__workspace_8h.html',1,'']]],
-  ['curr_5fdepth',['curr_depth',['../class____gnu__cxx_1_1integration__workspace.html#ad60321be84f0301856bf20f31ece47de',1,'__gnu_cxx::integration_workspace']]],
-  ['curr_5findex',['curr_index',['../class____gnu__cxx_1_1integration__workspace.html#a51a384b1777615943add69f1895454f5',1,'__gnu_cxx::integration_workspace']]]
+  ['depth_39',['depth',['../structemsr_1_1cquad__interval.html#ad88952d968ba32527f19326df69e39da',1,'emsr::cquad_interval::depth()'],['../classemsr_1_1integration__workspace.html#a31aadd1b437e66a332a8eaa765bf2ccc',1,'emsr::integration_workspace::depth()']]],
+  ['discrete_5ffourier_5ftransform_40',['discrete_fourier_transform',['../namespaceemsr.html#a6d214674e0f0a97431252c6f7774c2d2',1,'emsr']]],
+  ['divergence_5ferror_41',['DIVERGENCE_ERROR',['../namespaceemsr.html#abaa96e35b6f30ef1ce4924b479d4eee6ac955192751889830990004dfc1193d77',1,'emsr']]],
+  ['double_5fexp_5fintegrate_2etcc_42',['double_exp_integrate.tcc',['../double__exp__integrate_8tcc.html',1,'']]],
+  ['double_5fexp_5fintegrate_5ftcc_43',['DOUBLE_EXP_INTEGRATE_TCC',['../double__exp__integrate_8tcc.html#a939b63d0839d3b313a4f6b094d3ea9e9',1,'double_exp_integrate.tcc']]],
+  ['downdate_44',['downdate',['../namespaceemsr.html#ada0a5521139a0380c69060f9a8bdbda7',1,'emsr']]]
 ];

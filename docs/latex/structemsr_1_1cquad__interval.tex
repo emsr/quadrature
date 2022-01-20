@@ -1,0 +1,212 @@
+\hypertarget{structemsr_1_1cquad__interval}{}\doxysection{emsr\+::cquad\+\_\+interval$<$ Tp, Ret\+Tp $>$ Struct Template Reference}
+\label{structemsr_1_1cquad__interval}\index{emsr::cquad\_interval$<$ Tp, RetTp $>$@{emsr::cquad\_interval$<$ Tp, RetTp $>$}}
+
+
+{\ttfamily \#include $<$cquad\+\_\+workspace.\+h$>$}
+
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{structemsr_1_1cquad__interval_aa92ef1813fda1d0de2477250dd8b9512}{Abs\+Area\+Tp}} = decltype(std\+::abs(\mbox{\hyperlink{structemsr_1_1cquad__interval_a5cc7ad637687715c35eedb67d525440f}{Area\+Tp}}\{\}))
+\item 
+using \mbox{\hyperlink{structemsr_1_1cquad__interval_a5cc7ad637687715c35eedb67d525440f}{Area\+Tp}} = decltype(Ret\+Tp\{\} $\ast$\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{\})
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::size\+\_\+t \mbox{\hyperlink{structemsr_1_1cquad__interval_ad88952d968ba32527f19326df69e39da}{depth}}
+\item 
+std\+::array$<$ Ret\+Tp, 33 $>$ \mbox{\hyperlink{structemsr_1_1cquad__interval_a57f34ac2b5a2e1a19df40ec9de90ae6d}{fx}}
+\item 
+\mbox{\hyperlink{structemsr_1_1cquad__interval_aa92ef1813fda1d0de2477250dd8b9512}{Abs\+Area\+Tp}} \mbox{\hyperlink{structemsr_1_1cquad__interval_a546804fcc4188498ceeb78cd57cbc2a3}{m\+\_\+abs\+\_\+error}}
+\item 
+Ret\+Tp \mbox{\hyperlink{structemsr_1_1cquad__interval_aa89e95a3c137be07e0a849e30d75964f}{m\+\_\+coeff}} \mbox{[}64\mbox{]}
+\item 
+\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} \mbox{\hyperlink{structemsr_1_1cquad__interval_adace3cf69378230d73f93a44032cc4dd}{m\+\_\+lower\+\_\+lim}}
+\item 
+\mbox{\hyperlink{structemsr_1_1cquad__interval_a5cc7ad637687715c35eedb67d525440f}{Area\+Tp}} \mbox{\hyperlink{structemsr_1_1cquad__interval_a77b0763a81d79a6004614a7c909ee4e5}{m\+\_\+result}}
+\item 
+\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} \mbox{\hyperlink{structemsr_1_1cquad__interval_a330bdee67a3b6dbdab563a9ef8a0290d}{m\+\_\+upper\+\_\+lim}}
+\item 
+std\+::size\+\_\+t \mbox{\hyperlink{structemsr_1_1cquad__interval_a122066abb1813f254047da6b8fab1cec}{ndiv}}
+\item 
+std\+::size\+\_\+t \mbox{\hyperlink{structemsr_1_1cquad__interval_a87e84ad2af8dcb5a0aca918fe4e6b880}{rdepth}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename Tp, typename Ret\+Tp$>$\newline
+struct emsr\+::cquad\+\_\+interval$<$ Tp, Ret\+Tp $>$}
+
+Data of a single interval. 
+
+Definition at line 38 of file cquad\+\_\+workspace.\+h.
+
+
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{structemsr_1_1cquad__interval_aa92ef1813fda1d0de2477250dd8b9512}\label{structemsr_1_1cquad__interval_aa92ef1813fda1d0de2477250dd8b9512}} 
+\index{emsr::cquad\_interval$<$ Tp, RetTp $>$@{emsr::cquad\_interval$<$ Tp, RetTp $>$}!AbsAreaTp@{AbsAreaTp}}
+\index{AbsAreaTp@{AbsAreaTp}!emsr::cquad\_interval$<$ Tp, RetTp $>$@{emsr::cquad\_interval$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{AbsAreaTp}{AbsAreaTp}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+using \mbox{\hyperlink{structemsr_1_1cquad__interval}{emsr\+::cquad\+\_\+interval}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::\mbox{\hyperlink{structemsr_1_1cquad__interval_aa92ef1813fda1d0de2477250dd8b9512}{Abs\+Area\+Tp}} =  decltype(std\+::abs(\mbox{\hyperlink{structemsr_1_1cquad__interval_a5cc7ad637687715c35eedb67d525440f}{Area\+Tp}}\{\}))}
+
+
+
+Definition at line 41 of file cquad\+\_\+workspace.\+h.
+
+\mbox{\Hypertarget{structemsr_1_1cquad__interval_a5cc7ad637687715c35eedb67d525440f}\label{structemsr_1_1cquad__interval_a5cc7ad637687715c35eedb67d525440f}} 
+\index{emsr::cquad\_interval$<$ Tp, RetTp $>$@{emsr::cquad\_interval$<$ Tp, RetTp $>$}!AreaTp@{AreaTp}}
+\index{AreaTp@{AreaTp}!emsr::cquad\_interval$<$ Tp, RetTp $>$@{emsr::cquad\_interval$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{AreaTp}{AreaTp}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+using \mbox{\hyperlink{structemsr_1_1cquad__interval}{emsr\+::cquad\+\_\+interval}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::\mbox{\hyperlink{structemsr_1_1cquad__interval_a5cc7ad637687715c35eedb67d525440f}{Area\+Tp}} =  decltype(Ret\+Tp\{\} $\ast$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{\})}
+
+
+
+Definition at line 40 of file cquad\+\_\+workspace.\+h.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structemsr_1_1cquad__interval_ad88952d968ba32527f19326df69e39da}\label{structemsr_1_1cquad__interval_ad88952d968ba32527f19326df69e39da}} 
+\index{emsr::cquad\_interval$<$ Tp, RetTp $>$@{emsr::cquad\_interval$<$ Tp, RetTp $>$}!depth@{depth}}
+\index{depth@{depth}!emsr::cquad\_interval$<$ Tp, RetTp $>$@{emsr::cquad\_interval$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{depth}{depth}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+std\+::size\+\_\+t \mbox{\hyperlink{structemsr_1_1cquad__interval}{emsr\+::cquad\+\_\+interval}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::depth}
+
+
+
+Definition at line 49 of file cquad\+\_\+workspace.\+h.
+
+
+
+Referenced by emsr\+::cquad\+\_\+integrate().
+
+\mbox{\Hypertarget{structemsr_1_1cquad__interval_a57f34ac2b5a2e1a19df40ec9de90ae6d}\label{structemsr_1_1cquad__interval_a57f34ac2b5a2e1a19df40ec9de90ae6d}} 
+\index{emsr::cquad\_interval$<$ Tp, RetTp $>$@{emsr::cquad\_interval$<$ Tp, RetTp $>$}!fx@{fx}}
+\index{fx@{fx}!emsr::cquad\_interval$<$ Tp, RetTp $>$@{emsr::cquad\_interval$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{fx}{fx}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+std\+::array$<$Ret\+Tp, 33$>$ \mbox{\hyperlink{structemsr_1_1cquad__interval}{emsr\+::cquad\+\_\+interval}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::fx}
+
+
+
+Definition at line 48 of file cquad\+\_\+workspace.\+h.
+
+
+
+Referenced by emsr\+::cquad\+\_\+integrate().
+
+\mbox{\Hypertarget{structemsr_1_1cquad__interval_a546804fcc4188498ceeb78cd57cbc2a3}\label{structemsr_1_1cquad__interval_a546804fcc4188498ceeb78cd57cbc2a3}} 
+\index{emsr::cquad\_interval$<$ Tp, RetTp $>$@{emsr::cquad\_interval$<$ Tp, RetTp $>$}!m\_abs\_error@{m\_abs\_error}}
+\index{m\_abs\_error@{m\_abs\_error}!emsr::cquad\_interval$<$ Tp, RetTp $>$@{emsr::cquad\_interval$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{m\_abs\_error}{m\_abs\_error}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+\mbox{\hyperlink{structemsr_1_1cquad__interval_aa92ef1813fda1d0de2477250dd8b9512}{Abs\+Area\+Tp}} \mbox{\hyperlink{structemsr_1_1cquad__interval}{emsr\+::cquad\+\_\+interval}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::m\+\_\+abs\+\_\+error}
+
+
+
+Definition at line 46 of file cquad\+\_\+workspace.\+h.
+
+
+
+Referenced by emsr\+::cquad\+\_\+interval\+\_\+comp$<$ Tp, Ret\+Tp $>$\+::operator()(), and emsr\+::operator$<$().
+
+\mbox{\Hypertarget{structemsr_1_1cquad__interval_aa89e95a3c137be07e0a849e30d75964f}\label{structemsr_1_1cquad__interval_aa89e95a3c137be07e0a849e30d75964f}} 
+\index{emsr::cquad\_interval$<$ Tp, RetTp $>$@{emsr::cquad\_interval$<$ Tp, RetTp $>$}!m\_coeff@{m\_coeff}}
+\index{m\_coeff@{m\_coeff}!emsr::cquad\_interval$<$ Tp, RetTp $>$@{emsr::cquad\_interval$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{m\_coeff}{m\_coeff}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+Ret\+Tp \mbox{\hyperlink{structemsr_1_1cquad__interval}{emsr\+::cquad\+\_\+interval}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::m\+\_\+coeff\mbox{[}64\mbox{]}}
+
+
+
+Definition at line 47 of file cquad\+\_\+workspace.\+h.
+
+
+
+Referenced by emsr\+::cquad\+\_\+integrate().
+
+\mbox{\Hypertarget{structemsr_1_1cquad__interval_adace3cf69378230d73f93a44032cc4dd}\label{structemsr_1_1cquad__interval_adace3cf69378230d73f93a44032cc4dd}} 
+\index{emsr::cquad\_interval$<$ Tp, RetTp $>$@{emsr::cquad\_interval$<$ Tp, RetTp $>$}!m\_lower\_lim@{m\_lower\_lim}}
+\index{m\_lower\_lim@{m\_lower\_lim}!emsr::cquad\_interval$<$ Tp, RetTp $>$@{emsr::cquad\_interval$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{m\_lower\_lim}{m\_lower\_lim}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} \mbox{\hyperlink{structemsr_1_1cquad__interval}{emsr\+::cquad\+\_\+interval}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::m\+\_\+lower\+\_\+lim}
+
+
+
+Definition at line 43 of file cquad\+\_\+workspace.\+h.
+
+
+
+Referenced by emsr\+::cquad\+\_\+integrate().
+
+\mbox{\Hypertarget{structemsr_1_1cquad__interval_a77b0763a81d79a6004614a7c909ee4e5}\label{structemsr_1_1cquad__interval_a77b0763a81d79a6004614a7c909ee4e5}} 
+\index{emsr::cquad\_interval$<$ Tp, RetTp $>$@{emsr::cquad\_interval$<$ Tp, RetTp $>$}!m\_result@{m\_result}}
+\index{m\_result@{m\_result}!emsr::cquad\_interval$<$ Tp, RetTp $>$@{emsr::cquad\_interval$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{m\_result}{m\_result}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+\mbox{\hyperlink{structemsr_1_1cquad__interval_a5cc7ad637687715c35eedb67d525440f}{Area\+Tp}} \mbox{\hyperlink{structemsr_1_1cquad__interval}{emsr\+::cquad\+\_\+interval}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::m\+\_\+result}
+
+
+
+Definition at line 45 of file cquad\+\_\+workspace.\+h.
+
+
+
+Referenced by emsr\+::cquad\+\_\+integrate().
+
+\mbox{\Hypertarget{structemsr_1_1cquad__interval_a330bdee67a3b6dbdab563a9ef8a0290d}\label{structemsr_1_1cquad__interval_a330bdee67a3b6dbdab563a9ef8a0290d}} 
+\index{emsr::cquad\_interval$<$ Tp, RetTp $>$@{emsr::cquad\_interval$<$ Tp, RetTp $>$}!m\_upper\_lim@{m\_upper\_lim}}
+\index{m\_upper\_lim@{m\_upper\_lim}!emsr::cquad\_interval$<$ Tp, RetTp $>$@{emsr::cquad\_interval$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{m\_upper\_lim}{m\_upper\_lim}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} \mbox{\hyperlink{structemsr_1_1cquad__interval}{emsr\+::cquad\+\_\+interval}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::m\+\_\+upper\+\_\+lim}
+
+
+
+Definition at line 44 of file cquad\+\_\+workspace.\+h.
+
+
+
+Referenced by emsr\+::cquad\+\_\+integrate().
+
+\mbox{\Hypertarget{structemsr_1_1cquad__interval_a122066abb1813f254047da6b8fab1cec}\label{structemsr_1_1cquad__interval_a122066abb1813f254047da6b8fab1cec}} 
+\index{emsr::cquad\_interval$<$ Tp, RetTp $>$@{emsr::cquad\_interval$<$ Tp, RetTp $>$}!ndiv@{ndiv}}
+\index{ndiv@{ndiv}!emsr::cquad\_interval$<$ Tp, RetTp $>$@{emsr::cquad\_interval$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{ndiv}{ndiv}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+std\+::size\+\_\+t \mbox{\hyperlink{structemsr_1_1cquad__interval}{emsr\+::cquad\+\_\+interval}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::ndiv}
+
+
+
+Definition at line 51 of file cquad\+\_\+workspace.\+h.
+
+
+
+Referenced by emsr\+::cquad\+\_\+integrate().
+
+\mbox{\Hypertarget{structemsr_1_1cquad__interval_a87e84ad2af8dcb5a0aca918fe4e6b880}\label{structemsr_1_1cquad__interval_a87e84ad2af8dcb5a0aca918fe4e6b880}} 
+\index{emsr::cquad\_interval$<$ Tp, RetTp $>$@{emsr::cquad\_interval$<$ Tp, RetTp $>$}!rdepth@{rdepth}}
+\index{rdepth@{rdepth}!emsr::cquad\_interval$<$ Tp, RetTp $>$@{emsr::cquad\_interval$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{rdepth}{rdepth}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+std\+::size\+\_\+t \mbox{\hyperlink{structemsr_1_1cquad__interval}{emsr\+::cquad\+\_\+interval}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::rdepth}
+
+
+
+Definition at line 50 of file cquad\+\_\+workspace.\+h.
+
+
+
+Referenced by emsr\+::cquad\+\_\+integrate().
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/emsr/\mbox{\hyperlink{cquad__workspace_8h}{cquad\+\_\+workspace.\+h}}\end{DoxyCompactItemize}

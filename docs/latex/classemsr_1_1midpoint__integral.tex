@@ -1,0 +1,207 @@
+\hypertarget{classemsr_1_1midpoint__integral}{}\doxysection{emsr\+::midpoint\+\_\+integral$<$ Tp, Func\+Tp $>$ Class Template Reference}
+\label{classemsr_1_1midpoint__integral}\index{emsr::midpoint\_integral$<$ Tp, FuncTp $>$@{emsr::midpoint\_integral$<$ Tp, FuncTp $>$}}
+
+
+{\ttfamily \#include $<$midpoint\+\_\+integral.\+h$>$}
+
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classemsr_1_1midpoint__integral_affdfd3423618f5cb731ef21e46b51bc6}{Abs\+Area\+Tp}} = decltype(std\+::abs(\mbox{\hyperlink{classemsr_1_1midpoint__integral_ab43b9a513a8e1dd80a9087080770737a}{Area\+Tp}}\{\}))
+\item 
+using \mbox{\hyperlink{classemsr_1_1midpoint__integral_ab43b9a513a8e1dd80a9087080770737a}{Area\+Tp}} = decltype(\mbox{\hyperlink{classemsr_1_1midpoint__integral_a5d8c6d6c41445a0c4886013a5b1445ba}{Ret\+Tp}}\{\} $\ast$\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{\})
+\item 
+using \mbox{\hyperlink{classemsr_1_1midpoint__integral_a5d8c6d6c41445a0c4886013a5b1445ba}{Ret\+Tp}} = std\+::invoke\+\_\+result\+\_\+t$<$ Func\+Tp, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classemsr_1_1midpoint__integral_a9829407f0495f606343d5746d7285215}{midpoint\+\_\+integral}} (Func\+Tp fun, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} lower, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} upper, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} abs\+\_\+tol, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} rel\+\_\+tol)
+\item 
+\mbox{\hyperlink{classemsr_1_1midpoint__integral_affdfd3423618f5cb731ef21e46b51bc6}{Abs\+Area\+Tp}} \mbox{\hyperlink{classemsr_1_1midpoint__integral_a70612a53bbc1a2a57e15eb030e20fa8f}{abs\+\_\+error}} () const
+\item 
+{\footnotesize template$<$typename Func\+Tp2 $>$ }\\\mbox{\hyperlink{structemsr_1_1adaptive__integral__t}{adaptive\+\_\+integral\+\_\+t}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, std\+::invoke\+\_\+result\+\_\+t$<$ Func\+Tp2, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$ $>$ \mbox{\hyperlink{classemsr_1_1midpoint__integral_a40b6bd7cc41d88295d24c050deaec258}{integrate}} (Func\+Tp2 fun, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} lower, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} upper)
+\item 
+\mbox{\hyperlink{classemsr_1_1midpoint__integral_ab43b9a513a8e1dd80a9087080770737a}{Area\+Tp}} \mbox{\hyperlink{classemsr_1_1midpoint__integral_a64d0852f12a12375a46ae9efc5da3f12}{operator()}} ()
+\item 
+{\footnotesize template$<$typename Func\+Tp2 $>$ }\\\mbox{\hyperlink{structemsr_1_1adaptive__integral__t}{adaptive\+\_\+integral\+\_\+t}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, std\+::invoke\+\_\+result\+\_\+t$<$ Func\+Tp2, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$ $>$ \mbox{\hyperlink{classemsr_1_1midpoint__integral_ab8457794d253ecd9f26937317b08aa15}{operator()}} (Func\+Tp2 fun, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} lower, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} upper)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename Tp, typename Func\+Tp$>$\newline
+class emsr\+::midpoint\+\_\+integral$<$ Tp, Func\+Tp $>$}
+
+A globally adaptive recursive midpoint integrator. 
+
+Definition at line 73 of file midpoint\+\_\+integral.\+h.
+
+
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classemsr_1_1midpoint__integral_affdfd3423618f5cb731ef21e46b51bc6}\label{classemsr_1_1midpoint__integral_affdfd3423618f5cb731ef21e46b51bc6}} 
+\index{emsr::midpoint\_integral$<$ Tp, FuncTp $>$@{emsr::midpoint\_integral$<$ Tp, FuncTp $>$}!AbsAreaTp@{AbsAreaTp}}
+\index{AbsAreaTp@{AbsAreaTp}!emsr::midpoint\_integral$<$ Tp, FuncTp $>$@{emsr::midpoint\_integral$<$ Tp, FuncTp $>$}}
+\doxysubsubsection{\texorpdfstring{AbsAreaTp}{AbsAreaTp}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Func\+Tp $>$ \\
+using \mbox{\hyperlink{classemsr_1_1midpoint__integral}{emsr\+::midpoint\+\_\+integral}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Func\+Tp $>$\+::\mbox{\hyperlink{classemsr_1_1midpoint__integral_affdfd3423618f5cb731ef21e46b51bc6}{Abs\+Area\+Tp}} =  decltype(std\+::abs(\mbox{\hyperlink{classemsr_1_1midpoint__integral_ab43b9a513a8e1dd80a9087080770737a}{Area\+Tp}}\{\}))}
+
+
+
+Definition at line 79 of file midpoint\+\_\+integral.\+h.
+
+\mbox{\Hypertarget{classemsr_1_1midpoint__integral_ab43b9a513a8e1dd80a9087080770737a}\label{classemsr_1_1midpoint__integral_ab43b9a513a8e1dd80a9087080770737a}} 
+\index{emsr::midpoint\_integral$<$ Tp, FuncTp $>$@{emsr::midpoint\_integral$<$ Tp, FuncTp $>$}!AreaTp@{AreaTp}}
+\index{AreaTp@{AreaTp}!emsr::midpoint\_integral$<$ Tp, FuncTp $>$@{emsr::midpoint\_integral$<$ Tp, FuncTp $>$}}
+\doxysubsubsection{\texorpdfstring{AreaTp}{AreaTp}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Func\+Tp $>$ \\
+using \mbox{\hyperlink{classemsr_1_1midpoint__integral}{emsr\+::midpoint\+\_\+integral}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Func\+Tp $>$\+::\mbox{\hyperlink{classemsr_1_1midpoint__integral_ab43b9a513a8e1dd80a9087080770737a}{Area\+Tp}} =  decltype(\mbox{\hyperlink{classemsr_1_1midpoint__integral_a5d8c6d6c41445a0c4886013a5b1445ba}{Ret\+Tp}}\{\} $\ast$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{\})}
+
+
+
+Definition at line 78 of file midpoint\+\_\+integral.\+h.
+
+\mbox{\Hypertarget{classemsr_1_1midpoint__integral_a5d8c6d6c41445a0c4886013a5b1445ba}\label{classemsr_1_1midpoint__integral_a5d8c6d6c41445a0c4886013a5b1445ba}} 
+\index{emsr::midpoint\_integral$<$ Tp, FuncTp $>$@{emsr::midpoint\_integral$<$ Tp, FuncTp $>$}!RetTp@{RetTp}}
+\index{RetTp@{RetTp}!emsr::midpoint\_integral$<$ Tp, FuncTp $>$@{emsr::midpoint\_integral$<$ Tp, FuncTp $>$}}
+\doxysubsubsection{\texorpdfstring{RetTp}{RetTp}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Func\+Tp $>$ \\
+using \mbox{\hyperlink{classemsr_1_1midpoint__integral}{emsr\+::midpoint\+\_\+integral}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Func\+Tp $>$\+::\mbox{\hyperlink{classemsr_1_1midpoint__integral_a5d8c6d6c41445a0c4886013a5b1445ba}{Ret\+Tp}} =  std\+::invoke\+\_\+result\+\_\+t$<$Func\+Tp, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}$>$}
+
+
+
+Definition at line 77 of file midpoint\+\_\+integral.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classemsr_1_1midpoint__integral_a9829407f0495f606343d5746d7285215}\label{classemsr_1_1midpoint__integral_a9829407f0495f606343d5746d7285215}} 
+\index{emsr::midpoint\_integral$<$ Tp, FuncTp $>$@{emsr::midpoint\_integral$<$ Tp, FuncTp $>$}!midpoint\_integral@{midpoint\_integral}}
+\index{midpoint\_integral@{midpoint\_integral}!emsr::midpoint\_integral$<$ Tp, FuncTp $>$@{emsr::midpoint\_integral$<$ Tp, FuncTp $>$}}
+\doxysubsubsection{\texorpdfstring{midpoint\_integral()}{midpoint\_integral()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Func\+Tp $>$ \\
+\mbox{\hyperlink{classemsr_1_1midpoint__integral}{emsr\+::midpoint\+\_\+integral}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Func\+Tp $>$\+::\mbox{\hyperlink{classemsr_1_1midpoint__integral}{midpoint\+\_\+integral}} (\begin{DoxyParamCaption}\item[{Func\+Tp}]{fun,  }\item[{\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}}]{lower,  }\item[{\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}}]{upper,  }\item[{\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}}]{abs\+\_\+tol,  }\item[{\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}}]{rel\+\_\+tol }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 81 of file midpoint\+\_\+integral.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{83       : m\_fun(fun), m\_lower\_lim(lower), m\_upper\_lim(upper),}
+\DoxyCodeLine{84         m\_abs\_tol(std::abs(abs\_tol)), m\_rel\_tol(std::abs(rel\_tol)),}
+\DoxyCodeLine{85         m\_result(), m\_abs\_error()}
+\DoxyCodeLine{86       \{ \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classemsr_1_1midpoint__integral_a70612a53bbc1a2a57e15eb030e20fa8f}\label{classemsr_1_1midpoint__integral_a70612a53bbc1a2a57e15eb030e20fa8f}} 
+\index{emsr::midpoint\_integral$<$ Tp, FuncTp $>$@{emsr::midpoint\_integral$<$ Tp, FuncTp $>$}!abs\_error@{abs\_error}}
+\index{abs\_error@{abs\_error}!emsr::midpoint\_integral$<$ Tp, FuncTp $>$@{emsr::midpoint\_integral$<$ Tp, FuncTp $>$}}
+\doxysubsubsection{\texorpdfstring{abs\_error()}{abs\_error()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Func\+Tp $>$ \\
+\mbox{\hyperlink{classemsr_1_1midpoint__integral_affdfd3423618f5cb731ef21e46b51bc6}{Abs\+Area\+Tp}} \mbox{\hyperlink{classemsr_1_1midpoint__integral}{emsr\+::midpoint\+\_\+integral}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Func\+Tp $>$\+::abs\+\_\+error (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 90 of file midpoint\+\_\+integral.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{91       \{ \textcolor{keywordflow}{return} this-\/>m\_abs\_error; \}}
+
+\end{DoxyCode}
+
+
+Referenced by emsr\+::midpoint\+\_\+integral$<$ Tp, Func\+Tp $>$\+::integrate(), and emsr\+::integrate\+\_\+midpoint().
+
+\mbox{\Hypertarget{classemsr_1_1midpoint__integral_a40b6bd7cc41d88295d24c050deaec258}\label{classemsr_1_1midpoint__integral_a40b6bd7cc41d88295d24c050deaec258}} 
+\index{emsr::midpoint\_integral$<$ Tp, FuncTp $>$@{emsr::midpoint\_integral$<$ Tp, FuncTp $>$}!integrate@{integrate}}
+\index{integrate@{integrate}!emsr::midpoint\_integral$<$ Tp, FuncTp $>$@{emsr::midpoint\_integral$<$ Tp, FuncTp $>$}}
+\doxysubsubsection{\texorpdfstring{integrate()}{integrate()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Func\+Tp $>$ \\
+template$<$typename Func\+Tp2 $>$ \\
+\mbox{\hyperlink{structemsr_1_1adaptive__integral__t}{adaptive\+\_\+integral\+\_\+t}}$<$\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, std\+::invoke\+\_\+result\+\_\+t$<$Func\+Tp2, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}$>$ $>$ \mbox{\hyperlink{classemsr_1_1midpoint__integral}{emsr\+::midpoint\+\_\+integral}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Func\+Tp $>$\+::integrate (\begin{DoxyParamCaption}\item[{Func\+Tp2}]{fun,  }\item[{\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}}]{lower,  }\item[{\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}}]{upper }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 95 of file midpoint\+\_\+integral.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{96         \{}
+\DoxyCodeLine{97           midpoint\_integral<FuncTp2, Tp>}
+\DoxyCodeLine{98             mpi(fun, lower, upper,}
+\DoxyCodeLine{99                   this-\/>m\_abs\_tol, this-\/>m\_rel\_tol);}
+\DoxyCodeLine{100           \textcolor{keywordflow}{return} \{mpi(), mpi.abs\_error() \};}
+\DoxyCodeLine{101         \}}
+
+\end{DoxyCode}
+
+
+References emsr\+::midpoint\+\_\+integral$<$ Tp, Func\+Tp $>$\+::abs\+\_\+error().
+
+
+
+Referenced by emsr\+::midpoint\+\_\+integral$<$ Tp, Func\+Tp $>$\+::operator()().
+
+\mbox{\Hypertarget{classemsr_1_1midpoint__integral_a64d0852f12a12375a46ae9efc5da3f12}\label{classemsr_1_1midpoint__integral_a64d0852f12a12375a46ae9efc5da3f12}} 
+\index{emsr::midpoint\_integral$<$ Tp, FuncTp $>$@{emsr::midpoint\_integral$<$ Tp, FuncTp $>$}!operator()@{operator()}}
+\index{operator()@{operator()}!emsr::midpoint\_integral$<$ Tp, FuncTp $>$@{emsr::midpoint\_integral$<$ Tp, FuncTp $>$}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Func\+Tp $>$ \\
+\mbox{\hyperlink{classemsr_1_1midpoint__integral}{midpoint\+\_\+integral}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Func\+Tp $>$\+::\mbox{\hyperlink{classemsr_1_1midpoint__integral_ab43b9a513a8e1dd80a9087080770737a}{Area\+Tp}} \mbox{\hyperlink{classemsr_1_1midpoint__integral}{emsr\+::midpoint\+\_\+integral}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Func\+Tp $>$\+::operator()}
+
+Integrate the function by naive subdivision. 
+
+Definition at line 52 of file midpoint\+\_\+integral.\+tcc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{53     \{}
+\DoxyCodeLine{54       \textcolor{keyword}{auto} sum\_prev = this-\/>m\_step();}
+\DoxyCodeLine{55       \textcolor{keywordflow}{for} (std::size\_t j = 1; j < s\_max\_iter; ++j)}
+\DoxyCodeLine{56         \{}
+\DoxyCodeLine{57           \textcolor{keyword}{const} \textcolor{keyword}{auto} sum = this-\/>m\_step();}
+\DoxyCodeLine{58           this-\/>m\_abs\_error = std::abs(sum -\/ sum\_prev);}
+\DoxyCodeLine{59           \textcolor{keywordflow}{if} (this-\/>m\_abs\_error < this-\/>m\_rel\_tol * std::abs(sum))}
+\DoxyCodeLine{60             \textcolor{keywordflow}{return} sum;}
+\DoxyCodeLine{61           \textcolor{keywordflow}{if} (j > 6}
+\DoxyCodeLine{62               \&\& std::abs(sum) < this-\/>m\_rel\_tol}
+\DoxyCodeLine{63               \&\& std::abs(sum\_prev) < this-\/>m\_rel\_tol )}
+\DoxyCodeLine{64             \textcolor{keywordflow}{return} sum;}
+\DoxyCodeLine{65           sum\_prev = sum;}
+\DoxyCodeLine{66         \}}
+\DoxyCodeLine{67       \textcolor{keywordflow}{return} sum\_prev;}
+\DoxyCodeLine{68     \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classemsr_1_1midpoint__integral_ab8457794d253ecd9f26937317b08aa15}\label{classemsr_1_1midpoint__integral_ab8457794d253ecd9f26937317b08aa15}} 
+\index{emsr::midpoint\_integral$<$ Tp, FuncTp $>$@{emsr::midpoint\_integral$<$ Tp, FuncTp $>$}!operator()@{operator()}}
+\index{operator()@{operator()}!emsr::midpoint\_integral$<$ Tp, FuncTp $>$@{emsr::midpoint\_integral$<$ Tp, FuncTp $>$}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Func\+Tp $>$ \\
+template$<$typename Func\+Tp2 $>$ \\
+\mbox{\hyperlink{structemsr_1_1adaptive__integral__t}{adaptive\+\_\+integral\+\_\+t}}$<$\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, std\+::invoke\+\_\+result\+\_\+t$<$Func\+Tp2, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}$>$ $>$ \mbox{\hyperlink{classemsr_1_1midpoint__integral}{emsr\+::midpoint\+\_\+integral}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Func\+Tp $>$\+::operator() (\begin{DoxyParamCaption}\item[{Func\+Tp2}]{fun,  }\item[{\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}}]{lower,  }\item[{\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}}]{upper }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 105 of file midpoint\+\_\+integral.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{106         \{ \textcolor{keywordflow}{return} this-\/>\mbox{\hyperlink{classemsr_1_1midpoint__integral_a40b6bd7cc41d88295d24c050deaec258}{integrate}}(fun, lower, upper); \}}
+
+\end{DoxyCode}
+
+
+References emsr\+::midpoint\+\_\+integral$<$ Tp, Func\+Tp $>$\+::integrate().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/emsr/\mbox{\hyperlink{midpoint__integral_8h}{midpoint\+\_\+integral.\+h}}\item 
+include/emsr/\mbox{\hyperlink{midpoint__integral_8tcc}{midpoint\+\_\+integral.\+tcc}}\end{DoxyCompactItemize}

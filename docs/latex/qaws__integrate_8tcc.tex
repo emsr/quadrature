@@ -1,8 +1,9 @@
-\hypertarget{qaws__integrate_8tcc}{}\section{include/ext/qaws\+\_\+integrate.tcc File Reference}
-\label{qaws__integrate_8tcc}\index{include/ext/qaws\+\_\+integrate.\+tcc@{include/ext/qaws\+\_\+integrate.\+tcc}}
+\hypertarget{qaws__integrate_8tcc}{}\doxysection{include/emsr/qaws\+\_\+integrate.tcc File Reference}
+\label{qaws__integrate_8tcc}\index{include/emsr/qaws\_integrate.tcc@{include/emsr/qaws\_integrate.tcc}}
+{\ttfamily \#include $<$type\+\_\+traits$>$}\newline
 {\ttfamily \#include $<$array$>$}\newline
-{\ttfamily \#include $<$ext/integration\+\_\+workspace.\+h$>$}\newline
-{\ttfamily \#include $<$ext/qaws\+\_\+integration\+\_\+table.\+h$>$}\newline
+{\ttfamily \#include $<$emsr/integration\+\_\+workspace.\+h$>$}\newline
+{\ttfamily \#include $<$emsr/qaws\+\_\+integration\+\_\+table.\+h$>$}\newline
 Include dependency graph for qaws\+\_\+integrate.\+tcc\+:
 \nopagebreak
 \begin{figure}[H]
@@ -16,52 +17,45 @@ This graph shows which files directly or indirectly include this file\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=229pt]{qaws__integrate_8tcc__dep__incl}
+\includegraphics[width=255pt]{qaws__integrate_8tcc__dep__incl}
 \end{center}
 \end{figure}
-\subsection*{Classes}
+\doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
-struct \hyperlink{struct____gnu__cxx_1_1compute__result__t}{\+\_\+\+\_\+gnu\+\_\+cxx\+::compute\+\_\+result\+\_\+t$<$ \+\_\+\+Area\+Tp $>$}
+struct \mbox{\hyperlink{structemsr_1_1compute__result__t}{emsr\+::compute\+\_\+result\+\_\+t$<$ Area\+Tp $>$}}
 \item 
-struct \hyperlink{struct____gnu__cxx_1_1fn__qaws}{\+\_\+\+\_\+gnu\+\_\+cxx\+::fn\+\_\+qaws$<$ \+\_\+\+Tp, \+\_\+\+Func\+Tp $>$}
-\item 
-struct \hyperlink{struct____gnu__cxx_1_1fn__qaws}{\+\_\+\+\_\+gnu\+\_\+cxx\+::fn\+\_\+qaws$<$ \+\_\+\+Tp, \+\_\+\+Func\+Tp $>$}
+struct \mbox{\hyperlink{structemsr_1_1fn__qaws}{emsr\+::fn\+\_\+qaws$<$ Tp, Func\+Tp $>$}}
 \end{DoxyCompactItemize}
-\subsection*{Namespaces}
+\doxysubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
- \hyperlink{namespace____gnu__cxx}{\+\_\+\+\_\+gnu\+\_\+cxx}
+ \mbox{\hyperlink{namespaceemsr}{emsr}}
 \end{DoxyCompactItemize}
-\subsection*{Macros}
+\doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\#define \hyperlink{qaws__integrate_8tcc_a99bad11762e66be8ed88dcdf60b81098}{Q\+A\+W\+S\+\_\+\+I\+N\+T\+E\+G\+R\+A\+T\+E\+\_\+\+T\+CC}~1
+\#define \mbox{\hyperlink{qaws__integrate_8tcc_a99bad11762e66be8ed88dcdf60b81098}{QAWS\+\_\+\+INTEGRATE\+\_\+\+TCC}}~1
 \end{DoxyCompactItemize}
-\subsection*{Functions}
+\doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$typename \+\_\+\+Tp , typename \+\_\+\+Ret\+Tp $>$ }\\auto \hyperlink{namespace____gnu__cxx_a10e06852570922cdc1aca86883b5161e}{\+\_\+\+\_\+gnu\+\_\+cxx\+::compute\+\_\+result} (const std\+::array$<$ \+\_\+\+Tp, 25 $>$ \&\+\_\+\+\_\+r, const std\+::array$<$ \+\_\+\+Ret\+Tp, 13 $>$ \&\+\_\+\+\_\+cheb12, const std\+::array$<$ \+\_\+\+Ret\+Tp, 25 $>$ \&\+\_\+\+\_\+cheb24) -\/$>$ compute\+\_\+result\+\_\+t$<$ decltype(\+\_\+\+Tp
+{\footnotesize template$<$typename Tp , typename Ret\+Tp $>$ }\\auto \mbox{\hyperlink{namespaceemsr_aa816e061eca04617c77825200ef47393}{emsr\+::compute\+\_\+result}} (const std\+::array$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, 25 $>$ \&r, const std\+::array$<$ Ret\+Tp, 13 $>$ \&cheb12, const std\+::array$<$ Ret\+Tp, 25 $>$ \&cheb24) -\/$>$ compute\+\_\+result\+\_\+t$<$ decltype(\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{\} $\ast$Ret\+Tp\{\})$>$
 \item 
-{\footnotesize template$<$typename \+\_\+\+Tp , typename \+\_\+\+Func\+Tp , typename \+\_\+\+Integrator  = gauss\+\_\+kronrod\+\_\+integral$<$\+\_\+\+Tp$>$$>$ }\\auto \hyperlink{namespace____gnu__cxx_a6196743b26626cc5add8395c6338f38a}{\+\_\+\+\_\+gnu\+\_\+cxx\+::qaws\+\_\+integrate} (integration\+\_\+workspace$<$ \+\_\+\+Tp, std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp, \+\_\+\+Tp $>$$>$ \&\+\_\+\+\_\+workspace, qaws\+\_\+integration\+\_\+table$<$ \+\_\+\+Tp $>$ \&\+\_\+\+\_\+table, \+\_\+\+Func\+Tp \+\_\+\+\_\+func, \+\_\+\+Tp \+\_\+\+\_\+lower, \+\_\+\+Tp \+\_\+\+\_\+upper, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+abs\+\_\+err, \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+rel\+\_\+err, \+\_\+\+Integrator \+\_\+\+\_\+quad=gauss\+\_\+kronrod\+\_\+integral$<$ \+\_\+\+Tp $>$(Kronrod\+\_\+15)) -\/$>$ adaptive\+\_\+integral\+\_\+t$<$ \+\_\+\+Tp, std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp, \+\_\+\+Tp $>$$>$
+{\footnotesize template$<$typename Tp , typename Func\+Tp , typename Integrator  = gauss\+\_\+kronrod\+\_\+integral$<$\+Tp$>$$>$ }\\auto \mbox{\hyperlink{namespaceemsr_a02c3aca3d71c83fe73f4c7f49e0b1444}{emsr\+::qaws\+\_\+integrate}} (integration\+\_\+workspace$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, std\+::invoke\+\_\+result\+\_\+t$<$ Func\+Tp, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$$>$ \&workspace, qaws\+\_\+integration\+\_\+table$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$ \&table, Func\+Tp func, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} lower, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} upper, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} max\+\_\+abs\+\_\+err, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} max\+\_\+rel\+\_\+err, Integrator quad=gauss\+\_\+kronrod\+\_\+integral$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$(Kronrod\+\_\+15)) -\/$>$ adaptive\+\_\+integral\+\_\+t$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, std\+::invoke\+\_\+result\+\_\+t$<$ Func\+Tp, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$$>$
 \item 
-{\footnotesize template$<$typename \+\_\+\+Tp , typename \+\_\+\+Func\+Tp , typename \+\_\+\+Integrator  = gauss\+\_\+kronrod\+\_\+integral$<$\+\_\+\+Tp$>$$>$ }\\std\+::tuple$<$ \+\_\+\+Tp, \+\_\+\+Tp, bool $>$ \hyperlink{namespace____gnu__cxx_a5659189e193b420e201b6769d65289b9}{\+\_\+\+\_\+gnu\+\_\+cxx\+::qc25s} (qaws\+\_\+integration\+\_\+table$<$ \+\_\+\+Tp $>$ \&\+\_\+\+\_\+t, \+\_\+\+Func\+Tp \+\_\+\+\_\+func, \+\_\+\+Tp \+\_\+\+\_\+lower, \+\_\+\+Tp \+\_\+\+\_\+upper, \+\_\+\+Tp \+\_\+\+\_\+a1, \+\_\+\+Tp \+\_\+\+\_\+mid, \+\_\+\+Integrator \+\_\+\+\_\+quad=gauss\+\_\+kronrod\+\_\+integral$<$ \+\_\+\+Tp $>$(Kronrod\+\_\+15))
-\end{DoxyCompactItemize}
-\subsection*{Variables}
-\begin{DoxyCompactItemize}
-\item 
-$\ast$ \hyperlink{namespace____gnu__cxx_a886e03ece3d53ff7fa6c098a40f93fa5}{\+\_\+\+\_\+gnu\+\_\+cxx\+::\+\_\+\+Ret\+Tp} \{\})$>$
+{\footnotesize template$<$typename Tp , typename Func\+Tp , typename Integrator  = gauss\+\_\+kronrod\+\_\+integral$<$\+Tp$>$$>$ }\\std\+::tuple$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, bool $>$ \mbox{\hyperlink{namespaceemsr_a1d892a3c32396b548a3c5c03522d1da4}{emsr\+::qc25s}} (qaws\+\_\+integration\+\_\+table$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$ \&t, Func\+Tp func, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} lower, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} upper, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} a1, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} mid, Integrator quad=gauss\+\_\+kronrod\+\_\+integral$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$(Kronrod\+\_\+15))
 \end{DoxyCompactItemize}
 
 
-\subsection{Macro Definition Documentation}
+\doxysubsection{Macro Definition Documentation}
 \mbox{\Hypertarget{qaws__integrate_8tcc_a99bad11762e66be8ed88dcdf60b81098}\label{qaws__integrate_8tcc_a99bad11762e66be8ed88dcdf60b81098}} 
-\index{qaws\+\_\+integrate.\+tcc@{qaws\+\_\+integrate.\+tcc}!Q\+A\+W\+S\+\_\+\+I\+N\+T\+E\+G\+R\+A\+T\+E\+\_\+\+T\+CC@{Q\+A\+W\+S\+\_\+\+I\+N\+T\+E\+G\+R\+A\+T\+E\+\_\+\+T\+CC}}
-\index{Q\+A\+W\+S\+\_\+\+I\+N\+T\+E\+G\+R\+A\+T\+E\+\_\+\+T\+CC@{Q\+A\+W\+S\+\_\+\+I\+N\+T\+E\+G\+R\+A\+T\+E\+\_\+\+T\+CC}!qaws\+\_\+integrate.\+tcc@{qaws\+\_\+integrate.\+tcc}}
-\subsubsection{\texorpdfstring{Q\+A\+W\+S\+\_\+\+I\+N\+T\+E\+G\+R\+A\+T\+E\+\_\+\+T\+CC}{QAWS\_INTEGRATE\_TCC}}
-{\footnotesize\ttfamily \#define Q\+A\+W\+S\+\_\+\+I\+N\+T\+E\+G\+R\+A\+T\+E\+\_\+\+T\+CC~1}
+\index{qaws\_integrate.tcc@{qaws\_integrate.tcc}!QAWS\_INTEGRATE\_TCC@{QAWS\_INTEGRATE\_TCC}}
+\index{QAWS\_INTEGRATE\_TCC@{QAWS\_INTEGRATE\_TCC}!qaws\_integrate.tcc@{qaws\_integrate.tcc}}
+\doxysubsubsection{\texorpdfstring{QAWS\_INTEGRATE\_TCC}{QAWS\_INTEGRATE\_TCC}}
+{\footnotesize\ttfamily \#define QAWS\+\_\+\+INTEGRATE\+\_\+\+TCC~1}
 
 
 
-Definition at line 28 of file qaws\+\_\+integrate.\+tcc.
+Definition at line 27 of file qaws\+\_\+integrate.\+tcc.
 

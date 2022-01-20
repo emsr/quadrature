@@ -1,0 +1,126 @@
+\hypertarget{structemsr_1_1fixed__gauss__exponential__integral}{}\doxysection{emsr\+::fixed\+\_\+gauss\+\_\+exponential\+\_\+integral$<$ Tp $>$ Struct Template Reference}
+\label{structemsr_1_1fixed__gauss__exponential__integral}\index{emsr::fixed\_gauss\_exponential\_integral$<$ Tp $>$@{emsr::fixed\_gauss\_exponential\_integral$<$ Tp $>$}}
+
+
+{\ttfamily \#include $<$gauss\+\_\+quadrature.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structemsr_1_1fixed__gauss__exponential__integral_a247f3464f62f0a10414b091ae0474ea2}{fixed\+\_\+gauss\+\_\+exponential\+\_\+integral}} (int n, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} alf)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} \mbox{\hyperlink{structemsr_1_1fixed__gauss__exponential__integral_add69fd79d7290ac2bd19fd736a7f1933}{alpha}}
+\item 
+{\footnotesize template$<$typename Func\+Tp $>$ }\\decltype(std\+::invoke\+\_\+result\+\_\+t$<$ Func\+Tp, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$\{\} $\ast$\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{\} \mbox{\hyperlink{structemsr_1_1fixed__gauss__exponential__integral_a149455654f261f32767f22db8198f67f}{operator()}} )(Func\+Tp func, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} lower, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} upper) const
+\item 
+int \mbox{\hyperlink{structemsr_1_1fixed__gauss__exponential__integral_ad5764e41fc5285045340e4a4acad9319}{order}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename Tp$>$\newline
+struct emsr\+::fixed\+\_\+gauss\+\_\+exponential\+\_\+integral$<$ Tp $>$}
+
+
+
+Definition at line 212 of file gauss\+\_\+quadrature.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structemsr_1_1fixed__gauss__exponential__integral_a247f3464f62f0a10414b091ae0474ea2}\label{structemsr_1_1fixed__gauss__exponential__integral_a247f3464f62f0a10414b091ae0474ea2}} 
+\index{emsr::fixed\_gauss\_exponential\_integral$<$ Tp $>$@{emsr::fixed\_gauss\_exponential\_integral$<$ Tp $>$}!fixed\_gauss\_exponential\_integral@{fixed\_gauss\_exponential\_integral}}
+\index{fixed\_gauss\_exponential\_integral@{fixed\_gauss\_exponential\_integral}!emsr::fixed\_gauss\_exponential\_integral$<$ Tp $>$@{emsr::fixed\_gauss\_exponential\_integral$<$ Tp $>$}}
+\doxysubsubsection{\texorpdfstring{fixed\_gauss\_exponential\_integral()}{fixed\_gauss\_exponential\_integral()}}
+{\footnotesize\ttfamily template$<$typename Tp $>$ \\
+\mbox{\hyperlink{structemsr_1_1fixed__gauss__exponential__integral}{emsr\+::fixed\+\_\+gauss\+\_\+exponential\+\_\+integral}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$\+::\mbox{\hyperlink{structemsr_1_1fixed__gauss__exponential__integral}{fixed\+\_\+gauss\+\_\+exponential\+\_\+integral}} (\begin{DoxyParamCaption}\item[{int}]{n,  }\item[{\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}}]{alf }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+Construct a Generalized Gauss-\/\+Exponential rule of order {\ttfamily n}.
+
+Interval\+: $ (a, b) $ Weight function\+: $ |x - (a + b) / 2|^\alpha $ Constraints\+: $ \alpha > -1 $ 
+
+Definition at line 658 of file gauss\+\_\+quadrature.\+tcc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{660     : \mbox{\hyperlink{structemsr_1_1fixed__gauss__exponential__integral_ad5764e41fc5285045340e4a4acad9319}{order}}(n),}
+\DoxyCodeLine{661       \mbox{\hyperlink{structemsr_1_1fixed__gauss__exponential__integral_add69fd79d7290ac2bd19fd736a7f1933}{alpha}}(alf),}
+\DoxyCodeLine{662       point(n),}
+\DoxyCodeLine{663       weight(n)}
+\DoxyCodeLine{664     \{}
+\DoxyCodeLine{665       \textcolor{keyword}{const} \textcolor{keyword}{auto} mu\_0 = \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\} / (this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__exponential__integral_add69fd79d7290ac2bd19fd736a7f1933}{alpha}} + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\});}
+\DoxyCodeLine{666 }
+\DoxyCodeLine{667       std::vector<Tp> diag(this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__exponential__integral_ad5764e41fc5285045340e4a4acad9319}{order}}, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{0\});}
+\DoxyCodeLine{668       std::vector<Tp> subd(this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__exponential__integral_ad5764e41fc5285045340e4a4acad9319}{order}});}
+\DoxyCodeLine{669 }
+\DoxyCodeLine{670       \textcolor{keyword}{auto} ap2i = this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__exponential__integral_add69fd79d7290ac2bd19fd736a7f1933}{alpha}};}
+\DoxyCodeLine{671       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 1; i <= this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__exponential__integral_ad5764e41fc5285045340e4a4acad9319}{order}}; ++i)}
+\DoxyCodeLine{672         \{}
+\DoxyCodeLine{673           ap2i += \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\};}
+\DoxyCodeLine{674           subd[i -\/ 1] = (\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}(i) + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}(i \% 2) * this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__exponential__integral_add69fd79d7290ac2bd19fd736a7f1933}{alpha}})}
+\DoxyCodeLine{675                           / std::sqrt((ap2i * ap2i -\/ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\}));}
+\DoxyCodeLine{676         \}}
+\DoxyCodeLine{677 }
+\DoxyCodeLine{678       \mbox{\hyperlink{namespaceemsr_1_1detail_a3a01597b0d4e1996d86ceaf2f68eabc8}{detail::golub\_welsch}}(mu\_0, this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__exponential__integral_ad5764e41fc5285045340e4a4acad9319}{order}}, diag, subd,}
+\DoxyCodeLine{679                                this-\/>point, this-\/>weight);}
+\DoxyCodeLine{680     \}}
+
+\end{DoxyCode}
+
+
+References emsr\+::fixed\+\_\+gauss\+\_\+exponential\+\_\+integral$<$ Tp $>$\+::alpha, emsr\+::detail\+::golub\+\_\+welsch(), emsr\+::fixed\+\_\+gauss\+\_\+exponential\+\_\+integral$<$ Tp $>$\+::order, and Tp.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structemsr_1_1fixed__gauss__exponential__integral_add69fd79d7290ac2bd19fd736a7f1933}\label{structemsr_1_1fixed__gauss__exponential__integral_add69fd79d7290ac2bd19fd736a7f1933}} 
+\index{emsr::fixed\_gauss\_exponential\_integral$<$ Tp $>$@{emsr::fixed\_gauss\_exponential\_integral$<$ Tp $>$}!alpha@{alpha}}
+\index{alpha@{alpha}!emsr::fixed\_gauss\_exponential\_integral$<$ Tp $>$@{emsr::fixed\_gauss\_exponential\_integral$<$ Tp $>$}}
+\doxysubsubsection{\texorpdfstring{alpha}{alpha}}
+{\footnotesize\ttfamily template$<$typename Tp $>$ \\
+\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} \mbox{\hyperlink{structemsr_1_1fixed__gauss__exponential__integral}{emsr\+::fixed\+\_\+gauss\+\_\+exponential\+\_\+integral}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$\+::alpha}
+
+
+
+Definition at line 215 of file gauss\+\_\+quadrature.\+h.
+
+
+
+Referenced by emsr\+::fixed\+\_\+gauss\+\_\+exponential\+\_\+integral$<$ Tp $>$\+::fixed\+\_\+gauss\+\_\+exponential\+\_\+integral().
+
+\mbox{\Hypertarget{structemsr_1_1fixed__gauss__exponential__integral_a149455654f261f32767f22db8198f67f}\label{structemsr_1_1fixed__gauss__exponential__integral_a149455654f261f32767f22db8198f67f}} 
+\index{emsr::fixed\_gauss\_exponential\_integral$<$ Tp $>$@{emsr::fixed\_gauss\_exponential\_integral$<$ Tp $>$}!operator()@{operator()}}
+\index{operator()@{operator()}!emsr::fixed\_gauss\_exponential\_integral$<$ Tp $>$@{emsr::fixed\_gauss\_exponential\_integral$<$ Tp $>$}}
+\doxysubsubsection{\texorpdfstring{operator()}{operator()}}
+{\footnotesize\ttfamily template$<$typename Tp $>$ \\
+template$<$typename Func\+Tp $>$ \\
+decltype(std\+::invoke\+\_\+result\+\_\+t$<$Func\+Tp, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}$>$\{\} $\ast$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{\} \mbox{\hyperlink{structemsr_1_1fixed__gauss__exponential__integral}{emsr\+::fixed\+\_\+gauss\+\_\+exponential\+\_\+integral}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$\+::operator()) (Func\+Tp func, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} lower, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} upper) const}
+
+
+
+Definition at line 221 of file gauss\+\_\+quadrature.\+h.
+
+\mbox{\Hypertarget{structemsr_1_1fixed__gauss__exponential__integral_ad5764e41fc5285045340e4a4acad9319}\label{structemsr_1_1fixed__gauss__exponential__integral_ad5764e41fc5285045340e4a4acad9319}} 
+\index{emsr::fixed\_gauss\_exponential\_integral$<$ Tp $>$@{emsr::fixed\_gauss\_exponential\_integral$<$ Tp $>$}!order@{order}}
+\index{order@{order}!emsr::fixed\_gauss\_exponential\_integral$<$ Tp $>$@{emsr::fixed\_gauss\_exponential\_integral$<$ Tp $>$}}
+\doxysubsubsection{\texorpdfstring{order}{order}}
+{\footnotesize\ttfamily template$<$typename Tp $>$ \\
+int \mbox{\hyperlink{structemsr_1_1fixed__gauss__exponential__integral}{emsr\+::fixed\+\_\+gauss\+\_\+exponential\+\_\+integral}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$\+::order}
+
+
+
+Definition at line 214 of file gauss\+\_\+quadrature.\+h.
+
+
+
+Referenced by emsr\+::fixed\+\_\+gauss\+\_\+exponential\+\_\+integral$<$ Tp $>$\+::fixed\+\_\+gauss\+\_\+exponential\+\_\+integral().
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/emsr/\mbox{\hyperlink{gauss__quadrature_8h}{gauss\+\_\+quadrature.\+h}}\item 
+include/emsr/\mbox{\hyperlink{gauss__quadrature_8tcc}{gauss\+\_\+quadrature.\+tcc}}\end{DoxyCompactItemize}

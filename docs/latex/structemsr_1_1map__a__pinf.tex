@@ -1,0 +1,122 @@
+\hypertarget{structemsr_1_1map__a__pinf}{}\doxysection{emsr\+::map\+\_\+a\+\_\+pinf$<$ Tp, Func\+Tp $>$ Struct Template Reference}
+\label{structemsr_1_1map__a__pinf}\index{emsr::map\_a\_pinf$<$ Tp, FuncTp $>$@{emsr::map\_a\_pinf$<$ Tp, FuncTp $>$}}
+
+
+{\ttfamily \#include $<$integration\+\_\+transform.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structemsr_1_1map__a__pinf_a575b9651d2265a44ec6a87c0d6b38d80}{map\+\_\+a\+\_\+pinf}} (Func\+Tp func, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} a)
+\item 
+std\+::invoke\+\_\+result\+\_\+t$<$ Func\+Tp, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$ \mbox{\hyperlink{structemsr_1_1map__a__pinf_a9cbedb965cf85e7fd81cb68a346c2d8c}{operator()}} (\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} t) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+const \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} \mbox{\hyperlink{structemsr_1_1map__a__pinf_ad4467693c8c2bdeb75b043eab9fa0af9}{m\+\_\+a}}
+\item 
+Func\+Tp \mbox{\hyperlink{structemsr_1_1map__a__pinf_aa542e36723904b166b4168e740bf4b9d}{m\+\_\+func}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename Tp, typename Func\+Tp$>$\newline
+struct emsr\+::map\+\_\+a\+\_\+pinf$<$ Tp, Func\+Tp $>$}
+
+Map a function defined on $ x \in [a, +\infty) $ to one defined on $ t \in (0, 1] $\+: \$f\mbox{[} \textbackslash{}int\+\_\+\{a\}$^\wedge$\{+\textbackslash{}infty\}dx f(x) = \textbackslash{}int\+\_\+\{0\}$^\wedge$\{1\}dt \textbackslash{}frac\{f(t)\}\{(1-\/t)$^\wedge$2\} \$f\mbox{]} \$f\mbox{[} x(t) = a + \textbackslash{}frac\{t\}\{1-\/t\} \$f\mbox{]} 
+
+Definition at line 159 of file integration\+\_\+transform.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structemsr_1_1map__a__pinf_a575b9651d2265a44ec6a87c0d6b38d80}\label{structemsr_1_1map__a__pinf_a575b9651d2265a44ec6a87c0d6b38d80}} 
+\index{emsr::map\_a\_pinf$<$ Tp, FuncTp $>$@{emsr::map\_a\_pinf$<$ Tp, FuncTp $>$}!map\_a\_pinf@{map\_a\_pinf}}
+\index{map\_a\_pinf@{map\_a\_pinf}!emsr::map\_a\_pinf$<$ Tp, FuncTp $>$@{emsr::map\_a\_pinf$<$ Tp, FuncTp $>$}}
+\doxysubsubsection{\texorpdfstring{map\_a\_pinf()}{map\_a\_pinf()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Func\+Tp $>$ \\
+\mbox{\hyperlink{structemsr_1_1map__a__pinf}{emsr\+::map\+\_\+a\+\_\+pinf}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Func\+Tp $>$\+::\mbox{\hyperlink{structemsr_1_1map__a__pinf}{map\+\_\+a\+\_\+pinf}} (\begin{DoxyParamCaption}\item[{Func\+Tp}]{func,  }\item[{\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}}]{a }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 164 of file integration\+\_\+transform.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{165       : \mbox{\hyperlink{structemsr_1_1map__a__pinf_aa542e36723904b166b4168e740bf4b9d}{m\_func}}(func),}
+\DoxyCodeLine{166         \mbox{\hyperlink{structemsr_1_1map__a__pinf_ad4467693c8c2bdeb75b043eab9fa0af9}{m\_a}}(a)}
+\DoxyCodeLine{167       \{ \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structemsr_1_1map__a__pinf_a9cbedb965cf85e7fd81cb68a346c2d8c}\label{structemsr_1_1map__a__pinf_a9cbedb965cf85e7fd81cb68a346c2d8c}} 
+\index{emsr::map\_a\_pinf$<$ Tp, FuncTp $>$@{emsr::map\_a\_pinf$<$ Tp, FuncTp $>$}!operator()@{operator()}}
+\index{operator()@{operator()}!emsr::map\_a\_pinf$<$ Tp, FuncTp $>$@{emsr::map\_a\_pinf$<$ Tp, FuncTp $>$}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Func\+Tp $>$ \\
+std\+::invoke\+\_\+result\+\_\+t$<$Func\+Tp, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}$>$ \mbox{\hyperlink{structemsr_1_1map__a__pinf}{emsr\+::map\+\_\+a\+\_\+pinf}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Func\+Tp $>$\+::operator() (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}}]{t }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 170 of file integration\+\_\+transform.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{171       \{}
+\DoxyCodeLine{172         \textcolor{keywordflow}{if} (t == \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\})}
+\DoxyCodeLine{173           \textcolor{keywordflow}{return} \mbox{\hyperlink{structemsr_1_1map__a__pinf_aa542e36723904b166b4168e740bf4b9d}{m\_func}}(+std::numeric\_limits<Tp>::infinity());}
+\DoxyCodeLine{174         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{175           \{}
+\DoxyCodeLine{176             \textcolor{keyword}{const} \textcolor{keyword}{auto} inv\_1mt = \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\} / (\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\} -\/ t);}
+\DoxyCodeLine{177             \textcolor{keyword}{const} \textcolor{keyword}{auto} x = \mbox{\hyperlink{structemsr_1_1map__a__pinf_ad4467693c8c2bdeb75b043eab9fa0af9}{m\_a}} + t * inv\_1mt;}
+\DoxyCodeLine{178             \textcolor{keyword}{const} \textcolor{keyword}{auto} y = \mbox{\hyperlink{structemsr_1_1map__a__pinf_aa542e36723904b166b4168e740bf4b9d}{m\_func}}(x);}
+\DoxyCodeLine{179             \textcolor{keywordflow}{return} y * inv\_1mt * inv\_1mt;}
+\DoxyCodeLine{180           \}}
+\DoxyCodeLine{181       \}}
+
+\end{DoxyCode}
+
+
+References emsr\+::map\+\_\+a\+\_\+pinf$<$ Tp, Func\+Tp $>$\+::m\+\_\+a, emsr\+::map\+\_\+a\+\_\+pinf$<$ Tp, Func\+Tp $>$\+::m\+\_\+func, and Tp.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structemsr_1_1map__a__pinf_ad4467693c8c2bdeb75b043eab9fa0af9}\label{structemsr_1_1map__a__pinf_ad4467693c8c2bdeb75b043eab9fa0af9}} 
+\index{emsr::map\_a\_pinf$<$ Tp, FuncTp $>$@{emsr::map\_a\_pinf$<$ Tp, FuncTp $>$}!m\_a@{m\_a}}
+\index{m\_a@{m\_a}!emsr::map\_a\_pinf$<$ Tp, FuncTp $>$@{emsr::map\_a\_pinf$<$ Tp, FuncTp $>$}}
+\doxysubsubsection{\texorpdfstring{m\_a}{m\_a}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Func\+Tp $>$ \\
+const \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} \mbox{\hyperlink{structemsr_1_1map__a__pinf}{emsr\+::map\+\_\+a\+\_\+pinf}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Func\+Tp $>$\+::m\+\_\+a}
+
+
+
+Definition at line 162 of file integration\+\_\+transform.\+h.
+
+
+
+Referenced by emsr\+::map\+\_\+a\+\_\+pinf$<$ Tp, Func\+Tp $>$\+::operator()().
+
+\mbox{\Hypertarget{structemsr_1_1map__a__pinf_aa542e36723904b166b4168e740bf4b9d}\label{structemsr_1_1map__a__pinf_aa542e36723904b166b4168e740bf4b9d}} 
+\index{emsr::map\_a\_pinf$<$ Tp, FuncTp $>$@{emsr::map\_a\_pinf$<$ Tp, FuncTp $>$}!m\_func@{m\_func}}
+\index{m\_func@{m\_func}!emsr::map\_a\_pinf$<$ Tp, FuncTp $>$@{emsr::map\_a\_pinf$<$ Tp, FuncTp $>$}}
+\doxysubsubsection{\texorpdfstring{m\_func}{m\_func}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Func\+Tp $>$ \\
+Func\+Tp \mbox{\hyperlink{structemsr_1_1map__a__pinf}{emsr\+::map\+\_\+a\+\_\+pinf}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Func\+Tp $>$\+::m\+\_\+func}
+
+
+
+Definition at line 161 of file integration\+\_\+transform.\+h.
+
+
+
+Referenced by emsr\+::map\+\_\+a\+\_\+pinf$<$ Tp, Func\+Tp $>$\+::operator()().
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/emsr/\mbox{\hyperlink{integration__transform_8h}{integration\+\_\+transform.\+h}}\end{DoxyCompactItemize}

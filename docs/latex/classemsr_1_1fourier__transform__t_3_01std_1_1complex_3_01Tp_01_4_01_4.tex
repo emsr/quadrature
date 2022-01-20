@@ -1,0 +1,94 @@
+\hypertarget{classemsr_1_1fourier__transform__t_3_01std_1_1complex_3_01Tp_01_4_01_4}{}\doxysection{emsr\+::fourier\+\_\+transform\+\_\+t$<$ std\+::complex$<$ Tp $>$ $>$ Class Template Reference}
+\label{classemsr_1_1fourier__transform__t_3_01std_1_1complex_3_01Tp_01_4_01_4}\index{emsr::fourier\_transform\_t$<$ std::complex$<$ Tp $>$ $>$@{emsr::fourier\_transform\_t$<$ std::complex$<$ Tp $>$ $>$}}
+
+
+{\ttfamily \#include $<$fourier\+\_\+transform.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classemsr_1_1fourier__transform__t_3_01std_1_1complex_3_01Tp_01_4_01_4_ab0f9296552a2303bc01e4c0966c8a7a3}{fourier\+\_\+transform\+\_\+t}} (const std\+::vector$<$ std\+::complex$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$$>$ \&data)
+\item 
+\mbox{\hyperlink{classemsr_1_1fourier__transform__t_3_01std_1_1complex_3_01Tp_01_4_01_4_a46c55b0169175278b7efb5ba2af6a714}{fourier\+\_\+transform\+\_\+t}} (std\+::size\+\_\+t n)
+\item 
+std\+::complex$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$ \mbox{\hyperlink{classemsr_1_1fourier__transform__t_3_01std_1_1complex_3_01Tp_01_4_01_4_ab4b0436b6e8aa7b4185300e70c2ff649}{operator\mbox{[}$\,$\mbox{]}}} (std\+::size\+\_\+t k) const
+\item 
+std\+::size\+\_\+t \mbox{\hyperlink{classemsr_1_1fourier__transform__t_3_01std_1_1complex_3_01Tp_01_4_01_4_a895dd277c3ed9b671934f17e089ac65f}{size}} () const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename Tp$>$\newline
+class emsr\+::fourier\+\_\+transform\+\_\+t$<$ std\+::complex$<$ Tp $>$ $>$}
+
+Discrete Fourier transform specialization for transform of complex data. 
+
+Definition at line 187 of file fourier\+\_\+transform.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classemsr_1_1fourier__transform__t_3_01std_1_1complex_3_01Tp_01_4_01_4_a46c55b0169175278b7efb5ba2af6a714}\label{classemsr_1_1fourier__transform__t_3_01std_1_1complex_3_01Tp_01_4_01_4_a46c55b0169175278b7efb5ba2af6a714}} 
+\index{emsr::fourier\_transform\_t$<$ std::complex$<$ Tp $>$ $>$@{emsr::fourier\_transform\_t$<$ std::complex$<$ Tp $>$ $>$}!fourier\_transform\_t@{fourier\_transform\_t}}
+\index{fourier\_transform\_t@{fourier\_transform\_t}!emsr::fourier\_transform\_t$<$ std::complex$<$ Tp $>$ $>$@{emsr::fourier\_transform\_t$<$ std::complex$<$ Tp $>$ $>$}}
+\doxysubsubsection{\texorpdfstring{fourier\_transform\_t()}{fourier\_transform\_t()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename Tp $>$ \\
+\mbox{\hyperlink{classemsr_1_1fourier__transform__t}{emsr\+::fourier\+\_\+transform\+\_\+t}}$<$ std\+::complex$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$ $>$\+::\mbox{\hyperlink{classemsr_1_1fourier__transform__t}{fourier\+\_\+transform\+\_\+t}} (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{n }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 195 of file fourier\+\_\+transform.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{196       : m\_xform\{\}}
+\DoxyCodeLine{197       \{ this-\/>m\_xform.reserve(n / 2 + 1); \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classemsr_1_1fourier__transform__t_3_01std_1_1complex_3_01Tp_01_4_01_4_ab0f9296552a2303bc01e4c0966c8a7a3}\label{classemsr_1_1fourier__transform__t_3_01std_1_1complex_3_01Tp_01_4_01_4_ab0f9296552a2303bc01e4c0966c8a7a3}} 
+\index{emsr::fourier\_transform\_t$<$ std::complex$<$ Tp $>$ $>$@{emsr::fourier\_transform\_t$<$ std::complex$<$ Tp $>$ $>$}!fourier\_transform\_t@{fourier\_transform\_t}}
+\index{fourier\_transform\_t@{fourier\_transform\_t}!emsr::fourier\_transform\_t$<$ std::complex$<$ Tp $>$ $>$@{emsr::fourier\_transform\_t$<$ std::complex$<$ Tp $>$ $>$}}
+\doxysubsubsection{\texorpdfstring{fourier\_transform\_t()}{fourier\_transform\_t()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Tp $>$ \\
+\mbox{\hyperlink{classemsr_1_1fourier__transform__t}{emsr\+::fourier\+\_\+transform\+\_\+t}}$<$ std\+::complex$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$ $>$\+::\mbox{\hyperlink{classemsr_1_1fourier__transform__t}{fourier\+\_\+transform\+\_\+t}} (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ std\+::complex$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$$>$ \&}]{data }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classemsr_1_1fourier__transform__t_3_01std_1_1complex_3_01Tp_01_4_01_4_ab4b0436b6e8aa7b4185300e70c2ff649}\label{classemsr_1_1fourier__transform__t_3_01std_1_1complex_3_01Tp_01_4_01_4_ab4b0436b6e8aa7b4185300e70c2ff649}} 
+\index{emsr::fourier\_transform\_t$<$ std::complex$<$ Tp $>$ $>$@{emsr::fourier\_transform\_t$<$ std::complex$<$ Tp $>$ $>$}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!emsr::fourier\_transform\_t$<$ std::complex$<$ Tp $>$ $>$@{emsr::fourier\_transform\_t$<$ std::complex$<$ Tp $>$ $>$}}
+\doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}}
+{\footnotesize\ttfamily template$<$typename Tp $>$ \\
+std\+::complex$<$\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}$>$ \mbox{\hyperlink{classemsr_1_1fourier__transform__t}{emsr\+::fourier\+\_\+transform\+\_\+t}}$<$ std\+::complex$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$ $>$\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{k }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 206 of file fourier\+\_\+transform.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{207       \{ \textcolor{keywordflow}{return} this-\/>m\_xform[k]; \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classemsr_1_1fourier__transform__t_3_01std_1_1complex_3_01Tp_01_4_01_4_a895dd277c3ed9b671934f17e089ac65f}\label{classemsr_1_1fourier__transform__t_3_01std_1_1complex_3_01Tp_01_4_01_4_a895dd277c3ed9b671934f17e089ac65f}} 
+\index{emsr::fourier\_transform\_t$<$ std::complex$<$ Tp $>$ $>$@{emsr::fourier\_transform\_t$<$ std::complex$<$ Tp $>$ $>$}!size@{size}}
+\index{size@{size}!emsr::fourier\_transform\_t$<$ std::complex$<$ Tp $>$ $>$@{emsr::fourier\_transform\_t$<$ std::complex$<$ Tp $>$ $>$}}
+\doxysubsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily template$<$typename Tp $>$ \\
+std\+::size\+\_\+t \mbox{\hyperlink{classemsr_1_1fourier__transform__t}{emsr\+::fourier\+\_\+transform\+\_\+t}}$<$ std\+::complex$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$ $>$\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 202 of file fourier\+\_\+transform.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{203       \{ \textcolor{keywordflow}{return} 2 * this-\/>m\_xform.size() -\/ 2; \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/emsr/\mbox{\hyperlink{fourier__transform_8h}{fourier\+\_\+transform.\+h}}\end{DoxyCompactItemize}

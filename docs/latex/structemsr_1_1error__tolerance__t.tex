@@ -1,0 +1,282 @@
+\hypertarget{structemsr_1_1error__tolerance__t}{}\doxysection{emsr\+::error\+\_\+tolerance\+\_\+t$<$ Tp $>$ Struct Template Reference}
+\label{structemsr_1_1error__tolerance__t}\index{emsr::error\_tolerance\_t$<$ Tp $>$@{emsr::error\_tolerance\_t$<$ Tp $>$}}
+
+
+{\ttfamily \#include $<$integration.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+constexpr \mbox{\hyperlink{structemsr_1_1error__tolerance__t_af9237c66a50f14fac56c93d7fdefddbf}{error\+\_\+tolerance\+\_\+t}} (\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} max\+\_\+abs\+\_\+err, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} max\+\_\+rel\+\_\+err, unsigned min\+\_\+num\+\_\+passes)
+\item 
+{\footnotesize template$<$typename Res\+Tp $>$ }\\bool \mbox{\hyperlink{structemsr_1_1error__tolerance__t_abd6ced4d642daab667196ad2f47a3612}{test}} (Res\+Tp curr\+\_\+result, Res\+Tp prev\+\_\+result)
+\begin{DoxyCompactList}\small\item\em Return whether convergence is acceptable tolerance given two subsequent results. \end{DoxyCompactList}\item 
+constexpr \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} \mbox{\hyperlink{structemsr_1_1error__tolerance__t_ad601079e51643f876ab56937e2808ea5}{tolerance}} () const
+\begin{DoxyCompactList}\small\item\em Return the current tolerance. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Res\+Tp $>$ }\\constexpr \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} \mbox{\hyperlink{structemsr_1_1error__tolerance__t_a14596b92f398784f9336178379eaae87}{tolerance}} (Res\+Tp result)
+\begin{DoxyCompactList}\small\item\em Set and return the tolerance given an initial result. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr bool \mbox{\hyperlink{structemsr_1_1error__tolerance__t_a2a19a19c4aa02bee707303c3daa13926}{s\+\_\+valid\+\_\+tolerances}} (\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} max\+\_\+abs\+\_\+err, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} max\+\_\+rel\+\_\+err)
+\begin{DoxyCompactList}\small\item\em Test for valid error tolerances. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} \mbox{\hyperlink{structemsr_1_1error__tolerance__t_aa1a3f5c1275db0dc44edb4746fd61157}{m\+\_\+max\+\_\+abs\+\_\+err}}
+\begin{DoxyCompactList}\small\item\em Maximum absolute error tolerance. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} \mbox{\hyperlink{structemsr_1_1error__tolerance__t_a0cf269fbea273149f17548ed78c13bd5}{m\+\_\+max\+\_\+rel\+\_\+err}}
+\begin{DoxyCompactList}\small\item\em Maximum relative error tolerance. \end{DoxyCompactList}\item 
+unsigned \mbox{\hyperlink{structemsr_1_1error__tolerance__t_adf356eb664c86a75d70c85ebe1c3a30c}{m\+\_\+min\+\_\+num\+\_\+passes}}
+\begin{DoxyCompactList}\small\item\em Minimum number of consecutive passes before result is OK. \end{DoxyCompactList}\item 
+unsigned \mbox{\hyperlink{structemsr_1_1error__tolerance__t_a4d8ed410899da36856999a7824de3be8}{m\+\_\+num\+\_\+passes}}
+\begin{DoxyCompactList}\small\item\em Current number of passes. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} \mbox{\hyperlink{structemsr_1_1error__tolerance__t_a393871341bbdab1ed54285ed8421ff50}{m\+\_\+tolerance}} = this-\/$>$\mbox{\hyperlink{structemsr_1_1error__tolerance__t_a14596b92f398784f9336178379eaae87}{tolerance}}(\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\})
+\begin{DoxyCompactList}\small\item\em Current tolerance. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename Tp$>$\newline
+struct emsr\+::error\+\_\+tolerance\+\_\+t$<$ Tp $>$}
+
+An error tolerance model for integrals. 
+
+Definition at line 78 of file integration.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structemsr_1_1error__tolerance__t_af9237c66a50f14fac56c93d7fdefddbf}\label{structemsr_1_1error__tolerance__t_af9237c66a50f14fac56c93d7fdefddbf}} 
+\index{emsr::error\_tolerance\_t$<$ Tp $>$@{emsr::error\_tolerance\_t$<$ Tp $>$}!error\_tolerance\_t@{error\_tolerance\_t}}
+\index{error\_tolerance\_t@{error\_tolerance\_t}!emsr::error\_tolerance\_t$<$ Tp $>$@{emsr::error\_tolerance\_t$<$ Tp $>$}}
+\doxysubsubsection{\texorpdfstring{error\_tolerance\_t()}{error\_tolerance\_t()}}
+{\footnotesize\ttfamily template$<$typename Tp $>$ \\
+constexpr \mbox{\hyperlink{structemsr_1_1error__tolerance__t}{emsr\+::error\+\_\+tolerance\+\_\+t}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$\+::\mbox{\hyperlink{structemsr_1_1error__tolerance__t}{error\+\_\+tolerance\+\_\+t}} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}}]{max\+\_\+abs\+\_\+err,  }\item[{\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}}]{max\+\_\+rel\+\_\+err,  }\item[{unsigned}]{min\+\_\+num\+\_\+passes }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structemsr_1_1error__tolerance__t_a2a19a19c4aa02bee707303c3daa13926}\label{structemsr_1_1error__tolerance__t_a2a19a19c4aa02bee707303c3daa13926}} 
+\index{emsr::error\_tolerance\_t$<$ Tp $>$@{emsr::error\_tolerance\_t$<$ Tp $>$}!s\_valid\_tolerances@{s\_valid\_tolerances}}
+\index{s\_valid\_tolerances@{s\_valid\_tolerances}!emsr::error\_tolerance\_t$<$ Tp $>$@{emsr::error\_tolerance\_t$<$ Tp $>$}}
+\doxysubsubsection{\texorpdfstring{s\_valid\_tolerances()}{s\_valid\_tolerances()}}
+{\footnotesize\ttfamily template$<$typename Tp $>$ \\
+static constexpr bool \mbox{\hyperlink{structemsr_1_1error__tolerance__t}{emsr\+::error\+\_\+tolerance\+\_\+t}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$\+::s\+\_\+valid\+\_\+tolerances (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}}]{max\+\_\+abs\+\_\+err,  }\item[{\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}}]{max\+\_\+rel\+\_\+err }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+Test for valid error tolerances. 
+
+
+
+Definition at line 128 of file integration.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{129       \{}
+\DoxyCodeLine{130         constexpr \textcolor{keyword}{auto} s\_eps = std::numeric\_limits<Tp>::epsilon();}
+\DoxyCodeLine{131         \textcolor{keywordflow}{return} !(max\_abs\_err <= \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{0\}}
+\DoxyCodeLine{132               \&\& (max\_rel\_err < \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{50\} * s\_eps}
+\DoxyCodeLine{133                || max\_rel\_err < 0.5e-\/28));}
+\DoxyCodeLine{134         \textcolor{comment}{// I don't understand the etymology of this last number.}}
+\DoxyCodeLine{135       \}}
+
+\end{DoxyCode}
+
+
+References Tp.
+
+
+
+Referenced by emsr\+::valid\+\_\+tolerances().
+
+\mbox{\Hypertarget{structemsr_1_1error__tolerance__t_abd6ced4d642daab667196ad2f47a3612}\label{structemsr_1_1error__tolerance__t_abd6ced4d642daab667196ad2f47a3612}} 
+\index{emsr::error\_tolerance\_t$<$ Tp $>$@{emsr::error\_tolerance\_t$<$ Tp $>$}!test@{test}}
+\index{test@{test}!emsr::error\_tolerance\_t$<$ Tp $>$@{emsr::error\_tolerance\_t$<$ Tp $>$}}
+\doxysubsubsection{\texorpdfstring{test()}{test()}}
+{\footnotesize\ttfamily template$<$typename Tp $>$ \\
+template$<$typename Res\+Tp $>$ \\
+bool \mbox{\hyperlink{structemsr_1_1error__tolerance__t}{emsr\+::error\+\_\+tolerance\+\_\+t}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$\+::test (\begin{DoxyParamCaption}\item[{Res\+Tp}]{curr\+\_\+result,  }\item[{Res\+Tp}]{prev\+\_\+result }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Return whether convergence is acceptable tolerance given two subsequent results. 
+
+
+
+Definition at line 110 of file integration.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{111         \{}
+\DoxyCodeLine{112           \textcolor{keyword}{const} \textcolor{keyword}{auto} del = std::abs(curr\_result -\/ prev\_result);}
+\DoxyCodeLine{113           \textcolor{keywordflow}{if} (del < this-\/>\mbox{\hyperlink{structemsr_1_1error__tolerance__t_aa1a3f5c1275db0dc44edb4746fd61157}{m\_max\_abs\_err}}}
+\DoxyCodeLine{114               || del < this-\/>\mbox{\hyperlink{structemsr_1_1error__tolerance__t_a0cf269fbea273149f17548ed78c13bd5}{m\_max\_rel\_err}} * std::abs(curr\_result))}
+\DoxyCodeLine{115             ++this-\/>\mbox{\hyperlink{structemsr_1_1error__tolerance__t_a4d8ed410899da36856999a7824de3be8}{m\_num\_passes}};}
+\DoxyCodeLine{116           \textcolor{keywordflow}{else}}
+\DoxyCodeLine{117             this-\/>\mbox{\hyperlink{structemsr_1_1error__tolerance__t_a4d8ed410899da36856999a7824de3be8}{m\_num\_passes}} = 0;}
+\DoxyCodeLine{118           \textcolor{keywordflow}{return} this-\/>\mbox{\hyperlink{structemsr_1_1error__tolerance__t_a4d8ed410899da36856999a7824de3be8}{m\_num\_passes}} >= this-\/>\mbox{\hyperlink{structemsr_1_1error__tolerance__t_adf356eb664c86a75d70c85ebe1c3a30c}{m\_min\_num\_passes}};}
+\DoxyCodeLine{119         \}}
+
+\end{DoxyCode}
+
+
+References emsr\+::error\+\_\+tolerance\+\_\+t$<$ Tp $>$\+::m\+\_\+max\+\_\+abs\+\_\+err, emsr\+::error\+\_\+tolerance\+\_\+t$<$ Tp $>$\+::m\+\_\+max\+\_\+rel\+\_\+err, emsr\+::error\+\_\+tolerance\+\_\+t$<$ Tp $>$\+::m\+\_\+min\+\_\+num\+\_\+passes, and emsr\+::error\+\_\+tolerance\+\_\+t$<$ Tp $>$\+::m\+\_\+num\+\_\+passes.
+
+\mbox{\Hypertarget{structemsr_1_1error__tolerance__t_ad601079e51643f876ab56937e2808ea5}\label{structemsr_1_1error__tolerance__t_ad601079e51643f876ab56937e2808ea5}} 
+\index{emsr::error\_tolerance\_t$<$ Tp $>$@{emsr::error\_tolerance\_t$<$ Tp $>$}!tolerance@{tolerance}}
+\index{tolerance@{tolerance}!emsr::error\_tolerance\_t$<$ Tp $>$@{emsr::error\_tolerance\_t$<$ Tp $>$}}
+\doxysubsubsection{\texorpdfstring{tolerance()}{tolerance()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename Tp $>$ \\
+constexpr \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} \mbox{\hyperlink{structemsr_1_1error__tolerance__t}{emsr\+::error\+\_\+tolerance\+\_\+t}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$\+::tolerance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}}
+
+
+
+Return the current tolerance. 
+
+
+
+Definition at line 123 of file integration.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{124       \{ \textcolor{keywordflow}{return} this-\/>\mbox{\hyperlink{structemsr_1_1error__tolerance__t_a393871341bbdab1ed54285ed8421ff50}{m\_tolerance}}; \}}
+
+\end{DoxyCode}
+
+
+References emsr\+::error\+\_\+tolerance\+\_\+t$<$ Tp $>$\+::m\+\_\+tolerance.
+
+\mbox{\Hypertarget{structemsr_1_1error__tolerance__t_a14596b92f398784f9336178379eaae87}\label{structemsr_1_1error__tolerance__t_a14596b92f398784f9336178379eaae87}} 
+\index{emsr::error\_tolerance\_t$<$ Tp $>$@{emsr::error\_tolerance\_t$<$ Tp $>$}!tolerance@{tolerance}}
+\index{tolerance@{tolerance}!emsr::error\_tolerance\_t$<$ Tp $>$@{emsr::error\_tolerance\_t$<$ Tp $>$}}
+\doxysubsubsection{\texorpdfstring{tolerance()}{tolerance()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Tp $>$ \\
+template$<$typename Res\+Tp $>$ \\
+constexpr \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} \mbox{\hyperlink{structemsr_1_1error__tolerance__t}{emsr\+::error\+\_\+tolerance\+\_\+t}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$\+::tolerance (\begin{DoxyParamCaption}\item[{Res\+Tp}]{result }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}}
+
+
+
+Set and return the tolerance given an initial result. 
+
+
+
+Definition at line 98 of file integration.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{99         \{}
+\DoxyCodeLine{100           this-\/>\mbox{\hyperlink{structemsr_1_1error__tolerance__t_a393871341bbdab1ed54285ed8421ff50}{m\_tolerance}}}
+\DoxyCodeLine{101                   = std::max(this-\/>\mbox{\hyperlink{structemsr_1_1error__tolerance__t_aa1a3f5c1275db0dc44edb4746fd61157}{m\_max\_abs\_err}},}
+\DoxyCodeLine{102                              \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}(this-\/>\mbox{\hyperlink{structemsr_1_1error__tolerance__t_a0cf269fbea273149f17548ed78c13bd5}{m\_max\_rel\_err}} * std::abs(result)));}
+\DoxyCodeLine{103           \textcolor{keywordflow}{return} this-\/>\mbox{\hyperlink{structemsr_1_1error__tolerance__t_a393871341bbdab1ed54285ed8421ff50}{m\_tolerance}};}
+\DoxyCodeLine{104         \}}
+
+\end{DoxyCode}
+
+
+References emsr\+::error\+\_\+tolerance\+\_\+t$<$ Tp $>$\+::m\+\_\+tolerance, and Tp.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structemsr_1_1error__tolerance__t_aa1a3f5c1275db0dc44edb4746fd61157}\label{structemsr_1_1error__tolerance__t_aa1a3f5c1275db0dc44edb4746fd61157}} 
+\index{emsr::error\_tolerance\_t$<$ Tp $>$@{emsr::error\_tolerance\_t$<$ Tp $>$}!m\_max\_abs\_err@{m\_max\_abs\_err}}
+\index{m\_max\_abs\_err@{m\_max\_abs\_err}!emsr::error\_tolerance\_t$<$ Tp $>$@{emsr::error\_tolerance\_t$<$ Tp $>$}}
+\doxysubsubsection{\texorpdfstring{m\_max\_abs\_err}{m\_max\_abs\_err}}
+{\footnotesize\ttfamily template$<$typename Tp $>$ \\
+\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} \mbox{\hyperlink{structemsr_1_1error__tolerance__t}{emsr\+::error\+\_\+tolerance\+\_\+t}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$\+::m\+\_\+max\+\_\+abs\+\_\+err}
+
+
+
+Maximum absolute error tolerance. 
+
+
+
+Definition at line 85 of file integration.\+h.
+
+
+
+Referenced by emsr\+::error\+\_\+tolerance\+\_\+t$<$ Tp $>$\+::test().
+
+\mbox{\Hypertarget{structemsr_1_1error__tolerance__t_a0cf269fbea273149f17548ed78c13bd5}\label{structemsr_1_1error__tolerance__t_a0cf269fbea273149f17548ed78c13bd5}} 
+\index{emsr::error\_tolerance\_t$<$ Tp $>$@{emsr::error\_tolerance\_t$<$ Tp $>$}!m\_max\_rel\_err@{m\_max\_rel\_err}}
+\index{m\_max\_rel\_err@{m\_max\_rel\_err}!emsr::error\_tolerance\_t$<$ Tp $>$@{emsr::error\_tolerance\_t$<$ Tp $>$}}
+\doxysubsubsection{\texorpdfstring{m\_max\_rel\_err}{m\_max\_rel\_err}}
+{\footnotesize\ttfamily template$<$typename Tp $>$ \\
+\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} \mbox{\hyperlink{structemsr_1_1error__tolerance__t}{emsr\+::error\+\_\+tolerance\+\_\+t}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$\+::m\+\_\+max\+\_\+rel\+\_\+err}
+
+
+
+Maximum relative error tolerance. 
+
+
+
+Definition at line 87 of file integration.\+h.
+
+
+
+Referenced by emsr\+::error\+\_\+tolerance\+\_\+t$<$ Tp $>$\+::test().
+
+\mbox{\Hypertarget{structemsr_1_1error__tolerance__t_adf356eb664c86a75d70c85ebe1c3a30c}\label{structemsr_1_1error__tolerance__t_adf356eb664c86a75d70c85ebe1c3a30c}} 
+\index{emsr::error\_tolerance\_t$<$ Tp $>$@{emsr::error\_tolerance\_t$<$ Tp $>$}!m\_min\_num\_passes@{m\_min\_num\_passes}}
+\index{m\_min\_num\_passes@{m\_min\_num\_passes}!emsr::error\_tolerance\_t$<$ Tp $>$@{emsr::error\_tolerance\_t$<$ Tp $>$}}
+\doxysubsubsection{\texorpdfstring{m\_min\_num\_passes}{m\_min\_num\_passes}}
+{\footnotesize\ttfamily template$<$typename Tp $>$ \\
+unsigned \mbox{\hyperlink{structemsr_1_1error__tolerance__t}{emsr\+::error\+\_\+tolerance\+\_\+t}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$\+::m\+\_\+min\+\_\+num\+\_\+passes}
+
+
+
+Minimum number of consecutive passes before result is OK. 
+
+
+
+Definition at line 91 of file integration.\+h.
+
+
+
+Referenced by emsr\+::error\+\_\+tolerance\+\_\+t$<$ Tp $>$\+::test().
+
+\mbox{\Hypertarget{structemsr_1_1error__tolerance__t_a4d8ed410899da36856999a7824de3be8}\label{structemsr_1_1error__tolerance__t_a4d8ed410899da36856999a7824de3be8}} 
+\index{emsr::error\_tolerance\_t$<$ Tp $>$@{emsr::error\_tolerance\_t$<$ Tp $>$}!m\_num\_passes@{m\_num\_passes}}
+\index{m\_num\_passes@{m\_num\_passes}!emsr::error\_tolerance\_t$<$ Tp $>$@{emsr::error\_tolerance\_t$<$ Tp $>$}}
+\doxysubsubsection{\texorpdfstring{m\_num\_passes}{m\_num\_passes}}
+{\footnotesize\ttfamily template$<$typename Tp $>$ \\
+unsigned \mbox{\hyperlink{structemsr_1_1error__tolerance__t}{emsr\+::error\+\_\+tolerance\+\_\+t}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$\+::m\+\_\+num\+\_\+passes}
+
+
+
+Current number of passes. 
+
+
+
+Definition at line 93 of file integration.\+h.
+
+
+
+Referenced by emsr\+::error\+\_\+tolerance\+\_\+t$<$ Tp $>$\+::test().
+
+\mbox{\Hypertarget{structemsr_1_1error__tolerance__t_a393871341bbdab1ed54285ed8421ff50}\label{structemsr_1_1error__tolerance__t_a393871341bbdab1ed54285ed8421ff50}} 
+\index{emsr::error\_tolerance\_t$<$ Tp $>$@{emsr::error\_tolerance\_t$<$ Tp $>$}!m\_tolerance@{m\_tolerance}}
+\index{m\_tolerance@{m\_tolerance}!emsr::error\_tolerance\_t$<$ Tp $>$@{emsr::error\_tolerance\_t$<$ Tp $>$}}
+\doxysubsubsection{\texorpdfstring{m\_tolerance}{m\_tolerance}}
+{\footnotesize\ttfamily template$<$typename Tp $>$ \\
+\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} \mbox{\hyperlink{structemsr_1_1error__tolerance__t}{emsr\+::error\+\_\+tolerance\+\_\+t}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$\+::m\+\_\+tolerance = this-\/$>$\mbox{\hyperlink{structemsr_1_1error__tolerance__t_a14596b92f398784f9336178379eaae87}{tolerance}}(\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\})}
+
+
+
+Current tolerance. 
+
+
+
+Definition at line 89 of file integration.\+h.
+
+
+
+Referenced by emsr\+::error\+\_\+tolerance\+\_\+t$<$ Tp $>$\+::tolerance().
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/emsr/\mbox{\hyperlink{integration_8h}{integration.\+h}}\end{DoxyCompactItemize}

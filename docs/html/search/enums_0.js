@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['circular_5ffunction',['circular_function',['../struct____gnu__cxx_1_1oscillatory__integration__table.html#aea06e472bb9ff6c535cfdc6a84b14e96',1,'__gnu_cxx::oscillatory_integration_table']]]
+  ['circular_5ffunction_828',['circular_function',['../structemsr_1_1oscillatory__integration__table.html#afe1f539b0c7ba51f1cd4f9656a8cddcf',1,'emsr::oscillatory_integration_table']]]
 ];

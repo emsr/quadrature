@@ -1,0 +1,49 @@
+\hypertarget{structemsr_1_1cquad__interval__comp}{}\doxysection{emsr\+::cquad\+\_\+interval\+\_\+comp$<$ Tp, Ret\+Tp $>$ Struct Template Reference}
+\label{structemsr_1_1cquad__interval__comp}\index{emsr::cquad\_interval\_comp$<$ Tp, RetTp $>$@{emsr::cquad\_interval\_comp$<$ Tp, RetTp $>$}}
+
+
+{\ttfamily \#include $<$cquad\+\_\+workspace.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{structemsr_1_1cquad__interval__comp_a8aa4aad9cc31f986504a15a47eb93644}{operator()}} (const \mbox{\hyperlink{structemsr_1_1cquad__interval}{cquad\+\_\+interval}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$ \&ivl, const \mbox{\hyperlink{structemsr_1_1cquad__interval}{cquad\+\_\+interval}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$ \&ivr)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename Tp, typename Ret\+Tp$>$\newline
+struct emsr\+::cquad\+\_\+interval\+\_\+comp$<$ Tp, Ret\+Tp $>$}
+
+
+
+Definition at line 64 of file cquad\+\_\+workspace.\+h.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structemsr_1_1cquad__interval__comp_a8aa4aad9cc31f986504a15a47eb93644}\label{structemsr_1_1cquad__interval__comp_a8aa4aad9cc31f986504a15a47eb93644}} 
+\index{emsr::cquad\_interval\_comp$<$ Tp, RetTp $>$@{emsr::cquad\_interval\_comp$<$ Tp, RetTp $>$}!operator()@{operator()}}
+\index{operator()@{operator()}!emsr::cquad\_interval\_comp$<$ Tp, RetTp $>$@{emsr::cquad\_interval\_comp$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+bool \mbox{\hyperlink{structemsr_1_1cquad__interval__comp}{emsr\+::cquad\+\_\+interval\+\_\+comp}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::operator() (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structemsr_1_1cquad__interval}{cquad\+\_\+interval}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$ \&}]{ivl,  }\item[{const \mbox{\hyperlink{structemsr_1_1cquad__interval}{cquad\+\_\+interval}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$ \&}]{ivr }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 67 of file cquad\+\_\+workspace.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{69       \{ \textcolor{keywordflow}{return} ivl.m\_abs\_error < ivr.m\_abs\_error; \}}
+
+\end{DoxyCode}
+
+
+References emsr\+::cquad\+\_\+interval$<$ Tp, Ret\+Tp $>$\+::m\+\_\+abs\+\_\+error.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/emsr/\mbox{\hyperlink{cquad__workspace_8h}{cquad\+\_\+workspace.\+h}}\end{DoxyCompactItemize}

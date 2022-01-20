@@ -1,0 +1,161 @@
+\hypertarget{classemsr_1_1composite__simpson__integral}{}\doxysection{emsr\+::composite\+\_\+simpson\+\_\+integral$<$ Tp, Func\+Tp $>$ Class Template Reference}
+\label{classemsr_1_1composite__simpson__integral}\index{emsr::composite\_simpson\_integral$<$ Tp, FuncTp $>$@{emsr::composite\_simpson\_integral$<$ Tp, FuncTp $>$}}
+
+
+{\ttfamily \#include $<$simpson\+\_\+integral.\+h$>$}
+
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classemsr_1_1composite__simpson__integral_a795b8a8e7838af6d172826360869a3a7}{Abs\+Area\+Tp}} = decltype(std\+::abs(\mbox{\hyperlink{classemsr_1_1composite__simpson__integral_a9c8287e564ae72f84c0325a54526087e}{Area\+Tp}}\{\}))
+\item 
+using \mbox{\hyperlink{classemsr_1_1composite__simpson__integral_a9c8287e564ae72f84c0325a54526087e}{Area\+Tp}} = decltype(\mbox{\hyperlink{classemsr_1_1composite__simpson__integral_abeaf8a786946c436b26db81266eb23fa}{Ret\+Tp}}\{\} $\ast$\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{\})
+\item 
+using \mbox{\hyperlink{classemsr_1_1composite__simpson__integral_abeaf8a786946c436b26db81266eb23fa}{Ret\+Tp}} = std\+::invoke\+\_\+result\+\_\+t$<$ Func\+Tp, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classemsr_1_1composite__simpson__integral_a0f2314931a209e9fd1f7ca11a89b03e3}{composite\+\_\+simpson\+\_\+integral}} (Func\+Tp fun, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} a, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} b, std\+::size\+\_\+t num\+\_\+segs)
+\item 
+{\footnotesize template$<$typename Func\+Tp2 $>$ }\\\mbox{\hyperlink{structemsr_1_1fixed__integral__t}{fixed\+\_\+integral\+\_\+t}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, std\+::invoke\+\_\+result\+\_\+t$<$ Func\+Tp2, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$ $>$ \mbox{\hyperlink{classemsr_1_1composite__simpson__integral_ae20183343a37623359bdfdb89a907b21}{integrate}} (Func\+Tp2 fun, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} a, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} b)
+\item 
+\mbox{\hyperlink{classemsr_1_1composite__simpson__integral_a9c8287e564ae72f84c0325a54526087e}{Area\+Tp}} \mbox{\hyperlink{classemsr_1_1composite__simpson__integral_a78b4e381bd612194917fe6cc2be6b580}{operator()}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename Tp, typename Func\+Tp$>$\newline
+class emsr\+::composite\+\_\+simpson\+\_\+integral$<$ Tp, Func\+Tp $>$}
+
+
+
+Definition at line 34 of file simpson\+\_\+integral.\+h.
+
+
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classemsr_1_1composite__simpson__integral_a795b8a8e7838af6d172826360869a3a7}\label{classemsr_1_1composite__simpson__integral_a795b8a8e7838af6d172826360869a3a7}} 
+\index{emsr::composite\_simpson\_integral$<$ Tp, FuncTp $>$@{emsr::composite\_simpson\_integral$<$ Tp, FuncTp $>$}!AbsAreaTp@{AbsAreaTp}}
+\index{AbsAreaTp@{AbsAreaTp}!emsr::composite\_simpson\_integral$<$ Tp, FuncTp $>$@{emsr::composite\_simpson\_integral$<$ Tp, FuncTp $>$}}
+\doxysubsubsection{\texorpdfstring{AbsAreaTp}{AbsAreaTp}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Func\+Tp $>$ \\
+using \mbox{\hyperlink{classemsr_1_1composite__simpson__integral}{emsr\+::composite\+\_\+simpson\+\_\+integral}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Func\+Tp $>$\+::\mbox{\hyperlink{classemsr_1_1composite__simpson__integral_a795b8a8e7838af6d172826360869a3a7}{Abs\+Area\+Tp}} =  decltype(std\+::abs(\mbox{\hyperlink{classemsr_1_1composite__simpson__integral_a9c8287e564ae72f84c0325a54526087e}{Area\+Tp}}\{\}))}
+
+
+
+Definition at line 40 of file simpson\+\_\+integral.\+h.
+
+\mbox{\Hypertarget{classemsr_1_1composite__simpson__integral_a9c8287e564ae72f84c0325a54526087e}\label{classemsr_1_1composite__simpson__integral_a9c8287e564ae72f84c0325a54526087e}} 
+\index{emsr::composite\_simpson\_integral$<$ Tp, FuncTp $>$@{emsr::composite\_simpson\_integral$<$ Tp, FuncTp $>$}!AreaTp@{AreaTp}}
+\index{AreaTp@{AreaTp}!emsr::composite\_simpson\_integral$<$ Tp, FuncTp $>$@{emsr::composite\_simpson\_integral$<$ Tp, FuncTp $>$}}
+\doxysubsubsection{\texorpdfstring{AreaTp}{AreaTp}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Func\+Tp $>$ \\
+using \mbox{\hyperlink{classemsr_1_1composite__simpson__integral}{emsr\+::composite\+\_\+simpson\+\_\+integral}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Func\+Tp $>$\+::\mbox{\hyperlink{classemsr_1_1composite__simpson__integral_a9c8287e564ae72f84c0325a54526087e}{Area\+Tp}} =  decltype(\mbox{\hyperlink{classemsr_1_1composite__simpson__integral_abeaf8a786946c436b26db81266eb23fa}{Ret\+Tp}}\{\} $\ast$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{\})}
+
+
+
+Definition at line 39 of file simpson\+\_\+integral.\+h.
+
+\mbox{\Hypertarget{classemsr_1_1composite__simpson__integral_abeaf8a786946c436b26db81266eb23fa}\label{classemsr_1_1composite__simpson__integral_abeaf8a786946c436b26db81266eb23fa}} 
+\index{emsr::composite\_simpson\_integral$<$ Tp, FuncTp $>$@{emsr::composite\_simpson\_integral$<$ Tp, FuncTp $>$}!RetTp@{RetTp}}
+\index{RetTp@{RetTp}!emsr::composite\_simpson\_integral$<$ Tp, FuncTp $>$@{emsr::composite\_simpson\_integral$<$ Tp, FuncTp $>$}}
+\doxysubsubsection{\texorpdfstring{RetTp}{RetTp}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Func\+Tp $>$ \\
+using \mbox{\hyperlink{classemsr_1_1composite__simpson__integral}{emsr\+::composite\+\_\+simpson\+\_\+integral}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Func\+Tp $>$\+::\mbox{\hyperlink{classemsr_1_1composite__simpson__integral_abeaf8a786946c436b26db81266eb23fa}{Ret\+Tp}} =  std\+::invoke\+\_\+result\+\_\+t$<$Func\+Tp, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}$>$}
+
+
+
+Definition at line 38 of file simpson\+\_\+integral.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classemsr_1_1composite__simpson__integral_a0f2314931a209e9fd1f7ca11a89b03e3}\label{classemsr_1_1composite__simpson__integral_a0f2314931a209e9fd1f7ca11a89b03e3}} 
+\index{emsr::composite\_simpson\_integral$<$ Tp, FuncTp $>$@{emsr::composite\_simpson\_integral$<$ Tp, FuncTp $>$}!composite\_simpson\_integral@{composite\_simpson\_integral}}
+\index{composite\_simpson\_integral@{composite\_simpson\_integral}!emsr::composite\_simpson\_integral$<$ Tp, FuncTp $>$@{emsr::composite\_simpson\_integral$<$ Tp, FuncTp $>$}}
+\doxysubsubsection{\texorpdfstring{composite\_simpson\_integral()}{composite\_simpson\_integral()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Func\+Tp $>$ \\
+\mbox{\hyperlink{classemsr_1_1composite__simpson__integral}{emsr\+::composite\+\_\+simpson\+\_\+integral}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Func\+Tp $>$\+::\mbox{\hyperlink{classemsr_1_1composite__simpson__integral}{composite\+\_\+simpson\+\_\+integral}} (\begin{DoxyParamCaption}\item[{Func\+Tp}]{fun,  }\item[{\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}}]{a,  }\item[{\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}}]{b,  }\item[{std\+::size\+\_\+t}]{num\+\_\+segs }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 42 of file simpson\+\_\+integral.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{44       : m\_fun(fun), m\_lower\_lim(a), m\_upper\_lim(b),}
+\DoxyCodeLine{45         m\_num\_segs(num\_segs), m\_result()}
+\DoxyCodeLine{46       \{ \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classemsr_1_1composite__simpson__integral_ae20183343a37623359bdfdb89a907b21}\label{classemsr_1_1composite__simpson__integral_ae20183343a37623359bdfdb89a907b21}} 
+\index{emsr::composite\_simpson\_integral$<$ Tp, FuncTp $>$@{emsr::composite\_simpson\_integral$<$ Tp, FuncTp $>$}!integrate@{integrate}}
+\index{integrate@{integrate}!emsr::composite\_simpson\_integral$<$ Tp, FuncTp $>$@{emsr::composite\_simpson\_integral$<$ Tp, FuncTp $>$}}
+\doxysubsubsection{\texorpdfstring{integrate()}{integrate()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Func\+Tp $>$ \\
+template$<$typename Func\+Tp2 $>$ \\
+\mbox{\hyperlink{structemsr_1_1fixed__integral__t}{fixed\+\_\+integral\+\_\+t}}$<$\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, std\+::invoke\+\_\+result\+\_\+t$<$Func\+Tp2, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}$>$ $>$ \mbox{\hyperlink{classemsr_1_1composite__simpson__integral}{emsr\+::composite\+\_\+simpson\+\_\+integral}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Func\+Tp $>$\+::integrate (\begin{DoxyParamCaption}\item[{Func\+Tp2}]{fun,  }\item[{\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}}]{a,  }\item[{\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 52 of file simpson\+\_\+integral.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{53         \{}
+\DoxyCodeLine{54           composite\_simpson\_integral<FuncTp2, Tp>}
+\DoxyCodeLine{55             trapi(fun, a, b, this-\/>m\_num\_segments);}
+\DoxyCodeLine{56           \textcolor{keywordflow}{return} \{trapi()\};}
+\DoxyCodeLine{57         \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classemsr_1_1composite__simpson__integral_a78b4e381bd612194917fe6cc2be6b580}\label{classemsr_1_1composite__simpson__integral_a78b4e381bd612194917fe6cc2be6b580}} 
+\index{emsr::composite\_simpson\_integral$<$ Tp, FuncTp $>$@{emsr::composite\_simpson\_integral$<$ Tp, FuncTp $>$}!operator()@{operator()}}
+\index{operator()@{operator()}!emsr::composite\_simpson\_integral$<$ Tp, FuncTp $>$@{emsr::composite\_simpson\_integral$<$ Tp, FuncTp $>$}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Func\+Tp $>$ \\
+\mbox{\hyperlink{classemsr_1_1composite__simpson__integral}{composite\+\_\+simpson\+\_\+integral}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Func\+Tp $>$\+::\mbox{\hyperlink{classemsr_1_1composite__simpson__integral_a9c8287e564ae72f84c0325a54526087e}{Area\+Tp}} \mbox{\hyperlink{classemsr_1_1composite__simpson__integral}{emsr\+::composite\+\_\+simpson\+\_\+integral}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Func\+Tp $>$\+::operator()}
+
+Integrate the function by naive subdivision. 
+
+Definition at line 33 of file simpson\+\_\+integral.\+tcc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{34     \{}
+\DoxyCodeLine{35       \textcolor{keyword}{const} \textcolor{keyword}{auto} delta = (this-\/>m\_upper\_lim -\/ this-\/>m\_lower\_lim)}
+\DoxyCodeLine{36                            / this-\/>m\_num\_segs / 2;}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38       \textcolor{keyword}{auto} x = this-\/>m\_lower\_lim;}
+\DoxyCodeLine{39       \textcolor{keyword}{auto} sum = this-\/>m\_fun(x);}
+\DoxyCodeLine{40       x += delta;}
+\DoxyCodeLine{41       sum += \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\} * this-\/>m\_fun(x);}
+\DoxyCodeLine{42       \textcolor{keywordflow}{for} (std::size\_t j = 1; j < this-\/>m\_num\_segs; ++j)}
+\DoxyCodeLine{43         \{}
+\DoxyCodeLine{44           x += delta;}
+\DoxyCodeLine{45           sum += \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{4\} * this-\/>m\_fun(x);}
+\DoxyCodeLine{46           x += delta;}
+\DoxyCodeLine{47           sum += \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\} * this-\/>m\_fun(x);}
+\DoxyCodeLine{48         \}}
+\DoxyCodeLine{49       sum += this-\/>m\_fun(this-\/>m\_upper\_lim);}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51       this-\/>m\_result = sum * delta / \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{6\};}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53       \textcolor{keywordflow}{return} this-\/>m\_result;}
+\DoxyCodeLine{54     \}}
+
+\end{DoxyCode}
+
+
+References Tp.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/emsr/\mbox{\hyperlink{simpson__integral_8h}{simpson\+\_\+integral.\+h}}\item 
+include/emsr/\mbox{\hyperlink{simpson__integral_8tcc}{simpson\+\_\+integral.\+tcc}}\end{DoxyCompactItemize}

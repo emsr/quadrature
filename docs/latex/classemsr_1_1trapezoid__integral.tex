@@ -1,0 +1,207 @@
+\hypertarget{classemsr_1_1trapezoid__integral}{}\doxysection{emsr\+::trapezoid\+\_\+integral$<$ Tp, Func\+Tp $>$ Class Template Reference}
+\label{classemsr_1_1trapezoid__integral}\index{emsr::trapezoid\_integral$<$ Tp, FuncTp $>$@{emsr::trapezoid\_integral$<$ Tp, FuncTp $>$}}
+
+
+{\ttfamily \#include $<$trapezoid\+\_\+integral.\+h$>$}
+
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classemsr_1_1trapezoid__integral_af253ea136a242a1985a76be818e0eadd}{Abs\+Area\+Tp}} = decltype(std\+::abs(\mbox{\hyperlink{classemsr_1_1trapezoid__integral_a678707e18e042ab69a0466b1288cc4e0}{Area\+Tp}}\{\}))
+\item 
+using \mbox{\hyperlink{classemsr_1_1trapezoid__integral_a678707e18e042ab69a0466b1288cc4e0}{Area\+Tp}} = decltype(\mbox{\hyperlink{classemsr_1_1trapezoid__integral_ac8061e701c05aa8364c21d1c70db290f}{Ret\+Tp}}\{\} $\ast$\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{\})
+\item 
+using \mbox{\hyperlink{classemsr_1_1trapezoid__integral_ac8061e701c05aa8364c21d1c70db290f}{Ret\+Tp}} = std\+::invoke\+\_\+result\+\_\+t$<$ Func\+Tp, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classemsr_1_1trapezoid__integral_a9c620cbfc1c201c1202e2be598d39d80}{trapezoid\+\_\+integral}} (Func\+Tp fun, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} a, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} b, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} abs\+\_\+tol, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} rel\+\_\+tol)
+\item 
+\mbox{\hyperlink{classemsr_1_1trapezoid__integral_af253ea136a242a1985a76be818e0eadd}{Abs\+Area\+Tp}} \mbox{\hyperlink{classemsr_1_1trapezoid__integral_afb0b8ebc06c6d6232c2aca42ce7d04fd}{abs\+\_\+error}} () const
+\item 
+{\footnotesize template$<$typename Func\+Tp2 $>$ }\\\mbox{\hyperlink{structemsr_1_1adaptive__integral__t}{adaptive\+\_\+integral\+\_\+t}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, std\+::invoke\+\_\+result\+\_\+t$<$ Func\+Tp2, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$ $>$ \mbox{\hyperlink{classemsr_1_1trapezoid__integral_a2b2b574b9fedba67ba28c4ef5e457245}{integrate}} (Func\+Tp2 fun, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} a, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} b)
+\item 
+\mbox{\hyperlink{classemsr_1_1trapezoid__integral_a678707e18e042ab69a0466b1288cc4e0}{Area\+Tp}} \mbox{\hyperlink{classemsr_1_1trapezoid__integral_a99cc2480c9d721da599e252aeab9c7ce}{operator()}} ()
+\item 
+{\footnotesize template$<$typename Func\+Tp2 $>$ }\\\mbox{\hyperlink{structemsr_1_1adaptive__integral__t}{adaptive\+\_\+integral\+\_\+t}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, std\+::invoke\+\_\+result\+\_\+t$<$ Func\+Tp2, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$ $>$ \mbox{\hyperlink{classemsr_1_1trapezoid__integral_a802d0933533e9b2d6edae500d889c461}{operator()}} (Func\+Tp2 fun, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} a, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} b)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename Tp, typename Func\+Tp$>$\newline
+class emsr\+::trapezoid\+\_\+integral$<$ Tp, Func\+Tp $>$}
+
+A globally adaptive recursive trapezoid integrator. 
+
+Definition at line 73 of file trapezoid\+\_\+integral.\+h.
+
+
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classemsr_1_1trapezoid__integral_af253ea136a242a1985a76be818e0eadd}\label{classemsr_1_1trapezoid__integral_af253ea136a242a1985a76be818e0eadd}} 
+\index{emsr::trapezoid\_integral$<$ Tp, FuncTp $>$@{emsr::trapezoid\_integral$<$ Tp, FuncTp $>$}!AbsAreaTp@{AbsAreaTp}}
+\index{AbsAreaTp@{AbsAreaTp}!emsr::trapezoid\_integral$<$ Tp, FuncTp $>$@{emsr::trapezoid\_integral$<$ Tp, FuncTp $>$}}
+\doxysubsubsection{\texorpdfstring{AbsAreaTp}{AbsAreaTp}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Func\+Tp $>$ \\
+using \mbox{\hyperlink{classemsr_1_1trapezoid__integral}{emsr\+::trapezoid\+\_\+integral}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Func\+Tp $>$\+::\mbox{\hyperlink{classemsr_1_1trapezoid__integral_af253ea136a242a1985a76be818e0eadd}{Abs\+Area\+Tp}} =  decltype(std\+::abs(\mbox{\hyperlink{classemsr_1_1trapezoid__integral_a678707e18e042ab69a0466b1288cc4e0}{Area\+Tp}}\{\}))}
+
+
+
+Definition at line 79 of file trapezoid\+\_\+integral.\+h.
+
+\mbox{\Hypertarget{classemsr_1_1trapezoid__integral_a678707e18e042ab69a0466b1288cc4e0}\label{classemsr_1_1trapezoid__integral_a678707e18e042ab69a0466b1288cc4e0}} 
+\index{emsr::trapezoid\_integral$<$ Tp, FuncTp $>$@{emsr::trapezoid\_integral$<$ Tp, FuncTp $>$}!AreaTp@{AreaTp}}
+\index{AreaTp@{AreaTp}!emsr::trapezoid\_integral$<$ Tp, FuncTp $>$@{emsr::trapezoid\_integral$<$ Tp, FuncTp $>$}}
+\doxysubsubsection{\texorpdfstring{AreaTp}{AreaTp}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Func\+Tp $>$ \\
+using \mbox{\hyperlink{classemsr_1_1trapezoid__integral}{emsr\+::trapezoid\+\_\+integral}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Func\+Tp $>$\+::\mbox{\hyperlink{classemsr_1_1trapezoid__integral_a678707e18e042ab69a0466b1288cc4e0}{Area\+Tp}} =  decltype(\mbox{\hyperlink{classemsr_1_1trapezoid__integral_ac8061e701c05aa8364c21d1c70db290f}{Ret\+Tp}}\{\} $\ast$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{\})}
+
+
+
+Definition at line 78 of file trapezoid\+\_\+integral.\+h.
+
+\mbox{\Hypertarget{classemsr_1_1trapezoid__integral_ac8061e701c05aa8364c21d1c70db290f}\label{classemsr_1_1trapezoid__integral_ac8061e701c05aa8364c21d1c70db290f}} 
+\index{emsr::trapezoid\_integral$<$ Tp, FuncTp $>$@{emsr::trapezoid\_integral$<$ Tp, FuncTp $>$}!RetTp@{RetTp}}
+\index{RetTp@{RetTp}!emsr::trapezoid\_integral$<$ Tp, FuncTp $>$@{emsr::trapezoid\_integral$<$ Tp, FuncTp $>$}}
+\doxysubsubsection{\texorpdfstring{RetTp}{RetTp}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Func\+Tp $>$ \\
+using \mbox{\hyperlink{classemsr_1_1trapezoid__integral}{emsr\+::trapezoid\+\_\+integral}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Func\+Tp $>$\+::\mbox{\hyperlink{classemsr_1_1trapezoid__integral_ac8061e701c05aa8364c21d1c70db290f}{Ret\+Tp}} =  std\+::invoke\+\_\+result\+\_\+t$<$Func\+Tp, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}$>$}
+
+
+
+Definition at line 77 of file trapezoid\+\_\+integral.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classemsr_1_1trapezoid__integral_a9c620cbfc1c201c1202e2be598d39d80}\label{classemsr_1_1trapezoid__integral_a9c620cbfc1c201c1202e2be598d39d80}} 
+\index{emsr::trapezoid\_integral$<$ Tp, FuncTp $>$@{emsr::trapezoid\_integral$<$ Tp, FuncTp $>$}!trapezoid\_integral@{trapezoid\_integral}}
+\index{trapezoid\_integral@{trapezoid\_integral}!emsr::trapezoid\_integral$<$ Tp, FuncTp $>$@{emsr::trapezoid\_integral$<$ Tp, FuncTp $>$}}
+\doxysubsubsection{\texorpdfstring{trapezoid\_integral()}{trapezoid\_integral()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Func\+Tp $>$ \\
+\mbox{\hyperlink{classemsr_1_1trapezoid__integral}{emsr\+::trapezoid\+\_\+integral}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Func\+Tp $>$\+::\mbox{\hyperlink{classemsr_1_1trapezoid__integral}{trapezoid\+\_\+integral}} (\begin{DoxyParamCaption}\item[{Func\+Tp}]{fun,  }\item[{\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}}]{a,  }\item[{\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}}]{b,  }\item[{\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}}]{abs\+\_\+tol,  }\item[{\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}}]{rel\+\_\+tol }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 81 of file trapezoid\+\_\+integral.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{83       : m\_fun(fun), m\_lower\_lim(a), m\_upper\_lim(b),}
+\DoxyCodeLine{84         m\_abs\_tol(std::abs(abs\_tol)), m\_rel\_tol(std::abs(rel\_tol)),}
+\DoxyCodeLine{85         m\_result(), m\_abs\_error()}
+\DoxyCodeLine{86       \{ \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classemsr_1_1trapezoid__integral_afb0b8ebc06c6d6232c2aca42ce7d04fd}\label{classemsr_1_1trapezoid__integral_afb0b8ebc06c6d6232c2aca42ce7d04fd}} 
+\index{emsr::trapezoid\_integral$<$ Tp, FuncTp $>$@{emsr::trapezoid\_integral$<$ Tp, FuncTp $>$}!abs\_error@{abs\_error}}
+\index{abs\_error@{abs\_error}!emsr::trapezoid\_integral$<$ Tp, FuncTp $>$@{emsr::trapezoid\_integral$<$ Tp, FuncTp $>$}}
+\doxysubsubsection{\texorpdfstring{abs\_error()}{abs\_error()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Func\+Tp $>$ \\
+\mbox{\hyperlink{classemsr_1_1trapezoid__integral_af253ea136a242a1985a76be818e0eadd}{Abs\+Area\+Tp}} \mbox{\hyperlink{classemsr_1_1trapezoid__integral}{emsr\+::trapezoid\+\_\+integral}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Func\+Tp $>$\+::abs\+\_\+error (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 90 of file trapezoid\+\_\+integral.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{91       \{ \textcolor{keywordflow}{return} this-\/>m\_abs\_error; \}}
+
+\end{DoxyCode}
+
+
+Referenced by emsr\+::trapezoid\+\_\+integral$<$ Tp, Func\+Tp $>$\+::integrate(), and emsr\+::integrate\+\_\+trapezoid().
+
+\mbox{\Hypertarget{classemsr_1_1trapezoid__integral_a2b2b574b9fedba67ba28c4ef5e457245}\label{classemsr_1_1trapezoid__integral_a2b2b574b9fedba67ba28c4ef5e457245}} 
+\index{emsr::trapezoid\_integral$<$ Tp, FuncTp $>$@{emsr::trapezoid\_integral$<$ Tp, FuncTp $>$}!integrate@{integrate}}
+\index{integrate@{integrate}!emsr::trapezoid\_integral$<$ Tp, FuncTp $>$@{emsr::trapezoid\_integral$<$ Tp, FuncTp $>$}}
+\doxysubsubsection{\texorpdfstring{integrate()}{integrate()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Func\+Tp $>$ \\
+template$<$typename Func\+Tp2 $>$ \\
+\mbox{\hyperlink{structemsr_1_1adaptive__integral__t}{adaptive\+\_\+integral\+\_\+t}}$<$\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, std\+::invoke\+\_\+result\+\_\+t$<$Func\+Tp2, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}$>$ $>$ \mbox{\hyperlink{classemsr_1_1trapezoid__integral}{emsr\+::trapezoid\+\_\+integral}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Func\+Tp $>$\+::integrate (\begin{DoxyParamCaption}\item[{Func\+Tp2}]{fun,  }\item[{\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}}]{a,  }\item[{\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 95 of file trapezoid\+\_\+integral.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{96         \{}
+\DoxyCodeLine{97           trapezoid\_integral<FuncTp2, Tp>}
+\DoxyCodeLine{98             trapi(fun, a, b,}
+\DoxyCodeLine{99                     this-\/>m\_abs\_tol, this-\/>m\_rel\_tol);}
+\DoxyCodeLine{100           \textcolor{keywordflow}{return} \{trapi(), trapi.abs\_error() \};}
+\DoxyCodeLine{101         \}}
+
+\end{DoxyCode}
+
+
+References emsr\+::trapezoid\+\_\+integral$<$ Tp, Func\+Tp $>$\+::abs\+\_\+error().
+
+
+
+Referenced by emsr\+::trapezoid\+\_\+integral$<$ Tp, Func\+Tp $>$\+::operator()().
+
+\mbox{\Hypertarget{classemsr_1_1trapezoid__integral_a99cc2480c9d721da599e252aeab9c7ce}\label{classemsr_1_1trapezoid__integral_a99cc2480c9d721da599e252aeab9c7ce}} 
+\index{emsr::trapezoid\_integral$<$ Tp, FuncTp $>$@{emsr::trapezoid\_integral$<$ Tp, FuncTp $>$}!operator()@{operator()}}
+\index{operator()@{operator()}!emsr::trapezoid\_integral$<$ Tp, FuncTp $>$@{emsr::trapezoid\_integral$<$ Tp, FuncTp $>$}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Func\+Tp $>$ \\
+\mbox{\hyperlink{classemsr_1_1trapezoid__integral}{trapezoid\+\_\+integral}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Func\+Tp $>$\+::\mbox{\hyperlink{classemsr_1_1trapezoid__integral_a678707e18e042ab69a0466b1288cc4e0}{Area\+Tp}} \mbox{\hyperlink{classemsr_1_1trapezoid__integral}{emsr\+::trapezoid\+\_\+integral}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Func\+Tp $>$\+::operator()}
+
+Integrate the function by globally adaptive binary subdivision. 
+
+Definition at line 54 of file trapezoid\+\_\+integral.\+tcc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{55     \{}
+\DoxyCodeLine{56       \textcolor{keyword}{auto} sum\_prev = this-\/>m\_step();}
+\DoxyCodeLine{57       \textcolor{keywordflow}{for} (std::size\_t j = 1; j < s\_max\_iter; ++j)}
+\DoxyCodeLine{58         \{}
+\DoxyCodeLine{59           \textcolor{keyword}{const} \textcolor{keyword}{auto} sum = this-\/>m\_step();}
+\DoxyCodeLine{60           this-\/>m\_abs\_error = std::abs(sum -\/ sum\_prev);}
+\DoxyCodeLine{61           \textcolor{keywordflow}{if} (this-\/>m\_abs\_error < this-\/>m\_rel\_tol * std::abs(sum))}
+\DoxyCodeLine{62             \textcolor{keywordflow}{return} sum;}
+\DoxyCodeLine{63           \textcolor{keywordflow}{if} (j > 6}
+\DoxyCodeLine{64               \&\& std::abs(sum) < this-\/>m\_rel\_tol}
+\DoxyCodeLine{65               \&\& std::abs(sum\_prev) < this-\/>m\_rel\_tol )}
+\DoxyCodeLine{66             \textcolor{keywordflow}{return} sum;}
+\DoxyCodeLine{67           sum\_prev = sum;}
+\DoxyCodeLine{68         \}}
+\DoxyCodeLine{69       \textcolor{keywordflow}{return} sum\_prev;}
+\DoxyCodeLine{70     \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classemsr_1_1trapezoid__integral_a802d0933533e9b2d6edae500d889c461}\label{classemsr_1_1trapezoid__integral_a802d0933533e9b2d6edae500d889c461}} 
+\index{emsr::trapezoid\_integral$<$ Tp, FuncTp $>$@{emsr::trapezoid\_integral$<$ Tp, FuncTp $>$}!operator()@{operator()}}
+\index{operator()@{operator()}!emsr::trapezoid\_integral$<$ Tp, FuncTp $>$@{emsr::trapezoid\_integral$<$ Tp, FuncTp $>$}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Func\+Tp $>$ \\
+template$<$typename Func\+Tp2 $>$ \\
+\mbox{\hyperlink{structemsr_1_1adaptive__integral__t}{adaptive\+\_\+integral\+\_\+t}}$<$\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, std\+::invoke\+\_\+result\+\_\+t$<$Func\+Tp2, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}$>$ $>$ \mbox{\hyperlink{classemsr_1_1trapezoid__integral}{emsr\+::trapezoid\+\_\+integral}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Func\+Tp $>$\+::operator() (\begin{DoxyParamCaption}\item[{Func\+Tp2}]{fun,  }\item[{\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}}]{a,  }\item[{\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 105 of file trapezoid\+\_\+integral.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{106         \{ \textcolor{keywordflow}{return} this-\/>\mbox{\hyperlink{classemsr_1_1trapezoid__integral_a2b2b574b9fedba67ba28c4ef5e457245}{integrate}}(fun, a, b); \}}
+
+\end{DoxyCode}
+
+
+References emsr\+::trapezoid\+\_\+integral$<$ Tp, Func\+Tp $>$\+::integrate().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/emsr/\mbox{\hyperlink{trapezoid__integral_8h}{trapezoid\+\_\+integral.\+h}}\item 
+include/emsr/\mbox{\hyperlink{trapezoid__integral_8tcc}{trapezoid\+\_\+integral.\+tcc}}\end{DoxyCompactItemize}

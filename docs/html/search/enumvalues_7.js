@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['singular_5ferror',['SINGULAR_ERROR',['../namespace____gnu__cxx.html#ad6c62dd86a596716cece6ac2d4cfd4b3a8e955ea89d59c116d92f16f345620d04',1,'__gnu_cxx']]]
+  ['singular_5ferror_870',['SINGULAR_ERROR',['../namespaceemsr.html#abaa96e35b6f30ef1ce4924b479d4eee6affdd20e2cd41b41a792d689d67653ac3',1,'emsr']]]
 ];

@@ -1,14 +1,14 @@
 var cquad__const_8tcc =
 [
     [ "CQUAD_CONST_TCC", "cquad__const_8tcc.html#add45880010d7c8e58bc44b322ebb55c7", null ],
-    [ "bee", "cquad__const_8tcc.html#aad4f17907300687377704d1e628e1d70", null ],
-    [ "Lalpha", "cquad__const_8tcc.html#a6a28a325aceb8d1e4e70d68b1cdeb156", null ],
-    [ "Lgamma", "cquad__const_8tcc.html#a8148a5d125951ff217becb9212005bea", null ],
-    [ "Tleft", "cquad__const_8tcc.html#a7e499d0005aca8d0d6dd4eb30c0bc008", null ],
-    [ "Tright", "cquad__const_8tcc.html#aa35b50708b727cd96920850c90482637", null ],
-    [ "V1inv", "cquad__const_8tcc.html#abac562ad4a226ad8799434617959af3d", null ],
-    [ "V2inv", "cquad__const_8tcc.html#aa4b649154290c645f634d501d63fac0f", null ],
-    [ "V3inv", "cquad__const_8tcc.html#ac23b44065db55792c4f65364f34ee956", null ],
-    [ "V4inv", "cquad__const_8tcc.html#a19b55e8c50f41d9d0a5618653f960f5c", null ],
-    [ "xi", "cquad__const_8tcc.html#a8a912ee89c90a7e5049ce5ffad04274b", null ]
+    [ "bee", "cquad__const_8tcc.html#a35366b30418d657572bcac8f20df0f24", null ],
+    [ "Lalpha", "cquad__const_8tcc.html#a0a63c86f921e1b6e07bff10c6e3d4673", null ],
+    [ "Lgamma", "cquad__const_8tcc.html#a628ab1358a8a43ff3e35494460b07149", null ],
+    [ "Tleft", "cquad__const_8tcc.html#a2ed8eee257ea1aceb6379dce353dd469", null ],
+    [ "Tright", "cquad__const_8tcc.html#aacd4e5707c5e946c38f49e2f40a9ff5c", null ],
+    [ "V1inv", "cquad__const_8tcc.html#a6551d3a85c56732ed3284883b5de6d9e", null ],
+    [ "V2inv", "cquad__const_8tcc.html#a2498a74ea788196e039654fe62c832b7", null ],
+    [ "V3inv", "cquad__const_8tcc.html#af5e102576f885c1c3fa1d69e100565e0", null ],
+    [ "V4inv", "cquad__const_8tcc.html#afeb11059d48dd6d047f9c9b27c8cf8d6", null ],
+    [ "xi", "cquad__const_8tcc.html#ac3003275f007087abd123e22a56cfcf6", null ]
 ];

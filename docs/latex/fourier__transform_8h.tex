@@ -1,49 +1,48 @@
-\hypertarget{fourier__transform_8h}{}\section{include/ext/fourier\+\_\+transform.h File Reference}
-\label{fourier__transform_8h}\index{include/ext/fourier\+\_\+transform.\+h@{include/ext/fourier\+\_\+transform.\+h}}
+\hypertarget{fourier__transform_8h}{}\doxysection{include/emsr/fourier\+\_\+transform.h File Reference}
+\label{fourier__transform_8h}\index{include/emsr/fourier\_transform.h@{include/emsr/fourier\_transform.h}}
 {\ttfamily \#include $<$complex$>$}\newline
 {\ttfamily \#include $<$vector$>$}\newline
-{\ttfamily \#include $<$ext/math\+\_\+constants.\+h$>$}\newline
-{\ttfamily \#include $<$ext/fourier\+\_\+transform.\+tcc$>$}\newline
+{\ttfamily \#include $<$emsr/fourier\+\_\+transform.\+tcc$>$}\newline
 Include dependency graph for fourier\+\_\+transform.\+h\+:
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{fourier__transform_8h__incl}
+\includegraphics[width=308pt]{fourier__transform_8h__incl}
 \end{center}
 \end{figure}
-\subsection*{Classes}
+\doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
-class \hyperlink{class____gnu__cxx_1_1____phase__iterator}{\+\_\+\+\_\+gnu\+\_\+cxx\+::\+\_\+\+\_\+phase\+\_\+iterator$<$ \+\_\+\+Tp $>$}
+class \mbox{\hyperlink{classemsr_1_1fourier__transform__t}{emsr\+::fourier\+\_\+transform\+\_\+t$<$ Tp $>$}}
 \item 
-class \hyperlink{class____gnu__cxx_1_1fourier__transform__t}{\+\_\+\+\_\+gnu\+\_\+cxx\+::fourier\+\_\+transform\+\_\+t$<$ \+\_\+\+Tp $>$}
+class \mbox{\hyperlink{classemsr_1_1fourier__transform__t_3_01std_1_1complex_3_01Tp_01_4_01_4}{emsr\+::fourier\+\_\+transform\+\_\+t$<$ std\+::complex$<$ Tp $>$ $>$}}
 \item 
-class \hyperlink{class____gnu__cxx_1_1fourier__transform__t_3_01std_1_1complex_3_01__Tp_01_4_01_4}{\+\_\+\+\_\+gnu\+\_\+cxx\+::fourier\+\_\+transform\+\_\+t$<$ std\+::complex$<$ \+\_\+\+Tp $>$ $>$}
+class \mbox{\hyperlink{classemsr_1_1phase__iterator}{emsr\+::phase\+\_\+iterator$<$ Tp $>$}}
 \end{DoxyCompactItemize}
-\subsection*{Namespaces}
+\doxysubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
- \hyperlink{namespace____gnu__cxx}{\+\_\+\+\_\+gnu\+\_\+cxx}
+ \mbox{\hyperlink{namespaceemsr}{emsr}}
 \end{DoxyCompactItemize}
-\subsection*{Functions}
+\doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$typename \+\_\+\+Tp $>$ }\\void \hyperlink{namespace____gnu__cxx_a6dff31b609fa2f8678c729d557dbae49}{\+\_\+\+\_\+gnu\+\_\+cxx\+::\+\_\+\+\_\+discrete\+\_\+fourier\+\_\+transform} (bool \+\_\+\+\_\+do\+\_\+forward, std\+::vector$<$ std\+::complex$<$ \+\_\+\+Tp $>$$>$ \&\+\_\+\+\_\+z)
+{\footnotesize template$<$typename Tp $>$ }\\void \mbox{\hyperlink{namespaceemsr_a6d214674e0f0a97431252c6f7774c2d2}{emsr\+::discrete\+\_\+fourier\+\_\+transform}} (bool do\+\_\+forward, std\+::vector$<$ std\+::complex$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$$>$ \&z)
 \item 
-{\footnotesize template$<$typename \+\_\+\+Tp $>$ }\\void \hyperlink{namespace____gnu__cxx_a64fbc0765e55d7466a21baa9f652362e}{\+\_\+\+\_\+gnu\+\_\+cxx\+::fast\+\_\+fourier\+\_\+transform} (std\+::vector$<$ std\+::complex$<$ \+\_\+\+Tp $>$$>$ \&\+\_\+\+\_\+z)
+{\footnotesize template$<$typename Cmplx\+Iter $>$ }\\void \mbox{\hyperlink{namespaceemsr_a46477280c3e50f2030980ee67021563a}{emsr\+::fast\+\_\+fourier\+\_\+transform}} (const Cmplx\+Iter \&from, const Cmplx\+Iter \&to)
 \item 
-{\footnotesize template$<$typename \+\_\+\+Tp $>$ }\\void \hyperlink{namespace____gnu__cxx_ae6b377214391002ca75ca712823fd45c}{\+\_\+\+\_\+gnu\+\_\+cxx\+::fast\+\_\+fourier\+\_\+transform} (std\+::vector$<$ \+\_\+\+Tp $>$ \&\+\_\+\+\_\+x)
+{\footnotesize template$<$typename Tp $>$ }\\void \mbox{\hyperlink{namespaceemsr_a21a5616f82ab27740a356502f30d7f5c}{emsr\+::fast\+\_\+fourier\+\_\+transform}} (std\+::vector$<$ std\+::complex$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$$>$ \&z)
 \item 
-{\footnotesize template$<$typename \+\_\+\+Cmplx\+Iter $>$ }\\void \hyperlink{namespace____gnu__cxx_a8e1dab366323a810c9915329b520aa5a}{\+\_\+\+\_\+gnu\+\_\+cxx\+::fast\+\_\+fourier\+\_\+transform} (const \+\_\+\+Cmplx\+Iter \&\+\_\+\+\_\+from, const \+\_\+\+Cmplx\+Iter \&\+\_\+\+\_\+to)
+{\footnotesize template$<$typename Tp $>$ }\\void \mbox{\hyperlink{namespaceemsr_a97d70c270cd3edc86cae06066f7be627}{emsr\+::fast\+\_\+fourier\+\_\+transform}} (std\+::vector$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$ \&x)
 \item 
-{\footnotesize template$<$typename \+\_\+\+Tp $>$ }\\void \hyperlink{namespace____gnu__cxx_a97f96274ac4998cf6a7c37fcb48c9bff}{\+\_\+\+\_\+gnu\+\_\+cxx\+::fast\+\_\+sine\+\_\+transform} (std\+::vector$<$ \+\_\+\+Tp $>$ \&\+\_\+\+\_\+x)
+{\footnotesize template$<$typename Tp $>$ }\\void \mbox{\hyperlink{namespaceemsr_a0326d2943aad38911efc741e8bfa3da3}{emsr\+::fast\+\_\+sine\+\_\+transform}} (std\+::vector$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$ \&x)
 \item 
-{\footnotesize template$<$typename \+\_\+\+Tp $>$ }\\void \hyperlink{namespace____gnu__cxx_a96b56c927599a614656027d3ab4b82ac}{\+\_\+\+\_\+gnu\+\_\+cxx\+::inv\+\_\+fast\+\_\+fourier\+\_\+transform} (std\+::vector$<$ std\+::complex$<$ \+\_\+\+Tp $>$$>$ \&\+\_\+\+\_\+z)
+{\footnotesize template$<$typename Cmplx\+Iter $>$ }\\void \mbox{\hyperlink{namespaceemsr_a4b1e7785cbd6c324e4744ea04a6a6ed9}{emsr\+::inv\+\_\+fast\+\_\+fourier\+\_\+transform}} (const Cmplx\+Iter \&from, const Cmplx\+Iter \&to)
 \item 
-{\footnotesize template$<$typename \+\_\+\+Tp $>$ }\\void \hyperlink{namespace____gnu__cxx_a1fe4b25c379855d94a657b688a327e80}{\+\_\+\+\_\+gnu\+\_\+cxx\+::inv\+\_\+fast\+\_\+fourier\+\_\+transform} (std\+::vector$<$ \+\_\+\+Tp $>$ \&\+\_\+\+\_\+x)
+{\footnotesize template$<$typename Tp $>$ }\\void \mbox{\hyperlink{namespaceemsr_a30e888750ec6fb0b624937e1301a3984}{emsr\+::inv\+\_\+fast\+\_\+fourier\+\_\+transform}} (std\+::vector$<$ std\+::complex$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$$>$ \&z)
 \item 
-{\footnotesize template$<$typename \+\_\+\+Cmplx\+Iter $>$ }\\void \hyperlink{namespace____gnu__cxx_a98a4b1edde28198a694042bea78da893}{\+\_\+\+\_\+gnu\+\_\+cxx\+::inv\+\_\+fast\+\_\+fourier\+\_\+transform} (const \+\_\+\+Cmplx\+Iter \&\+\_\+\+\_\+from, const \+\_\+\+Cmplx\+Iter \&\+\_\+\+\_\+to)
+{\footnotesize template$<$typename Tp $>$ }\\void \mbox{\hyperlink{namespaceemsr_a731e24ac69081b4c39dbe81b05f905f1}{emsr\+::inv\+\_\+fast\+\_\+fourier\+\_\+transform}} (std\+::vector$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$ \&x)
 \item 
-{\footnotesize template$<$typename \+\_\+\+Tp $>$ }\\void \hyperlink{namespace____gnu__cxx_a71c4de302fa0b6716f936d2d925352bd}{\+\_\+\+\_\+gnu\+\_\+cxx\+::inv\+\_\+fast\+\_\+sine\+\_\+transform} (std\+::vector$<$ \+\_\+\+Tp $>$ \&\+\_\+\+\_\+x)
+{\footnotesize template$<$typename Tp $>$ }\\void \mbox{\hyperlink{namespaceemsr_a4b3d1c02a910253093ea8560e4baea0a}{emsr\+::inv\+\_\+fast\+\_\+sine\+\_\+transform}} (std\+::vector$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$ \&x)
 \end{DoxyCompactItemize}

@@ -1,0 +1,93 @@
+\hypertarget{structemsr_1_1adaptive__integral__t}{}\doxysection{emsr\+::adaptive\+\_\+integral\+\_\+t$<$ Tp, Ret\+Tp $>$ Struct Template Reference}
+\label{structemsr_1_1adaptive__integral__t}\index{emsr::adaptive\_integral\_t$<$ Tp, RetTp $>$@{emsr::adaptive\_integral\_t$<$ Tp, RetTp $>$}}
+
+
+{\ttfamily \#include $<$integration.\+h$>$}
+
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{structemsr_1_1adaptive__integral__t_aee8e3310a192ed0251e0b00e74d8c4f9}{Abs\+Area\+Tp}} = decltype(std\+::abs(\mbox{\hyperlink{structemsr_1_1adaptive__integral__t_a06c23199b44e13e64f875dbdfd5b44de}{Area\+Tp}}\{\}))
+\item 
+using \mbox{\hyperlink{structemsr_1_1adaptive__integral__t_a06c23199b44e13e64f875dbdfd5b44de}{Area\+Tp}} = decltype(Ret\+Tp\{\} $\ast$\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{\})
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structemsr_1_1adaptive__integral__t_aee8e3310a192ed0251e0b00e74d8c4f9}{Abs\+Area\+Tp}} \mbox{\hyperlink{structemsr_1_1adaptive__integral__t_adb05b03b4236c45c420d36b499d6d212}{abserr}} = \mbox{\hyperlink{structemsr_1_1adaptive__integral__t_aee8e3310a192ed0251e0b00e74d8c4f9}{Abs\+Area\+Tp}}\{\}
+\begin{DoxyCompactList}\small\item\em Absolute value of estimated error. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structemsr_1_1adaptive__integral__t_a06c23199b44e13e64f875dbdfd5b44de}{Area\+Tp}} \mbox{\hyperlink{structemsr_1_1adaptive__integral__t_a28dbd0f8f493090975943f70e52e6882}{result}} = \mbox{\hyperlink{structemsr_1_1adaptive__integral__t_a06c23199b44e13e64f875dbdfd5b44de}{Area\+Tp}}\{\}
+\begin{DoxyCompactList}\small\item\em Result of the integral. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename Tp, typename Ret\+Tp$>$\newline
+struct emsr\+::adaptive\+\_\+integral\+\_\+t$<$ Tp, Ret\+Tp $>$}
+
+The return type for an adaptive integral rule. 
+
+Definition at line 53 of file integration.\+h.
+
+
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{structemsr_1_1adaptive__integral__t_aee8e3310a192ed0251e0b00e74d8c4f9}\label{structemsr_1_1adaptive__integral__t_aee8e3310a192ed0251e0b00e74d8c4f9}} 
+\index{emsr::adaptive\_integral\_t$<$ Tp, RetTp $>$@{emsr::adaptive\_integral\_t$<$ Tp, RetTp $>$}!AbsAreaTp@{AbsAreaTp}}
+\index{AbsAreaTp@{AbsAreaTp}!emsr::adaptive\_integral\_t$<$ Tp, RetTp $>$@{emsr::adaptive\_integral\_t$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{AbsAreaTp}{AbsAreaTp}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+using \mbox{\hyperlink{structemsr_1_1adaptive__integral__t}{emsr\+::adaptive\+\_\+integral\+\_\+t}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::\mbox{\hyperlink{structemsr_1_1adaptive__integral__t_aee8e3310a192ed0251e0b00e74d8c4f9}{Abs\+Area\+Tp}} =  decltype(std\+::abs(\mbox{\hyperlink{structemsr_1_1adaptive__integral__t_a06c23199b44e13e64f875dbdfd5b44de}{Area\+Tp}}\{\}))}
+
+
+
+Definition at line 56 of file integration.\+h.
+
+\mbox{\Hypertarget{structemsr_1_1adaptive__integral__t_a06c23199b44e13e64f875dbdfd5b44de}\label{structemsr_1_1adaptive__integral__t_a06c23199b44e13e64f875dbdfd5b44de}} 
+\index{emsr::adaptive\_integral\_t$<$ Tp, RetTp $>$@{emsr::adaptive\_integral\_t$<$ Tp, RetTp $>$}!AreaTp@{AreaTp}}
+\index{AreaTp@{AreaTp}!emsr::adaptive\_integral\_t$<$ Tp, RetTp $>$@{emsr::adaptive\_integral\_t$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{AreaTp}{AreaTp}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+using \mbox{\hyperlink{structemsr_1_1adaptive__integral__t}{emsr\+::adaptive\+\_\+integral\+\_\+t}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::\mbox{\hyperlink{structemsr_1_1adaptive__integral__t_a06c23199b44e13e64f875dbdfd5b44de}{Area\+Tp}} =  decltype(Ret\+Tp\{\} $\ast$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{\})}
+
+
+
+Definition at line 55 of file integration.\+h.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structemsr_1_1adaptive__integral__t_adb05b03b4236c45c420d36b499d6d212}\label{structemsr_1_1adaptive__integral__t_adb05b03b4236c45c420d36b499d6d212}} 
+\index{emsr::adaptive\_integral\_t$<$ Tp, RetTp $>$@{emsr::adaptive\_integral\_t$<$ Tp, RetTp $>$}!abserr@{abserr}}
+\index{abserr@{abserr}!emsr::adaptive\_integral\_t$<$ Tp, RetTp $>$@{emsr::adaptive\_integral\_t$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{abserr}{abserr}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+\mbox{\hyperlink{structemsr_1_1adaptive__integral__t_aee8e3310a192ed0251e0b00e74d8c4f9}{Abs\+Area\+Tp}} \mbox{\hyperlink{structemsr_1_1adaptive__integral__t}{emsr\+::adaptive\+\_\+integral\+\_\+t}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::abserr = \mbox{\hyperlink{structemsr_1_1adaptive__integral__t_aee8e3310a192ed0251e0b00e74d8c4f9}{Abs\+Area\+Tp}}\{\}}
+
+
+
+Absolute value of estimated error. 
+
+
+
+Definition at line 61 of file integration.\+h.
+
+\mbox{\Hypertarget{structemsr_1_1adaptive__integral__t_a28dbd0f8f493090975943f70e52e6882}\label{structemsr_1_1adaptive__integral__t_a28dbd0f8f493090975943f70e52e6882}} 
+\index{emsr::adaptive\_integral\_t$<$ Tp, RetTp $>$@{emsr::adaptive\_integral\_t$<$ Tp, RetTp $>$}!result@{result}}
+\index{result@{result}!emsr::adaptive\_integral\_t$<$ Tp, RetTp $>$@{emsr::adaptive\_integral\_t$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{result}{result}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+\mbox{\hyperlink{structemsr_1_1adaptive__integral__t_a06c23199b44e13e64f875dbdfd5b44de}{Area\+Tp}} \mbox{\hyperlink{structemsr_1_1adaptive__integral__t}{emsr\+::adaptive\+\_\+integral\+\_\+t}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::result = \mbox{\hyperlink{structemsr_1_1adaptive__integral__t_a06c23199b44e13e64f875dbdfd5b44de}{Area\+Tp}}\{\}}
+
+
+
+Result of the integral. 
+
+
+
+Definition at line 59 of file integration.\+h.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/emsr/\mbox{\hyperlink{integration_8h}{integration.\+h}}\end{DoxyCompactItemize}

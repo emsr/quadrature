@@ -1,5 +1,5 @@
 var matrix_8h =
 [
-    [ "_S_tridiag", "matrix_8h.html#a949fff28dbde67178a926d5d11114ebd", null ],
-    [ "_S_tridiag_symm", "matrix_8h.html#a4b9501d94b3eebf5f1ffe990b81cae93", null ]
+    [ "s_tridiag", "matrix_8h.html#a4884cb192b4e38e3a67b67bf5b80c93c", null ],
+    [ "s_tridiag_symm", "matrix_8h.html#a5cb28151a49c36c36b58a1dc7af7654c", null ]
 ];

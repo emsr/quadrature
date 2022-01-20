@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['gauss_5flegendre_5ftable',['gauss_legendre_table',['../struct____gnu__cxx_1_1gauss__legendre__table.html',1,'__gnu_cxx']]]
+  ['integration_5ferror_458',['integration_error',['../classemsr_1_1integration__error.html',1,'emsr']]],
+  ['integration_5fworkspace_459',['integration_workspace',['../classemsr_1_1integration__workspace.html',1,'emsr']]]
 ];

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['integ_5fcosine',['INTEG_COSINE',['../struct____gnu__cxx_1_1oscillatory__integration__table.html#aea06e472bb9ff6c535cfdc6a84b14e96a4dc67b0a19d36f10e54840cb0cf397ef',1,'__gnu_cxx::oscillatory_integration_table']]],
-  ['integ_5fsine',['INTEG_SINE',['../struct____gnu__cxx_1_1oscillatory__integration__table.html#aea06e472bb9ff6c535cfdc6a84b14e96a1714dec4721f5e596142c8a09f83a743',1,'__gnu_cxx::oscillatory_integration_table']]]
+  ['integ_5fcosine_864',['INTEG_COSINE',['../structemsr_1_1oscillatory__integration__table.html#afe1f539b0c7ba51f1cd4f9656a8cddcfafc61e8a6756f21c8b51ad30c34b3b4e7',1,'emsr::oscillatory_integration_table']]],
+  ['integ_5fsine_865',['INTEG_SINE',['../structemsr_1_1oscillatory__integration__table.html#afe1f539b0c7ba51f1cd4f9656a8cddcfa806e27b0bfd89eeeb48b58ebc846e043',1,'emsr::oscillatory_integration_table']]]
 ];

@@ -1,5 +1,6 @@
-<map id="include/ext/gauss_legendre_table.tcc" name="include/ext/gauss_legendre_table.tcc">
-<area shape="rect" id="node2" href="$gauss__legendre__table_8h.html" title="include/ext/gauss_legendre\l_table.h" alt="" coords="5,95,185,136"/>
-<area shape="rect" id="node3" href="$glfixed__integrate_8tcc.html" title="include/ext/glfixed\l_integrate.tcc" alt="" coords="32,184,159,225"/>
-<area shape="rect" id="node4" href="$integration_8h.html" title="include/ext/integration.h" alt="" coords="15,273,175,300"/>
+<map id="include/emsr/gauss_legendre_table.tcc" name="include/emsr/gauss_legendre_table.tcc">
+<area shape="rect" id="node1" title=" " alt="" coords="27,5,177,47"/>
+<area shape="rect" id="node2" href="$gauss__legendre__table_8h.html" title=" " alt="" coords="28,95,176,136"/>
+<area shape="rect" id="node3" href="$glfixed__integrate_8tcc.html" title=" " alt="" coords="25,184,179,225"/>
+<area shape="rect" id="node4" href="$integration_8h.html" title=" " alt="" coords="5,273,199,300"/>
 </map>

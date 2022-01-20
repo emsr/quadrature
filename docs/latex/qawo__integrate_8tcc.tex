@@ -1,13 +1,14 @@
-\hypertarget{qawo__integrate_8tcc}{}\section{include/ext/qawo\+\_\+integrate.tcc File Reference}
-\label{qawo__integrate_8tcc}\index{include/ext/qawo\+\_\+integrate.\+tcc@{include/ext/qawo\+\_\+integrate.\+tcc}}
+\hypertarget{qawo__integrate_8tcc}{}\doxysection{include/emsr/qawo\+\_\+integrate.tcc File Reference}
+\label{qawo__integrate_8tcc}\index{include/emsr/qawo\_integrate.tcc@{include/emsr/qawo\_integrate.tcc}}
+{\ttfamily \#include $<$type\+\_\+traits$>$}\newline
 {\ttfamily \#include $<$cmath$>$}\newline
-{\ttfamily \#include $<$ext/oscillatory\+\_\+integration\+\_\+table.\+h$>$}\newline
+{\ttfamily \#include $<$emsr/oscillatory\+\_\+integration\+\_\+table.\+h$>$}\newline
 Include dependency graph for qawo\+\_\+integrate.\+tcc\+:
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=271pt]{qawo__integrate_8tcc__incl}
+\includegraphics[width=350pt]{qawo__integrate_8tcc__incl}
 \end{center}
 \end{figure}
 This graph shows which files directly or indirectly include this file\+:
@@ -15,36 +16,36 @@ This graph shows which files directly or indirectly include this file\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=229pt]{qawo__integrate_8tcc__dep__incl}
+\includegraphics[width=256pt]{qawo__integrate_8tcc__dep__incl}
 \end{center}
 \end{figure}
-\subsection*{Namespaces}
+\doxysubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
- \hyperlink{namespace____gnu__cxx}{\+\_\+\+\_\+gnu\+\_\+cxx}
+ \mbox{\hyperlink{namespaceemsr}{emsr}}
 \end{DoxyCompactItemize}
-\subsection*{Macros}
+\doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\#define \hyperlink{qawo__integrate_8tcc_a0b8e2cb4be917d8339d84306b7bd02c3}{Q\+A\+W\+O\+\_\+\+I\+N\+T\+E\+G\+R\+A\+T\+E\+\_\+\+T\+CC}~1
+\#define \mbox{\hyperlink{qawo__integrate_8tcc_a0b8e2cb4be917d8339d84306b7bd02c3}{QAWO\+\_\+\+INTEGRATE\+\_\+\+TCC}}~1
 \end{DoxyCompactItemize}
-\subsection*{Functions}
+\doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$typename \+\_\+\+Tp , typename \+\_\+\+Func\+Tp $>$ }\\auto \hyperlink{namespace____gnu__cxx_ab0bb39b227f5cc4a68ce5a8d404f88b6}{\+\_\+\+\_\+gnu\+\_\+cxx\+::qawo\+\_\+integrate} (integration\+\_\+workspace$<$ \+\_\+\+Tp, std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp, \+\_\+\+Tp $>$$>$ \&\+\_\+\+\_\+workspace, oscillatory\+\_\+integration\+\_\+table$<$ \+\_\+\+Tp $>$ \&\+\_\+\+\_\+wf, \+\_\+\+Func\+Tp \+\_\+\+\_\+func, const \+\_\+\+Tp \+\_\+\+\_\+lower, const \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+abs\+\_\+err, const \+\_\+\+Tp \+\_\+\+\_\+max\+\_\+rel\+\_\+err) -\/$>$ adaptive\+\_\+integral\+\_\+t$<$ \+\_\+\+Tp, std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp, \+\_\+\+Tp $>$$>$
+{\footnotesize template$<$typename Tp , typename Func\+Tp $>$ }\\auto \mbox{\hyperlink{namespaceemsr_a4e23e8a1b4aa60c215ce6b8ae2244df3}{emsr\+::qawo\+\_\+integrate}} (integration\+\_\+workspace$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, std\+::invoke\+\_\+result\+\_\+t$<$ Func\+Tp, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$$>$ \&workspace, oscillatory\+\_\+integration\+\_\+table$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$ \&wf, Func\+Tp func, const \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} lower, const \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} max\+\_\+abs\+\_\+err, const \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} max\+\_\+rel\+\_\+err) -\/$>$ adaptive\+\_\+integral\+\_\+t$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, std\+::invoke\+\_\+result\+\_\+t$<$ Func\+Tp, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$$>$
 \item 
-{\footnotesize template$<$typename \+\_\+\+Tp , typename \+\_\+\+Func\+Tp $>$ }\\auto \hyperlink{namespace____gnu__cxx_a1362a6c4ef82cf1afe4de6bc66fb56b6}{\+\_\+\+\_\+gnu\+\_\+cxx\+::qc25f} (oscillatory\+\_\+integration\+\_\+table$<$ \+\_\+\+Tp $>$ \&\+\_\+\+\_\+wf, \+\_\+\+Func\+Tp \+\_\+\+\_\+func, \+\_\+\+Tp \+\_\+\+\_\+lower, \+\_\+\+Tp \+\_\+\+\_\+upper, std\+::size\+\_\+t \+\_\+\+\_\+depth) -\/$>$ gauss\+\_\+kronrod\+\_\+integral\+\_\+t$<$ \+\_\+\+Tp, std\+::invoke\+\_\+result\+\_\+t$<$ \+\_\+\+Func\+Tp, \+\_\+\+Tp $>$$>$
+{\footnotesize template$<$typename Tp , typename Func\+Tp $>$ }\\auto \mbox{\hyperlink{namespaceemsr_af380b64a1f43ae7115c5044a33bfb8a8}{emsr\+::qc25f}} (oscillatory\+\_\+integration\+\_\+table$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$ \&wf, Func\+Tp func, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} lower, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} upper, std\+::size\+\_\+t depth) -\/$>$ gauss\+\_\+kronrod\+\_\+integral\+\_\+t$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, std\+::invoke\+\_\+result\+\_\+t$<$ Func\+Tp, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} $>$$>$
 \end{DoxyCompactItemize}
 
 
-\subsection{Macro Definition Documentation}
+\doxysubsection{Macro Definition Documentation}
 \mbox{\Hypertarget{qawo__integrate_8tcc_a0b8e2cb4be917d8339d84306b7bd02c3}\label{qawo__integrate_8tcc_a0b8e2cb4be917d8339d84306b7bd02c3}} 
-\index{qawo\+\_\+integrate.\+tcc@{qawo\+\_\+integrate.\+tcc}!Q\+A\+W\+O\+\_\+\+I\+N\+T\+E\+G\+R\+A\+T\+E\+\_\+\+T\+CC@{Q\+A\+W\+O\+\_\+\+I\+N\+T\+E\+G\+R\+A\+T\+E\+\_\+\+T\+CC}}
-\index{Q\+A\+W\+O\+\_\+\+I\+N\+T\+E\+G\+R\+A\+T\+E\+\_\+\+T\+CC@{Q\+A\+W\+O\+\_\+\+I\+N\+T\+E\+G\+R\+A\+T\+E\+\_\+\+T\+CC}!qawo\+\_\+integrate.\+tcc@{qawo\+\_\+integrate.\+tcc}}
-\subsubsection{\texorpdfstring{Q\+A\+W\+O\+\_\+\+I\+N\+T\+E\+G\+R\+A\+T\+E\+\_\+\+T\+CC}{QAWO\_INTEGRATE\_TCC}}
-{\footnotesize\ttfamily \#define Q\+A\+W\+O\+\_\+\+I\+N\+T\+E\+G\+R\+A\+T\+E\+\_\+\+T\+CC~1}
+\index{qawo\_integrate.tcc@{qawo\_integrate.tcc}!QAWO\_INTEGRATE\_TCC@{QAWO\_INTEGRATE\_TCC}}
+\index{QAWO\_INTEGRATE\_TCC@{QAWO\_INTEGRATE\_TCC}!qawo\_integrate.tcc@{qawo\_integrate.tcc}}
+\doxysubsubsection{\texorpdfstring{QAWO\_INTEGRATE\_TCC}{QAWO\_INTEGRATE\_TCC}}
+{\footnotesize\ttfamily \#define QAWO\+\_\+\+INTEGRATE\+\_\+\+TCC~1}
 
 
 
-Definition at line 28 of file qawo\+\_\+integrate.\+tcc.
+Definition at line 27 of file qawo\+\_\+integrate.\+tcc.
 

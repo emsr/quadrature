@@ -1,0 +1,819 @@
+\hypertarget{classemsr_1_1integration__workspace}{}\doxysection{emsr\+::integration\+\_\+workspace$<$ Tp, Ret\+Tp $>$ Class Template Reference}
+\label{classemsr_1_1integration__workspace}\index{emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}}
+
+
+{\ttfamily \#include $<$integration\+\_\+workspace.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classemsr_1_1integration__workspace_a64886c4f4985f7a25aeac1064d56e4df}{integration\+\_\+workspace}} (std\+::size\+\_\+t cap)
+\item 
+Error\+Tp \mbox{\hyperlink{classemsr_1_1integration__workspace_abaec8e3b80e486e8699fa7d36bba8e6a}{abs\+\_\+error}} (std\+::size\+\_\+t ii=0) const
+\item 
+void \mbox{\hyperlink{classemsr_1_1integration__workspace_a48eca49f7991a06ce28f1fac358b46d9}{append}} (\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} a, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} b, Area\+Tp area, Error\+Tp error, std\+::size\+\_\+t \mbox{\hyperlink{classemsr_1_1integration__workspace_a31aadd1b437e66a332a8eaa765bf2ccc}{depth}}=0)
+\item 
+std\+::vector$<$ interval $>$\+::iterator \mbox{\hyperlink{classemsr_1_1integration__workspace_a6b623e8b0ca444a706e7c706aea52e19}{begin}} ()
+\item 
+std\+::size\+\_\+t \mbox{\hyperlink{classemsr_1_1integration__workspace_a0bfcb47979ee9aebe9d267c985c420f9}{capacity}} () const
+\item 
+void \mbox{\hyperlink{classemsr_1_1integration__workspace_afd8ee69f255513dfa03494f8066733bc}{clear}} ()
+\item 
+std\+::size\+\_\+t \mbox{\hyperlink{classemsr_1_1integration__workspace_a70e57abf7af9bfa66b3dd9a348dbcec6}{curr\+\_\+depth}} () const
+\item 
+std\+::size\+\_\+t \mbox{\hyperlink{classemsr_1_1integration__workspace_adbec75b99e565cb2c40c6c21be108e34}{curr\+\_\+index}} () const
+\item 
+size\+\_\+t \mbox{\hyperlink{classemsr_1_1integration__workspace_a31aadd1b437e66a332a8eaa765bf2ccc}{depth}} (std\+::size\+\_\+t ii=0) const
+\item 
+std\+::vector$<$ interval $>$\+::iterator \mbox{\hyperlink{classemsr_1_1integration__workspace_acf31ba0b31603ef41d7f0460a1938976}{end}} ()
+\item 
+bool \mbox{\hyperlink{classemsr_1_1integration__workspace_aecd44d5f4c63686915a2bdbf231b89ed}{increment\+\_\+curr\+\_\+index}} ()
+\item 
+const std\+::vector$<$ interval $>$ \& \mbox{\hyperlink{classemsr_1_1integration__workspace_aa894c83fddd74985753112289857fd1a}{intervals}} () const
+\begin{DoxyCompactList}\small\item\em Return the vector of integration intervals. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classemsr_1_1integration__workspace_a2129f9b537626de039ec848293e908dc}{large\+\_\+interval}} () const
+\item 
+\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} \mbox{\hyperlink{classemsr_1_1integration__workspace_a018e8021713177086c0743e2ae7dcee0}{lower\+\_\+lim}} (std\+::size\+\_\+t ii=0) const
+\item 
+std\+::size\+\_\+t \mbox{\hyperlink{classemsr_1_1integration__workspace_a256db7e64d38887df2b10dea0b711611}{max\+\_\+depth}} () const
+\item 
+std\+::size\+\_\+t \mbox{\hyperlink{classemsr_1_1integration__workspace_a6e905793a41e91987b647664652773be}{max\+\_\+size}} () const
+\item 
+void \mbox{\hyperlink{classemsr_1_1integration__workspace_aa48dfce59e79baf9f380d7fb8e2e6425}{pop}} ()
+\item 
+void \mbox{\hyperlink{classemsr_1_1integration__workspace_a8cdadb75efcbe47991caeb3ee87af17e}{push}} (const interval \&iv)
+\item 
+void \mbox{\hyperlink{classemsr_1_1integration__workspace_a78013b4e8fa5a0d529a46313797d5c6b}{reset\+\_\+curr\+\_\+index}} ()
+\item 
+Area\+Tp \mbox{\hyperlink{classemsr_1_1integration__workspace_ac7a1254c23bb2f94a216543f9ebaf0ef}{result}} (std\+::size\+\_\+t ii=0) const
+\item 
+const interval \& \mbox{\hyperlink{classemsr_1_1integration__workspace_aadf9e52217de798f2647a34d7d0ed31d}{retrieve}} () const
+\item 
+Error\+Tp \mbox{\hyperlink{classemsr_1_1integration__workspace_aef88166ead5a3645963791da664ab127}{set\+\_\+abs\+\_\+error}} (std\+::size\+\_\+t ii, Error\+Tp abserr)
+\item 
+void \mbox{\hyperlink{classemsr_1_1integration__workspace_aa24b8f23ef83f850c5c6bbdd7184d1da}{set\+\_\+depth}} (std\+::size\+\_\+t ii, std\+::size\+\_\+t d)
+\item 
+std\+::size\+\_\+t \mbox{\hyperlink{classemsr_1_1integration__workspace_a9a3636e959198dd92abbaf1731673510}{size}} () const
+\item 
+void \mbox{\hyperlink{classemsr_1_1integration__workspace_a22c86638f9449b50c9506b601e7a14db}{sort\+\_\+error}} ()
+\item 
+void \mbox{\hyperlink{classemsr_1_1integration__workspace_a3a78a4eab603f912cd6e9ab47baaf79a}{split}} (\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} ab, Area\+Tp area1, Error\+Tp error1, Area\+Tp area2, Error\+Tp error2)
+\item 
+interval \& \mbox{\hyperlink{classemsr_1_1integration__workspace_a0c42707177dd2a43449bea4499f74179}{top}} ()
+\item 
+const interval \& \mbox{\hyperlink{classemsr_1_1integration__workspace_aa2c9c2d80d86da1566b64d8601d84732}{top}} () const
+\item 
+Error\+Tp \mbox{\hyperlink{classemsr_1_1integration__workspace_ae75a1d3e0379110bbe3c694bb0115e5a}{total\+\_\+error}} () const
+\begin{DoxyCompactList}\small\item\em Return the sum of the absolute errors over all integration segments. \end{DoxyCompactList}\item 
+Area\+Tp \mbox{\hyperlink{classemsr_1_1integration__workspace_a531d1603fdf12042847021d0346342ad}{total\+\_\+integral}} () const
+\begin{DoxyCompactList}\small\item\em Return the total integral\+: the sum of the results over all integration segments. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} \mbox{\hyperlink{classemsr_1_1integration__workspace_a27116169214cbd917b64f7591b369447}{upper\+\_\+lim}} (std\+::size\+\_\+t ii=0) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static bool \mbox{\hyperlink{classemsr_1_1integration__workspace_a05161109488ebce77d853e9dcca9ec78}{subinterval\+\_\+too\+\_\+small}} (\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} a1, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} a2, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} b2)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename Tp, typename Ret\+Tp$>$\newline
+class emsr\+::integration\+\_\+workspace$<$ Tp, Ret\+Tp $>$}
+
+
+
+Definition at line 36 of file integration\+\_\+workspace.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classemsr_1_1integration__workspace_a64886c4f4985f7a25aeac1064d56e4df}\label{classemsr_1_1integration__workspace_a64886c4f4985f7a25aeac1064d56e4df}} 
+\index{emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}!integration\_workspace@{integration\_workspace}}
+\index{integration\_workspace@{integration\_workspace}!emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{integration\_workspace()}{integration\_workspace()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+\mbox{\hyperlink{classemsr_1_1integration__workspace}{emsr\+::integration\+\_\+workspace}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::\mbox{\hyperlink{classemsr_1_1integration__workspace}{integration\+\_\+workspace}} (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{cap }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 82 of file integration\+\_\+workspace.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{83       : m\_curr\_index\{0\},}
+\DoxyCodeLine{84         m\_max\_depth\{0\},}
+\DoxyCodeLine{85         m\_max\_size(cap),}
+\DoxyCodeLine{86         m\_ival\{\}}
+\DoxyCodeLine{87       \{}
+\DoxyCodeLine{88         m\_ival.reserve(cap);}
+\DoxyCodeLine{89       \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classemsr_1_1integration__workspace_abaec8e3b80e486e8699fa7d36bba8e6a}\label{classemsr_1_1integration__workspace_abaec8e3b80e486e8699fa7d36bba8e6a}} 
+\index{emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}!abs\_error@{abs\_error}}
+\index{abs\_error@{abs\_error}!emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{abs\_error()}{abs\_error()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+Error\+Tp \mbox{\hyperlink{classemsr_1_1integration__workspace}{emsr\+::integration\+\_\+workspace}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::abs\+\_\+error (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{ii = {\ttfamily 0} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Return the absolute error for the segment at start + ii. 
+
+Definition at line 200 of file integration\+\_\+workspace.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{201       \{ \textcolor{keywordflow}{return} this-\/>m\_ival[this-\/>\mbox{\hyperlink{classemsr_1_1integration__workspace_adbec75b99e565cb2c40c6c21be108e34}{curr\_index}}() + ii].abs\_error; \}}
+
+\end{DoxyCode}
+
+
+References emsr\+::integration\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::curr\+\_\+index().
+
+\mbox{\Hypertarget{classemsr_1_1integration__workspace_a48eca49f7991a06ce28f1fac358b46d9}\label{classemsr_1_1integration__workspace_a48eca49f7991a06ce28f1fac358b46d9}} 
+\index{emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}!append@{append}}
+\index{append@{append}!emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{append()}{append()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+void \mbox{\hyperlink{classemsr_1_1integration__workspace}{emsr\+::integration\+\_\+workspace}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::append (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}}]{a,  }\item[{\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}}]{b,  }\item[{Area\+Tp}]{area,  }\item[{Error\+Tp}]{error,  }\item[{std\+::size\+\_\+t}]{depth = {\ttfamily 0} }\end{DoxyParamCaption})}
+
+
+
+Definition at line 51 of file integration\+\_\+workspace.\+tcc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{55     \{}
+\DoxyCodeLine{56       interval iv;}
+\DoxyCodeLine{57       iv.lower\_lim = a;}
+\DoxyCodeLine{58       iv.upper\_lim = b;}
+\DoxyCodeLine{59       iv.result = area;}
+\DoxyCodeLine{60       iv.abs\_error = error;}
+\DoxyCodeLine{61       iv.depth = \mbox{\hyperlink{classemsr_1_1integration__workspace_a31aadd1b437e66a332a8eaa765bf2ccc}{depth}};}
+\DoxyCodeLine{62       this-\/>\mbox{\hyperlink{classemsr_1_1integration__workspace_a8cdadb75efcbe47991caeb3ee87af17e}{push}}(iv);}
+\DoxyCodeLine{63     \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classemsr_1_1integration__workspace_a6b623e8b0ca444a706e7c706aea52e19}\label{classemsr_1_1integration__workspace_a6b623e8b0ca444a706e7c706aea52e19}} 
+\index{emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}!begin@{begin}}
+\index{begin@{begin}!emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{begin()}{begin()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+std\+::vector$<$interval$>$\+::iterator \mbox{\hyperlink{classemsr_1_1integration__workspace}{emsr\+::integration\+\_\+workspace}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Return the current segment -\/ the beginning of the vector + start as an iterator. 
+
+Definition at line 121 of file integration\+\_\+workspace.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{122       \{ \textcolor{keywordflow}{return} this-\/>m\_ival.begin() + this-\/>\mbox{\hyperlink{classemsr_1_1integration__workspace_adbec75b99e565cb2c40c6c21be108e34}{curr\_index}}(); \}}
+
+\end{DoxyCode}
+
+
+References emsr\+::integration\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::curr\+\_\+index().
+
+
+
+Referenced by emsr\+::integration\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::pop(), and emsr\+::integration\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::push().
+
+\mbox{\Hypertarget{classemsr_1_1integration__workspace_a0bfcb47979ee9aebe9d267c985c420f9}\label{classemsr_1_1integration__workspace_a0bfcb47979ee9aebe9d267c985c420f9}} 
+\index{emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}!capacity@{capacity}}
+\index{capacity@{capacity}!emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{capacity()}{capacity()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+std\+::size\+\_\+t \mbox{\hyperlink{classemsr_1_1integration__workspace}{emsr\+::integration\+\_\+workspace}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::capacity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 113 of file integration\+\_\+workspace.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{114       \{ \textcolor{keywordflow}{return} this-\/>m\_ival.capacity(); \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classemsr_1_1integration__workspace_afd8ee69f255513dfa03494f8066733bc}\label{classemsr_1_1integration__workspace_afd8ee69f255513dfa03494f8066733bc}} 
+\index{emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}!clear@{clear}}
+\index{clear@{clear}!emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{clear()}{clear()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+void \mbox{\hyperlink{classemsr_1_1integration__workspace}{emsr\+::integration\+\_\+workspace}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::clear (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 146 of file integration\+\_\+workspace.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{147       \{}
+\DoxyCodeLine{148         this-\/>m\_curr\_index = 0;}
+\DoxyCodeLine{149         this-\/>m\_max\_depth = 0;}
+\DoxyCodeLine{150         this-\/>m\_ival.clear();}
+\DoxyCodeLine{151       \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classemsr_1_1integration__workspace_a70e57abf7af9bfa66b3dd9a348dbcec6}\label{classemsr_1_1integration__workspace_a70e57abf7af9bfa66b3dd9a348dbcec6}} 
+\index{emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}!curr\_depth@{curr\_depth}}
+\index{curr\_depth@{curr\_depth}!emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{curr\_depth()}{curr\_depth()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+std\+::size\+\_\+t \mbox{\hyperlink{classemsr_1_1integration__workspace}{emsr\+::integration\+\_\+workspace}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::curr\+\_\+depth (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Return the depth of the current segment. 
+
+Definition at line 243 of file integration\+\_\+workspace.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{244       \{ \textcolor{keywordflow}{return} this-\/>m\_ival[this-\/>\mbox{\hyperlink{classemsr_1_1integration__workspace_adbec75b99e565cb2c40c6c21be108e34}{curr\_index}}()].depth; \}}
+
+\end{DoxyCode}
+
+
+References emsr\+::integration\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::curr\+\_\+index().
+
+
+
+Referenced by emsr\+::integration\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::large\+\_\+interval().
+
+\mbox{\Hypertarget{classemsr_1_1integration__workspace_adbec75b99e565cb2c40c6c21be108e34}\label{classemsr_1_1integration__workspace_adbec75b99e565cb2c40c6c21be108e34}} 
+\index{emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}!curr\_index@{curr\_index}}
+\index{curr\_index@{curr\_index}!emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{curr\_index()}{curr\_index()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+std\+::size\+\_\+t \mbox{\hyperlink{classemsr_1_1integration__workspace}{emsr\+::integration\+\_\+workspace}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::curr\+\_\+index (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Return the index of the current segment in the segment vector. The segments in \mbox{[}start, end) will be maintained in a heap. 
+
+Definition at line 255 of file integration\+\_\+workspace.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{256       \{ \textcolor{keywordflow}{return} this-\/>m\_curr\_index; \}}
+
+\end{DoxyCode}
+
+
+Referenced by emsr\+::integration\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::abs\+\_\+error(), emsr\+::integration\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::begin(), emsr\+::integration\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::curr\+\_\+depth(), emsr\+::integration\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::depth(), emsr\+::integration\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::lower\+\_\+lim(), emsr\+::operator$<$$<$(), emsr\+::integration\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::result(), emsr\+::integration\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::retrieve(), emsr\+::integration\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::set\+\_\+abs\+\_\+error(), emsr\+::integration\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::set\+\_\+depth(), emsr\+::integration\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::top(), and emsr\+::integration\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::upper\+\_\+lim().
+
+\mbox{\Hypertarget{classemsr_1_1integration__workspace_a31aadd1b437e66a332a8eaa765bf2ccc}\label{classemsr_1_1integration__workspace_a31aadd1b437e66a332a8eaa765bf2ccc}} 
+\index{emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}!depth@{depth}}
+\index{depth@{depth}!emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{depth()}{depth()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+size\+\_\+t \mbox{\hyperlink{classemsr_1_1integration__workspace}{emsr\+::integration\+\_\+workspace}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::depth (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{ii = {\ttfamily 0} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Return the subdivision depth for the segment at start + ii. 
+
+Definition at line 207 of file integration\+\_\+workspace.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{208       \{ \textcolor{keywordflow}{return} this-\/>m\_ival[this-\/>\mbox{\hyperlink{classemsr_1_1integration__workspace_adbec75b99e565cb2c40c6c21be108e34}{curr\_index}}() + ii].depth; \}}
+
+\end{DoxyCode}
+
+
+References emsr\+::integration\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::curr\+\_\+index().
+
+\mbox{\Hypertarget{classemsr_1_1integration__workspace_acf31ba0b31603ef41d7f0460a1938976}\label{classemsr_1_1integration__workspace_acf31ba0b31603ef41d7f0460a1938976}} 
+\index{emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}!end@{end}}
+\index{end@{end}!emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{end()}{end()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+std\+::vector$<$interval$>$\+::iterator \mbox{\hyperlink{classemsr_1_1integration__workspace}{emsr\+::integration\+\_\+workspace}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::end (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Return the end iterator of the vector. 
+
+Definition at line 128 of file integration\+\_\+workspace.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{129       \{ \textcolor{keywordflow}{return} this-\/>m\_ival.end(); \}}
+
+\end{DoxyCode}
+
+
+Referenced by emsr\+::integration\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::pop(), and emsr\+::integration\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::push().
+
+\mbox{\Hypertarget{classemsr_1_1integration__workspace_aecd44d5f4c63686915a2bdbf231b89ed}\label{classemsr_1_1integration__workspace_aecd44d5f4c63686915a2bdbf231b89ed}} 
+\index{emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}!increment\_curr\_index@{increment\_curr\_index}}
+\index{increment\_curr\_index@{increment\_curr\_index}!emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{increment\_curr\_index()}{increment\_curr\_index()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+bool \mbox{\hyperlink{classemsr_1_1integration__workspace}{emsr\+::integration\+\_\+workspace}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::increment\+\_\+curr\+\_\+index}
+
+Increase the heap start point until the current segment has a smaller depth than the current maximum depth. After each increment rebuild the heap from the new start point so the new start point is the largest error.
+
+Usage\+: In the caller the smallest interval (at max depth) has the largest error. Before bisecting decrease the sum of the errors over the larger intervals (error\+\_\+over\+\_\+large\+\_\+intervals) and perform extrapolation. 
+
+Definition at line 116 of file integration\+\_\+workspace.\+tcc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{117     \{}
+\DoxyCodeLine{118       \textcolor{keywordtype}{size\_t} limit = this-\/>\mbox{\hyperlink{classemsr_1_1integration__workspace_a6e905793a41e91987b647664652773be}{max\_size}}();}
+\DoxyCodeLine{119       \textcolor{keywordtype}{size\_t} last = this-\/>\mbox{\hyperlink{classemsr_1_1integration__workspace_a9a3636e959198dd92abbaf1731673510}{size}}() -\/ 1 ;}
+\DoxyCodeLine{120       \textcolor{keywordtype}{size\_t} jupbnd = last > 1 + limit / 2}
+\DoxyCodeLine{121                       ? limit + 1 -\/ last}
+\DoxyCodeLine{122                       : last;}
+\DoxyCodeLine{123 }
+\DoxyCodeLine{124       \textcolor{keyword}{const} \textcolor{keyword}{auto} i\_max = this-\/>\mbox{\hyperlink{classemsr_1_1integration__workspace_adbec75b99e565cb2c40c6c21be108e34}{curr\_index}}();}
+\DoxyCodeLine{125       \textcolor{keywordflow}{for} (\textcolor{keyword}{auto} k = i\_max; k <= jupbnd; ++k)}
+\DoxyCodeLine{126         \{}
+\DoxyCodeLine{127           \textcolor{keywordflow}{if} (this-\/>m\_ival[k].depth < this-\/>\mbox{\hyperlink{classemsr_1_1integration__workspace_a256db7e64d38887df2b10dea0b711611}{max\_depth}}())}
+\DoxyCodeLine{128             \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{129           \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (this-\/>\mbox{\hyperlink{classemsr_1_1integration__workspace_adbec75b99e565cb2c40c6c21be108e34}{curr\_index}}() + 1 < this-\/>\mbox{\hyperlink{classemsr_1_1integration__workspace_a9a3636e959198dd92abbaf1731673510}{size}}())}
+\DoxyCodeLine{130             \{}
+\DoxyCodeLine{131               ++this-\/>m\_curr\_index;}
+\DoxyCodeLine{132               this-\/>\mbox{\hyperlink{classemsr_1_1integration__workspace_a22c86638f9449b50c9506b601e7a14db}{sort\_error}}();}
+\DoxyCodeLine{133             \}}
+\DoxyCodeLine{134         \}}
+\DoxyCodeLine{135       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{136     \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classemsr_1_1integration__workspace_aa894c83fddd74985753112289857fd1a}\label{classemsr_1_1integration__workspace_aa894c83fddd74985753112289857fd1a}} 
+\index{emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}!intervals@{intervals}}
+\index{intervals@{intervals}!emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{intervals()}{intervals()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+const std\+::vector$<$interval$>$\& \mbox{\hyperlink{classemsr_1_1integration__workspace}{emsr\+::integration\+\_\+workspace}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::intervals (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Return the vector of integration intervals. 
+
+
+
+Definition at line 294 of file integration\+\_\+workspace.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{295       \{ \textcolor{keywordflow}{return} this-\/>m\_ival; \}}
+
+\end{DoxyCode}
+
+
+Referenced by emsr\+::operator$<$$<$().
+
+\mbox{\Hypertarget{classemsr_1_1integration__workspace_a2129f9b537626de039ec848293e908dc}\label{classemsr_1_1integration__workspace_a2129f9b537626de039ec848293e908dc}} 
+\index{emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}!large\_interval@{large\_interval}}
+\index{large\_interval@{large\_interval}!emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{large\_interval()}{large\_interval()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+bool \mbox{\hyperlink{classemsr_1_1integration__workspace}{emsr\+::integration\+\_\+workspace}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::large\+\_\+interval (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Return true if the subdivision depth of the current segment is less than the maximum depth. 
+
+Definition at line 263 of file integration\+\_\+workspace.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{264       \{}
+\DoxyCodeLine{265         \textcolor{keywordflow}{if} (this-\/>\mbox{\hyperlink{classemsr_1_1integration__workspace_a70e57abf7af9bfa66b3dd9a348dbcec6}{curr\_depth}}() < this-\/>\mbox{\hyperlink{classemsr_1_1integration__workspace_a256db7e64d38887df2b10dea0b711611}{max\_depth}}())}
+\DoxyCodeLine{266           \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{267         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{268           \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{269       \}}
+
+\end{DoxyCode}
+
+
+References emsr\+::integration\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::curr\+\_\+depth(), and emsr\+::integration\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::max\+\_\+depth().
+
+\mbox{\Hypertarget{classemsr_1_1integration__workspace_a018e8021713177086c0743e2ae7dcee0}\label{classemsr_1_1integration__workspace_a018e8021713177086c0743e2ae7dcee0}} 
+\index{emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}!lower\_lim@{lower\_lim}}
+\index{lower\_lim@{lower\_lim}!emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{lower\_lim()}{lower\_lim()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} \mbox{\hyperlink{classemsr_1_1integration__workspace}{emsr\+::integration\+\_\+workspace}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::lower\+\_\+lim (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{ii = {\ttfamily 0} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Return the lower limit for the segment at start + ii. 
+
+Definition at line 179 of file integration\+\_\+workspace.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{180       \{ \textcolor{keywordflow}{return} this-\/>m\_ival[this-\/>\mbox{\hyperlink{classemsr_1_1integration__workspace_adbec75b99e565cb2c40c6c21be108e34}{curr\_index}}() + ii].lower\_lim; \}}
+
+\end{DoxyCode}
+
+
+References emsr\+::integration\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::curr\+\_\+index().
+
+\mbox{\Hypertarget{classemsr_1_1integration__workspace_a256db7e64d38887df2b10dea0b711611}\label{classemsr_1_1integration__workspace_a256db7e64d38887df2b10dea0b711611}} 
+\index{emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}!max\_depth@{max\_depth}}
+\index{max\_depth@{max\_depth}!emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{max\_depth()}{max\_depth()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+std\+::size\+\_\+t \mbox{\hyperlink{classemsr_1_1integration__workspace}{emsr\+::integration\+\_\+workspace}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::max\+\_\+depth (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 247 of file integration\+\_\+workspace.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{248       \{ \textcolor{keywordflow}{return} this-\/>m\_max\_depth; \}}
+
+\end{DoxyCode}
+
+
+Referenced by emsr\+::integration\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::large\+\_\+interval(), and emsr\+::operator$<$$<$().
+
+\mbox{\Hypertarget{classemsr_1_1integration__workspace_a6e905793a41e91987b647664652773be}\label{classemsr_1_1integration__workspace_a6e905793a41e91987b647664652773be}} 
+\index{emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}!max\_size@{max\_size}}
+\index{max\_size@{max\_size}!emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{max\_size()}{max\_size()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+std\+::size\+\_\+t \mbox{\hyperlink{classemsr_1_1integration__workspace}{emsr\+::integration\+\_\+workspace}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::max\+\_\+size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 109 of file integration\+\_\+workspace.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{110       \{ \textcolor{keywordflow}{return} this-\/>m\_max\_size; \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classemsr_1_1integration__workspace_aa48dfce59e79baf9f380d7fb8e2e6425}\label{classemsr_1_1integration__workspace_aa48dfce59e79baf9f380d7fb8e2e6425}} 
+\index{emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}!pop@{pop}}
+\index{pop@{pop}!emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{pop()}{pop()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+void \mbox{\hyperlink{classemsr_1_1integration__workspace}{emsr\+::integration\+\_\+workspace}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::pop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Pop the current segment out of teh heap and erase it from the vector. N.\+B. this-\/$>$\mbox{\hyperlink{classemsr_1_1integration__workspace_a6b623e8b0ca444a706e7c706aea52e19}{begin()}} includes \mbox{\hyperlink{classemsr_1_1integration__workspace_adbec75b99e565cb2c40c6c21be108e34}{curr\+\_\+index()}}! 
+
+Definition at line 169 of file integration\+\_\+workspace.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{170       \{}
+\DoxyCodeLine{171         std::pop\_heap(this-\/>\mbox{\hyperlink{classemsr_1_1integration__workspace_a6b623e8b0ca444a706e7c706aea52e19}{begin}}(), this-\/>\mbox{\hyperlink{classemsr_1_1integration__workspace_acf31ba0b31603ef41d7f0460a1938976}{end}}());}
+\DoxyCodeLine{172         this-\/>m\_ival.pop\_back();}
+\DoxyCodeLine{173       \}}
+
+\end{DoxyCode}
+
+
+References emsr\+::integration\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::begin(), and emsr\+::integration\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::end().
+
+\mbox{\Hypertarget{classemsr_1_1integration__workspace_a8cdadb75efcbe47991caeb3ee87af17e}\label{classemsr_1_1integration__workspace_a8cdadb75efcbe47991caeb3ee87af17e}} 
+\index{emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}!push@{push}}
+\index{push@{push}!emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{push()}{push()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+void \mbox{\hyperlink{classemsr_1_1integration__workspace}{emsr\+::integration\+\_\+workspace}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::push (\begin{DoxyParamCaption}\item[{const interval \&}]{iv }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Push a new segment into the current heap. N.\+B. this-\/$>$\mbox{\hyperlink{classemsr_1_1integration__workspace_a6b623e8b0ca444a706e7c706aea52e19}{begin()}} includes \mbox{\hyperlink{classemsr_1_1integration__workspace_adbec75b99e565cb2c40c6c21be108e34}{curr\+\_\+index()}}! 
+
+Definition at line 158 of file integration\+\_\+workspace.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{159       \{}
+\DoxyCodeLine{160         this-\/>m\_ival.push\_back(iv);}
+\DoxyCodeLine{161         std::push\_heap(this-\/>\mbox{\hyperlink{classemsr_1_1integration__workspace_a6b623e8b0ca444a706e7c706aea52e19}{begin}}(), this-\/>\mbox{\hyperlink{classemsr_1_1integration__workspace_acf31ba0b31603ef41d7f0460a1938976}{end}}(), interval\_comp\{\});}
+\DoxyCodeLine{162       \}}
+
+\end{DoxyCode}
+
+
+References emsr\+::integration\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::begin(), and emsr\+::integration\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::end().
+
+\mbox{\Hypertarget{classemsr_1_1integration__workspace_a78013b4e8fa5a0d529a46313797d5c6b}\label{classemsr_1_1integration__workspace_a78013b4e8fa5a0d529a46313797d5c6b}} 
+\index{emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}!reset\_curr\_index@{reset\_curr\_index}}
+\index{reset\_curr\_index@{reset\_curr\_index}!emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{reset\_curr\_index()}{reset\_curr\_index()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+void \mbox{\hyperlink{classemsr_1_1integration__workspace}{emsr\+::integration\+\_\+workspace}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::reset\+\_\+curr\+\_\+index (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Reset the index of the current segment to zero. The entire segment vector will me made into a heap. 
+
+Definition at line 233 of file integration\+\_\+workspace.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{234       \{}
+\DoxyCodeLine{235         this-\/>m\_curr\_index = 0;}
+\DoxyCodeLine{236         this-\/>\mbox{\hyperlink{classemsr_1_1integration__workspace_a22c86638f9449b50c9506b601e7a14db}{sort\_error}}();}
+\DoxyCodeLine{237       \}}
+
+\end{DoxyCode}
+
+
+References emsr\+::integration\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::sort\+\_\+error().
+
+\mbox{\Hypertarget{classemsr_1_1integration__workspace_ac7a1254c23bb2f94a216543f9ebaf0ef}\label{classemsr_1_1integration__workspace_ac7a1254c23bb2f94a216543f9ebaf0ef}} 
+\index{emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}!result@{result}}
+\index{result@{result}!emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{result()}{result()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+Area\+Tp \mbox{\hyperlink{classemsr_1_1integration__workspace}{emsr\+::integration\+\_\+workspace}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::result (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{ii = {\ttfamily 0} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Return the integration result for the segment at start + ii. 
+
+Definition at line 193 of file integration\+\_\+workspace.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{194       \{ \textcolor{keywordflow}{return} this-\/>m\_ival[this-\/>\mbox{\hyperlink{classemsr_1_1integration__workspace_adbec75b99e565cb2c40c6c21be108e34}{curr\_index}}() + ii].result; \}}
+
+\end{DoxyCode}
+
+
+References emsr\+::integration\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::curr\+\_\+index().
+
+\mbox{\Hypertarget{classemsr_1_1integration__workspace_aadf9e52217de798f2647a34d7d0ed31d}\label{classemsr_1_1integration__workspace_aadf9e52217de798f2647a34d7d0ed31d}} 
+\index{emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}!retrieve@{retrieve}}
+\index{retrieve@{retrieve}!emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{retrieve()}{retrieve()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+const interval\& \mbox{\hyperlink{classemsr_1_1integration__workspace}{emsr\+::integration\+\_\+workspace}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::retrieve (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 101 of file integration\+\_\+workspace.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{102       \{ \textcolor{keywordflow}{return} this-\/>m\_ival[this-\/>\mbox{\hyperlink{classemsr_1_1integration__workspace_adbec75b99e565cb2c40c6c21be108e34}{curr\_index}}()]; \}}
+
+\end{DoxyCode}
+
+
+References emsr\+::integration\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::curr\+\_\+index().
+
+\mbox{\Hypertarget{classemsr_1_1integration__workspace_aef88166ead5a3645963791da664ab127}\label{classemsr_1_1integration__workspace_aef88166ead5a3645963791da664ab127}} 
+\index{emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}!set\_abs\_error@{set\_abs\_error}}
+\index{set\_abs\_error@{set\_abs\_error}!emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{set\_abs\_error()}{set\_abs\_error()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+Error\+Tp \mbox{\hyperlink{classemsr_1_1integration__workspace}{emsr\+::integration\+\_\+workspace}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::set\+\_\+abs\+\_\+error (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{ii,  }\item[{Error\+Tp}]{abserr }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Set the absolute error of the segment at start + ii to the given value. Only used by qagp. 
+
+Definition at line 215 of file integration\+\_\+workspace.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{216       \{ \textcolor{keywordflow}{return} this-\/>m\_ival[this-\/>\mbox{\hyperlink{classemsr_1_1integration__workspace_adbec75b99e565cb2c40c6c21be108e34}{curr\_index}}() + ii].abs\_error = abserr; \}}
+
+\end{DoxyCode}
+
+
+References emsr\+::integration\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::curr\+\_\+index().
+
+\mbox{\Hypertarget{classemsr_1_1integration__workspace_aa24b8f23ef83f850c5c6bbdd7184d1da}\label{classemsr_1_1integration__workspace_aa24b8f23ef83f850c5c6bbdd7184d1da}} 
+\index{emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}!set\_depth@{set\_depth}}
+\index{set\_depth@{set\_depth}!emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{set\_depth()}{set\_depth()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+void \mbox{\hyperlink{classemsr_1_1integration__workspace}{emsr\+::integration\+\_\+workspace}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::set\+\_\+depth (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{ii,  }\item[{std\+::size\+\_\+t}]{d }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Set the depth of segment at start + ii to the given value. Only used by qagp. 
+
+Definition at line 223 of file integration\+\_\+workspace.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{224       \{ this-\/>m\_ival[this-\/>\mbox{\hyperlink{classemsr_1_1integration__workspace_adbec75b99e565cb2c40c6c21be108e34}{curr\_index}}() + ii].depth = d; \}}
+
+\end{DoxyCode}
+
+
+References emsr\+::integration\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::curr\+\_\+index().
+
+\mbox{\Hypertarget{classemsr_1_1integration__workspace_a9a3636e959198dd92abbaf1731673510}\label{classemsr_1_1integration__workspace_a9a3636e959198dd92abbaf1731673510}} 
+\index{emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}!size@{size}}
+\index{size@{size}!emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+std\+::size\+\_\+t \mbox{\hyperlink{classemsr_1_1integration__workspace}{emsr\+::integration\+\_\+workspace}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 105 of file integration\+\_\+workspace.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{106       \{ \textcolor{keywordflow}{return} this-\/>m\_ival.size(); \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classemsr_1_1integration__workspace_a22c86638f9449b50c9506b601e7a14db}\label{classemsr_1_1integration__workspace_a22c86638f9449b50c9506b601e7a14db}} 
+\index{emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}!sort\_error@{sort\_error}}
+\index{sort\_error@{sort\_error}!emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{sort\_error()}{sort\_error()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+void \mbox{\hyperlink{classemsr_1_1integration__workspace}{emsr\+::integration\+\_\+workspace}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::sort\+\_\+error}
+
+Rebuild the current heap. N.\+B. this-\/$>$\mbox{\hyperlink{classemsr_1_1integration__workspace_a6b623e8b0ca444a706e7c706aea52e19}{begin()}} includes \mbox{\hyperlink{classemsr_1_1integration__workspace_adbec75b99e565cb2c40c6c21be108e34}{curr\+\_\+index()}}! 
+
+Definition at line 40 of file integration\+\_\+workspace.\+tcc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{41     \{}
+\DoxyCodeLine{42       std::make\_heap(this-\/>\mbox{\hyperlink{classemsr_1_1integration__workspace_a6b623e8b0ca444a706e7c706aea52e19}{begin}}(), this-\/>\mbox{\hyperlink{classemsr_1_1integration__workspace_acf31ba0b31603ef41d7f0460a1938976}{end}}(), interval\_comp\{\});}
+\DoxyCodeLine{43       \textcolor{keywordflow}{return};}
+\DoxyCodeLine{44     \}}
+
+\end{DoxyCode}
+
+
+Referenced by emsr\+::integration\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::reset\+\_\+curr\+\_\+index().
+
+\mbox{\Hypertarget{classemsr_1_1integration__workspace_a3a78a4eab603f912cd6e9ab47baaf79a}\label{classemsr_1_1integration__workspace_a3a78a4eab603f912cd6e9ab47baaf79a}} 
+\index{emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}!split@{split}}
+\index{split@{split}!emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{split()}{split()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+void \mbox{\hyperlink{classemsr_1_1integration__workspace}{emsr\+::integration\+\_\+workspace}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::split (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}}]{ab,  }\item[{Area\+Tp}]{area1,  }\item[{Error\+Tp}]{error1,  }\item[{Area\+Tp}]{area2,  }\item[{Error\+Tp}]{error2 }\end{DoxyParamCaption})}
+
+
+
+Definition at line 70 of file integration\+\_\+workspace.\+tcc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{74     \{}
+\DoxyCodeLine{75       \textcolor{keyword}{auto} iv = this-\/>\mbox{\hyperlink{classemsr_1_1integration__workspace_aa2c9c2d80d86da1566b64d8601d84732}{top}}();}
+\DoxyCodeLine{76       \textcolor{keyword}{const} \textcolor{keyword}{auto} a1 = iv.lower\_lim;}
+\DoxyCodeLine{77       \textcolor{keyword}{const} \textcolor{keyword}{auto} b1 = ab;}
+\DoxyCodeLine{78       \textcolor{keyword}{const} \textcolor{keyword}{auto} a2 = ab;}
+\DoxyCodeLine{79       \textcolor{keyword}{const} \textcolor{keyword}{auto} b2 = iv.upper\_lim;}
+\DoxyCodeLine{80       \textcolor{keyword}{const} \textcolor{keyword}{auto} \mbox{\hyperlink{classemsr_1_1integration__workspace_a31aadd1b437e66a332a8eaa765bf2ccc}{depth}} = iv.depth + 1;}
+\DoxyCodeLine{81       this-\/>\mbox{\hyperlink{classemsr_1_1integration__workspace_aa48dfce59e79baf9f380d7fb8e2e6425}{pop}}();}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83       interval iv1;}
+\DoxyCodeLine{84       iv1.lower\_lim = a1;}
+\DoxyCodeLine{85       iv1.upper\_lim = b1;}
+\DoxyCodeLine{86       iv1.result = area1;}
+\DoxyCodeLine{87       iv1.abs\_error = error1;}
+\DoxyCodeLine{88       iv1.depth = \mbox{\hyperlink{classemsr_1_1integration__workspace_a31aadd1b437e66a332a8eaa765bf2ccc}{depth}};}
+\DoxyCodeLine{89       this-\/>\mbox{\hyperlink{classemsr_1_1integration__workspace_a8cdadb75efcbe47991caeb3ee87af17e}{push}}(iv1);}
+\DoxyCodeLine{90 }
+\DoxyCodeLine{91       interval iv2;}
+\DoxyCodeLine{92       iv2.lower\_lim = a2;}
+\DoxyCodeLine{93       iv2.upper\_lim = b2;}
+\DoxyCodeLine{94       iv2.result = area2;}
+\DoxyCodeLine{95       iv2.abs\_error = error2;}
+\DoxyCodeLine{96       iv2.depth = \mbox{\hyperlink{classemsr_1_1integration__workspace_a31aadd1b437e66a332a8eaa765bf2ccc}{depth}};}
+\DoxyCodeLine{97       this-\/>\mbox{\hyperlink{classemsr_1_1integration__workspace_a8cdadb75efcbe47991caeb3ee87af17e}{push}}(iv2);}
+\DoxyCodeLine{98 }
+\DoxyCodeLine{99       \textcolor{keywordflow}{if} (\mbox{\hyperlink{classemsr_1_1integration__workspace_a31aadd1b437e66a332a8eaa765bf2ccc}{depth}} > this-\/>m\_max\_depth)}
+\DoxyCodeLine{100         this-\/>m\_max\_depth = \mbox{\hyperlink{classemsr_1_1integration__workspace_a31aadd1b437e66a332a8eaa765bf2ccc}{depth}};}
+\DoxyCodeLine{101     \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classemsr_1_1integration__workspace_a05161109488ebce77d853e9dcca9ec78}\label{classemsr_1_1integration__workspace_a05161109488ebce77d853e9dcca9ec78}} 
+\index{emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}!subinterval\_too\_small@{subinterval\_too\_small}}
+\index{subinterval\_too\_small@{subinterval\_too\_small}!emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{subinterval\_too\_small()}{subinterval\_too\_small()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+static bool \mbox{\hyperlink{classemsr_1_1integration__workspace}{emsr\+::integration\+\_\+workspace}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::subinterval\+\_\+too\+\_\+small (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}}]{a1,  }\item[{\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}}]{a2,  }\item[{\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}}]{b2 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line 301 of file integration\+\_\+workspace.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{302       \{}
+\DoxyCodeLine{303         \textcolor{keyword}{const} \textcolor{keyword}{auto} s\_eps = \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{100\} * std::numeric\_limits<Tp>::epsilon();}
+\DoxyCodeLine{304         \textcolor{keyword}{const} \textcolor{keyword}{auto} s\_min = \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1000\} * std::numeric\_limits<Tp>::min();}
+\DoxyCodeLine{305 }
+\DoxyCodeLine{306         \textcolor{keyword}{const} \textcolor{keyword}{auto} tmp = (\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\} + s\_eps) * (std::abs(a2) + s\_min);}
+\DoxyCodeLine{307 }
+\DoxyCodeLine{308         \textcolor{keywordflow}{return} std::abs(a1) <= tmp}
+\DoxyCodeLine{309             \&\& std::abs(b2) <= tmp;}
+\DoxyCodeLine{310       \}}
+
+\end{DoxyCode}
+
+
+References Tp.
+
+\mbox{\Hypertarget{classemsr_1_1integration__workspace_a0c42707177dd2a43449bea4499f74179}\label{classemsr_1_1integration__workspace_a0c42707177dd2a43449bea4499f74179}} 
+\index{emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}!top@{top}}
+\index{top@{top}!emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{top()}{top()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+interval\& \mbox{\hyperlink{classemsr_1_1integration__workspace}{emsr\+::integration\+\_\+workspace}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::top (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Return the current segment -\/ the top of the heap -\/ as an rvalue. 
+
+Definition at line 142 of file integration\+\_\+workspace.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{143       \{ \textcolor{keywordflow}{return} this-\/>m\_ival[this-\/>\mbox{\hyperlink{classemsr_1_1integration__workspace_adbec75b99e565cb2c40c6c21be108e34}{curr\_index}}()]; \}}
+
+\end{DoxyCode}
+
+
+References emsr\+::integration\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::curr\+\_\+index().
+
+\mbox{\Hypertarget{classemsr_1_1integration__workspace_aa2c9c2d80d86da1566b64d8601d84732}\label{classemsr_1_1integration__workspace_aa2c9c2d80d86da1566b64d8601d84732}} 
+\index{emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}!top@{top}}
+\index{top@{top}!emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{top()}{top()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+const interval\& \mbox{\hyperlink{classemsr_1_1integration__workspace}{emsr\+::integration\+\_\+workspace}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::top (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Return the current segment -\/ the top of the heap -\/ as an lvalue. 
+
+Definition at line 135 of file integration\+\_\+workspace.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{136       \{ \textcolor{keywordflow}{return} this-\/>m\_ival[this-\/>\mbox{\hyperlink{classemsr_1_1integration__workspace_adbec75b99e565cb2c40c6c21be108e34}{curr\_index}}()]; \}}
+
+\end{DoxyCode}
+
+
+References emsr\+::integration\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::curr\+\_\+index().
+
+\mbox{\Hypertarget{classemsr_1_1integration__workspace_ae75a1d3e0379110bbe3c694bb0115e5a}\label{classemsr_1_1integration__workspace_ae75a1d3e0379110bbe3c694bb0115e5a}} 
+\index{emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}!total\_error@{total\_error}}
+\index{total\_error@{total\_error}!emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{total\_error()}{total\_error()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+Error\+Tp \mbox{\hyperlink{classemsr_1_1integration__workspace}{emsr\+::integration\+\_\+workspace}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::total\+\_\+error (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Return the sum of the absolute errors over all integration segments. 
+
+
+
+Definition at line 284 of file integration\+\_\+workspace.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{285       \{}
+\DoxyCodeLine{286         \textcolor{keyword}{auto} tot\_error = ErrorTp\{0\};}
+\DoxyCodeLine{287         \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}\& iv : this-\/>m\_ival)}
+\DoxyCodeLine{288           tot\_error += iv.abs\_error;}
+\DoxyCodeLine{289         \textcolor{keywordflow}{return} tot\_error;}
+\DoxyCodeLine{290       \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classemsr_1_1integration__workspace_a531d1603fdf12042847021d0346342ad}\label{classemsr_1_1integration__workspace_a531d1603fdf12042847021d0346342ad}} 
+\index{emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}!total\_integral@{total\_integral}}
+\index{total\_integral@{total\_integral}!emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{total\_integral()}{total\_integral()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+Area\+Tp \mbox{\hyperlink{classemsr_1_1integration__workspace}{emsr\+::integration\+\_\+workspace}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::total\+\_\+integral (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Return the total integral\+: the sum of the results over all integration segments. 
+
+
+
+Definition at line 274 of file integration\+\_\+workspace.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{275       \{}
+\DoxyCodeLine{276         \textcolor{keyword}{auto} result\_sum = AreaTp\{0\};}
+\DoxyCodeLine{277         \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto}\& iv : this-\/>m\_ival)}
+\DoxyCodeLine{278           result\_sum += iv.result;}
+\DoxyCodeLine{279         \textcolor{keywordflow}{return} result\_sum;}
+\DoxyCodeLine{280       \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classemsr_1_1integration__workspace_a27116169214cbd917b64f7591b369447}\label{classemsr_1_1integration__workspace_a27116169214cbd917b64f7591b369447}} 
+\index{emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}!upper\_lim@{upper\_lim}}
+\index{upper\_lim@{upper\_lim}!emsr::integration\_workspace$<$ Tp, RetTp $>$@{emsr::integration\_workspace$<$ Tp, RetTp $>$}}
+\doxysubsubsection{\texorpdfstring{upper\_lim()}{upper\_lim()}}
+{\footnotesize\ttfamily template$<$typename Tp , typename Ret\+Tp $>$ \\
+\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} \mbox{\hyperlink{classemsr_1_1integration__workspace}{emsr\+::integration\+\_\+workspace}}$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}, Ret\+Tp $>$\+::upper\+\_\+lim (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{ii = {\ttfamily 0} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Return the upper limit for the segment at start + ii. 
+
+Definition at line 186 of file integration\+\_\+workspace.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{187       \{ \textcolor{keywordflow}{return} this-\/>m\_ival[this-\/>\mbox{\hyperlink{classemsr_1_1integration__workspace_adbec75b99e565cb2c40c6c21be108e34}{curr\_index}}() + ii].upper\_lim; \}}
+
+\end{DoxyCode}
+
+
+References emsr\+::integration\+\_\+workspace$<$ Tp, Ret\+Tp $>$\+::curr\+\_\+index().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/emsr/\mbox{\hyperlink{integration__workspace_8h}{integration\+\_\+workspace.\+h}}\item 
+include/emsr/\mbox{\hyperlink{integration__workspace_8tcc}{integration\+\_\+workspace.\+tcc}}\end{DoxyCompactItemize}

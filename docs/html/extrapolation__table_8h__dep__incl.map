@@ -1,5 +1,6 @@
-<map id="include/ext/extrapolation_table.h" name="include/ext/extrapolation_table.h">
-<area shape="rect" id="node2" href="$qagp__integrate_8tcc.html" title="include/ext/qagp_integrate.tcc" alt="" coords="5,95,201,121"/>
-<area shape="rect" id="node4" href="$qags__integrate_8tcc.html" title="include/ext/qags_integrate.tcc" alt="" coords="225,95,421,121"/>
-<area shape="rect" id="node3" href="$integration_8h.html" title="include/ext/integration.h" alt="" coords="133,169,293,196"/>
+<map id="include/emsr/extrapolation_table.h" name="include/emsr/extrapolation_table.h">
+<area shape="rect" id="node1" title=" " alt="" coords="149,5,346,47"/>
+<area shape="rect" id="node2" href="$qagp__integrate_8tcc.html" title=" " alt="" coords="5,95,236,121"/>
+<area shape="rect" id="node4" href="$qags__integrate_8tcc.html" title=" " alt="" coords="260,95,491,121"/>
+<area shape="rect" id="node3" href="$integration_8h.html" title=" " alt="" coords="151,169,344,196"/>
 </map>
