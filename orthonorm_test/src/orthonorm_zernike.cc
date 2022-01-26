@@ -43,9 +43,9 @@ template<typename Tp>
     constexpr auto eps = Tp{10000} * std::numeric_limits<Tp>::epsilon();
     constexpr auto 2pi = Tp{2} * emsr::pi_v<Tp>;
     auto z1 = [n1, m1, rho](Tp phi)
-	      ->Tp { return __gnu_cxx::zernike(n1, m1, rho, phi); };
+	      ->Tp { return emsr::zernike(n1, m1, rho, phi); };
     auto z2 = [n2, m2, rho](Tp phi)
-	      ->Tp { return __gnu_cxx::zernike(n2, m2, rho, phi); };
+	      ->Tp { return emsr::zernike(n2, m2, rho, phi); };
     auto norm = Tp{1} / std::sqrt(Tp(2 * n1 + 2) * Tp(2 * n2 + 2));
     auto fun = [n1, m1, rho, z1, z2, norm](Tp phi)
 	       ->Tp { return rho * z1(phi) * z2(phi) / norm; };

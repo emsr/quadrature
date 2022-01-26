@@ -20,6 +20,7 @@
 #ifndef QNG_INTEGRATE_TCC
 #define QNG_INTEGRATE_TCC 1
 
+#include <stdexcept>
 #include <type_traits>
 
 #include <emsr/integration_error.h>

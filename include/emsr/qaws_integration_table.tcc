@@ -20,6 +20,8 @@
 #ifndef QAWS_INTEGRATION_TABLE_TCC
 #define QAWS_INTEGRATION_TABLE_TCC 1
 
+#include <stdexcept>
+
 namespace emsr
 {
 

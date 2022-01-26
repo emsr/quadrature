@@ -19,6 +19,7 @@
 #ifndef FOURIER_TRANSFORM_TCC
 #define FOURIER_TRANSFORM_TCC 1
 
+#include <stdexcept>
 #include <numeric>
 #include <vector>
 #include <complex>

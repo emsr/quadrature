@@ -1,6 +1,7 @@
 #ifndef HERMITE_ZEROS_TCC
 #define HERMITE_ZEROS_TCC 1
 
+#include <stdexcept>
 #include <cmath>
 
 namespace emsr

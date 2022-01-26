@@ -19,6 +19,8 @@
 #ifndef GAUSS_KRONROD_RULE_TCC
 #define GAUSS_KRONROD_RULE_TCC 1
 
+#include <stdexcept>
+
 namespace std
 {
 namespace detail

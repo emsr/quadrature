@@ -1,6 +1,8 @@
 #ifndef JACOBI_ZEROS_TCC
 #define JACOBI_ZEROS_TCC 1
 
+#include <stdexcept>
+
 namespace emsr
 {
 

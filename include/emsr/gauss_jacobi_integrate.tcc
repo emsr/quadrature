@@ -169,7 +169,7 @@ template<typename Tp>
   {
     Tp coef = std::pow(Tp{2}, this->alpha + this->beta + Tp{1})
 	     * std::tgamma(this->alpha + Tp(this->Q + 1))
-	     / __gnu_cxx::factorial<Tp>(this->Q)
+	     / emsr::factorial<Tp>(this->Q)
 	     * std::tgamma(this->beta + Tp(this->Q + 1))
 	     / std::tgamma(this->alpha + this->beta + Tp(this->Q + 1));
 
@@ -326,7 +326,7 @@ template<typename Tp>
   {
     Tp coef = pow(Tp{2}, this->alpha + this->beta + Tp{1}) / Tp(this->Q - 1)
 	     * std::tgamma(this->alpha + this->Q)
-	     / __gnu_cxx::factorial<Tp>(this->Q - 1)
+	     / emsr::factorial<Tp>(this->Q - 1)
 	     * std::tgamma(this->beta + this->Q)
 	     / std::tgamma(this->alpha + this->beta + Tp(this->Q + 1));
 
@@ -497,7 +497,7 @@ template<typename Tp>
     Tp coef = std::pow(Tp{2}, this->alpha + this->beta)
 	     / (this->beta + this->Q)
 	     * std::tgamma(this->alpha + this->Q)
-	     / __gnu_cxx::factorial<Tp>(this->Q - 1)
+	     / emsr::factorial<Tp>(this->Q - 1)
 	     * std::tgamma(this->beta + this->Q)
 	     / std::tgamma(this->alpha + this->beta + Tp(this->Q + 1));
 
@@ -669,7 +669,7 @@ template<typename Tp>
     Tp coef = pow(Tp{2}, this->alpha + this->beta)
 	     / (this->alpha + this->Q)
 	     * std::tgamma(this->alpha + this->Q)
-	     / __gnu_cxx::factorial<Tp>(this->Q - 1)
+	     / emsr::factorial<Tp>(this->Q - 1)
 	     * std::tgamma(this->beta + this->Q)
 	     / std::tgamma(this->alpha + this->beta + Tp(this->Q + 1));
 
@@ -714,7 +714,7 @@ template<typename Tp>
       pnd[i] *= (Tp{1} - x[i]);
 
     pnd[this->Q - 1] = -std::tgamma(this->alpha + Tp(this->Q + 1))
-		     / __gnu_cxx::factorial<Tp>(this->Q - 1)
+		     / emsr::factorial<Tp>(this->Q - 1)
 		     / std::tgamma(this->alpha + Tp{2});
     
     for (int i = 0; i < this->Q; ++i)

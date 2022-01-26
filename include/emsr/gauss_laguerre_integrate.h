@@ -19,6 +19,7 @@
 #ifndef GAUSS_LAGUERRE_INTEGRATE_H
 #define GAUSS_LAGUERRE_INTEGRATE_H 1
 
+#include <stdexcept>
 #include <type_traits>
 #include <vector>
 

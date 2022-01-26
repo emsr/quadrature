@@ -16,10 +16,10 @@ template<typename Tp>
     auto gama = std::tgamma(alpha);
     auto gamn2a = std::tgamma(n1 + Tp{2} * alpha);
     auto norm = pi * std::pow(Tp{2}, Tp{1} - Tp{2} * alpha) * gamn2a
-	      / __gnu_cxx::factorial<Tp>(n1) / (Tp(n1) + alpha) / gama / gama;
+	      / emsr::factorial<Tp>(n1) / (Tp(n1) + alpha) / gama / gama;
     return std::pow(Tp{1} - x * x, alpha - Tp{0.5})
-	 * __gnu_cxx::gegenbauer(n1, alpha, x)
-	 * __gnu_cxx::gegenbauer(n2, alpha, x) / norm;
+	 * emsr::gegenbauer(n1, alpha, x)
+	 * emsr::gegenbauer(n2, alpha, x) / norm;
   }
 
 template<typename Tp>

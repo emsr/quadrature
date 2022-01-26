@@ -19,6 +19,7 @@
 #ifndef INTEGRATION_TCC
 #define INTEGRATION_TCC 1
 
+#include <stdexcept>
 #include <type_traits>
 
 namespace emsr

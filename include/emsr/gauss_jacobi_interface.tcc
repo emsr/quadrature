@@ -26,6 +26,7 @@
 /** @file  Wrappers to basic functions defined in gauss_quad.c
  */
 
+#include <stdexcept>
 #include <cstdlib>
 #include <numeric>
 

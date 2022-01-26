@@ -8,6 +8,8 @@
 #include <emsr/math_util.h>
 #include <emsr/numeric_limits.h>
 #include <emsr/math_constants.h>
+#include <emsr/sf_trig.h>
+#include <emsr/sf_bernoulli.h>
 
 namespace emsr
 {
@@ -65,7 +67,7 @@ namespace detail
       using _Val = Tp;
       using _Real = emsr::num_traits_t<_Val>;
       const auto _S_eps = _Real{3} * emsr::epsilon(a);
-      const auto _S_itmax = 10 * int(10 + std::sqrt(std::abs(a)));
+      const unsigned int _S_itmax = 10 * int(10 + std::sqrt(std::abs(a)));
 
       auto lngam = log_gamma(a);
       auto sign = log_gamma_sign(a);
@@ -109,7 +111,7 @@ namespace detail
       using _Real = emsr::num_traits_t<_Val>;
       const auto _S_fpmin = _Real{3} * emsr::lim_min(a);
       const auto _S_eps = _Real{3} * emsr::epsilon(a);
-      const auto _S_itmax = 10 * int(10 + std::sqrt(std::abs(a)));
+      const unsigned int _S_itmax = 10 * int(10 + std::sqrt(std::abs(a)));
 
       auto lngam = log_gamma(a);
       auto sign = log_gamma_sign(a);
@@ -120,7 +122,7 @@ namespace detail
       auto h = d;
       for (unsigned int n = 1; n <= _S_itmax; ++n)
 	{
-	  auto an = -_Real{n} * (_Real{n} - a);
+	  auto an = -_Real(n) * (_Real(n) - a);
 	  b += _Real{2};
 	  d = an * d + b;
 	  if (std::abs(d) < _S_fpmin)
@@ -204,6 +206,240 @@ namespace detail
 	{
 	  auto gp = gamma_cont_frac(a, x);
 	  return std::exp(gp.second) * gp.first;
+	}
+    }
+
+  /**
+   * @brief  Return the digamma function of integral argument.
+   * The digamma or @f$ \psi(x) @f$ function is defined as the logarithmic
+   * derivative of the gamma function:
+   * @f[
+   *   \psi(x) = \frac{\Gamma'(x)}{\Gamma(x)}
+   * @f]
+   * The digamma series for integral argument is given by:
+   * @f[
+   *   \psi(n) = -\gamma_E + \sum_{k=1}^{n-1} \frac{1}{k}
+   * @f]
+   * The latter sum is called the harmonic number, @f$ H_n @f$.
+   */
+  template<typename Tp>
+    Tp
+    digamma(unsigned int n)
+    {
+      using Val = emsr::num_traits_t<Tp>;
+      constexpr auto s_gamma_E = emsr::egamma_v<Val>;
+      if (n > 1)
+	return -s_gamma_E + harmonic_number<Val>(n - 1);
+      else
+	return -s_gamma_E;
+    }
+
+  /**
+   * @brief  Return the digamma function by series expansion.
+   * The digamma or @f$ \psi(x) @f$ function is defined by
+   * @f[
+   *   \psi(x) = \frac{\Gamma'(x)}{\Gamma(x)}
+   * @f]
+   *
+   * The series is given by:
+   * @f[
+   *   \psi(x) = -\gamma_E - \frac{1}{x}
+   *		\sum_{k=1}^{\infty} \frac{x - 1}{(k + 1)(x + k)}
+   * @f]
+   */
+  template<typename Tp>
+    Tp
+    digamma_series(Tp x)
+    {
+      using Val = emsr::num_traits_t<Tp>;
+      Tp sum = -emsr::egamma_v<Val>;
+      const unsigned int s_max_iter = 100000;
+      for (unsigned int k = 0; k < s_max_iter; ++k)
+	{
+	  const auto term = (x - Tp{1})
+			    / (Tp(k + 1) * (Tp(k) + x));
+	  sum += term;
+	  if (std::abs(term) < emsr::epsilon<Val>())
+	    break;
+	}
+      return sum;
+    }
+
+
+  /**
+   * @brief  Return the digamma function for large argument.
+   * The digamma or @f$ \psi(x) @f$ function is defined by
+   * @f[
+   *   \psi(x) = \frac{\Gamma'(x)}{\Gamma(x)}
+   * @f]
+   *
+   * The asymptotic series is given by:
+   * @f[
+   *   \psi(x) = \ln(x) - \frac{1}{2x}
+   *	       - \sum_{n=1}^{\infty} \frac{B_{2n}}{2 n x^{2n}}
+   * @f]
+   */
+  template<typename Tp>
+    Tp
+    digamma_asymp(Tp x)
+    {
+      using Val = emsr::num_traits_t<Tp>;
+      auto sum = std::log(x) - Val{0.5L} / x;
+      const auto xx = x * x;
+      auto xp = xx;
+      const unsigned int max_iter = 100;
+      for (unsigned int k = 1; k < max_iter; ++k)
+	{
+	  const Tp term = bernoulli<Val>(2 * k)
+			   / (Val(2 * k) * xp);
+	  sum -= term;
+	  if (std::abs(term / sum) < emsr::epsilon<Val>())
+	    break;
+	  xp *= xx;
+	}
+      return sum;
+    }
+
+
+  /**
+   * @brief  Return the digamma function.
+   * The digamma or @f$ \psi(x) @f$ function is defined by
+   * @f[
+   *   \psi(x) = \frac{\Gamma'(x)}{\Gamma(x)}
+   * @f]
+   * For negative argument the reflection formula is used:
+   * @f[
+   *   \psi(x) = \psi(1-x) - \pi \cot(\pi x)
+   * @f]
+   */
+  template<typename Tp>
+    Tp
+    digamma(Tp x)
+    {
+      using Val = emsr::num_traits_t<Tp>;
+      const auto s_x_asymp = Val{20};
+      const auto s_gamma_E = emsr::egamma_v<Val>;
+      const auto s_2_ln_2 = Tp{2} * emsr::ln2_v<Val>;
+      const auto s_pi = emsr::pi_v<Val>;
+
+      const auto n = emsr::fp_is_integer(x);
+      const auto m = emsr::fp_is_half_odd_integer(x);
+      if (std::real(x) <= Val{0})
+	{
+	  if (n)
+	    return emsr::quiet_NaN(x);
+	  else
+	    return digamma(Val{1} - x) - s_pi / emsr::tan_pi(x);
+	}
+      else if (n)
+	return digamma<Tp>(n());
+      else if (m)
+	{
+	  Tp sum = -s_gamma_E - s_2_ln_2;
+	  for (int k = 1; k <= m(); ++k)
+	    sum += Tp{2} / Tp(2 * k - 1);
+	  return sum;
+	}
+      else if (std::real(x) > s_x_asymp)
+	return digamma_asymp(x);
+      else
+	{
+	  // The series does not converge quickly enough.
+	  // Reflect to larger argument and use asymptotic expansion.
+	  auto w = Tp{0};
+	  auto y = x;
+	  while (std::real(y) <= s_x_asymp)
+	    {
+	      w += Val{1} / y;
+	      y += Val{1};
+	    }
+	  return digamma_asymp(y) - w;
+	}
+    }
+
+  constexpr unsigned long long
+  s_num_harmonic_numer = 29;
+  constexpr unsigned long long
+  s_harmonic_numer[s_num_harmonic_numer]
+  {
+    1ULL,
+    3ULL,
+    11ULL,
+    25ULL,
+    137ULL,
+    49ULL,
+    363ULL,
+    761ULL,
+    7129ULL,
+    7381ULL,
+    83711ULL,
+    86021ULL,
+    1145993ULL,
+    1171733ULL,
+    1195757ULL,
+    2436559ULL,
+    42142223ULL,
+    14274301ULL,
+    275295799ULL,
+    55835135ULL,
+    18858053ULL,
+    19093197ULL,
+    444316699ULL,
+    1347822955ULL,
+    34052522467ULL,
+    34395742267ULL,
+    312536252003ULL,
+    315404588903ULL,
+    9227046511387ULL
+  };
+  constexpr unsigned long long
+  s_harmonic_denom[s_num_harmonic_numer]
+  {
+    1ULL,
+    2ULL,
+    6ULL,
+    12ULL,
+    60ULL,
+    20ULL,
+    140ULL,
+    280ULL,
+    2520ULL,
+    2520ULL,
+    27720ULL,
+    27720ULL,
+    360360ULL,
+    360360ULL,
+    360360ULL,
+    720720ULL,
+    12252240ULL,
+    4084080ULL,
+    77597520ULL,
+    15519504ULL,
+    5173168ULL,
+    5173168ULL,
+    118982864ULL,
+    356948592ULL,
+    8923714800ULL,
+    8923714800ULL,
+    80313433200ULL,
+    80313433200ULL,
+    2329089562800ULL
+  };
+
+  template<typename Tp>
+    Tp
+    harmonic_number(unsigned int n)
+    {
+      if (n <= s_num_harmonic_numer)
+	return Tp(s_harmonic_numer[n - 1])
+	     / Tp(s_harmonic_denom[n - 1]);
+      else
+        {
+	  unsigned int k = s_num_harmonic_numer - 1;
+	  auto _H_k = Tp(s_harmonic_numer[k]) / Tp(s_harmonic_denom[k]);
+	  for (k = s_num_harmonic_numer + 1; k <= n; ++k)
+	    _H_k += Tp{1} / Tp(k);
+	  return _H_k;
 	}
     }
 

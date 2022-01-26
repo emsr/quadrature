@@ -26,6 +26,7 @@
 #ifndef CQUAD_INTEGRATE_TCC
 #define CQUAD_INTEGRATE_TCC 1
 
+#include <stdexcept>
 #include <type_traits>
 
 #include <emsr/cquad_const.tcc>

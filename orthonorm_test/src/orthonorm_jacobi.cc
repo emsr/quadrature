@@ -62,8 +62,8 @@ template<typename Tp>
 	auto norm = std::pow(Tp{2}, Tp{1} + alpha + beta)
 		  * gam / (Tp(2 * n1 + 1) + alpha + beta);
 	return std::pow(Tp{1} - x, alpha) * std::pow(Tp{1} + x, beta)
-	     * __gnu_cxx::jacobi(n1, alpha, beta, x)
-	     * __gnu_cxx::jacobi(n2, alpha, beta, x) / norm;
+	     * emsr::jacobi(n1, alpha, beta, x)
+	     * emsr::jacobi(n2, alpha, beta, x) / norm;
       }
   }
 

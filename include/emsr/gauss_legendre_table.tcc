@@ -25,6 +25,8 @@
 #ifndef GAUSS_LEGENDRE_TABLE_TCC
 #define GAUSS_LEGENDRE_TABLE_TCC 1
 
+#include <stdexcept>
+
 #include <emsr/quadrature_point.h>
 
 namespace emsr

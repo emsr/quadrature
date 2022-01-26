@@ -19,6 +19,7 @@
 #ifndef MATRIX_TCC
 #define MATRIX_TCC 1
 
+#include <stdexcept>
 #include <type_traits> // For decay.
 
 namespace emsr

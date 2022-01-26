@@ -10,7 +10,7 @@
       std::cout.precision(std::numeric_limits<Tp>::digits10);
       auto w = 8 + std::cout.precision();
 
-      const auto s_pi_4 = __gnu_cxx::math_constants<Tp>::pi_quarter;
+      const auto s_pi_4 = emsr::math_constants<Tp>::pi_v / 4;
 
       n /= 2;
 
@@ -76,7 +76,7 @@
       std::cout.precision(std::numeric_limits<Tp>::digits10);
       auto w = 8 + std::cout.precision();
 
-      const auto s_pi_4 = __gnu_cxx::math_constants<Tp>::pi_quarter;
+      const auto s_pi_4 = emsr::math_constants<Tp>::pi / 4;
 
       n /= 2;
 

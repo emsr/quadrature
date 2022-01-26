@@ -39,8 +39,8 @@ template<typename Tp>
   {
     auto norm = Tp{1} / std::sqrt(Tp(2 * n1 + 2) * Tp(2 * n2 + 2));
     return rho
-	 * __gnu_cxx::radpoly(n1, m1, rho)
-	 * __gnu_cxx::radpoly(n2, m2, rho) / norm;
+	 * emsr::radpoly(n1, m1, rho)
+	 * emsr::radpoly(n2, m2, rho) / norm;
   }
 
 template<typename Tp>

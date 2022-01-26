@@ -37,6 +37,44 @@ namespace emsr
       return emsr::detail::tgamma_lower<type>(a, x);
     }
 
+  /**
+   * Return the digamma or psi function of argument @c x.
+   *
+   * The the digamma or psi function is defined by
+   * @f[
+   *    \psi(x) = \frac{d}{dx}log\left(\Gamma(x)\right)
+   *            = \frac{\Gamma'(x)}{\Gamma(x)},
+   * @f]
+   * the logarithmic derivative of the gamma function.
+   *
+   * @param x The parameter
+   */
+  template<typename _Tp>
+    inline emsr::fp_promote_t<_Tp>
+    digamma(_Tp x)
+    {
+      using type = emsr::fp_promote_t<_Tp>;
+      return emsr::detail::digamma<type>(x);
+    }
+
+  /**
+   * Return the harmonic number @f$ H_n @f$.
+   *
+   * The the harmonic number is defined by
+   * @f[
+   *    H_n = \sum_{k=1}^{n}\frac{1}{k}
+   * @f]
+   *
+   * @param n The parameter
+   */
+  template<typename _Tp>
+    inline emsr::fp_promote_t<_Tp>
+    harmonic(unsigned int n)
+    {
+      using type = emsr::fp_promote_t<_Tp>;
+      return emsr::detail::harmonic_number<type>(n);
+    }
+
 } // namespace emsr
 
 #endif // SF_GAMMA_H

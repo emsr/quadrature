@@ -26,6 +26,7 @@
 #ifndef QAWC_INTEGRATE_TCC
 #define QAWC_INTEGRATE_TCC 1
 
+#include <stdexcept>
 #include <type_traits>
 #include <array>
 

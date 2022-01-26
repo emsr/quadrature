@@ -26,6 +26,7 @@
 #ifndef QAGP_INTEGRATE_TCC
 #define QAGP_INTEGRATE_TCC 1
 
+#include <stdexcept>
 #include <type_traits>
 #include <tuple>
 

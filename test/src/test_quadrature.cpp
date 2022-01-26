@@ -28,10 +28,12 @@
 #include <memory>
 #include <cfenv>
 
+#include <bits/specfun.h>
+
 #include <emsr/integration.h>
 #include "testcase.h"
 #include "func_utils.h"
-#include <emsr/special_functions.h>
+#include <emsr/sf_hyperg.h>
 
 template<typename Tp>
   inline constexpr Tp
@@ -3260,7 +3262,7 @@ test_quadrature()
 	    // Test Chebyshev T (first kind) quadrature.
 	    exact = std::copysign(Tp{1}, bma)
 		  * s_pi<Tp> * std::pow(Tp{0.5L} * bpa, Tp(deg))
-		  * __gnu_cxx::hyperg(Tp(0.5L * (1 - deg)), Tp(-0.5L * deg),
+		  * emsr::hyperg(Tp(0.5L * (1 - deg)), Tp(-0.5L * deg),
 				      Tp{1}, bma * bma / (bpa * bpa));
 	    test_quadrature_rule(mon, a, b,
 				 prec_fixed<Tp>, exact, "chebyshev_t monomial",
@@ -3269,7 +3271,7 @@ test_quadrature()
 	    // Test Chebyshev U (second kind) quadrature.
 	    exact = std::copysign(Tp{1}, bma)
 		  * s_pi_2 * std::pow(Tp{0.5L} * bpa, Tp(deg))
-		  * __gnu_cxx::hyperg(Tp(0.5L * (1 - deg)), Tp(-0.5L * deg),
+		  * emsr::hyperg(Tp(0.5L * (1 - deg)), Tp(-0.5L * deg),
 				      Tp{2}, bma * bma / (bpa * bpa))
 		  * Tp{0.25L} * bma * bma;
 	    test_quadrature_rule(mon, a, b,
@@ -3288,9 +3290,9 @@ test_quadrature()
 	    // Test Hermite quadrature.
 	    exact = Tp{0.5L} * std::pow(b, Tp(-0.5L * deg))
 		  * (Tp((1 - dterm) * deg) * a * std::tgamma(Tp(0.5L * deg))
-		      * __gnu_cxx::conf_hyperg(Tp(0.5L * (1 - deg)), Tp{1.5L}, -a * a * b)
+		      * emsr::conf_hyperg(Tp(0.5L * (1 - deg)), Tp{1.5L}, -a * a * b)
 		   + Tp(1 + dterm) * std::tgamma(Tp(0.5L * (1 + deg)))
-		      * __gnu_cxx::conf_hyperg(Tp(-0.5L * deg), Tp{0.5L}, -a * a * b) / std::sqrt(b));
+		      * emsr::conf_hyperg(Tp(-0.5L * deg), Tp{0.5L}, -a * a * b) / std::sqrt(b));
 	    test_quadrature_rule(mon, a, b,
 				 prec_fixed<Tp>, exact, "hermite monomial",
 				 emsr::fixed_gauss_hermite_integral<Tp>(n, Tp{0}),
@@ -3369,7 +3371,7 @@ test_quadrature()
 		 ? Tp{0}
 		 : Tp{2} * std::tgamma(alpha + Tp{1}) * std::tgamma(n + Tp{1})
 		   / std::tgamma(alpha + Tp(n + 2))
-		   * __gnu_cxx::hyperg(-alpha, Tp(n + 1), alpha + Tp(n + 2), Tp{-1});
+		   * emsr::hyperg(-alpha, Tp(n + 1), alpha + Tp(n + 2), Tp{-1});
 	};
 */
 
@@ -3410,11 +3412,11 @@ test_quadrature()
 	  using Tp = decltype(alpha + beta);
 	  return std::tgamma(alpha + Tp{1}) * std::tgamma(n + Tp{1})
 	       / std::tgamma(alpha + Tp(n + 2))
-	       * __gnu_cxx::hyperg(-beta, Tp(n + 1), alpha + Tp(n + 2), Tp{-1})
+	       * emsr::hyperg(-beta, Tp(n + 1), alpha + Tp(n + 2), Tp{-1})
 	       + Tp(n % 2 == 0 ? +1 : -1)
 	       * std::tgamma(beta + Tp{1}) * std::tgamma(n + Tp{1})
 	       / std::tgamma(beta + Tp(n + 2))
-	       * __gnu_cxx::hyperg(-alpha, Tp(n + 1), beta + Tp(n + 2), Tp{-1});
+	       * emsr::hyperg(-alpha, Tp(n + 1), beta + Tp(n + 2), Tp{-1});
 	};
 */
 

@@ -32,8 +32,8 @@ template<typename Tp>
   norm_chebyshev_u(int n1, int n2, Tp x)
   {
     constexpr auto pi_2 = emsr::pi_v<Tp> / Tp{2};
-    return __gnu_cxx::chebyshev_u(n2, x)
-	 * __gnu_cxx::chebyshev_u(n1, x)
+    return emsr::chebyshev_u(n2, x)
+	 * emsr::chebyshev_u(n1, x)
 	 * std::sqrt(Tp{1} - x * x)
 	 / pi_2;
   }

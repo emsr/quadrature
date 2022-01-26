@@ -36,8 +36,8 @@ template<typename Tp>
     else if (std::abs(x + Tp{1}) < eps)
       return (n1 + n2) & 1 ? -inf : inf;
     else
-      return __gnu_cxx::chebyshev_t(n2, x)
-	   * __gnu_cxx::chebyshev_t(n1, x)
+      return emsr::chebyshev_t(n2, x)
+	   * emsr::chebyshev_t(n1, x)
 	   / std::sqrt(Tp{1} - x * x);
   }
 
