@@ -160,35 +160,31 @@ template&lt;typename Tp , typename InIter , typename OutIter &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="gauss__quadrature_8tcc_source.html#l00052">52</a> of file <a class="el" href="gauss__quadrature_8tcc_source.html">gauss_quadrature.tcc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    {</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;      <span class="comment">// Bail if the zero-th moment is not positive.</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;      <span class="keywordflow">if</span> (moment0 &lt;= <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{0})</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordflow">throw</span> std::domain_error(<span class="stringliteral">&quot;golub_welsch: moment0 &lt;= 0&quot;</span>);</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;      <span class="comment">// Set up vectors for matrix diagonalization.</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; n; ++i)</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        pt[i] = diag[i];</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;      wt[0] = std::sqrt(moment0);</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 1; i &lt; n; ++i)</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        wt[i] = <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{0};</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;      <span class="comment">// Diagonalize the Jacobi matrix.</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;      <a class="code" href="namespaceemsr.html#a5cb28151a49c36c36b58a1dc7af7654c">s_tridiag_symm</a>(std::size_t(n), pt, subd, wt);</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; n; ++i)</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        wt[i] *= wt[i];</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;      <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    }</div>
-<div class="ttc" id="anamespaceemsr_html_a5cb28151a49c36c36b58a1dc7af7654c"><div class="ttname"><a href="namespaceemsr.html#a5cb28151a49c36c36b58a1dc7af7654c">emsr::s_tridiag_symm</a></div><div class="ttdeci">int s_tridiag_symm(std::size_t n, RandAccIter &amp;diag, RandAccIter &amp;subd, RandAccIterRHS &amp;rhs)</div><div class="ttdoc">Diagonalize a symmetric tridiagonal matrix.</div><div class="ttdef"><b>Definition:</b> <a href="matrix_8tcc_source.html#l00139">matrix.tcc:139</a></div></div>
+<p class="definition">Definition at line <a class="el" href="gauss__quadrature_8tcc_source.html#l00053">53</a> of file <a class="el" href="gauss__quadrature_8tcc_source.html">gauss_quadrature.tcc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    {</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;      <span class="comment">// Bail if the zero-th moment is not positive.</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      <span class="keywordflow">if</span> (moment0 &lt;= <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{0})</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keywordflow">throw</span> std::domain_error(<span class="stringliteral">&quot;golub_welsch: moment0 &lt;= 0&quot;</span>);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;      <span class="comment">// Set up vectors for matrix diagonalization.</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; n; ++i)</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        pt[i] = diag[i];</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;      wt[0] = std::sqrt(moment0);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 1; i &lt; n; ++i)</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        wt[i] = <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{0};</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;      <span class="comment">// Diagonalize the Jacobi matrix.</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;      <a class="code" href="namespaceemsr.html#a5cb28151a49c36c36b58a1dc7af7654c">s_tridiag_symm</a>(std::size_t(n), pt, subd, wt);</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; n; ++i)</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        wt[i] *= wt[i];</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;      <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    }</div>
+<div class="ttc" id="anamespaceemsr_html_a5cb28151a49c36c36b58a1dc7af7654c"><div class="ttname"><a href="namespaceemsr.html#a5cb28151a49c36c36b58a1dc7af7654c">emsr::s_tridiag_symm</a></div><div class="ttdeci">int s_tridiag_symm(std::size_t n, RandAccIter &amp;diag, RandAccIter &amp;subd, RandAccIterRHS &amp;rhs)</div><div class="ttdoc">Diagonalize a symmetric tridiagonal matrix.</div><div class="ttdef"><b>Definition:</b> <a href="matrix_8tcc_source.html#l00140">matrix.tcc:140</a></div></div>
 <div class="ttc" id="atest__integral_8tcc_html_a82f489a4943d33943d0b0f781a801283"><div class="ttname"><a href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a></div><div class="ttdeci">Tp x Tp</div><div class="ttdef"><b>Definition:</b> <a href="test__integral_8tcc_source.html#l00003">test_integral.tcc:4</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="matrix_8tcc_source.html#l00139">emsr::s_tridiag_symm()</a>, and <a class="el" href="test__integral_8tcc_source.html#l00004">Tp</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="gauss__quadrature_8tcc_source.html#l00148">emsr::fixed_gauss_chebyshev_t_integral&lt; Tp &gt;::fixed_gauss_chebyshev_t_integral()</a>, <a class="el" href="gauss__quadrature_8tcc_source.html#l00209">emsr::fixed_gauss_chebyshev_u_integral&lt; Tp &gt;::fixed_gauss_chebyshev_u_integral()</a>, <a class="el" href="gauss__quadrature_8tcc_source.html#l00268">emsr::fixed_gauss_chebyshev_v_integral&lt; Tp &gt;::fixed_gauss_chebyshev_v_integral()</a>, <a class="el" href="gauss__quadrature_8tcc_source.html#l00331">emsr::fixed_gauss_chebyshev_w_integral&lt; Tp &gt;::fixed_gauss_chebyshev_w_integral()</a>, <a class="el" href="gauss__quadrature_8tcc_source.html#l00659">emsr::fixed_gauss_exponential_integral&lt; Tp &gt;::fixed_gauss_exponential_integral()</a>, <a class="el" href="gauss__quadrature_8tcc_source.html#l00391">emsr::fixed_gauss_gegenbauer_integral&lt; Tp &gt;::fixed_gauss_gegenbauer_integral()</a>, <a class="el" href="gauss__quadrature_8tcc_source.html#l00602">emsr::fixed_gauss_hermite_integral&lt; Tp &gt;::fixed_gauss_hermite_integral()</a>, <a class="el" href="gauss__quadrature_8tcc_source.html#l00460">emsr::fixed_gauss_jacobi_integral&lt; Tp &gt;::fixed_gauss_jacobi_integral()</a>, <a class="el" href="gauss__quadrature_8tcc_source.html#l00543">emsr::fixed_gauss_laguerre_integral&lt; Tp &gt;::fixed_gauss_laguerre_integral()</a>, and <a class="el" href="gauss__quadrature_8tcc_source.html#l00087">emsr::fixed_gauss_legendre_integral&lt; Tp &gt;::fixed_gauss_legendre_integral()</a>.</p>
-
 </div>
 </div>
 </div><!-- contents -->

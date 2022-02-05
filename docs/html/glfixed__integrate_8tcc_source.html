@@ -105,38 +105,38 @@ $(document).ready(function(){initNavTree('glfixed__integrate_8tcc_source.html','
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">// Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#ifndef GLFIXED_INTEGRATE_TCC</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="glfixed__integrate_8tcc.html#a59b18c28cc328f58f042a33acd5d46aa">   22</a></span>&#160;<span class="preprocessor">#define GLFIXED_INTEGRATE_TCC 1</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">ifndef</span> <span class="preprocessor">GLFIXED_INTEGRATE_TCC</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="glfixed__integrate_8tcc.html#a59b18c28cc328f58f042a33acd5d46aa">   22</a></span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">GLFIXED_INTEGRATE_TCC</span> 1</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &lt;type_traits&gt;</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">type_traits</span><span class="preprocessor">&gt;</span></div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="gauss__legendre__table_8h.html">emsr/gauss_legendre_table.h</a>&gt;</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">emsr</span><span class="preprocessor">/</span><span class="preprocessor">gauss_legendre_table</span><span class="preprocessor">.</span><span class="preprocessor">h</span><span class="preprocessor">&gt;</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceemsr.html">emsr</a></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">namespace</span> <a class="code" href="namespaceemsr.html">emsr</a></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;{</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Tp, <span class="keyword">typename</span> FuncTp&gt;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    decltype(std::invoke_result_t&lt;FuncTp, Tp&gt;{} * <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{})</div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="namespaceemsr.html#a7aaa9f8ceaf4c26bb5e38bfce4ef9fe0">   33</a></span>&#160;    <a class="code" href="namespaceemsr.html#a7aaa9f8ceaf4c26bb5e38bfce4ef9fe0">glfixed_integrate</a>(<span class="keyword">const</span> <a class="code" href="structemsr_1_1gauss__legendre__table.html">gauss_legendre_table&lt;Tp&gt;</a>&amp; t,</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;                      FuncTp func,</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                      <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a> lower, <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a> upper)</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keyword">decltype</span>(<a class="code" href="namespaceemsr.html#a7aaa9f8ceaf4c26bb5e38bfce4ef9fe0">std</a>::<a class="code" href="namespaceemsr.html#a7aaa9f8ceaf4c26bb5e38bfce4ef9fe0">invoke_result_t</a>&lt;<a class="code" href="namespaceemsr.html#a7aaa9f8ceaf4c26bb5e38bfce4ef9fe0">FuncTp</a>, <a class="code" href="namespaceemsr.html#a7aaa9f8ceaf4c26bb5e38bfce4ef9fe0">Tp</a>&gt;{} * <a class="code" href="namespaceemsr.html#a7aaa9f8ceaf4c26bb5e38bfce4ef9fe0">Tp</a>{})</div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="namespaceemsr.html#a7aaa9f8ceaf4c26bb5e38bfce4ef9fe0">   33</a></span>&#160;    <a class="code" href="namespaceemsr.html#a7aaa9f8ceaf4c26bb5e38bfce4ef9fe0">glfixed_integrate</a>(<span class="keyword">const</span> <a class="code" href="namespaceemsr.html#a7aaa9f8ceaf4c26bb5e38bfce4ef9fe0">gauss_legendre_table</a>&lt;<a class="code" href="namespaceemsr.html#a7aaa9f8ceaf4c26bb5e38bfce4ef9fe0">Tp</a>&gt;&amp; <a class="code" href="namespaceemsr.html#a7aaa9f8ceaf4c26bb5e38bfce4ef9fe0">t</a>,</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;                      <a class="code" href="namespaceemsr.html#a7aaa9f8ceaf4c26bb5e38bfce4ef9fe0">FuncTp</a> <a class="code" href="namespaceemsr.html#a7aaa9f8ceaf4c26bb5e38bfce4ef9fe0">func</a>,</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                      <a class="code" href="namespaceemsr.html#a7aaa9f8ceaf4c26bb5e38bfce4ef9fe0">Tp</a> <a class="code" href="namespaceemsr.html#a7aaa9f8ceaf4c26bb5e38bfce4ef9fe0">lower</a>, <a class="code" href="namespaceemsr.html#a7aaa9f8ceaf4c26bb5e38bfce4ef9fe0">Tp</a> <a class="code" href="namespaceemsr.html#a7aaa9f8ceaf4c26bb5e38bfce4ef9fe0">upper</a>)</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    {</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;      <span class="keyword">using</span> RetTp = std::invoke_result_t&lt;FuncTp, Tp&gt;;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;      <span class="keyword">using</span> AreaTp = decltype(RetTp{} * <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{});</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;      <span class="keyword">using</span> AreaTp = <span class="keyword">decltype</span>(RetTp{} * Tp{});</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;      <span class="keyword">const</span> <span class="keywordtype">int</span> n = t.<a class="code" href="structemsr_1_1gauss__legendre__table.html#ad8dff824b254dd669d3939fa017fc2a9">order</a>;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;      <span class="keyword">const</span> <span class="keywordtype">int</span> n = t.order;</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;      <span class="keyword">auto</span> m = (n + 1) &gt;&gt; 1;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;      <span class="keyword">auto</span> A = (upper - lower) / <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{2};</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;      <span class="keyword">auto</span> B = (upper + lower) / <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{2};</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;      <span class="keyword">auto</span> A = (upper - lower) / Tp{2};</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;      <span class="keyword">auto</span> B = (upper + lower) / Tp{2};</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;      <span class="keywordflow">if</span> (n &amp; 1) <span class="comment">// n is odd.</span></div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        {</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;          <span class="keyword">auto</span> sum = t.<a class="code" href="structemsr_1_1gauss__legendre__table.html#a9c400007b023630b434cfdc69444fd73">wt</a>(0) * func(B);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;          <span class="keyword">auto</span> sum = t.wt(0) * func(B);</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;          <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 1; i &lt; m; ++i)</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            {</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;              <span class="keyword">auto</span> Ax = A * t.<a class="code" href="structemsr_1_1gauss__legendre__table.html#ac1df0a2d5cc9b62ba3e8a2462268f9e9">pt</a>(i);</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;              sum += t.<a class="code" href="structemsr_1_1gauss__legendre__table.html#a9c400007b023630b434cfdc69444fd73">wt</a>(i) * (func(B + Ax) + func(B - Ax));</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;              <span class="keyword">auto</span> Ax = A * t.pt(i);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;              sum += t.wt(i) * (func(B + Ax) + func(B - Ax));</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            }</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;          <span class="keywordflow">return</span> A * sum;</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        }</div>
@@ -145,8 +145,8 @@ $(document).ready(function(){initNavTree('glfixed__integrate_8tcc_source.html','
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;          <span class="keyword">auto</span> sum = AreaTp{0};</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;          <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; m; ++i)</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            {</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;              <span class="keyword">auto</span> Ax = A * t.<a class="code" href="structemsr_1_1gauss__legendre__table.html#ac1df0a2d5cc9b62ba3e8a2462268f9e9">pt</a>(i);</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;              sum += t.<a class="code" href="structemsr_1_1gauss__legendre__table.html#a9c400007b023630b434cfdc69444fd73">wt</a>(i) * (func(B + Ax) + func(B - Ax));</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;              <span class="keyword">auto</span> Ax = A * t.pt(i);</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;              sum += t.wt(i) * (func(B + Ax) + func(B - Ax));</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            }</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;          <span class="keywordflow">return</span> A * sum;</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        }</div>
@@ -154,15 +154,7 @@ $(document).ready(function(){initNavTree('glfixed__integrate_8tcc_source.html','
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;} <span class="comment">// namespace emsr</span></div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// GLFIXED_INTEGRATE_TCC</span></div>
-<div class="ttc" id="agauss__legendre__table_8h_html"><div class="ttname"><a href="gauss__legendre__table_8h.html">gauss_legendre_table.h</a></div></div>
-<div class="ttc" id="anamespaceemsr_html"><div class="ttname"><a href="namespaceemsr.html">emsr</a></div><div class="ttdef"><b>Definition:</b> <a href="cquad__const_8tcc_source.html#l00029">cquad_const.tcc:30</a></div></div>
-<div class="ttc" id="anamespaceemsr_html_a7aaa9f8ceaf4c26bb5e38bfce4ef9fe0"><div class="ttname"><a href="namespaceemsr.html#a7aaa9f8ceaf4c26bb5e38bfce4ef9fe0">emsr::glfixed_integrate</a></div><div class="ttdeci">decltype(std::invoke_result_t&lt; FuncTp, Tp &gt;{} *Tp{} glfixed_integrate)(const gauss_legendre_table&lt; Tp &gt; &amp;t, FuncTp func, Tp lower, Tp upper)</div><div class="ttdef"><b>Definition:</b> <a href="glfixed__integrate_8tcc_source.html#l00033">glfixed_integrate.tcc:33</a></div></div>
-<div class="ttc" id="astructemsr_1_1gauss__legendre__table_html"><div class="ttname"><a href="structemsr_1_1gauss__legendre__table.html">emsr::gauss_legendre_table</a></div><div class="ttdef"><b>Definition:</b> <a href="gauss__legendre__table_8h_source.html#l00064">gauss_legendre_table.h:65</a></div></div>
-<div class="ttc" id="astructemsr_1_1gauss__legendre__table_html_a9c400007b023630b434cfdc69444fd73"><div class="ttname"><a href="structemsr_1_1gauss__legendre__table.html#a9c400007b023630b434cfdc69444fd73">emsr::gauss_legendre_table::wt</a></div><div class="ttdeci">Tp wt(std::size_t i) const</div><div class="ttdef"><b>Definition:</b> <a href="gauss__legendre__table_8tcc_source.html#l00115">gauss_legendre_table.tcc:115</a></div></div>
-<div class="ttc" id="astructemsr_1_1gauss__legendre__table_html_ac1df0a2d5cc9b62ba3e8a2462268f9e9"><div class="ttname"><a href="structemsr_1_1gauss__legendre__table.html#ac1df0a2d5cc9b62ba3e8a2462268f9e9">emsr::gauss_legendre_table::pt</a></div><div class="ttdeci">Tp pt(std::size_t i) const</div><div class="ttdef"><b>Definition:</b> <a href="gauss__legendre__table_8tcc_source.html#l00102">gauss_legendre_table.tcc:102</a></div></div>
-<div class="ttc" id="astructemsr_1_1gauss__legendre__table_html_ad8dff824b254dd669d3939fa017fc2a9"><div class="ttname"><a href="structemsr_1_1gauss__legendre__table.html#ad8dff824b254dd669d3939fa017fc2a9">emsr::gauss_legendre_table::order</a></div><div class="ttdeci">std::size_t order</div><div class="ttdef"><b>Definition:</b> <a href="gauss__legendre__table_8h_source.html#l00066">gauss_legendre_table.h:66</a></div></div>
-<div class="ttc" id="atest__integral_8tcc_html_a82f489a4943d33943d0b0f781a801283"><div class="ttname"><a href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a></div><div class="ttdeci">Tp x Tp</div><div class="ttdef"><b>Definition:</b> <a href="test__integral_8tcc_source.html#l00003">test_integral.tcc:4</a></div></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">endif</span> <span class="comment">// GLFIXED_INTEGRATE_TCC</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

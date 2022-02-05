@@ -42,37 +42,33 @@ Construct a Generalized Gauss-\/\+Exponential rule of order {\ttfamily n}.
 
 Interval\+: $ (a, b) $ Weight function\+: $ |x - (a + b) / 2|^\alpha $ Constraints\+: $ \alpha > -1 $ 
 
-Definition at line 658 of file gauss\+\_\+quadrature.\+tcc.
+Definition at line 659 of file gauss\+\_\+quadrature.\+tcc.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{660     : \mbox{\hyperlink{structemsr_1_1fixed__gauss__exponential__integral_ad5764e41fc5285045340e4a4acad9319}{order}}(n),}
-\DoxyCodeLine{661       \mbox{\hyperlink{structemsr_1_1fixed__gauss__exponential__integral_add69fd79d7290ac2bd19fd736a7f1933}{alpha}}(alf),}
-\DoxyCodeLine{662       point(n),}
-\DoxyCodeLine{663       weight(n)}
-\DoxyCodeLine{664     \{}
-\DoxyCodeLine{665       \textcolor{keyword}{const} \textcolor{keyword}{auto} mu\_0 = \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\} / (this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__exponential__integral_add69fd79d7290ac2bd19fd736a7f1933}{alpha}} + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\});}
-\DoxyCodeLine{666 }
-\DoxyCodeLine{667       std::vector<Tp> diag(this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__exponential__integral_ad5764e41fc5285045340e4a4acad9319}{order}}, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{0\});}
-\DoxyCodeLine{668       std::vector<Tp> subd(this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__exponential__integral_ad5764e41fc5285045340e4a4acad9319}{order}});}
-\DoxyCodeLine{669 }
-\DoxyCodeLine{670       \textcolor{keyword}{auto} ap2i = this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__exponential__integral_add69fd79d7290ac2bd19fd736a7f1933}{alpha}};}
-\DoxyCodeLine{671       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 1; i <= this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__exponential__integral_ad5764e41fc5285045340e4a4acad9319}{order}}; ++i)}
-\DoxyCodeLine{672         \{}
-\DoxyCodeLine{673           ap2i += \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\};}
-\DoxyCodeLine{674           subd[i -\/ 1] = (\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}(i) + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}(i \% 2) * this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__exponential__integral_add69fd79d7290ac2bd19fd736a7f1933}{alpha}})}
-\DoxyCodeLine{675                           / std::sqrt((ap2i * ap2i -\/ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\}));}
-\DoxyCodeLine{676         \}}
-\DoxyCodeLine{677 }
-\DoxyCodeLine{678       \mbox{\hyperlink{namespaceemsr_1_1detail_a3a01597b0d4e1996d86ceaf2f68eabc8}{detail::golub\_welsch}}(mu\_0, this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__exponential__integral_ad5764e41fc5285045340e4a4acad9319}{order}}, diag, subd,}
-\DoxyCodeLine{679                                this-\/>point, this-\/>weight);}
-\DoxyCodeLine{680     \}}
+\DoxyCodeLine{661     : \mbox{\hyperlink{structemsr_1_1fixed__gauss__exponential__integral_ad5764e41fc5285045340e4a4acad9319}{order}}(n),}
+\DoxyCodeLine{662       \mbox{\hyperlink{structemsr_1_1fixed__gauss__exponential__integral_add69fd79d7290ac2bd19fd736a7f1933}{alpha}}(alf),}
+\DoxyCodeLine{663       point(n),}
+\DoxyCodeLine{664       weight(n)}
+\DoxyCodeLine{665     \{}
+\DoxyCodeLine{666       \textcolor{keyword}{const} \textcolor{keyword}{auto} mu\_0 = \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\} / (this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__exponential__integral_add69fd79d7290ac2bd19fd736a7f1933}{alpha}} + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\});}
+\DoxyCodeLine{667 }
+\DoxyCodeLine{668       std::vector<Tp> diag(this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__exponential__integral_ad5764e41fc5285045340e4a4acad9319}{order}}, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{0\});}
+\DoxyCodeLine{669       std::vector<Tp> subd(this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__exponential__integral_ad5764e41fc5285045340e4a4acad9319}{order}});}
+\DoxyCodeLine{670 }
+\DoxyCodeLine{671       \textcolor{keyword}{auto} ap2i = this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__exponential__integral_add69fd79d7290ac2bd19fd736a7f1933}{alpha}};}
+\DoxyCodeLine{672       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 1; i <= this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__exponential__integral_ad5764e41fc5285045340e4a4acad9319}{order}}; ++i)}
+\DoxyCodeLine{673         \{}
+\DoxyCodeLine{674           ap2i += \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\};}
+\DoxyCodeLine{675           subd[i -\/ 1] = (\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}(i) + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}(i \% 2) * this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__exponential__integral_add69fd79d7290ac2bd19fd736a7f1933}{alpha}})}
+\DoxyCodeLine{676                           / std::sqrt((ap2i * ap2i -\/ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\}));}
+\DoxyCodeLine{677         \}}
+\DoxyCodeLine{678 }
+\DoxyCodeLine{679       \mbox{\hyperlink{namespaceemsr_1_1detail_a3a01597b0d4e1996d86ceaf2f68eabc8}{detail::golub\_welsch}}(mu\_0, this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__exponential__integral_ad5764e41fc5285045340e4a4acad9319}{order}}, diag, subd,}
+\DoxyCodeLine{680                                this-\/>point, this-\/>weight);}
+\DoxyCodeLine{681     \}}
 
 \end{DoxyCode}
-
-
-References emsr\+::fixed\+\_\+gauss\+\_\+exponential\+\_\+integral$<$ Tp $>$\+::alpha, emsr\+::detail\+::golub\+\_\+welsch(), emsr\+::fixed\+\_\+gauss\+\_\+exponential\+\_\+integral$<$ Tp $>$\+::order, and Tp.
-
 
 
 \doxysubsection{Member Data Documentation}
@@ -86,10 +82,6 @@ References emsr\+::fixed\+\_\+gauss\+\_\+exponential\+\_\+integral$<$ Tp $>$\+::
 
 
 Definition at line 215 of file gauss\+\_\+quadrature.\+h.
-
-
-
-Referenced by emsr\+::fixed\+\_\+gauss\+\_\+exponential\+\_\+integral$<$ Tp $>$\+::fixed\+\_\+gauss\+\_\+exponential\+\_\+integral().
 
 \mbox{\Hypertarget{structemsr_1_1fixed__gauss__exponential__integral_a149455654f261f32767f22db8198f67f}\label{structemsr_1_1fixed__gauss__exponential__integral_a149455654f261f32767f22db8198f67f}} 
 \index{emsr::fixed\_gauss\_exponential\_integral$<$ Tp $>$@{emsr::fixed\_gauss\_exponential\_integral$<$ Tp $>$}!operator()@{operator()}}
@@ -113,10 +105,6 @@ int \mbox{\hyperlink{structemsr_1_1fixed__gauss__exponential__integral}{emsr\+::
 
 
 Definition at line 214 of file gauss\+\_\+quadrature.\+h.
-
-
-
-Referenced by emsr\+::fixed\+\_\+gauss\+\_\+exponential\+\_\+integral$<$ Tp $>$\+::fixed\+\_\+gauss\+\_\+exponential\+\_\+integral().
 
 
 

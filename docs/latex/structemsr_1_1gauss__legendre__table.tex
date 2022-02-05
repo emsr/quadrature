@@ -67,6 +67,14 @@ Definition at line 73 of file gauss\+\_\+legendre\+\_\+table.\+h.
 \DoxyCodeLine{81       \{ \}}
 
 \end{DoxyCode}
+
+
+References emsr\+::gauss\+\_\+legendre\+\_\+table$<$ Tp $>$\+::gauss\+\_\+legendre\+\_\+table(), emsr\+::gauss\+\_\+legendre\+\_\+table$<$ Tp $>$\+::i\+\_\+precomp, emsr\+::gauss\+\_\+legendre\+\_\+table$<$ Tp $>$\+::order, emsr\+::gauss\+\_\+legendre\+\_\+table$<$ Tp $>$\+::point, emsr\+::gauss\+\_\+legendre\+\_\+table$<$ Tp $>$\+::precomputed, and emsr\+::gauss\+\_\+legendre\+\_\+table$<$ Tp $>$\+::weight.
+
+
+
+Referenced by emsr\+::gauss\+\_\+legendre\+\_\+table$<$ Tp $>$\+::gauss\+\_\+legendre\+\_\+table().
+
 \mbox{\Hypertarget{structemsr_1_1gauss__legendre__table_a3a19f588dcb774dc1e5e8b6f62fdb3f0}\label{structemsr_1_1gauss__legendre__table_a3a19f588dcb774dc1e5e8b6f62fdb3f0}} 
 \index{emsr::gauss\_legendre\_table$<$ Tp $>$@{emsr::gauss\_legendre\_table$<$ Tp $>$}!gauss\_legendre\_table@{gauss\_legendre\_table}}
 \index{gauss\_legendre\_table@{gauss\_legendre\_table}!emsr::gauss\_legendre\_table$<$ Tp $>$@{emsr::gauss\_legendre\_table$<$ Tp $>$}}
@@ -76,37 +84,33 @@ Definition at line 73 of file gauss\+\_\+legendre\+\_\+table.\+h.
 
 
 
-Definition at line 34 of file gauss\+\_\+legendre\+\_\+table.\+tcc.
+Definition at line 36 of file gauss\+\_\+legendre\+\_\+table.\+tcc.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{35       : \mbox{\hyperlink{structemsr_1_1gauss__legendre__table_ad8dff824b254dd669d3939fa017fc2a9}{order}}(n),}
-\DoxyCodeLine{36         \mbox{\hyperlink{structemsr_1_1gauss__legendre__table_a66f13e859c850443d476b9d2ec169ed1}{point}}(\textcolor{keyword}{nullptr}),}
-\DoxyCodeLine{37         \mbox{\hyperlink{structemsr_1_1gauss__legendre__table_a2685669a4ab2b99532d96f8e0117ea48}{weight}}(\textcolor{keyword}{nullptr}),}
-\DoxyCodeLine{38         \mbox{\hyperlink{structemsr_1_1gauss__legendre__table_afa0196ed802e0eaecf2248d975d863f3}{precomputed}}(\textcolor{keyword}{false}),}
-\DoxyCodeLine{39         \mbox{\hyperlink{structemsr_1_1gauss__legendre__table_a0a49172942f4c247c1f578dd755519eb}{i\_precomp}}(-\/1),}
-\DoxyCodeLine{40         \mbox{\hyperlink{structemsr_1_1gauss__legendre__table_a0b4b02ece52f6df53316ec7624e26559}{rule}}()}
-\DoxyCodeLine{41       \{}
-\DoxyCodeLine{42         \textcolor{keyword}{using} prec\_t = decltype(\mbox{\hyperlink{namespaceemsr_aca7ebd8e66e48cb5d513e91beafeb56e}{gauss\_legendre\_precomp}}[0]);}
-\DoxyCodeLine{43         \textcolor{keyword}{auto} prec\_beg = \mbox{\hyperlink{namespaceemsr_aca7ebd8e66e48cb5d513e91beafeb56e}{gauss\_legendre\_precomp}};}
-\DoxyCodeLine{44         \textcolor{keyword}{auto} prec\_end = \mbox{\hyperlink{namespaceemsr_aca7ebd8e66e48cb5d513e91beafeb56e}{gauss\_legendre\_precomp}} + \mbox{\hyperlink{namespaceemsr_a9a28ddfdeabb3b352fddf4d2d5b21788}{num\_gauss\_legendre\_precomp}};}
-\DoxyCodeLine{45         \textcolor{keyword}{auto} prec = std::find\_if(prec\_beg, prec\_end,}
-\DoxyCodeLine{46                                    [\textcolor{keyword}{this}, n](prec\_t tab)}
-\DoxyCodeLine{47                                    \{ \textcolor{keywordflow}{return} tab.order == this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_ad8dff824b254dd669d3939fa017fc2a9}{order}}; \});}
-\DoxyCodeLine{48         \textcolor{keywordflow}{if} (prec == prec\_end)}
-\DoxyCodeLine{49           this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_a0b4b02ece52f6df53316ec7624e26559}{rule}} = legendre\_zeros<Tp>(this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_ad8dff824b254dd669d3939fa017fc2a9}{order}});}
-\DoxyCodeLine{50         \textcolor{keywordflow}{else}}
-\DoxyCodeLine{51           \{}
-\DoxyCodeLine{52             this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_afa0196ed802e0eaecf2248d975d863f3}{precomputed}} = \textcolor{keyword}{true};}
-\DoxyCodeLine{53             this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_a0a49172942f4c247c1f578dd755519eb}{i\_precomp}} = prec -\/ prec\_beg;}
-\DoxyCodeLine{54           \}}
-\DoxyCodeLine{55       \}}
+\DoxyCodeLine{37       : \mbox{\hyperlink{structemsr_1_1gauss__legendre__table_ad8dff824b254dd669d3939fa017fc2a9}{order}}(n),}
+\DoxyCodeLine{38         \mbox{\hyperlink{structemsr_1_1gauss__legendre__table_a66f13e859c850443d476b9d2ec169ed1}{point}}(\textcolor{keyword}{nullptr}),}
+\DoxyCodeLine{39         \mbox{\hyperlink{structemsr_1_1gauss__legendre__table_a2685669a4ab2b99532d96f8e0117ea48}{weight}}(\textcolor{keyword}{nullptr}),}
+\DoxyCodeLine{40         \mbox{\hyperlink{structemsr_1_1gauss__legendre__table_afa0196ed802e0eaecf2248d975d863f3}{precomputed}}(\textcolor{keyword}{false}),}
+\DoxyCodeLine{41         \mbox{\hyperlink{structemsr_1_1gauss__legendre__table_a0a49172942f4c247c1f578dd755519eb}{i\_precomp}}(-\/1),}
+\DoxyCodeLine{42         \mbox{\hyperlink{structemsr_1_1gauss__legendre__table_a0b4b02ece52f6df53316ec7624e26559}{rule}}()}
+\DoxyCodeLine{43       \{}
+\DoxyCodeLine{44         \textcolor{keyword}{using} prec\_t = decltype(\mbox{\hyperlink{namespaceemsr_aca7ebd8e66e48cb5d513e91beafeb56e}{gauss\_legendre\_precomp}}[0]);}
+\DoxyCodeLine{45         \textcolor{keyword}{auto} prec\_beg = \mbox{\hyperlink{namespaceemsr_aca7ebd8e66e48cb5d513e91beafeb56e}{gauss\_legendre\_precomp}};}
+\DoxyCodeLine{46         \textcolor{keyword}{auto} prec\_end = \mbox{\hyperlink{namespaceemsr_aca7ebd8e66e48cb5d513e91beafeb56e}{gauss\_legendre\_precomp}} + \mbox{\hyperlink{namespaceemsr_a9a28ddfdeabb3b352fddf4d2d5b21788}{num\_gauss\_legendre\_precomp}};}
+\DoxyCodeLine{47         \textcolor{keyword}{auto} prec = std::find\_if(prec\_beg, prec\_end,}
+\DoxyCodeLine{48                                    [\textcolor{keyword}{this}, n](prec\_t tab)}
+\DoxyCodeLine{49                                    \{ \textcolor{keywordflow}{return} tab.order == this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_ad8dff824b254dd669d3939fa017fc2a9}{order}}; \});}
+\DoxyCodeLine{50         \textcolor{keywordflow}{if} (prec == prec\_end)}
+\DoxyCodeLine{51           this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_a0b4b02ece52f6df53316ec7624e26559}{rule}} = legendre\_zeros<Tp>(this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_ad8dff824b254dd669d3939fa017fc2a9}{order}});}
+\DoxyCodeLine{52         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{53           \{}
+\DoxyCodeLine{54             this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_afa0196ed802e0eaecf2248d975d863f3}{precomputed}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{55             this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_a0a49172942f4c247c1f578dd755519eb}{i\_precomp}} = prec -\/ prec\_beg;}
+\DoxyCodeLine{56           \}}
+\DoxyCodeLine{57       \}}
 
 \end{DoxyCode}
-
-
-References emsr\+::gauss\+\_\+legendre\+\_\+precomp, emsr\+::gauss\+\_\+legendre\+\_\+table$<$ Tp $>$\+::i\+\_\+precomp, emsr\+::num\+\_\+gauss\+\_\+legendre\+\_\+precomp, emsr\+::gauss\+\_\+legendre\+\_\+table$<$ Tp $>$\+::order, emsr\+::gauss\+\_\+legendre\+\_\+table$<$ Tp $>$\+::precomputed, and emsr\+::gauss\+\_\+legendre\+\_\+table$<$ Tp $>$\+::rule.
-
 
 
 \doxysubsection{Member Function Documentation}
@@ -119,49 +123,45 @@ std\+::tuple$<$ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a
 
 Routine to retrieve the i-\/th Gauss-\/\+Legendre point and weight. Useful when the caller wishes to access the information stored in the high-\/precision \mbox{\hyperlink{structemsr_1_1gauss__legendre__table}{gauss\+\_\+legendre\+\_\+table}} struct. Points are indexed and presented in increasing order to the caller. 
 
-Definition at line 65 of file gauss\+\_\+legendre\+\_\+table.\+tcc.
+Definition at line 67 of file gauss\+\_\+legendre\+\_\+table.\+tcc.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{66     \{}
-\DoxyCodeLine{67       \textcolor{keyword}{const} \textcolor{keyword}{auto} hwidth = (upper -\/ lower) / \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\};}
-\DoxyCodeLine{68       \textcolor{keyword}{const} \textcolor{keyword}{auto} midpt = (lower + upper) / \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\};}
-\DoxyCodeLine{69 }
-\DoxyCodeLine{70       \textcolor{keywordflow}{if} (i >= this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_ad8dff824b254dd669d3939fa017fc2a9}{order}})}
-\DoxyCodeLine{71         \textcolor{keywordflow}{throw} std::domain\_error(\textcolor{stringliteral}{"{}gauss\_legendre\_table: i must be less than n"{}});}
-\DoxyCodeLine{72 }
-\DoxyCodeLine{73       \textcolor{comment}{// See comments above gauss\_legendre\_table for struct's x, w layout.}}
-\DoxyCodeLine{74       \textcolor{comment}{// Simply unpack that layout into a sorted set of points, weights.}}
-\DoxyCodeLine{75       \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} \mbox{\hyperlink{namespaceemsr_ac3003275f007087abd123e22a56cfcf6}{xi}}, wi;}
-\DoxyCodeLine{76       \textcolor{keywordflow}{if} (this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_ad8dff824b254dd669d3939fa017fc2a9}{order}} \& 1) \textcolor{comment}{// n is odd}}
-\DoxyCodeLine{77         \{}
-\DoxyCodeLine{78           \textcolor{keyword}{const} \textcolor{keyword}{auto} k = int(i) -\/ int(this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_ad8dff824b254dd669d3939fa017fc2a9}{order}}) / 2;}
-\DoxyCodeLine{79           \textcolor{keyword}{const} \textcolor{keyword}{auto} sign = (k < 0 ? -\/1 : +1);}
-\DoxyCodeLine{80 }
-\DoxyCodeLine{81           \mbox{\hyperlink{namespaceemsr_ac3003275f007087abd123e22a56cfcf6}{xi}} = midpt + sign * hwidth * this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_ac1df0a2d5cc9b62ba3e8a2462268f9e9}{pt}}(sign * k);}
-\DoxyCodeLine{82           wi =            hwidth * this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_a9c400007b023630b434cfdc69444fd73}{wt}}(sign * k);}
-\DoxyCodeLine{83         \}}
-\DoxyCodeLine{84       \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\textcolor{comment}{/* n is even \&\& */} i < this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_ad8dff824b254dd669d3939fa017fc2a9}{order}} / 2)}
-\DoxyCodeLine{85         \{}
-\DoxyCodeLine{86           i = int(this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_ad8dff824b254dd669d3939fa017fc2a9}{order}}) / 2 -\/ 1 -\/ int(i);}
-\DoxyCodeLine{87           \mbox{\hyperlink{namespaceemsr_ac3003275f007087abd123e22a56cfcf6}{xi}} = midpt -\/ hwidth * this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_ac1df0a2d5cc9b62ba3e8a2462268f9e9}{pt}}(i);}
-\DoxyCodeLine{88           wi =     hwidth * this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_a9c400007b023630b434cfdc69444fd73}{wt}}(i);}
-\DoxyCodeLine{89         \}}
-\DoxyCodeLine{90       \textcolor{keywordflow}{else} \textcolor{comment}{// n is even and i >= n / 2}}
-\DoxyCodeLine{91         \{}
-\DoxyCodeLine{92           i  -\/= this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_ad8dff824b254dd669d3939fa017fc2a9}{order}} / 2;}
-\DoxyCodeLine{93           xi = midpt + hwidth * this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_ac1df0a2d5cc9b62ba3e8a2462268f9e9}{pt}}(i);}
-\DoxyCodeLine{94           wi =     hwidth * this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_a9c400007b023630b434cfdc69444fd73}{wt}}(i);}
-\DoxyCodeLine{95         \}}
-\DoxyCodeLine{96 }
-\DoxyCodeLine{97       \textcolor{keywordflow}{return} std::make\_tuple(\mbox{\hyperlink{namespaceemsr_ac3003275f007087abd123e22a56cfcf6}{xi}}, wi);}
-\DoxyCodeLine{98     \}}
+\DoxyCodeLine{68     \{}
+\DoxyCodeLine{69       \textcolor{keyword}{const} \textcolor{keyword}{auto} hwidth = (upper -\/ lower) / \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\};}
+\DoxyCodeLine{70       \textcolor{keyword}{const} \textcolor{keyword}{auto} midpt = (lower + upper) / \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\};}
+\DoxyCodeLine{71 }
+\DoxyCodeLine{72       \textcolor{keywordflow}{if} (i >= this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_ad8dff824b254dd669d3939fa017fc2a9}{order}})}
+\DoxyCodeLine{73         \textcolor{keywordflow}{throw} std::domain\_error(\textcolor{stringliteral}{"{}gauss\_legendre\_table: i must be less than n"{}});}
+\DoxyCodeLine{74 }
+\DoxyCodeLine{75       \textcolor{comment}{// See comments above gauss\_legendre\_table for struct's x, w layout.}}
+\DoxyCodeLine{76       \textcolor{comment}{// Simply unpack that layout into a sorted set of points, weights.}}
+\DoxyCodeLine{77       \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}} \mbox{\hyperlink{namespaceemsr_ac3003275f007087abd123e22a56cfcf6}{xi}}, wi;}
+\DoxyCodeLine{78       \textcolor{keywordflow}{if} (this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_ad8dff824b254dd669d3939fa017fc2a9}{order}} \& 1) \textcolor{comment}{// n is odd}}
+\DoxyCodeLine{79         \{}
+\DoxyCodeLine{80           \textcolor{keyword}{const} \textcolor{keyword}{auto} k = int(i) -\/ int(this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_ad8dff824b254dd669d3939fa017fc2a9}{order}}) / 2;}
+\DoxyCodeLine{81           \textcolor{keyword}{const} \textcolor{keyword}{auto} sign = (k < 0 ? -\/1 : +1);}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83           \mbox{\hyperlink{namespaceemsr_ac3003275f007087abd123e22a56cfcf6}{xi}} = midpt + sign * hwidth * this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_ac1df0a2d5cc9b62ba3e8a2462268f9e9}{pt}}(sign * k);}
+\DoxyCodeLine{84           wi =            hwidth * this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_a9c400007b023630b434cfdc69444fd73}{wt}}(sign * k);}
+\DoxyCodeLine{85         \}}
+\DoxyCodeLine{86       \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\textcolor{comment}{/* n is even \&\& */} i < this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_ad8dff824b254dd669d3939fa017fc2a9}{order}} / 2)}
+\DoxyCodeLine{87         \{}
+\DoxyCodeLine{88           i = int(this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_ad8dff824b254dd669d3939fa017fc2a9}{order}}) / 2 -\/ 1 -\/ int(i);}
+\DoxyCodeLine{89           \mbox{\hyperlink{namespaceemsr_ac3003275f007087abd123e22a56cfcf6}{xi}} = midpt -\/ hwidth * this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_ac1df0a2d5cc9b62ba3e8a2462268f9e9}{pt}}(i);}
+\DoxyCodeLine{90           wi =     hwidth * this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_a9c400007b023630b434cfdc69444fd73}{wt}}(i);}
+\DoxyCodeLine{91         \}}
+\DoxyCodeLine{92       \textcolor{keywordflow}{else} \textcolor{comment}{// n is even and i >= n / 2}}
+\DoxyCodeLine{93         \{}
+\DoxyCodeLine{94           i  -\/= this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_ad8dff824b254dd669d3939fa017fc2a9}{order}} / 2;}
+\DoxyCodeLine{95           xi = midpt + hwidth * this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_ac1df0a2d5cc9b62ba3e8a2462268f9e9}{pt}}(i);}
+\DoxyCodeLine{96           wi =     hwidth * this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_a9c400007b023630b434cfdc69444fd73}{wt}}(i);}
+\DoxyCodeLine{97         \}}
+\DoxyCodeLine{98 }
+\DoxyCodeLine{99       \textcolor{keywordflow}{return} std::make\_tuple(\mbox{\hyperlink{namespaceemsr_ac3003275f007087abd123e22a56cfcf6}{xi}}, wi);}
+\DoxyCodeLine{100     \}}
 
 \end{DoxyCode}
-
-
-References Tp, and emsr\+::xi.
-
 \mbox{\Hypertarget{structemsr_1_1gauss__legendre__table_ac1df0a2d5cc9b62ba3e8a2462268f9e9}\label{structemsr_1_1gauss__legendre__table_ac1df0a2d5cc9b62ba3e8a2462268f9e9}} 
 \index{emsr::gauss\_legendre\_table$<$ Tp $>$@{emsr::gauss\_legendre\_table$<$ Tp $>$}!pt@{pt}}
 \index{pt@{pt}!emsr::gauss\_legendre\_table$<$ Tp $>$@{emsr::gauss\_legendre\_table$<$ Tp $>$}}
@@ -171,25 +171,21 @@ References Tp, and emsr\+::xi.
 
 
 
-Definition at line 102 of file gauss\+\_\+legendre\+\_\+table.\+tcc.
+Definition at line 104 of file gauss\+\_\+legendre\+\_\+table.\+tcc.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{103     \{}
-\DoxyCodeLine{104       \textcolor{keywordflow}{if} (this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_afa0196ed802e0eaecf2248d975d863f3}{precomputed}})}
-\DoxyCodeLine{105         \textcolor{keywordflow}{if} (this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_a0a49172942f4c247c1f578dd755519eb}{i\_precomp}} == std::size\_t(-\/1))}
-\DoxyCodeLine{106           \textcolor{keywordflow}{return} this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_a66f13e859c850443d476b9d2ec169ed1}{point}}[i];}
-\DoxyCodeLine{107         \textcolor{keywordflow}{else}}
-\DoxyCodeLine{108           \textcolor{keywordflow}{return} \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}(\mbox{\hyperlink{namespaceemsr_aca7ebd8e66e48cb5d513e91beafeb56e}{gauss\_legendre\_precomp}}[this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_a0a49172942f4c247c1f578dd755519eb}{i\_precomp}}].\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_a66f13e859c850443d476b9d2ec169ed1}{point}}[i]);}
-\DoxyCodeLine{109       \textcolor{keywordflow}{else}}
-\DoxyCodeLine{110         \textcolor{keywordflow}{return} this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_a0b4b02ece52f6df53316ec7624e26559}{rule}}[i + this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_ad8dff824b254dd669d3939fa017fc2a9}{order}} / 2].point;}
-\DoxyCodeLine{111     \}}
+\DoxyCodeLine{105     \{}
+\DoxyCodeLine{106       \textcolor{keywordflow}{if} (this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_afa0196ed802e0eaecf2248d975d863f3}{precomputed}})}
+\DoxyCodeLine{107         \textcolor{keywordflow}{if} (this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_a0a49172942f4c247c1f578dd755519eb}{i\_precomp}} == std::size\_t(-\/1))}
+\DoxyCodeLine{108           \textcolor{keywordflow}{return} this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_a66f13e859c850443d476b9d2ec169ed1}{point}}[i];}
+\DoxyCodeLine{109         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{110           \textcolor{keywordflow}{return} \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}(\mbox{\hyperlink{namespaceemsr_aca7ebd8e66e48cb5d513e91beafeb56e}{gauss\_legendre\_precomp}}[this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_a0a49172942f4c247c1f578dd755519eb}{i\_precomp}}].\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_a66f13e859c850443d476b9d2ec169ed1}{point}}[i]);}
+\DoxyCodeLine{111       \textcolor{keywordflow}{else}}
+\DoxyCodeLine{112         \textcolor{keywordflow}{return} this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_a0b4b02ece52f6df53316ec7624e26559}{rule}}[i + this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_ad8dff824b254dd669d3939fa017fc2a9}{order}} / 2].point;}
+\DoxyCodeLine{113     \}}
 
 \end{DoxyCode}
-
-
-References emsr\+::gauss\+\_\+legendre\+\_\+precomp, and Tp.
-
 \mbox{\Hypertarget{structemsr_1_1gauss__legendre__table_a9c400007b023630b434cfdc69444fd73}\label{structemsr_1_1gauss__legendre__table_a9c400007b023630b434cfdc69444fd73}} 
 \index{emsr::gauss\_legendre\_table$<$ Tp $>$@{emsr::gauss\_legendre\_table$<$ Tp $>$}!wt@{wt}}
 \index{wt@{wt}!emsr::gauss\_legendre\_table$<$ Tp $>$@{emsr::gauss\_legendre\_table$<$ Tp $>$}}
@@ -199,25 +195,21 @@ References emsr\+::gauss\+\_\+legendre\+\_\+precomp, and Tp.
 
 
 
-Definition at line 115 of file gauss\+\_\+legendre\+\_\+table.\+tcc.
+Definition at line 117 of file gauss\+\_\+legendre\+\_\+table.\+tcc.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{116     \{}
-\DoxyCodeLine{117       \textcolor{keywordflow}{if} (this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_afa0196ed802e0eaecf2248d975d863f3}{precomputed}})}
-\DoxyCodeLine{118         \textcolor{keywordflow}{if} (this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_a0a49172942f4c247c1f578dd755519eb}{i\_precomp}} == std::size\_t(-\/1))}
-\DoxyCodeLine{119           \textcolor{keywordflow}{return} this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_a2685669a4ab2b99532d96f8e0117ea48}{weight}}[i];}
-\DoxyCodeLine{120         \textcolor{keywordflow}{else}}
-\DoxyCodeLine{121           \textcolor{keywordflow}{return} \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}(\mbox{\hyperlink{namespaceemsr_aca7ebd8e66e48cb5d513e91beafeb56e}{gauss\_legendre\_precomp}}[this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_a0a49172942f4c247c1f578dd755519eb}{i\_precomp}}].\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_a2685669a4ab2b99532d96f8e0117ea48}{weight}}[i]);}
-\DoxyCodeLine{122       \textcolor{keywordflow}{else}}
-\DoxyCodeLine{123         \textcolor{keywordflow}{return} this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_a0b4b02ece52f6df53316ec7624e26559}{rule}}[i + this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_ad8dff824b254dd669d3939fa017fc2a9}{order}} / 2].weight;}
-\DoxyCodeLine{124     \}}
+\DoxyCodeLine{118     \{}
+\DoxyCodeLine{119       \textcolor{keywordflow}{if} (this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_afa0196ed802e0eaecf2248d975d863f3}{precomputed}})}
+\DoxyCodeLine{120         \textcolor{keywordflow}{if} (this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_a0a49172942f4c247c1f578dd755519eb}{i\_precomp}} == std::size\_t(-\/1))}
+\DoxyCodeLine{121           \textcolor{keywordflow}{return} this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_a2685669a4ab2b99532d96f8e0117ea48}{weight}}[i];}
+\DoxyCodeLine{122         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{123           \textcolor{keywordflow}{return} \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}(\mbox{\hyperlink{namespaceemsr_aca7ebd8e66e48cb5d513e91beafeb56e}{gauss\_legendre\_precomp}}[this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_a0a49172942f4c247c1f578dd755519eb}{i\_precomp}}].\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_a2685669a4ab2b99532d96f8e0117ea48}{weight}}[i]);}
+\DoxyCodeLine{124       \textcolor{keywordflow}{else}}
+\DoxyCodeLine{125         \textcolor{keywordflow}{return} this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_a0b4b02ece52f6df53316ec7624e26559}{rule}}[i + this-\/>\mbox{\hyperlink{structemsr_1_1gauss__legendre__table_ad8dff824b254dd669d3939fa017fc2a9}{order}} / 2].weight;}
+\DoxyCodeLine{126     \}}
 
 \end{DoxyCode}
-
-
-References emsr\+::gauss\+\_\+legendre\+\_\+precomp, and Tp.
-
 
 
 \doxysubsection{Member Data Documentation}
@@ -262,6 +254,10 @@ const \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp
 
 Definition at line 67 of file gauss\+\_\+legendre\+\_\+table.\+h.
 
+
+
+Referenced by emsr\+::gauss\+\_\+legendre\+\_\+table$<$ Tp $>$\+::gauss\+\_\+legendre\+\_\+table().
+
 \mbox{\Hypertarget{structemsr_1_1gauss__legendre__table_afa0196ed802e0eaecf2248d975d863f3}\label{structemsr_1_1gauss__legendre__table_afa0196ed802e0eaecf2248d975d863f3}} 
 \index{emsr::gauss\_legendre\_table$<$ Tp $>$@{emsr::gauss\_legendre\_table$<$ Tp $>$}!precomputed@{precomputed}}
 \index{precomputed@{precomputed}!emsr::gauss\_legendre\_table$<$ Tp $>$@{emsr::gauss\_legendre\_table$<$ Tp $>$}}
@@ -288,10 +284,6 @@ std\+::vector$<$Quadrature\+Point$<$\mbox{\hyperlink{test__integral_8tcc_a82f489
 
 Definition at line 71 of file gauss\+\_\+legendre\+\_\+table.\+h.
 
-
-
-Referenced by emsr\+::gauss\+\_\+legendre\+\_\+table$<$ Tp $>$\+::gauss\+\_\+legendre\+\_\+table().
-
 \mbox{\Hypertarget{structemsr_1_1gauss__legendre__table_a2685669a4ab2b99532d96f8e0117ea48}\label{structemsr_1_1gauss__legendre__table_a2685669a4ab2b99532d96f8e0117ea48}} 
 \index{emsr::gauss\_legendre\_table$<$ Tp $>$@{emsr::gauss\_legendre\_table$<$ Tp $>$}!weight@{weight}}
 \index{weight@{weight}!emsr::gauss\_legendre\_table$<$ Tp $>$@{emsr::gauss\_legendre\_table$<$ Tp $>$}}
@@ -302,6 +294,10 @@ const \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp
 
 
 Definition at line 68 of file gauss\+\_\+legendre\+\_\+table.\+h.
+
+
+
+Referenced by emsr\+::gauss\+\_\+legendre\+\_\+table$<$ Tp $>$\+::gauss\+\_\+legendre\+\_\+table().
 
 
 

@@ -1,15 +1,16 @@
 <map id="include/emsr/jacobi.h" name="include/emsr/jacobi.h">
-<area shape="rect" id="node1" title="Header file for jacobi library." alt="" coords="217,5,378,32"/>
-<area shape="rect" id="node2" href="$gauss__jacobi__interface_8tcc.html" title=" " alt="" coords="182,80,413,107"/>
-<area shape="rect" id="node10" href="$gauss__jacobi__integrate_8tcc.html" title=" " alt="" coords="491,80,723,107"/>
-<area shape="rect" id="node3" title=" " alt="" coords="311,155,377,181"/>
-<area shape="rect" id="node4" title=" " alt="" coords="212,155,287,181"/>
-<area shape="rect" id="node5" href="$integration__error_8h.html" title=" " alt="" coords="7,155,187,181"/>
-<area shape="rect" id="node6" title=" " alt="" coords="383,229,446,256"/>
-<area shape="rect" id="node7" title=" " alt="" coords="549,229,608,256"/>
-<area shape="rect" id="node8" title=" " alt="" coords="5,229,80,256"/>
-<area shape="rect" id="node9" title=" " alt="" coords="105,229,202,256"/>
-<area shape="rect" id="node11" title=" " alt="" coords="695,155,756,181"/>
-<area shape="rect" id="node12" title=" " alt="" coords="780,155,879,181"/>
-<area shape="rect" id="node13" title=" " alt="" coords="401,155,569,181"/>
+<area shape="rect" id="node1" title="Header file for jacobi library." alt="" coords="277,5,439,32"/>
+<area shape="rect" id="node2" href="$gauss__jacobi__interface_8tcc.html" title=" " alt="" coords="243,80,473,107"/>
+<area shape="rect" id="node11" href="$gauss__jacobi__integrate_8tcc.html" title=" " alt="" coords="529,80,761,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,155,92,181"/>
+<area shape="rect" id="node4" title=" " alt="" coords="420,155,485,181"/>
+<area shape="rect" id="node5" title=" " alt="" coords="321,155,395,181"/>
+<area shape="rect" id="node6" href="$integration__error_8h.html" title=" " alt="" coords="116,155,296,181"/>
+<area shape="rect" id="node7" title=" " alt="" coords="568,229,631,256"/>
+<area shape="rect" id="node8" title=" " alt="" coords="773,229,831,256"/>
+<area shape="rect" id="node9" title=" " alt="" coords="114,229,189,256"/>
+<area shape="rect" id="node10" title=" " alt="" coords="213,229,311,256"/>
+<area shape="rect" id="node12" title=" " alt="" coords="510,155,571,181"/>
+<area shape="rect" id="node13" title=" " alt="" coords="595,155,694,181"/>
+<area shape="rect" id="node14" title=" " alt="" coords="718,155,886,181"/>
 </map>

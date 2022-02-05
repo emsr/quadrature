@@ -42,39 +42,35 @@ Construct a Gauss-\/\+Gegenbauer rule of order {\ttfamily n}.
 
 Weight function\+: $ [(b-x)(x-a)]^\lambda $ Constraints\+: $ \lambda > -1 $ 
 
-Definition at line 390 of file gauss\+\_\+quadrature.\+tcc.
+Definition at line 391 of file gauss\+\_\+quadrature.\+tcc.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{392     : \mbox{\hyperlink{structemsr_1_1fixed__gauss__gegenbauer__integral_a77c3d065214a00b0d263ebe3699ec036}{order}}(n),}
-\DoxyCodeLine{393       \mbox{\hyperlink{structemsr_1_1fixed__gauss__gegenbauer__integral_a926e8b2421a9c24717660235e359b972}{lambda}}(lam),}
-\DoxyCodeLine{394       point(n),}
-\DoxyCodeLine{395       weight(n)}
-\DoxyCodeLine{396     \{}
-\DoxyCodeLine{397       \textcolor{keyword}{const} \textcolor{keyword}{auto} ab = \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\} * this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__gegenbauer__integral_a926e8b2421a9c24717660235e359b972}{lambda}};}
-\DoxyCodeLine{398       \textcolor{keyword}{const} \textcolor{keyword}{auto} gam = std::tgamma(this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__gegenbauer__integral_a926e8b2421a9c24717660235e359b972}{lambda}} + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\});}
-\DoxyCodeLine{399       \textcolor{keyword}{const} \textcolor{keyword}{auto} mu\_0 = std::pow(\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\}, ab + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\})}
-\DoxyCodeLine{400                         * gam * gam / std::tgamma(ab + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\});}
-\DoxyCodeLine{401 }
-\DoxyCodeLine{402       std::vector<Tp> diag(this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__gegenbauer__integral_a77c3d065214a00b0d263ebe3699ec036}{order}}, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{0\});}
-\DoxyCodeLine{403       std::vector<Tp> subd(this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__gegenbauer__integral_a77c3d065214a00b0d263ebe3699ec036}{order}});}
-\DoxyCodeLine{404 }
-\DoxyCodeLine{405       subd[0] = std::sqrt(\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\} / (\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\} * this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__gegenbauer__integral_a926e8b2421a9c24717660235e359b972}{lambda}} + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{3\}));}
-\DoxyCodeLine{406 }
-\DoxyCodeLine{407       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 2; i <= this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__gegenbauer__integral_a77c3d065214a00b0d263ebe3699ec036}{order}}; ++i)}
-\DoxyCodeLine{408         subd[i -\/ 1] = std::sqrt(\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}(i) * (ab + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}(i))}
-\DoxyCodeLine{409                         / (\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{4\}}
-\DoxyCodeLine{410                           * std::pow(this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__gegenbauer__integral_a926e8b2421a9c24717660235e359b972}{lambda}} + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}(i), \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\}) -\/ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\}));}
-\DoxyCodeLine{411 }
-\DoxyCodeLine{412       \mbox{\hyperlink{namespaceemsr_1_1detail_a3a01597b0d4e1996d86ceaf2f68eabc8}{detail::golub\_welsch}}(mu\_0, this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__gegenbauer__integral_a77c3d065214a00b0d263ebe3699ec036}{order}}, diag, subd,}
-\DoxyCodeLine{413                                this-\/>point, this-\/>weight);}
-\DoxyCodeLine{414     \}}
+\DoxyCodeLine{393     : \mbox{\hyperlink{structemsr_1_1fixed__gauss__gegenbauer__integral_a77c3d065214a00b0d263ebe3699ec036}{order}}(n),}
+\DoxyCodeLine{394       \mbox{\hyperlink{structemsr_1_1fixed__gauss__gegenbauer__integral_a926e8b2421a9c24717660235e359b972}{lambda}}(lam),}
+\DoxyCodeLine{395       point(n),}
+\DoxyCodeLine{396       weight(n)}
+\DoxyCodeLine{397     \{}
+\DoxyCodeLine{398       \textcolor{keyword}{const} \textcolor{keyword}{auto} ab = \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\} * this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__gegenbauer__integral_a926e8b2421a9c24717660235e359b972}{lambda}};}
+\DoxyCodeLine{399       \textcolor{keyword}{const} \textcolor{keyword}{auto} gam = std::tgamma(this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__gegenbauer__integral_a926e8b2421a9c24717660235e359b972}{lambda}} + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\});}
+\DoxyCodeLine{400       \textcolor{keyword}{const} \textcolor{keyword}{auto} mu\_0 = std::pow(\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\}, ab + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\})}
+\DoxyCodeLine{401                         * gam * gam / std::tgamma(ab + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\});}
+\DoxyCodeLine{402 }
+\DoxyCodeLine{403       std::vector<Tp> diag(this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__gegenbauer__integral_a77c3d065214a00b0d263ebe3699ec036}{order}}, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{0\});}
+\DoxyCodeLine{404       std::vector<Tp> subd(this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__gegenbauer__integral_a77c3d065214a00b0d263ebe3699ec036}{order}});}
+\DoxyCodeLine{405 }
+\DoxyCodeLine{406       subd[0] = std::sqrt(\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\} / (\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\} * this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__gegenbauer__integral_a926e8b2421a9c24717660235e359b972}{lambda}} + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{3\}));}
+\DoxyCodeLine{407 }
+\DoxyCodeLine{408       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 2; i <= this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__gegenbauer__integral_a77c3d065214a00b0d263ebe3699ec036}{order}}; ++i)}
+\DoxyCodeLine{409         subd[i -\/ 1] = std::sqrt(\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}(i) * (ab + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}(i))}
+\DoxyCodeLine{410                         / (\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{4\}}
+\DoxyCodeLine{411                           * std::pow(this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__gegenbauer__integral_a926e8b2421a9c24717660235e359b972}{lambda}} + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}(i), \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\}) -\/ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\}));}
+\DoxyCodeLine{412 }
+\DoxyCodeLine{413       \mbox{\hyperlink{namespaceemsr_1_1detail_a3a01597b0d4e1996d86ceaf2f68eabc8}{detail::golub\_welsch}}(mu\_0, this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__gegenbauer__integral_a77c3d065214a00b0d263ebe3699ec036}{order}}, diag, subd,}
+\DoxyCodeLine{414                                this-\/>point, this-\/>weight);}
+\DoxyCodeLine{415     \}}
 
 \end{DoxyCode}
-
-
-References emsr\+::detail\+::golub\+\_\+welsch(), emsr\+::fixed\+\_\+gauss\+\_\+gegenbauer\+\_\+integral$<$ Tp $>$\+::lambda, emsr\+::fixed\+\_\+gauss\+\_\+gegenbauer\+\_\+integral$<$ Tp $>$\+::order, and Tp.
-
 
 
 \doxysubsection{Member Data Documentation}
@@ -88,10 +84,6 @@ References emsr\+::detail\+::golub\+\_\+welsch(), emsr\+::fixed\+\_\+gauss\+\_\+
 
 
 Definition at line 134 of file gauss\+\_\+quadrature.\+h.
-
-
-
-Referenced by emsr\+::fixed\+\_\+gauss\+\_\+gegenbauer\+\_\+integral$<$ Tp $>$\+::fixed\+\_\+gauss\+\_\+gegenbauer\+\_\+integral().
 
 \mbox{\Hypertarget{structemsr_1_1fixed__gauss__gegenbauer__integral_a82d41947cda3b3f9f7d3a4a6dd9b8cbe}\label{structemsr_1_1fixed__gauss__gegenbauer__integral_a82d41947cda3b3f9f7d3a4a6dd9b8cbe}} 
 \index{emsr::fixed\_gauss\_gegenbauer\_integral$<$ Tp $>$@{emsr::fixed\_gauss\_gegenbauer\_integral$<$ Tp $>$}!operator()@{operator()}}
@@ -115,10 +107,6 @@ int \mbox{\hyperlink{structemsr_1_1fixed__gauss__gegenbauer__integral}{emsr\+::f
 
 
 Definition at line 133 of file gauss\+\_\+quadrature.\+h.
-
-
-
-Referenced by emsr\+::fixed\+\_\+gauss\+\_\+gegenbauer\+\_\+integral$<$ Tp $>$\+::fixed\+\_\+gauss\+\_\+gegenbauer\+\_\+integral().
 
 
 

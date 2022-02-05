@@ -44,52 +44,48 @@ Construct a Gauss-\/\+Jacobi rule of order {\ttfamily n}.
 
 Interval\+: $ (-1, +1) $ Weight function\+: $ (1-x)^\alpha (1+x)^\beta $ Constraints\+: $ \alpha, \beta > -1 $ 
 
-Definition at line 459 of file gauss\+\_\+quadrature.\+tcc.
+Definition at line 460 of file gauss\+\_\+quadrature.\+tcc.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{461     : \mbox{\hyperlink{structemsr_1_1fixed__gauss__jacobi__integral_aa63f9207ec1aa55bfe9f1cb1c60750fa}{order}}(n),}
-\DoxyCodeLine{462       \mbox{\hyperlink{structemsr_1_1fixed__gauss__jacobi__integral_ab9b573ce9acdcb2901c312e29849a367}{alpha}}(alf),}
-\DoxyCodeLine{463       \mbox{\hyperlink{structemsr_1_1fixed__gauss__jacobi__integral_af7bebafb139de5b61b47935bec5ed5d4}{beta}}(bet),}
-\DoxyCodeLine{464       point(n),}
-\DoxyCodeLine{465       weight(n)}
-\DoxyCodeLine{466     \{}
-\DoxyCodeLine{467       \textcolor{keyword}{const} \textcolor{keyword}{auto} ab = this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__jacobi__integral_ab9b573ce9acdcb2901c312e29849a367}{alpha}} + this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__jacobi__integral_af7bebafb139de5b61b47935bec5ed5d4}{beta}};}
-\DoxyCodeLine{468       \textcolor{keyword}{auto} abp2i = ab + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\};}
-\DoxyCodeLine{469       \textcolor{keyword}{const} \textcolor{keyword}{auto} mu\_0 = std::pow(\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\}, ab + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\})}
-\DoxyCodeLine{470                         * std::tgamma(this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__jacobi__integral_ab9b573ce9acdcb2901c312e29849a367}{alpha}} + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\})}
-\DoxyCodeLine{471                         * std::tgamma(this-\/>beta + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\})}
-\DoxyCodeLine{472                         / std::tgamma(abp2i);}
-\DoxyCodeLine{473 }
-\DoxyCodeLine{474       std::vector<Tp> diag(this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__jacobi__integral_aa63f9207ec1aa55bfe9f1cb1c60750fa}{order}});}
-\DoxyCodeLine{475       std::vector<Tp> subd(this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__jacobi__integral_aa63f9207ec1aa55bfe9f1cb1c60750fa}{order}});}
-\DoxyCodeLine{476 }
-\DoxyCodeLine{477       diag[0] = (this-\/>beta -\/ this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__jacobi__integral_ab9b573ce9acdcb2901c312e29849a367}{alpha}}) / abp2i;}
-\DoxyCodeLine{478       subd[0] = \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\} * std::sqrt((this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__jacobi__integral_ab9b573ce9acdcb2901c312e29849a367}{alpha}} + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\})}
-\DoxyCodeLine{479                                    * (this-\/>beta + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\})}
-\DoxyCodeLine{480                                    / (abp2i + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\})) / abp2i;}
-\DoxyCodeLine{481       \textcolor{keyword}{const} \textcolor{keyword}{auto} a2mb2 = (this-\/>beta -\/ this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__jacobi__integral_ab9b573ce9acdcb2901c312e29849a367}{alpha}})}
-\DoxyCodeLine{482                         * (this-\/>beta + this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__jacobi__integral_ab9b573ce9acdcb2901c312e29849a367}{alpha}});}
-\DoxyCodeLine{483       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 1; i < this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__jacobi__integral_aa63f9207ec1aa55bfe9f1cb1c60750fa}{order}}; ++i)}
-\DoxyCodeLine{484         \{}
-\DoxyCodeLine{485           \textcolor{keyword}{const} \textcolor{keyword}{auto} abp2ip2 = abp2i + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\};}
-\DoxyCodeLine{486           diag[i] = a2mb2 / abp2i / abp2ip2;}
-\DoxyCodeLine{487           \textcolor{keyword}{const} \textcolor{keyword}{auto} ip1 = \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}(i + 1);}
-\DoxyCodeLine{488           subd[i] = std::sqrt(\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}(4 * ip1) * (this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__jacobi__integral_ab9b573ce9acdcb2901c312e29849a367}{alpha}} + ip1)}
-\DoxyCodeLine{489                                   * (this-\/>beta + ip1) * (ab + ip1)}
-\DoxyCodeLine{490                                   / (abp2ip2 * abp2ip2 -\/ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\})) / abp2ip2;}
-\DoxyCodeLine{491           abp2i += \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\};}
-\DoxyCodeLine{492         \}}
-\DoxyCodeLine{493 }
-\DoxyCodeLine{494       \mbox{\hyperlink{namespaceemsr_1_1detail_a3a01597b0d4e1996d86ceaf2f68eabc8}{detail::golub\_welsch}}(mu\_0, this-\/>order, diag, subd,}
-\DoxyCodeLine{495                                this-\/>point, this-\/>weight);}
-\DoxyCodeLine{496     \}}
+\DoxyCodeLine{462     : \mbox{\hyperlink{structemsr_1_1fixed__gauss__jacobi__integral_aa63f9207ec1aa55bfe9f1cb1c60750fa}{order}}(n),}
+\DoxyCodeLine{463       \mbox{\hyperlink{structemsr_1_1fixed__gauss__jacobi__integral_ab9b573ce9acdcb2901c312e29849a367}{alpha}}(alf),}
+\DoxyCodeLine{464       \mbox{\hyperlink{structemsr_1_1fixed__gauss__jacobi__integral_af7bebafb139de5b61b47935bec5ed5d4}{beta}}(bet),}
+\DoxyCodeLine{465       point(n),}
+\DoxyCodeLine{466       weight(n)}
+\DoxyCodeLine{467     \{}
+\DoxyCodeLine{468       \textcolor{keyword}{const} \textcolor{keyword}{auto} ab = this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__jacobi__integral_ab9b573ce9acdcb2901c312e29849a367}{alpha}} + this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__jacobi__integral_af7bebafb139de5b61b47935bec5ed5d4}{beta}};}
+\DoxyCodeLine{469       \textcolor{keyword}{auto} abp2i = ab + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\};}
+\DoxyCodeLine{470       \textcolor{keyword}{const} \textcolor{keyword}{auto} mu\_0 = std::pow(\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\}, ab + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\})}
+\DoxyCodeLine{471                         * std::tgamma(this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__jacobi__integral_ab9b573ce9acdcb2901c312e29849a367}{alpha}} + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\})}
+\DoxyCodeLine{472                         * std::tgamma(this-\/>beta + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\})}
+\DoxyCodeLine{473                         / std::tgamma(abp2i);}
+\DoxyCodeLine{474 }
+\DoxyCodeLine{475       std::vector<Tp> diag(this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__jacobi__integral_aa63f9207ec1aa55bfe9f1cb1c60750fa}{order}});}
+\DoxyCodeLine{476       std::vector<Tp> subd(this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__jacobi__integral_aa63f9207ec1aa55bfe9f1cb1c60750fa}{order}});}
+\DoxyCodeLine{477 }
+\DoxyCodeLine{478       diag[0] = (this-\/>beta -\/ this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__jacobi__integral_ab9b573ce9acdcb2901c312e29849a367}{alpha}}) / abp2i;}
+\DoxyCodeLine{479       subd[0] = \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\} * std::sqrt((this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__jacobi__integral_ab9b573ce9acdcb2901c312e29849a367}{alpha}} + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\})}
+\DoxyCodeLine{480                                    * (this-\/>beta + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\})}
+\DoxyCodeLine{481                                    / (abp2i + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\})) / abp2i;}
+\DoxyCodeLine{482       \textcolor{keyword}{const} \textcolor{keyword}{auto} a2mb2 = (this-\/>beta -\/ this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__jacobi__integral_ab9b573ce9acdcb2901c312e29849a367}{alpha}})}
+\DoxyCodeLine{483                         * (this-\/>beta + this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__jacobi__integral_ab9b573ce9acdcb2901c312e29849a367}{alpha}});}
+\DoxyCodeLine{484       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 1; i < this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__jacobi__integral_aa63f9207ec1aa55bfe9f1cb1c60750fa}{order}}; ++i)}
+\DoxyCodeLine{485         \{}
+\DoxyCodeLine{486           \textcolor{keyword}{const} \textcolor{keyword}{auto} abp2ip2 = abp2i + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\};}
+\DoxyCodeLine{487           diag[i] = a2mb2 / abp2i / abp2ip2;}
+\DoxyCodeLine{488           \textcolor{keyword}{const} \textcolor{keyword}{auto} ip1 = \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}(i + 1);}
+\DoxyCodeLine{489           subd[i] = std::sqrt(\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}(4 * ip1) * (this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__jacobi__integral_ab9b573ce9acdcb2901c312e29849a367}{alpha}} + ip1)}
+\DoxyCodeLine{490                                   * (this-\/>beta + ip1) * (ab + ip1)}
+\DoxyCodeLine{491                                   / (abp2ip2 * abp2ip2 -\/ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\})) / abp2ip2;}
+\DoxyCodeLine{492           abp2i += \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\};}
+\DoxyCodeLine{493         \}}
+\DoxyCodeLine{494 }
+\DoxyCodeLine{495       \mbox{\hyperlink{namespaceemsr_1_1detail_a3a01597b0d4e1996d86ceaf2f68eabc8}{detail::golub\_welsch}}(mu\_0, this-\/>order, diag, subd,}
+\DoxyCodeLine{496                                this-\/>point, this-\/>weight);}
+\DoxyCodeLine{497     \}}
 
 \end{DoxyCode}
-
-
-References emsr\+::fixed\+\_\+gauss\+\_\+jacobi\+\_\+integral$<$ Tp $>$\+::alpha, emsr\+::fixed\+\_\+gauss\+\_\+jacobi\+\_\+integral$<$ Tp $>$\+::beta, emsr\+::detail\+::golub\+\_\+welsch(), emsr\+::fixed\+\_\+gauss\+\_\+jacobi\+\_\+integral$<$ Tp $>$\+::order, and Tp.
-
 
 
 \doxysubsection{Member Data Documentation}
@@ -104,10 +100,6 @@ References emsr\+::fixed\+\_\+gauss\+\_\+jacobi\+\_\+integral$<$ Tp $>$\+::alpha
 
 Definition at line 154 of file gauss\+\_\+quadrature.\+h.
 
-
-
-Referenced by emsr\+::fixed\+\_\+gauss\+\_\+jacobi\+\_\+integral$<$ Tp $>$\+::fixed\+\_\+gauss\+\_\+jacobi\+\_\+integral().
-
 \mbox{\Hypertarget{structemsr_1_1fixed__gauss__jacobi__integral_af7bebafb139de5b61b47935bec5ed5d4}\label{structemsr_1_1fixed__gauss__jacobi__integral_af7bebafb139de5b61b47935bec5ed5d4}} 
 \index{emsr::fixed\_gauss\_jacobi\_integral$<$ Tp $>$@{emsr::fixed\_gauss\_jacobi\_integral$<$ Tp $>$}!beta@{beta}}
 \index{beta@{beta}!emsr::fixed\_gauss\_jacobi\_integral$<$ Tp $>$@{emsr::fixed\_gauss\_jacobi\_integral$<$ Tp $>$}}
@@ -118,10 +110,6 @@ Referenced by emsr\+::fixed\+\_\+gauss\+\_\+jacobi\+\_\+integral$<$ Tp $>$\+::fi
 
 
 Definition at line 155 of file gauss\+\_\+quadrature.\+h.
-
-
-
-Referenced by emsr\+::fixed\+\_\+gauss\+\_\+jacobi\+\_\+integral$<$ Tp $>$\+::fixed\+\_\+gauss\+\_\+jacobi\+\_\+integral().
 
 \mbox{\Hypertarget{structemsr_1_1fixed__gauss__jacobi__integral_aea81589c4fbd6e93f1b6d38827425dfc}\label{structemsr_1_1fixed__gauss__jacobi__integral_aea81589c4fbd6e93f1b6d38827425dfc}} 
 \index{emsr::fixed\_gauss\_jacobi\_integral$<$ Tp $>$@{emsr::fixed\_gauss\_jacobi\_integral$<$ Tp $>$}!operator()@{operator()}}
@@ -145,10 +133,6 @@ int \mbox{\hyperlink{structemsr_1_1fixed__gauss__jacobi__integral}{emsr\+::fixed
 
 
 Definition at line 153 of file gauss\+\_\+quadrature.\+h.
-
-
-
-Referenced by emsr\+::fixed\+\_\+gauss\+\_\+jacobi\+\_\+integral$<$ Tp $>$\+::fixed\+\_\+gauss\+\_\+jacobi\+\_\+integral().
 
 
 

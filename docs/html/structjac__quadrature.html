@@ -190,6 +190,10 @@ template&lt;typename Tp &gt; </div>
 <div class="ttc" id="astructjac__quadrature_html_a7d39e7f4635680fa6197b94bb79dafc9"><div class="ttname"><a href="structjac__quadrature.html#a7d39e7f4635680fa6197b94bb79dafc9">jac_quadrature::type</a></div><div class="ttdeci">enum gauss_quad_type type</div><div class="ttdoc">Quadrature type.</div><div class="ttdef"><b>Definition:</b> <a href="jacobi_8h_source.html#l00001">jacobi.h:66</a></div></div>
 <div class="ttc" id="astructjac__quadrature_html_ae432111b069bc5da6eb22e44eb2e8a87"><div class="ttname"><a href="structjac__quadrature.html#ae432111b069bc5da6eb22e44eb2e8a87">jac_quadrature::beta</a></div><div class="ttdeci">Tp beta</div><div class="ttdoc">Beta weight of the quadrature.</div><div class="ttdef"><b>Definition:</b> <a href="jacobi_8h_source.html#l00075">jacobi.h:75</a></div></div>
 </div><!-- fragment -->
+<p class="reference">References <a class="el" href="jacobi_8h_source.html#l00077">jac_quadrature&lt; Tp &gt;::jac_quadrature()</a>, <a class="el" href="jacobi_8h_source.html#l00072">jac_quadrature&lt; Tp &gt;::alpha</a>, <a class="el" href="jacobi_8h_source.html#l00075">jac_quadrature&lt; Tp &gt;::beta</a>, <a class="el" href="jacobi_8h_source.html#l00069">jac_quadrature&lt; Tp &gt;::Q</a>, and <a class="el" href="jacobi_8h_source.html#l00066">jac_quadrature&lt; Tp &gt;::type</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="jacobi_8h_source.html#l00077">jac_quadrature&lt; Tp &gt;::jac_quadrature()</a>.</p>
+
 </div>
 </div>
 <a id="abe92ca2db49f495fd88422eb94b4da87"></a>
@@ -255,18 +259,16 @@ template&lt;typename Func &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><img class="formulaInl" alt="$\int_{-1}^{1} f(x) dx \approx \sum_{i=0}^{Q-1} w_i f(x_i)$" src="form_26.png" width="153" height="19"/> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="gauss__jacobi__interface_8tcc_source.html#l00225">225</a> of file <a class="el" href="gauss__jacobi__interface_8tcc_source.html">gauss_jacobi_interface.tcc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    {</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;      std::vector&lt;Tp&gt; f(this-&gt;<a class="code" href="structjac__quadrature.html#a20d0db1598e72081e68da49ad0524551">Q</a>);</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; this-&gt;<a class="code" href="structjac__quadrature.html#a20d0db1598e72081e68da49ad0524551">Q</a>; ++i)</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;        f[i] = fun(this-&gt;x[i]);</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;      <span class="keywordflow">return</span> std::inner_product(std::begin(this-&gt;w), std::end(this-&gt;w),</div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;                                std::begin(f), <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{0});</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    }</div>
+<p class="definition">Definition at line <a class="el" href="gauss__jacobi__interface_8tcc_source.html#l00226">226</a> of file <a class="el" href="gauss__jacobi__interface_8tcc_source.html">gauss_jacobi_interface.tcc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    {</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;      std::vector&lt;Tp&gt; f(this-&gt;<a class="code" href="structjac__quadrature.html#a20d0db1598e72081e68da49ad0524551">Q</a>);</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; this-&gt;<a class="code" href="structjac__quadrature.html#a20d0db1598e72081e68da49ad0524551">Q</a>; ++i)</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;        f[i] = fun(this-&gt;x[i]);</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;      <span class="keywordflow">return</span> std::inner_product(std::begin(this-&gt;w), std::end(this-&gt;w),</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;                                std::begin(f), <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{0});</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;    }</div>
 <div class="ttc" id="atest__integral_8tcc_html_a82f489a4943d33943d0b0f781a801283"><div class="ttname"><a href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a></div><div class="ttdeci">Tp x Tp</div><div class="ttdef"><b>Definition:</b> <a href="test__integral_8tcc_source.html#l00003">test_integral.tcc:4</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="test__integral_8tcc_source.html#l00004">Tp</a>.</p>
-
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -288,6 +290,8 @@ template&lt;typename Tp &gt; </div>
 
 <p class="definition">Definition at line <a class="el" href="jacobi_8h_source.html#l00072">72</a> of file <a class="el" href="jacobi_8h_source.html">jacobi.h</a>.</p>
 
+<p class="reference">Referenced by <a class="el" href="jacobi_8h_source.html#l00077">jac_quadrature&lt; Tp &gt;::jac_quadrature()</a>.</p>
+
 </div>
 </div>
 <a id="ae432111b069bc5da6eb22e44eb2e8a87"></a>
@@ -307,6 +311,8 @@ template&lt;typename Tp &gt; </div>
 <p>Beta weight of the quadrature. </p>
 
 <p class="definition">Definition at line <a class="el" href="jacobi_8h_source.html#l00075">75</a> of file <a class="el" href="jacobi_8h_source.html">jacobi.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="jacobi_8h_source.html#l00077">jac_quadrature&lt; Tp &gt;::jac_quadrature()</a>.</p>
 
 </div>
 </div>
@@ -328,6 +334,8 @@ template&lt;typename Tp &gt; </div>
 
 <p class="definition">Definition at line <a class="el" href="jacobi_8h_source.html#l00069">69</a> of file <a class="el" href="jacobi_8h_source.html">jacobi.h</a>.</p>
 
+<p class="reference">Referenced by <a class="el" href="jacobi_8h_source.html#l00077">jac_quadrature&lt; Tp &gt;::jac_quadrature()</a>.</p>
+
 </div>
 </div>
 <a id="a7d39e7f4635680fa6197b94bb79dafc9"></a>
@@ -347,6 +355,8 @@ template&lt;typename Tp &gt; </div>
 <p>Quadrature type. </p>
 
 <p class="definition">Definition at line <a class="el" href="jacobi_8h_source.html#l00001">1</a> of file <a class="el" href="jacobi_8h_source.html">jacobi.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="jacobi_8h_source.html#l00077">jac_quadrature&lt; Tp &gt;::jac_quadrature()</a>.</p>
 
 </div>
 </div>

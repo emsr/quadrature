@@ -42,35 +42,31 @@ Construct a Gauss-\/\+Laguerre rule of order {\ttfamily n}.
 
 Interval\+: $ (0, \infty) $ Weight function\+: $ x^\alpha \exp(-b(x-a)) $ Constraints\+: $ \alpha > -1 $ 
 
-Definition at line 542 of file gauss\+\_\+quadrature.\+tcc.
+Definition at line 543 of file gauss\+\_\+quadrature.\+tcc.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{544     : \mbox{\hyperlink{structemsr_1_1fixed__gauss__laguerre__integral_a14cdf59955e693ea49805f2b3fcd6e4e}{order}}(n),}
-\DoxyCodeLine{545       \mbox{\hyperlink{structemsr_1_1fixed__gauss__laguerre__integral_ae79a931dc36e3e1559fe4e10e2e8c246}{alpha}}(alf),}
-\DoxyCodeLine{546       point(n),}
-\DoxyCodeLine{547       weight(n)}
-\DoxyCodeLine{548     \{}
-\DoxyCodeLine{549       \textcolor{keyword}{const} \textcolor{keyword}{auto} mu\_0 = std::tgamma(this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__laguerre__integral_ae79a931dc36e3e1559fe4e10e2e8c246}{alpha}} + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\});}
-\DoxyCodeLine{550 }
-\DoxyCodeLine{551       std::vector<Tp> diag(this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__laguerre__integral_a14cdf59955e693ea49805f2b3fcd6e4e}{order}});}
-\DoxyCodeLine{552       std::vector<Tp> subd(this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__laguerre__integral_a14cdf59955e693ea49805f2b3fcd6e4e}{order}});}
-\DoxyCodeLine{553 }
-\DoxyCodeLine{554       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__laguerre__integral_a14cdf59955e693ea49805f2b3fcd6e4e}{order}}; ++i)}
-\DoxyCodeLine{555         \{}
-\DoxyCodeLine{556           diag[i] = \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}(2 * i + 1) + this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__laguerre__integral_ae79a931dc36e3e1559fe4e10e2e8c246}{alpha}};}
-\DoxyCodeLine{557           subd[i] = std::sqrt(\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}(i + 1) * (this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__laguerre__integral_ae79a931dc36e3e1559fe4e10e2e8c246}{alpha}} + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}(i + 1)));}
-\DoxyCodeLine{558         \}}
-\DoxyCodeLine{559 }
-\DoxyCodeLine{560       \mbox{\hyperlink{namespaceemsr_1_1detail_a3a01597b0d4e1996d86ceaf2f68eabc8}{detail::golub\_welsch}}(mu\_0, this-\/>order, diag, subd,}
-\DoxyCodeLine{561                                this-\/>point, this-\/>weight);}
-\DoxyCodeLine{562     \}}
+\DoxyCodeLine{545     : \mbox{\hyperlink{structemsr_1_1fixed__gauss__laguerre__integral_a14cdf59955e693ea49805f2b3fcd6e4e}{order}}(n),}
+\DoxyCodeLine{546       \mbox{\hyperlink{structemsr_1_1fixed__gauss__laguerre__integral_ae79a931dc36e3e1559fe4e10e2e8c246}{alpha}}(alf),}
+\DoxyCodeLine{547       point(n),}
+\DoxyCodeLine{548       weight(n)}
+\DoxyCodeLine{549     \{}
+\DoxyCodeLine{550       \textcolor{keyword}{const} \textcolor{keyword}{auto} mu\_0 = std::tgamma(this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__laguerre__integral_ae79a931dc36e3e1559fe4e10e2e8c246}{alpha}} + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\});}
+\DoxyCodeLine{551 }
+\DoxyCodeLine{552       std::vector<Tp> diag(this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__laguerre__integral_a14cdf59955e693ea49805f2b3fcd6e4e}{order}});}
+\DoxyCodeLine{553       std::vector<Tp> subd(this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__laguerre__integral_a14cdf59955e693ea49805f2b3fcd6e4e}{order}});}
+\DoxyCodeLine{554 }
+\DoxyCodeLine{555       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__laguerre__integral_a14cdf59955e693ea49805f2b3fcd6e4e}{order}}; ++i)}
+\DoxyCodeLine{556         \{}
+\DoxyCodeLine{557           diag[i] = \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}(2 * i + 1) + this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__laguerre__integral_ae79a931dc36e3e1559fe4e10e2e8c246}{alpha}};}
+\DoxyCodeLine{558           subd[i] = std::sqrt(\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}(i + 1) * (this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__laguerre__integral_ae79a931dc36e3e1559fe4e10e2e8c246}{alpha}} + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}(i + 1)));}
+\DoxyCodeLine{559         \}}
+\DoxyCodeLine{560 }
+\DoxyCodeLine{561       \mbox{\hyperlink{namespaceemsr_1_1detail_a3a01597b0d4e1996d86ceaf2f68eabc8}{detail::golub\_welsch}}(mu\_0, this-\/>order, diag, subd,}
+\DoxyCodeLine{562                                this-\/>point, this-\/>weight);}
+\DoxyCodeLine{563     \}}
 
 \end{DoxyCode}
-
-
-References emsr\+::fixed\+\_\+gauss\+\_\+laguerre\+\_\+integral$<$ Tp $>$\+::alpha, emsr\+::detail\+::golub\+\_\+welsch(), emsr\+::fixed\+\_\+gauss\+\_\+laguerre\+\_\+integral$<$ Tp $>$\+::order, and Tp.
-
 
 
 \doxysubsection{Member Data Documentation}
@@ -84,10 +80,6 @@ References emsr\+::fixed\+\_\+gauss\+\_\+laguerre\+\_\+integral$<$ Tp $>$\+::alp
 
 
 Definition at line 175 of file gauss\+\_\+quadrature.\+h.
-
-
-
-Referenced by emsr\+::fixed\+\_\+gauss\+\_\+laguerre\+\_\+integral$<$ Tp $>$\+::fixed\+\_\+gauss\+\_\+laguerre\+\_\+integral().
 
 \mbox{\Hypertarget{structemsr_1_1fixed__gauss__laguerre__integral_a6b757b09f5853da4a4b1ea877d8e21bf}\label{structemsr_1_1fixed__gauss__laguerre__integral_a6b757b09f5853da4a4b1ea877d8e21bf}} 
 \index{emsr::fixed\_gauss\_laguerre\_integral$<$ Tp $>$@{emsr::fixed\_gauss\_laguerre\_integral$<$ Tp $>$}!operator()@{operator()}}
@@ -111,10 +103,6 @@ int \mbox{\hyperlink{structemsr_1_1fixed__gauss__laguerre__integral}{emsr\+::fix
 
 
 Definition at line 174 of file gauss\+\_\+quadrature.\+h.
-
-
-
-Referenced by emsr\+::fixed\+\_\+gauss\+\_\+laguerre\+\_\+integral$<$ Tp $>$\+::fixed\+\_\+gauss\+\_\+laguerre\+\_\+integral().
 
 
 

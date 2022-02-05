@@ -1,6 +1,7 @@
 <map id="include/emsr/oscillatory_integration_table.tcc" name="include/emsr/oscillatory_integration_table.tcc">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,184,47"/>
-<area shape="rect" id="node2" href="$matrix_8h.html" title=" " alt="" coords="37,95,152,121"/>
-<area shape="rect" id="node3" href="$matrix_8tcc.html" title=" " alt="" coords="32,169,157,196"/>
-<area shape="rect" id="node4" title=" " alt="" coords="49,244,141,271"/>
+<area shape="rect" id="node1" title=" " alt="" coords="15,5,194,47"/>
+<area shape="rect" id="node2" href="$matrix_8h.html" title=" " alt="" coords="47,95,162,121"/>
+<area shape="rect" id="node3" href="$matrix_8tcc.html" title=" " alt="" coords="42,169,167,196"/>
+<area shape="rect" id="node4" title=" " alt="" coords="5,244,92,271"/>
+<area shape="rect" id="node5" title=" " alt="" coords="116,244,208,271"/>
 </map>

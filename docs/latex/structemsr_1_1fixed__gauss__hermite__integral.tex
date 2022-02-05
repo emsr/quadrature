@@ -42,33 +42,29 @@ Construct a Generalized Gauss-\/\+Hermite rule of order {\ttfamily n}.
 
 Interval\+: $ (-\infty, \infty) $ Weight function\+: $ |x-a|^\alpha \exp(-b(x-a)^2) $ Constraints\+: $ \alpha > -1 $ 
 
-Definition at line 601 of file gauss\+\_\+quadrature.\+tcc.
+Definition at line 602 of file gauss\+\_\+quadrature.\+tcc.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{603     : \mbox{\hyperlink{structemsr_1_1fixed__gauss__hermite__integral_a7f2edff5bd4cb0dde1cb51a40d29b982}{order}}(n),}
-\DoxyCodeLine{604       \mbox{\hyperlink{structemsr_1_1fixed__gauss__hermite__integral_a22709bbf6a06de27af2796a0af76313c}{alpha}}(alf),}
-\DoxyCodeLine{605       point(n),}
-\DoxyCodeLine{606       weight(n)}
-\DoxyCodeLine{607     \{}
-\DoxyCodeLine{608       \textcolor{keyword}{const} \textcolor{keyword}{auto} mu\_0 = std::tgamma((this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__hermite__integral_a22709bbf6a06de27af2796a0af76313c}{alpha}} + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\}) / \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\});}
-\DoxyCodeLine{609 }
-\DoxyCodeLine{610       std::vector<Tp> diag(this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__hermite__integral_a7f2edff5bd4cb0dde1cb51a40d29b982}{order}}, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{0\});}
-\DoxyCodeLine{611       std::vector<Tp> subd(this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__hermite__integral_a7f2edff5bd4cb0dde1cb51a40d29b982}{order}});}
-\DoxyCodeLine{612 }
-\DoxyCodeLine{613       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 1; i <= this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__hermite__integral_a7f2edff5bd4cb0dde1cb51a40d29b982}{order}}; ++i)}
-\DoxyCodeLine{614         subd[i -\/ 1] = std::sqrt((\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}(i) + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}(i \% 2) * this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__hermite__integral_a22709bbf6a06de27af2796a0af76313c}{alpha}})}
-\DoxyCodeLine{615                                    / \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\});}
-\DoxyCodeLine{616 }
-\DoxyCodeLine{617       \mbox{\hyperlink{namespaceemsr_1_1detail_a3a01597b0d4e1996d86ceaf2f68eabc8}{detail::golub\_welsch}}(mu\_0, this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__hermite__integral_a7f2edff5bd4cb0dde1cb51a40d29b982}{order}}, diag, subd,}
-\DoxyCodeLine{618                                this-\/>point, this-\/>weight);}
-\DoxyCodeLine{619     \}}
+\DoxyCodeLine{604     : \mbox{\hyperlink{structemsr_1_1fixed__gauss__hermite__integral_a7f2edff5bd4cb0dde1cb51a40d29b982}{order}}(n),}
+\DoxyCodeLine{605       \mbox{\hyperlink{structemsr_1_1fixed__gauss__hermite__integral_a22709bbf6a06de27af2796a0af76313c}{alpha}}(alf),}
+\DoxyCodeLine{606       point(n),}
+\DoxyCodeLine{607       weight(n)}
+\DoxyCodeLine{608     \{}
+\DoxyCodeLine{609       \textcolor{keyword}{const} \textcolor{keyword}{auto} mu\_0 = std::tgamma((this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__hermite__integral_a22709bbf6a06de27af2796a0af76313c}{alpha}} + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\}) / \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\});}
+\DoxyCodeLine{610 }
+\DoxyCodeLine{611       std::vector<Tp> diag(this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__hermite__integral_a7f2edff5bd4cb0dde1cb51a40d29b982}{order}}, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{0\});}
+\DoxyCodeLine{612       std::vector<Tp> subd(this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__hermite__integral_a7f2edff5bd4cb0dde1cb51a40d29b982}{order}});}
+\DoxyCodeLine{613 }
+\DoxyCodeLine{614       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 1; i <= this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__hermite__integral_a7f2edff5bd4cb0dde1cb51a40d29b982}{order}}; ++i)}
+\DoxyCodeLine{615         subd[i -\/ 1] = std::sqrt((\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}(i) + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}(i \% 2) * this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__hermite__integral_a22709bbf6a06de27af2796a0af76313c}{alpha}})}
+\DoxyCodeLine{616                                    / \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\});}
+\DoxyCodeLine{617 }
+\DoxyCodeLine{618       \mbox{\hyperlink{namespaceemsr_1_1detail_a3a01597b0d4e1996d86ceaf2f68eabc8}{detail::golub\_welsch}}(mu\_0, this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__hermite__integral_a7f2edff5bd4cb0dde1cb51a40d29b982}{order}}, diag, subd,}
+\DoxyCodeLine{619                                this-\/>point, this-\/>weight);}
+\DoxyCodeLine{620     \}}
 
 \end{DoxyCode}
-
-
-References emsr\+::fixed\+\_\+gauss\+\_\+hermite\+\_\+integral$<$ Tp $>$\+::alpha, emsr\+::detail\+::golub\+\_\+welsch(), emsr\+::fixed\+\_\+gauss\+\_\+hermite\+\_\+integral$<$ Tp $>$\+::order, and Tp.
-
 
 
 \doxysubsection{Member Data Documentation}
@@ -82,10 +78,6 @@ References emsr\+::fixed\+\_\+gauss\+\_\+hermite\+\_\+integral$<$ Tp $>$\+::alph
 
 
 Definition at line 195 of file gauss\+\_\+quadrature.\+h.
-
-
-
-Referenced by emsr\+::fixed\+\_\+gauss\+\_\+hermite\+\_\+integral$<$ Tp $>$\+::fixed\+\_\+gauss\+\_\+hermite\+\_\+integral().
 
 \mbox{\Hypertarget{structemsr_1_1fixed__gauss__hermite__integral_a5121abdc4ac896a569dd81d399ebc383}\label{structemsr_1_1fixed__gauss__hermite__integral_a5121abdc4ac896a569dd81d399ebc383}} 
 \index{emsr::fixed\_gauss\_hermite\_integral$<$ Tp $>$@{emsr::fixed\_gauss\_hermite\_integral$<$ Tp $>$}!operator()@{operator()}}
@@ -109,10 +101,6 @@ int \mbox{\hyperlink{structemsr_1_1fixed__gauss__hermite__integral}{emsr\+::fixe
 
 
 Definition at line 194 of file gauss\+\_\+quadrature.\+h.
-
-
-
-Referenced by emsr\+::fixed\+\_\+gauss\+\_\+hermite\+\_\+integral$<$ Tp $>$\+::fixed\+\_\+gauss\+\_\+hermite\+\_\+integral().
 
 
 

@@ -36,38 +36,30 @@ Sylvan Elhay, Jaroslav Kautsky, Algorithm 655\+: IQPACK, Fortran Subroutines for
 \end{DoxyParams}
 
 
-Definition at line 52 of file gauss\+\_\+quadrature.\+tcc.
+Definition at line 53 of file gauss\+\_\+quadrature.\+tcc.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{54     \{}
-\DoxyCodeLine{55       \textcolor{comment}{// Bail if the zero-\/th moment is not positive.}}
-\DoxyCodeLine{56       \textcolor{keywordflow}{if} (moment0 <= \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{0\})}
-\DoxyCodeLine{57         \textcolor{keywordflow}{throw} std::domain\_error(\textcolor{stringliteral}{"{}golub\_welsch: moment0 <= 0"{}});}
-\DoxyCodeLine{58 }
-\DoxyCodeLine{59       \textcolor{comment}{// Set up vectors for matrix diagonalization.}}
-\DoxyCodeLine{60       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < n; ++i)}
-\DoxyCodeLine{61         pt[i] = diag[i];}
-\DoxyCodeLine{62 }
-\DoxyCodeLine{63       wt[0] = std::sqrt(moment0);}
-\DoxyCodeLine{64       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 1; i < n; ++i)}
-\DoxyCodeLine{65         wt[i] = \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{0\};}
-\DoxyCodeLine{66 }
-\DoxyCodeLine{67       \textcolor{comment}{// Diagonalize the Jacobi matrix.}}
-\DoxyCodeLine{68       \mbox{\hyperlink{namespaceemsr_a5cb28151a49c36c36b58a1dc7af7654c}{s\_tridiag\_symm}}(std::size\_t(n), pt, subd, wt);}
-\DoxyCodeLine{69 }
-\DoxyCodeLine{70       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < n; ++i)}
-\DoxyCodeLine{71         wt[i] *= wt[i];}
-\DoxyCodeLine{72 }
-\DoxyCodeLine{73       \textcolor{keywordflow}{return};}
-\DoxyCodeLine{74     \}}
+\DoxyCodeLine{55     \{}
+\DoxyCodeLine{56       \textcolor{comment}{// Bail if the zero-\/th moment is not positive.}}
+\DoxyCodeLine{57       \textcolor{keywordflow}{if} (moment0 <= \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{0\})}
+\DoxyCodeLine{58         \textcolor{keywordflow}{throw} std::domain\_error(\textcolor{stringliteral}{"{}golub\_welsch: moment0 <= 0"{}});}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60       \textcolor{comment}{// Set up vectors for matrix diagonalization.}}
+\DoxyCodeLine{61       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < n; ++i)}
+\DoxyCodeLine{62         pt[i] = diag[i];}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64       wt[0] = std::sqrt(moment0);}
+\DoxyCodeLine{65       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 1; i < n; ++i)}
+\DoxyCodeLine{66         wt[i] = \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{0\};}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68       \textcolor{comment}{// Diagonalize the Jacobi matrix.}}
+\DoxyCodeLine{69       \mbox{\hyperlink{namespaceemsr_a5cb28151a49c36c36b58a1dc7af7654c}{s\_tridiag\_symm}}(std::size\_t(n), pt, subd, wt);}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < n; ++i)}
+\DoxyCodeLine{72         wt[i] *= wt[i];}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74       \textcolor{keywordflow}{return};}
+\DoxyCodeLine{75     \}}
 
 \end{DoxyCode}
-
-
-References emsr\+::s\+\_\+tridiag\+\_\+symm(), and Tp.
-
-
-
-Referenced by emsr\+::fixed\+\_\+gauss\+\_\+chebyshev\+\_\+t\+\_\+integral$<$ Tp $>$\+::fixed\+\_\+gauss\+\_\+chebyshev\+\_\+t\+\_\+integral(), emsr\+::fixed\+\_\+gauss\+\_\+chebyshev\+\_\+u\+\_\+integral$<$ Tp $>$\+::fixed\+\_\+gauss\+\_\+chebyshev\+\_\+u\+\_\+integral(), emsr\+::fixed\+\_\+gauss\+\_\+chebyshev\+\_\+v\+\_\+integral$<$ Tp $>$\+::fixed\+\_\+gauss\+\_\+chebyshev\+\_\+v\+\_\+integral(), emsr\+::fixed\+\_\+gauss\+\_\+chebyshev\+\_\+w\+\_\+integral$<$ Tp $>$\+::fixed\+\_\+gauss\+\_\+chebyshev\+\_\+w\+\_\+integral(), emsr\+::fixed\+\_\+gauss\+\_\+exponential\+\_\+integral$<$ Tp $>$\+::fixed\+\_\+gauss\+\_\+exponential\+\_\+integral(), emsr\+::fixed\+\_\+gauss\+\_\+gegenbauer\+\_\+integral$<$ Tp $>$\+::fixed\+\_\+gauss\+\_\+gegenbauer\+\_\+integral(), emsr\+::fixed\+\_\+gauss\+\_\+hermite\+\_\+integral$<$ Tp $>$\+::fixed\+\_\+gauss\+\_\+hermite\+\_\+integral(), emsr\+::fixed\+\_\+gauss\+\_\+jacobi\+\_\+integral$<$ Tp $>$\+::fixed\+\_\+gauss\+\_\+jacobi\+\_\+integral(), emsr\+::fixed\+\_\+gauss\+\_\+laguerre\+\_\+integral$<$ Tp $>$\+::fixed\+\_\+gauss\+\_\+laguerre\+\_\+integral(), and emsr\+::fixed\+\_\+gauss\+\_\+legendre\+\_\+integral$<$ Tp $>$\+::fixed\+\_\+gauss\+\_\+legendre\+\_\+integral().
-

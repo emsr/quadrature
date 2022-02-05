@@ -65,6 +65,14 @@ Definition at line 77 of file jacobi.\+h.
 \DoxyCodeLine{83     \}}
 
 \end{DoxyCode}
+
+
+References jac\+\_\+quadrature$<$ Tp $>$\+::jac\+\_\+quadrature(), jac\+\_\+quadrature$<$ Tp $>$\+::alpha, jac\+\_\+quadrature$<$ Tp $>$\+::beta, jac\+\_\+quadrature$<$ Tp $>$\+::Q, and jac\+\_\+quadrature$<$ Tp $>$\+::type.
+
+
+
+Referenced by jac\+\_\+quadrature$<$ Tp $>$\+::jac\+\_\+quadrature().
+
 \mbox{\Hypertarget{structjac__quadrature_abe92ca2db49f495fd88422eb94b4da87}\label{structjac__quadrature_abe92ca2db49f495fd88422eb94b4da87}} 
 \index{jac\_quadrature$<$ Tp $>$@{jac\_quadrature$<$ Tp $>$}!````~jac\_quadrature@{$\sim$jac\_quadrature}}
 \index{````~jac\_quadrature@{$\sim$jac\_quadrature}!jac\_quadrature$<$ Tp $>$@{jac\_quadrature$<$ Tp $>$}}
@@ -105,23 +113,19 @@ $\int_{-1}^{1} f(x) dx \approx \sum_{i=0}^{Q-1} w_i f(x_i)$
 \end{DoxyReturn}
 
 
-Definition at line 225 of file gauss\+\_\+jacobi\+\_\+interface.\+tcc.
+Definition at line 226 of file gauss\+\_\+jacobi\+\_\+interface.\+tcc.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{226     \{}
-\DoxyCodeLine{227       std::vector<Tp> f(this-\/>\mbox{\hyperlink{structjac__quadrature_a20d0db1598e72081e68da49ad0524551}{Q}});}
-\DoxyCodeLine{228       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < this-\/>\mbox{\hyperlink{structjac__quadrature_a20d0db1598e72081e68da49ad0524551}{Q}}; ++i)}
-\DoxyCodeLine{229         f[i] = fun(this-\/>x[i]);}
-\DoxyCodeLine{230       \textcolor{keywordflow}{return} std::inner\_product(std::begin(this-\/>w), std::end(this-\/>w),}
-\DoxyCodeLine{231                                 std::begin(f), \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{0\});}
-\DoxyCodeLine{232     \}}
+\DoxyCodeLine{227     \{}
+\DoxyCodeLine{228       std::vector<Tp> f(this-\/>\mbox{\hyperlink{structjac__quadrature_a20d0db1598e72081e68da49ad0524551}{Q}});}
+\DoxyCodeLine{229       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < this-\/>\mbox{\hyperlink{structjac__quadrature_a20d0db1598e72081e68da49ad0524551}{Q}}; ++i)}
+\DoxyCodeLine{230         f[i] = fun(this-\/>x[i]);}
+\DoxyCodeLine{231       \textcolor{keywordflow}{return} std::inner\_product(std::begin(this-\/>w), std::end(this-\/>w),}
+\DoxyCodeLine{232                                 std::begin(f), \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{0\});}
+\DoxyCodeLine{233     \}}
 
 \end{DoxyCode}
-
-
-References Tp.
-
 
 
 \doxysubsection{Member Data Documentation}
@@ -140,6 +144,10 @@ Alpha weight of the quadrature.
 
 Definition at line 72 of file jacobi.\+h.
 
+
+
+Referenced by jac\+\_\+quadrature$<$ Tp $>$\+::jac\+\_\+quadrature().
+
 \mbox{\Hypertarget{structjac__quadrature_ae432111b069bc5da6eb22e44eb2e8a87}\label{structjac__quadrature_ae432111b069bc5da6eb22e44eb2e8a87}} 
 \index{jac\_quadrature$<$ Tp $>$@{jac\_quadrature$<$ Tp $>$}!beta@{beta}}
 \index{beta@{beta}!jac\_quadrature$<$ Tp $>$@{jac\_quadrature$<$ Tp $>$}}
@@ -154,6 +162,10 @@ Beta weight of the quadrature.
 
 
 Definition at line 75 of file jacobi.\+h.
+
+
+
+Referenced by jac\+\_\+quadrature$<$ Tp $>$\+::jac\+\_\+quadrature().
 
 \mbox{\Hypertarget{structjac__quadrature_a20d0db1598e72081e68da49ad0524551}\label{structjac__quadrature_a20d0db1598e72081e68da49ad0524551}} 
 \index{jac\_quadrature$<$ Tp $>$@{jac\_quadrature$<$ Tp $>$}!Q@{Q}}
@@ -170,6 +182,10 @@ Number of quadrature points.
 
 Definition at line 69 of file jacobi.\+h.
 
+
+
+Referenced by jac\+\_\+quadrature$<$ Tp $>$\+::jac\+\_\+quadrature().
+
 \mbox{\Hypertarget{structjac__quadrature_a7d39e7f4635680fa6197b94bb79dafc9}\label{structjac__quadrature_a7d39e7f4635680fa6197b94bb79dafc9}} 
 \index{jac\_quadrature$<$ Tp $>$@{jac\_quadrature$<$ Tp $>$}!type@{type}}
 \index{type@{type}!jac\_quadrature$<$ Tp $>$@{jac\_quadrature$<$ Tp $>$}}
@@ -184,6 +200,10 @@ Quadrature type.
 
 
 Definition at line 1 of file jacobi.\+h.
+
+
+
+Referenced by jac\+\_\+quadrature$<$ Tp $>$\+::jac\+\_\+quadrature().
 
 
 

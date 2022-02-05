@@ -1,5 +1,6 @@
 \hypertarget{gauss__jacobi__interface_8tcc}{}\doxysection{include/emsr/gauss\+\_\+jacobi\+\_\+interface.tcc File Reference}
 \label{gauss__jacobi__interface_8tcc}\index{include/emsr/gauss\_jacobi\_interface.tcc@{include/emsr/gauss\_jacobi\_interface.tcc}}
+{\ttfamily \#include $<$stdexcept$>$}\newline
 {\ttfamily \#include $<$cstdlib$>$}\newline
 {\ttfamily \#include $<$numeric$>$}\newline
 {\ttfamily \#include $<$emsr/jacobi.\+h$>$}\newline
@@ -55,21 +56,17 @@ void matvec (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{\+\_\+\+\_\+n, 
 
 
 
-Definition at line 84 of file gauss\+\_\+jacobi\+\_\+interface.\+tcc.
+Definition at line 85 of file gauss\+\_\+jacobi\+\_\+interface.\+tcc.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{85   \{}
-\DoxyCodeLine{86     \textcolor{keywordflow}{for} (std::size\_t \_\_ir = 0; \_\_ir < \_\_n; ++\_\_ir)}
-\DoxyCodeLine{87       \{}
-\DoxyCodeLine{88         \_\_y[\_\_ir] = \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{0\};}
-\DoxyCodeLine{89         \textcolor{keywordflow}{for} (std::size\_t \_\_ic = 0; \_\_ic < \_\_n; ++\_\_ic)}
-\DoxyCodeLine{90           \_\_y[\_\_ir] += \_\_A[\_\_ir][\_\_ic] * \_\_x[\_\_ic];}
-\DoxyCodeLine{91       \}}
-\DoxyCodeLine{92   \}}
+\DoxyCodeLine{86   \{}
+\DoxyCodeLine{87     \textcolor{keywordflow}{for} (std::size\_t \_\_ir = 0; \_\_ir < \_\_n; ++\_\_ir)}
+\DoxyCodeLine{88       \{}
+\DoxyCodeLine{89         \_\_y[\_\_ir] = \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{0\};}
+\DoxyCodeLine{90         \textcolor{keywordflow}{for} (std::size\_t \_\_ic = 0; \_\_ic < \_\_n; ++\_\_ic)}
+\DoxyCodeLine{91           \_\_y[\_\_ir] += \_\_A[\_\_ir][\_\_ic] * \_\_x[\_\_ic];}
+\DoxyCodeLine{92       \}}
+\DoxyCodeLine{93   \}}
 
 \end{DoxyCode}
-
-
-References Tp.
-

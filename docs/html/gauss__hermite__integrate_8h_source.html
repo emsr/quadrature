@@ -103,47 +103,45 @@ $(document).ready(function(){initNavTree('gauss__hermite__integrate_8h_source.ht
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">// with this library; see the file COPYING3.  If not see</span></div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">// &lt;http://www.gnu.org/licenses/&gt;.</span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#ifndef GAUSS_HERMITE_INTEGRATE_H</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#define GAUSS_HERMITE_INTEGRATE_H 1</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">ifndef</span> <span class="preprocessor">GAUSS_HERMITE_INTEGRATE_H</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">GAUSS_HERMITE_INTEGRATE_H</span> 1</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &lt;type_traits&gt;</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#include &lt;emsr/quadrature_point.h&gt;</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceemsr.html">emsr</a></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;{</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> Tp, <span class="keyword">typename</span> Func&gt;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  decltype(std::invoke_result_t&lt;Func, Tp&gt;{} * <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{})</div>
-<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="namespaceemsr.html#a1b6c1de0ac483e85e1e8596608a953bc">   32</a></span>&#160;  <a class="code" href="namespaceemsr.html#a1b6c1de0ac483e85e1e8596608a953bc">gauss_hermite_integrate</a>(Func func, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> n)</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  {</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">using</span> RetTp = std::invoke_result_t&lt;Func, Tp&gt;;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keyword">using</span> AreaTp = decltype(RetTp{} * <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{});</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">if</span>(n == 0)</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;      <span class="keywordflow">throw</span> std::domain_error(<span class="stringliteral">&quot;gauss_hermite_integrate: &quot;</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;                                <span class="stringliteral">&quot;Hermite order must be greater than 0&quot;</span>);</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;     {</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> rule = hermite_zeros&lt;Tp&gt;(n);</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keyword">auto</span> sum = AreaTp{};</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; pt : rule)</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;          {</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            <span class="keyword">const</span> <span class="keyword">auto</span> x = pt.point;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            <span class="keyword">const</span> <span class="keyword">auto</span> w = pt.weight;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            sum += w * func(x);</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;          }</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordflow">return</span> sum;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;      }</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  }</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;} <span class="comment">// namespace emsr</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// GAUSS_HERMITE_INTEGRATE_H</span></div>
-<div class="ttc" id="anamespaceemsr_html"><div class="ttname"><a href="namespaceemsr.html">emsr</a></div><div class="ttdef"><b>Definition:</b> <a href="cquad__const_8tcc_source.html#l00029">cquad_const.tcc:30</a></div></div>
-<div class="ttc" id="anamespaceemsr_html_a1b6c1de0ac483e85e1e8596608a953bc"><div class="ttname"><a href="namespaceemsr.html#a1b6c1de0ac483e85e1e8596608a953bc">emsr::gauss_hermite_integrate</a></div><div class="ttdeci">decltype(std::invoke_result_t&lt; Func, Tp &gt;{} *Tp{} gauss_hermite_integrate)(Func func, unsigned int n)</div><div class="ttdef"><b>Definition:</b> <a href="gauss__hermite__integrate_8h_source.html#l00032">gauss_hermite_integrate.h:32</a></div></div>
-<div class="ttc" id="atest__integral_8tcc_html_a82f489a4943d33943d0b0f781a801283"><div class="ttname"><a href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a></div><div class="ttdeci">Tp x Tp</div><div class="ttdef"><b>Definition:</b> <a href="test__integral_8tcc_source.html#l00003">test_integral.tcc:4</a></div></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">stdexcept</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">type_traits</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">vector</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">emsr</span><span class="preprocessor">/</span><span class="preprocessor">quadrature_point</span><span class="preprocessor">.</span><span class="preprocessor">h</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">namespace</span> <a class="code" href="namespaceemsr.html">emsr</a></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;{</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> Tp, <span class="keyword">typename</span> Func&gt;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  <span class="keyword">decltype</span>(<a class="code" href="namespaceemsr.html#a1b6c1de0ac483e85e1e8596608a953bc">std</a>::<a class="code" href="namespaceemsr.html#a1b6c1de0ac483e85e1e8596608a953bc">invoke_result_t</a>&lt;<a class="code" href="namespaceemsr.html#a1b6c1de0ac483e85e1e8596608a953bc">Func</a>, <a class="code" href="namespaceemsr.html#a1b6c1de0ac483e85e1e8596608a953bc">Tp</a>&gt;{} * <a class="code" href="namespaceemsr.html#a1b6c1de0ac483e85e1e8596608a953bc">Tp</a>{})</div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="namespaceemsr.html#a1b6c1de0ac483e85e1e8596608a953bc">   33</a></span>&#160;  <a class="code" href="namespaceemsr.html#a1b6c1de0ac483e85e1e8596608a953bc">gauss_hermite_integrate</a>(<a class="code" href="namespaceemsr.html#a1b6c1de0ac483e85e1e8596608a953bc">Func</a> <a class="code" href="namespaceemsr.html#a1b6c1de0ac483e85e1e8596608a953bc">func</a>, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="namespaceemsr.html#a1b6c1de0ac483e85e1e8596608a953bc">n</a>)</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  {</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keyword">using</span> RetTp = std::invoke_result_t&lt;Func, Tp&gt;;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">using</span> AreaTp = <span class="keyword">decltype</span>(RetTp{} * Tp{});</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordflow">if</span>(n == 0)</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;      <span class="keywordflow">throw</span> std::domain_error(<span class="stringliteral">&quot;gauss_hermite_integrate: &quot;</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;                                <span class="stringliteral">&quot;Hermite order must be greater than 0&quot;</span>);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;     {</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> rule = hermite_zeros&lt;Tp&gt;(n);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="keyword">auto</span> sum = AreaTp{};</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; pt : rule)</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;          {</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            <span class="keyword">const</span> <span class="keyword">auto</span> x = pt.point;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            <span class="keyword">const</span> <span class="keyword">auto</span> w = pt.weight;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            sum += w * func(x);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;          }</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordflow">return</span> sum;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;      }</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  }</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;} <span class="comment">// namespace emsr</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">endif</span> <span class="comment">// GAUSS_HERMITE_INTEGRATE_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

@@ -1,8 +1,9 @@
 <map id="include/emsr/cquad_integrate.tcc" name="include/emsr/cquad_integrate.tcc">
-<area shape="rect" id="node1" title=" " alt="" coords="227,5,377,47"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,95,97,121"/>
-<area shape="rect" id="node3" href="$cquad__const_8tcc.html" title=" " alt="" coords="122,95,285,121"/>
-<area shape="rect" id="node4" href="$cquad__workspace_8h.html" title=" " alt="" coords="309,95,495,121"/>
-<area shape="rect" id="node6" title=" " alt="" coords="519,95,674,121"/>
-<area shape="rect" id="node5" title=" " alt="" coords="371,169,433,196"/>
+<area shape="rect" id="node1" title=" " alt="" coords="239,5,389,47"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,95,92,121"/>
+<area shape="rect" id="node3" title=" " alt="" coords="116,95,208,121"/>
+<area shape="rect" id="node4" href="$cquad__const_8tcc.html" title=" " alt="" coords="233,95,395,121"/>
+<area shape="rect" id="node5" href="$cquad__workspace_8h.html" title=" " alt="" coords="419,95,606,121"/>
+<area shape="rect" id="node7" title=" " alt="" coords="630,95,785,121"/>
+<area shape="rect" id="node6" title=" " alt="" coords="481,169,544,196"/>
 </map>

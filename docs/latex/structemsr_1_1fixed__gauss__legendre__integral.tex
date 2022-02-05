@@ -40,31 +40,27 @@ Construct a Gauss-\/\+Legendre rule of order {\ttfamily n}.
 
 Weight function\+: $ 1 $ Constraints\+: $ b > a $ 
 
-Definition at line 86 of file gauss\+\_\+quadrature.\+tcc.
+Definition at line 87 of file gauss\+\_\+quadrature.\+tcc.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{88     : \mbox{\hyperlink{structemsr_1_1fixed__gauss__legendre__integral_a88a2f8cd8edf336de3b0bace8cac579c}{order}}(n),}
-\DoxyCodeLine{89       point(n),}
-\DoxyCodeLine{90       weight(n)}
-\DoxyCodeLine{91     \{}
-\DoxyCodeLine{92       \textcolor{keyword}{const} \textcolor{keyword}{auto} mu\_0 = \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\};}
-\DoxyCodeLine{93 }
-\DoxyCodeLine{94       std::vector<Tp> diag(this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__legendre__integral_a88a2f8cd8edf336de3b0bace8cac579c}{order}}, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{0\});}
-\DoxyCodeLine{95       std::vector<Tp> subd(this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__legendre__integral_a88a2f8cd8edf336de3b0bace8cac579c}{order}});}
-\DoxyCodeLine{96 }
-\DoxyCodeLine{97       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 1; i <= this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__legendre__integral_a88a2f8cd8edf336de3b0bace8cac579c}{order}}; ++i)}
-\DoxyCodeLine{98         subd[i -\/ 1] = \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}(i) / std::sqrt(\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}(4 * i * i -\/ 1));}
-\DoxyCodeLine{99 }
-\DoxyCodeLine{100       \mbox{\hyperlink{namespaceemsr_1_1detail_a3a01597b0d4e1996d86ceaf2f68eabc8}{detail::golub\_welsch}}(mu\_0, this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__legendre__integral_a88a2f8cd8edf336de3b0bace8cac579c}{order}}, diag, subd,}
-\DoxyCodeLine{101                                this-\/>point, this-\/>weight);}
-\DoxyCodeLine{102     \}}
+\DoxyCodeLine{89     : \mbox{\hyperlink{structemsr_1_1fixed__gauss__legendre__integral_a88a2f8cd8edf336de3b0bace8cac579c}{order}}(n),}
+\DoxyCodeLine{90       point(n),}
+\DoxyCodeLine{91       weight(n)}
+\DoxyCodeLine{92     \{}
+\DoxyCodeLine{93       \textcolor{keyword}{const} \textcolor{keyword}{auto} mu\_0 = \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\};}
+\DoxyCodeLine{94 }
+\DoxyCodeLine{95       std::vector<Tp> diag(this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__legendre__integral_a88a2f8cd8edf336de3b0bace8cac579c}{order}}, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{0\});}
+\DoxyCodeLine{96       std::vector<Tp> subd(this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__legendre__integral_a88a2f8cd8edf336de3b0bace8cac579c}{order}});}
+\DoxyCodeLine{97 }
+\DoxyCodeLine{98       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 1; i <= this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__legendre__integral_a88a2f8cd8edf336de3b0bace8cac579c}{order}}; ++i)}
+\DoxyCodeLine{99         subd[i -\/ 1] = \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}(i) / std::sqrt(\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}(4 * i * i -\/ 1));}
+\DoxyCodeLine{100 }
+\DoxyCodeLine{101       \mbox{\hyperlink{namespaceemsr_1_1detail_a3a01597b0d4e1996d86ceaf2f68eabc8}{detail::golub\_welsch}}(mu\_0, this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__legendre__integral_a88a2f8cd8edf336de3b0bace8cac579c}{order}}, diag, subd,}
+\DoxyCodeLine{102                                this-\/>point, this-\/>weight);}
+\DoxyCodeLine{103     \}}
 
 \end{DoxyCode}
-
-
-References emsr\+::detail\+::golub\+\_\+welsch(), emsr\+::fixed\+\_\+gauss\+\_\+legendre\+\_\+integral$<$ Tp $>$\+::order, and Tp.
-
 
 
 \doxysubsection{Member Data Documentation}
@@ -90,10 +86,6 @@ int \mbox{\hyperlink{structemsr_1_1fixed__gauss__legendre__integral}{emsr\+::fix
 
 
 Definition at line 35 of file gauss\+\_\+quadrature.\+h.
-
-
-
-Referenced by emsr\+::fixed\+\_\+gauss\+\_\+legendre\+\_\+integral$<$ Tp $>$\+::fixed\+\_\+gauss\+\_\+legendre\+\_\+integral().
 
 
 

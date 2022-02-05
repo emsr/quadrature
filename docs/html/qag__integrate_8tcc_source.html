@@ -109,188 +109,175 @@ $(document).ready(function(){initNavTree('qag__integrate_8tcc_source.html',''); 
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">// Implements integration using a recursive locally-adaptive algorithm</span></div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">// Based on gsl/integration/qag.c</span></div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#ifndef QAG_INTEGRATE_TCC</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="qag__integrate_8tcc.html#a4841ef8575ceba11de892df88ae9f0ef">   26</a></span>&#160;<span class="preprocessor">#define QAG_INTEGRATE_TCC 1</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">ifndef</span> <span class="preprocessor">QAG_INTEGRATE_TCC</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="qag__integrate_8tcc.html#a4841ef8575ceba11de892df88ae9f0ef">   26</a></span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">QAG_INTEGRATE_TCC</span> 1</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#include &lt;type_traits&gt;</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &lt;utility&gt;</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &lt;limits&gt;</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &lt;stdexcept&gt;</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="integration__workspace_8h.html">emsr/integration_workspace.h</a>&gt;</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceemsr.html">emsr</a></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;{</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">  /**</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">   * Integrates a function from finite a to finite b using an adaptive</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">   * quadrature rule.  The integration domain is recursively subdivided</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">   * prioritized by the segment with the greatest absolute error</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">   * estimate.  Subdivision continues until a prescribed error target is reached</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">   * or until a maximum number of divisions is performed.</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">   *</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">   * Once either the absolute or relative error limit is reached,</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">   * qag_integrate() returns</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">   *</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">   * @tparam FuncTp     A function type that takes a single real scalar</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">   *                     argument and returns a real scalar.</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment">   * @tparam Tp         A real type for the limits of integration and the step.</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">   * @tparam Integrator A non-adaptive integrator that is able to return</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">   *                     an error estimate in addition to the result.</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment">   *</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">   * @param[in] workspace The workspace that manages adaptive quadrature</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">   * @param[in] func The single-variable function to be integrated</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="comment">   * @param[in] lower The lower limit of integration</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="comment">   * @param[in] upper The upper limit of integration</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">   * @param[in] max_abs_err The limit on absolute error</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment">   * @param[in] max_rel_err The limit on relative error</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment">   * @param[in] quad The quadrature stepper taking a function object</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment">   *                   and two integration limits</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment">   *</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">   * @return A tuple with the first value being the integration result,</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment">   *         and the second value being the estimated error.</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment">   */</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  <span class="keyword">template</span>&lt;<span class="keyword">typename</span> <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>, <span class="keyword">typename</span> FuncTp,</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;           <span class="keyword">typename</span> Integrator = gauss_kronrod_integral&lt;Tp&gt;&gt;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keyword">auto</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="namespaceemsr.html#ab1b018f7a2028aa2b214e43ea271abee">   70</a></span>&#160;    <a class="code" href="namespaceemsr.html#ab1b018f7a2028aa2b214e43ea271abee">qag_integrate</a>(<a class="code" href="classemsr_1_1integration__workspace.html">integration_workspace</a>&lt;<a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>,</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                  std::invoke_result_t&lt;FuncTp, Tp&gt;&gt;&amp; workspace,</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                  FuncTp func,</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                  <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a> lower, <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a> upper,</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                  <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a> max_abs_err, <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a> max_rel_err,</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                  Integrator quad = gauss_kronrod_integral&lt;Tp&gt;(Kronrod_21))</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    -&gt; <a class="code" href="structemsr_1_1adaptive__integral__t.html">adaptive_integral_t&lt;Tp, std::invoke_result_t&lt;FuncTp, Tp&gt;</a>&gt;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    {</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;      <span class="keyword">const</span> <span class="keyword">auto</span> max_iter = workspace.capacity();</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;      <span class="comment">// Try to adjust tests for varing precision.</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;      <span class="keyword">const</span> <span class="keyword">auto</span> s_rel_err = std::pow(<a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{10},</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                                 -std::numeric_limits&lt;Tp&gt;::digits / <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{10});</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;      <span class="keywordflow">if</span> (!<a class="code" href="namespaceemsr.html#a6de2d6d6f5e1a66f636a12425aa55e3e">valid_tolerances</a>(max_abs_err, max_rel_err))</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        {</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;          std::ostringstream msg;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;          msg &lt;&lt; <span class="stringliteral">&quot;qag_integrate: Tolerance cannot be achieved with given &quot;</span></div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                   <span class="stringliteral">&quot;absolute (&quot;</span> &lt;&lt; max_abs_err &lt;&lt; <span class="stringliteral">&quot;) and relative (&quot;</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                &lt;&lt; max_rel_err &lt;&lt; <span class="stringliteral">&quot;) error limits.&quot;</span>;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;          <span class="keywordflow">throw</span> std::runtime_error(msg.str().c_str());</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        }</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;      <span class="keyword">auto</span> [result0, abserr0, resabs0, resasc0]</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        = quad(func, lower, upper);</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;      <span class="keyword">auto</span> tolerance = std::max(max_abs_err, max_rel_err * std::abs(result0));</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;      <span class="comment">// Compute roundoff tolerance.</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;      <span class="keyword">const</span> <span class="keyword">auto</span> round_off = <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{10} * tolerance * resabs0;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;      <span class="keywordflow">if</span> (abserr0 &lt;= round_off &amp;&amp; abserr0 &gt; tolerance)</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        <span class="keywordflow">throw</span> <a class="code" href="classemsr_1_1integration__error.html">integration_error</a>(<span class="stringliteral">&quot;qag_integrate: &quot;</span></div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;                                <span class="stringliteral">&quot;Cannot reach tolerance because &quot;</span></div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;                                <span class="stringliteral">&quot;of roundoff error on first attempt&quot;</span>,</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;                                <a class="code" href="namespaceemsr.html#abaa96e35b6f30ef1ce4924b479d4eee6a3a5148d26f5cb3ae224ed42473134d94">ROUNDOFF_ERROR</a>, result0, abserr0);</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;      <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((abserr0 &lt;= tolerance &amp;&amp; abserr0 != resasc0)</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;                || abserr0 == <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{0})</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        <span class="keywordflow">return</span> {result0, abserr0};</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;      <span class="keywordflow">else</span> <span class="keywordflow">if</span> (max_iter == 1)</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        <span class="keywordflow">throw</span> <a class="code" href="classemsr_1_1integration__error.html">integration_error</a>(<span class="stringliteral">&quot;qag_integrate: &quot;</span></div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;                                <span class="stringliteral">&quot;A maximum of one iteration was insufficient&quot;</span>,</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;                                <a class="code" href="namespaceemsr.html#abaa96e35b6f30ef1ce4924b479d4eee6abda54061d8fbdbe9b2d1e1bf1bba278d">MAX_ITER_ERROR</a>, result0, abserr0);</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;      workspace.clear();</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;      workspace.append(lower, upper, result0, abserr0);</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;      <span class="keyword">auto</span> area = result0;</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;      <span class="keyword">auto</span> errsum = abserr0;</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;      <span class="keywordtype">int</span> error_type = <a class="code" href="namespaceemsr.html#abaa96e35b6f30ef1ce4924b479d4eee6a81b2ddf3276b1131f4ec41e66a003a0b">NO_ERROR</a>;</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;      std::size_t iteration = 1;</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;      <span class="keywordtype">int</span> roundoff_type1 = 0, roundoff_type2 = 0;</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;      <span class="keywordflow">do</span></div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        {</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;          <span class="comment">// Bisect the subinterval with the largest error estimate</span></div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;          <span class="keyword">const</span> <span class="keyword">auto</span>&amp; curr = workspace.retrieve();</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;          <span class="keyword">const</span> <span class="keyword">auto</span> a1 = curr.lower_lim;</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;          <span class="keyword">const</span> <span class="keyword">auto</span> mid = (curr.lower_lim + curr.upper_lim) / <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{2};</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;          <span class="keyword">const</span> <span class="keyword">auto</span> a2 = mid;</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;          <span class="keyword">const</span> <span class="keyword">auto</span> b2 = curr.upper_lim;</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;          <span class="keyword">auto</span> [area1, error1, resabs1, resasc1]</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;            = quad(func, a1, mid);</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160; </div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;          <span class="keyword">auto</span> [area2, error2, resabs2, resasc2]</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;            = quad(func, a2, b2);</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;          <span class="keyword">const</span> <span class="keyword">auto</span> area12 = area1 + area2;</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;          <span class="keyword">const</span> <span class="keyword">auto</span> error12 = error1 + error2;</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;          <span class="keyword">const</span> <span class="keyword">auto</span> delta = area12 - curr.result;</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160; </div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;          area += delta;</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;          errsum += error12 - curr.abs_error;</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160; </div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;          tolerance = std::max(max_abs_err,</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;                                 max_rel_err * std::abs(area));</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160; </div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;          <span class="keywordflow">if</span> (resasc1 != error1 &amp;&amp; resasc2 != error2)</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;            {</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;              <span class="keywordflow">if</span> (std::abs(delta) &lt;= s_rel_err * std::abs(area12)</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;                  &amp;&amp; error12 &gt;= <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{0.99} * curr.abs_error)</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;                ++roundoff_type1;</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;              <span class="keywordflow">if</span> (iteration &gt;= 10 &amp;&amp; error12 &gt; curr.abs_error)</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;                ++roundoff_type2;</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;            }</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160; </div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;          <span class="keywordflow">if</span> (errsum &gt; tolerance)</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;            {</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;              <span class="keywordflow">if</span> (roundoff_type1 &gt;= 6 || roundoff_type2 &gt;= 20)</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;                error_type = <a class="code" href="namespaceemsr.html#abaa96e35b6f30ef1ce4924b479d4eee6a3a5148d26f5cb3ae224ed42473134d94">ROUNDOFF_ERROR</a>;</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160; </div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;              <span class="comment">// Set error flag in the case of bad integrand behaviour at</span></div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;              <span class="comment">// a point of the integration range.</span></div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;              <span class="keywordflow">if</span> (workspace.subinterval_too_small(a1, a2, b2))</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;                error_type = <a class="code" href="namespaceemsr.html#abaa96e35b6f30ef1ce4924b479d4eee6affdd20e2cd41b41a792d689d67653ac3">SINGULAR_ERROR</a>;</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;            }</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160; </div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;          workspace.split(mid, area1, error1, area2, error2);</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160; </div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;          ++iteration;</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;        }</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;      <span class="keywordflow">while</span> (iteration &lt; max_iter</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;             &amp;&amp; !error_type</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;             &amp;&amp; errsum &gt; tolerance);</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160; </div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;      <span class="keyword">auto</span> result = workspace.total_integral();</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;      <span class="keyword">auto</span> abserr = errsum;</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160; </div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;      <span class="keywordflow">if</span> (errsum &lt;= tolerance)</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;        <span class="keywordflow">return</span> {result, abserr};</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160; </div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;      <span class="keywordflow">if</span> (error_type == <a class="code" href="namespaceemsr.html#abaa96e35b6f30ef1ce4924b479d4eee6a81b2ddf3276b1131f4ec41e66a003a0b">NO_ERROR</a> &amp;&amp; iteration &gt;= max_iter)</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;        error_type = <a class="code" href="namespaceemsr.html#abaa96e35b6f30ef1ce4924b479d4eee6abda54061d8fbdbe9b2d1e1bf1bba278d">MAX_ITER_ERROR</a>;</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160; </div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;      <a class="code" href="namespaceemsr.html#a71e078ceee7bed7fb49a4c88b6f4cfb2">check_error</a>(__func__, error_type, result, abserr);</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;      <span class="keywordflow">throw</span> <a class="code" href="classemsr_1_1integration__error.html">integration_error</a>(<span class="stringliteral">&quot;qag_integrate: Unknown error.&quot;</span>,</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;                              <a class="code" href="namespaceemsr.html#abaa96e35b6f30ef1ce4924b479d4eee6a651067f5b0ab200752aae053e180330e">UNKNOWN_ERROR</a>, result, abserr);</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    }</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160; </div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;} <span class="comment">// namespace emsr</span></div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160; </div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// QAG_INTEGRATE_TCC</span></div>
-<div class="ttc" id="aclassemsr_1_1integration__error_html"><div class="ttname"><a href="classemsr_1_1integration__error.html">emsr::integration_error</a></div><div class="ttdef"><b>Definition:</b> <a href="integration__error_8h_source.html#l00047">integration_error.h:48</a></div></div>
-<div class="ttc" id="aclassemsr_1_1integration__workspace_html"><div class="ttname"><a href="classemsr_1_1integration__workspace.html">emsr::integration_workspace</a></div><div class="ttdef"><b>Definition:</b> <a href="integration__workspace_8h_source.html#l00036">integration_workspace.h:37</a></div></div>
-<div class="ttc" id="aintegration__workspace_8h_html"><div class="ttname"><a href="integration__workspace_8h.html">integration_workspace.h</a></div></div>
-<div class="ttc" id="anamespaceemsr_html"><div class="ttname"><a href="namespaceemsr.html">emsr</a></div><div class="ttdef"><b>Definition:</b> <a href="cquad__const_8tcc_source.html#l00029">cquad_const.tcc:30</a></div></div>
-<div class="ttc" id="anamespaceemsr_html_a6de2d6d6f5e1a66f636a12425aa55e3e"><div class="ttname"><a href="namespaceemsr.html#a6de2d6d6f5e1a66f636a12425aa55e3e">emsr::valid_tolerances</a></div><div class="ttdeci">bool valid_tolerances(Tp max_abs_err, Tp max_rel_err)</div><div class="ttdef"><b>Definition:</b> <a href="integration_8h_source.html#l00141">integration.h:141</a></div></div>
-<div class="ttc" id="anamespaceemsr_html_a71e078ceee7bed7fb49a4c88b6f4cfb2"><div class="ttname"><a href="namespaceemsr.html#a71e078ceee7bed7fb49a4c88b6f4cfb2">emsr::check_error</a></div><div class="ttdeci">void check_error(std::string_view func, int errcode, AreaTp result, AbsAreaTp abserr)</div><div class="ttdef"><b>Definition:</b> <a href="integration__error_8h_source.html#l00081">integration_error.h:81</a></div></div>
-<div class="ttc" id="anamespaceemsr_html_ab1b018f7a2028aa2b214e43ea271abee"><div class="ttname"><a href="namespaceemsr.html#ab1b018f7a2028aa2b214e43ea271abee">emsr::qag_integrate</a></div><div class="ttdeci">auto qag_integrate(integration_workspace&lt; Tp, std::invoke_result_t&lt; FuncTp, Tp &gt;&gt; &amp;workspace, FuncTp func, Tp lower, Tp upper, Tp max_abs_err, Tp max_rel_err, Integrator quad=gauss_kronrod_integral&lt; Tp &gt;(Kronrod_21)) -&gt; adaptive_integral_t&lt; Tp, std::invoke_result_t&lt; FuncTp, Tp &gt;&gt;</div><div class="ttdef"><b>Definition:</b> <a href="qag__integrate_8tcc_source.html#l00070">qag_integrate.tcc:70</a></div></div>
-<div class="ttc" id="anamespaceemsr_html_abaa96e35b6f30ef1ce4924b479d4eee6a3a5148d26f5cb3ae224ed42473134d94"><div class="ttname"><a href="namespaceemsr.html#abaa96e35b6f30ef1ce4924b479d4eee6a3a5148d26f5cb3ae224ed42473134d94">emsr::ROUNDOFF_ERROR</a></div><div class="ttdeci">@ ROUNDOFF_ERROR</div><div class="ttdef"><b>Definition:</b> <a href="integration__error_8h_source.html#l00037">integration_error.h:37</a></div></div>
-<div class="ttc" id="anamespaceemsr_html_abaa96e35b6f30ef1ce4924b479d4eee6a651067f5b0ab200752aae053e180330e"><div class="ttname"><a href="namespaceemsr.html#abaa96e35b6f30ef1ce4924b479d4eee6a651067f5b0ab200752aae053e180330e">emsr::UNKNOWN_ERROR</a></div><div class="ttdeci">@ UNKNOWN_ERROR</div><div class="ttdef"><b>Definition:</b> <a href="integration__error_8h_source.html#l00044">integration_error.h:43</a></div></div>
-<div class="ttc" id="anamespaceemsr_html_abaa96e35b6f30ef1ce4924b479d4eee6a81b2ddf3276b1131f4ec41e66a003a0b"><div class="ttname"><a href="namespaceemsr.html#abaa96e35b6f30ef1ce4924b479d4eee6a81b2ddf3276b1131f4ec41e66a003a0b">emsr::NO_ERROR</a></div><div class="ttdeci">@ NO_ERROR</div><div class="ttdef"><b>Definition:</b> <a href="integration__error_8h_source.html#l00035">integration_error.h:35</a></div></div>
-<div class="ttc" id="anamespaceemsr_html_abaa96e35b6f30ef1ce4924b479d4eee6abda54061d8fbdbe9b2d1e1bf1bba278d"><div class="ttname"><a href="namespaceemsr.html#abaa96e35b6f30ef1ce4924b479d4eee6abda54061d8fbdbe9b2d1e1bf1bba278d">emsr::MAX_ITER_ERROR</a></div><div class="ttdeci">@ MAX_ITER_ERROR</div><div class="ttdef"><b>Definition:</b> <a href="integration__error_8h_source.html#l00036">integration_error.h:36</a></div></div>
-<div class="ttc" id="anamespaceemsr_html_abaa96e35b6f30ef1ce4924b479d4eee6affdd20e2cd41b41a792d689d67653ac3"><div class="ttname"><a href="namespaceemsr.html#abaa96e35b6f30ef1ce4924b479d4eee6affdd20e2cd41b41a792d689d67653ac3">emsr::SINGULAR_ERROR</a></div><div class="ttdeci">@ SINGULAR_ERROR</div><div class="ttdef"><b>Definition:</b> <a href="integration__error_8h_source.html#l00038">integration_error.h:38</a></div></div>
-<div class="ttc" id="astructemsr_1_1adaptive__integral__t_html"><div class="ttname"><a href="structemsr_1_1adaptive__integral__t.html">emsr::adaptive_integral_t</a></div><div class="ttdef"><b>Definition:</b> <a href="integration_8h_source.html#l00053">integration.h:54</a></div></div>
-<div class="ttc" id="atest__integral_8tcc_html_a82f489a4943d33943d0b0f781a801283"><div class="ttname"><a href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a></div><div class="ttdeci">Tp x Tp</div><div class="ttdef"><b>Definition:</b> <a href="test__integral_8tcc_source.html#l00003">test_integral.tcc:4</a></div></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">stdexcept</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">type_traits</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">utility</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">limits</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">string</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">stdexcept</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">emsr</span><span class="preprocessor">/</span><span class="preprocessor">integration_workspace</span><span class="preprocessor">.</span><span class="preprocessor">h</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">namespace</span> <a class="code" href="namespaceemsr.html">emsr</a></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;{</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <span class="comment">/**</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">   * Integrates a function from finite a to finite b using an adaptive</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">   * quadrature rule.  The integration domain is recursively subdivided</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">   * prioritized by the segment with the greatest absolute error</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">   * estimate.  Subdivision continues until a prescribed error target is reached</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">   * or until a maximum number of divisions is performed.</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">   *</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">   * Once either the absolute or relative error limit is reached,</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">   * qag_integrate() returns</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">   *</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">   * @tparam FuncTp     A function type that takes a single real scalar</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment">   *                     argument and returns a real scalar.</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">   * @tparam Tp         A real type for the limits of integration and the step.</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">   * @tparam Integrator A non-adaptive integrator that is able to return</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment">   *                     an error estimate in addition to the result.</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">   *</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">   * @param[in] workspace The workspace that manages adaptive quadrature</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="comment">   * @param[in] func The single-variable function to be integrated</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="comment">   * @param[in] lower The lower limit of integration</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">   * @param[in] upper The upper limit of integration</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment">   * @param[in] max_abs_err The limit on absolute error</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment">   * @param[in] max_rel_err The limit on relative error</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment">   * @param[in] quad The quadrature stepper taking a function object</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment">   *                   and two integration limits</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">   *</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment">   * @return A tuple with the first value being the integration result,</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment">   *         and the second value being the estimated error.</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment">   */</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  <span class="keyword">template</span>&lt;<span class="keyword">typename</span> <a class="code" href="namespaceemsr.html#ab1b018f7a2028aa2b214e43ea271abee">Tp</a>, <span class="keyword">typename</span> <a class="code" href="namespaceemsr.html#ab1b018f7a2028aa2b214e43ea271abee">FuncTp</a>,</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;           <span class="keyword">typename</span> <a class="code" href="namespaceemsr.html#ab1b018f7a2028aa2b214e43ea271abee">Integrator</a> = <a class="code" href="namespaceemsr.html#ab1b018f7a2028aa2b214e43ea271abee">gauss_kronrod_integral</a>&lt;<a class="code" href="namespaceemsr.html#ab1b018f7a2028aa2b214e43ea271abee">Tp</a>&gt;&gt;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keyword">auto</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="namespaceemsr.html#ab1b018f7a2028aa2b214e43ea271abee">   71</a></span>&#160;    <a class="code" href="namespaceemsr.html#ab1b018f7a2028aa2b214e43ea271abee">qag_integrate</a>(<a class="code" href="namespaceemsr.html">integration_workspace</a>&lt;<a class="code" href="namespaceemsr.html">Tp</a>,</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                  <a class="code" href="namespaceemsr.html">std</a>::<a class="code" href="namespaceemsr.html">invoke_result_t</a>&lt;<a class="code" href="namespaceemsr.html">FuncTp</a>, <a class="code" href="namespaceemsr.html">Tp</a>&gt;&gt;&amp; <a class="code" href="namespaceemsr.html">workspace</a>,</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                  <a class="code" href="namespaceemsr.html">FuncTp</a> <a class="code" href="namespaceemsr.html">func</a>,</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                  <a class="code" href="namespaceemsr.html">Tp</a> <a class="code" href="namespaceemsr.html">lower</a>, <a class="code" href="namespaceemsr.html">Tp</a> <a class="code" href="namespaceemsr.html">upper</a>,</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                  <a class="code" href="namespaceemsr.html">Tp</a> <a class="code" href="namespaceemsr.html">max_abs_err</a>, <a class="code" href="namespaceemsr.html">Tp</a> <a class="code" href="namespaceemsr.html">max_rel_err</a>,</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                  <a class="code" href="namespaceemsr.html">Integrator</a> <a class="code" href="namespaceemsr.html">quad</a> = <a class="code" href="namespaceemsr.html">gauss_kronrod_integral</a>&lt;<a class="code" href="namespaceemsr.html">Tp</a>&gt;(<a class="code" href="namespaceemsr.html">Kronrod_21</a>))</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    -&gt; <a class="code" href="namespaceemsr.html">adaptive_integral_t</a>&lt;<a class="code" href="namespaceemsr.html">Tp</a>, <a class="code" href="namespaceemsr.html">std</a>::<a class="code" href="namespaceemsr.html">invoke_result_t</a>&lt;<a class="code" href="namespaceemsr.html">FuncTp</a>, <a class="code" href="namespaceemsr.html">Tp</a>&gt;&gt;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    {</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;      <span class="keyword">const</span> <span class="keyword">auto</span> <a class="code" href="namespaceemsr.html">max_iter</a> = <a class="code" href="namespaceemsr.html">workspace</a>.<a class="code" href="namespaceemsr.html">capacity</a>();</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;      <span class="comment">// Try to adjust tests for varing precision.</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;      <span class="keyword">const</span> <span class="keyword">auto</span> <a class="code" href="namespaceemsr.html">s_rel_err</a> = <a class="code" href="namespaceemsr.html">std</a>::<a class="code" href="namespaceemsr.html">pow</a>(<a class="code" href="namespaceemsr.html">Tp</a>{10},</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                                 -<a class="code" href="namespaceemsr.html">std</a>::<a class="code" href="namespaceemsr.html">numeric_limits</a>&lt;<a class="code" href="namespaceemsr.html">Tp</a>&gt;::<a class="code" href="namespaceemsr.html">digits</a> / <a class="code" href="namespaceemsr.html">Tp</a>{10});</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;      <span class="keywordflow">if</span> (!<a class="code" href="namespaceemsr.html">valid_tolerances</a>(<a class="code" href="namespaceemsr.html">max_abs_err</a>, <a class="code" href="namespaceemsr.html">max_rel_err</a>))</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        {</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;          <a class="code" href="namespaceemsr.html">std</a>::<a class="code" href="namespaceemsr.html">ostringstream</a> <a class="code" href="namespaceemsr.html">msg</a>;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;          <a class="code" href="namespaceemsr.html">msg</a> &lt;&lt; <span class="stringliteral">&quot;qag_integrate: Tolerance cannot be achieved with given &quot;</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                   <span class="stringliteral">&quot;absolute (&quot;</span> &lt;&lt; <a class="code" href="namespaceemsr.html">max_abs_err</a> &lt;&lt; <span class="stringliteral">&quot;) and relative (&quot;</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                &lt;&lt; <a class="code" href="namespaceemsr.html">max_rel_err</a> &lt;&lt; <span class="stringliteral">&quot;) error limits.&quot;</span>;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;          <span class="keywordflow">throw</span> <a class="code" href="namespaceemsr.html">std</a>::<a class="code" href="namespaceemsr.html">runtime_error</a>(<a class="code" href="namespaceemsr.html">msg</a>.<a class="code" href="namespaceemsr.html">str</a>().<a class="code" href="namespaceemsr.html">c_str</a>());</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        }</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;      <span class="keyword">auto</span> [<a class="code" href="namespaceemsr.html">result0</a>, <a class="code" href="namespaceemsr.html">abserr0</a>, <a class="code" href="namespaceemsr.html">resabs0</a>, <a class="code" href="namespaceemsr.html">resasc0</a>]</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        = <a class="code" href="namespaceemsr.html">quad</a>(<a class="code" href="namespaceemsr.html">func</a>, <a class="code" href="namespaceemsr.html">lower</a>, <a class="code" href="namespaceemsr.html">upper</a>);</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;      <span class="keyword">auto</span> <a class="code" href="namespaceemsr.html">tolerance</a> = <a class="code" href="namespaceemsr.html">std</a>::<a class="code" href="namespaceemsr.html">max</a>(<a class="code" href="namespaceemsr.html">max_abs_err</a>, <a class="code" href="namespaceemsr.html">max_rel_err</a> * <a class="code" href="namespaceemsr.html">std</a>::<a class="code" href="namespaceemsr.html">abs</a>(<a class="code" href="namespaceemsr.html">result0</a>));</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;      <span class="comment">// Compute roundoff tolerance.</span></div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;      <span class="keyword">const</span> <span class="keyword">auto</span> <a class="code" href="namespaceemsr.html">round_off</a> = <a class="code" href="namespaceemsr.html">Tp</a>{10} * <a class="code" href="namespaceemsr.html">tolerance</a> * <a class="code" href="namespaceemsr.html">resabs0</a>;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;      <span class="keywordflow">if</span> (<a class="code" href="namespaceemsr.html">abserr0</a> &lt;= <a class="code" href="namespaceemsr.html">round_off</a> &amp;&amp; <a class="code" href="namespaceemsr.html">abserr0</a> &gt; <a class="code" href="namespaceemsr.html">tolerance</a>)</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <span class="keywordflow">throw</span> <a class="code" href="namespaceemsr.html">integration_error</a>(<span class="stringliteral">&quot;qag_integrate: &quot;</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;                                <span class="stringliteral">&quot;Cannot reach tolerance because &quot;</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;                                <span class="stringliteral">&quot;of roundoff error on first attempt&quot;</span>,</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;                                <a class="code" href="namespaceemsr.html">ROUNDOFF_ERROR</a>, <a class="code" href="namespaceemsr.html">result0</a>, <a class="code" href="namespaceemsr.html">abserr0</a>);</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;      <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((<a class="code" href="namespaceemsr.html">abserr0</a> &lt;= <a class="code" href="namespaceemsr.html">tolerance</a> &amp;&amp; <a class="code" href="namespaceemsr.html">abserr0</a> != <a class="code" href="namespaceemsr.html">resasc0</a>)</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                || <a class="code" href="namespaceemsr.html">abserr0</a> == <a class="code" href="namespaceemsr.html">Tp</a>{0})</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        <span class="keywordflow">return</span> {<a class="code" href="namespaceemsr.html">result0</a>, <a class="code" href="namespaceemsr.html">abserr0</a>};</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;      <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="namespaceemsr.html">max_iter</a> == 1)</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        <span class="keywordflow">throw</span> <a class="code" href="namespaceemsr.html">integration_error</a>(<span class="stringliteral">&quot;qag_integrate: &quot;</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;                                <span class="stringliteral">&quot;A maximum of one iteration was insufficient&quot;</span>,</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;                                <a class="code" href="namespaceemsr.html">MAX_ITER_ERROR</a>, <a class="code" href="namespaceemsr.html">result0</a>, <a class="code" href="namespaceemsr.html">abserr0</a>);</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;      <a class="code" href="namespaceemsr.html">workspace</a>.<a class="code" href="namespaceemsr.html">clear</a>();</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;      <a class="code" href="namespaceemsr.html">workspace</a>.<a class="code" href="namespaceemsr.html">append</a>(<a class="code" href="namespaceemsr.html">lower</a>, <a class="code" href="namespaceemsr.html">upper</a>, <a class="code" href="namespaceemsr.html">result0</a>, <a class="code" href="namespaceemsr.html">abserr0</a>);</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;      <span class="keyword">auto</span> <a class="code" href="namespaceemsr.html">area</a> = <a class="code" href="namespaceemsr.html">result0</a>;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;      <span class="keyword">auto</span> <a class="code" href="namespaceemsr.html">errsum</a> = <a class="code" href="namespaceemsr.html">abserr0</a>;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;      <span class="keywordtype">int</span> <a class="code" href="namespaceemsr.html">error_type</a> = <a class="code" href="namespaceemsr.html">NO_ERROR</a>;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;      <a class="code" href="namespaceemsr.html">std</a>::<a class="code" href="namespaceemsr.html">size_t</a> <a class="code" href="namespaceemsr.html">iteration</a> = 1;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;      <span class="keywordtype">int</span> <a class="code" href="namespaceemsr.html">roundoff_type1</a> = 0, <a class="code" href="namespaceemsr.html">roundoff_type2</a> = 0;</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;      <span class="keywordflow">do</span></div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        {</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;          <span class="comment">// Bisect the subinterval with the largest error estimate</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;          <span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code" href="namespaceemsr.html">curr</a> = <a class="code" href="namespaceemsr.html">workspace</a>.<a class="code" href="namespaceemsr.html">retrieve</a>();</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;          <span class="keyword">const</span> <span class="keyword">auto</span> <a class="code" href="namespaceemsr.html">a1</a> = <a class="code" href="namespaceemsr.html">curr</a>.<a class="code" href="namespaceemsr.html">lower_lim</a>;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;          <span class="keyword">const</span> <span class="keyword">auto</span> <a class="code" href="namespaceemsr.html">mid</a> = (<a class="code" href="namespaceemsr.html">curr</a>.<a class="code" href="namespaceemsr.html">lower_lim</a> + <a class="code" href="namespaceemsr.html">curr</a>.<a class="code" href="namespaceemsr.html">upper_lim</a>) / <a class="code" href="namespaceemsr.html">Tp</a>{2};</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;          <span class="keyword">const</span> <span class="keyword">auto</span> <a class="code" href="namespaceemsr.html">a2</a> = <a class="code" href="namespaceemsr.html">mid</a>;</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;          <span class="keyword">const</span> <span class="keyword">auto</span> <a class="code" href="namespaceemsr.html">b2</a> = <a class="code" href="namespaceemsr.html">curr</a>.<a class="code" href="namespaceemsr.html">upper_lim</a>;</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;          <span class="keyword">auto</span> [<a class="code" href="namespaceemsr.html">area1</a>, <a class="code" href="namespaceemsr.html">error1</a>, <a class="code" href="namespaceemsr.html">resabs1</a>, <a class="code" href="namespaceemsr.html">resasc1</a>]</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;            = <a class="code" href="namespaceemsr.html">quad</a>(<a class="code" href="namespaceemsr.html">func</a>, <a class="code" href="namespaceemsr.html">a1</a>, <a class="code" href="namespaceemsr.html">mid</a>);</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;          <span class="keyword">auto</span> [<a class="code" href="namespaceemsr.html">area2</a>, <a class="code" href="namespaceemsr.html">error2</a>, <a class="code" href="namespaceemsr.html">resabs2</a>, <a class="code" href="namespaceemsr.html">resasc2</a>]</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;            = <a class="code" href="namespaceemsr.html">quad</a>(<a class="code" href="namespaceemsr.html">func</a>, <a class="code" href="namespaceemsr.html">a2</a>, <a class="code" href="namespaceemsr.html">b2</a>);</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160; </div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;          <span class="keyword">const</span> <span class="keyword">auto</span> <a class="code" href="namespaceemsr.html">area12</a> = <a class="code" href="namespaceemsr.html">area1</a> + <a class="code" href="namespaceemsr.html">area2</a>;</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;          <span class="keyword">const</span> <span class="keyword">auto</span> <a class="code" href="namespaceemsr.html">error12</a> = <a class="code" href="namespaceemsr.html">error1</a> + <a class="code" href="namespaceemsr.html">error2</a>;</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;          <span class="keyword">const</span> <span class="keyword">auto</span> <a class="code" href="namespaceemsr.html">delta</a> = <a class="code" href="namespaceemsr.html">area12</a> - <a class="code" href="namespaceemsr.html">curr</a>.<a class="code" href="namespaceemsr.html">result</a>;</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160; </div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;          <a class="code" href="namespaceemsr.html">area</a> += <a class="code" href="namespaceemsr.html">delta</a>;</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;          <a class="code" href="namespaceemsr.html">errsum</a> += <a class="code" href="namespaceemsr.html">error12</a> - <a class="code" href="namespaceemsr.html">curr</a>.<a class="code" href="namespaceemsr.html">abs_error</a>;</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160; </div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;          <a class="code" href="namespaceemsr.html">tolerance</a> = <a class="code" href="namespaceemsr.html">std</a>::<a class="code" href="namespaceemsr.html">max</a>(<a class="code" href="namespaceemsr.html">max_abs_err</a>,</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;                                 <a class="code" href="namespaceemsr.html">max_rel_err</a> * <a class="code" href="namespaceemsr.html">std</a>::<a class="code" href="namespaceemsr.html">abs</a>(<a class="code" href="namespaceemsr.html">area</a>));</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160; </div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;          <span class="keywordflow">if</span> (<a class="code" href="namespaceemsr.html">resasc1</a> != <a class="code" href="namespaceemsr.html">error1</a> &amp;&amp; <a class="code" href="namespaceemsr.html">resasc2</a> != <a class="code" href="namespaceemsr.html">error2</a>)</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;            {</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;              <span class="keywordflow">if</span> (<a class="code" href="namespaceemsr.html">std</a>::<a class="code" href="namespaceemsr.html">abs</a>(<a class="code" href="namespaceemsr.html">delta</a>) &lt;= <a class="code" href="namespaceemsr.html">s_rel_err</a> * <a class="code" href="namespaceemsr.html">std</a>::<a class="code" href="namespaceemsr.html">abs</a>(<a class="code" href="namespaceemsr.html">area12</a>)</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;                  &amp;&amp; <a class="code" href="namespaceemsr.html">error12</a> &gt;= <a class="code" href="namespaceemsr.html">Tp</a>{0.99} * <a class="code" href="namespaceemsr.html">curr</a>.<a class="code" href="namespaceemsr.html">abs_error</a>)</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;                ++<a class="code" href="namespaceemsr.html">roundoff_type1</a>;</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;              <span class="keywordflow">if</span> (<a class="code" href="namespaceemsr.html">iteration</a> &gt;= 10 &amp;&amp; <a class="code" href="namespaceemsr.html">error12</a> &gt; <a class="code" href="namespaceemsr.html">curr</a>.<a class="code" href="namespaceemsr.html">abs_error</a>)</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;                ++<a class="code" href="namespaceemsr.html">roundoff_type2</a>;</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;            }</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160; </div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;          <span class="keywordflow">if</span> (<a class="code" href="namespaceemsr.html">errsum</a> &gt; <a class="code" href="namespaceemsr.html">tolerance</a>)</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;            {</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;              <span class="keywordflow">if</span> (<a class="code" href="namespaceemsr.html">roundoff_type1</a> &gt;= 6 || <a class="code" href="namespaceemsr.html">roundoff_type2</a> &gt;= 20)</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;                <a class="code" href="namespaceemsr.html">error_type</a> = <a class="code" href="namespaceemsr.html">ROUNDOFF_ERROR</a>;</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160; </div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;              <span class="comment">// Set error flag in the case of bad integrand behaviour at</span></div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;              <span class="comment">// a point of the integration range.</span></div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;              <span class="keywordflow">if</span> (<a class="code" href="namespaceemsr.html">workspace</a>.<a class="code" href="namespaceemsr.html">subinterval_too_small</a>(<a class="code" href="namespaceemsr.html">a1</a>, <a class="code" href="namespaceemsr.html">a2</a>, <a class="code" href="namespaceemsr.html">b2</a>))</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;                <a class="code" href="namespaceemsr.html">error_type</a> = <a class="code" href="namespaceemsr.html">SINGULAR_ERROR</a>;</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;            }</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; </div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;          <a class="code" href="namespaceemsr.html">workspace</a>.<a class="code" href="namespaceemsr.html">split</a>(<a class="code" href="namespaceemsr.html">mid</a>, <a class="code" href="namespaceemsr.html">area1</a>, <a class="code" href="namespaceemsr.html">error1</a>, <a class="code" href="namespaceemsr.html">area2</a>, <a class="code" href="namespaceemsr.html">error2</a>);</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160; </div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;          ++<a class="code" href="namespaceemsr.html">iteration</a>;</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;        }</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;      <span class="keywordflow">while</span> (<a class="code" href="namespaceemsr.html">iteration</a> &lt; <a class="code" href="namespaceemsr.html">max_iter</a></div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;             &amp;&amp; !<a class="code" href="namespaceemsr.html">error_type</a></div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;             &amp;&amp; <a class="code" href="namespaceemsr.html">errsum</a> &gt; <a class="code" href="namespaceemsr.html">tolerance</a>);</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160; </div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;      <span class="keyword">auto</span> <a class="code" href="namespaceemsr.html">result</a> = <a class="code" href="namespaceemsr.html">workspace</a>.<a class="code" href="namespaceemsr.html">total_integral</a>();</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;      <span class="keyword">auto</span> <a class="code" href="namespaceemsr.html">abserr</a> = <a class="code" href="namespaceemsr.html">errsum</a>;</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160; </div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;      <span class="keywordflow">if</span> (<a class="code" href="namespaceemsr.html">errsum</a> &lt;= <a class="code" href="namespaceemsr.html">tolerance</a>)</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;        <span class="keywordflow">return</span> {<a class="code" href="namespaceemsr.html">result</a>, <a class="code" href="namespaceemsr.html">abserr</a>};</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160; </div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;      <span class="keywordflow">if</span> (<a class="code" href="namespaceemsr.html">error_type</a> == <a class="code" href="namespaceemsr.html">NO_ERROR</a> &amp;&amp; <a class="code" href="namespaceemsr.html">iteration</a> &gt;= <a class="code" href="namespaceemsr.html">max_iter</a>)</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;        <a class="code" href="namespaceemsr.html">error_type</a> = <a class="code" href="namespaceemsr.html">MAX_ITER_ERROR</a>;</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160; </div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;      <a class="code" href="namespaceemsr.html">check_error</a>(<span class="keyword">__func__</span>, <a class="code" href="namespaceemsr.html">error_type</a>, <a class="code" href="namespaceemsr.html">result</a>, <a class="code" href="namespaceemsr.html">abserr</a>);</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;      <span class="keywordflow">throw</span> <a class="code" href="namespaceemsr.html">integration_error</a>(<span class="stringliteral">&quot;qag_integrate: Unknown error.&quot;</span>,</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;                              <a class="code" href="namespaceemsr.html">UNKNOWN_ERROR</a>, <a class="code" href="namespaceemsr.html">result</a>, <a class="code" href="namespaceemsr.html">abserr</a>);</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    }</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160; </div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;} <span class="comment">// namespace emsr</span></div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160; </div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">endif</span> <span class="comment">// QAG_INTEGRATE_TCC</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

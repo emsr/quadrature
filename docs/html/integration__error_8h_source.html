@@ -106,15 +106,15 @@ $(document).ready(function(){initNavTree('integration__error_8h_source.html','')
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">// Used to interpret the error estimate of the integration routines</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">// Based on gsl/integration/err.c</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#ifndef INTEGRATION_ERROR_H</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#define INTEGRATION_ERROR_H 1</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">ifndef</span> <span class="preprocessor">INTEGRATION_ERROR_H</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">INTEGRATION_ERROR_H</span> 1</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#include &lt;cmath&gt;</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &lt;limits&gt;</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#include &lt;sstream&gt;</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#include &lt;string_view&gt;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">cmath</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">limits</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">sstream</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">string_view</span><span class="preprocessor">&gt;</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceemsr.html">emsr</a></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">namespace</span> <a class="code" href="namespaceemsr.html">emsr</a></div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;{</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <span class="keyword">enum</span></div>
@@ -131,7 +131,7 @@ $(document).ready(function(){initNavTree('integration__error_8h_source.html','')
 <div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="namespaceemsr.html#abaa96e35b6f30ef1ce4924b479d4eee6a651067f5b0ab200752aae053e180330e">   44</a></span>&#160;  };</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <span class="keyword">template</span>&lt;<span class="keyword">typename</span> AreaTp, <span class="keyword">typename</span> AbsAreaTp&gt;</div>
-<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="classemsr_1_1integration__error.html">   47</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classemsr_1_1integration__error.html">integration_error</a> : <span class="keyword">public</span> std::runtime_error</div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="classemsr_1_1integration__error.html">   47</a></span>&#160;    <span class="keyword">class</span> <a class="code" href="classemsr_1_1integration__error.html">integration_error</a> : <span class="keyword">public</span> std::runtime_error</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    {</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;      AreaTp m_result;</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;      AbsAreaTp m_abserr;</div>
@@ -140,27 +140,27 @@ $(document).ready(function(){initNavTree('integration__error_8h_source.html','')
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
 <div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="classemsr_1_1integration__error.html#ad2c191fe39e674b47610c2586b05bc3f">   55</a></span>&#160;      <a class="code" href="classemsr_1_1integration__error.html#ad2c191fe39e674b47610c2586b05bc3f">integration_error</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* what, <span class="keywordtype">int</span> errcode,</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                        AreaTp <a class="code" href="classemsr_1_1integration__error.html#a96ecc045d77edfa8cc5283fe06e2bd08">result</a>, AbsAreaTp <a class="code" href="classemsr_1_1integration__error.html#ad714e489304329edaa33a9308e323291">abserr</a>)</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                        AreaTp result, AbsAreaTp abserr)</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      : std::runtime_error(what),</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        m_result(<a class="code" href="classemsr_1_1integration__error.html#a96ecc045d77edfa8cc5283fe06e2bd08">result</a>),</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        m_abserr(<a class="code" href="classemsr_1_1integration__error.html#ad714e489304329edaa33a9308e323291">abserr</a>),</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        m_result(result),</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        m_abserr(abserr),</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        m_errcode(errcode)</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;      { }</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;      <span class="keywordtype">int</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="classemsr_1_1integration__error.html#a7bae408793d18793f71c8ea4aa64b5a2">   64</a></span>&#160;      <a class="code" href="classemsr_1_1integration__error.html#a7bae408793d18793f71c8ea4aa64b5a2">error_code</a>()<span class="keyword"> const</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="keyword">      </span>{ <span class="keywordflow">return</span> m_errcode; }</div>
+<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="classemsr_1_1integration__error.html#a7bae408793d18793f71c8ea4aa64b5a2">   64</a></span>&#160;      <a class="code" href="classemsr_1_1integration__error.html#a7bae408793d18793f71c8ea4aa64b5a2">error_code</a>() <span class="keyword">const</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;      { <span class="keywordflow">return</span> m_errcode; }</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;      AreaTp</div>
-<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="classemsr_1_1integration__error.html#a96ecc045d77edfa8cc5283fe06e2bd08">   68</a></span>&#160;      <a class="code" href="classemsr_1_1integration__error.html#a96ecc045d77edfa8cc5283fe06e2bd08">result</a>()<span class="keyword"> const</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="keyword">      </span>{ <span class="keywordflow">return</span> this-&gt;m_result; }</div>
+<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="classemsr_1_1integration__error.html#a96ecc045d77edfa8cc5283fe06e2bd08">   68</a></span>&#160;      <a class="code" href="classemsr_1_1integration__error.html#a96ecc045d77edfa8cc5283fe06e2bd08">result</a>() <span class="keyword">const</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;      { <span class="keywordflow">return</span> <span class="keyword">this</span>-&gt;m_result; }</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;      AbsAreaTp</div>
-<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="classemsr_1_1integration__error.html#ad714e489304329edaa33a9308e323291">   72</a></span>&#160;      <a class="code" href="classemsr_1_1integration__error.html#ad714e489304329edaa33a9308e323291">abserr</a>()<span class="keyword"> const</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="keyword">      </span>{ <span class="keywordflow">return</span> this-&gt;m_abserr; }</div>
+<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="classemsr_1_1integration__error.html#ad714e489304329edaa33a9308e323291">   72</a></span>&#160;      <a class="code" href="classemsr_1_1integration__error.html#ad714e489304329edaa33a9308e323291">abserr</a>() <span class="keyword">const</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;      { <span class="keywordflow">return</span> <span class="keyword">this</span>-&gt;m_abserr; }</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    };</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment">  /**</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  <span class="comment">/**</span></div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="comment">   * Throws appropriate error if errcode nonzero</span></div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="comment">   */</span></div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  <span class="keyword">template</span>&lt;<span class="keyword">typename</span> AreaTp, <span class="keyword">typename</span> AbsAreaTp&gt;</div>
@@ -202,10 +202,10 @@ $(document).ready(function(){initNavTree('integration__error_8h_source.html','')
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;          msg &lt;&lt; <span class="stringliteral">&quot;Could not integrate function&quot;</span>;</div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        }</div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;      <span class="keywordflow">throw</span> <a class="code" href="classemsr_1_1integration__error.html">integration_error</a>(msg.str().c_str(), errcode, result, abserr);</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;      <span class="keywordflow">throw</span> integration_error(msg.str().c_str(), errcode, result, abserr);</div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    }</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="comment">  /**</span></div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;  <span class="comment">/**</span></div>
 <div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="comment">   * </span></div>
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="comment">   */</span></div>
 <div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;  <span class="keyword">template</span>&lt;<span class="keyword">typename</span> AreaTp, <span class="keyword">typename</span> AbsAreaTp&gt;</div>
@@ -239,24 +239,7 @@ $(document).ready(function(){initNavTree('integration__error_8h_source.html','')
 <div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160; </div>
 <div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;} <span class="comment">// namespace emsr</span></div>
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160; </div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// INTEGRATION_ERROR_H</span></div>
-<div class="ttc" id="aclassemsr_1_1integration__error_html"><div class="ttname"><a href="classemsr_1_1integration__error.html">emsr::integration_error</a></div><div class="ttdef"><b>Definition:</b> <a href="integration__error_8h_source.html#l00047">integration_error.h:48</a></div></div>
-<div class="ttc" id="aclassemsr_1_1integration__error_html_a7bae408793d18793f71c8ea4aa64b5a2"><div class="ttname"><a href="classemsr_1_1integration__error.html#a7bae408793d18793f71c8ea4aa64b5a2">emsr::integration_error::error_code</a></div><div class="ttdeci">int error_code() const</div><div class="ttdef"><b>Definition:</b> <a href="integration__error_8h_source.html#l00064">integration_error.h:64</a></div></div>
-<div class="ttc" id="aclassemsr_1_1integration__error_html_a96ecc045d77edfa8cc5283fe06e2bd08"><div class="ttname"><a href="classemsr_1_1integration__error.html#a96ecc045d77edfa8cc5283fe06e2bd08">emsr::integration_error::result</a></div><div class="ttdeci">AreaTp result() const</div><div class="ttdef"><b>Definition:</b> <a href="integration__error_8h_source.html#l00068">integration_error.h:68</a></div></div>
-<div class="ttc" id="aclassemsr_1_1integration__error_html_ad2c191fe39e674b47610c2586b05bc3f"><div class="ttname"><a href="classemsr_1_1integration__error.html#ad2c191fe39e674b47610c2586b05bc3f">emsr::integration_error::integration_error</a></div><div class="ttdeci">integration_error(const char *what, int errcode, AreaTp result, AbsAreaTp abserr)</div><div class="ttdef"><b>Definition:</b> <a href="integration__error_8h_source.html#l00055">integration_error.h:55</a></div></div>
-<div class="ttc" id="aclassemsr_1_1integration__error_html_ad714e489304329edaa33a9308e323291"><div class="ttname"><a href="classemsr_1_1integration__error.html#ad714e489304329edaa33a9308e323291">emsr::integration_error::abserr</a></div><div class="ttdeci">AbsAreaTp abserr() const</div><div class="ttdef"><b>Definition:</b> <a href="integration__error_8h_source.html#l00072">integration_error.h:72</a></div></div>
-<div class="ttc" id="anamespaceemsr_html"><div class="ttname"><a href="namespaceemsr.html">emsr</a></div><div class="ttdef"><b>Definition:</b> <a href="cquad__const_8tcc_source.html#l00029">cquad_const.tcc:30</a></div></div>
-<div class="ttc" id="anamespaceemsr_html_a71e078ceee7bed7fb49a4c88b6f4cfb2"><div class="ttname"><a href="namespaceemsr.html#a71e078ceee7bed7fb49a4c88b6f4cfb2">emsr::check_error</a></div><div class="ttdeci">void check_error(std::string_view func, int errcode, AreaTp result, AbsAreaTp abserr)</div><div class="ttdef"><b>Definition:</b> <a href="integration__error_8h_source.html#l00081">integration_error.h:81</a></div></div>
-<div class="ttc" id="anamespaceemsr_html_ab29a168e5d48ade5bda720523f456d8a"><div class="ttname"><a href="namespaceemsr.html#ab29a168e5d48ade5bda720523f456d8a">emsr::rescale_error</a></div><div class="ttdeci">AbsAreaTp rescale_error(AreaTp err, const AbsAreaTp result_abs, const AbsAreaTp result_asc)</div><div class="ttdef"><b>Definition:</b> <a href="integration__error_8h_source.html#l00126">integration_error.h:126</a></div></div>
-<div class="ttc" id="anamespaceemsr_html_abaa96e35b6f30ef1ce4924b479d4eee6a1d80cee603274eb0bf0c5e314167bf13"><div class="ttname"><a href="namespaceemsr.html#abaa96e35b6f30ef1ce4924b479d4eee6a1d80cee603274eb0bf0c5e314167bf13">emsr::EXTRAP_ROUNDOFF_ERROR</a></div><div class="ttdeci">@ EXTRAP_ROUNDOFF_ERROR</div><div class="ttdef"><b>Definition:</b> <a href="integration__error_8h_source.html#l00039">integration_error.h:39</a></div></div>
-<div class="ttc" id="anamespaceemsr_html_abaa96e35b6f30ef1ce4924b479d4eee6a3a5148d26f5cb3ae224ed42473134d94"><div class="ttname"><a href="namespaceemsr.html#abaa96e35b6f30ef1ce4924b479d4eee6a3a5148d26f5cb3ae224ed42473134d94">emsr::ROUNDOFF_ERROR</a></div><div class="ttdeci">@ ROUNDOFF_ERROR</div><div class="ttdef"><b>Definition:</b> <a href="integration__error_8h_source.html#l00037">integration_error.h:37</a></div></div>
-<div class="ttc" id="anamespaceemsr_html_abaa96e35b6f30ef1ce4924b479d4eee6a3d9904e4f56ff6d754dcad7bc0217a49"><div class="ttname"><a href="namespaceemsr.html#abaa96e35b6f30ef1ce4924b479d4eee6a3d9904e4f56ff6d754dcad7bc0217a49">emsr::TOLERANCE_ERROR</a></div><div class="ttdeci">@ TOLERANCE_ERROR</div><div class="ttdef"><b>Definition:</b> <a href="integration__error_8h_source.html#l00042">integration_error.h:42</a></div></div>
-<div class="ttc" id="anamespaceemsr_html_abaa96e35b6f30ef1ce4924b479d4eee6a651067f5b0ab200752aae053e180330e"><div class="ttname"><a href="namespaceemsr.html#abaa96e35b6f30ef1ce4924b479d4eee6a651067f5b0ab200752aae053e180330e">emsr::UNKNOWN_ERROR</a></div><div class="ttdeci">@ UNKNOWN_ERROR</div><div class="ttdef"><b>Definition:</b> <a href="integration__error_8h_source.html#l00044">integration_error.h:43</a></div></div>
-<div class="ttc" id="anamespaceemsr_html_abaa96e35b6f30ef1ce4924b479d4eee6a81b2ddf3276b1131f4ec41e66a003a0b"><div class="ttname"><a href="namespaceemsr.html#abaa96e35b6f30ef1ce4924b479d4eee6a81b2ddf3276b1131f4ec41e66a003a0b">emsr::NO_ERROR</a></div><div class="ttdeci">@ NO_ERROR</div><div class="ttdef"><b>Definition:</b> <a href="integration__error_8h_source.html#l00035">integration_error.h:35</a></div></div>
-<div class="ttc" id="anamespaceemsr_html_abaa96e35b6f30ef1ce4924b479d4eee6abda54061d8fbdbe9b2d1e1bf1bba278d"><div class="ttname"><a href="namespaceemsr.html#abaa96e35b6f30ef1ce4924b479d4eee6abda54061d8fbdbe9b2d1e1bf1bba278d">emsr::MAX_ITER_ERROR</a></div><div class="ttdeci">@ MAX_ITER_ERROR</div><div class="ttdef"><b>Definition:</b> <a href="integration__error_8h_source.html#l00036">integration_error.h:36</a></div></div>
-<div class="ttc" id="anamespaceemsr_html_abaa96e35b6f30ef1ce4924b479d4eee6abf1abd49e6ffbfad57b1c69455b848c0"><div class="ttname"><a href="namespaceemsr.html#abaa96e35b6f30ef1ce4924b479d4eee6abf1abd49e6ffbfad57b1c69455b848c0">emsr::MAX_SUBDIV_ERROR</a></div><div class="ttdeci">@ MAX_SUBDIV_ERROR</div><div class="ttdef"><b>Definition:</b> <a href="integration__error_8h_source.html#l00041">integration_error.h:41</a></div></div>
-<div class="ttc" id="anamespaceemsr_html_abaa96e35b6f30ef1ce4924b479d4eee6ac955192751889830990004dfc1193d77"><div class="ttname"><a href="namespaceemsr.html#abaa96e35b6f30ef1ce4924b479d4eee6ac955192751889830990004dfc1193d77">emsr::DIVERGENCE_ERROR</a></div><div class="ttdeci">@ DIVERGENCE_ERROR</div><div class="ttdef"><b>Definition:</b> <a href="integration__error_8h_source.html#l00040">integration_error.h:40</a></div></div>
-<div class="ttc" id="anamespaceemsr_html_abaa96e35b6f30ef1ce4924b479d4eee6affdd20e2cd41b41a792d689d67653ac3"><div class="ttname"><a href="namespaceemsr.html#abaa96e35b6f30ef1ce4924b479d4eee6affdd20e2cd41b41a792d689d67653ac3">emsr::SINGULAR_ERROR</a></div><div class="ttdeci">@ SINGULAR_ERROR</div><div class="ttdef"><b>Definition:</b> <a href="integration__error_8h_source.html#l00038">integration_error.h:38</a></div></div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">endif</span> <span class="comment">// INTEGRATION_ERROR_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

@@ -152,31 +152,29 @@ template&lt;typename Tp &gt; </div>
 <p>Construct a Generalized Gauss-Hermite rule of order <code>n</code>.</p>
 <p>Interval: <img class="formulaInl" alt="$ (-\infty, \infty) $" src="form_61.png" width="49" height="14"/> Weight function: <img class="formulaInl" alt="$ |x-a|^\alpha \exp(-b(x-a)^2) $" src="form_62.png" width="133" height="15"/> Constraints: <img class="formulaInl" alt="$ \alpha &gt; -1 $" src="form_57.png" width="40" height="10"/> </p>
 
-<p class="definition">Definition at line <a class="el" href="gauss__quadrature_8tcc_source.html#l00601">601</a> of file <a class="el" href="gauss__quadrature_8tcc_source.html">gauss_quadrature.tcc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00603"></a><span class="lineno">  603</span>&#160;    : <a class="code" href="structemsr_1_1fixed__gauss__hermite__integral.html#a7f2edff5bd4cb0dde1cb51a40d29b982">order</a>(n),</div>
-<div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160;      <a class="code" href="structemsr_1_1fixed__gauss__hermite__integral.html#a22709bbf6a06de27af2796a0af76313c">alpha</a>(alf),</div>
-<div class="line"><a name="l00605"></a><span class="lineno">  605</span>&#160;      point(n),</div>
-<div class="line"><a name="l00606"></a><span class="lineno">  606</span>&#160;      weight(n)</div>
-<div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160;    {</div>
-<div class="line"><a name="l00608"></a><span class="lineno">  608</span>&#160;      <span class="keyword">const</span> <span class="keyword">auto</span> mu_0 = std::tgamma((this-&gt;<a class="code" href="structemsr_1_1fixed__gauss__hermite__integral.html#a22709bbf6a06de27af2796a0af76313c">alpha</a> + <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{1}) / <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{2});</div>
-<div class="line"><a name="l00609"></a><span class="lineno">  609</span>&#160; </div>
-<div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160;      std::vector&lt;Tp&gt; diag(this-&gt;<a class="code" href="structemsr_1_1fixed__gauss__hermite__integral.html#a7f2edff5bd4cb0dde1cb51a40d29b982">order</a>, <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{0});</div>
-<div class="line"><a name="l00611"></a><span class="lineno">  611</span>&#160;      std::vector&lt;Tp&gt; subd(this-&gt;<a class="code" href="structemsr_1_1fixed__gauss__hermite__integral.html#a7f2edff5bd4cb0dde1cb51a40d29b982">order</a>);</div>
-<div class="line"><a name="l00612"></a><span class="lineno">  612</span>&#160; </div>
-<div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160;      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 1; i &lt;= this-&gt;<a class="code" href="structemsr_1_1fixed__gauss__hermite__integral.html#a7f2edff5bd4cb0dde1cb51a40d29b982">order</a>; ++i)</div>
-<div class="line"><a name="l00614"></a><span class="lineno">  614</span>&#160;        subd[i - 1] = std::sqrt((<a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>(i) + <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>(i % 2) * this-&gt;<a class="code" href="structemsr_1_1fixed__gauss__hermite__integral.html#a22709bbf6a06de27af2796a0af76313c">alpha</a>)</div>
-<div class="line"><a name="l00615"></a><span class="lineno">  615</span>&#160;                                   / <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{2});</div>
-<div class="line"><a name="l00616"></a><span class="lineno">  616</span>&#160; </div>
-<div class="line"><a name="l00617"></a><span class="lineno">  617</span>&#160;      <a class="code" href="namespaceemsr_1_1detail.html#a3a01597b0d4e1996d86ceaf2f68eabc8">detail::golub_welsch</a>(mu_0, this-&gt;<a class="code" href="structemsr_1_1fixed__gauss__hermite__integral.html#a7f2edff5bd4cb0dde1cb51a40d29b982">order</a>, diag, subd,</div>
-<div class="line"><a name="l00618"></a><span class="lineno">  618</span>&#160;                               this-&gt;point, this-&gt;weight);</div>
-<div class="line"><a name="l00619"></a><span class="lineno">  619</span>&#160;    }</div>
-<div class="ttc" id="anamespaceemsr_1_1detail_html_a3a01597b0d4e1996d86ceaf2f68eabc8"><div class="ttname"><a href="namespaceemsr_1_1detail.html#a3a01597b0d4e1996d86ceaf2f68eabc8">emsr::detail::golub_welsch</a></div><div class="ttdeci">void golub_welsch(Tp moment0, int n, InIter &amp;diag, InIter &amp;subd, OutIter &amp;pt, OutIter &amp;wt)</div><div class="ttdef"><b>Definition:</b> <a href="gauss__quadrature_8tcc_source.html#l00052">gauss_quadrature.tcc:52</a></div></div>
+<p class="definition">Definition at line <a class="el" href="gauss__quadrature_8tcc_source.html#l00602">602</a> of file <a class="el" href="gauss__quadrature_8tcc_source.html">gauss_quadrature.tcc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160;    : <a class="code" href="structemsr_1_1fixed__gauss__hermite__integral.html#a7f2edff5bd4cb0dde1cb51a40d29b982">order</a>(n),</div>
+<div class="line"><a name="l00605"></a><span class="lineno">  605</span>&#160;      <a class="code" href="structemsr_1_1fixed__gauss__hermite__integral.html#a22709bbf6a06de27af2796a0af76313c">alpha</a>(alf),</div>
+<div class="line"><a name="l00606"></a><span class="lineno">  606</span>&#160;      point(n),</div>
+<div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160;      weight(n)</div>
+<div class="line"><a name="l00608"></a><span class="lineno">  608</span>&#160;    {</div>
+<div class="line"><a name="l00609"></a><span class="lineno">  609</span>&#160;      <span class="keyword">const</span> <span class="keyword">auto</span> mu_0 = std::tgamma((this-&gt;<a class="code" href="structemsr_1_1fixed__gauss__hermite__integral.html#a22709bbf6a06de27af2796a0af76313c">alpha</a> + <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{1}) / <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{2});</div>
+<div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160; </div>
+<div class="line"><a name="l00611"></a><span class="lineno">  611</span>&#160;      std::vector&lt;Tp&gt; diag(this-&gt;<a class="code" href="structemsr_1_1fixed__gauss__hermite__integral.html#a7f2edff5bd4cb0dde1cb51a40d29b982">order</a>, <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{0});</div>
+<div class="line"><a name="l00612"></a><span class="lineno">  612</span>&#160;      std::vector&lt;Tp&gt; subd(this-&gt;<a class="code" href="structemsr_1_1fixed__gauss__hermite__integral.html#a7f2edff5bd4cb0dde1cb51a40d29b982">order</a>);</div>
+<div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160; </div>
+<div class="line"><a name="l00614"></a><span class="lineno">  614</span>&#160;      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 1; i &lt;= this-&gt;<a class="code" href="structemsr_1_1fixed__gauss__hermite__integral.html#a7f2edff5bd4cb0dde1cb51a40d29b982">order</a>; ++i)</div>
+<div class="line"><a name="l00615"></a><span class="lineno">  615</span>&#160;        subd[i - 1] = std::sqrt((<a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>(i) + <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>(i % 2) * this-&gt;<a class="code" href="structemsr_1_1fixed__gauss__hermite__integral.html#a22709bbf6a06de27af2796a0af76313c">alpha</a>)</div>
+<div class="line"><a name="l00616"></a><span class="lineno">  616</span>&#160;                                   / <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{2});</div>
+<div class="line"><a name="l00617"></a><span class="lineno">  617</span>&#160; </div>
+<div class="line"><a name="l00618"></a><span class="lineno">  618</span>&#160;      <a class="code" href="namespaceemsr_1_1detail.html#a3a01597b0d4e1996d86ceaf2f68eabc8">detail::golub_welsch</a>(mu_0, this-&gt;<a class="code" href="structemsr_1_1fixed__gauss__hermite__integral.html#a7f2edff5bd4cb0dde1cb51a40d29b982">order</a>, diag, subd,</div>
+<div class="line"><a name="l00619"></a><span class="lineno">  619</span>&#160;                               this-&gt;point, this-&gt;weight);</div>
+<div class="line"><a name="l00620"></a><span class="lineno">  620</span>&#160;    }</div>
+<div class="ttc" id="anamespaceemsr_1_1detail_html_a3a01597b0d4e1996d86ceaf2f68eabc8"><div class="ttname"><a href="namespaceemsr_1_1detail.html#a3a01597b0d4e1996d86ceaf2f68eabc8">emsr::detail::golub_welsch</a></div><div class="ttdeci">void golub_welsch(Tp moment0, int n, InIter &amp;diag, InIter &amp;subd, OutIter &amp;pt, OutIter &amp;wt)</div><div class="ttdef"><b>Definition:</b> <a href="gauss__quadrature_8tcc_source.html#l00053">gauss_quadrature.tcc:53</a></div></div>
 <div class="ttc" id="astructemsr_1_1fixed__gauss__hermite__integral_html_a22709bbf6a06de27af2796a0af76313c"><div class="ttname"><a href="structemsr_1_1fixed__gauss__hermite__integral.html#a22709bbf6a06de27af2796a0af76313c">emsr::fixed_gauss_hermite_integral::alpha</a></div><div class="ttdeci">Tp alpha</div><div class="ttdef"><b>Definition:</b> <a href="gauss__quadrature_8h_source.html#l00195">gauss_quadrature.h:195</a></div></div>
 <div class="ttc" id="astructemsr_1_1fixed__gauss__hermite__integral_html_a7f2edff5bd4cb0dde1cb51a40d29b982"><div class="ttname"><a href="structemsr_1_1fixed__gauss__hermite__integral.html#a7f2edff5bd4cb0dde1cb51a40d29b982">emsr::fixed_gauss_hermite_integral::order</a></div><div class="ttdeci">int order</div><div class="ttdef"><b>Definition:</b> <a href="gauss__quadrature_8h_source.html#l00194">gauss_quadrature.h:194</a></div></div>
 <div class="ttc" id="atest__integral_8tcc_html_a82f489a4943d33943d0b0f781a801283"><div class="ttname"><a href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a></div><div class="ttdeci">Tp x Tp</div><div class="ttdef"><b>Definition:</b> <a href="test__integral_8tcc_source.html#l00003">test_integral.tcc:4</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="gauss__quadrature_8h_source.html#l00195">emsr::fixed_gauss_hermite_integral&lt; Tp &gt;::alpha</a>, <a class="el" href="gauss__quadrature_8tcc_source.html#l00052">emsr::detail::golub_welsch()</a>, <a class="el" href="gauss__quadrature_8h_source.html#l00194">emsr::fixed_gauss_hermite_integral&lt; Tp &gt;::order</a>, and <a class="el" href="test__integral_8tcc_source.html#l00004">Tp</a>.</p>
-
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -195,8 +193,6 @@ template&lt;typename Tp &gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="gauss__quadrature_8h_source.html#l00195">195</a> of file <a class="el" href="gauss__quadrature_8h_source.html">gauss_quadrature.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="gauss__quadrature_8tcc_source.html#l00602">emsr::fixed_gauss_hermite_integral&lt; Tp &gt;::fixed_gauss_hermite_integral()</a>.</p>
 
 </div>
 </div>
@@ -235,8 +231,6 @@ template&lt;typename Tp &gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="gauss__quadrature_8h_source.html#l00194">194</a> of file <a class="el" href="gauss__quadrature_8h_source.html">gauss_quadrature.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="gauss__quadrature_8tcc_source.html#l00602">emsr::fixed_gauss_hermite_integral&lt; Tp &gt;::fixed_gauss_hermite_integral()</a>.</p>
 
 </div>
 </div>

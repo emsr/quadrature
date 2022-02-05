@@ -152,37 +152,35 @@ template&lt;typename Tp &gt; </div>
 <p>Construct a Gauss-Gegenbauer rule of order <code>n</code>.</p>
 <p>Weight function: <img class="formulaInl" alt="$ [(b-x)(x-a)]^\lambda $" src="form_50.png" width="89" height="15"/> Constraints: <img class="formulaInl" alt="$ \lambda &gt; -1 $" src="form_51.png" width="39" height="11"/> </p>
 
-<p class="definition">Definition at line <a class="el" href="gauss__quadrature_8tcc_source.html#l00390">390</a> of file <a class="el" href="gauss__quadrature_8tcc_source.html">gauss_quadrature.tcc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;    : <a class="code" href="structemsr_1_1fixed__gauss__gegenbauer__integral.html#a77c3d065214a00b0d263ebe3699ec036">order</a>(n),</div>
-<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;      <a class="code" href="structemsr_1_1fixed__gauss__gegenbauer__integral.html#a926e8b2421a9c24717660235e359b972">lambda</a>(lam),</div>
-<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;      point(n),</div>
-<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;      weight(n)</div>
-<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;    {</div>
-<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;      <span class="keyword">const</span> <span class="keyword">auto</span> ab = <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{2} * this-&gt;<a class="code" href="structemsr_1_1fixed__gauss__gegenbauer__integral.html#a926e8b2421a9c24717660235e359b972">lambda</a>;</div>
-<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;      <span class="keyword">const</span> <span class="keyword">auto</span> gam = std::tgamma(this-&gt;<a class="code" href="structemsr_1_1fixed__gauss__gegenbauer__integral.html#a926e8b2421a9c24717660235e359b972">lambda</a> + <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{1});</div>
-<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;      <span class="keyword">const</span> <span class="keyword">auto</span> mu_0 = std::pow(<a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{2}, ab + <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{1})</div>
-<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;                        * gam * gam / std::tgamma(ab + <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{2});</div>
-<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160; </div>
-<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;      std::vector&lt;Tp&gt; diag(this-&gt;<a class="code" href="structemsr_1_1fixed__gauss__gegenbauer__integral.html#a77c3d065214a00b0d263ebe3699ec036">order</a>, <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{0});</div>
-<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;      std::vector&lt;Tp&gt; subd(this-&gt;<a class="code" href="structemsr_1_1fixed__gauss__gegenbauer__integral.html#a77c3d065214a00b0d263ebe3699ec036">order</a>);</div>
-<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160; </div>
-<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;      subd[0] = std::sqrt(<a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{1} / (<a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{2} * this-&gt;<a class="code" href="structemsr_1_1fixed__gauss__gegenbauer__integral.html#a926e8b2421a9c24717660235e359b972">lambda</a> + <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{3}));</div>
-<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160; </div>
-<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 2; i &lt;= this-&gt;<a class="code" href="structemsr_1_1fixed__gauss__gegenbauer__integral.html#a77c3d065214a00b0d263ebe3699ec036">order</a>; ++i)</div>
-<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;        subd[i - 1] = std::sqrt(<a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>(i) * (ab + <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>(i))</div>
-<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;                        / (<a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{4}</div>
-<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;                          * std::pow(this-&gt;<a class="code" href="structemsr_1_1fixed__gauss__gegenbauer__integral.html#a926e8b2421a9c24717660235e359b972">lambda</a> + <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>(i), <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{2}) - <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{1}));</div>
-<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160; </div>
-<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;      <a class="code" href="namespaceemsr_1_1detail.html#a3a01597b0d4e1996d86ceaf2f68eabc8">detail::golub_welsch</a>(mu_0, this-&gt;<a class="code" href="structemsr_1_1fixed__gauss__gegenbauer__integral.html#a77c3d065214a00b0d263ebe3699ec036">order</a>, diag, subd,</div>
-<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;                               this-&gt;point, this-&gt;weight);</div>
-<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;    }</div>
-<div class="ttc" id="anamespaceemsr_1_1detail_html_a3a01597b0d4e1996d86ceaf2f68eabc8"><div class="ttname"><a href="namespaceemsr_1_1detail.html#a3a01597b0d4e1996d86ceaf2f68eabc8">emsr::detail::golub_welsch</a></div><div class="ttdeci">void golub_welsch(Tp moment0, int n, InIter &amp;diag, InIter &amp;subd, OutIter &amp;pt, OutIter &amp;wt)</div><div class="ttdef"><b>Definition:</b> <a href="gauss__quadrature_8tcc_source.html#l00052">gauss_quadrature.tcc:52</a></div></div>
+<p class="definition">Definition at line <a class="el" href="gauss__quadrature_8tcc_source.html#l00391">391</a> of file <a class="el" href="gauss__quadrature_8tcc_source.html">gauss_quadrature.tcc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;    : <a class="code" href="structemsr_1_1fixed__gauss__gegenbauer__integral.html#a77c3d065214a00b0d263ebe3699ec036">order</a>(n),</div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;      <a class="code" href="structemsr_1_1fixed__gauss__gegenbauer__integral.html#a926e8b2421a9c24717660235e359b972">lambda</a>(lam),</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;      point(n),</div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;      weight(n)</div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;    {</div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;      <span class="keyword">const</span> <span class="keyword">auto</span> ab = <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{2} * this-&gt;<a class="code" href="structemsr_1_1fixed__gauss__gegenbauer__integral.html#a926e8b2421a9c24717660235e359b972">lambda</a>;</div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;      <span class="keyword">const</span> <span class="keyword">auto</span> gam = std::tgamma(this-&gt;<a class="code" href="structemsr_1_1fixed__gauss__gegenbauer__integral.html#a926e8b2421a9c24717660235e359b972">lambda</a> + <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{1});</div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;      <span class="keyword">const</span> <span class="keyword">auto</span> mu_0 = std::pow(<a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{2}, ab + <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{1})</div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;                        * gam * gam / std::tgamma(ab + <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{2});</div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160; </div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;      std::vector&lt;Tp&gt; diag(this-&gt;<a class="code" href="structemsr_1_1fixed__gauss__gegenbauer__integral.html#a77c3d065214a00b0d263ebe3699ec036">order</a>, <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{0});</div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;      std::vector&lt;Tp&gt; subd(this-&gt;<a class="code" href="structemsr_1_1fixed__gauss__gegenbauer__integral.html#a77c3d065214a00b0d263ebe3699ec036">order</a>);</div>
+<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160; </div>
+<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;      subd[0] = std::sqrt(<a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{1} / (<a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{2} * this-&gt;<a class="code" href="structemsr_1_1fixed__gauss__gegenbauer__integral.html#a926e8b2421a9c24717660235e359b972">lambda</a> + <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{3}));</div>
+<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160; </div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 2; i &lt;= this-&gt;<a class="code" href="structemsr_1_1fixed__gauss__gegenbauer__integral.html#a77c3d065214a00b0d263ebe3699ec036">order</a>; ++i)</div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;        subd[i - 1] = std::sqrt(<a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>(i) * (ab + <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>(i))</div>
+<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;                        / (<a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{4}</div>
+<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;                          * std::pow(this-&gt;<a class="code" href="structemsr_1_1fixed__gauss__gegenbauer__integral.html#a926e8b2421a9c24717660235e359b972">lambda</a> + <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>(i), <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{2}) - <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{1}));</div>
+<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160; </div>
+<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;      <a class="code" href="namespaceemsr_1_1detail.html#a3a01597b0d4e1996d86ceaf2f68eabc8">detail::golub_welsch</a>(mu_0, this-&gt;<a class="code" href="structemsr_1_1fixed__gauss__gegenbauer__integral.html#a77c3d065214a00b0d263ebe3699ec036">order</a>, diag, subd,</div>
+<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;                               this-&gt;point, this-&gt;weight);</div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;    }</div>
+<div class="ttc" id="anamespaceemsr_1_1detail_html_a3a01597b0d4e1996d86ceaf2f68eabc8"><div class="ttname"><a href="namespaceemsr_1_1detail.html#a3a01597b0d4e1996d86ceaf2f68eabc8">emsr::detail::golub_welsch</a></div><div class="ttdeci">void golub_welsch(Tp moment0, int n, InIter &amp;diag, InIter &amp;subd, OutIter &amp;pt, OutIter &amp;wt)</div><div class="ttdef"><b>Definition:</b> <a href="gauss__quadrature_8tcc_source.html#l00053">gauss_quadrature.tcc:53</a></div></div>
 <div class="ttc" id="astructemsr_1_1fixed__gauss__gegenbauer__integral_html_a77c3d065214a00b0d263ebe3699ec036"><div class="ttname"><a href="structemsr_1_1fixed__gauss__gegenbauer__integral.html#a77c3d065214a00b0d263ebe3699ec036">emsr::fixed_gauss_gegenbauer_integral::order</a></div><div class="ttdeci">int order</div><div class="ttdef"><b>Definition:</b> <a href="gauss__quadrature_8h_source.html#l00133">gauss_quadrature.h:133</a></div></div>
 <div class="ttc" id="astructemsr_1_1fixed__gauss__gegenbauer__integral_html_a926e8b2421a9c24717660235e359b972"><div class="ttname"><a href="structemsr_1_1fixed__gauss__gegenbauer__integral.html#a926e8b2421a9c24717660235e359b972">emsr::fixed_gauss_gegenbauer_integral::lambda</a></div><div class="ttdeci">Tp lambda</div><div class="ttdef"><b>Definition:</b> <a href="gauss__quadrature_8h_source.html#l00134">gauss_quadrature.h:134</a></div></div>
 <div class="ttc" id="atest__integral_8tcc_html_a82f489a4943d33943d0b0f781a801283"><div class="ttname"><a href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a></div><div class="ttdeci">Tp x Tp</div><div class="ttdef"><b>Definition:</b> <a href="test__integral_8tcc_source.html#l00003">test_integral.tcc:4</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="gauss__quadrature_8tcc_source.html#l00052">emsr::detail::golub_welsch()</a>, <a class="el" href="gauss__quadrature_8h_source.html#l00134">emsr::fixed_gauss_gegenbauer_integral&lt; Tp &gt;::lambda</a>, <a class="el" href="gauss__quadrature_8h_source.html#l00133">emsr::fixed_gauss_gegenbauer_integral&lt; Tp &gt;::order</a>, and <a class="el" href="test__integral_8tcc_source.html#l00004">Tp</a>.</p>
-
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -201,8 +199,6 @@ template&lt;typename Tp &gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="gauss__quadrature_8h_source.html#l00134">134</a> of file <a class="el" href="gauss__quadrature_8h_source.html">gauss_quadrature.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="gauss__quadrature_8tcc_source.html#l00391">emsr::fixed_gauss_gegenbauer_integral&lt; Tp &gt;::fixed_gauss_gegenbauer_integral()</a>.</p>
 
 </div>
 </div>
@@ -241,8 +237,6 @@ template&lt;typename Tp &gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="gauss__quadrature_8h_source.html#l00133">133</a> of file <a class="el" href="gauss__quadrature_8h_source.html">gauss_quadrature.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="gauss__quadrature_8tcc_source.html#l00391">emsr::fixed_gauss_gegenbauer_integral&lt; Tp &gt;::fixed_gauss_gegenbauer_integral()</a>.</p>
 
 </div>
 </div>

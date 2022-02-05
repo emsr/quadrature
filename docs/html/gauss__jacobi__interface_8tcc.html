@@ -88,7 +88,8 @@ $(document).ready(function(){initNavTree('gauss__jacobi__interface_8tcc.html',''
 <div class="title">gauss_jacobi_interface.tcc File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;cstdlib&gt;</code><br />
+<div class="textblock"><code>#include &lt;stdexcept&gt;</code><br />
+<code>#include &lt;cstdlib&gt;</code><br />
 <code>#include &lt;numeric&gt;</code><br />
 <code>#include &lt;<a class="el" href="jacobi_8h_source.html">emsr/jacobi.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="integration__error_8h_source.html">emsr/integration_error.h</a>&gt;</code><br />
@@ -97,19 +98,20 @@ Include dependency graph for gauss_jacobi_interface.tcc:</div>
 <div class="dyncontent">
 <div class="center"><img src="gauss__jacobi__interface_8tcc__incl.png" border="0" usemap="#ainclude_2emsr_2gauss__jacobi__interface_8tcc" alt=""/></div>
 <map name="ainclude_2emsr_2gauss__jacobi__interface_8tcc" id="ainclude_2emsr_2gauss__jacobi__interface_8tcc">
-<area shape="rect" title=" " alt="" coords="224,5,380,47"/>
-<area shape="rect" title=" " alt="" coords="5,244,71,271"/>
-<area shape="rect" title=" " alt="" coords="147,95,222,121"/>
-<area shape="rect" href="jacobi_8h.html" title="Header file for jacobi library." alt="" coords="247,95,357,121"/>
-<area shape="rect" href="integration__error_8h.html" title=" " alt="" coords="523,169,703,196"/>
-<area shape="rect" href="gauss__jacobi__integrate_8tcc.html" title=" " alt="" coords="186,169,418,196"/>
-<area shape="rect" title=" " alt="" coords="496,244,559,271"/>
-<area shape="rect" title=" " alt="" coords="95,244,157,271"/>
-<area shape="rect" title=" " alt="" coords="583,244,642,271"/>
-<area shape="rect" title=" " alt="" coords="181,244,279,271"/>
-<area shape="rect" title=" " alt="" coords="303,244,471,271"/>
-<area shape="rect" title=" " alt="" coords="666,244,741,271"/>
-<area shape="rect" title=" " alt="" coords="765,244,863,271"/>
+<area shape="rect" title=" " alt="" coords="185,5,341,47"/>
+<area shape="rect" title=" " alt="" coords="5,95,92,121"/>
+<area shape="rect" title=" " alt="" coords="25,244,91,271"/>
+<area shape="rect" title=" " alt="" coords="167,95,242,121"/>
+<area shape="rect" href="jacobi_8h.html" title="Header file for jacobi library." alt="" coords="267,95,377,121"/>
+<area shape="rect" href="integration__error_8h.html" title=" " alt="" coords="543,169,723,196"/>
+<area shape="rect" href="gauss__jacobi__integrate_8tcc.html" title=" " alt="" coords="206,169,438,196"/>
+<area shape="rect" title=" " alt="" coords="516,244,579,271"/>
+<area shape="rect" title=" " alt="" coords="115,244,177,271"/>
+<area shape="rect" title=" " alt="" coords="603,244,662,271"/>
+<area shape="rect" title=" " alt="" coords="201,244,299,271"/>
+<area shape="rect" title=" " alt="" coords="323,244,491,271"/>
+<area shape="rect" title=" " alt="" coords="686,244,761,271"/>
+<area shape="rect" title=" " alt="" coords="785,244,883,271"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -193,19 +195,17 @@ template&lt;typename Tp &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="gauss__jacobi__interface_8tcc_source.html#l00084">84</a> of file <a class="el" href="gauss__jacobi__interface_8tcc_source.html">gauss_jacobi_interface.tcc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  {</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordflow">for</span> (std::size_t __ir = 0; __ir &lt; __n; ++__ir)</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;      {</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        __y[__ir] = <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{0};</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        <span class="keywordflow">for</span> (std::size_t __ic = 0; __ic &lt; __n; ++__ic)</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;          __y[__ir] += __A[__ir][__ic] * __x[__ic];</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;      }</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  }</div>
+<p class="definition">Definition at line <a class="el" href="gauss__jacobi__interface_8tcc_source.html#l00085">85</a> of file <a class="el" href="gauss__jacobi__interface_8tcc_source.html">gauss_jacobi_interface.tcc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  {</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordflow">for</span> (std::size_t __ir = 0; __ir &lt; __n; ++__ir)</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;      {</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        __y[__ir] = <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{0};</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <span class="keywordflow">for</span> (std::size_t __ic = 0; __ic &lt; __n; ++__ic)</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;          __y[__ir] += __A[__ir][__ic] * __x[__ic];</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;      }</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;  }</div>
 <div class="ttc" id="atest__integral_8tcc_html_a82f489a4943d33943d0b0f781a801283"><div class="ttname"><a href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a></div><div class="ttdeci">Tp x Tp</div><div class="ttdef"><b>Definition:</b> <a href="test__integral_8tcc_source.html#l00003">test_integral.tcc:4</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="test__integral_8tcc_source.html#l00004">Tp</a>.</p>
-
 </div>
 </div>
 </div><!-- contents -->

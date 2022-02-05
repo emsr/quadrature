@@ -152,35 +152,33 @@ template&lt;typename Tp &gt; </div>
 <p>Construct a Generalized Gauss-Exponential rule of order <code>n</code>.</p>
 <p>Interval: <img class="formulaInl" alt="$ (a, b) $" src="form_34.png" width="26" height="14"/> Weight function: <img class="formulaInl" alt="$ |x - (a + b) / 2|^\alpha $" src="form_63.png" width="85" height="14"/> Constraints: <img class="formulaInl" alt="$ \alpha &gt; -1 $" src="form_57.png" width="40" height="10"/> </p>
 
-<p class="definition">Definition at line <a class="el" href="gauss__quadrature_8tcc_source.html#l00658">658</a> of file <a class="el" href="gauss__quadrature_8tcc_source.html">gauss_quadrature.tcc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00660"></a><span class="lineno">  660</span>&#160;    : <a class="code" href="structemsr_1_1fixed__gauss__exponential__integral.html#ad5764e41fc5285045340e4a4acad9319">order</a>(n),</div>
-<div class="line"><a name="l00661"></a><span class="lineno">  661</span>&#160;      <a class="code" href="structemsr_1_1fixed__gauss__exponential__integral.html#add69fd79d7290ac2bd19fd736a7f1933">alpha</a>(alf),</div>
-<div class="line"><a name="l00662"></a><span class="lineno">  662</span>&#160;      point(n),</div>
-<div class="line"><a name="l00663"></a><span class="lineno">  663</span>&#160;      weight(n)</div>
-<div class="line"><a name="l00664"></a><span class="lineno">  664</span>&#160;    {</div>
-<div class="line"><a name="l00665"></a><span class="lineno">  665</span>&#160;      <span class="keyword">const</span> <span class="keyword">auto</span> mu_0 = <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{2} / (this-&gt;<a class="code" href="structemsr_1_1fixed__gauss__exponential__integral.html#add69fd79d7290ac2bd19fd736a7f1933">alpha</a> + <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{1});</div>
-<div class="line"><a name="l00666"></a><span class="lineno">  666</span>&#160; </div>
-<div class="line"><a name="l00667"></a><span class="lineno">  667</span>&#160;      std::vector&lt;Tp&gt; diag(this-&gt;<a class="code" href="structemsr_1_1fixed__gauss__exponential__integral.html#ad5764e41fc5285045340e4a4acad9319">order</a>, <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{0});</div>
-<div class="line"><a name="l00668"></a><span class="lineno">  668</span>&#160;      std::vector&lt;Tp&gt; subd(this-&gt;<a class="code" href="structemsr_1_1fixed__gauss__exponential__integral.html#ad5764e41fc5285045340e4a4acad9319">order</a>);</div>
-<div class="line"><a name="l00669"></a><span class="lineno">  669</span>&#160; </div>
-<div class="line"><a name="l00670"></a><span class="lineno">  670</span>&#160;      <span class="keyword">auto</span> ap2i = this-&gt;<a class="code" href="structemsr_1_1fixed__gauss__exponential__integral.html#add69fd79d7290ac2bd19fd736a7f1933">alpha</a>;</div>
-<div class="line"><a name="l00671"></a><span class="lineno">  671</span>&#160;      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 1; i &lt;= this-&gt;<a class="code" href="structemsr_1_1fixed__gauss__exponential__integral.html#ad5764e41fc5285045340e4a4acad9319">order</a>; ++i)</div>
-<div class="line"><a name="l00672"></a><span class="lineno">  672</span>&#160;        {</div>
-<div class="line"><a name="l00673"></a><span class="lineno">  673</span>&#160;          ap2i += <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{2};</div>
-<div class="line"><a name="l00674"></a><span class="lineno">  674</span>&#160;          subd[i - 1] = (<a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>(i) + <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>(i % 2) * this-&gt;<a class="code" href="structemsr_1_1fixed__gauss__exponential__integral.html#add69fd79d7290ac2bd19fd736a7f1933">alpha</a>)</div>
-<div class="line"><a name="l00675"></a><span class="lineno">  675</span>&#160;                          / std::sqrt((ap2i * ap2i - <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{1}));</div>
-<div class="line"><a name="l00676"></a><span class="lineno">  676</span>&#160;        }</div>
-<div class="line"><a name="l00677"></a><span class="lineno">  677</span>&#160; </div>
-<div class="line"><a name="l00678"></a><span class="lineno">  678</span>&#160;      <a class="code" href="namespaceemsr_1_1detail.html#a3a01597b0d4e1996d86ceaf2f68eabc8">detail::golub_welsch</a>(mu_0, this-&gt;<a class="code" href="structemsr_1_1fixed__gauss__exponential__integral.html#ad5764e41fc5285045340e4a4acad9319">order</a>, diag, subd,</div>
-<div class="line"><a name="l00679"></a><span class="lineno">  679</span>&#160;                               this-&gt;point, this-&gt;weight);</div>
-<div class="line"><a name="l00680"></a><span class="lineno">  680</span>&#160;    }</div>
-<div class="ttc" id="anamespaceemsr_1_1detail_html_a3a01597b0d4e1996d86ceaf2f68eabc8"><div class="ttname"><a href="namespaceemsr_1_1detail.html#a3a01597b0d4e1996d86ceaf2f68eabc8">emsr::detail::golub_welsch</a></div><div class="ttdeci">void golub_welsch(Tp moment0, int n, InIter &amp;diag, InIter &amp;subd, OutIter &amp;pt, OutIter &amp;wt)</div><div class="ttdef"><b>Definition:</b> <a href="gauss__quadrature_8tcc_source.html#l00052">gauss_quadrature.tcc:52</a></div></div>
+<p class="definition">Definition at line <a class="el" href="gauss__quadrature_8tcc_source.html#l00659">659</a> of file <a class="el" href="gauss__quadrature_8tcc_source.html">gauss_quadrature.tcc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00661"></a><span class="lineno">  661</span>&#160;    : <a class="code" href="structemsr_1_1fixed__gauss__exponential__integral.html#ad5764e41fc5285045340e4a4acad9319">order</a>(n),</div>
+<div class="line"><a name="l00662"></a><span class="lineno">  662</span>&#160;      <a class="code" href="structemsr_1_1fixed__gauss__exponential__integral.html#add69fd79d7290ac2bd19fd736a7f1933">alpha</a>(alf),</div>
+<div class="line"><a name="l00663"></a><span class="lineno">  663</span>&#160;      point(n),</div>
+<div class="line"><a name="l00664"></a><span class="lineno">  664</span>&#160;      weight(n)</div>
+<div class="line"><a name="l00665"></a><span class="lineno">  665</span>&#160;    {</div>
+<div class="line"><a name="l00666"></a><span class="lineno">  666</span>&#160;      <span class="keyword">const</span> <span class="keyword">auto</span> mu_0 = <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{2} / (this-&gt;<a class="code" href="structemsr_1_1fixed__gauss__exponential__integral.html#add69fd79d7290ac2bd19fd736a7f1933">alpha</a> + <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{1});</div>
+<div class="line"><a name="l00667"></a><span class="lineno">  667</span>&#160; </div>
+<div class="line"><a name="l00668"></a><span class="lineno">  668</span>&#160;      std::vector&lt;Tp&gt; diag(this-&gt;<a class="code" href="structemsr_1_1fixed__gauss__exponential__integral.html#ad5764e41fc5285045340e4a4acad9319">order</a>, <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{0});</div>
+<div class="line"><a name="l00669"></a><span class="lineno">  669</span>&#160;      std::vector&lt;Tp&gt; subd(this-&gt;<a class="code" href="structemsr_1_1fixed__gauss__exponential__integral.html#ad5764e41fc5285045340e4a4acad9319">order</a>);</div>
+<div class="line"><a name="l00670"></a><span class="lineno">  670</span>&#160; </div>
+<div class="line"><a name="l00671"></a><span class="lineno">  671</span>&#160;      <span class="keyword">auto</span> ap2i = this-&gt;<a class="code" href="structemsr_1_1fixed__gauss__exponential__integral.html#add69fd79d7290ac2bd19fd736a7f1933">alpha</a>;</div>
+<div class="line"><a name="l00672"></a><span class="lineno">  672</span>&#160;      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 1; i &lt;= this-&gt;<a class="code" href="structemsr_1_1fixed__gauss__exponential__integral.html#ad5764e41fc5285045340e4a4acad9319">order</a>; ++i)</div>
+<div class="line"><a name="l00673"></a><span class="lineno">  673</span>&#160;        {</div>
+<div class="line"><a name="l00674"></a><span class="lineno">  674</span>&#160;          ap2i += <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{2};</div>
+<div class="line"><a name="l00675"></a><span class="lineno">  675</span>&#160;          subd[i - 1] = (<a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>(i) + <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>(i % 2) * this-&gt;<a class="code" href="structemsr_1_1fixed__gauss__exponential__integral.html#add69fd79d7290ac2bd19fd736a7f1933">alpha</a>)</div>
+<div class="line"><a name="l00676"></a><span class="lineno">  676</span>&#160;                          / std::sqrt((ap2i * ap2i - <a class="code" href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a>{1}));</div>
+<div class="line"><a name="l00677"></a><span class="lineno">  677</span>&#160;        }</div>
+<div class="line"><a name="l00678"></a><span class="lineno">  678</span>&#160; </div>
+<div class="line"><a name="l00679"></a><span class="lineno">  679</span>&#160;      <a class="code" href="namespaceemsr_1_1detail.html#a3a01597b0d4e1996d86ceaf2f68eabc8">detail::golub_welsch</a>(mu_0, this-&gt;<a class="code" href="structemsr_1_1fixed__gauss__exponential__integral.html#ad5764e41fc5285045340e4a4acad9319">order</a>, diag, subd,</div>
+<div class="line"><a name="l00680"></a><span class="lineno">  680</span>&#160;                               this-&gt;point, this-&gt;weight);</div>
+<div class="line"><a name="l00681"></a><span class="lineno">  681</span>&#160;    }</div>
+<div class="ttc" id="anamespaceemsr_1_1detail_html_a3a01597b0d4e1996d86ceaf2f68eabc8"><div class="ttname"><a href="namespaceemsr_1_1detail.html#a3a01597b0d4e1996d86ceaf2f68eabc8">emsr::detail::golub_welsch</a></div><div class="ttdeci">void golub_welsch(Tp moment0, int n, InIter &amp;diag, InIter &amp;subd, OutIter &amp;pt, OutIter &amp;wt)</div><div class="ttdef"><b>Definition:</b> <a href="gauss__quadrature_8tcc_source.html#l00053">gauss_quadrature.tcc:53</a></div></div>
 <div class="ttc" id="astructemsr_1_1fixed__gauss__exponential__integral_html_ad5764e41fc5285045340e4a4acad9319"><div class="ttname"><a href="structemsr_1_1fixed__gauss__exponential__integral.html#ad5764e41fc5285045340e4a4acad9319">emsr::fixed_gauss_exponential_integral::order</a></div><div class="ttdeci">int order</div><div class="ttdef"><b>Definition:</b> <a href="gauss__quadrature_8h_source.html#l00214">gauss_quadrature.h:214</a></div></div>
 <div class="ttc" id="astructemsr_1_1fixed__gauss__exponential__integral_html_add69fd79d7290ac2bd19fd736a7f1933"><div class="ttname"><a href="structemsr_1_1fixed__gauss__exponential__integral.html#add69fd79d7290ac2bd19fd736a7f1933">emsr::fixed_gauss_exponential_integral::alpha</a></div><div class="ttdeci">Tp alpha</div><div class="ttdef"><b>Definition:</b> <a href="gauss__quadrature_8h_source.html#l00215">gauss_quadrature.h:215</a></div></div>
 <div class="ttc" id="atest__integral_8tcc_html_a82f489a4943d33943d0b0f781a801283"><div class="ttname"><a href="test__integral_8tcc.html#a82f489a4943d33943d0b0f781a801283">Tp</a></div><div class="ttdeci">Tp x Tp</div><div class="ttdef"><b>Definition:</b> <a href="test__integral_8tcc_source.html#l00003">test_integral.tcc:4</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="gauss__quadrature_8h_source.html#l00215">emsr::fixed_gauss_exponential_integral&lt; Tp &gt;::alpha</a>, <a class="el" href="gauss__quadrature_8tcc_source.html#l00052">emsr::detail::golub_welsch()</a>, <a class="el" href="gauss__quadrature_8h_source.html#l00214">emsr::fixed_gauss_exponential_integral&lt; Tp &gt;::order</a>, and <a class="el" href="test__integral_8tcc_source.html#l00004">Tp</a>.</p>
-
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -199,8 +197,6 @@ template&lt;typename Tp &gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="gauss__quadrature_8h_source.html#l00215">215</a> of file <a class="el" href="gauss__quadrature_8h_source.html">gauss_quadrature.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="gauss__quadrature_8tcc_source.html#l00659">emsr::fixed_gauss_exponential_integral&lt; Tp &gt;::fixed_gauss_exponential_integral()</a>.</p>
 
 </div>
 </div>
@@ -239,8 +235,6 @@ template&lt;typename Tp &gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="gauss__quadrature_8h_source.html#l00214">214</a> of file <a class="el" href="gauss__quadrature_8h_source.html">gauss_quadrature.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="gauss__quadrature_8tcc_source.html#l00659">emsr::fixed_gauss_exponential_integral&lt; Tp &gt;::fixed_gauss_exponential_integral()</a>.</p>
 
 </div>
 </div>

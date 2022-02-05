@@ -40,31 +40,27 @@ Construct a Gauss-\/\+Chebyshev-\/V rule of order {\ttfamily n}.
 
 Interval\+: $ (-1, +1) $ Weight function\+: $ [(x-a)/(b-x)]^{1/2} $ Jacobi parameter\+: $ \alpha = +1/2 $ Jacobi parameter\+: $ \beta = -1/2 $ 
 
-Definition at line 267 of file gauss\+\_\+quadrature.\+tcc.
+Definition at line 268 of file gauss\+\_\+quadrature.\+tcc.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{269     : \mbox{\hyperlink{structemsr_1_1fixed__gauss__chebyshev__v__integral_a58088c33b0891a16433f97c98a1798ea}{order}}(n),}
-\DoxyCodeLine{270       point(n),}
-\DoxyCodeLine{271       weight(n)}
-\DoxyCodeLine{272     \{}
-\DoxyCodeLine{273       \textcolor{keyword}{const} \textcolor{keyword}{auto} mu\_0 = \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{3.1415'92653'58979'32384'62643'38327'95028'84195e+0L\};}
-\DoxyCodeLine{274 }
-\DoxyCodeLine{275       std::vector<Tp> diag(this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__chebyshev__v__integral_a58088c33b0891a16433f97c98a1798ea}{order}}, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{0\});}
-\DoxyCodeLine{276       std::vector<Tp> subd(this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__chebyshev__v__integral_a58088c33b0891a16433f97c98a1798ea}{order}}, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{0.5L\});}
-\DoxyCodeLine{277 }
-\DoxyCodeLine{278       diag[0] = \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{-\/0.5L\};}
-\DoxyCodeLine{279       subd[0] = std::sqrt(\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\});}
-\DoxyCodeLine{280 }
-\DoxyCodeLine{281       \mbox{\hyperlink{namespaceemsr_1_1detail_a3a01597b0d4e1996d86ceaf2f68eabc8}{detail::golub\_welsch}}(mu\_0, this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__chebyshev__v__integral_a58088c33b0891a16433f97c98a1798ea}{order}}, diag, subd,}
-\DoxyCodeLine{282                                this-\/>point, this-\/>weight);}
-\DoxyCodeLine{283     \}}
+\DoxyCodeLine{270     : \mbox{\hyperlink{structemsr_1_1fixed__gauss__chebyshev__v__integral_a58088c33b0891a16433f97c98a1798ea}{order}}(n),}
+\DoxyCodeLine{271       point(n),}
+\DoxyCodeLine{272       weight(n)}
+\DoxyCodeLine{273     \{}
+\DoxyCodeLine{274       \textcolor{keyword}{const} \textcolor{keyword}{auto} mu\_0 = \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{3.1415'92653'58979'32384'62643'38327'95028'84195e+0L\};}
+\DoxyCodeLine{275 }
+\DoxyCodeLine{276       std::vector<Tp> diag(this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__chebyshev__v__integral_a58088c33b0891a16433f97c98a1798ea}{order}}, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{0\});}
+\DoxyCodeLine{277       std::vector<Tp> subd(this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__chebyshev__v__integral_a58088c33b0891a16433f97c98a1798ea}{order}}, \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{0.5L\});}
+\DoxyCodeLine{278 }
+\DoxyCodeLine{279       diag[0] = \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{-\/0.5L\};}
+\DoxyCodeLine{280       subd[0] = std::sqrt(\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\});}
+\DoxyCodeLine{281 }
+\DoxyCodeLine{282       \mbox{\hyperlink{namespaceemsr_1_1detail_a3a01597b0d4e1996d86ceaf2f68eabc8}{detail::golub\_welsch}}(mu\_0, this-\/>\mbox{\hyperlink{structemsr_1_1fixed__gauss__chebyshev__v__integral_a58088c33b0891a16433f97c98a1798ea}{order}}, diag, subd,}
+\DoxyCodeLine{283                                this-\/>point, this-\/>weight);}
+\DoxyCodeLine{284     \}}
 
 \end{DoxyCode}
-
-
-References emsr\+::detail\+::golub\+\_\+welsch(), and Tp.
-
 
 
 \doxysubsection{Member Data Documentation}

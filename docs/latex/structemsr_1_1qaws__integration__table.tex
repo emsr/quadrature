@@ -54,30 +54,26 @@ Definition at line 37 of file qaws\+\_\+integration\+\_\+table.\+h.
 
 
 
-Definition at line 27 of file qaws\+\_\+integration\+\_\+table.\+tcc.
+Definition at line 29 of file qaws\+\_\+integration\+\_\+table.\+tcc.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{29     : \mbox{\hyperlink{structemsr_1_1qaws__integration__table_a2a54f6e3b5974c3a63c613509410a625}{alpha}}(\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a2a54f6e3b5974c3a63c613509410a625}{alpha}}), \mbox{\hyperlink{structemsr_1_1qaws__integration__table_a21c1bf77cea97b1f0cb65ef8a0402d44}{beta}}(\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a21c1bf77cea97b1f0cb65ef8a0402d44}{beta}}),}
-\DoxyCodeLine{30       \mbox{\hyperlink{structemsr_1_1qaws__integration__table_a316bad4c9534266bee01c5059e4f9d37}{mu}}(\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a316bad4c9534266bee01c5059e4f9d37}{mu}}), \mbox{\hyperlink{structemsr_1_1qaws__integration__table_a3e61d3180b65482cf23bdf1424b52540}{nu}}(\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a3e61d3180b65482cf23bdf1424b52540}{nu}})}
-\DoxyCodeLine{31     \{}
-\DoxyCodeLine{32       \textcolor{keywordflow}{if} (this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a2a54f6e3b5974c3a63c613509410a625}{alpha}} < \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{-\/1\})}
-\DoxyCodeLine{33         \textcolor{keywordflow}{throw} std::domain\_error(\textcolor{stringliteral}{"{}qaws\_integration\_table: alalpha must be greater than -\/1.0"{}});}
-\DoxyCodeLine{34       \textcolor{keywordflow}{if} (this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a21c1bf77cea97b1f0cb65ef8a0402d44}{beta}} < \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{-\/1\})}
-\DoxyCodeLine{35         \textcolor{keywordflow}{throw} std::domain\_error(\textcolor{stringliteral}{"{}qaws\_integration\_table: albeta must be greater than -\/1.0"{}});}
-\DoxyCodeLine{36       \textcolor{keywordflow}{if} (this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a316bad4c9534266bee01c5059e4f9d37}{mu}} != 0 \&\& this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a316bad4c9534266bee01c5059e4f9d37}{mu}} != 1)}
-\DoxyCodeLine{37         \textcolor{keywordflow}{throw} std::domain\_error(\textcolor{stringliteral}{"{}qaws\_integration\_table: almu must be 0 or 1"{}});}
-\DoxyCodeLine{38       \textcolor{keywordflow}{if} (this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a3e61d3180b65482cf23bdf1424b52540}{nu}} != 0 \&\& this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a3e61d3180b65482cf23bdf1424b52540}{nu}} != 1)}
-\DoxyCodeLine{39         \textcolor{keywordflow}{throw} std::domain\_error(\textcolor{stringliteral}{"{}qaws\_integration\_table: alnu must be 0 or 1"{}});}
-\DoxyCodeLine{40 }
-\DoxyCodeLine{41       this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_ae9c3d8c93236b2c34639354f333e28d8}{initialise}}();}
-\DoxyCodeLine{42     \}}
+\DoxyCodeLine{31     : \mbox{\hyperlink{structemsr_1_1qaws__integration__table_a2a54f6e3b5974c3a63c613509410a625}{alpha}}(\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a2a54f6e3b5974c3a63c613509410a625}{alpha}}), \mbox{\hyperlink{structemsr_1_1qaws__integration__table_a21c1bf77cea97b1f0cb65ef8a0402d44}{beta}}(\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a21c1bf77cea97b1f0cb65ef8a0402d44}{beta}}),}
+\DoxyCodeLine{32       \mbox{\hyperlink{structemsr_1_1qaws__integration__table_a316bad4c9534266bee01c5059e4f9d37}{mu}}(\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a316bad4c9534266bee01c5059e4f9d37}{mu}}), \mbox{\hyperlink{structemsr_1_1qaws__integration__table_a3e61d3180b65482cf23bdf1424b52540}{nu}}(\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a3e61d3180b65482cf23bdf1424b52540}{nu}})}
+\DoxyCodeLine{33     \{}
+\DoxyCodeLine{34       \textcolor{keywordflow}{if} (this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a2a54f6e3b5974c3a63c613509410a625}{alpha}} < \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{-\/1\})}
+\DoxyCodeLine{35         \textcolor{keywordflow}{throw} std::domain\_error(\textcolor{stringliteral}{"{}qaws\_integration\_table: alalpha must be greater than -\/1.0"{}});}
+\DoxyCodeLine{36       \textcolor{keywordflow}{if} (this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a21c1bf77cea97b1f0cb65ef8a0402d44}{beta}} < \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{-\/1\})}
+\DoxyCodeLine{37         \textcolor{keywordflow}{throw} std::domain\_error(\textcolor{stringliteral}{"{}qaws\_integration\_table: albeta must be greater than -\/1.0"{}});}
+\DoxyCodeLine{38       \textcolor{keywordflow}{if} (this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a316bad4c9534266bee01c5059e4f9d37}{mu}} != 0 \&\& this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a316bad4c9534266bee01c5059e4f9d37}{mu}} != 1)}
+\DoxyCodeLine{39         \textcolor{keywordflow}{throw} std::domain\_error(\textcolor{stringliteral}{"{}qaws\_integration\_table: almu must be 0 or 1"{}});}
+\DoxyCodeLine{40       \textcolor{keywordflow}{if} (this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a3e61d3180b65482cf23bdf1424b52540}{nu}} != 0 \&\& this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a3e61d3180b65482cf23bdf1424b52540}{nu}} != 1)}
+\DoxyCodeLine{41         \textcolor{keywordflow}{throw} std::domain\_error(\textcolor{stringliteral}{"{}qaws\_integration\_table: alnu must be 0 or 1"{}});}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43       this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_ae9c3d8c93236b2c34639354f333e28d8}{initialise}}();}
+\DoxyCodeLine{44     \}}
 
 \end{DoxyCode}
-
-
-References emsr\+::qaws\+\_\+integration\+\_\+table$<$ Tp $>$\+::initialise(), and Tp.
-
 
 
 \doxysubsection{Member Function Documentation}
@@ -90,90 +86,82 @@ void \mbox{\hyperlink{structemsr_1_1qaws__integration__table}{emsr\+::qaws\+\_\+
 
 
 
-Definition at line 67 of file qaws\+\_\+integration\+\_\+table.\+tcc.
+Definition at line 69 of file qaws\+\_\+integration\+\_\+table.\+tcc.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{68     \{}
-\DoxyCodeLine{69       \textcolor{keyword}{const} \textcolor{keyword}{auto} alpha\_p1 = this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a2a54f6e3b5974c3a63c613509410a625}{alpha}} + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\};}
-\DoxyCodeLine{70       \textcolor{keyword}{const} \textcolor{keyword}{auto} beta\_p1 = this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a21c1bf77cea97b1f0cb65ef8a0402d44}{beta}} + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\};}
-\DoxyCodeLine{71 }
-\DoxyCodeLine{72       \textcolor{keyword}{const} \textcolor{keyword}{auto} alpha\_p2 = this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a2a54f6e3b5974c3a63c613509410a625}{alpha}} + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\};}
-\DoxyCodeLine{73       \textcolor{keyword}{const} \textcolor{keyword}{auto} beta\_p2 = this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a21c1bf77cea97b1f0cb65ef8a0402d44}{beta}} + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\};}
-\DoxyCodeLine{74 }
-\DoxyCodeLine{75       \textcolor{keyword}{const} \textcolor{keyword}{auto} r\_alpha = std::pow(\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\}, alpha\_p1);}
-\DoxyCodeLine{76       \textcolor{keyword}{const} \textcolor{keyword}{auto} r\_beta = std::pow(\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\}, beta\_p1);}
-\DoxyCodeLine{77 }
-\DoxyCodeLine{78       this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a6ab8d0dd61e7ea7f7906979606fbad3a}{ri}}[0] = r\_alpha / alpha\_p1;}
-\DoxyCodeLine{79       this-\/>ri[1] = this-\/>ri[0] * this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a2a54f6e3b5974c3a63c613509410a625}{alpha}} / alpha\_p2;}
-\DoxyCodeLine{80       \textcolor{keyword}{auto} an = \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\};}
-\DoxyCodeLine{81       \textcolor{keyword}{auto} anm1 = \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\};}
-\DoxyCodeLine{82       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} i = 2; i < this-\/>ri.size(); ++i)}
-\DoxyCodeLine{83         \{}
-\DoxyCodeLine{84           this-\/>ri[i] = -\/(r\_alpha}
-\DoxyCodeLine{85                           + an * (an -\/ alpha\_p2) * this-\/>ri[i -\/ 1])}
-\DoxyCodeLine{86                         / (anm1 * (an + alpha\_p1));}
-\DoxyCodeLine{87           anm1 = an;}
-\DoxyCodeLine{88           an += \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\};}
-\DoxyCodeLine{89         \}}
-\DoxyCodeLine{90 }
-\DoxyCodeLine{91       this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a685e67a65db100b023e8794356fe5d5b}{rj}}[0] = r\_beta / beta\_p1;}
-\DoxyCodeLine{92       this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a685e67a65db100b023e8794356fe5d5b}{rj}}[1] = this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a685e67a65db100b023e8794356fe5d5b}{rj}}[0] * this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a21c1bf77cea97b1f0cb65ef8a0402d44}{beta}} / beta\_p2;}
-\DoxyCodeLine{93       an = \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\};}
-\DoxyCodeLine{94       anm1 = \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\};}
-\DoxyCodeLine{95       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} i = 2; i < this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a685e67a65db100b023e8794356fe5d5b}{rj}}.size(); ++i)}
-\DoxyCodeLine{96         \{}
-\DoxyCodeLine{97           this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a685e67a65db100b023e8794356fe5d5b}{rj}}[i] = -\/(r\_beta}
-\DoxyCodeLine{98                           + an * (an -\/ beta\_p2) * this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a685e67a65db100b023e8794356fe5d5b}{rj}}[i -\/ 1])}
-\DoxyCodeLine{99                         / (anm1 * (an + beta\_p1));}
-\DoxyCodeLine{100           anm1 = an;}
-\DoxyCodeLine{101           an += \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\};}
-\DoxyCodeLine{102         \}}
-\DoxyCodeLine{103 }
-\DoxyCodeLine{104       this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a16456faeab27669879ba271b3f37b35c}{rg}}[0] = -\/this-\/>ri[0] / alpha\_p1;}
-\DoxyCodeLine{105       this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a16456faeab27669879ba271b3f37b35c}{rg}}[1] = -\/this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a16456faeab27669879ba271b3f37b35c}{rg}}[0]}
-\DoxyCodeLine{106                   -\/ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\} * r\_alpha / (alpha\_p2 * alpha\_p2);}
-\DoxyCodeLine{107       an = \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\};}
-\DoxyCodeLine{108       anm1 = \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\};}
-\DoxyCodeLine{109       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} i = 2; i < this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a16456faeab27669879ba271b3f37b35c}{rg}}.size(); ++i)}
-\DoxyCodeLine{110         \{}
-\DoxyCodeLine{111           this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a16456faeab27669879ba271b3f37b35c}{rg}}[i] = -\/(an * (an -\/ alpha\_p2) * this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a16456faeab27669879ba271b3f37b35c}{rg}}[i -\/ 1]}
-\DoxyCodeLine{112                                 -\/ an * this-\/>ri[i -\/ 1]}
-\DoxyCodeLine{113                                 + anm1 * this-\/>ri[i])}
-\DoxyCodeLine{114                         / (anm1 * (an + alpha\_p1));}
-\DoxyCodeLine{115           anm1 = an;}
-\DoxyCodeLine{116           an += \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\};}
-\DoxyCodeLine{117         \}}
-\DoxyCodeLine{118 }
-\DoxyCodeLine{119       this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a30353e0a037850063a51eecf66457fec}{rh}}[0] = -\/this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a685e67a65db100b023e8794356fe5d5b}{rj}}[0] / beta\_p1;}
-\DoxyCodeLine{120       this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a30353e0a037850063a51eecf66457fec}{rh}}[1] = -\/this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a30353e0a037850063a51eecf66457fec}{rh}}[0] -\/ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\} * r\_beta / (beta\_p2 * beta\_p2);}
-\DoxyCodeLine{121       an = \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\};}
-\DoxyCodeLine{122       anm1 = \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\};}
-\DoxyCodeLine{123       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} i = 2; i < this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a30353e0a037850063a51eecf66457fec}{rh}}.size(); ++i)}
-\DoxyCodeLine{124         \{}
-\DoxyCodeLine{125           this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a30353e0a037850063a51eecf66457fec}{rh}}[i] = -\/(an * (an -\/ beta\_p2) * this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a30353e0a037850063a51eecf66457fec}{rh}}[i -\/ 1]}
-\DoxyCodeLine{126                                 -\/ an * this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a685e67a65db100b023e8794356fe5d5b}{rj}}[i -\/ 1]}
-\DoxyCodeLine{127                                 + anm1 * this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a685e67a65db100b023e8794356fe5d5b}{rj}}[i])}
-\DoxyCodeLine{128                         / (anm1 * (an + beta\_p1));}
-\DoxyCodeLine{129           anm1 = an;}
-\DoxyCodeLine{130           an += \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\};}
-\DoxyCodeLine{131         \}}
-\DoxyCodeLine{132 }
-\DoxyCodeLine{133       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} i = 1; i < this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a685e67a65db100b023e8794356fe5d5b}{rj}}.size(); i += 2)}
-\DoxyCodeLine{134         this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a685e67a65db100b023e8794356fe5d5b}{rj}}[i] *= \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{-\/1\};}
-\DoxyCodeLine{135       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} i = 1; i < this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a30353e0a037850063a51eecf66457fec}{rh}}.size(); i += 2)}
-\DoxyCodeLine{136         this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a30353e0a037850063a51eecf66457fec}{rh}}[i] *= \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{-\/1\};}
-\DoxyCodeLine{137     \}}
+\DoxyCodeLine{70     \{}
+\DoxyCodeLine{71       \textcolor{keyword}{const} \textcolor{keyword}{auto} alpha\_p1 = this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a2a54f6e3b5974c3a63c613509410a625}{alpha}} + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\};}
+\DoxyCodeLine{72       \textcolor{keyword}{const} \textcolor{keyword}{auto} beta\_p1 = this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a21c1bf77cea97b1f0cb65ef8a0402d44}{beta}} + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\};}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74       \textcolor{keyword}{const} \textcolor{keyword}{auto} alpha\_p2 = this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a2a54f6e3b5974c3a63c613509410a625}{alpha}} + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\};}
+\DoxyCodeLine{75       \textcolor{keyword}{const} \textcolor{keyword}{auto} beta\_p2 = this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a21c1bf77cea97b1f0cb65ef8a0402d44}{beta}} + \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\};}
+\DoxyCodeLine{76 }
+\DoxyCodeLine{77       \textcolor{keyword}{const} \textcolor{keyword}{auto} r\_alpha = std::pow(\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\}, alpha\_p1);}
+\DoxyCodeLine{78       \textcolor{keyword}{const} \textcolor{keyword}{auto} r\_beta = std::pow(\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\}, beta\_p1);}
+\DoxyCodeLine{79 }
+\DoxyCodeLine{80       this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a6ab8d0dd61e7ea7f7906979606fbad3a}{ri}}[0] = r\_alpha / alpha\_p1;}
+\DoxyCodeLine{81       this-\/>ri[1] = this-\/>ri[0] * this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a2a54f6e3b5974c3a63c613509410a625}{alpha}} / alpha\_p2;}
+\DoxyCodeLine{82       \textcolor{keyword}{auto} an = \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\};}
+\DoxyCodeLine{83       \textcolor{keyword}{auto} anm1 = \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\};}
+\DoxyCodeLine{84       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} i = 2; i < this-\/>ri.size(); ++i)}
+\DoxyCodeLine{85         \{}
+\DoxyCodeLine{86           this-\/>ri[i] = -\/(r\_alpha}
+\DoxyCodeLine{87                           + an * (an -\/ alpha\_p2) * this-\/>ri[i -\/ 1])}
+\DoxyCodeLine{88                         / (anm1 * (an + alpha\_p1));}
+\DoxyCodeLine{89           anm1 = an;}
+\DoxyCodeLine{90           an += \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\};}
+\DoxyCodeLine{91         \}}
+\DoxyCodeLine{92 }
+\DoxyCodeLine{93       this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a685e67a65db100b023e8794356fe5d5b}{rj}}[0] = r\_beta / beta\_p1;}
+\DoxyCodeLine{94       this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a685e67a65db100b023e8794356fe5d5b}{rj}}[1] = this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a685e67a65db100b023e8794356fe5d5b}{rj}}[0] * this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a21c1bf77cea97b1f0cb65ef8a0402d44}{beta}} / beta\_p2;}
+\DoxyCodeLine{95       an = \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\};}
+\DoxyCodeLine{96       anm1 = \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\};}
+\DoxyCodeLine{97       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} i = 2; i < this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a685e67a65db100b023e8794356fe5d5b}{rj}}.size(); ++i)}
+\DoxyCodeLine{98         \{}
+\DoxyCodeLine{99           this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a685e67a65db100b023e8794356fe5d5b}{rj}}[i] = -\/(r\_beta}
+\DoxyCodeLine{100                           + an * (an -\/ beta\_p2) * this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a685e67a65db100b023e8794356fe5d5b}{rj}}[i -\/ 1])}
+\DoxyCodeLine{101                         / (anm1 * (an + beta\_p1));}
+\DoxyCodeLine{102           anm1 = an;}
+\DoxyCodeLine{103           an += \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\};}
+\DoxyCodeLine{104         \}}
+\DoxyCodeLine{105 }
+\DoxyCodeLine{106       this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a16456faeab27669879ba271b3f37b35c}{rg}}[0] = -\/this-\/>ri[0] / alpha\_p1;}
+\DoxyCodeLine{107       this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a16456faeab27669879ba271b3f37b35c}{rg}}[1] = -\/this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a16456faeab27669879ba271b3f37b35c}{rg}}[0]}
+\DoxyCodeLine{108                   -\/ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\} * r\_alpha / (alpha\_p2 * alpha\_p2);}
+\DoxyCodeLine{109       an = \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\};}
+\DoxyCodeLine{110       anm1 = \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\};}
+\DoxyCodeLine{111       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} i = 2; i < this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a16456faeab27669879ba271b3f37b35c}{rg}}.size(); ++i)}
+\DoxyCodeLine{112         \{}
+\DoxyCodeLine{113           this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a16456faeab27669879ba271b3f37b35c}{rg}}[i] = -\/(an * (an -\/ alpha\_p2) * this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a16456faeab27669879ba271b3f37b35c}{rg}}[i -\/ 1]}
+\DoxyCodeLine{114                                 -\/ an * this-\/>ri[i -\/ 1]}
+\DoxyCodeLine{115                                 + anm1 * this-\/>ri[i])}
+\DoxyCodeLine{116                         / (anm1 * (an + alpha\_p1));}
+\DoxyCodeLine{117           anm1 = an;}
+\DoxyCodeLine{118           an += \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\};}
+\DoxyCodeLine{119         \}}
+\DoxyCodeLine{120 }
+\DoxyCodeLine{121       this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a30353e0a037850063a51eecf66457fec}{rh}}[0] = -\/this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a685e67a65db100b023e8794356fe5d5b}{rj}}[0] / beta\_p1;}
+\DoxyCodeLine{122       this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a30353e0a037850063a51eecf66457fec}{rh}}[1] = -\/this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a30353e0a037850063a51eecf66457fec}{rh}}[0] -\/ \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\} * r\_beta / (beta\_p2 * beta\_p2);}
+\DoxyCodeLine{123       an = \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{2\};}
+\DoxyCodeLine{124       anm1 = \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\};}
+\DoxyCodeLine{125       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} i = 2; i < this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a30353e0a037850063a51eecf66457fec}{rh}}.size(); ++i)}
+\DoxyCodeLine{126         \{}
+\DoxyCodeLine{127           this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a30353e0a037850063a51eecf66457fec}{rh}}[i] = -\/(an * (an -\/ beta\_p2) * this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a30353e0a037850063a51eecf66457fec}{rh}}[i -\/ 1]}
+\DoxyCodeLine{128                                 -\/ an * this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a685e67a65db100b023e8794356fe5d5b}{rj}}[i -\/ 1]}
+\DoxyCodeLine{129                                 + anm1 * this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a685e67a65db100b023e8794356fe5d5b}{rj}}[i])}
+\DoxyCodeLine{130                         / (anm1 * (an + beta\_p1));}
+\DoxyCodeLine{131           anm1 = an;}
+\DoxyCodeLine{132           an += \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{1\};}
+\DoxyCodeLine{133         \}}
+\DoxyCodeLine{134 }
+\DoxyCodeLine{135       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} i = 1; i < this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a685e67a65db100b023e8794356fe5d5b}{rj}}.size(); i += 2)}
+\DoxyCodeLine{136         this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a685e67a65db100b023e8794356fe5d5b}{rj}}[i] *= \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{-\/1\};}
+\DoxyCodeLine{137       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} i = 1; i < this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a30353e0a037850063a51eecf66457fec}{rh}}.size(); i += 2)}
+\DoxyCodeLine{138         this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a30353e0a037850063a51eecf66457fec}{rh}}[i] *= \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{-\/1\};}
+\DoxyCodeLine{139     \}}
 
 \end{DoxyCode}
-
-
-References Tp.
-
-
-
-Referenced by emsr\+::qaws\+\_\+integration\+\_\+table$<$ Tp $>$\+::qaws\+\_\+integration\+\_\+table().
-
 \mbox{\Hypertarget{structemsr_1_1qaws__integration__table_afaafc3c51a7d6fe504e5f792ce4c3d2a}\label{structemsr_1_1qaws__integration__table_afaafc3c51a7d6fe504e5f792ce4c3d2a}} 
 \index{emsr::qaws\_integration\_table$<$ Tp $>$@{emsr::qaws\_integration\_table$<$ Tp $>$}!set@{set}}
 \index{set@{set}!emsr::qaws\_integration\_table$<$ Tp $>$@{emsr::qaws\_integration\_table$<$ Tp $>$}}
@@ -183,33 +171,29 @@ void \mbox{\hyperlink{structemsr_1_1qaws__integration__table}{emsr\+::qaws\+\_\+
 
 
 
-Definition at line 46 of file qaws\+\_\+integration\+\_\+table.\+tcc.
+Definition at line 48 of file qaws\+\_\+integration\+\_\+table.\+tcc.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{47     \{}
-\DoxyCodeLine{48       \textcolor{keywordflow}{if} (\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a2a54f6e3b5974c3a63c613509410a625}{alpha}} < \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{-\/1\})}
-\DoxyCodeLine{49         \textcolor{keywordflow}{throw} std::domain\_error(\textcolor{stringliteral}{"{}qaws\_integration\_table: alpha must be greater than -\/1.0"{}});}
-\DoxyCodeLine{50       \textcolor{keywordflow}{if} (\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a21c1bf77cea97b1f0cb65ef8a0402d44}{beta}} < \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{-\/1\})}
-\DoxyCodeLine{51         \textcolor{keywordflow}{throw} std::domain\_error(\textcolor{stringliteral}{"{}qaws\_integration\_table: beta must be greater than -\/1.0"{}});}
-\DoxyCodeLine{52       \textcolor{keywordflow}{if} (\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a316bad4c9534266bee01c5059e4f9d37}{mu}} != 0 \&\& \mbox{\hyperlink{structemsr_1_1qaws__integration__table_a316bad4c9534266bee01c5059e4f9d37}{mu}} != 1)}
-\DoxyCodeLine{53         \textcolor{keywordflow}{throw} std::domain\_error(\textcolor{stringliteral}{"{}qaws\_integration\_table: mu must be 0 or 1"{}});}
-\DoxyCodeLine{54       \textcolor{keywordflow}{if} (\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a3e61d3180b65482cf23bdf1424b52540}{nu}} != 0 \&\& \mbox{\hyperlink{structemsr_1_1qaws__integration__table_a3e61d3180b65482cf23bdf1424b52540}{nu}} != 1)}
-\DoxyCodeLine{55         \textcolor{keywordflow}{throw} std::domain\_error(\textcolor{stringliteral}{"{}qaws\_integration\_table: nu must be 0 or 1"{}});}
-\DoxyCodeLine{56 }
-\DoxyCodeLine{57       this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a2a54f6e3b5974c3a63c613509410a625}{alpha}} = \mbox{\hyperlink{structemsr_1_1qaws__integration__table_a2a54f6e3b5974c3a63c613509410a625}{alpha}};}
-\DoxyCodeLine{58       this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a21c1bf77cea97b1f0cb65ef8a0402d44}{beta}} = \mbox{\hyperlink{structemsr_1_1qaws__integration__table_a21c1bf77cea97b1f0cb65ef8a0402d44}{beta}};}
-\DoxyCodeLine{59       this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a316bad4c9534266bee01c5059e4f9d37}{mu}} = \mbox{\hyperlink{structemsr_1_1qaws__integration__table_a316bad4c9534266bee01c5059e4f9d37}{mu}};}
-\DoxyCodeLine{60       this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a3e61d3180b65482cf23bdf1424b52540}{nu}} = \mbox{\hyperlink{structemsr_1_1qaws__integration__table_a3e61d3180b65482cf23bdf1424b52540}{nu}};}
-\DoxyCodeLine{61 }
-\DoxyCodeLine{62       this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_ae9c3d8c93236b2c34639354f333e28d8}{initialise}}();}
-\DoxyCodeLine{63     \}}
+\DoxyCodeLine{49     \{}
+\DoxyCodeLine{50       \textcolor{keywordflow}{if} (\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a2a54f6e3b5974c3a63c613509410a625}{alpha}} < \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{-\/1\})}
+\DoxyCodeLine{51         \textcolor{keywordflow}{throw} std::domain\_error(\textcolor{stringliteral}{"{}qaws\_integration\_table: alpha must be greater than -\/1.0"{}});}
+\DoxyCodeLine{52       \textcolor{keywordflow}{if} (\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a21c1bf77cea97b1f0cb65ef8a0402d44}{beta}} < \mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a801283}{Tp}}\{-\/1\})}
+\DoxyCodeLine{53         \textcolor{keywordflow}{throw} std::domain\_error(\textcolor{stringliteral}{"{}qaws\_integration\_table: beta must be greater than -\/1.0"{}});}
+\DoxyCodeLine{54       \textcolor{keywordflow}{if} (\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a316bad4c9534266bee01c5059e4f9d37}{mu}} != 0 \&\& \mbox{\hyperlink{structemsr_1_1qaws__integration__table_a316bad4c9534266bee01c5059e4f9d37}{mu}} != 1)}
+\DoxyCodeLine{55         \textcolor{keywordflow}{throw} std::domain\_error(\textcolor{stringliteral}{"{}qaws\_integration\_table: mu must be 0 or 1"{}});}
+\DoxyCodeLine{56       \textcolor{keywordflow}{if} (\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a3e61d3180b65482cf23bdf1424b52540}{nu}} != 0 \&\& \mbox{\hyperlink{structemsr_1_1qaws__integration__table_a3e61d3180b65482cf23bdf1424b52540}{nu}} != 1)}
+\DoxyCodeLine{57         \textcolor{keywordflow}{throw} std::domain\_error(\textcolor{stringliteral}{"{}qaws\_integration\_table: nu must be 0 or 1"{}});}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59       this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a2a54f6e3b5974c3a63c613509410a625}{alpha}} = \mbox{\hyperlink{structemsr_1_1qaws__integration__table_a2a54f6e3b5974c3a63c613509410a625}{alpha}};}
+\DoxyCodeLine{60       this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a21c1bf77cea97b1f0cb65ef8a0402d44}{beta}} = \mbox{\hyperlink{structemsr_1_1qaws__integration__table_a21c1bf77cea97b1f0cb65ef8a0402d44}{beta}};}
+\DoxyCodeLine{61       this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a316bad4c9534266bee01c5059e4f9d37}{mu}} = \mbox{\hyperlink{structemsr_1_1qaws__integration__table_a316bad4c9534266bee01c5059e4f9d37}{mu}};}
+\DoxyCodeLine{62       this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_a3e61d3180b65482cf23bdf1424b52540}{nu}} = \mbox{\hyperlink{structemsr_1_1qaws__integration__table_a3e61d3180b65482cf23bdf1424b52540}{nu}};}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64       this-\/>\mbox{\hyperlink{structemsr_1_1qaws__integration__table_ae9c3d8c93236b2c34639354f333e28d8}{initialise}}();}
+\DoxyCodeLine{65     \}}
 
 \end{DoxyCode}
-
-
-References Tp.
-
 
 
 \doxysubsection{Member Data Documentation}
@@ -224,10 +208,6 @@ References Tp.
 
 Definition at line 39 of file qaws\+\_\+integration\+\_\+table.\+h.
 
-
-
-Referenced by emsr\+::fn\+\_\+qaws$<$ Tp, Func\+Tp $>$\+::eval\+\_\+left(), emsr\+::fn\+\_\+qaws$<$ Tp, Func\+Tp $>$\+::eval\+\_\+middle(), and emsr\+::qc25s().
-
 \mbox{\Hypertarget{structemsr_1_1qaws__integration__table_a21c1bf77cea97b1f0cb65ef8a0402d44}\label{structemsr_1_1qaws__integration__table_a21c1bf77cea97b1f0cb65ef8a0402d44}} 
 \index{emsr::qaws\_integration\_table$<$ Tp $>$@{emsr::qaws\_integration\_table$<$ Tp $>$}!beta@{beta}}
 \index{beta@{beta}!emsr::qaws\_integration\_table$<$ Tp $>$@{emsr::qaws\_integration\_table$<$ Tp $>$}}
@@ -238,10 +218,6 @@ Referenced by emsr\+::fn\+\_\+qaws$<$ Tp, Func\+Tp $>$\+::eval\+\_\+left(), emsr
 
 
 Definition at line 40 of file qaws\+\_\+integration\+\_\+table.\+h.
-
-
-
-Referenced by emsr\+::fn\+\_\+qaws$<$ Tp, Func\+Tp $>$\+::eval\+\_\+middle(), emsr\+::fn\+\_\+qaws$<$ Tp, Func\+Tp $>$\+::eval\+\_\+right(), and emsr\+::qc25s().
 
 \mbox{\Hypertarget{structemsr_1_1qaws__integration__table_a316bad4c9534266bee01c5059e4f9d37}\label{structemsr_1_1qaws__integration__table_a316bad4c9534266bee01c5059e4f9d37}} 
 \index{emsr::qaws\_integration\_table$<$ Tp $>$@{emsr::qaws\_integration\_table$<$ Tp $>$}!mu@{mu}}
@@ -254,10 +230,6 @@ int \mbox{\hyperlink{structemsr_1_1qaws__integration__table}{emsr\+::qaws\+\_\+i
 
 Definition at line 41 of file qaws\+\_\+integration\+\_\+table.\+h.
 
-
-
-Referenced by emsr\+::fn\+\_\+qaws$<$ Tp, Func\+Tp $>$\+::eval\+\_\+left(), emsr\+::fn\+\_\+qaws$<$ Tp, Func\+Tp $>$\+::eval\+\_\+middle(), and emsr\+::qc25s().
-
 \mbox{\Hypertarget{structemsr_1_1qaws__integration__table_a3e61d3180b65482cf23bdf1424b52540}\label{structemsr_1_1qaws__integration__table_a3e61d3180b65482cf23bdf1424b52540}} 
 \index{emsr::qaws\_integration\_table$<$ Tp $>$@{emsr::qaws\_integration\_table$<$ Tp $>$}!nu@{nu}}
 \index{nu@{nu}!emsr::qaws\_integration\_table$<$ Tp $>$@{emsr::qaws\_integration\_table$<$ Tp $>$}}
@@ -268,10 +240,6 @@ int \mbox{\hyperlink{structemsr_1_1qaws__integration__table}{emsr\+::qaws\+\_\+i
 
 
 Definition at line 42 of file qaws\+\_\+integration\+\_\+table.\+h.
-
-
-
-Referenced by emsr\+::fn\+\_\+qaws$<$ Tp, Func\+Tp $>$\+::eval\+\_\+middle(), emsr\+::fn\+\_\+qaws$<$ Tp, Func\+Tp $>$\+::eval\+\_\+right(), and emsr\+::qc25s().
 
 \mbox{\Hypertarget{structemsr_1_1qaws__integration__table_a16456faeab27669879ba271b3f37b35c}\label{structemsr_1_1qaws__integration__table_a16456faeab27669879ba271b3f37b35c}} 
 \index{emsr::qaws\_integration\_table$<$ Tp $>$@{emsr::qaws\_integration\_table$<$ Tp $>$}!rg@{rg}}
@@ -284,10 +252,6 @@ std\+::array$<$\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a8
 
 Definition at line 45 of file qaws\+\_\+integration\+\_\+table.\+h.
 
-
-
-Referenced by emsr\+::qc25s().
-
 \mbox{\Hypertarget{structemsr_1_1qaws__integration__table_a30353e0a037850063a51eecf66457fec}\label{structemsr_1_1qaws__integration__table_a30353e0a037850063a51eecf66457fec}} 
 \index{emsr::qaws\_integration\_table$<$ Tp $>$@{emsr::qaws\_integration\_table$<$ Tp $>$}!rh@{rh}}
 \index{rh@{rh}!emsr::qaws\_integration\_table$<$ Tp $>$@{emsr::qaws\_integration\_table$<$ Tp $>$}}
@@ -298,10 +262,6 @@ std\+::array$<$\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a8
 
 
 Definition at line 46 of file qaws\+\_\+integration\+\_\+table.\+h.
-
-
-
-Referenced by emsr\+::qc25s().
 
 \mbox{\Hypertarget{structemsr_1_1qaws__integration__table_a6ab8d0dd61e7ea7f7906979606fbad3a}\label{structemsr_1_1qaws__integration__table_a6ab8d0dd61e7ea7f7906979606fbad3a}} 
 \index{emsr::qaws\_integration\_table$<$ Tp $>$@{emsr::qaws\_integration\_table$<$ Tp $>$}!ri@{ri}}
@@ -314,10 +274,6 @@ std\+::array$<$\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a8
 
 Definition at line 43 of file qaws\+\_\+integration\+\_\+table.\+h.
 
-
-
-Referenced by emsr\+::qc25s().
-
 \mbox{\Hypertarget{structemsr_1_1qaws__integration__table_a685e67a65db100b023e8794356fe5d5b}\label{structemsr_1_1qaws__integration__table_a685e67a65db100b023e8794356fe5d5b}} 
 \index{emsr::qaws\_integration\_table$<$ Tp $>$@{emsr::qaws\_integration\_table$<$ Tp $>$}!rj@{rj}}
 \index{rj@{rj}!emsr::qaws\_integration\_table$<$ Tp $>$@{emsr::qaws\_integration\_table$<$ Tp $>$}}
@@ -328,10 +284,6 @@ std\+::array$<$\mbox{\hyperlink{test__integral_8tcc_a82f489a4943d33943d0b0f781a8
 
 
 Definition at line 44 of file qaws\+\_\+integration\+\_\+table.\+h.
-
-
-
-Referenced by emsr\+::qc25s().
 
 
 

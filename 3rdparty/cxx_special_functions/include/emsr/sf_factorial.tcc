@@ -28,7 +28,7 @@ template<>
   constexpr std::size_t _S_num_factorials<double> = 171;
 template<>
   constexpr std::size_t _S_num_factorials<long double> = 171;
-#ifdef _GLIBCXX_USE_FLOAT128
+#ifdef EMSR_HAVE_FLOAT128
 template<>
   constexpr std::size_t _S_num_factorials<__float128> = 171;
 #endif
