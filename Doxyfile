@@ -2091,49 +2091,8 @@ INCLUDE_FILE_PATTERNS  =
 # This tag requires that the tag ENABLE_PREPROCESSING is set to YES.
 
 PREDEFINED             = __cplusplus=201703L \
-                         __GTHREADS \
-                         _GLIBCXX_HAS_GTHREADS \
-                         _GLIBCXX_HAVE_TLS \
-                         _GLIBCXX_INCLUDE_AS_CXX11 \
-                         "_GLIBCXX_PURE= " \
-                         "_GLIBCXX_CONST= " \
-                         "_GLIBCXX_NORETURN= " \
-                         "_GLIBCXX_STD_C= " \
-                         "_GLIBCXX_STD_A= " \
-                         "_GLIBCXX_VISIBILITY(V)= " \
-                         "_GLIBCXX_BEGIN_NAMESPACE_VERSION= " \
-                         "_GLIBCXX_BEGIN_NAMESPACE_ALGO= " \
-                         "_GLIBCXX_BEGIN_NAMESPACE_CONTAINER= " \
-                         "_GLIBCXX_BEGIN_NAMESPACE_LDBL= " \
-                         "_GLIBCXX_END_NAMESPACE_VERSION= " \
-                         "_GLIBCXX_END_NAMESPACE_ALGO= " \
-                         "_GLIBCXX_END_NAMESPACE_CONTAINER= " \
-                         "_GLIBCXX_END_NAMESPACE_LDBL= " \
-                         "_GLIBCXX_TEMPLATE_ARGS=...  " \
-                         _GLIBCXX_DEPRECATED \
-                         _GLIBCXX_CONSTEXPR=constexpr \
-                         _GLIBCXX_USE_CONSTEXPR=constexpr \
-                         "_GLIBCXX_THROW(E)= " \
-                         _GLIBCXX_NOEXCEPT=noexcept \
-                         "_GLIBCXX_NOEXCEPT_IF(C)=noexcept(/*conditional*/)" \
-                         _GLIBCXX_NOTHROW=noexcept \
-                         _GLIBCXX_USE_NOEXCEPT=noexcept \
-                         _GLIBCXX_USE_WCHAR_T \
-                         _GLIBCXX_USE_LONG_LONG \
-                         _GLIBCXX_USE_C99_STDINT_TR1 \
-                         _GLIBCXX_USE_SCHED_YIELD \
-                         _GLIBCXX_USE_NANOSLEEP \
                          __cpp_exceptions \
-                         __cpp_rtti \
-                         ATOMIC_INT_LOCK_FREE=2 \
-                         PB_DS_DATA_TRUE_INDICATOR \
-                         PB_DS_STATIC_ASSERT=// \
-                         "_GLIBCXX_BEGIN_NAMESPACE_ALGO= " \
-                         __glibcxx_function_requires=// \
-                         __glibcxx_class_requires=// \
-                         __glibcxx_class_requires2=// \
-                         __glibcxx_class_requires3=// \
-                         __glibcxx_class_requires4=//
+                         __cpp_rtti
 
 
 # If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES then this
