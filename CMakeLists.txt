@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.10)
+cmake_minimum_required (VERSION 3.30)
 
 include(CheckCXXCompilerFlag)
 
@@ -60,7 +60,7 @@ target_link_libraries(test_phase_iterator
   cxx_integration)
 
 add_executable(test_quadrature test/src/test_quadrature.cpp)
-target_link_libraries(test_quadrature test_utils cxx_integration cxx_integration_special_functions)
+target_link_libraries(test_quadrature test_utils cxx_integration cxx_integration_special_functions cxx_math_constants)
 
 add_executable(test_trapezoid_integral test/src/test_trapezoid_integral.cpp)
 target_link_libraries(test_trapezoid_integral cxx_integration cxx_integration_polynomial)
@@ -101,7 +101,7 @@ add_executable(integration_orthonorm_assoc_legendre orthonorm_test/src/orthonorm
 target_link_libraries(integration_orthonorm_assoc_legendre cxx_integration cxx_integration_special_functions)
 
 add_executable(integration_orthonorm_hermite orthonorm_test/src/orthonorm_hermite.cc)
-target_link_libraries(integration_orthonorm_hermite cxx_integration cxx_integration_special_functions)
+target_link_libraries(integration_orthonorm_hermite cxx_integration cxx_integration_special_functions cxx_math_constants)
 
 add_executable(integration_orthonorm_laguerre orthonorm_test/src/orthonorm_laguerre.cc)
 target_link_libraries(integration_orthonorm_laguerre cxx_integration cxx_integration_special_functions)
@@ -110,7 +110,7 @@ add_executable(integration_orthonorm_legendre orthonorm_test/src/orthonorm_legen
 target_link_libraries(integration_orthonorm_legendre cxx_integration cxx_integration_special_functions)
 
 add_executable(integration_orthonorm_sph_legendre orthonorm_test/src/orthonorm_sph_legendre.cc)
-target_link_libraries(integration_orthonorm_sph_legendre cxx_integration cxx_integration_special_functions)
+target_link_libraries(integration_orthonorm_sph_legendre cxx_integration cxx_integration_special_functions cxx_math_constants)
 
 # Compile tests.
 
